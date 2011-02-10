@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.history &mdash; IPython v0.11.dev documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.11.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="core.hooks" href="IPython.core.hooks.html" />
+    <link rel="prev" title="core.formatters" href="IPython.core.formatters.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.hooks.html" title="core.hooks"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.formatters.html" title="core.formatters"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core.history</a><ul>
+<li><a class="reference internal" href="#module-core-history">Module: <tt class="docutils literal"><span class="pre">core.history</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#historymanager"><tt class="docutils literal"><span class="pre">HistoryManager</span></tt></a></li>
+<li><a class="reference internal" href="#historysavethread"><tt class="docutils literal"><span class="pre">HistorySaveThread</span></tt></a></li>
+<li><a class="reference internal" href="#shadowhist"><tt class="docutils literal"><span class="pre">ShadowHist</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.core.formatters.html"
+                        title="previous chapter">core.formatters</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.core.hooks.html"
+                        title="next chapter">core.hooks</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.core.history.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="core-history">
+<h1>core.history<a class="headerlink" href="#core-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-core-history">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.history</span></tt><a class="headerlink" href="#module-core-history" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.core.history</span></tt>:</p>
+<img src="../../_images/inheritance2fbfe3650b.png" usemap="#inheritance2fbfe3650b" class="inheritance"/><map id="inheritance2fbfe3650b" name="inheritance2fbfe3650b">
+</map>
+<span class="target" id="module-IPython.core.history"></span><p>History related magics and functionality</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="historymanager">
+<h3><a class="reference internal" href="#IPython.core.history.HistoryManager" title="IPython.core.history.HistoryManager"><tt class="xref py py-class docutils literal"><span class="pre">HistoryManager</span></tt></a><a class="headerlink" href="#historymanager" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.history.HistoryManager">
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryManager</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A class to organize all history-related functionality in one place.</p>
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new history manager associated with a shell instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.autosave_if_due">
+<tt class="descname">autosave_if_due</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.autosave_if_due" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the autosave event is set; if so, save history. We do it 
+this way so that the save takes place in the main thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.get_history">
+<tt class="descname">get_history</tt><big>(</big><em>index=None</em>, <em>raw=False</em>, <em>output=True</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the history list.</p>
+<p>Get the input and output history.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>index</strong> : n or (n1, n2) or None</p>
+<blockquote>
+<div><p>If n, then the last entries. If a tuple, then all in
+range(n1, n2). If None, then all entries. Raises IndexError if
+the format of index is incorrect.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>If True, return the raw input.</p>
+</div></blockquote>
+<p><strong>output</strong> : bool</p>
+<blockquote>
+<div><p>If True, then return the output as well.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If output is True, then return a dict of tuples, keyed by the prompt</strong> :</p>
+<p><strong>numbers and with values of (input, output). If output is False, then</strong> :</p>
+<p><strong>a dict, keyed by the prompt number with the values of input. Raises</strong> :</p>
+<p class="last"><strong>IndexError if no history is found.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.populate_readline_history">
+<tt class="descname">populate_readline_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.populate_readline_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populate the readline history from the raw history.</p>
+<p>We only store one copy of the raw history, which is persisted to a json
+file on disk.  The readline history is repopulated from the contents of
+this file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.reload_history">
+<tt class="descname">reload_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.reload_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the input history from disk file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.reset">
+<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all histories managed by this object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.save_history">
+<tt class="descname">save_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.save_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save input history to a file (via readline library).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.store_inputs">
+<tt class="descname">store_inputs</tt><big>(</big><em>source</em>, <em>source_raw=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.store_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store source and raw input in history and create input cache
+variables _i*.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>source</strong> : str</p>
+<blockquote>
+<div><p>Python input.</p>
+</div></blockquote>
+<p><strong>source_raw</strong> : str, optional</p>
+<blockquote class="last">
+<div><p>If given, this is the raw input without any IPython transformations
+applied to it.  If not given, <tt class="docutils literal"><span class="pre">source</span></tt> is used.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.sync_inputs">
+<tt class="descname">sync_inputs</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.sync_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure raw and translated histories have same length.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="historysavethread">
+<h3><a class="reference internal" href="#IPython.core.history.HistorySaveThread" title="IPython.core.history.HistorySaveThread"><tt class="xref py py-class docutils literal"><span class="pre">HistorySaveThread</span></tt></a><a class="headerlink" href="#historysavethread" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.history.HistorySaveThread">
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistorySaveThread</tt><big>(</big><em>autosave_flag</em>, <em>time_interval=60</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></p>
+<p>This thread makes IPython save history periodically.</p>
+<p>Without this class, IPython would only save the history on a clean exit.
+This saves the history periodically (the current default is once per
+minute), so that it is not lost in the event of a crash.</p>
+<p>The implementation sets an event to indicate that history should be saved.
+The actual save is carried out after executing a user command, to avoid
+thread issues.</p>
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>autosave_flag</em>, <em>time_interval=60</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.getName">
+<tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.getName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistorySaveThread.ident">
+<tt class="descname">ident</tt><a class="headerlink" href="#IPython.core.history.HistorySaveThread.ident" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.isAlive">
+<tt class="descname">isAlive</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.isAlive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.isDaemon">
+<tt class="descname">isDaemon</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.isDaemon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.is_alive">
+<tt class="descname">is_alive</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.is_alive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.join">
+<tt class="descname">join</tt><big>(</big><em>timeout=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.join" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistorySaveThread.name">
+<tt class="descname">name</tt><a class="headerlink" href="#IPython.core.history.HistorySaveThread.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.setDaemon">
+<tt class="descname">setDaemon</tt><big>(</big><em>daemonic</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.setDaemon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.setName">
+<tt class="descname">setName</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.setName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistorySaveThread.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Safely and quickly stop the autosave timer thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="shadowhist">
+<h3><a class="reference internal" href="#IPython.core.history.ShadowHist" title="IPython.core.history.ShadowHist"><tt class="xref py py-class docutils literal"><span class="pre">ShadowHist</span></tt></a><a class="headerlink" href="#shadowhist" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.history.ShadowHist">
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">ShadowHist</tt><big>(</big><em>db</em>, <em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="IPython.core.history.ShadowHist.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>db</em>, <em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.ShadowHist.add">
+<tt class="descname">add</tt><big>(</big><em>ent</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.ShadowHist.all">
+<tt class="descname">all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.ShadowHist.get">
+<tt class="descname">get</tt><big>(</big><em>idx</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.ShadowHist.inc_idx">
+<tt class="descname">inc_idx</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.inc_idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.history.init_ipython">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">init_ipython</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#IPython.core.history.init_ipython" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.history.magic_hist">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_hist</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alternate name for %history.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.history.magic_history">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_history</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
+<p>%history       -&gt; print at most 40 inputs (some may be multi-line)%history n     -&gt; print at most n inputs%history n1 n2 -&gt; print inputs between n1 and n2 (n2 not included)</p>
+<p>By default, input history is printed without line numbers so it can be
+directly pasted into an editor.</p>
+<p>With -n, each input&#8217;s number &lt;n&gt; is shown, and is accessible as the
+automatically generated variable _i&lt;n&gt; as well as In[&lt;n&gt;].  Multi-line
+statements are printed starting at a new line for easy copy/paste.</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-n: print line numbers for each input.
+This feature is only available if numbered prompts are in use.</p>
+<p>-o: also print outputs for each input.</p>
+<dl class="docutils">
+<dt>-p: print classic &#8216;&gt;&gt;&gt;&#8217; python prompts before each input.  This is useful</dt>
+<dd>for making documentation, and in conjunction with -o, for producing
+doctest-ready output.</dd>
+</dl>
+<p>-r: (default) print the &#8216;raw&#8217; history, i.e. the actual commands you typed.</p>
+<p>-t: print the &#8216;translated&#8217; history, as IPython understands it.  IPython
+filters your input and converts it all into valid Python source before
+executing it (things like magics or aliases are turned into function
+calls, for example). With this option, you&#8217;ll see the native history
+instead of the user-entered version: &#8216;%cd /&#8217; will be seen as
+&#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead of &#8216;%cd /&#8217;.</p>
+<p>-g: treat the arg as a pattern to grep for in (full) history.
+This includes the &#8220;shadow history&#8221; (almost all commands ever written).
+Use &#8216;%hist -g&#8217; to show full shadow history (may be very long).
+In shadow history, every index nuwber starts with 0.</p>
+<dl class="docutils">
+<dt>-f FILENAME: instead of printing the output to the screen, redirect it to</dt>
+<dd>the given file.  The file is always overwritten, though IPython asks for
+confirmation first if it already exists.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.history.rep_f">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">rep_f</tt><big>(</big><em>self</em>, <em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.history.rep_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repeat a command, or get command to input line for editing</p>
+<ul class="simple">
+<li>%rep (no arguments):</li>
+</ul>
+<p>Place a string version of last computation result (stored in the special &#8216;_&#8217;
+variable) to the next input prompt. Allows you to create elaborate command
+lines without using copy-paste:</p>
+<div class="highlight-python"><pre>$ l = ["hei", "vaan"]       
+$ "".join(l)        
+==&gt; heivaan        
+$ %rep        
+$ heivaan_ &lt;== cursor blinking    </pre>
+</div>
+<p>%rep 45</p>
+<p>Place history line 45 to next input prompt. Use %hist to find out the
+number.</p>
+<p>%rep 1-4 6-7 3</p>
+<p>Repeat the specified lines immediately. Input slice syntax is the same as
+in %macro and %save.</p>
+<p>%rep foo</p>
+<p>Place the most recent line that has the substring &#8220;foo&#8221; to next input.
+(e.g. &#8216;svn ci -m foobar&#8217;).</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.hooks.html" title="core.hooks"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.formatters.html" title="core.formatters"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Feb 10, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

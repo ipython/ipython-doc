@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Connection Diagrams of The IPython ZMQ Cluster &mdash; IPython v0.11.dev documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.11.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="up" title="IPython developer’s guide" href="index.html" />
+    <link rel="next" title="The magic commands subsystem" href="magic_blueprint.html" />
+    <link rel="prev" title="Messaging for Parallel Computing" href="parallel_messages.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="magic_blueprint.html" title="The magic commands subsystem"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parallel_messages.html" title="Messaging for Parallel Computing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Connection Diagrams of The IPython ZMQ Cluster</a><ul>
+<li><a class="reference internal" href="#all-connections">All Connections</a><ul>
+<li><a class="reference internal" href="#registration">Registration</a></li>
+<li><a class="reference internal" href="#heartbeat">Heartbeat</a></li>
+<li><a class="reference internal" href="#queues">Queues</a></li>
+<li><a class="reference internal" href="#client-connections">Client connections</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parallel_messages.html"
+                        title="previous chapter">Messaging for Parallel Computing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="magic_blueprint.html"
+                        title="next chapter">The magic commands subsystem</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/development/parallel_connections.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="connection-diagrams-of-the-ipython-zmq-cluster">
+<span id="parallel-connections"></span><h1>Connection Diagrams of The IPython ZMQ Cluster<a class="headerlink" href="#connection-diagrams-of-the-ipython-zmq-cluster" title="Permalink to this headline">¶</a></h1>
+<p>This is a quick summary and illustration of the connections involved in the ZeroMQ based IPython cluster for parallel computing.</p>
+<div class="section" id="all-connections">
+<h2>All Connections<a class="headerlink" href="#all-connections" title="Permalink to this headline">¶</a></h2>
+<p>The Parallel Computing code is currently under development in Min RK&#8217;s IPython <a class="reference external" href="http://github.com/minrk/ipython">fork</a> on GitHub.</p>
+<p>The IPython cluster consists of a Controller and one or more clients and engines. The goal of the Controller is to manage and monitor the connections and communications between the clients and the engines.</p>
+<p>It is important for security/practicality reasons that all connections be inbound to the controller process. The arrows in the figures indicate the direction of the connection.</p>
+<div class="figure align-center">
+<img alt="IPython cluster connections" src="../_images/allconnections.png" style="width: 432px;" />
+<p class="caption">All the connections involved in connecting one client to one engine.</p>
+</div>
+<p>The Controller consists of two ZMQ Devices - both MonitoredQueues, one for Tasks (load balanced, engine agnostic), one for Multiplexing (explicit targets), a Python device for monitoring (the Heartbeat Monitor).</p>
+<div class="section" id="registration">
+<h3>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center">
+<img alt="IPython Registration connections" src="../_images/regfade.png" style="width: 432px;" />
+<p class="caption">Engines and Clients only need to know where the Registrar <tt class="docutils literal"><span class="pre">XREP</span></tt> is located to start connecting.</p>
+</div>
+<p>Once a controller is launched, the only information needed for connecting clients and/or engines to the controller is the IP/port of the <tt class="docutils literal"><span class="pre">XREP</span></tt> socket called the Registrar.  This socket handles connections from both clients and engines, and replies with the remaining information necessary to establish the remaining connections.</p>
+</div>
+<div class="section" id="heartbeat">
+<h3>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center">
+<img alt="IPython Registration connections" src="../_images/hbfade.png" style="width: 432px;" />
+<p class="caption">The heartbeat sockets.</p>
+</div>
+<p>The heartbeat process has been described elsewhere.  To summarize: the controller publishes a distinct message periodically via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket.  Each engine has a <tt class="docutils literal"><span class="pre">zmq.FORWARDER</span></tt> device with a <tt class="docutils literal"><span class="pre">SUB</span></tt> socket for input, and <tt class="docutils literal"><span class="pre">XREQ</span></tt> socket for output. The <tt class="docutils literal"><span class="pre">SUB</span></tt> socket is connected to the <tt class="docutils literal"><span class="pre">PUB</span></tt> socket labeled <em>HB(ping)</em>, and the <tt class="docutils literal"><span class="pre">XREQ</span></tt> is connected to the <tt class="docutils literal"><span class="pre">XREP</span></tt> labeled <em>HB(pong)</em>. This results in the same message being relayed back to the Heartbeat Monitor with the addition of the <tt class="docutils literal"><span class="pre">XREQ</span></tt> prefix.  The Heartbeat Monitor receives all the replies via an <tt class="docutils literal"><span class="pre">XREP</span></tt> socket, and identifies which hearts are still beating by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> prefix of the <tt class="docutils literal"><span class="pre">XREQ</span></tt> sockets.</p>
+</div>
+<div class="section" id="queues">
+<h3>Queues<a class="headerlink" href="#queues" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center">
+<img alt="IPython Queue connections" src="../_images/queuefade.png" style="width: 432px;" />
+<p class="caption">Load balanced Task queue on the left, explicitly multiplexed queue on the right.</p>
+</div>
+<p>The controller has two MonitoredQueue devices. These devices are primarily for relaying messages between clients and engines, but the controller needs to see those messages for its own purposes.  Since no Python code may exist between the two sockets in a queue, all messages sent through these queues (both directions) are also sent via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket to a monitor, which allows the Controller to monitor queue traffic without interfering with it.</p>
+<p>For tasks, the engine need not be specified. Messages sent to the <tt class="docutils literal"><span class="pre">XREP</span></tt> socket from the client side are assigned to an engine via ZMQ&#8217;s <tt class="docutils literal"><span class="pre">XREQ</span></tt> round-robin load balancing. Engine replies are directed to specific clients via the IDENTITY of the client, which is received as a prefix at the Engine.</p>
+<p>For Multiplexing, <tt class="docutils literal"><span class="pre">XREP</span></tt> is used for both in and output sockets in the device. Clients must specify the destination by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of the <tt class="docutils literal"><span class="pre">PAIR</span></tt> socket connected to the downstream end of the device.</p>
+<p>At the Kernel level, both of these PAIR sockets are treated in the same way as the <tt class="docutils literal"><span class="pre">REP</span></tt> socket in the serial version (except using ZMQStreams instead of explicit sockets).</p>
+</div>
+<div class="section" id="client-connections">
+<h3>Client connections<a class="headerlink" href="#client-connections" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center">
+<img alt="IPython client query connections" src="../_images/queryfade.png" style="width: 432px;" />
+<p class="caption">Clients connect to an <tt class="docutils literal"><span class="pre">XREP</span></tt> socket to query the controller</p>
+</div>
+<p>The controller listens on an <tt class="docutils literal"><span class="pre">XREP</span></tt> socket for queries from clients as to queue status, and control instructions. Clients can connect to this via a PAIR socket or <tt class="docutils literal"><span class="pre">XREQ</span></tt>.</p>
+<div class="figure align-center">
+<img alt="IPython Registration connections" src="../_images/notiffade.png" style="width: 432px;" />
+<p class="caption">Engine registration events are published via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket.</p>
+</div>
+<p>The controller publishes all registration/unregistration events via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket. This allows  clients to stay up to date with what engines are available by subscribing to the feed with a <tt class="docutils literal"><span class="pre">SUB</span></tt> socket. Other processes could selectively subscribe to just registration or unregistration events.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="magic_blueprint.html" title="The magic commands subsystem"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parallel_messages.html" title="Messaging for Parallel Computing"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Feb 10, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

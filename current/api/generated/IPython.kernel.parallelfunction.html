@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>kernel.parallelfunction &mdash; IPython v0.11.dev documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.11.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="kernel.pbutil" href="IPython.kernel.pbutil.html" />
+    <link rel="prev" title="kernel.newserialized" href="IPython.kernel.newserialized.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.pbutil.html" title="kernel.pbutil"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.newserialized.html" title="kernel.newserialized"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">kernel.parallelfunction</a><ul>
+<li><a class="reference internal" href="#module-kernel-parallelfunction">Module: <tt class="docutils literal"><span class="pre">kernel.parallelfunction</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#imultiengineparalleldecorator"><tt class="docutils literal"><span class="pre">IMultiEngineParallelDecorator</span></tt></a></li>
+<li><a class="reference internal" href="#iparallelfunction"><tt class="docutils literal"><span class="pre">IParallelFunction</span></tt></a></li>
+<li><a class="reference internal" href="#itaskparalleldecorator"><tt class="docutils literal"><span class="pre">ITaskParallelDecorator</span></tt></a></li>
+<li><a class="reference internal" href="#parallelfunction"><tt class="docutils literal"><span class="pre">ParallelFunction</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.newserialized.html"
+                        title="previous chapter">kernel.newserialized</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.pbutil.html"
+                        title="next chapter">kernel.pbutil</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.parallelfunction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="kernel-parallelfunction">
+<h1>kernel.parallelfunction<a class="headerlink" href="#kernel-parallelfunction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kernel-parallelfunction">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.parallelfunction</span></tt><a class="headerlink" href="#module-kernel-parallelfunction" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.kernel.parallelfunction</span></tt>:</p>
+<img src="../../_images/inheritance56ccf738fe.png" usemap="#inheritance56ccf738fe" class="inheritance"/><map id="inheritance56ccf738fe" name="inheritance56ccf738fe">
+</map>
+<span class="target" id="module-IPython.kernel.parallelfunction"></span><p>A parallelized function that does scatter/execute/gather.</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="imultiengineparalleldecorator">
+<h3><a class="reference internal" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator" title="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator"><tt class="xref py py-class docutils literal"><span class="pre">IMultiEngineParallelDecorator</span></tt></a><a class="headerlink" href="#imultiengineparalleldecorator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.parallelfunction.</tt><tt class="descname">IMultiEngineParallelDecorator</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<p>A decorator that creates a parallel function.</p>
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IMultiEngineParallelDecorator.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="iparallelfunction">
+<h3><a class="reference internal" href="#IPython.kernel.parallelfunction.IParallelFunction" title="IPython.kernel.parallelfunction.IParallelFunction"><tt class="xref py py-class docutils literal"><span class="pre">IParallelFunction</span></tt></a><a class="headerlink" href="#iparallelfunction" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.parallelfunction.</tt><tt class="descname">IParallelFunction</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.IParallelFunction.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.IParallelFunction.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="itaskparalleldecorator">
+<h3><a class="reference internal" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator" title="IPython.kernel.parallelfunction.ITaskParallelDecorator"><tt class="xref py py-class docutils literal"><span class="pre">ITaskParallelDecorator</span></tt></a><a class="headerlink" href="#itaskparalleldecorator" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.parallelfunction.</tt><tt class="descname">ITaskParallelDecorator</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<p>A decorator that creates a parallel function.</p>
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.parallelfunction.ITaskParallelDecorator.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ITaskParallelDecorator.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="parallelfunction">
+<h3><a class="reference internal" href="#IPython.kernel.parallelfunction.ParallelFunction" title="IPython.kernel.parallelfunction.ParallelFunction"><tt class="xref py py-class docutils literal"><span class="pre">ParallelFunction</span></tt></a><a class="headerlink" href="#parallelfunction" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.parallelfunction.ParallelFunction">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.parallelfunction.</tt><tt class="descname">ParallelFunction</tt><big>(</big><em>mapper</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ParallelFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>The implementation of a parallel function.</p>
+<p>A parallel function is similar to Python&#8217;s map function:</p>
+<p>map(func, <a href="#id1"><span class="problematic" id="id2">*</span></a>sequences) -&gt; pfunc(<a href="#id3"><span class="problematic" id="id4">*</span></a>sequences)</p>
+<p>Parallel functions should be created by using the &#64;parallel decorator.</p>
+<dl class="method">
+<dt id="IPython.kernel.parallelfunction.ParallelFunction.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>mapper</em><big>)</big><a class="headerlink" href="#IPython.kernel.parallelfunction.ParallelFunction.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a parallel function from an <cite>IMapper</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first last docutils">
+<dt>mapper <span class="classifier-delimiter">:</span> <span class="classifier">an <cite>IMapper</cite> implementer.</span></dt>
+<dd><p class="first last">The mapper to use for the parallel function</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.pbutil.html" title="kernel.pbutil"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.newserialized.html" title="kernel.newserialized"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Feb 10, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

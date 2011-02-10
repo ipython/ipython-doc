@@ -1,0 +1,910 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>kernel.mapper &mdash; IPython v0.11.dev documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.11.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="kernel.multiengine" href="IPython.kernel.multiengine.html" />
+    <link rel="prev" title="kernel.map" href="IPython.kernel.map.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.multiengine.html" title="kernel.multiengine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.map.html" title="kernel.map"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">kernel.mapper</a><ul>
+<li><a class="reference internal" href="#module-kernel-mapper">Module: <tt class="docutils literal"><span class="pre">kernel.mapper</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#imapper"><tt class="docutils literal"><span class="pre">IMapper</span></tt></a></li>
+<li><a class="reference internal" href="#imultienginemapperfactory"><tt class="docutils literal"><span class="pre">IMultiEngineMapperFactory</span></tt></a></li>
+<li><a class="reference internal" href="#itaskmapperfactory"><tt class="docutils literal"><span class="pre">ITaskMapperFactory</span></tt></a></li>
+<li><a class="reference internal" href="#multienginemapper"><tt class="docutils literal"><span class="pre">MultiEngineMapper</span></tt></a></li>
+<li><a class="reference internal" href="#synchronoustaskmapper"><tt class="docutils literal"><span class="pre">SynchronousTaskMapper</span></tt></a></li>
+<li><a class="reference internal" href="#taskmapper"><tt class="docutils literal"><span class="pre">TaskMapper</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.map.html"
+                        title="previous chapter">kernel.map</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.multiengine.html"
+                        title="next chapter">kernel.multiengine</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.mapper.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="kernel-mapper">
+<h1>kernel.mapper<a class="headerlink" href="#kernel-mapper" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kernel-mapper">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.mapper</span></tt><a class="headerlink" href="#module-kernel-mapper" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.kernel.mapper</span></tt>:</p>
+<img src="../../_images/inheritance0cfcf4b863.png" usemap="#inheritance0cfcf4b863" class="inheritance"/><map id="inheritance0cfcf4b863" name="inheritance0cfcf4b863">
+</map>
+<span class="target" id="module-IPython.kernel.mapper"></span><p>A parallelized version of Python&#8217;s builtin map.</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="imapper">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.IMapper" title="IPython.kernel.mapper.IMapper"><tt class="xref py py-class docutils literal"><span class="pre">IMapper</span></tt></a><a class="headerlink" href="#imapper" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.IMapper">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">IMapper</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<p>The basic interface for a Mapper.</p>
+<p>This defines a generic interface for mapping.  The idea of this is 
+similar to that of Python&#8217;s builtin <cite>map</cite> function, which applies a function
+elementwise to a sequence.</p>
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMapper.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMapper.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMapper.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMapper.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMapper.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="imultienginemapperfactory">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.IMultiEngineMapperFactory" title="IPython.kernel.mapper.IMultiEngineMapperFactory"><tt class="xref py py-class docutils literal"><span class="pre">IMultiEngineMapperFactory</span></tt></a><a class="headerlink" href="#imultienginemapperfactory" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">IMultiEngineMapperFactory</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<p>An interface for something that creates <cite>IMapper</cite> instances.</p>
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.IMultiEngineMapperFactory.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.IMultiEngineMapperFactory.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="itaskmapperfactory">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.ITaskMapperFactory" title="IPython.kernel.mapper.ITaskMapperFactory"><tt class="xref py py-class docutils literal"><span class="pre">ITaskMapperFactory</span></tt></a><a class="headerlink" href="#itaskmapperfactory" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">ITaskMapperFactory</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt></p>
+<p>An interface for something that creates <cite>IMapper</cite> instances.</p>
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.__init__">
+<em class="property">classmethod </em><tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases=()</em>, <em>attrs=None</em>, <em>__doc__=None</em>, <em>__module__=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.changed">
+<em class="property">classmethod </em><tt class="descname">changed</tt><big>(</big><em>originally_changed</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>We, or something we depend on, have changed</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.deferred">
+<em class="property">classmethod </em><tt class="descname">deferred</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.deferred" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a defered class corresponding to the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.direct">
+<em class="property">classmethod </em><tt class="descname">direct</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.direct" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.extends">
+<em class="property">classmethod </em><tt class="descname">extends</tt><big>(</big><em>interface</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.extends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the specification extend the given interface?</p>
+<p>Test whether an interface in the specification extends the
+given interface</p>
+<p>Examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface.declarations</span> <span class="kn">import</span> <span class="n">Declaration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I2</span><span class="p">(</span><span class="n">I1</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I3</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I4</span><span class="p">(</span><span class="n">I3</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spec</span> <span class="o">=</span> <span class="n">Declaration</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">Interface</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I1</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">))</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I3</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I4</span><span class="p">))</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">)</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">I2</span><span class="o">.</span><span class="n">extends</span><span class="p">(</span><span class="n">I2</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query for an attribute description</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getBases">
+<em class="property">classmethod </em><tt class="descname">getBases</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getBases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">getDescriptionFor</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute description for the given name.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getDoc">
+<em class="property">classmethod </em><tt class="descname">getDoc</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getDoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the documentation for the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getName">
+<em class="property">classmethod </em><tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the object.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getTaggedValue">
+<em class="property">classmethod </em><tt class="descname">getTaggedValue</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.getTaggedValueTags">
+<em class="property">classmethod </em><tt class="descname">getTaggedValueTags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.getTaggedValueTags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all tags.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.implementedBy">
+<em class="property">static </em><tt class="descname">implementedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.implementedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the specification is implemented by a class or factory.
+Raise TypeError if argument is neither a class nor a callable.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.interfaces">
+<em class="property">classmethod </em><tt class="descname">interfaces</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.interfaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator for the interfaces in the specification</p>
+<p>for example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">Interface</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">I1</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">I1</span><span class="o">.</span><span class="n">interfaces</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+<span class="go">&#39;I1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="go">[]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.isEqualOrExtendedBy">
+<em class="property">classmethod </em><tt class="descname">isEqualOrExtendedBy</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.isEqualOrExtendedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same interface or extends?</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.isOrExtends">
+<em class="property">static </em><tt class="descname">isOrExtends</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.isOrExtends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether a specification is or extends another</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.names">
+<em class="property">classmethod </em><tt class="descname">names</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the attribute names defined by the interface.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.namesAndDescriptions">
+<em class="property">classmethod </em><tt class="descname">namesAndDescriptions</tt><big>(</big><em>all=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.namesAndDescriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute names and descriptions defined by interface.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.providedBy">
+<em class="property">static </em><tt class="descname">providedBy</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.providedBy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether an interface is implemented by the specification</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.queryDescriptionFor">
+<em class="property">classmethod </em><tt class="descname">queryDescriptionFor</tt><big>(</big><em>name</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.queryDescriptionFor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.queryTaggedValue">
+<em class="property">classmethod </em><tt class="descname">queryTaggedValue</tt><big>(</big><em>tag</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.queryTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value associated with &#8216;tag&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.setTaggedValue">
+<em class="property">classmethod </em><tt class="descname">setTaggedValue</tt><big>(</big><em>tag</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.setTaggedValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Associates &#8216;value&#8217; with &#8216;key&#8217;.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.subscribe">
+<em class="property">classmethod </em><tt class="descname">subscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.subscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.unsubscribe">
+<em class="property">classmethod </em><tt class="descname">unsubscribe</tt><big>(</big><em>dependent</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.unsubscribe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.validateInvariants">
+<em class="property">classmethod </em><tt class="descname">validateInvariants</tt><big>(</big><em>obj</em>, <em>errors=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.validateInvariants" title="Permalink to this definition">¶</a></dt>
+<dd><p>validate object to defined invariants.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.kernel.mapper.ITaskMapperFactory.weakref">
+<em class="property">classmethod </em><tt class="descname">weakref</tt><big>(</big><em>callback=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.ITaskMapperFactory.weakref" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="multienginemapper">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.MultiEngineMapper" title="IPython.kernel.mapper.MultiEngineMapper"><tt class="xref py py-class docutils literal"><span class="pre">MultiEngineMapper</span></tt></a><a class="headerlink" href="#multienginemapper" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.MultiEngineMapper">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">MultiEngineMapper</tt><big>(</big><em>multiengine</em>, <em>dist='b'</em>, <em>targets='all'</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.MultiEngineMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A Mapper for <cite>IMultiEngine</cite> implementers.</p>
+<dl class="method">
+<dt id="IPython.kernel.mapper.MultiEngineMapper.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>multiengine</em>, <em>dist='b'</em>, <em>targets='all'</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.MultiEngineMapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a Mapper for a multiengine.</p>
+<p>The value of all arguments are used for all calls to <cite>map</cite>.  This
+class allows these arguemnts to be set for a series of map calls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first last docutils">
+<dt>multiengine <span class="classifier-delimiter">:</span> <span class="classifier"><cite>IMultiEngine</cite> implementer</span></dt>
+<dd><p class="first last">The multiengine to use for running the map commands</p>
+</dd>
+<dt>dist <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">The type of decomposition to use.  Only block (&#8216;b&#8217;) is
+supported currently</p>
+</dd>
+<dt>targets <span class="classifier-delimiter">:</span> <span class="classifier">(str, int, tuple of ints)</span></dt>
+<dd><p class="first last">The engines to use in the map</p>
+</dd>
+<dt>block <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span></dt>
+<dd><p class="first last">Whether to block when the map is applied</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.mapper.MultiEngineMapper.map">
+<tt class="descname">map</tt><big>(</big><em>func</em>, <em>*sequences</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.MultiEngineMapper.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply func to <a href="#id1"><span class="problematic" id="id2">*</span></a>sequences elementwise.  Like Python&#8217;s builtin map.</p>
+<p>This version is not load balanced.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="synchronoustaskmapper">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.SynchronousTaskMapper" title="IPython.kernel.mapper.SynchronousTaskMapper"><tt class="xref py py-class docutils literal"><span class="pre">SynchronousTaskMapper</span></tt></a><a class="headerlink" href="#synchronoustaskmapper" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.SynchronousTaskMapper">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">SynchronousTaskMapper</tt><big>(</big><em>task_controller</em>, <em>clear_before=False</em>, <em>clear_after=False</em>, <em>retries=0</em>, <em>recovery_task=None</em>, <em>depend=None</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.SynchronousTaskMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Make an <cite>IBlockingTaskClient</cite> look like an <cite>IMapper</cite>.</p>
+<p>This class provides a load balanced version of <cite>map</cite>.</p>
+<dl class="method">
+<dt id="IPython.kernel.mapper.SynchronousTaskMapper.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>task_controller</em>, <em>clear_before=False</em>, <em>clear_after=False</em>, <em>retries=0</em>, <em>recovery_task=None</em>, <em>depend=None</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.SynchronousTaskMapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <cite>IMapper</cite> given a <cite>IBlockingTaskClient</cite> and arguments.</p>
+<p>The additional arguments are those that are common to all types of 
+tasks and are described in the documentation for 
+<cite>IPython.kernel.task.BaseTask</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first last docutils">
+<dt>task_controller <span class="classifier-delimiter">:</span> <span class="classifier">an <cite>IBlockingTaskClient</cite> implementer</span></dt>
+<dd><p class="first last">The <cite>TaskController</cite> to use for calls to <cite>map</cite></p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.mapper.SynchronousTaskMapper.map">
+<tt class="descname">map</tt><big>(</big><em>func</em>, <em>*sequences</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.SynchronousTaskMapper.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply func to <a href="#id3"><span class="problematic" id="id4">*</span></a>sequences elementwise.  Like Python&#8217;s builtin map.</p>
+<p>This version is load balanced.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="taskmapper">
+<h3><a class="reference internal" href="#IPython.kernel.mapper.TaskMapper" title="IPython.kernel.mapper.TaskMapper"><tt class="xref py py-class docutils literal"><span class="pre">TaskMapper</span></tt></a><a class="headerlink" href="#taskmapper" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.kernel.mapper.TaskMapper">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.mapper.</tt><tt class="descname">TaskMapper</tt><big>(</big><em>task_controller</em>, <em>clear_before=False</em>, <em>clear_after=False</em>, <em>retries=0</em>, <em>recovery_task=None</em>, <em>depend=None</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.TaskMapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Make an <cite>ITaskController</cite> look like an <cite>IMapper</cite>.</p>
+<p>This class provides a load balanced version of <cite>map</cite>.</p>
+<dl class="method">
+<dt id="IPython.kernel.mapper.TaskMapper.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>task_controller</em>, <em>clear_before=False</em>, <em>clear_after=False</em>, <em>retries=0</em>, <em>recovery_task=None</em>, <em>depend=None</em>, <em>block=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.TaskMapper.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <cite>IMapper</cite> given a <cite>TaskController</cite> and arguments.</p>
+<p>The additional arguments are those that are common to all types of 
+tasks and are described in the documentation for 
+<cite>IPython.kernel.task.BaseTask</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first last docutils">
+<dt>task_controller <span class="classifier-delimiter">:</span> <span class="classifier">an <cite>IBlockingTaskClient</cite> implementer</span></dt>
+<dd><p class="first last">The <cite>TaskController</cite> to use for calls to <cite>map</cite></p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.mapper.TaskMapper.map">
+<tt class="descname">map</tt><big>(</big><em>func</em>, <em>*sequences</em><big>)</big><a class="headerlink" href="#IPython.kernel.mapper.TaskMapper.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply func to <a href="#id5"><span class="problematic" id="id6">*</span></a>sequences elementwise.  Like Python&#8217;s builtin map.</p>
+<p>This version is load balanced.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.multiengine.html" title="kernel.multiengine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.map.html" title="kernel.map"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Feb 10, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
