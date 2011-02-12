@@ -12,11 +12,11 @@ Official IPython Documentation
 Our Main Manual:
 
 .. release
-* Current Development Version: `HTML <current/index.html>`_ and `PDF <current/ipython.pdf>`_
+* Current Development Version (0.11.dev): `HTML <dev/index.html>`_ and `PDF <dev/ipython.pdf>`_.
 
 Other useful documentation:
 
-* `Tips <http://ipython.scipy.org/doc/manual/html/interactive/tutorial.html>`_ for using IPython
+* `Tips <dev/interactive/tutorial.html>`_ for using IPython
   effectively.
 * IPython `screenshots <http://ipython.scipy.org/screenshots/index.html>`_.
 * A page for `Frequently Asked Questions <http://ipython.scipy.org/moin/FAQ>`_.
@@ -126,6 +126,8 @@ that use IPython in one form or another. If you use IPython as part of a project
 information to this page or email `Fernando.Perez@Berkeley.edu
 <mailto:Fernando.Perez@Berkeley.edu>`_ and I'll be happy to add it.
 
-Note: these documents themselves are maintained as a `git repository
-<http://github.com/ipython/ipython-doc>`_ on GitHub, using the `GitHub project pages feature
-<http://pages.github.com/>`_.
+.. footer:: 
+
+    These documents themselves are maintained as a `git repository
+    <http://github.com/ipython/ipython-doc>`_ on GitHub, using the `GitHub project pages
+    feature <http://pages.github.com/>`_.
