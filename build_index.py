@@ -5,7 +5,7 @@ from subprocess import Popen, PIPE, CalledProcessError, check_call
 def sh2(cmd):
     """Execute command in a subshell, return stdout.
 
-    Stderr is unbuffered from the subshell.x"""
+    Stderr is unbuffered from the subshell"""
     p = Popen(cmd, stdout=PIPE, shell=True)
     out = p.communicate()[0]
     retcode = p.returncode

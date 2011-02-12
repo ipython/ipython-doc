@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Development roadmap &mdash; IPython v0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+          URL_ROOT:    '../',
+          VERSION:     '0.9',
+          COLLAPSE_MODINDEX: false,
+          FILE_SUFFIX: '.html'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="contents" title="Global table of contents" href="../contents.html" />
+    <link rel="index" title="Global index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="IPython v0.9 documentation" href="../index.html" />
+    <link rel="up" title="Development" href="index.html" />
+    <link rel="next" title="IPython.kernel.core.notification blueprint" href="notification_blueprint.html" />
+    <link rel="prev" title="IPython development guidelines" href="development.html" />
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="notification_blueprint.html" title="IPython.kernel.core.notification blueprint"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="IPython development guidelines"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">IPython v0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section">
+<h1 id="development-roadmap"><span id="roadmap"></span>Development roadmap<a class="headerlink" href="#development-roadmap" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="simple">
+<li><a class="reference" href="#development-roadmap" id="id1" name="id1">Development roadmap</a><ul>
+<li><a class="reference" href="#where-are-we-headed" id="id2" name="id2">Where are we headed</a></li>
+<li><a class="reference" href="#steps-along-the-way" id="id3" name="id3">Steps along the way</a><ul>
+<li><a class="reference" href="#setting-up-for-regular-release-schedule" id="id4" name="id4">Setting up for regular release schedule</a></li>
+<li><a class="reference" href="#process-startup-and-management" id="id5" name="id5">Process startup and management</a></li>
+<li><a class="reference" href="#ease-of-use-high-level-approaches-to-parallelism" id="id6" name="id6">Ease of use/high-level approaches to parallelism</a></li>
+<li><a class="reference" href="#security" id="id7" name="id7">Security</a></li>
+<li><a class="reference" href="#latent-performance-issues" id="id8" name="id8">Latent performance issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>IPython is an ambitious project that is still under heavy development.  However, we want IPython to become useful to as many people as possible, as quickly as possible.  To help us accomplish this, we are laying out a roadmap of where we are headed and what needs to happen to get there.  Hopefully, this will help the IPython developers figure out the best things to work on for each upcoming release.</p>
+<p>Speaking of releases, we are going to begin releasing a new version of IPython every four weeks.  We are hoping that a regular release schedule, along with a clear roadmap of where we are headed will propel the project forward.</p>
+<div class="section">
+<h2 id="where-are-we-headed">Where are we headed<a class="headerlink" href="#where-are-we-headed" title="Permalink to this headline">¶</a></h2>
+<p>Our goal with IPython is simple: to provide a <em>powerful</em>, <em>robust</em> and <em>easy to use</em> framework for parallel computing.  While there are other secondary goals you will hear us talking about at various times, this is the primary goal of IPython that frames the roadmap.</p>
+</div>
+<div class="section">
+<h2 id="steps-along-the-way">Steps along the way<a class="headerlink" href="#steps-along-the-way" title="Permalink to this headline">¶</a></h2>
+<p>Here we describe the various things that we need to work on to accomplish this goal.</p>
+<div class="section">
+<h3 id="setting-up-for-regular-release-schedule">Setting up for regular release schedule<a class="headerlink" href="#setting-up-for-regular-release-schedule" title="Permalink to this headline">¶</a></h3>
+<p>We would like to begin to release IPython regularly (probably a 4 week release cycle).  To get ready for this, we need to revisit the development guidelines and put in information about releasing IPython.</p>
+</div>
+<div class="section">
+<h3 id="process-startup-and-management">Process startup and management<a class="headerlink" href="#process-startup-and-management" title="Permalink to this headline">¶</a></h3>
+<p>IPython is implemented using a distributed set of processes that communicate using TCP/IP network channels.  Currently, users have to start each of the various processes separately using command line scripts.  This is both difficult and error prone.  Furthermore, there are a number of things that often need to be managed once the processes have been started, such as the sending of signals and the shutting down and cleaning up of processes.</p>
+<p>We need to build a system that makes it trivial for users to start and manage IPython processes.  This system should have the following properties:</p>
+<ul class="simple">
+<li>It should possible to do everything through an extremely simple API that users
+can call from their own Python script.  No shell commands should be needed.</li>
+<li>This simple API should be configured using standard .ini files.</li>
+<li>The system should make it possible to start processes using a number of different
+approaches:  SSH, PBS/Torque, Xgrid, Windows Server, mpirun, etc.</li>
+<li>The controller and engine processes should each have a daemon for monitoring,
+signaling and clean up.</li>
+<li>The system should be secure.</li>
+<li>The system should work under all the major operating systems, including
+Windows.</li>
+</ul>
+<p>Initial work has begun on the daemon infrastructure, and some of the needed logic is contained in the ipcluster script.</p>
+</div>
+<div class="section">
+<h3 id="ease-of-use-high-level-approaches-to-parallelism">Ease of use/high-level approaches to parallelism<a class="headerlink" href="#ease-of-use-high-level-approaches-to-parallelism" title="Permalink to this headline">¶</a></h3>
+<p>While our current API for clients is well designed, we can still do a lot better in designing a user-facing API that is super simple.  The main goal here is that it should take <em>almost no extra code</em> for users to get their code running in parallel.  For this to be possible, we need to tie into Python&#8217;s standard idioms that enable efficient coding.  The biggest ones we are looking at are using context managers (i.e., Python 2.5&#8217;s <tt class="docutils literal"><span class="pre">with</span></tt> statement) and decorators.  Initial work on this front has begun, but more work is needed.</p>
+<p>We also need to think about new models for expressing parallelism.  This is fun work as most of the foundation has already been established.</p>
+</div>
+<div class="section">
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h3>
+<p>Currently, IPython has no built in security or security model.  Because we would like IPython to be usable on public computer systems and over wide area networks, we need to come up with a robust solution for security.  Here are some of the specific things that need to be included:</p>
+<ul class="simple">
+<li>User authentication between all processes (engines, controller and clients).</li>
+<li>Optional TSL/SSL based encryption of all communication channels.</li>
+<li>A good way of picking network ports so multiple users on the same system can
+run their own controller and engines without interfering with those of others.</li>
+<li>A clear model for security that enables users to evaluate the security risks
+associated with using IPython in various manners.</li>
+</ul>
+<p>For the implementation of this, we plan on using Twisted&#8217;s support for SSL and authentication.  One things that we really should look at is the <a class="reference" href="http://foolscap.lothar.com/trac">Foolscap</a> network protocol, which provides many of these things out of the box.</p>
+<p>The security work needs to be done in conjunction with other network protocol stuff.</p>
+<p>As of the 0.9 release of IPython, we are using Foolscap and we have implemented
+a full security model.</p>
+</div>
+<div class="section">
+<h3 id="latent-performance-issues">Latent performance issues<a class="headerlink" href="#latent-performance-issues" title="Permalink to this headline">¶</a></h3>
+<p>Currently, we have a number of performance issues that are waiting to bite users:</p>
+<blockquote>
+<ul class="simple">
+<li>The controller store a large amount of state in Python dictionaries.  Under heavy
+usage, these dicts with get very large, causing memory usage problems.  We need to
+develop more scalable solutions to this problem, such as using a sqlite database
+to store this state.  This will also help the controller to be more fault tolerant.</li>
+<li>Currently, the client to controller connections are done through XML-RPC using
+HTTP 1.0.  This is very inefficient as XML-RPC is a very verbose protocol and
+each request must be handled with a new connection.  We need to move these network
+connections over to PB or Foolscap.  Done!</li>
+<li>We currently don&#8217;t have a good way of handling large objects in the controller.
+The biggest problem is that because we don&#8217;t have any way of streaming objects,
+we get lots of temporary copies in the low-level buffers.  We need to implement
+a better serialization approach and true streaming support.</li>
+<li>The controller currently unpickles and repickles objects.  We need to use the
+[push|pull]_serialized methods instead.</li>
+<li>Currently the controller is a bottleneck.  We need the ability to scale the
+controller by aggregating multiple controllers into one effective controller.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">Development roadmap</a><ul>
+<li><a class="reference" href="#where-are-we-headed">Where are we headed</a></li>
+<li><a class="reference" href="#steps-along-the-way">Steps along the way</a><ul>
+<li><a class="reference" href="#setting-up-for-regular-release-schedule">Setting up for regular release schedule</a></li>
+<li><a class="reference" href="#process-startup-and-management">Process startup and management</a></li>
+<li><a class="reference" href="#ease-of-use-high-level-approaches-to-parallelism">Ease of use/high-level approaches to parallelism</a></li>
+<li><a class="reference" href="#security">Security</a></li>
+<li><a class="reference" href="#latent-performance-issues">Latent performance issues</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="development.html" title="previous chapter">IPython development guidelines</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="notification_blueprint.html" title="next chapter">IPython.kernel.core.notification blueprint</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/development/roadmap.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="notification_blueprint.html" title="IPython.kernel.core.notification blueprint"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="development.html" title="IPython development guidelines"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">IPython v0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Sep 14, 2008.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.
+    </div>
+  </body>
+</html>

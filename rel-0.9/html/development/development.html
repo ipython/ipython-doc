@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>IPython development guidelines &mdash; IPython v0.9 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+          URL_ROOT:    '../',
+          VERSION:     '0.9',
+          COLLAPSE_MODINDEX: false,
+          FILE_SUFFIX: '.html'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="contents" title="Global table of contents" href="../contents.html" />
+    <link rel="index" title="Global index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="IPython v0.9 documentation" href="../index.html" />
+    <link rel="up" title="Development" href="index.html" />
+    <link rel="next" title="Development roadmap" href="roadmap.html" />
+    <link rel="prev" title="Development" href="index.html" />
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="roadmap.html" title="Development roadmap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Development"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">IPython v0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section">
+<h1 id="ipython-development-guidelines"><span id="development"></span>IPython development guidelines<a class="headerlink" href="#ipython-development-guidelines" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="simple">
+<li><a class="reference" href="#ipython-development-guidelines" id="id6" name="id6">IPython development guidelines</a><ul>
+<li><a class="reference" href="#overview" id="id7" name="id7">Overview</a></li>
+<li><a class="reference" href="#project-organization" id="id8" name="id8">Project organization</a><ul>
+<li><a class="reference" href="#subpackages" id="id9" name="id9">Subpackages</a></li>
+<li><a class="reference" href="#installation-and-dependencies" id="id10" name="id10">Installation and dependencies</a></li>
+<li><a class="reference" href="#specific-subpackages" id="id11" name="id11">Specific subpackages</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#version-control" id="id12" name="id12">Version control</a></li>
+<li><a class="reference" href="#documentation" id="id13" name="id13">Documentation</a><ul>
+<li><a class="reference" href="#standalone-documentation" id="id14" name="id14">Standalone documentation</a></li>
+<li><a class="reference" href="#docstring-format" id="id15" name="id15">Docstring format</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#coding-conventions" id="id16" name="id16">Coding conventions</a><ul>
+<li><a class="reference" href="#general" id="id17" name="id17">General</a></li>
+<li><a class="reference" href="#naming-conventions" id="id18" name="id18">Naming conventions</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#testing-system" id="id19" name="id19">Testing system</a></li>
+<li><a class="reference" href="#configuration-system" id="id20" name="id20">Configuration system</a></li>
+<li><a class="reference" href="#installation-and-testing-scenarios" id="id21" name="id21">Installation and testing scenarios</a><ul>
+<li><a class="reference" href="#installation-scenarios-under-linux-and-os-x" id="id22" name="id22">Installation scenarios under Linux and OS X</a></li>
+<li><a class="reference" href="#installation-scenarios-under-win32" id="id23" name="id23">Installation scenarios under Win32</a></li>
+<li><a class="reference" href="#tests-to-run-for-these-scenarios" id="id24" name="id24">Tests to run for these scenarios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section">
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>IPython is the next generation of IPython.  It is named such for two reasons:</p>
+<ul class="simple">
+<li>Eventually, IPython will become IPython version 1.0.</li>
+<li>This new code base needs to be able to co-exist with the existing IPython until
+it is a full replacement for it.  Thus we needed a different name.  We couldn&#8217;t
+use <tt class="docutils literal"><span class="pre">ipython</span></tt> (lowercase) as some files systems are case insensitive.</li>
+</ul>
+<p>There are two, no three, main goals of the IPython effort:</p>
+<ol class="arabic simple">
+<li>Clean up the existing codebase and write lots of tests.</li>
+<li>Separate the core functionality of IPython from the terminal to enable IPython
+to be used from within a variety of GUI applications.</li>
+<li>Implement a system for interactive parallel computing.</li>
+</ol>
+<p>While the third goal may seem a bit unrelated to the main focus of IPython, it
+turns out that the technologies required for this goal are nearly identical
+with those required for goal two. This is the main reason the interactive
+parallel computing capabilities are being put into IPython proper. Currently
+the third of these goals is furthest along.</p>
+<p>This document describes IPython from the perspective of developers.</p>
+</div>
+<div class="section">
+<h2 id="project-organization">Project organization<a class="headerlink" href="#project-organization" title="Permalink to this headline">¶</a></h2>
+<div class="section">
+<h3 id="subpackages">Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h3>
+<p>IPython is organized into semi self-contained subpackages.  Each of the
+subpackages will have its own:</p>
+<ul class="simple">
+<li><strong>Dependencies</strong>.  One of the most important things to keep in mind in
+partitioning code amongst subpackages, is that they should be used to cleanly
+encapsulate dependencies.</li>
+<li><strong>Tests</strong>.  Each subpackage shoud have its own <tt class="docutils literal"><span class="pre">tests</span></tt> subdirectory that
+contains all of the tests for that package.  For information about writing
+tests for IPython, see the <a class="reference" href="#testing-system">Testing System</a> section of this document.</li>
+<li><strong>Configuration</strong>.  Each subpackage should have its own <tt class="docutils literal"><span class="pre">config</span></tt>
+subdirectory that contains the configuration information for the components
+of the subpackage.  For information about how the IPython configuration
+system works, see the <a class="reference" href="#configuration-system">Configuration System</a> section of this document.</li>
+<li><strong>Scripts</strong>.  Each subpackage should have its own <tt class="docutils literal"><span class="pre">scripts</span></tt> subdirectory
+that contains all of the command line scripts associated with the subpackage.</li>
+</ul>
+</div>
+<div class="section">
+<h3 id="installation-and-dependencies">Installation and dependencies<a class="headerlink" href="#installation-and-dependencies" title="Permalink to this headline">¶</a></h3>
+<p>IPython will not use <a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> for installation. Instead, we will use
+standard <tt class="docutils literal"><span class="pre">setup.py</span></tt> scripts that use <a class="reference" href="http://docs.python.org/lib/module-distutils.html">distutils</a>. While there are a number a
+extremely nice features that <a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> has (like namespace packages), the
+current implementation of <a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> has performance problems, particularly
+on shared file systems. In particular, when Python packages are installed on
+NSF file systems, import times become much too long (up towards 10 seconds).</p>
+<p>Because IPython is being used extensively in the context of high performance
+computing, where performance is critical but shared file systems are common, we
+feel these performance hits are not acceptable. Thus, until the performance
+problems associated with <a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> are addressed, we will stick with plain
+<a class="reference" href="http://docs.python.org/lib/module-distutils.html">distutils</a>. We are hopeful that these problems will be addressed and that we
+will eventually begin using <a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a>. Because of this, we are trying to
+organize IPython in a way that will make the eventual transition to
+<a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> as painless as possible.</p>
+<p>Because we will be using <a class="reference" href="http://docs.python.org/lib/module-distutils.html">distutils</a>, there will be no method for
+automatically installing dependencies.  Instead, we are following the approach
+of <a class="reference" href="http://matplotlib.sourceforge.net/">Matplotlib</a> which can be summarized as follows:</p>
+<ul class="simple">
+<li>Distinguish between required and optional dependencies.  However, the required
+dependencies for IPython should be only the Python standard library.</li>
+<li>Upon installation check to see which optional dependencies are present and
+tell the user which parts of IPython need which optional dependencies.</li>
+</ul>
+<p>It is absolutely critical that each subpackage of IPython has a clearly
+specified set of dependencies and that dependencies are not carelessly
+inherited from other IPython subpackages. Furthermore, tests that have certain
+dependencies should not fail if those dependencies are not present. Instead
+they should be skipped and print a message.</p>
+</div>
+<div class="section">
+<h3 id="specific-subpackages">Specific subpackages<a class="headerlink" href="#specific-subpackages" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">core</span></tt></dt>
+<dd>This is the core functionality of IPython that is independent of the
+terminal, network and GUIs.  Most of the code that is in the current
+IPython trunk will be refactored, cleaned up and moved here.</dd>
+<dt><tt class="docutils literal"><span class="pre">kernel</span></tt></dt>
+<dd>The enables the IPython core to be expose to a the network.  This is
+also where all of the parallel computing capabilities are to be found.</dd>
+<dt><tt class="docutils literal"><span class="pre">config</span></tt></dt>
+<dd>The configuration package used by IPython.</dd>
+<dt><tt class="docutils literal"><span class="pre">frontends</span></tt></dt>
+<dd>The various frontends for IPython.  A frontend is the end-user application
+that exposes the capabilities of IPython to the user.  The most basic
+frontend will simply be a terminal based application that looks just like
+today &#8216;s IPython.  Other frontends will likely be more powerful and based
+on GUI toolkits.</dd>
+<dt><tt class="docutils literal"><span class="pre">notebook</span></tt></dt>
+<dd>An application that allows users to work with IPython notebooks.</dd>
+<dt><tt class="docutils literal"><span class="pre">tools</span></tt></dt>
+<dd>This is where general utilities go.</dd>
+</dl>
+</div>
+</div>
+<div class="section">
+<h2 id="version-control">Version control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h2>
+<p>In the past, IPython development has been done using <a class="reference" href="http://subversion.tigris.org/">Subversion</a>.  Recently,
+we made the transition to using <a class="reference" href="http://bazaar-vcs.org/">Bazaar</a> and <a class="reference" href="http://www.launchpad.net/ipython">Launchpad</a>.  This makes it
+much easier for people to contribute code to IPython.  Here is a sketch of how
+to use Bazaar for IPython development.  First, you should install Bazaar.
+After you have done that, make sure that it is working by getting the latest
+main branch of IPython:</p>
+<pre>$ bzr branch lp:ipython</pre>
+<p>Now you can create a new branch for you to do your work in:</p>
+<pre>$ bzr branch ipython ipython-mybranch</pre>
+<p>The typical work cycle in this branch will be to make changes in
+<tt class="docutils literal"><span class="pre">ipython-mybranch</span></tt> and then commit those changes using the commit command:</p>
+<pre>$ ...do work in ipython-mybranch...
+$ bzr ci -m "the commit message goes here"</pre>
+<p>Please note that since we now don&#8217;t use an old-style linear ChangeLog (that
+tends to cause problems with distributed version control systems), you should
+ensure that your log messages are reasonably detailed.  Use a docstring-like
+approach in the commit messages (including the second line being left
+<em>blank</em>):</p>
+<pre>Single line summary of  changes being committed.
+
+- more details when warranted ...
+- including crediting outside contributors if they sent the
+  code/bug/idea!</pre>
+<p>If we couple this with a policy of making single commits for each reasonably
+atomic change, the bzr log should give an excellent view of the project, and
+the <cite>&#8211;short</cite> log option becomes a nice summary.</p>
+<p>While working with this branch, it is a good idea to merge in changes that have
+been made upstream in the parent branch.  This can be done by doing:</p>
+<pre>$ bzr pull</pre>
+<p>If this command shows that the branches have diverged, then you should do a
+merge instead:</p>
+<pre>$ bzr merge lp:ipython</pre>
+<p>If you want others to be able to see your branch, you can create an account
+with launchpad and push the branch to your own workspace:</p>
+<pre>$ bzr push bzr+ssh://&lt;me&gt;@bazaar.launchpad.net/~&lt;me&gt;/+junk/ipython-mybranch</pre>
+<p>Finally, once the work in your branch is done, you can merge your changes back
+into the <cite>ipython</cite> branch by using merge:</p>
+<pre>$ cd ipython
+$ merge ../ipython-mybranch
+[resolve any conflicts]
+$ bzr ci -m "Fixing that bug"
+$ bzr push</pre>
+<p>But this will require you to have write permissions to the <cite>ipython</cite> branch.
+It you don&#8217;t you can tell one of the IPython devs about your branch and they
+can do the merge for you.</p>
+<p>More information about Bazaar workflows can be found <a class="reference" href="http://doc.bazaar-vcs.org/bzr.dev/en/user-guide/index.html">here</a>.</p>
+</div>
+<div class="section">
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section">
+<h3 id="standalone-documentation">Standalone documentation<a class="headerlink" href="#standalone-documentation" title="Permalink to this headline">¶</a></h3>
+<p>All standalone documentation should be written in plain text (<tt class="docutils literal"><span class="pre">.txt</span></tt>) files
+using <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> for markup and formatting. All such documentation
+should be placed in the top level directory <tt class="docutils literal"><span class="pre">docs</span></tt> of the IPython source
+tree. Or, when appropriate, a suitably named subdirectory should be used. The
+documentation in this location will serve as the main source for IPython
+documentation and all existing documentation should be converted to this
+format.</p>
+<p>In the future, the text files in the <tt class="docutils literal"><span class="pre">docs</span></tt> directory will be used to
+generate all forms of documentation for IPython. This include documentation on
+the IPython website as well as <em>pdf</em> documentation.</p>
+</div>
+<div class="section">
+<h3 id="docstring-format">Docstring format<a class="headerlink" href="#docstring-format" title="Permalink to this headline">¶</a></h3>
+<p>Good docstrings are very important. All new code will use <a class="reference" href="http://epydoc.sourceforge.net/">Epydoc</a> for
+generating API docs, so we will follow the <a class="reference" href="http://epydoc.sourceforge.net/">Epydoc</a> conventions. More
+specifically, we will use <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> for markup and formatting, since
+it is understood by a wide variety of tools. This means that if in the future
+we have any reason to change from <a class="reference" href="http://epydoc.sourceforge.net/">Epydoc</a> to something else, we&#8217;ll have fewer
+transition pains.</p>
+<p>Details about using <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> for docstrings can be found <a class="reference" href="http://epydoc.sourceforge.net/manual-othermarkup.html">here</a>.</p>
+<p>Additional PEPs of interest regarding documentation of code:</p>
+<ul class="simple">
+<li><a class="reference" href="http://www.python.org/peps/pep-0257.html">Docstring Conventions</a></li>
+<li><a class="reference" href="http://www.python.org/peps/pep-0256.html">Docstring Processing System Framework</a></li>
+<li><a class="reference" href="http://www.python.org/peps/pep-0258.html">Docutils Design Specification</a></li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h2 id="coding-conventions">Coding conventions<a class="headerlink" href="#coding-conventions" title="Permalink to this headline">¶</a></h2>
+<div class="section">
+<h3 id="general">General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h3>
+<p>In general, we&#8217;ll try to follow the standard Python style conventions as
+described here:</p>
+<ul class="simple">
+<li><a class="reference" href="http://www.python.org/peps/pep-0008.html">Style Guide for Python Code</a></li>
+</ul>
+<p>Other comments:</p>
+<ul class="simple">
+<li>In a large file, top level classes and functions should be
+separated by 2-3 lines to make it easier to separate them visually.</li>
+<li>Use 4 spaces for indentation.</li>
+<li>Keep the ordering of methods the same in classes that have the same
+methods.  This is particularly true for classes that implement
+similar interfaces and for interfaces that are similar.</li>
+</ul>
+</div>
+<div class="section">
+<h3 id="naming-conventions">Naming conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h3>
+<p>In terms of naming conventions, we&#8217;ll follow the guidelines from the <a class="reference" href="http://www.python.org/peps/pep-0008.html">Style
+Guide for Python Code</a>.</p>
+<p>For all new IPython code (and much existing code is being refactored), we&#8217;ll use:</p>
+<ul class="simple">
+<li>All <tt class="docutils literal"><span class="pre">lowercase</span></tt> module names.</li>
+<li><tt class="docutils literal"><span class="pre">CamelCase</span></tt> for class names.</li>
+<li><tt class="docutils literal"><span class="pre">lowercase_with_underscores</span></tt> for methods, functions, variables and
+attributes.</li>
+</ul>
+<p>This may be confusing as most of the existing IPython codebase uses a different
+convention (<tt class="docutils literal"><span class="pre">lowerCamelCase</span></tt> for methods and attributes).  Slowly, we will
+move IPython over to the new convention, providing shadow names for backward
+compatibility in public interfaces.</p>
+<p>There are, however, some important exceptions to these rules.  In some cases,
+IPython code will interface with packages (Twisted, Wx, Qt) that use other
+conventions.  At some level this makes it impossible to adhere to our own
+standards at all times.  In particular, when subclassing classes that use other
+naming conventions, you must follow their naming conventions.  To deal with
+cases like this, we propose the following policy:</p>
+<ul class="simple">
+<li>If you are subclassing a class that uses different conventions, use its
+naming conventions throughout your subclass.  Thus, if you are creating a
+Twisted Protocol class, used Twisted&#8217;s
+<tt class="docutils literal"><span class="pre">namingSchemeForMethodsAndAttributes.</span></tt></li>
+<li>All IPython&#8217;s official interfaces should use our conventions.  In some cases
+this will mean that you need to provide shadow names (first implement
+<tt class="docutils literal"><span class="pre">fooBar</span></tt> and then <tt class="docutils literal"><span class="pre">foo_bar</span> <span class="pre">=</span> <span class="pre">fooBar</span></tt>).  We want to avoid this at all
+costs, but it will probably be necessary at times.  But, please use this
+sparingly!</li>
+</ul>
+<p>Implementation-specific <em>private</em> methods will use
+<tt class="docutils literal"><span class="pre">_single_underscore_prefix</span></tt>.  Names with a leading double underscore will
+<em>only</em> be used in special cases, as they makes subclassing difficult (such
+names are not easily seen by child classes).</p>
+<p>Occasionally some run-in lowercase names are used, but mostly for very short
+names or where we are implementing methods very similar to existing ones in a
+base class (like <tt class="docutils literal"><span class="pre">runlines()</span></tt> where <tt class="docutils literal"><span class="pre">runsource()</span></tt> and <tt class="docutils literal"><span class="pre">runcode()</span></tt> had
+established precedent).</p>
+<p>The old IPython codebase has a big mix of classes and modules prefixed with an
+explicit <tt class="docutils literal"><span class="pre">IP</span></tt>. In Python this is mostly unnecessary, redundant and frowned
+upon, as namespaces offer cleaner prefixing. The only case where this approach
+is justified is for classes which are expected to be imported into external
+namespaces and a very generic name (like Shell) is too likely to clash with
+something else. We&#8217;ll need to revisit this issue as we clean up and refactor
+the code, but in general we should remove as many unnecessary <tt class="docutils literal"><span class="pre">IP</span></tt>/<tt class="docutils literal"><span class="pre">ip</span></tt>
+prefixes as possible. However, if a prefix seems absolutely necessary the more
+specific <tt class="docutils literal"><span class="pre">IPY</span></tt> or <tt class="docutils literal"><span class="pre">ipy</span></tt> are preferred.</p>
+</div>
+</div>
+<div class="section">
+<h2 id="testing-system"><span id="devel-testing"></span>Testing system<a class="headerlink" href="#testing-system" title="Permalink to this headline">¶</a></h2>
+<p>It is extremely important that all code contributed to IPython has tests. Tests
+should be written as unittests, doctests or as entities that the <a class="reference" href="http://code.google.com/p/python-nose/">Nose</a>
+testing package will find. Regardless of how the tests are written, we will use
+<a class="reference" href="http://code.google.com/p/python-nose/">Nose</a> for discovering and running the tests. <a class="reference" href="http://code.google.com/p/python-nose/">Nose</a> will be required to run
+the IPython test suite, but will not be required to simply use IPython.</p>
+<p>Tests of <a class="reference" href="http://www.twistedmatrix.com">Twisted</a> using code should be written by subclassing the
+<tt class="docutils literal"><span class="pre">TestCase</span></tt> class that comes with <tt class="docutils literal"><span class="pre">twisted.trial.unittest</span></tt>. When this is
+done, <a class="reference" href="http://code.google.com/p/python-nose/">Nose</a> will be able to run the tests and the twisted reactor will be
+handled correctly.</p>
+<p>Each subpackage in IPython should have its own <tt class="docutils literal"><span class="pre">tests</span></tt> directory that
+contains all of the tests for that subpackage. This allows each subpackage to
+be self-contained. If a subpackage has any dependencies beyond the Python
+standard library, the tests for that subpackage should be skipped if the
+dependencies are not found. This is very important so users don&#8217;t get tests
+failing simply because they don&#8217;t have dependencies.</p>
+<p>We also need to look into use Noses ability to tag tests to allow a more
+modular approach of running tests.</p>
+</div>
+<div class="section">
+<h2 id="configuration-system"><span id="devel-config"></span>Configuration system<a class="headerlink" href="#configuration-system" title="Permalink to this headline">¶</a></h2>
+<p>IPython uses <a class="reference" href="http://docs.python.org/lib/module-ConfigParser.html">.ini</a> files for configuration purposes. This represents a huge
+improvement over the configuration system used in IPython. IPython works with
+these files using the <a class="reference" href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj</a> package, which IPython includes as
+<tt class="docutils literal"><span class="pre">ipython1/external/configobj.py</span></tt>.</p>
+<p>Currently, we are using raw <a class="reference" href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj</a> objects themselves. Each subpackage of
+IPython should contain a <tt class="docutils literal"><span class="pre">config</span></tt> subdirectory that contains all of the
+configuration information for the subpackage. To see how configuration
+information is defined (along with defaults) see at the examples in
+<tt class="docutils literal"><span class="pre">ipython1/kernel/config</span></tt> and <tt class="docutils literal"><span class="pre">ipython1/core/config</span></tt>. Likewise, to see how
+the configuration information is used, see examples in
+<tt class="docutils literal"><span class="pre">ipython1/kernel/scripts/ipengine.py</span></tt>.</p>
+<p>Eventually, we will add a new layer on top of the raw <a class="reference" href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj</a> objects. We
+are calling this new layer, <tt class="docutils literal"><span class="pre">tconfig</span></tt>, as it will use a <a class="reference" href="http://code.enthought.com/traits/">Traits</a>-like
+validation model.  We won&#8217;t actually use <a class="reference" href="http://code.enthought.com/traits/">Traits</a>, but will implement
+something similar in pure Python.  But, even in this new system, we will still
+use <a class="reference" href="http://www.voidspace.org.uk/python/configobj.html">ConfigObj</a> and <a class="reference" href="http://docs.python.org/lib/module-ConfigParser.html">.ini</a> files underneath the hood. Talk to Fernando if you
+are interested in working on this part of IPython. The current prototype of
+<tt class="docutils literal"><span class="pre">tconfig</span></tt> is located in the IPython sandbox.</p>
+</div>
+<div class="section">
+<h2 id="installation-and-testing-scenarios">Installation and testing scenarios<a class="headerlink" href="#installation-and-testing-scenarios" title="Permalink to this headline">¶</a></h2>
+<p>This section outlines the various scenarios that we need to test before we
+release an IPython version.  These scenarios represent different ways of
+installing IPython and its dependencies.</p>
+<div class="section">
+<h3 id="installation-scenarios-under-linux-and-os-x">Installation scenarios under Linux and OS X<a class="headerlink" href="#installation-scenarios-under-linux-and-os-x" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">Install from tarball using <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt>.
+a.  With only readline+nose dependencies installed.
+b.  With all dependencies installed (readline, zope.interface, Twisted,
+foolscap, Sphinx, nose, pyOpenSSL).</p>
+</li>
+<li><p class="first">Install using easy_install.</p>
+<dl class="docutils">
+<dt>a.  With only readline+nose dependencies installed.</dt>
+<dd><p class="first last">i.  Default dependencies: <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">ipython-0.9.beta3-py2.5.egg</span></tt>
+ii. Optional dependency sets: <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">-f</span> <span class="pre">ipython-0.9.beta3-py2.5.egg</span> <span class="pre">IPython[kernel,doc,test,security]</span></tt></p>
+</dd>
+</dl>
+<p>b.  With all dependencies already installed.</p>
+</li>
+</ol>
+</blockquote>
+</div>
+<div class="section">
+<h3 id="installation-scenarios-under-win32">Installation scenarios under Win32<a class="headerlink" href="#installation-scenarios-under-win32" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<ol class="arabic simple">
+<li>Install everything from .exe installers</li>
+<li>easy_install?</li>
+</ol>
+</blockquote>
+</div>
+<div class="section">
+<h3 id="tests-to-run-for-these-scenarios">Tests to run for these scenarios<a class="headerlink" href="#tests-to-run-for-these-scenarios" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<ol class="arabic simple">
+<li>Run the full test suite.</li>
+<li>Start a controller and engines and try a few things by hand.
+a.  Using ipcluster.
+b.  Using ipcontroller/ipengine by hand.</li>
+<li>Run a few of the parallel examples.</li>
+<li>Try the kernel with and without security with and without PyOpenSSL
+installed.</li>
+<li>Beat on the IPython terminal a bunch.</li>
+<li>Make sure that furl files are being put in proper locations.</li>
+</ol>
+</blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">IPython development guidelines</a><ul>
+<li><a class="reference" href="#overview">Overview</a></li>
+<li><a class="reference" href="#project-organization">Project organization</a><ul>
+<li><a class="reference" href="#subpackages">Subpackages</a></li>
+<li><a class="reference" href="#installation-and-dependencies">Installation and dependencies</a></li>
+<li><a class="reference" href="#specific-subpackages">Specific subpackages</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#version-control">Version control</a></li>
+<li><a class="reference" href="#documentation">Documentation</a><ul>
+<li><a class="reference" href="#standalone-documentation">Standalone documentation</a></li>
+<li><a class="reference" href="#docstring-format">Docstring format</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#coding-conventions">Coding conventions</a><ul>
+<li><a class="reference" href="#general">General</a></li>
+<li><a class="reference" href="#naming-conventions">Naming conventions</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#testing-system">Testing system</a></li>
+<li><a class="reference" href="#configuration-system">Configuration system</a></li>
+<li><a class="reference" href="#installation-and-testing-scenarios">Installation and testing scenarios</a><ul>
+<li><a class="reference" href="#installation-scenarios-under-linux-and-os-x">Installation scenarios under Linux and OS X</a></li>
+<li><a class="reference" href="#installation-scenarios-under-win32">Installation scenarios under Win32</a></li>
+<li><a class="reference" href="#tests-to-run-for-these-scenarios">Tests to run for these scenarios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html" title="previous chapter">Development</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="roadmap.html" title="next chapter">Development roadmap</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/development/development.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="roadmap.html" title="Development roadmap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Development"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">IPython v0.9 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Sep 14, 2008.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.
+    </div>
+  </body>
+</html>
