@@ -63,6 +63,7 @@
 <li><a class="reference internal" href="#">Documenting IPython</a><ul>
 <li><a class="reference internal" href="#standalone-documentation">Standalone documentation</a></li>
 <li><a class="reference internal" href="#docstring-format">Docstring format</a></li>
+<li><a class="reference internal" href="#building-and-uploading">Building and uploading</a></li>
 </ul>
 </li>
 </ul>
@@ -211,6 +212,29 @@ docutils (the machinery to process reStructuredText):</p>
 epydoc conventions.  We will update them as we go, but all new code should
 be documented using the NumPy standard.</p>
 </div>
+</div>
+<div class="section" id="building-and-uploading">
+<h2>Building and uploading<a class="headerlink" href="#building-and-uploading" title="Permalink to this headline">¶</a></h2>
+<p>The built docs are stored in a separate repository. Through some github magic,
+they&#8217;re automatically exposed as a website. It works like this:</p>
+<ul class="simple">
+<li>You will need to have sphinx and latex installed. In Ubuntu, install
+<tt class="docutils literal"><span class="pre">texlive-latex-recommended</span> <span class="pre">texlive-latex-extra</span> <span class="pre">texlive-fonts-recommended</span></tt>.
+Install the latest version of sphinx from PyPI (<tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">sphinx</span></tt>).</li>
+<li>Ensure that the development version of IPython is the first in your system
+path. You can either use a virtualenv, or modify your PYTHONPATH.</li>
+<li>Switch into the docs directory, and run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">gh-pages</span></tt>. This will build
+your updated docs as html and pdf, then automatically check out the latest
+version of the docs repository, copy the built docs into it, and commit your
+changes.</li>
+<li>Open the built docs in a web browser, and check that they&#8217;re as expected.</li>
+<li>(If rebuilding the docs for the development version, it may have duplicated
+the link to the development version in the homepage. Remove this from
+index.rst, then run <tt class="docutils literal"><span class="pre">python</span> <span class="pre">build_index.py</span></tt> to update index.html. Commit the
+change.)</li>
+<li>Upload the docs with <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt>. This only works if you have write access to
+the docs repository.</li>
+</ul>
 <table class="docutils citation" frame="void" id="restructuredtext" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
