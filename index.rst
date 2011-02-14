@@ -12,6 +12,7 @@ Official IPython Documentation
 Our Main Manual:
 
 .. release
+* Release (dev): `HTML <dev/index.html>`_ and `PDF <dev/ipython.pdf>`_.
 * Current Development Version (0.11.dev): `HTML <dev/index.html>`_ and `PDF <dev/ipython.pdf>`_.
 * Current Stable Version (0.10.1): `HTML <stable/html/index.html>`_ and `PDF <stable/ipython.pdf>`_.
 

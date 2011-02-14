@@ -120,13 +120,27 @@
 <h3><a class="reference internal" href="#IPython.core.history.HistoryManager" title="IPython.core.history.HistoryManager"><tt class="xref py py-class docutils literal"><span class="pre">HistoryManager</span></tt></a><a class="headerlink" href="#historymanager" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.history.HistoryManager">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryManager</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryManager</tt><big>(</big><em>shell</em>, <em>load_history=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>A class to organize all history-related functionality in one place.</p>
 <dl class="method">
 <dt id="IPython.core.history.HistoryManager.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>load_history=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new history manager associated with a shell instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>load_history: bool, optional</strong> :</p>
+<blockquote class="last">
+<div><p>If True, history will be loaded from file, and the session
+offset set, so that the next line entered can be retrieved
+as #1.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -147,7 +161,7 @@ this way so that the save takes place in the main thread.</p>
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>index</strong> : n or (n1, n2) or None</p>
 <blockquote>
-<div><p>If n, then the last entries. If a tuple, then all in
+<div><p>If n, then the last n entries. If a tuple, then all in
 range(n1, n2). If None, then all entries. Raises IndexError if
 the format of index is incorrect.</p>
 </div></blockquote>
@@ -163,8 +177,7 @@ the format of index is incorrect.</p>
 </tr>
 <tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If output is True, then return a dict of tuples, keyed by the prompt</strong> :</p>
 <p><strong>numbers and with values of (input, output). If output is False, then</strong> :</p>
-<p><strong>a dict, keyed by the prompt number with the values of input. Raises</strong> :</p>
-<p class="last"><strong>IndexError if no history is found.</strong> :</p>
+<p class="last"><strong>a dict, keyed by the prompt number with the values of input.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -356,12 +369,6 @@ thread issues.</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="IPython.core.history.magic_hist">
-<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_hist</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_hist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alternate name for %history.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="IPython.core.history.magic_history">
 <tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_history</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
@@ -460,7 +467,7 @@ in %macro and %save.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 10, 2011.
+      Last updated on Feb 14, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
