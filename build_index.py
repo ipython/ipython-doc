@@ -18,7 +18,12 @@ autotitle='<h1 class="title">IPython</h1>'
 logotitle='<h1 class="title"><a href="http://github.com/ipython"><img src="logo-50.png" id="logo"/>IPython</a></h1>'
 
 def main():
-    html = sh2('rst2html.py index.rst --stylesheet style.css -q')
+    try:
+        sh2("rst2html.py -h")
+        rst2html = "rst2html.py"
+    except CalledProcessError:
+        rst2html = "rst2html"
+    html = sh2(rst2html +' index.rst --stylesheet style.css -q')
     html = html.replace(autotitle, logotitle)
     with open('index.html', 'w') as f:
         f.write(html)
