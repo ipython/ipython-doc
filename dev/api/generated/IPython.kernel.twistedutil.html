@@ -170,7 +170,7 @@ and an errback.</p>
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.addCallbacks">
 <tt class="descname">addCallbacks</tt><big>(</big><em>callback</em>, <em>errback=None</em>, <em>callbackArgs=None</em>, <em>callbackKeywords=None</em>, <em>errbackArgs=None</em>, <em>errbackKeywords=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.addCallbacks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a pair of callbacks (success and error) to this L{Deferred}.</p>
+<dd><p>Add a pair of callbacks (success and error) to this Deferred.</p>
 <p>These will be executed when the &#8216;master&#8217; callback is run.</p>
 </dd></dl>
 
@@ -184,34 +184,20 @@ and an errback.</p>
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.callback">
 <tt class="descname">callback</tt><big>(</big><em>result</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run all success callbacks that have been added to this L{Deferred}.</p>
-<p>Each callback will have its result passed as the first argument to
-the next; this way, the callbacks act as a &#8216;processing chain&#8217;.  If
-the success-callback returns a L{Failure} or raises an L{Exception},
-processing will continue on the <em>error</em> callback chain.  If a
-callback (or errback) returns another L{Deferred}, this L{Deferred}
-will be chained to it (and further callbacks will not run until that
-L{Deferred} has a result).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.kernel.twistedutil.DeferredList.cancel">
-<tt class="descname">cancel</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.cancel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cancel this L{Deferred}.</p>
-<p>If the L{Deferred} has not yet had its C{errback} or C{callback} method
-invoked, call the canceller function provided to the constructor. If
-that function does not invoke C{callback} or C{errback}, or if no
-canceller function was provided, errback with L{CancelledError}.</p>
-<p>If this L{Deferred} is waiting on another L{Deferred}, forward the
-cancellation to the other L{Deferred}.</p>
+<dd><p>Run all success callbacks that have been added to this Deferred.</p>
+<p>Each callback will have its result passed as the first
+argument to the next; this way, the callbacks act as a
+&#8216;processing chain&#8217;. Also, if the success-callback returns a Failure
+or raises an Exception, processing will continue on the <em>error</em>-
+callback chain.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.chainDeferred">
 <tt class="descname">chainDeferred</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.chainDeferred" title="Permalink to this definition">¶</a></dt>
-<dd><p>Chain another L{Deferred} to this L{Deferred}.</p>
-<p>This method adds callbacks to this L{Deferred} to call C{d}&#8217;s callback
-or errback, as appropriate. It is merely a shorthand way of performing
+<dd><p>Chain another Deferred to this Deferred.</p>
+<p>This method adds callbacks to this Deferred to call d&#8217;s callback or
+errback, as appropriate. It is merely a shorthand way of performing
 the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">addCallbacks</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">callback</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">errback</span><span class="p">)</span>
 </pre></div>
@@ -226,16 +212,15 @@ affected.</p>
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.errback">
 <tt class="descname">errback</tt><big>(</big><em>fail=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.errback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run all error callbacks that have been added to this L{Deferred}.</p>
+<dd><p>Run all error callbacks that have been added to this Deferred.</p>
 <p>Each callback will have its result passed as the first
 argument to the next; this way, the callbacks act as a
 &#8216;processing chain&#8217;. Also, if the error-callback returns a non-Failure
-or doesn&#8217;t raise an L{Exception}, processing will continue on the
+or doesn&#8217;t raise an Exception, processing will continue on the
 <em>success</em>-callback chain.</p>
-<p>If the argument that&#8217;s passed to me is not a L{failure.Failure} instance,
-it will be embedded in one. If no argument is passed, a
-L{failure.Failure} instance will be created based on the current
-traceback stack.</p>
+<p>If the argument that&#8217;s passed to me is not a failure.Failure instance,
+it will be embedded in one. If no argument is passed, a failure.Failure
+instance will be created based on the current traceback stack.</p>
 <p>Passing a string as <a href="#id1"><span class="problematic" id="id2">`</span></a>fail&#8217; is deprecated, and will be punished with
 a warning message.</p>
 <dl class="docutils">
@@ -247,17 +232,17 @@ a warning message.</p>
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.pause">
 <tt class="descname">pause</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.pause" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop processing on a L{Deferred} until L{unpause}() is called.</p>
+<dd><p>Stop processing on a Deferred until L{unpause}() is called.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.kernel.twistedutil.DeferredList.setTimeout">
-<tt class="descname">setTimeout</tt><big>(</big><em>seconds</em>, <em>timeoutFunc=&lt;function timeout at 0xbf7edbc&gt;</em>, <em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.setTimeout" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">setTimeout</tt><big>(</big><em>seconds</em>, <em>timeoutFunc=&lt;function timeout at 0x10878bb18&gt;</em>, <em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.kernel.twistedutil.DeferredList.setTimeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a timeout function to be triggered if I am not called.</p>
 <p>&#64;param seconds: How long to wait (from now) before firing the
-C{timeoutFunc}.</p>
-<p>&#64;param timeoutFunc: will receive the L{Deferred} and <a href="#id3"><span class="problematic" id="id4">*</span></a>args, <a href="#id5"><span class="problematic" id="id6">**</span></a>kw as its
-arguments.  The default C{timeoutFunc} will call the errback with a
+timeoutFunc.</p>
+<p>&#64;param timeoutFunc: will receive the Deferred and <a href="#id3"><span class="problematic" id="id4">*</span></a>args, <a href="#id5"><span class="problematic" id="id6">**</span></a>kw as its
+arguments.  The default timeoutFunc will call the errback with a
 L{TimeoutError}.</p>
 </dd></dl>
 
