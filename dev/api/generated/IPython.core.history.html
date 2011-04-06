@@ -62,12 +62,8 @@
   <ul>
 <li><a class="reference internal" href="#">core.history</a><ul>
 <li><a class="reference internal" href="#module-core-history">Module: <tt class="docutils literal"><span class="pre">core.history</span></tt></a></li>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#class">Class</a></li>
 <li><a class="reference internal" href="#historymanager"><tt class="docutils literal"><span class="pre">HistoryManager</span></tt></a></li>
-<li><a class="reference internal" href="#historysavethread"><tt class="docutils literal"><span class="pre">HistorySaveThread</span></tt></a></li>
-<li><a class="reference internal" href="#shadowhist"><tt class="docutils literal"><span class="pre">ShadowHist</span></tt></a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 </ul>
 </li>
@@ -114,57 +110,110 @@
 </map>
 <span class="target" id="module-IPython.core.history"></span><p>History related magics and functionality</p>
 </div>
-<div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class">
+<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="historymanager">
-<h3><a class="reference internal" href="#IPython.core.history.HistoryManager" title="IPython.core.history.HistoryManager"><tt class="xref py py-class docutils literal"><span class="pre">HistoryManager</span></tt></a><a class="headerlink" href="#historymanager" title="Permalink to this headline">¶</a></h3>
+<h2><a class="reference internal" href="#IPython.core.history.HistoryManager" title="IPython.core.history.HistoryManager"><tt class="xref py py-class docutils literal"><span class="pre">HistoryManager</span></tt></a><a class="headerlink" href="#historymanager" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.history.HistoryManager">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryManager</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryManager</tt><big>(</big><em>shell</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></p>
 <p>A class to organize all history-related functionality in one place.</p>
 <dl class="method">
 <dt id="IPython.core.history.HistoryManager.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new history manager associated with a shell instance.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="IPython.core.history.HistoryManager.autosave_if_due">
-<tt class="descname">autosave_if_due</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.autosave_if_due" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if the autosave event is set; if so, save history. We do it 
-this way so that the save takes place in the main thread.</p>
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.db">
+<tt class="descname">db</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.db" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.db_cache_size">
+<tt class="descname">db_cache_size</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.db_cache_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.db_input_cache">
+<tt class="descname">db_input_cache</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.db_input_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.db_log_output">
+<tt class="descname">db_log_output</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.db_log_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.db_output_cache">
+<tt class="descname">db_output_cache</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.db_output_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.dir_hist">
+<tt class="descname">dir_hist</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.dir_hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.history.HistoryManager.get_history">
-<tt class="descname">get_history</tt><big>(</big><em>index=None</em>, <em>raw=False</em>, <em>output=True</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the history list.</p>
-<p>Get the input and output history.</p>
+<dt id="IPython.core.history.HistoryManager.end_session">
+<tt class="descname">end_session</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.end_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the database session, filling in the end time and line count.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.get_range">
+<tt class="descname">get_range</tt><big>(</big><em>session=0</em>, <em>start=1</em>, <em>stop=None</em>, <em>raw=True</em>, <em>output=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve input by session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>index</strong> : n or (n1, n2) or None</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
-<div><p>If n, then the last entries. If a tuple, then all in
-range(n1, n2). If None, then all entries. Raises IndexError if
-the format of index is incorrect.</p>
+<div><p>Session number to retrieve. The current session is 0, and negative
+numbers count back from current session, so -1 is previous session.</p>
+</div></blockquote>
+<p><strong>start</strong> : int</p>
+<blockquote>
+<div><p>First line to retrieve.</p>
+</div></blockquote>
+<p><strong>stop</strong> : int</p>
+<blockquote>
+<div><p>End of line range (excluded from output itself). If None, retrieve
+to the end of the session.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
 <blockquote>
-<div><p>If True, return the raw input.</p>
+<div><p>If True, return untranslated input</p>
 </div></blockquote>
 <p><strong>output</strong> : bool</p>
 <blockquote>
-<div><p>If True, then return the output as well.</p>
+<div><p>If True, attempt to include output. This will be &#8216;real&#8217; Python
+objects for the current session, or text reprs from previous
+sessions if db_log_output was enabled at the time. Where no output
+is found, None is used.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If output is True, then return a dict of tuples, keyed by the prompt</strong> :</p>
-<p><strong>numbers and with values of (input, output). If output is False, then</strong> :</p>
-<p><strong>a dict, keyed by the prompt number with the values of input. Raises</strong> :</p>
-<p class="last"><strong>IndexError if no history is found.</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An iterator over the desired lines. Each line is a 3-tuple, either</strong> :</p>
+<p><strong>(session, line, input) if output is False, or</strong> :</p>
+<p class="last"><strong>(session, line, (input, output)) if output is True.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -172,42 +221,213 @@ the format of index is incorrect.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.history.HistoryManager.populate_readline_history">
-<tt class="descname">populate_readline_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.populate_readline_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Populate the readline history from the raw history.</p>
-<p>We only store one copy of the raw history, which is persisted to a json
-file on disk.  The readline history is repopulated from the contents of
-this file.</p>
+<dt id="IPython.core.history.HistoryManager.get_range_by_str">
+<tt class="descname">get_range_by_str</tt><big>(</big><em>rangestr</em>, <em>raw=True</em>, <em>output=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_range_by_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get lines of history from a string of ranges, as used by magic
+commands %hist, %save, %macro, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rangestr</strong> : str</p>
+<blockquote>
+<div><p>A string specifying ranges, e.g. &#8220;5 ~2/1-4&#8221;. See
+<a class="reference internal" href="#IPython.core.history.magic_history" title="IPython.core.history.magic_history"><tt class="xref py py-func docutils literal"><span class="pre">magic_history()</span></tt></a> for full details.</p>
+</div></blockquote>
+<p><strong>raw, output</strong> : bool</p>
+<blockquote>
+<div><p>As <a class="reference internal" href="#IPython.core.history.HistoryManager.get_range" title="IPython.core.history.HistoryManager.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.history.HistoryManager.reload_history">
-<tt class="descname">reload_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.reload_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reload the input history from disk file.</p>
+<dt id="IPython.core.history.HistoryManager.get_tail">
+<tt class="descname">get_tail</tt><big>(</big><em>n=10</em>, <em>raw=True</em>, <em>output=False</em>, <em>include_latest=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_tail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the last n lines from the history database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<blockquote>
+<div><p>The number of lines to get</p>
+</div></blockquote>
+<p><strong>raw, output</strong> : bool</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="#IPython.core.history.HistoryManager.get_range" title="IPython.core.history.HistoryManager.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+</div></blockquote>
+<p><strong>include_latest</strong> : bool</p>
+<blockquote>
+<div><p>If False (default), n+1 lines are fetched, and the latest one
+is discarded. This is intended to be used where the function
+is called by a user command, which it should not return.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.hist_file">
+<tt class="descname">hist_file</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.hist_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.init_db">
+<tt class="descname">init_db</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.init_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to the database, and create tables if necessary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.input_hist_parsed">
+<tt class="descname">input_hist_parsed</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.input_hist_parsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.input_hist_raw">
+<tt class="descname">input_hist_raw</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.input_hist_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.name_session">
+<tt class="descname">name_session</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.name_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Give the current session a name in the history database.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.new_session">
+<tt class="descname">new_session</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.new_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a new session number.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.output_hist">
+<tt class="descname">output_hist</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.output_hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.output_hist_reprs">
+<tt class="descname">output_hist_reprs</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.output_hist_reprs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.history.HistoryManager.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clear all histories managed by this object.</p>
+<tt class="descname">reset</tt><big>(</big><em>new_session=True</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the session history, releasing all object references, and
+optionally open a new session.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.history.HistoryManager.save_history">
-<tt class="descname">save_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.save_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save input history to a file (via readline library).</p>
+<dt id="IPython.core.history.HistoryManager.search">
+<tt class="descname">search</tt><big>(</big><em>pattern='*'</em>, <em>raw=True</em>, <em>search_raw=True</em>, <em>output=False</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the database using unix glob-style matching (wildcards
+* and ?).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pattern</strong> : str</p>
+<blockquote>
+<div><p>The wildcarded pattern to match when searching</p>
+</div></blockquote>
+<p><strong>search_raw</strong> : bool</p>
+<blockquote>
+<div><p>If True, search the raw input, otherwise, the parsed input</p>
+</div></blockquote>
+<p><strong>raw, output</strong> : bool</p>
+<blockquote>
+<div><p>See <a class="reference internal" href="#IPython.core.history.HistoryManager.get_range" title="IPython.core.history.HistoryManager.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.session_number">
+<tt class="descname">session_number</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.session_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.shell">
+<tt class="descname">shell</tt><a class="headerlink" href="#IPython.core.history.HistoryManager.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.history.HistoryManager.store_inputs">
-<tt class="descname">store_inputs</tt><big>(</big><em>source</em>, <em>source_raw=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.store_inputs" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">store_inputs</tt><big>(</big><em>line_num</em>, <em>source</em>, <em>source_raw=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.store_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store source and raw input in history and create input cache
 variables _i*.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>source</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
+<blockquote>
+<div><p>The prompt number of this input.</p>
+</div></blockquote>
+<p><strong>source</strong> : str</p>
 <blockquote>
 <div><p>Python input.</p>
 </div></blockquote>
@@ -223,143 +443,73 @@ applied to it.  If not given, <tt class="docutils literal"><span class="pre">sou
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.history.HistoryManager.sync_inputs">
-<tt class="descname">sync_inputs</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.sync_inputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Ensure raw and translated histories have same length.</p>
+<dt id="IPython.core.history.HistoryManager.store_output">
+<tt class="descname">store_output</tt><big>(</big><em>line_num</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.store_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>If database output logging is enabled, this saves all the
+outputs from the indicated prompt number to the database. It&#8217;s
+called by run_cell after code has been executed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
+<blockquote class="last">
+<div><p>The line number from which to save outputs</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryManager.writeout_cache">
+<tt class="descname">writeout_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.writeout_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write any entries in the cache to the database.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-<div class="section" id="historysavethread">
-<h3><a class="reference internal" href="#IPython.core.history.HistorySaveThread" title="IPython.core.history.HistorySaveThread"><tt class="xref py py-class docutils literal"><span class="pre">HistorySaveThread</span></tt></a><a class="headerlink" href="#historysavethread" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.history.HistorySaveThread">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistorySaveThread</tt><big>(</big><em>autosave_flag</em>, <em>time_interval=60</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></p>
-<p>This thread makes IPython save history periodically.</p>
-<p>Without this class, IPython would only save the history on a clean exit.
-This saves the history periodically (the current default is once per
-minute), so that it is not lost in the event of a crash.</p>
-<p>The implementation sets an event to indicate that history should be saved.
-The actual save is carried out after executing a user command, to avoid
-thread issues.</p>
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>autosave_flag</em>, <em>time_interval=60</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.getName">
-<tt class="descname">getName</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.getName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.history.HistorySaveThread.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.core.history.HistorySaveThread.ident" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.isAlive">
-<tt class="descname">isAlive</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.isAlive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.isDaemon">
-<tt class="descname">isDaemon</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.isDaemon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.is_alive">
-<tt class="descname">is_alive</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.is_alive" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.join">
-<tt class="descname">join</tt><big>(</big><em>timeout=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.join" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.history.HistorySaveThread.name">
-<tt class="descname">name</tt><a class="headerlink" href="#IPython.core.history.HistorySaveThread.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.setDaemon">
-<tt class="descname">setDaemon</tt><big>(</big><em>daemonic</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.setDaemon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.setName">
-<tt class="descname">setName</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.setName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.start">
-<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.start" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.HistorySaveThread.stop">
-<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySaveThread.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Safely and quickly stop the autosave timer thread.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="shadowhist">
-<h3><a class="reference internal" href="#IPython.core.history.ShadowHist" title="IPython.core.history.ShadowHist"><tt class="xref py py-class docutils literal"><span class="pre">ShadowHist</span></tt></a><a class="headerlink" href="#shadowhist" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.history.ShadowHist">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">ShadowHist</tt><big>(</big><em>db</em>, <em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<dl class="method">
-<dt id="IPython.core.history.ShadowHist.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>db</em>, <em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.ShadowHist.add">
-<tt class="descname">add</tt><big>(</big><em>ent</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.ShadowHist.all">
-<tt class="descname">all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.all" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.ShadowHist.get">
-<tt class="descname">get</tt><big>(</big><em>idx</em><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.history.ShadowHist.inc_idx">
-<tt class="descname">inc_idx</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.ShadowHist.inc_idx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="IPython.core.history.extract_hist_ranges">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">extract_hist_ranges</tt><big>(</big><em>ranges_str</em><big>)</big><a class="headerlink" href="#IPython.core.history.extract_hist_ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn a string of history ranges into 3-tuples of (session, start, stop).</p>
+<p class="rubric">Examples</p>
+<p>list(extract_input_ranges(&#8220;~8/5-~7/4 2&#8221;))
+[(-8, 5, None), (-7, 1, 4), (0, 2, 3)]</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.core.history.init_ipython">
 <tt class="descclassname">IPython.core.history.</tt><tt class="descname">init_ipython</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#IPython.core.history.init_ipython" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="IPython.core.history.magic_hist">
-<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_hist</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_hist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alternate name for %history.</p>
-</dd></dl>
 
 <dl class="function">
 <dt id="IPython.core.history.magic_history">
@@ -367,10 +517,17 @@ thread issues.</p>
 <dd><p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
 <p>%history       -&gt; print at most 40 inputs (some may be multi-line)%history n     -&gt; print at most n inputs%history n1 n2 -&gt; print inputs between n1 and n2 (n2 not included)</p>
 <p>By default, input history is printed without line numbers so it can be
-directly pasted into an editor.</p>
-<p>With -n, each input&#8217;s number &lt;n&gt; is shown, and is accessible as the
-automatically generated variable _i&lt;n&gt; as well as In[&lt;n&gt;].  Multi-line
-statements are printed starting at a new line for easy copy/paste.</p>
+directly pasted into an editor. Use -n to show them.</p>
+<p>Ranges of history can be indicated using the syntax:
+4      : Line 4, current session
+4-6    : Lines 4-6, current session
+243/1-5: Lines 1-5, session 243
+~2/7   : Line 7, session 2 before current
+~8/1-~6/5 : From the first line of 8 sessions ago, to the fifth line</p>
+<blockquote>
+<div>of 6 sessions ago.</div></blockquote>
+<p>Multiple ranges can be entered, separated by spaces</p>
+<p>The same syntax is used by %macro, %save, %edit, %rerun</p>
 <p>Options:</p>
 <blockquote>
 <div><p>-n: print line numbers for each input.
@@ -389,20 +546,26 @@ calls, for example). With this option, you&#8217;ll see the native history
 instead of the user-entered version: &#8216;%cd /&#8217; will be seen as
 &#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead of &#8216;%cd /&#8217;.</p>
 <p>-g: treat the arg as a pattern to grep for in (full) history.
-This includes the &#8220;shadow history&#8221; (almost all commands ever written).
-Use &#8216;%hist -g&#8217; to show full shadow history (may be very long).
-In shadow history, every index nuwber starts with 0.</p>
+This includes the saved history (almost all commands ever written).
+Use &#8216;%hist -g&#8217; to show full saved history (may be very long).</p>
+<p>-l: get the last n lines from all sessions. Specify n as a single arg, or
+the default is the last 10 lines.</p>
 <dl class="docutils">
 <dt>-f FILENAME: instead of printing the output to the screen, redirect it to</dt>
 <dd>the given file.  The file is always overwritten, though IPython asks for
 confirmation first if it already exists.</dd>
 </dl>
 </div></blockquote>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [6]: %hist -n 4 6
+4:a = 12
+5:print a**2</pre>
+</div>
 </dd></dl>
 
 <dl class="function">
-<dt id="IPython.core.history.rep_f">
-<tt class="descclassname">IPython.core.history.</tt><tt class="descname">rep_f</tt><big>(</big><em>self</em>, <em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.history.rep_f" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.history.magic_rep">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_rep</tt><big>(</big><em>self</em>, <em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_rep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Repeat a command, or get command to input line for editing</p>
 <ul class="simple">
 <li>%rep (no arguments):</li>
@@ -410,21 +573,37 @@ confirmation first if it already exists.</dd>
 <p>Place a string version of last computation result (stored in the special &#8216;_&#8217;
 variable) to the next input prompt. Allows you to create elaborate command
 lines without using copy-paste:</p>
-<div class="highlight-python"><pre>$ l = ["hei", "vaan"]       
-$ "".join(l)        
-==&gt; heivaan        
-$ %rep        
-$ heivaan_ &lt;== cursor blinking    </pre>
+<div class="highlight-python"><pre> In[1]: l = ["hei", "vaan"]
+ In[2]: "".join(l)
+Out[2]: heivaan
+ In[3]: %rep
+ In[4]: heivaan_ &lt;== cursor blinking</pre>
 </div>
 <p>%rep 45</p>
-<p>Place history line 45 to next input prompt. Use %hist to find out the
-number.</p>
-<p>%rep 1-4 6-7 3</p>
-<p>Repeat the specified lines immediately. Input slice syntax is the same as
-in %macro and %save.</p>
-<p>%rep foo</p>
-<p>Place the most recent line that has the substring &#8220;foo&#8221; to next input.
-(e.g. &#8216;svn ci -m foobar&#8217;).</p>
+<p>Place history line 45 on the next input prompt. Use %hist to find
+out the number.</p>
+<p>%rep 1-4</p>
+<p>Combine the specified lines into one cell, and place it on the next
+input prompt. See %history for the slice syntax.</p>
+<p>%rep foo+bar</p>
+<p>If foo+bar can be evaluated in the user namespace, the result is
+placed at the next input prompt. Otherwise, the history is searched
+for lines which contain that substring, and the most recent one is
+placed at the next input prompt.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.history.magic_rerun">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">magic_rerun</tt><big>(</big><em>self</em>, <em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.history.magic_rerun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-run previous input</p>
+<p>By default, you can specify ranges of input history to be repeated
+(as with %history). With no arguments, it will repeat the last line.</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-l &lt;n&gt; : Repeat the last n lines of input, not including the
+current command.</p>
+<p>-g foo : Repeat the most recent line which contains foo</p>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -460,7 +639,7 @@ in %macro and %save.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 14, 2011.
+      Last updated on Apr 06, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

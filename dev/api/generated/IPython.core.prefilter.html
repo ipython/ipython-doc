@@ -78,6 +78,8 @@
 <li><a class="reference internal" href="#ipyautocallchecker"><tt class="docutils literal"><span class="pre">IPyAutocallChecker</span></tt></a></li>
 <li><a class="reference internal" href="#ipyprompttransformer"><tt class="docutils literal"><span class="pre">IPyPromptTransformer</span></tt></a></li>
 <li><a class="reference internal" href="#lineinfo"><tt class="docutils literal"><span class="pre">LineInfo</span></tt></a></li>
+<li><a class="reference internal" href="#macrochecker"><tt class="docutils literal"><span class="pre">MacroChecker</span></tt></a></li>
+<li><a class="reference internal" href="#macrohandler"><tt class="docutils literal"><span class="pre">MacroHandler</span></tt></a></li>
 <li><a class="reference internal" href="#magichandler"><tt class="docutils literal"><span class="pre">MagicHandler</span></tt></a></li>
 <li><a class="reference internal" href="#multilinemagicchecker"><tt class="docutils literal"><span class="pre">MultiLineMagicChecker</span></tt></a></li>
 <li><a class="reference internal" href="#prefilterchecker"><tt class="docutils literal"><span class="pre">PrefilterChecker</span></tt></a></li>
@@ -1806,6 +1808,232 @@ without worrying about <em>further</em> damaging state.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="macrochecker">
+<h3><a class="reference internal" href="#IPython.core.prefilter.MacroChecker" title="IPython.core.prefilter.MacroChecker"><tt class="xref py py-class docutils literal"><span class="pre">MacroChecker</span></tt></a><a class="headerlink" href="#macrochecker" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prefilter.MacroChecker">
+<em class="property">class </em><tt class="descclassname">IPython.core.prefilter.</tt><tt class="descname">MacroChecker</tt><big>(</big><em>shell=None</em>, <em>prefilter_manager=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.prefilter.PrefilterChecker" title="IPython.core.prefilter.PrefilterChecker"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.prefilter.PrefilterChecker</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>prefilter_manager=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.check">
+<tt class="descname">check</tt><big>(</big><em>line_info</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.enabled">
+<tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.prefilter_manager">
+<tt class="descname">prefilter_manager</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.prefilter_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.priority">
+<tt class="descname">priority</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.shell">
+<tt class="descname">shell</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="macrohandler">
+<h3><a class="reference internal" href="#IPython.core.prefilter.MacroHandler" title="IPython.core.prefilter.MacroHandler"><tt class="xref py py-class docutils literal"><span class="pre">MacroHandler</span></tt></a><a class="headerlink" href="#macrohandler" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prefilter.MacroHandler">
+<em class="property">class </em><tt class="descclassname">IPython.core.prefilter.</tt><tt class="descname">MacroHandler</tt><big>(</big><em>shell=None</em>, <em>prefilter_manager=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.prefilter.PrefilterHandler" title="IPython.core.prefilter.PrefilterHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.prefilter.PrefilterHandler</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>prefilter_manager=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.esc_strings">
+<tt class="descname">esc_strings</tt><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.esc_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.handle">
+<tt class="descname">handle</tt><big>(</big><em>line_info</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.handle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.handler_name">
+<tt class="descname">handler_name</tt><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.handler_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.prefilter_manager">
+<tt class="descname">prefilter_manager</tt><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.prefilter_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.shell">
+<tt class="descname">shell</tt><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="magichandler">
 <h3><a class="reference internal" href="#IPython.core.prefilter.MagicHandler" title="IPython.core.prefilter.MagicHandler"><tt class="xref py py-class docutils literal"><span class="pre">MagicHandler</span></tt></a><a class="headerlink" href="#magichandler" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -3169,7 +3397,7 @@ than ifun, because it can not contain a &#8216;.&#8217; character.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 14, 2011.
+      Last updated on Apr 06, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

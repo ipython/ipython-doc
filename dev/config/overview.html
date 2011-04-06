@@ -327,7 +327,7 @@ it doesn&#8217;t know anything about the <tt class="xref py py-attr docutils lit
 </ul>
 </div>
 <div class="section" id="configuration-file-location">
-<h2>Configuration file location<a class="headerlink" href="#configuration-file-location" title="Permalink to this headline">¶</a></h2>
+<span id="ipython-dir"></span><h2>Configuration file location<a class="headerlink" href="#configuration-file-location" title="Permalink to this headline">¶</a></h2>
 <p>So where should you put your configuration files?  By default, all IPython
 applications look in the so called &#8220;IPython directory&#8221;.  The location of
 this directory is determined by the following algorithm:</p>
@@ -335,11 +335,18 @@ this directory is determined by the following algorithm:</p>
 <li>If the <tt class="docutils literal"><span class="pre">--ipython-dir</span></tt> command line flag is given, its value is used.</li>
 <li>If not, the value returned by <a class="reference internal" href="../api/generated/IPython.utils.path.html#IPython.utils.path.get_ipython_dir" title="IPython.utils.path.get_ipython_dir"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.path.get_ipython_dir()</span></tt></a>
 is used. This function will first look at the <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">IPYTHON_DIR</span></tt>
-environment variable and then default to the directory
-<tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>.</li>
+environment variable and then default to a platform-specific default.</li>
 </ul>
+<p>On posix systems (Linux, Unix, etc.), IPython respects the <tt class="docutils literal"><span class="pre">$XDG_CONFIG_HOME</span></tt>
+part of the <a class="reference external" href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">XDG Base Directory</a> specification. If <tt class="docutils literal"><span class="pre">$XDG_CONFIG_HOME</span></tt> is
+defined and exists ( <tt class="docutils literal"><span class="pre">XDG_CONFIG_HOME</span></tt> has a default interpretation of
+<tt class="file docutils literal"><span class="pre">$HOME/.config</span></tt>), then IPython&#8217;s config directory will be located in
+<tt class="file docutils literal"><span class="pre">$XDG_CONFIG_HOME/ipython</span></tt>.  If users still have an IPython directory
+in <tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>, then that will be used. in preference to the
+system default.</p>
 <p>For most users, the default value will simply be something like
-<tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>.</p>
+<tt class="file docutils literal"><span class="pre">$HOME/.config/ipython</span></tt> on Linux, or <tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>
+elsewhere.</p>
 <p>Once the location of the IPython directory has been determined, you need to
 know what filename to use for the configuration file. The basic idea is that
 each application has its own default configuration filename. The default named
@@ -435,7 +442,7 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 14, 2011.
+      Last updated on Apr 06, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

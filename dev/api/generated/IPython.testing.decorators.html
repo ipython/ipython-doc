@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="testing.decorators_trial" href="IPython.testing.decorators_trial.html" />
+    <link rel="next" title="testing.globalipapp" href="IPython.testing.globalipapp.html" />
     <link rel="prev" title="testing" href="IPython.testing.html" /> 
   </head>
   <body>
@@ -43,7 +43,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.testing.decorators_trial.html" title="testing.decorators_trial"
+          <a href="IPython.testing.globalipapp.html" title="testing.globalipapp"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.testing.html" title="testing"
@@ -74,8 +74,8 @@
   <p class="topless"><a href="IPython.testing.html"
                         title="previous chapter">testing</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.testing.decorators_trial.html"
-                        title="next chapter">testing.decorators_trial</a></p>
+  <p class="topless"><a href="IPython.testing.globalipapp.html"
+                        title="next chapter">testing.globalipapp</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.testing.decorators.txt"
@@ -126,9 +126,10 @@ function as a unittest TestCase.  Then, both nose and normal unittest will
 recognize it as such.  This will make it easier to migrate away from Nose if
 we ever need/want to while maintaining very lightweight tests.</li>
 </ul>
-<p>NOTE: This file contains IPython-specific decorators and imports the
-numpy.testing.decorators file, which we&#8217;ve copied verbatim.  Any of our own
-code will be added at the bottom if we end up extending this.</p>
+<p>NOTE: This file contains IPython-specific decorators. Using the machinery in
+IPython.external.decorators, we import either numpy.testing.decorators if numpy is
+available, OR use equivalent code in IPython.external._decorators, which
+we&#8217;ve copied verbatim from numpy.</p>
 <div class="section" id="authors">
 <h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -203,10 +204,10 @@ True</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="IPython.testing.decorators.numpy_not_available">
-<tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">numpy_not_available</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.testing.decorators.numpy_not_available" title="Permalink to this definition">¶</a></dt>
-<dd><p>Can numpy be imported?  Returns true if numpy does NOT import.</p>
-<p>This is used to make a decorator to skip tests that require numpy to be
+<dt id="IPython.testing.decorators.module_not_available">
+<tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">module_not_available</tt><big>(</big><em>module</em><big>)</big><a class="headerlink" href="#IPython.testing.decorators.module_not_available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can module be imported?  Returns true if module does NOT import.</p>
+<p>This is used to make a decorator to skip tests that require module to be
 available, but delay the &#8216;import numpy&#8217; to test execution time.</p>
 </dd></dl>
 
@@ -297,7 +298,7 @@ transmit function name, and various other metadata.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.testing.decorators_trial.html" title="testing.decorators_trial"
+          <a href="IPython.testing.globalipapp.html" title="testing.globalipapp"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.testing.html" title="testing"
@@ -311,7 +312,7 @@ transmit function name, and various other metadata.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 14, 2011.
+      Last updated on Apr 06, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

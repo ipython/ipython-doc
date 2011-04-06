@@ -67,6 +67,7 @@
 <li><a class="reference internal" href="#interactiveshell"><tt class="docutils literal"><span class="pre">InteractiveShell</span></tt></a></li>
 <li><a class="reference internal" href="#interactiveshellabc"><tt class="docutils literal"><span class="pre">InteractiveShellABC</span></tt></a></li>
 <li><a class="reference internal" href="#multipleinstanceerror"><tt class="docutils literal"><span class="pre">MultipleInstanceError</span></tt></a></li>
+<li><a class="reference internal" href="#readlinenorecord"><tt class="docutils literal"><span class="pre">ReadlineNoRecord</span></tt></a></li>
 <li><a class="reference internal" href="#separatestr"><tt class="docutils literal"><span class="pre">SeparateStr</span></tt></a></li>
 <li><a class="reference internal" href="#spaceininput"><tt class="docutils literal"><span class="pre">SpaceInInput</span></tt></a></li>
 </ul>
@@ -356,11 +357,6 @@ completer itself will split the line like readline does.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.interactiveshell.InteractiveShell.db">
-<tt class="descname">db</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.db" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.debug">
 <tt class="descname">debug</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.debug" title="Permalink to this definition">¶</a></dt>
 <dd><p>A casting version of the boolean trait.</p>
@@ -516,16 +512,17 @@ to be true IPython errors.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.extract_input_slices">
-<tt class="descname">extract_input_slices</tt><big>(</big><em>slices</em>, <em>raw=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.extract_input_slices" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.InteractiveShell.extract_input_lines">
+<tt class="descname">extract_input_lines</tt><big>(</big><em>range_str</em>, <em>raw=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.extract_input_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return as a string a set of input history slices.</p>
 <p>Inputs:</p>
 <blockquote>
 <div><ul class="simple">
-<li>slices: the set of slices is given as a list of strings (like</li>
+<li>range_str: the set of slices is given as a string, like</li>
 </ul>
-<p>[&#8216;1&#8217;,&#8216;4:8&#8217;,&#8216;9&#8217;], since this function is for use by magic functions
-which get their arguments as strings.</p>
+<p>&#8220;~5/6-~4/2 4:8 9&#8221;, since this function is for use by magic functions
+which get their arguments as strings. The number before the / is the
+session number: ~n goes n back from the current session.</p>
 </div></blockquote>
 <p>Optional inputs:</p>
 <blockquote>
@@ -542,7 +539,39 @@ which get their arguments as strings.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.filename">
 <tt class="descname">filename</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.find_user_code">
+<tt class="descname">find_user_code</tt><big>(</big><em>target</em>, <em>raw=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_user_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a code string from history, file, or a string or macro.</p>
+<p>This is mainly used by magic functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>target</strong> : str</p>
+<blockquote>
+<div><p>A string specifying code to retrieve. This will be tried respectively
+as: ranges of input history (see %history for syntax), a filename, or
+an expression evaluating to a string or Macro in the user namespace.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>If true (default), retrieve raw history. Has no effect on the other
+retrieval mechanisms.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A string of code.</strong> :</p>
+<p><strong>ValueError is raised if nothing is found, and TypeError if it evaluates</strong> :</p>
+<p><strong>to an object of another type. In each case, .args[0] is a printable</strong> :</p>
+<p class="last"><strong>message.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -550,11 +579,6 @@ which get their arguments as strings.</p>
 <tt class="descname">format_latex</tt><big>(</big><em>strng</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.format_latex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format a string for latex inclusion.</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.get_history">
-<tt class="descname">get_history</tt><big>(</big><em>index=None</em>, <em>raw=False</em>, <em>output=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.get_history" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.get_ipython">
@@ -600,14 +624,6 @@ details.</p>
 <tt class="descname">history_manager</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.history_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.history_saving_wrapper">
-<tt class="descname">history_saving_wrapper</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.history_saving_wrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrap func for readline history saving</p>
-<p>Convert func into callable that saves &amp; restores
-history around the call</p>
 </dd></dl>
 
 <dl class="method">
@@ -808,13 +824,13 @@ therm.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.logappend">
 <tt class="descname">logappend</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.logappend" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.logfile">
 <tt class="descname">logfile</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.logfile" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1004,6 +1020,10 @@ executed.  By default IPython&#8217;s cd command does print this directory,
 since the default prompts do not display path information.</p>
 <p>Note that !cd doesn&#8217;t work for this purpose because the shell where
 !command runs is immediately discarded after executing &#8216;command&#8217;.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [10]: cd parent/child
+/home/tsuser/parent/child</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1012,6 +1032,10 @@ since the default prompts do not display path information.</p>
 <dd><p>Switch color scheme for prompts, info system and exception handlers.</p>
 <p>Currently implemented schemes: NoColor, Linux, LightBG.</p>
 <p>Color scheme names are not case-sensitive.</p>
+<p class="rubric">Examples</p>
+<p>To get a plain black and white terminal:</p>
+<div class="highlight-python"><pre>%colors nocolor</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1119,16 +1143,19 @@ command line arguments, which you can then do using %run.</p>
 <p>Arguments:</p>
 <p>If arguments are given, the following possibilites exist:</p>
 <ul class="simple">
-<li>The arguments are numbers or pairs of colon-separated numbers (like</li>
+<li>If the argument is a filename, IPython will load that into the</li>
 </ul>
-<p>1 4:8 9). These are interpreted as lines of previous input to be
-loaded into the editor. The syntax is the same of the %macro command.</p>
+<p>editor. It will execute its contents with execfile() when you exit,
+loading any code in the file into your interactive namespace.</p>
 <ul class="simple">
-<li>If the argument doesn&#8217;t start with a number, it is evaluated as a</li>
+<li>The arguments are ranges of input history,  e.g. &#8220;7 ~1/4-6&#8221;.</li>
 </ul>
-<p>variable and its contents loaded into the editor. You can thus edit
-any string which contains python code (including the result of
-previous edits).</p>
+<p>The syntax is the same as in the %history magic.</p>
+<ul class="simple">
+<li>If the argument is a string variable, its contents are loaded</li>
+</ul>
+<p>into the editor. You can thus edit any string which contains
+python code (including the result of previous edits).</p>
 <ul class="simple">
 <li>If the argument is the name of an object (other than a string),</li>
 </ul>
@@ -1143,12 +1170,6 @@ Upon exit, the macro is reloaded with the contents of the file.</p>
 editors (like kedit and gedit up to Gnome 2.8) do not understand the
 &#8216;+NUMBER&#8217; parameter necessary for this feature. Good editors like
 (X)Emacs, vi, jed, pico and joe all do.</p>
-<ul class="simple">
-<li>If the argument is not found as a variable, IPython will look for a</li>
-</ul>
-<p>file with that name (adding .py if necessary) and load it into the
-editor. It will execute its contents with execfile() when you exit,
-loading any code in the file into your interactive namespace.</p>
 <p>After executing your code, %edit will return as output the code you
 typed in the editor (except when it was an existing file). This way
 you can reload the code in further invocations of %edit as a variable,
@@ -1331,7 +1352,8 @@ options.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_macro">
 <tt class="descname">magic_macro</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_macro" title="Permalink to this definition">¶</a></dt>
-<dd><p>Define a set of input lines as a macro for future re-execution.</p>
+<dd><p>Define a macro for future re-execution. It accepts ranges of history,
+filenames or string objects.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd>%macro [options] name n1-n2 n3-n4 ... n5 .. n6 ...</dd>
@@ -1348,9 +1370,7 @@ above) from your input history into a single string. This variable
 acts like an automatic function which re-executes those lines as if
 you had typed them. You just type &#8216;name&#8217; at the prompt and the code
 executes.</p>
-<p>The notation for indicating number ranges is: n1-n2 means &#8216;use line
-numbers n1,...n2&#8217; (the endpoint is included).  That is, &#8216;5-7&#8217; means
-using the lines numbered 5,6 and 7.</p>
+<p>The syntax for indicating input ranges is described in %history.</p>
 <p>Note: as a &#8216;hidden&#8217; feature, you can also use traditional python slice
 notation, where N:M means numbers N through M-1.</p>
 <p>For example, if your history contains (%hist prints it):</p>
@@ -1376,11 +1396,6 @@ code instead of printing them when you type their name.</p>
 <p>You can view a macro&#8217;s contents by explicitly printing it with:</p>
 <blockquote>
 <div>&#8216;print macro_name&#8217;.</div></blockquote>
-<p>For one-off cases which DON&#8217;T contain magic function calls in them you
-can obtain similar results by explicitly executing slices from your
-input history with:</p>
-<blockquote>
-<div>In [60]: exec In[44:48]+In[49]</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -1399,6 +1414,12 @@ input history with:</p>
 <p>Options:</p>
 <blockquote>
 <div>-r: page str(object), don&#8217;t pretty-print it.</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.magic_pastebin">
+<tt class="descname">magic_pastebin</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_pastebin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload code to the &#8216;Lodge it&#8217; paste bin, returning the URL.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1422,6 +1443,10 @@ the %debug magic.</p>
 <tt class="descname">magic_pdef</tt><big>(</big><em>parameter_s=''</em>, <em>namespaces=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_pdef" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print the definition header for any callable object.</p>
 <p>If the object is a class, print the constructor information.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [3]: %pdef urllib.urlopen
+urllib.urlopen(url, data=None, proxies=None)</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1469,6 +1494,43 @@ viewer.</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_pprint">
 <tt class="descname">magic_pprint</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_pprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Toggle pretty printing on/off.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.magic_precision">
+<tt class="descname">magic_precision</tt><big>(</big><em>s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set floating point precision for pretty printing.</p>
+<p>Can set either integer precision or a format string.</p>
+<p>If numpy has been imported and precision is an int,
+numpy display precision will also be set, via <tt class="docutils literal"><span class="pre">numpy.set_printoptions</span></tt>.</p>
+<p>If no argument is given, defaults will be restored.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [1]: from math import pi
+
+In [2]: %precision 3
+Out[2]: '%.3f'
+
+In [3]: pi
+Out[3]: 3.142
+
+In [4]: %precision %i
+Out[4]: '%i'
+
+In [5]: pi
+Out[5]: 3
+
+In [6]: %precision %e
+Out[6]: '%e'
+
+In [7]: pi**10
+Out[7]: 9.364805e+04
+
+In [8]: %precision
+Out[8]: '%r'
+
+In [9]: pi**10
+Out[9]: 93648.047476082982</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1651,6 +1713,10 @@ more than once).</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_pwd">
 <tt class="descname">magic_pwd</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_pwd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the current working directory path.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [9]: pwd
+Out[9]: '/home/tsuser/sprint/ipython'</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1676,7 +1742,7 @@ pylab and mlab, as well as all names from numpy and pylab.</p>
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
 <blockquote class="last">
-<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217; or
+<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;, &#8216;osx&#8217; or
 &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is used,
 otherwise matplotlib&#8217;s default (which you can override in your
 matplotlib config file) is used.</p>
@@ -1711,17 +1777,6 @@ For more information, type &#8216;help(pylab)&#8217;.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.magic_r">
-<tt class="descname">magic_r</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_r" title="Permalink to this definition">¶</a></dt>
-<dd><p>Repeat previous input.</p>
-<p>Note: Consider using the more powerfull %rep instead!</p>
-<p>If given an argument, repeats the previous command which starts with
-the same string, otherwise it just repeats the previous input.</p>
-<p>Shell escaped commands (with ! as first character) are not recognized
-by this system, only pure python code and magic commands.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_rehashx">
 <tt class="descname">magic_rehashx</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_rehashx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the alias table with all executable files in $PATH.</p>
@@ -1749,7 +1804,7 @@ used on slow filesystems.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><strong>-y</strong> : force reset without asking for confirmation.</td>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><strong>-f</strong> : force reset without asking for confirmation.</td>
 </tr>
 </tbody>
 </table>
@@ -1801,7 +1856,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x105496a28&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103dc5668&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -1894,7 +1949,7 @@ just as if the commands were written on IPython prompt.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_save">
 <tt class="descname">magic_save</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a set of lines to a given filename.</p>
+<dd><p>Save a set of lines or a macro to a given filename.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
 <dd>%save [options] filename n1-n2 n3-n4 ... n5 .. n6 ...</dd>
@@ -1905,9 +1960,8 @@ just as if the commands were written on IPython prompt.</p>
 so that magics are loaded in their transformed version to valid
 Python.  If this option is given, the raw input as typed as the
 command line is used instead.</div></blockquote>
-<p>This function uses the same syntax as %macro for line extraction, but
-instead of creating a macro it saves the resulting string to the
-filename you specify.</p>
+<p>This function uses the same syntax as %history for input ranges, 
+then saves the lines to the filename you specify.</p>
 <p>It adds a &#8216;.py&#8217; extension to the file if you don&#8217;t do so yourself, and
 it asks for confirmation before overwriting existing files.</p>
 </dd></dl>
@@ -2148,6 +2202,21 @@ command line to see how python prints type names.  For example:</p>
 file and things which are internal to IPython.</p>
 <p>This is deliberate, as typically you may load many modules and the
 purpose of %who is to show you only what you&#8217;ve manually defined.</p>
+<p class="rubric">Examples</p>
+<p>Define two variables and list them with who:</p>
+<div class="highlight-python"><pre>In [1]: alpha = 123
+
+In [2]: beta = 'test'
+
+In [3]: %who
+alpha   beta
+
+In [4]: %who int
+alpha
+
+In [5]: %who str
+beta</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -2156,6 +2225,21 @@ purpose of %who is to show you only what you&#8217;ve manually defined.</p>
 <dd><p>Return a sorted list of all interactive variables.</p>
 <p>If arguments are given, only variables of types matching these
 arguments are returned.</p>
+<p class="rubric">Examples</p>
+<p>Define two variables and list them with who_ls:</p>
+<div class="highlight-python"><pre>In [1]: alpha = 123
+
+In [2]: beta = 'test'
+
+In [3]: %who_ls
+Out[3]: ['alpha', 'beta']
+
+In [4]: %who_ls int
+Out[4]: ['alpha']
+
+In [5]: %who_ls str
+Out[5]: ['beta']</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -2167,7 +2251,7 @@ arguments are returned.</p>
 <blockquote>
 <div><ul class="simple">
 <li>For {},[],(): their length.</li>
-<li>For numpy and Numeric arrays, a summary with shape, number of</li>
+<li>For numpy arrays, a summary with shape, number of</li>
 </ul>
 <p>elements, typecode and size in memory.</p>
 <ul class="simple">
@@ -2175,6 +2259,18 @@ arguments are returned.</p>
 </ul>
 <p>too long.</p>
 </div></blockquote>
+<p class="rubric">Examples</p>
+<p>Define two variables and list them with whos:</p>
+<div class="highlight-python"><pre>In [1]: alpha = 123
+
+In [2]: beta = 'test'
+
+In [3]: %whos
+Variable   Type        Data/Info
+--------------------------------
+alpha      int         123
+beta       str         test</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -2357,7 +2453,7 @@ standard library.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.profile">
 <tt class="descname">profile</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2469,23 +2565,23 @@ with in some way (this is the same as run_source()).</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.refill_readline_hist">
+<tt class="descname">refill_readline_hist</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.refill_readline_hist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.register_post_execute">
 <tt class="descname">register_post_execute</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.register_post_execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a function for calling after code execution.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.reload_history">
-<tt class="descname">reload_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.reload_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reload the input history from disk file.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.reset" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">reset</tt><big>(</big><em>new_session=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear all internal namespaces.</p>
 <p>Note that this is much more aggressive than %reset, since it clears
 fully all namespaces, as well as all input/output lists.</p>
+<p>If new_session is True, a new history session will be opened.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2528,14 +2624,16 @@ variable names in the users namespaces.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.run_cell">
-<tt class="descname">run_cell</tt><big>(</big><em>cell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the contents of an entire multiline &#8216;cell&#8217; of code.</p>
+<tt class="descname">run_cell</tt><big>(</big><em>cell</em>, <em>store_history=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the contents of an entire multiline &#8216;cell&#8217; of code, and store it
+in the history.</p>
 <p>The cell is split into separate blocks which can be executed
 individually.  Then, based on how many blocks there are, they are
 executed as follows:</p>
 <ul class="simple">
-<li>A single block: &#8216;single&#8217; mode.</li>
+<li>A single block: &#8216;single&#8217; mode. If it is also a single line, dynamic</li>
 </ul>
+<p>transformations, including automagic and macros, will be applied.</p>
 <p>If there&#8217;s more than one block, it depends:</p>
 <ul class="simple">
 <li>if the last one is no more than two lines long, run all but the last</li>
@@ -2575,41 +2673,6 @@ successfully:</p>
 <li>1: an error occurred.</li>
 </ul>
 </div></blockquote>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.run_one_block">
-<tt class="descname">run_one_block</tt><big>(</big><em>block</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_one_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run a single interactive block of source code.</p>
-<p>If the block is single-line, dynamic transformations are applied to it
-(like automagics, autocall and alias recognition).</p>
-<p>If the block is multi-line, it must consist of valid Python code only.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>block</strong> : string</p>
-<blockquote>
-<div><p>A (possibly multiline) string of code to be executed.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>The output of the underlying execution method used, be it</strong> :</p>
-<p class="last"><strong>:meth:`run_source` or :meth:`run_single_line`.</strong> :</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.run_single_line">
-<tt class="descname">run_single_line</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_single_line" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run a single-line interactive statement.</p>
-<p>This assumes the input has been transformed to IPython syntax by
-applying all static transformations (those with an explicit prefix like
-% or !), but it will further try to apply the dynamic ones.</p>
-<p>It does not update history.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2740,12 +2803,6 @@ silenced for zero status, as it is so common).</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.save_history">
-<tt class="descname">save_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.save_history" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save input history to a file (via readline library).</p>
 </dd></dl>
 
 <dl class="method">
@@ -3058,11 +3115,38 @@ namespace.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="readlinenorecord">
+<h3><a class="reference internal" href="#IPython.core.interactiveshell.ReadlineNoRecord" title="IPython.core.interactiveshell.ReadlineNoRecord"><tt class="xref py py-class docutils literal"><span class="pre">ReadlineNoRecord</span></tt></a><a class="headerlink" href="#readlinenorecord" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">ReadlineNoRecord</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Context manager to execute some code, then reload readline history
+so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
+<dl class="method">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord.current_length">
+<tt class="descname">current_length</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord.current_length" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord.get_readline_tail">
+<tt class="descname">get_readline_tail</tt><big>(</big><em>n=10</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord.get_readline_tail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the last n items in readline history.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="separatestr">
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateStr" title="IPython.core.interactiveshell.SeparateStr"><tt class="xref py py-class docutils literal"><span class="pre">SeparateStr</span></tt></a><a class="headerlink" href="#separatestr" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateStr">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1054d4710&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103dffbd0&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Str</span></tt></p>
 <p>A Str subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
@@ -3070,7 +3154,7 @@ namespace.</p>
 <p>&#8216;.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateStr.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1054d4710&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103dffbd0&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TraitType.</p>
 </dd></dl>
 
@@ -3134,12 +3218,6 @@ created.</p>
 validate the default value.  The creation and validation of 
 default values must be delayed until the parent <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt>
 class has been instantiated.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.set_dynamic_initializer">
-<tt class="descname">set_dynamic_initializer</tt><big>(</big><em>method</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.set_dynamic_initializer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the dynamic initializer method, if any.</p>
 </dd></dl>
 
 <dl class="method">
@@ -3232,7 +3310,7 @@ class has been instantiated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 14, 2011.
+      Last updated on Apr 06, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
