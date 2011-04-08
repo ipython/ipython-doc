@@ -1799,12 +1799,18 @@ used on slow filesystems.</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_reset">
 <tt class="descname">magic_reset</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resets the namespace by removing all names defined by the user.</p>
-<p>Input/Output history are left around in case you need them.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><strong>-f</strong> : force reset without asking for confirmation.</td>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
+<blockquote class="last">
+<div><p>-s : &#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.
+References to objects may be kept. By default (without this option),
+we do a &#8216;hard&#8217; reset, giving you a new session and removing all
+references to objects from the current session.</p>
+</div></blockquote>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1815,8 +1821,8 @@ Out[7]: 1</p>
 <p>In [8]: &#8216;a&#8217; in _ip.user_ns
 Out[8]: True</p>
 <p>In [9]: %reset -f</p>
-<p>In [10]: &#8216;a&#8217; in _ip.user_ns
-Out[10]: False</p>
+<p>In [1]: &#8216;a&#8217; in _ip.user_ns
+Out[1]: False</p>
 </dd></dl>
 
 <dl class="method">
@@ -1856,7 +1862,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103dc5668&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x1045ca668&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -2623,35 +2629,52 @@ variable names in the users namespaces.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_ast_nodes">
+<tt class="descname">run_ast_nodes</tt><big>(</big><em>nodelist</em>, <em>cell_name</em>, <em>interactivity='last'</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_ast_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a sequence of AST nodes. The execution mode depends on the
+interactivity parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nodelist</strong> : list</p>
+<blockquote>
+<div><p>A sequence of AST nodes to run.</p>
+</div></blockquote>
+<p><strong>cell_name</strong> : str</p>
+<blockquote>
+<div><p>Will be passed to the compiler as the filename of the cell. Typically
+the value returned by ip.compile.cache(cell).</p>
+</div></blockquote>
+<p><strong>interactivity</strong> : str</p>
+<blockquote class="last">
+<div><p>&#8216;all&#8217;, &#8216;last&#8217; or &#8216;none&#8217;, specifying which nodes should be run
+interactively (displaying output from expressions). Other values for
+this parameter will raise a ValueError.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.run_cell">
 <tt class="descname">run_cell</tt><big>(</big><em>cell</em>, <em>store_history=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_cell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run the contents of an entire multiline &#8216;cell&#8217; of code, and store it
-in the history.</p>
-<p>The cell is split into separate blocks which can be executed
-individually.  Then, based on how many blocks there are, they are
-executed as follows:</p>
-<ul class="simple">
-<li>A single block: &#8216;single&#8217; mode. If it is also a single line, dynamic</li>
-</ul>
-<p>transformations, including automagic and macros, will be applied.</p>
-<p>If there&#8217;s more than one block, it depends:</p>
-<ul class="simple">
-<li>if the last one is no more than two lines long, run all but the last</li>
-</ul>
-<p>in &#8216;exec&#8217; mode and the very last one in &#8216;single&#8217; mode.  This makes it
-easy to type simple expressions at the end to see computed values.  -
-otherwise (last one is also multiline), run all in &#8216;exec&#8217; mode</p>
-<p>When code is executed in &#8216;single&#8217; mode, <tt class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></tt> fires,
-results are displayed and output prompts are computed.  In &#8216;exec&#8217; mode,
-no results are displayed unless <tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt> is called explicitly;
-this mode is more akin to running a script.</p>
+<dd><p>Run a complete IPython cell.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cell</strong> : str</p>
+<blockquote>
+<div><p>The code (including IPython code such as %magic functions) to run.</p>
+</div></blockquote>
+<p><strong>store_history</strong> : bool</p>
 <blockquote class="last">
-<div><p>A single or multiline string.</p>
+<div><p>If True, the raw and translated cell will be stored in IPython&#8217;s
+history. For user code calling back into IPython&#8217;s machinery, this
+should be set to False.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -3146,7 +3169,7 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateStr" title="IPython.core.interactiveshell.SeparateStr"><tt class="xref py py-class docutils literal"><span class="pre">SeparateStr</span></tt></a><a class="headerlink" href="#separatestr" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateStr">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103dffbd0&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1045fef50&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Str</span></tt></p>
 <p>A Str subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
@@ -3154,7 +3177,7 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <p>&#8216;.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateStr.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103dffbd0&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1045fef50&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TraitType.</p>
 </dd></dl>
 
@@ -3310,7 +3333,7 @@ class has been instantiated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 06, 2011.
+      Last updated on Apr 07, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
