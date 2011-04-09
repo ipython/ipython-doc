@@ -13,7 +13,7 @@ Our Main Manual:
 
 .. release
 * Current Development Version (0.11.dev): `HTML <dev/index.html>`_ and `PDF <dev/ipython.pdf>`_.
-* Current Stable Version (0.10.1): `HTML <stable/html/index.html>`_ and `PDF <stable/ipython.pdf>`_.
+* Current Stable Version (0.10.2): `HTML <stable/html/index.html>`_ and `PDF <stable/ipython.pdf>`_.
 
 Other useful documentation:
 
@@ -31,6 +31,7 @@ Other useful documentation:
 The manuals for all releases by number are here (note that we only have the
 recent ones from the Sphinx build system):
 
+* 0.10.2: `HTML <rel-0.10.2/html>`_ and `PDF <rel-0.10.2/ipython.pdf>`_.
 * 0.10.1: `HTML <rel-0.10.1/html>`_ and `PDF <rel-0.10.1/ipython.pdf>`_.
 * 0.10: `HTML <rel-0.10/html>`_ and `PDF <rel-0.10/ipython.pdf>`_.
 * 0.9.1: `HTML <rel-0.9.1/html>`_ and `PDF <rel-0.9.1/ipython.pdf>`_.

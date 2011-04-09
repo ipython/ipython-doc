@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OutputTrap &mdash; IPython 0.10.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.10.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 0.10.2 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Prompts" href="IPython.Prompts.html" />
+    <link rel="prev" title="OInspect" href="IPython.OInspect.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.Prompts.html" title="Prompts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.OInspect.html" title="OInspect"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="outputtrap">
+<h1>OutputTrap<a class="headerlink" href="#outputtrap" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-outputtrap">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">OutputTrap</span></tt><a class="headerlink" href="#module-outputtrap" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.OutputTrap</span></tt>:</p>
+<img src="../../_images/inheritanceb1db56fc4c.png" usemap="#inheritanceb1db56fc4c" class="inheritance"/><map id="inheritanceb1db56fc4c" name="inheritanceb1db56fc4c">
+</map>
+<span class="target" id="module-IPython.OutputTrap"></span><p>Class to trap stdout and stderr and log them separately.</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3><a class="reference internal" href="#IPython.OutputTrap.OutputTrap" title="IPython.OutputTrap.OutputTrap"><tt class="xref py py-class docutils literal"><span class="pre">OutputTrap</span></tt></a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.OutputTrap.OutputTrap">
+<em class="property">class </em><tt class="descclassname">IPython.OutputTrap.</tt><tt class="descname">OutputTrap</tt><big>(</big><em>name='Generic Output Trap'</em>, <em>out_head='Standard Output. '</em>, <em>err_head='Standard Error. '</em>, <em>sum_sep='n'</em>, <em>debug=0</em>, <em>trap_out=0</em>, <em>trap_err=0</em>, <em>quiet_out=0</em>, <em>quiet_err=0</em><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to trap standard output and standard error. They get logged in
+StringIO objects which are available as &lt;instance&gt;.out and
+&lt;instance&gt;.err. The class also offers summary methods which format this
+data a bit.</p>
+<p>A word of caution: because it blocks messages, using this class can make
+debugging very tricky. If you are having bizarre problems silently, try
+turning your output traps off for a while. You can call the constructor
+with the parameter debug=1 for these cases. This turns actual trapping
+off, but you can keep the rest of your code unchanged (this has already
+been a life saver).</p>
+<p>Example:</p>
+<p># config: trapper with a line of dots as log separator (final &#8216;n&#8217; needed)
+config = OutputTrap(&#8216;Config&#8217;,&#8217;Out &#8216;,&#8217;Err &#8216;,&#8217;.&#8217;<a href="#id2"><span class="problematic" id="id3">*</span></a>80+&#8217;n&#8217;)</p>
+<p># start trapping output
+config.trap_all()</p>
+<p># now all output is logged ...
+# do stuff...</p>
+<p># output back to normal:
+config.release_all()</p>
+<p># print all that got logged:
+print config.summary()</p>
+<p># print individual raw data:
+print config.out.getvalue()
+print config.err.getvalue()</p>
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.flush">
+<tt class="descname">flush</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush stdout and stderr</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.flush_all">
+<tt class="descname">flush_all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.flush_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush stdout and stderr</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.flush_err">
+<tt class="descname">flush_err</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.flush_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush the stdout log. All data held in the log is lost.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.flush_out">
+<tt class="descname">flush_out</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.flush_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush the stdout log. All data held in the log is lost.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.release">
+<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release both stdout and stderr.</p>
+<p>Cacthes and discards OutputTrapError exceptions raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.release_all">
+<tt class="descname">release_all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.release_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release both stdout and stderr.</p>
+<p>Cacthes and discards OutputTrapError exceptions raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.release_err">
+<tt class="descname">release_err</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.release_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release stderr.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.release_out">
+<tt class="descname">release_out</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.release_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release stdout.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.summary">
+<tt class="descname">summary</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a string the log from stdout and stderr, prepending a separator
+to each (defined in __init__ as sum_sep).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.summary_all">
+<tt class="descname">summary_all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.summary_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a string the log from stdout and stderr, prepending a separator
+to each (defined in __init__ as sum_sep).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.summary_err">
+<tt class="descname">summary_err</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.summary_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a string the log from stderr.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.summary_out">
+<tt class="descname">summary_out</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.summary_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a string the log from stdout.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.trap">
+<tt class="descname">trap</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.trap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trap and log both stdout and stderr.</p>
+<p>Cacthes and discards OutputTrapError exceptions raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.trap_all">
+<tt class="descname">trap_all</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.trap_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trap and log both stdout and stderr.</p>
+<p>Cacthes and discards OutputTrapError exceptions raised.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.trap_err">
+<tt class="descname">trap_err</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.trap_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trap and log stderr.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrap.trap_out">
+<tt class="descname">trap_out</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrap.trap_out" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trap and log stdout.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="outputtraperror">
+<h3><a class="reference internal" href="#IPython.OutputTrap.OutputTrapError" title="IPython.OutputTrap.OutputTrapError"><tt class="xref py py-class docutils literal"><span class="pre">OutputTrapError</span></tt></a><a class="headerlink" href="#outputtraperror" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.OutputTrap.OutputTrapError">
+<em class="property">class </em><tt class="descclassname">IPython.OutputTrap.</tt><tt class="descname">OutputTrapError</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrapError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<p>Exception for OutputTrap class.</p>
+<dl class="method">
+<dt id="IPython.OutputTrap.OutputTrapError.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.OutputTrap.OutputTrapError.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">OutputTrap</a><ul>
+<li><a class="reference internal" href="#module-outputtrap">Module: <tt class="docutils literal"><span class="pre">OutputTrap</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">OutputTrap</span></tt></a></li>
+<li><a class="reference internal" href="#outputtraperror"><tt class="docutils literal"><span class="pre">OutputTrapError</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.OInspect.html"
+                        title="previous chapter">OInspect</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.Prompts.html"
+                        title="next chapter">Prompts</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.OutputTrap.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.Prompts.html" title="Prompts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.OInspect.html" title="OInspect"
+             >previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 09, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>

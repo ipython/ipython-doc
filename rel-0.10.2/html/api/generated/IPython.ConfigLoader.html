@@ -1,0 +1,202 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ConfigLoader &mdash; IPython 0.10.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.10.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 0.10.2 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="CrashHandler" href="IPython.CrashHandler.html" />
+    <link rel="prev" title="ColorANSI" href="IPython.ColorANSI.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.CrashHandler.html" title="CrashHandler"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.ColorANSI.html" title="ColorANSI"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="configloader">
+<h1>ConfigLoader<a class="headerlink" href="#configloader" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-configloader">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">ConfigLoader</span></tt><a class="headerlink" href="#module-configloader" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.ConfigLoader</span></tt>:</p>
+<img src="../../_images/inheritance02556f36d9.png" usemap="#inheritance02556f36d9" class="inheritance"/><map id="inheritance02556f36d9" name="inheritance02556f36d9">
+</map>
+<span class="target" id="module-IPython.ConfigLoader"></span><p>Configuration loader</p>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3><a class="reference internal" href="#IPython.ConfigLoader.ConfigLoader" title="IPython.ConfigLoader.ConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">ConfigLoader</span></tt></a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.ConfigLoader.ConfigLoader">
+<em class="property">class </em><tt class="descclassname">IPython.ConfigLoader.</tt><tt class="descname">ConfigLoader</tt><big>(</big><em>conflict=None</em>, <em>field_sep=None</em>, <em>reclimit=15</em><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration file loader capable of handling recursive inclusions and
+with parametrized conflict resolution for multiply found keys.</p>
+<dl class="method">
+<dt id="IPython.ConfigLoader.ConfigLoader.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reclimit parameter controls the number of recursive
+configuration file inclusions. This way we can stop early on (before
+python&#8217;s own recursion limit is hit) if there is a circular
+inclusion.</p>
+<ul class="simple">
+<li>conflict: dictionary for conflict resolutions (see Struct.merge())</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.ConfigLoader.ConfigLoader.load">
+<tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoader.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a configuration file, return the resulting Struct.</p>
+<p>Call: load_config(fname,convert=None,conflict=None,recurse_key=&#8217;&#8216;)</p>
+<blockquote>
+<div><ul class="simple">
+<li>fname: file to load from.</li>
+<li>convert: dictionary of type conversions (see read_dict())</li>
+<li>recurse_key: keyword in dictionary to trigger recursive file</li>
+</ul>
+<p>inclusions.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.ConfigLoader.ConfigLoader.reset">
+<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoader.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="configloadererror">
+<h3><a class="reference internal" href="#IPython.ConfigLoader.ConfigLoaderError" title="IPython.ConfigLoader.ConfigLoaderError"><tt class="xref py py-class docutils literal"><span class="pre">ConfigLoaderError</span></tt></a><a class="headerlink" href="#configloadererror" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.ConfigLoader.ConfigLoaderError">
+<em class="property">class </em><tt class="descclassname">IPython.ConfigLoader.</tt><tt class="descname">ConfigLoaderError</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoaderError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<p>Exception for ConfigLoader class.</p>
+<dl class="method">
+<dt id="IPython.ConfigLoader.ConfigLoaderError.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.ConfigLoader.ConfigLoaderError.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ConfigLoader</a><ul>
+<li><a class="reference internal" href="#module-configloader">Module: <tt class="docutils literal"><span class="pre">ConfigLoader</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#id1"><tt class="docutils literal"><span class="pre">ConfigLoader</span></tt></a></li>
+<li><a class="reference internal" href="#configloadererror"><tt class="docutils literal"><span class="pre">ConfigLoaderError</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.ColorANSI.html"
+                        title="previous chapter">ColorANSI</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.CrashHandler.html"
+                        title="next chapter">CrashHandler</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.ConfigLoader.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.CrashHandler.html" title="CrashHandler"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.ColorANSI.html" title="ColorANSI"
+             >previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 09, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>

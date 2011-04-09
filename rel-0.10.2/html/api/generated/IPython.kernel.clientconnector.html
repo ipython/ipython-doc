@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>kernel.clientconnector &mdash; IPython 0.10.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.10.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 0.10.2 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="kernel.clientinterfaces" href="IPython.kernel.clientinterfaces.html" />
+    <link rel="prev" title="kernel.client" href="IPython.kernel.client.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.clientinterfaces.html" title="kernel.clientinterfaces"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.client.html" title="kernel.client"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="kernel-clientconnector">
+<h1>kernel.clientconnector<a class="headerlink" href="#kernel-clientconnector" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-kernel-clientconnector">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.clientconnector</span></tt><a class="headerlink" href="#module-kernel-clientconnector" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.kernel.clientconnector</span></tt>:</p>
+<img src="../../_images/inheritance33ca011777.png" usemap="#inheritance33ca011777" class="inheritance"/><map id="inheritance33ca011777" name="inheritance33ca011777">
+</map>
+<span class="target" id="module-IPython.kernel.clientconnector"></span><p>A class for handling client connections to the controller.</p>
+</div>
+<div class="section" id="clientconnector">
+<h2><a class="reference internal" href="#IPython.kernel.clientconnector.ClientConnector" title="IPython.kernel.clientconnector.ClientConnector"><tt class="xref py py-class docutils literal"><span class="pre">ClientConnector</span></tt></a><a class="headerlink" href="#clientconnector" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.kernel.clientconnector.ClientConnector">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.clientconnector.</tt><tt class="descname">ClientConnector</tt><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This class gets remote references from furls and returns the wrapped clients.</p>
+<p>This class is also used in <cite>client.py</cite> and <cite>asyncclient.py</cite> to create 
+a single per client-process Tub.</p>
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.get_client">
+<tt class="descname">get_client</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.get_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a remote reference and wrap it in a client by furl.</p>
+<p>This method first gets a remote reference and then calls its 
+<cite>get_client_name</cite> method to find the apprpriate client class
+that should be used to wrap the remote reference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first docutils">
+<dt>furl_or_file <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">A furl or a filename containing a furl</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last">A deferred to the actual client class</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.get_multiengine_client">
+<tt class="descname">get_multiengine_client</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.get_multiengine_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the multiengine controller client.</p>
+<p>This method is a simple wrapper around <cite>get_client</cite> that allow
+<cite>furl_or_file</cite> to be empty, in which case, the furls is taken
+from the default furl file given in the configuration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first docutils">
+<dt>furl_or_file <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">A furl or a filename containing a furl.  If empty, the
+default furl_file will be used</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last">A deferred to the actual client class</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.get_reference">
+<tt class="descname">get_reference</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.get_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a remote reference using a furl or a file containing a furl.</p>
+<p>Remote references are cached locally so once a remote reference
+has been retrieved for a given furl, the cached version is 
+returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first docutils">
+<dt>furl_or_file <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">A furl or a filename containing a furl</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last">A deferred to a remote reference</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.get_task_client">
+<tt class="descname">get_task_client</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.get_task_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the task controller client.</p>
+<p>This method is a simple wrapper around <cite>get_client</cite> that allow
+<cite>furl_or_file</cite> to be empty, in which case, the furls is taken
+from the default furl file given in the configuration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><dl class="first docutils">
+<dt>furl_or_file <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd><p class="first last">A furl or a filename containing a furl.  If empty, the
+default furl_file will be used</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last">A deferred to the actual client class</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.clientconnector.ClientConnector.save_ref">
+<tt class="descname">save_ref</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.clientconnector.ClientConnector.save_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cache a remote reference by its furl.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">kernel.clientconnector</a><ul>
+<li><a class="reference internal" href="#module-kernel-clientconnector">Module: <tt class="docutils literal"><span class="pre">kernel.clientconnector</span></tt></a></li>
+<li><a class="reference internal" href="#clientconnector"><tt class="docutils literal"><span class="pre">ClientConnector</span></tt></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.client.html"
+                        title="previous chapter">kernel.client</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.clientinterfaces.html"
+                        title="next chapter">kernel.clientinterfaces</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.clientconnector.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.clientinterfaces.html" title="kernel.clientinterfaces"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.client.html" title="kernel.client"
+             >previous</a> |</li>
+        <li><a href="../../index.html">IPython 0.10.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 09, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+    </div>
+  </body>
+</html>
