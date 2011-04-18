@@ -173,8 +173,9 @@ with no external dependencies.  However, some Python distributions
 (particularly on Windows and OS X), don&#8217;t come with a working <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt>
 module.  The IPython shell will work without <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt>, but will lack
 many features that users depend on, such as tab completion and command line
-editing.  See below for details of how to make sure you have a working
-<tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt>.</p>
+editing.  If you install IPython with <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>, (e.g. with <cite>easy_install</cite>),
+then the appropriate <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt> for your platform will be installed.
+See below for details of how to make sure you have a working <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt>.</p>
 <div class="section" id="installation-using-easy-install">
 <h2>Installation using easy_install<a class="headerlink" href="#installation-using-easy-install" title="Permalink to this headline">¶</a></h2>
 <p>If you have <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> installed, the easiest way of getting IPython is
@@ -187,7 +188,7 @@ to simple use <strong class="command">easy_install</strong>:</p>
 <div class="section" id="installation-from-source">
 <h2>Installation from source<a class="headerlink" href="#installation-from-source" title="Permalink to this headline">¶</a></h2>
 <p>If you don&#8217;t want to use <strong class="command">easy_install</strong>, or don&#8217;t have it installed,
-just grab the latest stable build of IPython from <a class="reference external" href="http://ipython.scipy.org/dist/">here</a>.  Then do the following:</p>
+just grab the latest stable build of IPython from <a class="reference external" href="https://github.com/ipython/ipython/downloads">here</a>.  Then do the following:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>tar -xzf ipython.tar.gz
 <span class="nv">$ </span><span class="nb">cd </span>ipython
 <span class="nv">$ </span>python setup.py install
@@ -204,7 +205,7 @@ shortcuts, which most users want.  To get an installation with these, you can
 use any of the following alternatives:</p>
 <ol class="arabic simple">
 <li>Install using <strong class="command">easy_install</strong>.</li>
-<li>Install using our binary <tt class="docutils literal"><span class="pre">.exe</span></tt> Windows installer, which can be found at
+<li>Install using our binary <tt class="docutils literal"><span class="pre">.exe</span></tt> Windows installer, which can be found
 <a class="reference external" href="http://ipython.scipy.org/dist/">here</a></li>
 <li>Install from source, but using <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> (<tt class="docutils literal"><span class="pre">python</span> <span class="pre">setupegg.py</span>
 <span class="pre">install</span></tt>).</li>
@@ -224,9 +225,9 @@ further details.</p>
 <div class="section" id="installing-the-development-version">
 <h2>Installing the development version<a class="headerlink" href="#installing-the-development-version" title="Permalink to this headline">¶</a></h2>
 <p>It is also possible to install the development version of IPython from our
-<a class="reference external" href="http://bazaar-vcs.org/">Bazaar</a> source code repository.  To do this you will
-need to have Bazaar installed on your system.  Then just do:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>bzr branch lp:ipython
+<a class="reference external" href="http://git-scm.com/">Git</a> source code repository.  To do this you will
+need to have Git installed on your system.  Then just do:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/ipython/ipython.git
 <span class="nv">$ </span><span class="nb">cd </span>ipython
 <span class="nv">$ </span>python setup.py install
 </pre></div>
@@ -242,7 +243,7 @@ step by:</p>
 <p>This creates links in the right places and installs the command line script to
 the appropriate places.  Then, if you want to update your IPython at any time,
 just do:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>bzr pull
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git pull
 </pre></div>
 </div>
 </div>
@@ -267,6 +268,10 @@ common situations where you won&#8217;t have a working <tt class="xref py py-mod
 <li>If you are using the built-in Python on Mac OS X.</li>
 <li>If you are running Windows, which doesn&#8217;t have a <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt> module.</li>
 </ul>
+<p>When IPython is installed with <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>, (e.g. with <cite>easy_install</cite>),
+readline is added as a dependency on OS X, and PyReadline on Windows, and will
+be installed on your system.  However, if you do not use setuptools, you may
+have to install one of these packages yourself.</p>
 <p>On OS X, the built-in Python doesn&#8217;t not have <tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt> because of
 license issues.  Starting with OS X 10.5 (Leopard), Apple&#8217;s built-in Python has
 a BSD-licensed not-quite-compatible readline replacement. As of IPython 0.9,
@@ -294,8 +299,7 @@ wiki page at <a class="reference external" href="http://ipython.scipy.org/moin/I
 <p>On Windows, you will need the PyReadline module. PyReadline is a separate,
 Windows only implementation of readline that uses native Windows calls through
 <tt class="xref py py-mod docutils literal"><span class="pre">ctypes</span></tt>. The easiest way of installing PyReadline is you use the binary
-installer available <a class="reference external" href="http://ipython.scipy.org/dist/">here</a>. The <tt class="xref py py-mod docutils literal"><span class="pre">ctypes</span></tt>
-module, which comes with Python 2.5 and greater, is required by PyReadline.</p>
+installer available <a class="reference external" href="https://launchpad.net/pyreadline/+download">here</a>.</p>
 </div>
 <div class="section" id="nose">
 <h2>nose<a class="headerlink" href="#nose" title="Permalink to this headline">¶</a></h2>
@@ -322,8 +326,10 @@ iptest command:</p>
 </div>
 <div class="section" id="pexpect">
 <h2>pexpect<a class="headerlink" href="#pexpect" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="http://www.noah.org/wiki/Pexpect">pexpect</a> package is used in IPython&#8217;s
-<strong class="command">irunner</strong> script.  On Unix platforms (including OS X), just do:</p>
+<p>The pexpect package is used in IPython&#8217;s <strong class="command">irunner</strong> script, as well as
+for managing subprocesses <a class="reference internal" href="#id8">[pexpect]</a>. IPython now includes a version of pexpect
+in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.external</span></tt>, but if you have installed pexpect, IPython will use
+that instead. On Unix platforms (including OS X), just do:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>easy_install pexpect
 </pre></div>
 </div>
@@ -352,7 +358,7 @@ support tunneling with paramiko <a class="reference internal" href="#paramiko">[
 <div class="section" id="pyzmq">
 <h2>pyzmq<a class="headerlink" href="#pyzmq" title="Permalink to this headline">¶</a></h2>
 <p>IPython 0.11 introduced some new functionality, including a two-process
-execution model using ZeroMQ for communication <a class="reference internal" href="../parallel/parallel_intro.html#zeromq">[ZeroMQ]</a>. The Python bindings
+execution model using ZeroMQ for communication <a class="reference internal" href="#zeromq">[ZeroMQ]</a>. The Python bindings
 to ZeroMQ are found in the pyzmq project, which is easy_install-able once you
 have ZeroMQ installed (or even if you don&#8217;t).</p>
 <p>IPython.zmq depends on pyzmq &gt;= 2.0.10.1, but IPython.parallel requires the more
@@ -372,31 +378,7 @@ which can be installed from the
 <div class="section" id="pygments">
 <h2>pygments<a class="headerlink" href="#pygments" title="Permalink to this headline">¶</a></h2>
 <p>The syntax-highlighting in <tt class="docutils literal"><span class="pre">ipython-qtconsole</span></tt> is done with the pygments project,
-which is easy_install-able.</p>
-<table class="docutils citation" frame="void" id="twisted" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[Twisted]</td><td>Twisted matrix.  <a class="reference external" href="http://twistedmatrix.org">http://twistedmatrix.org</a></td></tr>
-</tbody>
-</table>
-<table class="docutils citation" frame="void" id="zopeinterface" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[ZopeInterface]</td><td><a class="reference external" href="http://pypi.python.org/pypi/zope.interface">http://pypi.python.org/pypi/zope.interface</a></td></tr>
-</tbody>
-</table>
-<table class="docutils citation" frame="void" id="foolscap" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[Foolscap]</td><td>Foolscap network protocol.  <a class="reference external" href="http://foolscap.lothar.com/trac">http://foolscap.lothar.com/trac</a></td></tr>
-</tbody>
-</table>
-<table class="docutils citation" frame="void" id="pyopenssl" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[pyOpenSSL]</td><td>pyOpenSSL.  <a class="reference external" href="http://pyopenssl.sourceforge.net">http://pyopenssl.sourceforge.net</a></td></tr>
-</tbody>
-</table>
+which is easy_install-able <a class="reference internal" href="#id7">[pygments]</a>.</p>
 <table class="docutils citation" frame="void" id="zeromq" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -407,6 +389,18 @@ which is easy_install-able.</p>
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id4">[paramiko]</a></td><td>paramiko. <a class="reference external" href="https://github.com/robey/paramiko">https://github.com/robey/paramiko</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[pygments]</a></td><td>Pygments syntax highlighting. <a class="reference external" href="http://pygments.org">http://pygments.org</a></td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[pexpect]</a></td><td>Pexpect. <a class="reference external" href="http://www.noah.org/wiki/Pexpect">http://www.noah.org/wiki/Pexpect</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -442,7 +436,7 @@ which is easy_install-able.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 07, 2011.
+      Last updated on Apr 18, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
