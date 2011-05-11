@@ -558,6 +558,8 @@ field names that IPython prints at the terminal.</p>
 <span class="c"># can also be a string like &#39;Magic function&#39; or &#39;System alias&#39;</span>
 <span class="s">&#39;type_name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
+<span class="c"># The string form of the object, possibly truncated for length if</span>
+<span class="c"># detail_level is 0</span>
 <span class="s">&#39;string_form&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
 <span class="c"># For objects with a __class__ attribute this will be set</span>
@@ -669,21 +671,34 @@ request it from the kernel when needed.</p>
   <span class="c"># If True, return the raw input history, else the transformed input.</span>
   <span class="s">&#39;raw&#39;</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 
-  <span class="c"># This parameter can be one of: A number,  a pair of numbers, None</span>
-  <span class="c"># If not given, last 40 are returned.</span>
-  <span class="c">#  - number n: return the last n entries.</span>
-  <span class="c">#  - pair n1, n2: return entries in the range(n1, n2).</span>
-  <span class="c">#  - None: return all history</span>
-  <span class="s">&#39;index&#39;</span> <span class="p">:</span> <span class="n">n</span> <span class="ow">or</span> <span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+  <span class="c"># So far, this can be &#39;range&#39;, &#39;tail&#39; or &#39;search&#39;.</span>
+  <span class="s">&#39;hist_access_type&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+  <span class="c"># If hist_access_type is &#39;range&#39;, get a range of input cells. session can</span>
+  <span class="c"># be a positive session number, or a negative number to count back from</span>
+  <span class="c"># the current session.</span>
+  <span class="s">&#39;session&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+  <span class="c"># start and stop are line numbers within that session.</span>
+  <span class="s">&#39;start&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+  <span class="s">&#39;stop&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+
+  <span class="c"># If hist_access_type is &#39;tail&#39;, get the last n cells.</span>
+  <span class="s">&#39;n&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+
+  <span class="c"># If hist_access_type is &#39;search&#39;, get cells matching the specified glob</span>
+  <span class="c"># pattern (with * and ? as wildcards).</span>
+  <span class="s">&#39;pattern&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">history_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="c"># A dict with prompt numbers as keys and either (input, output) or input</span>
-  <span class="c"># as the value depending on whether output was True or False,</span>
-  <span class="c"># respectively.</span>
-  <span class="s">&#39;history&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+  <span class="c"># A list of 3 tuples, either:</span>
+  <span class="c"># (session, line_number, input) or</span>
+  <span class="c"># (session, line_number, (input, output)),</span>
+  <span class="c"># depending on whether output was False or True, respectively.</span>
+  <span class="s">&#39;history&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1000,7 +1015,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 07, 2011.
+      Last updated on May 11, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

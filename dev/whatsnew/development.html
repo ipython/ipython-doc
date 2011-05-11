@@ -62,8 +62,9 @@
   <ul>
 <li><a class="reference internal" href="#">Development version</a><ul>
 <li><a class="reference internal" href="#main-ipython-branch">Main <cite>ipython</cite> branch</a><ul>
+<li><a class="reference internal" href="#refactoring">Refactoring</a></li>
+<li><a class="reference internal" href="#zmq-architecture">ZMQ architecture</a></li>
 <li><a class="reference internal" href="#new-features">New features</a></li>
-<li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
 <li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
 </li>
@@ -105,8 +106,13 @@
             
   <div class="section" id="development-version">
 <h1>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h1>
+<p>The changes listed here are a brief summary of the substantial work on IPython
+since the 0.10.x release series. For more details, please consult the actual
+source.</p>
 <div class="section" id="main-ipython-branch">
 <h2>Main <cite>ipython</cite> branch<a class="headerlink" href="#main-ipython-branch" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="refactoring">
+<h3>Refactoring<a class="headerlink" href="#refactoring" title="Permalink to this headline">¶</a></h3>
 <p>As of the 0.11 version of IPython, a signifiant portion of the core has been
 refactored.  This refactoring is founded on a number of new abstractions.
 The main new classes that implement these abstractions are:</p>
@@ -120,11 +126,22 @@ The main new classes that implement these abstractions are:</p>
 <p>We are still in the process of writing developer focused documentation about
 these classes, but for now our <a class="reference internal" href="../config/overview.html#config-overview"><em>configuration documentation</em></a> contains a high level overview of the concepts that these
 classes express.</p>
-<p>The changes listed here are a brief summary of the recent work on IPython.
-For more details, please consult the actual source.</p>
+</div>
+<div class="section" id="zmq-architecture">
+<h3>ZMQ architecture<a class="headerlink" href="#zmq-architecture" title="Permalink to this headline">¶</a></h3>
+<p>There is a new GUI framework for IPython, based on a client-server model in
+which multiple clients can communicate with one IPython kernel, using the
+ZeroMQ messaging framework. There is already a Qt console client, which can
+be started by calling <tt class="docutils literal"><span class="pre">ipython-qtconsole</span></tt>. The protocol is <a class="reference internal" href="../development/messaging.html#messaging"><em>documented</em></a>.</p>
+<p>The parallel computing framework has also been rewritten using ZMQ. The
+protocol is described <a class="reference internal" href="../development/parallel_messages.html#parallel-messages"><em>here</em></a>, and the code is in the
+new <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt> module.</p>
+</div>
 <div class="section" id="new-features">
 <h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
+<li>The input history is now written to an SQLite database. The API for
+retrieving items from the history has also been redesigned.</li>
 <li>The <tt class="xref py py-mod docutils literal"><span class="pre">IPython.extensions.pretty</span></tt> extension has been moved out of
 quarantine and fully updated to the new extension API.</li>
 <li>New magics for loading/unloading/reloading extensions have been added:
@@ -213,20 +230,6 @@ functions.</li>
 <li>For developers <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> provides a simple interface
 for managing the event loops in their interactive GUI applications.
 Examples can be found in our <tt class="file docutils literal"><span class="pre">docs/examples/lib</span></tt> directory.</li>
-</ul>
-</div>
-<div class="section" id="bug-fixes">
-<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Previously, the latex Sphinx docs were in a single chapter.  This has been
-fixed by adding a sixth argument of True to the <tt class="docutils literal"><span class="pre">latex_documents</span></tt>
-attribute of <tt class="file docutils literal"><span class="pre">conf.py</span></tt>.</li>
-<li>The <tt class="docutils literal"><span class="pre">psum</span></tt> example in the MPI documentation has been updated to mpi4py
-version 1.1.0.  Thanks to J. Thomas for this fix.</li>
-<li>The top-level, zero-install <tt class="file docutils literal"><span class="pre">ipython.py</span></tt> script has been updated to
-the new application launching API.</li>
-<li>Keyboard interrupts now work with GUI support enabled across all platforms
-and all GUI toolkits reliably.</li>
 </ul>
 </div>
 <div class="section" id="backwards-incompatible-changes">
@@ -319,7 +322,7 @@ should still work.  We probably want to get these so they are not using
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 07, 2011.
+      Last updated on May 11, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

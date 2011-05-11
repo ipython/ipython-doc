@@ -67,7 +67,7 @@
 <li><a class="reference internal" href="#metadata"><tt class="docutils literal"><span class="pre">Metadata</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#function">Function</a></li>
 </ul>
 </li>
 </ul>
@@ -289,6 +289,30 @@ from executing.</p>
 <tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.close" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.db_query">
+<tt class="descname">db_query</tt><big>(</big><em>query</em>, <em>keys=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.db_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the Hub&#8217;s TaskRecord database</p>
+<p>This will return a list of task record dicts that match <cite>query</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>query</strong> : mongodb query dict</p>
+<blockquote>
+<div><p>The search dict. See mongodb query docs for details.</p>
+</div></blockquote>
+<p><strong>keys</strong> : list of strs [optional]</p>
+<blockquote class="last">
+<div><p>THe subset of keys to be returned.  The default is to fetch everything.
+&#8216;msg_id&#8217; will <em>always</em> be included.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.client.client.Client.debug">
 <tt class="descname">debug</tt><a class="headerlink" href="#IPython.parallel.client.client.Client.debug" title="Permalink to this definition">¶</a></dt>
@@ -360,6 +384,28 @@ blocking execution, since it always retrieves</p>
 <dt id="IPython.parallel.client.client.Client.history">
 <tt class="descname">history</tt><a class="headerlink" href="#IPython.parallel.client.client.Client.history" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.hub_history">
+<tt class="descname">hub_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.hub_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the Hub&#8217;s history</p>
+<p>Just like the Client, the Hub has a history, which is a list of msg_ids.
+This will contain the history of all clients, and, depending on configuration,
+may contain history across multiple cluster sessions.</p>
+<p>Any msg_id returned here is a valid argument to <cite>get_result</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>msg_ids</strong> : list of strs</p>
+<blockquote class="last">
+<div><p>list of all msg_ids, ordered by task submission time.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -727,18 +773,30 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
 <dd><p>D.values() -&gt; list of D&#8217;s values</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.client.Metadata.viewitems">
+<tt class="descname">viewitems</tt><a class="headerlink" href="#IPython.parallel.client.client.Metadata.viewitems" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewitems() -&gt; a set-like object providing a view on D&#8217;s items</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.client.Metadata.viewkeys">
+<tt class="descname">viewkeys</tt><a class="headerlink" href="#IPython.parallel.client.client.Metadata.viewkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewkeys() -&gt; a set-like object providing a view on D&#8217;s keys</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.client.Metadata.viewvalues">
+<tt class="descname">viewvalues</tt><a class="headerlink" href="#IPython.parallel.client.client.Metadata.viewvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewvalues() -&gt; an object providing a view on D&#8217;s values</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 </div>
-<div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="IPython.parallel.client.client.default_block">
-<tt class="descclassname">IPython.parallel.client.client.</tt><tt class="descname">default_block</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.default_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Default to self.block; preserve self.block.</p>
-</dd></dl>
-
+<div class="section" id="function">
+<h2>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.parallel.client.client.spin_first">
 <tt class="descclassname">IPython.parallel.client.client.</tt><tt class="descname">spin_first</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.spin_first" title="Permalink to this definition">¶</a></dt>
@@ -778,7 +836,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 07, 2011.
+      Last updated on May 11, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
