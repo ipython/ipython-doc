@@ -61,16 +61,8 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">core.application</a><ul>
-<li><a class="reference internal" href="#module-core-application">Module: <tt class="docutils literal"><span class="pre">core.application</span></tt></a><ul>
-<li><a class="reference internal" href="#notes">Notes</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#application"><tt class="docutils literal"><span class="pre">Application</span></tt></a></li>
-<li><a class="reference internal" href="#applicationerror"><tt class="docutils literal"><span class="pre">ApplicationError</span></tt></a></li>
-<li><a class="reference internal" href="#baseappconfigloader"><tt class="docutils literal"><span class="pre">BaseAppConfigLoader</span></tt></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#module-core-application">Module: <tt class="docutils literal"><span class="pre">core.application</span></tt></a></li>
+<li><a class="reference internal" href="#baseipythonapplication"><tt class="docutils literal"><span class="pre">BaseIPythonApplication</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -117,384 +109,318 @@
 <span class="target" id="module-IPython.core.application"></span><p>An application for IPython.</p>
 <p>All top-level applications should use the classes in this module for
 handling configuration and creating componenets.</p>
-<p>The job of an <a class="reference internal" href="#IPython.core.application.Application" title="IPython.core.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a> is to create the master configuration 
+<p>The job of an <tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt> is to create the master configuration 
 object and then create the configurable objects, passing the config to them.</p>
 <p>Authors:</p>
 <ul class="simple">
 <li>Brian Granger</li>
 <li>Fernando Perez</li>
+<li>Min RK</li>
 </ul>
-<div class="section" id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
 </div>
-</div>
-<div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="application">
-<h3><a class="reference internal" href="#IPython.core.application.Application" title="IPython.core.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a><a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="baseipythonapplication">
+<h2><a class="reference internal" href="#IPython.core.application.BaseIPythonApplication" title="IPython.core.application.BaseIPythonApplication"><tt class="xref py py-class docutils literal"><span class="pre">BaseIPythonApplication</span></tt></a><a class="headerlink" href="#baseipythonapplication" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="IPython.core.application.Application">
-<em class="property">class </em><tt class="descclassname">IPython.core.application.</tt><tt class="descname">Application</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.Application" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Load a config, construct configurables and set them running.</p>
-<p>The configuration of an application can be done via three different Config
-objects, which are loaded and ultimately merged into a single one used
-from that point on by the app. These are:</p>
-<ol class="arabic simple">
-<li>default_config: internal defaults, implemented in code.</li>
-<li>file_config: read from the filesystem.</li>
-<li>command_line_config: read from the system&#8217;s command line flags.</li>
-</ol>
-<p>During initialization, 3 is actually read before 2, since at the
-command-line one may override the location of the file to be read.  But the
-above is the order in which the merge is made.</p>
+<dt id="IPython.core.application.BaseIPythonApplication">
+<em class="property">class </em><tt class="descclassname">IPython.core.application.</tt><tt class="descname">BaseIPythonApplication</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.application.html#IPython.config.application.Application" title="IPython.config.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.application.Application</span></tt></a></p>
 <dl class="method">
-<dt id="IPython.core.application.Application.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.Application.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.application.BaseIPythonApplication.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.argv">
-<tt class="descname">argv</tt><a class="headerlink" href="#IPython.core.application.Application.argv" title="Permalink to this definition">¶</a></dt>
-<dd><p>A reference to the argv to be used (typically ends up being sys.argv[1:])</p>
+<dt id="IPython.core.application.BaseIPythonApplication.alias_description">
+<tt class="descname">alias_description</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.alias_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.aliases">
+<tt class="descname">aliases</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.aliases" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.auto_create">
+<tt class="descname">auto_create</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.auto_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.builtin_profile_dir">
+<tt class="descname">builtin_profile_dir</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.builtin_profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.application.BaseIPythonApplication.trait_names" title="IPython.core.application.BaseIPythonApplication.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.application.BaseIPythonApplication.traits" title="IPython.core.application.BaseIPythonApplication.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.classes">
+<tt class="descname">classes</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.clear_instance">
+<em class="property">classmethod </em><tt class="descname">clear_instance</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.clear_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>unset _instance for this class and singleton parents.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.config_file_name">
+<tt class="descname">config_file_name</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.config_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.config_file_paths">
+<tt class="descname">config_file_paths</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.config_file_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.config_file_specified">
+<tt class="descname">config_file_specified</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.config_file_specified" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.config_files">
+<tt class="descname">config_files</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.config_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.copy_config_files">
+<tt class="descname">copy_config_files</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.copy_config_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.crash_handler_class">
+<tt class="descname">crash_handler_class</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.crash_handler_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be a subclass of a specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.description">
+<tt class="descname">description</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.attempt">
-<tt class="descname">attempt</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.application.Application.attempt" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.application.BaseIPythonApplication.exit">
+<tt class="descname">exit</tt><big>(</big><em>exit_status=0</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.exit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.command_line_config">
-<tt class="descname">command_line_config</tt><a class="headerlink" href="#IPython.core.application.Application.command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read from the system&#8217;s command line flags.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.extra_args">
+<tt class="descname">extra_args</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.extra_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.command_line_loader">
-<tt class="descname">command_line_loader</tt><a class="headerlink" href="#IPython.core.application.Application.command_line_loader" title="Permalink to this definition">¶</a></dt>
-<dd><p>The command line config loader.  Subclass of ArgParseConfigLoader.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.flag_description">
+<tt class="descname">flag_description</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.flag_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.config_file_name">
-<tt class="descname">config_file_name</tt><a class="headerlink" href="#IPython.core.application.Application.config_file_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of the config file to load, determined at runtime</p>
+<dt id="IPython.core.application.BaseIPythonApplication.flags">
+<tt class="descname">flags</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.construct">
-<tt class="descname">construct</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.construct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct the main objects that make up this app.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.crash_handler_class">
-<tt class="descname">crash_handler_class</tt><a class="headerlink" href="#IPython.core.application.Application.crash_handler_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>The class to use as the crash handler.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.generate_config_file">
+<tt class="descname">generate_config_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.generate_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate default config file from Configurables</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.create_command_line_config">
-<tt class="descname">create_command_line_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.create_command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create and return a command line config loader.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.init_config_files">
+<tt class="descname">init_config_files</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.init_config_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>[optionally] copy default config files into profile dir.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.create_crash_handler">
-<tt class="descname">create_crash_handler</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.create_crash_handler" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.application.BaseIPythonApplication.init_crash_handler">
+<tt class="descname">init_crash_handler</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.init_crash_handler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a crash handler, typically setting sys.excepthook to it.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.create_default_config">
-<tt class="descname">create_default_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.create_default_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create defaults that can&#8217;t be set elsewhere.</p>
-<p>For the most part, we try to set default in the class attributes
-of Configurables.  But, defaults the top-level Application (which is
-not a HasTraits or Configurables) are not set in this way.  Instead
-we set them here.  The Global section is for variables like this that
-don&#8217;t belong to a particular configurable.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.default_config">
-<tt class="descname">default_config</tt><a class="headerlink" href="#IPython.core.application.Application.default_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal defaults, implemented in code.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.default_config_file_name">
-<tt class="descname">default_config_file_name</tt><a class="headerlink" href="#IPython.core.application.Application.default_config_file_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of the default config file. Track separately from the actual
-name because some logic happens only if we aren&#8217;t using the default.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.init_logging">
+<tt class="descname">init_logging</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.init_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start logging for this application.</p>
+<p>The default is to log to stdout using a StreaHandler. The log level
+starts at loggin.WARN, but this can be adjusted by setting the 
+<tt class="docutils literal"><span class="pre">log_level</span></tt> attribute.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.exit">
-<tt class="descname">exit</tt><big>(</big><em>exit_status=0</em><big>)</big><a class="headerlink" href="#IPython.core.application.Application.exit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.extra_args">
-<tt class="descname">extra_args</tt><a class="headerlink" href="#IPython.core.application.Application.extra_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>extra arguments computed by the command-line loader</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.file_config">
-<tt class="descname">file_config</tt><a class="headerlink" href="#IPython.core.application.Application.file_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read from the filesystem.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.init_profile_dir">
+<tt class="descname">init_profile_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.init_profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>initialize the profile dir</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.find_config_file_name">
-<tt class="descname">find_config_file_name</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.find_config_file_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find the config file name for this application.</p>
-<p>This must set <tt class="docutils literal"><span class="pre">self.config_file_name</span></tt> to the filename of the
-config file to use (just the filename). The search paths for the
-config file are set in <a class="reference internal" href="#IPython.core.application.Application.find_config_file_paths" title="IPython.core.application.Application.find_config_file_paths"><tt class="xref py py-meth docutils literal"><span class="pre">find_config_file_paths()</span></tt></a> and then passed
-to the config file loader where they are resolved to an absolute path.</p>
-<p>If a profile has been set at the command line, this will resolve it.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.find_config_file_paths">
-<tt class="descname">find_config_file_paths</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.find_config_file_paths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the search paths for resolving the config file.</p>
-<p>This must set <tt class="docutils literal"><span class="pre">self.config_file_paths</span></tt> to a sequence of search
-paths to pass to the config file loader.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.find_ipython_dir">
-<tt class="descname">find_ipython_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.find_ipython_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the IPython directory.</p>
-<p>This sets <tt class="docutils literal"><span class="pre">self.ipython_dir</span></tt>, but the actual value that is passed to
-the application is kept in either <tt class="docutils literal"><span class="pre">self.default_config</span></tt> or
-<tt class="docutils literal"><span class="pre">self.command_line_config</span></tt>.  This also adds <tt class="docutils literal"><span class="pre">self.ipython_dir</span></tt> to
-<tt class="docutils literal"><span class="pre">sys.path</span></tt> so config files there can be referenced by other config
-files.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.find_resources">
-<tt class="descname">find_resources</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.find_resources" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find other resources that need to be in place.</p>
-<p>Things like cluster directories need to be in place to find the
-config file.  These happen right after the IPython directory has
-been set.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.init_logger">
-<tt class="descname">init_logger</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.init_logger" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.application.BaseIPythonApplication.initialize">
+<tt class="descname">initialize</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.initialize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.initialize">
-<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize the application.</p>
-<p>Loads all configuration information and sets all application state, but
-does not start any relevant processing (typically some kind of event
-loop).</p>
-<p>Once this method has been called, the application is flagged as
-initialized and the method becomes a no-op.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.initialize_subcommand">
+<tt class="descname">initialize_subcommand</tt><big>(</big><em>subc</em>, <em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.initialize_subcommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a subcommand with argv.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.initialized">
+<em class="property">classmethod </em><tt class="descname">initialized</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Has an instance been created?</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.application.BaseIPythonApplication.instance">
+<em class="property">classmethod </em><tt class="descname">instance</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a global instance of this class.</p>
+<p>This method create a new instance if none have previously been created
+and returns a previously created instance is one already exists.</p>
+<p>The arguments and keyword arguments passed to this method are passed
+on to the <a class="reference internal" href="#IPython.core.application.BaseIPythonApplication.__init__" title="IPython.core.application.BaseIPythonApplication.__init__"><tt class="xref py py-meth docutils literal"><span class="pre">__init__()</span></tt></a> method of the class upon instantiation.</p>
+<p class="rubric">Examples</p>
+<p>Create a singleton class using instance, and retrieve it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">IPython.config.configurable</span> <span class="kn">import</span> <span class="n">SingletonConfigurable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">==</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Create a subclass that is retrived using the base class instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bam</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">=</span> <span class="n">Bam</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">==</span> <span class="n">Bar</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.ipython_dir">
-<tt class="descname">ipython_dir</tt><a class="headerlink" href="#IPython.core.application.Application.ipython_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>User&#8217;s ipython directory, typically ~/.ipython or ~/.config/ipython/</p>
+<dt id="IPython.core.application.BaseIPythonApplication.ipython_dir">
+<tt class="descname">ipython_dir</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.ipython_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.keyvalue_description">
+<tt class="descname">keyvalue_description</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.keyvalue_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.load_command_line_config">
-<tt class="descname">load_command_line_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.load_command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load the command line config.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.load_file_config">
-<tt class="descname">load_file_config</tt><big>(</big><em>suppress_errors=True</em><big>)</big><a class="headerlink" href="#IPython.core.application.Application.load_file_config" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.application.BaseIPythonApplication.load_config_file">
+<tt class="descname">load_config_file</tt><big>(</big><em>suppress_errors=True</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.load_config_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the config file.</p>
-<p>This tries to load the config file from disk.  If successful, the
-<tt class="docutils literal"><span class="pre">CONFIG_FILE</span></tt> config variable is set to the resolved config file
-location.  If not successful, an empty config is used.</p>
 <p>By default, errors in loading config are handled, and a warning
 printed on screen. For testing, the suppress_errors option is set
 to False, so errors will make tests fail.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="IPython.core.application.Application.log_command_line_config">
-<tt class="descname">log_command_line_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.log_command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.log_default_config">
-<tt class="descname">log_default_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.log_default_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.log_file_config">
-<tt class="descname">log_file_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.log_file_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="attribute">
-<dt id="IPython.core.application.Application.log_level">
-<tt class="descname">log_level</tt><a class="headerlink" href="#IPython.core.application.Application.log_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.log_master_config">
-<tt class="descname">log_master_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.log_master_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.master_config">
-<tt class="descname">master_config</tt><a class="headerlink" href="#IPython.core.application.Application.master_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>The final config that will be passed to the main object.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.merge_configs">
-<tt class="descname">merge_configs</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.merge_configs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merge the default, command line and file config objects.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.post_construct">
-<tt class="descname">post_construct</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.post_construct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions after construct, but before starting the app.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.post_load_command_line_config">
-<tt class="descname">post_load_command_line_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.post_load_command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions just after loading the command line config.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.post_load_file_config">
-<tt class="descname">post_load_file_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.post_load_file_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions after the config file is loaded.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.pre_construct">
-<tt class="descname">pre_construct</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.pre_construct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions after the config has been built, but before construct.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.pre_load_command_line_config">
-<tt class="descname">pre_load_command_line_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.pre_load_command_line_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions just before loading the command line config.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.pre_load_file_config">
-<tt class="descname">pre_load_file_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.pre_load_file_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do actions before the config file is loaded.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.log_level">
+<tt class="descname">log_level</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.log_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enum that whose value must be in a given sequence.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.application.Application.profile_name">
-<tt class="descname">profile_name</tt><a class="headerlink" href="#IPython.core.application.Application.profile_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set by &#8211;profile option</p>
+<dt id="IPython.core.application.BaseIPythonApplication.name">
+<tt class="descname">name</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.Application.set_command_line_config_log_level">
-<tt class="descname">set_command_line_config_log_level</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.set_command_line_config_log_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.set_default_config_log_level">
-<tt class="descname">set_default_config_log_level</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.set_default_config_log_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.set_file_config_log_level">
-<tt class="descname">set_file_config_log_level</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.set_file_config_log_level" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.start">
-<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start the application.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.application.Application.start_app">
-<tt class="descname">start_app</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.Application.start_app" title="Permalink to this definition">¶</a></dt>
-<dd><p>Actually start the app.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.Application.usage">
-<tt class="descname">usage</tt><a class="headerlink" href="#IPython.core.application.Application.usage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Usage message printed by argparse. If None, auto-generate</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="applicationerror">
-<h3><a class="reference internal" href="#IPython.core.application.ApplicationError" title="IPython.core.application.ApplicationError"><tt class="xref py py-class docutils literal"><span class="pre">ApplicationError</span></tt></a><a class="headerlink" href="#applicationerror" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.application.ApplicationError">
-<em class="property">class </em><tt class="descclassname">IPython.core.application.</tt><tt class="descname">ApplicationError</tt><a class="headerlink" href="#IPython.core.application.ApplicationError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
-<dl class="method">
-<dt id="IPython.core.application.ApplicationError.__init__">
-<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.ApplicationError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.ApplicationError.args">
-<tt class="descname">args</tt><a class="headerlink" href="#IPython.core.application.ApplicationError.args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.application.ApplicationError.message">
-<tt class="descname">message</tt><a class="headerlink" href="#IPython.core.application.ApplicationError.message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="baseappconfigloader">
-<h3><a class="reference internal" href="#IPython.core.application.BaseAppConfigLoader" title="IPython.core.application.BaseAppConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">BaseAppConfigLoader</span></tt></a><a class="headerlink" href="#baseappconfigloader" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.application.BaseAppConfigLoader">
-<em class="property">class </em><tt class="descclassname">IPython.core.application.</tt><tt class="descname">BaseAppConfigLoader</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseAppConfigLoader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.config.loader.html#IPython.config.loader.ArgParseConfigLoader" title="IPython.config.loader.ArgParseConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.ArgParseConfigLoader</span></tt></a></p>
-<p>Default command line options for IPython based applications.</p>
-<dl class="method">
-<dt id="IPython.core.application.BaseAppConfigLoader.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseAppConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a config loader for use with argparse.</p>
+<dt id="IPython.core.application.BaseIPythonApplication.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : optional, list</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
-<div><p>If given, used to read command-line arguments from, otherwise
-sys.argv[1:] is used.</p>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
 </div></blockquote>
-<p><strong>parser_args</strong> : tuple</p>
+<p><strong>name</strong> : list, str, None</p>
 <blockquote>
-<div><p>A tuple of positional arguments that will be passed to the
-constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
 </div></blockquote>
-<p><strong>parser_kw</strong> : dict</p>
+<p><strong>remove</strong> : bool</p>
 <blockquote class="last">
-<div><p>A tuple of keyword arguments that will be passed to the
-constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -502,39 +428,125 @@ constructor of <tt class="xref py py-class docutils literal"><span class="pre">a
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="IPython.core.application.BaseAppConfigLoader.clear">
-<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseAppConfigLoader.clear" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.overwrite">
+<tt class="descname">overwrite</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.overwrite" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.BaseAppConfigLoader.get_extra_args">
-<tt class="descname">get_extra_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseAppConfigLoader.get_extra_args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="IPython.core.application.BaseIPythonApplication.parse_command_line">
+<tt class="descname">parse_command_line</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.parse_command_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the command line arguments.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.application.BaseAppConfigLoader.load_config">
-<tt class="descname">load_config</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseAppConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse command line arguments and return as a Struct.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>args</strong> : optional, list</p>
-<blockquote class="last">
-<div><p>If given, a list with the structure of sys.argv[1:] to parse
-arguments from. If not given, the instance&#8217;s self.argv attribute
-(given at construction time) is used.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="IPython.core.application.BaseIPythonApplication.print_alias_help">
+<tt class="descname">print_alias_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_alias_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the alias part of the help.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.print_description">
+<tt class="descname">print_description</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the application description.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.print_flag_help">
+<tt class="descname">print_flag_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_flag_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the flag part of the help.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.print_help">
+<tt class="descname">print_help</tt><big>(</big><em>classes=False</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the help for each Configurable class in self.classes.</p>
+<p>If classes=False (the default), only flags and aliases are printed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.print_subcommands">
+<tt class="descname">print_subcommands</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_subcommands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the subcommand part of the help.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.print_version">
+<tt class="descname">print_version</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.print_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the version string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.profile">
+<tt class="descname">profile</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.stage_default_config_file">
+<tt class="descname">stage_default_config_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.stage_default_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>auto generate default config file, and stage it into the profile.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the app mainloop.</p>
+<p>Override in subclasses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.subapp">
+<tt class="descname">subapp</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.subapp" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.subcommands">
+<tt class="descname">subcommands</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.subcommands" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.application.BaseIPythonApplication.version">
+<tt class="descname">version</tt><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.version" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
 </div>
 </div>
 
@@ -568,7 +580,7 @@ arguments from. If not given, the instance&#8217;s self.argv attribute
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

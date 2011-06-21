@@ -115,6 +115,10 @@
 <span class="target" id="module-IPython.parallel.controller.hub"></span><p>The IPython Controller Hub with 0MQ
 This is the master object that handles connections from engines and clients,
 and monitors traffic through the various queues.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min RK</li>
+</ul>
 </div>
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
@@ -123,7 +127,7 @@ and monitors traffic through the various queues.</p>
 <dl class="class">
 <dt id="IPython.parallel.controller.hub.EngineConnector">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.controller.hub.</tt><tt class="descname">EngineConnector</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a></p>
 <p>A simple object for accessing the various zmq connections of an object.
 Attributes are:
 id (int): engine ID
@@ -136,16 +140,36 @@ heartbeat (str): identity of heartbeat XREQ socket</p>
 <tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.EngineConnector.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.EngineConnector.trait_names" title="IPython.parallel.controller.hub.EngineConnector.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.EngineConnector.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.EngineConnector.traits" title="IPython.parallel.controller.hub.EngineConnector.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.EngineConnector.control">
 <tt class="descname">control</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.control" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A casting version of the string trait.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.EngineConnector.heartbeat">
 <tt class="descname">heartbeat</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.heartbeat" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A casting version of the string trait.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -200,13 +224,13 @@ then unintall it.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.EngineConnector.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A casting version of the string trait.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.EngineConnector.registration">
 <tt class="descname">registration</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.registration" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A casting version of the string trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -241,14 +265,14 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.controller.hub.Hub">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.controller.hub.</tt><tt class="descname">Hub</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.parallel.factory.html#IPython.parallel.factory.LoggingFactory" title="IPython.parallel.factory.LoggingFactory"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.factory.LoggingFactory</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.zmq.session.SessionFactory</span></tt></p>
 <p>The IPython Controller Hub with 0MQ connections</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>loop: zmq IOLoop instance</strong> :</p>
-<p><strong>session: StreamSession object</strong> :</p>
+<p><strong>session: Session object</strong> :</p>
 <p><strong>&lt;removed&gt; context: zmq context for creating new connections (?)</strong> :</p>
 <p><strong>queue: ZMQStream for monitoring the command queue (SUB)</strong> :</p>
 <p><strong>query: ZMQStream for engine registration and client queries requests (XREP)</strong> :</p>
@@ -303,6 +327,50 @@ client_info: zmq address/protocol dict for client connections</p>
 <tt class="descname">check_load</tt><big>(</big><em>client_id</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.check_load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.Hub.trait_names" title="IPython.parallel.controller.hub.Hub.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.Hub.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.Hub.traits" title="IPython.parallel.controller.hub.Hub.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.Hub.client_info">
 <tt class="descname">client_info</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.client_info" title="Permalink to this definition">¶</a></dt>
@@ -332,6 +400,13 @@ client_info: zmq address/protocol dict for client connections</p>
 <dt id="IPython.parallel.controller.hub.Hub.connection_request">
 <tt class="descname">connection_request</tt><big>(</big><em>client_id</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.connection_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reply with connection addresses for clients.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.hub.Hub.context">
+<tt class="descname">context</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.context" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -459,7 +534,7 @@ Triggers completion of registration.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.Hub.logname">
 <tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -575,10 +650,17 @@ completed (finished jobs from both queues)</div></blockquote>
 <dd><p>A integer trait.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.controller.hub.Hub.resubmit">
+<tt class="descname">resubmit</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.resubmit" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.controller.hub.Hub.resubmit_task">
-<tt class="descname">resubmit_task</tt><big>(</big><em>client_id</em>, <em>msg</em>, <em>buffers</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.resubmit_task" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resubmit a task.</p>
+<tt class="descname">resubmit_task</tt><big>(</big><em>client_id</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.resubmit_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resubmit one or more tasks.</p>
 </dd></dl>
 
 <dl class="method">
@@ -612,6 +694,13 @@ completed (finished jobs from both queues)</div></blockquote>
 <dt id="IPython.parallel.controller.hub.Hub.save_task_result">
 <tt class="descname">save_task_result</tt><big>(</big><em>idents</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.save_task_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>save the result of a completed task.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.hub.Hub.session">
+<tt class="descname">session</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.session" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
@@ -677,16 +766,60 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.HubFactory.trait_names" title="IPython.parallel.controller.hub.HubFactory.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.hub.HubFactory.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.hub.HubFactory.traits" title="IPython.parallel.controller.hub.HubFactory.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.client_ip">
 <tt class="descname">client_ip</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.client_ip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.client_transport">
 <tt class="descname">client_transport</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.client_transport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -701,12 +834,6 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">construct</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.construct" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="IPython.parallel.controller.hub.HubFactory.construct_hub">
-<tt class="descname">construct_hub</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.construct_hub" title="Permalink to this definition">¶</a></dt>
-<dd><p>construct</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.context">
 <tt class="descname">context</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.context" title="Permalink to this definition">¶</a></dt>
@@ -717,8 +844,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.control">
 <tt class="descname">control</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.control" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>An instance of a Python tuple.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -731,32 +857,25 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.db_class">
 <tt class="descname">db_class</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.db_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.engine_ip">
 <tt class="descname">engine_ip</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.engine_ip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.engine_transport">
 <tt class="descname">engine_transport</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.engine_transport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.exec_key">
-<tt class="descname">exec_key</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.exec_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.hb">
 <tt class="descname">hb</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.hb" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>An instance of a Python tuple.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -766,23 +885,22 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.ident" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dl class="method">
+<dt id="IPython.parallel.controller.hub.HubFactory.init_hub">
+<tt class="descname">init_hub</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.init_hub" title="Permalink to this definition">¶</a></dt>
+<dd><p>construct</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.iopub">
 <tt class="descname">iopub</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.iopub" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>An instance of a Python tuple.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.ip">
 <tt class="descname">ip</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.ip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -795,7 +913,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.logname">
 <tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -808,40 +926,37 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.mon_port">
 <tt class="descname">mon_port</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.mon_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.monitor_ip">
 <tt class="descname">monitor_ip</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.monitor_ip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.monitor_transport">
 <tt class="descname">monitor_transport</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.monitor_transport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.monitor_url">
 <tt class="descname">monitor_url</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.monitor_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.mux">
 <tt class="descname">mux</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.mux" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>An instance of a Python tuple.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.notifier_port">
 <tt class="descname">notifier_port</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.notifier_port" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -882,28 +997,9 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.packer">
-<tt class="descname">packer</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.packer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.ping">
-<tt class="descname">ping</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.ping" title="Permalink to this definition">¶</a></dt>
-<dd><p>A integer trait.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.regport">
 <tt class="descname">regport</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.regport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.scheme">
-<tt class="descname">scheme</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.scheme" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -919,16 +1015,9 @@ then unintall it.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.subconstructors">
-<tt class="descname">subconstructors</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.subconstructors" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.task">
 <tt class="descname">task</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.task" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>An instance of a Python tuple.</p>
 </dd></dl>
 
 <dl class="method">
@@ -958,25 +1047,13 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.transport">
 <tt class="descname">transport</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.transport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.unpacker">
-<tt class="descname">unpacker</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.unpacker" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.url">
 <tt class="descname">url</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.HubFactory.username">
-<tt class="descname">username</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.username" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1030,7 +1107,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

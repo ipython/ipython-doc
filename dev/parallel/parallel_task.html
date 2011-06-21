@@ -81,6 +81,11 @@
 </li>
 </ul>
 </li>
+<li><a class="reference internal" href="#retries-and-resubmit">Retries and Resubmit</a><ul>
+<li><a class="reference internal" href="#retries">Retries</a></li>
+<li><a class="reference internal" href="#resubmit">Resubmit</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#schedulers">Schedulers</a><ul>
 <li><a class="reference internal" href="#pure-zmq-scheduler">Pure ZMQ Scheduler</a></li>
 </ul>
@@ -140,7 +145,7 @@ engines explicitly.</p>
 <p>To follow along with this tutorial, you will need to start the IPython
 controller and four IPython engines. The simplest way of doing this is to use
 the <strong class="command">ipcluster</strong> command:</p>
-<div class="highlight-python"><pre>$ ipcluster start -n 4</pre>
+<div class="highlight-python"><pre>$ ipcluster start n=4</pre>
 </div>
 <p>For more detailed information about starting the controller and engines, see
 our <a class="reference internal" href="parallel_intro.html#ip1par"><em>introduction</em></a> to using IPython for parallel computing.</p>
@@ -371,18 +376,36 @@ to become impossible to run in obscure situations, so a timeout may be a good ch
 </div>
 </div>
 </div>
+<div class="section" id="retries-and-resubmit">
+<h2>Retries and Resubmit<a class="headerlink" href="#retries-and-resubmit" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="retries">
+<h3>Retries<a class="headerlink" href="#retries" title="Permalink to this headline">¶</a></h3>
+<p>Another flag for tasks is <cite>retries</cite>.  This is an integer, specifying how many times
+a task should be resubmitted after failure.  This is useful for tasks that should still run
+if their engine was shutdown, or may have some statistical chance of failing.  The default
+is to not retry tasks.</p>
+</div>
+<div class="section" id="resubmit">
+<h3>Resubmit<a class="headerlink" href="#resubmit" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes you may want to re-run a task. This could be because it failed for some reason, and
+you have fixed the error, or because you want to restore the cluster to an interrupted state.
+For this, the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> has a <tt class="xref py py-meth docutils literal"><span class="pre">rc.resubmit()</span></tt> method.  This simply takes one or more
+msg_ids, and returns an <tt class="xref py py-class docutils literal"><span class="pre">AsyncHubResult</span></tt> for the result(s).  You cannot resubmit
+a task that is pending - only those that have finished, either successful or unsuccessful.</p>
+</div>
+</div>
 <div class="section" id="schedulers">
 <span id="parallel-schedulers"></span><h2>Schedulers<a class="headerlink" href="#schedulers" title="Permalink to this headline">¶</a></h2>
 <p>There are a variety of valid ways to determine where jobs should be assigned in a
 load-balancing situation.  In IPython, we support several standard schemes, and
-even make it easy to define your own.  The scheme can be selected via the <tt class="docutils literal"><span class="pre">--scheme</span></tt>
-argument to <strong class="command">ipcontroller</strong>, or in the <tt class="xref py py-attr docutils literal"><span class="pre">HubFactory.scheme</span></tt> attribute
+even make it easy to define your own.  The scheme can be selected via the <tt class="docutils literal"><span class="pre">scheme</span></tt>
+argument to <strong class="command">ipcontroller</strong>, or in the <tt class="xref py py-attr docutils literal"><span class="pre">TaskScheduler.schemename</span></tt> attribute
 of a controller config object.</p>
 <p>The built-in routing schemes:</p>
 <p>To select one of these schemes, simply do:</p>
-<div class="highlight-python"><pre>$ ipcontroller --scheme &lt;schemename&gt;
+<div class="highlight-python"><pre>$ ipcontroller scheme=&lt;schemename&gt;
 for instance:
-$ ipcontroller --scheme lru</pre>
+$ ipcontroller scheme=lru</pre>
 </div>
 <p>lru: Least Recently Used</p>
 <blockquote>
@@ -505,7 +528,7 @@ for and then receive the results.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

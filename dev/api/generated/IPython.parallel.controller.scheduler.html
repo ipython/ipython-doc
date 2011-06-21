@@ -112,6 +112,10 @@
 <p>The Pure ZMQ scheduler does not allow routing schemes other than LRU,
 nor does it check msg_id DAG dependencies. For those, a slightly slower
 Python Scheduler exists.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min RK</li>
+</ul>
 </div>
 <div class="section" id="class">
 <h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
@@ -121,7 +125,7 @@ Python Scheduler exists.</p>
 <dl class="class">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.controller.scheduler.</tt><tt class="descname">TaskScheduler</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.parallel.factory.html#IPython.parallel.factory.SessionFactory" title="IPython.parallel.factory.SessionFactory"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.factory.SessionFactory</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.zmq.session.SessionFactory</span></tt></p>
 <p>Python TaskScheduler object.</p>
 <p>This is the simplest object that supports msg_id based
 DAG dependencies. <em>Only</em> task msg_ids are checked, not
@@ -180,6 +184,50 @@ The default loads are the number of outstanding jobs.</p>
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.blacklist">
 <tt class="descname">blacklist</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.blacklist" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.scheduler.TaskScheduler.trait_names" title="IPython.parallel.controller.scheduler.TaskScheduler.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.scheduler.TaskScheduler.traits" title="IPython.parallel.controller.scheduler.TaskScheduler.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -252,12 +300,6 @@ The default loads are the number of outstanding jobs.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.exec_key">
-<tt class="descname">exec_key</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.exec_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.fail_unreachable">
 <tt class="descname">fail_unreachable</tt><big>(</big><em>msg_id</em>, <em>why=&lt;class 'IPython.parallel.error.ImpossibleDependency'&gt;</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.fail_unreachable" title="Permalink to this definition">¶</a></dt>
@@ -309,12 +351,6 @@ Override with subclasses.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.ident" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.loads">
 <tt class="descname">loads</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.loads" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -330,7 +366,7 @@ Override with subclasses.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.logname">
 <tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -398,12 +434,6 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.packer">
-<tt class="descname">packer</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.packer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.pending">
 <tt class="descname">pending</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.pending" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -413,6 +443,12 @@ then unintall it.</p>
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.resume_receiving">
 <tt class="descname">resume_receiving</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.resume_receiving" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resume accepting jobs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.retries">
+<tt class="descname">retries</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.retries" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
 <dl class="method">
@@ -426,6 +462,12 @@ then unintall it.</p>
 <tt class="descname">scheme</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.scheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.scheduler.TaskScheduler.scheme_name">
+<tt class="descname">scheme_name</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.scheme_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enum that whose value must be in a given sequence.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -483,25 +525,13 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.unpacker">
-<tt class="descname">unpacker</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.unpacker" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.update_graph">
 <tt class="descname">update_graph</tt><big>(</big><em>dep_id=None</em>, <em>success=True</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.update_graph" title="Permalink to this definition">¶</a></dt>
 <dd><p>dep_id just finished. Update our dependency
 graph and submit any jobs that just became runable.</p>
-<p>Called with dep_id=None to update graph for hwm, but without finishing
+<p>Called with dep_id=None to update entire graph for hwm, but without finishing
 a task.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.username">
-<tt class="descname">username</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.username" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
 </dd></dl>
 
 </dd></dl>
@@ -511,7 +541,7 @@ a task.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.parallel.controller.scheduler.launch_scheduler">
-<tt class="descclassname">IPython.parallel.controller.scheduler.</tt><tt class="descname">launch_scheduler</tt><big>(</big><em>in_addr</em>, <em>out_addr</em>, <em>mon_addr</em>, <em>not_addr</em>, <em>config=None</em>, <em>logname='ZMQ'</em>, <em>log_addr=None</em>, <em>loglevel=10</em>, <em>scheme='lru'</em>, <em>identity='task'</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.launch_scheduler" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.parallel.controller.scheduler.</tt><tt class="descname">launch_scheduler</tt><big>(</big><em>in_addr</em>, <em>out_addr</em>, <em>mon_addr</em>, <em>not_addr</em>, <em>config=None</em>, <em>logname='root'</em>, <em>log_url=None</em>, <em>loglevel=10</em>, <em>identity='task'</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.launch_scheduler" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -590,7 +620,7 @@ the LRU of those with the lowest load is chosen.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

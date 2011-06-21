@@ -107,13 +107,20 @@
 <img src="../../_images/inheritance7e1dd1d54d.png" usemap="#inheritance7e1dd1d54d" class="inheritance"/><map id="inheritance7e1dd1d54d" name="inheritance7e1dd1d54d">
 </map>
 <span class="target" id="module-IPython.parallel.engine.streamkernel"></span><p>Kernel adapted from kernel.py to use ZMQ Streams</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min RK</li>
+<li>Brian Granger</li>
+<li>Fernando Perez</li>
+<li>Evan Patterson</li>
+</ul>
 </div>
 <div class="section" id="kernel">
 <h2><a class="reference internal" href="#IPython.parallel.engine.streamkernel.Kernel" title="IPython.parallel.engine.streamkernel.Kernel"><tt class="xref py py-class docutils literal"><span class="pre">Kernel</span></tt></a><a class="headerlink" href="#kernel" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.parallel.engine.streamkernel.Kernel">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.engine.streamkernel.</tt><tt class="descname">Kernel</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.parallel.factory.html#IPython.parallel.factory.SessionFactory" title="IPython.parallel.factory.SessionFactory"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.factory.SessionFactory</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.zmq.session.SessionFactory</span></tt></p>
 <dl class="method">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.__init__" title="Permalink to this definition">¶</a></dt>
@@ -155,6 +162,50 @@
 <dt id="IPython.parallel.engine.streamkernel.Kernel.check_dependencies">
 <tt class="descname">check_dependencies</tt><big>(</big><em>dependencies</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.check_dependencies" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.engine.streamkernel.Kernel.trait_names" title="IPython.parallel.engine.streamkernel.Kernel.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.engine.streamkernel.Kernel.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.engine.streamkernel.Kernel.traits" title="IPython.parallel.engine.streamkernel.Kernel.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.clear_request">
@@ -231,12 +282,6 @@
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.engine.streamkernel.Kernel.exec_key">
-<tt class="descname">exec_key</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.exec_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.exec_lines">
 <tt class="descname">exec_lines</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.exec_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -246,12 +291,6 @@
 <dt id="IPython.parallel.engine.streamkernel.Kernel.execute_request">
 <tt class="descname">execute_request</tt><big>(</big><em>stream</em>, <em>ident</em>, <em>parent</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.execute_request" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.engine.streamkernel.Kernel.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.ident" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
-</dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.int_id">
@@ -276,7 +315,7 @@
 <dl class="attribute">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.logname">
 <tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -321,12 +360,6 @@ then unintall it.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.engine.streamkernel.Kernel.packer">
-<tt class="descname">packer</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.packer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -391,21 +424,9 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.engine.streamkernel.Kernel.unpacker">
-<tt class="descname">unpacker</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.unpacker" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.engine.streamkernel.Kernel.user_ns">
 <tt class="descname">user_ns</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.user_ns" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.engine.streamkernel.Kernel.username">
-<tt class="descname">username</tt><a class="headerlink" href="#IPython.parallel.engine.streamkernel.Kernel.username" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
 </dd></dl>
 
 </dd></dl>
@@ -448,7 +469,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

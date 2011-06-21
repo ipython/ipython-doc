@@ -64,6 +64,7 @@
 <li><a class="reference internal" href="#module-core-magic">Module: <tt class="docutils literal"><span class="pre">core.magic</span></tt></a></li>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#bunch"><tt class="docutils literal"><span class="pre">Bunch</span></tt></a></li>
+<li><a class="reference internal" href="#macrotoedit"><tt class="docutils literal"><span class="pre">MacroToEdit</span></tt></a></li>
 <li><a class="reference internal" href="#magic"><tt class="docutils literal"><span class="pre">Magic</span></tt></a></li>
 </ul>
 </li>
@@ -121,6 +122,31 @@
 <dt id="IPython.core.magic.Bunch">
 <em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">Bunch</tt><a class="headerlink" href="#IPython.core.magic.Bunch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</div>
+<div class="section" id="macrotoedit">
+<h3><a class="reference internal" href="#IPython.core.magic.MacroToEdit" title="IPython.core.magic.MacroToEdit"><tt class="xref py py-class docutils literal"><span class="pre">MacroToEdit</span></tt></a><a class="headerlink" href="#macrotoedit" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.magic.MacroToEdit">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">MacroToEdit</tt><a class="headerlink" href="#IPython.core.magic.MacroToEdit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></p>
+<dl class="method">
+<dt id="IPython.core.magic.MacroToEdit.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.magic.MacroToEdit.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.magic.MacroToEdit.args">
+<tt class="descname">args</tt><a class="headerlink" href="#IPython.core.magic.MacroToEdit.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.magic.MacroToEdit.message">
+<tt class="descname">message</tt><a class="headerlink" href="#IPython.core.magic.MacroToEdit.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="magic">
@@ -546,7 +572,7 @@ defined it.</p>
 <p>%gui [GUINAME]</p>
 <p>This magic replaces IPython&#8217;s threaded shells that were activated
 using the (pylab/wthread/etc.) command line flags.  GUI toolkits
-can now be enabled, disabled and swtiched at runtime and keyboard
+can now be enabled, disabled and changed at runtime and keyboard
 interrupts should work without any problems.  The following toolkits
 are supported:  wxPython, PyQt4, PyGTK, and Tk:</p>
 <div class="highlight-python"><pre>%gui wx      # enable wxPython event loop integration
@@ -586,6 +612,16 @@ option:</p>
 <dt id="IPython.core.magic.Magic.magic_load_ext">
 <tt class="descname">magic_load_ext</tt><big>(</big><em>module_str</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_load_ext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an IPython extension by its module name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magic.magic_loadpy">
+<tt class="descname">magic_loadpy</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_loadpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a .py python script into the GUI console.</p>
+<p>This magic command can either take a local filename or a url:</p>
+<div class="highlight-python"><pre>%loadpy myscript.py
+%loadpy http://www.example.com/myscript.py</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1167,7 +1203,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0xa04ddbc&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103f23f50&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -1585,6 +1621,21 @@ beta       str         test</pre>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.magic.Magic.magic_xdel">
+<tt class="descname">magic_xdel</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_xdel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a variable, trying to clear it from anywhere that
+IPython&#8217;s machinery has references to it. By default, this uses
+the identity of the named object in the user namespace to remove
+references held under other names. The object is also removed
+from the output history.</p>
+<dl class="docutils">
+<dt>Options</dt>
+<dd>-n : Delete the specified name from all namespaces, without
+checking their identity.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.magic.Magic.magic_xmode">
 <tt class="descname">magic_xmode</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_xmode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch modes for the exception handlers.</p>
@@ -1676,7 +1727,7 @@ standard library.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

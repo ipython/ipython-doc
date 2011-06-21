@@ -257,7 +257,7 @@ cluster using the Windows HPC Server 2008 job scheduler. To make sure that
 <strong class="command">ipcluster</strong> is installed and working properly, you should first try
 to start an IPython cluster on your local host. To do this, open a Windows
 Command Prompt and type the following command:</p>
-<div class="highlight-python"><pre>ipcluster start -n 2</pre>
+<div class="highlight-python"><pre>ipcluster start n=2</pre>
 </div>
 <p>You should see a number of messages printed to the screen, ending with
 &#8220;IPython cluster: started&#8221;. The result should look something like the following
@@ -271,9 +271,9 @@ describe how to configure and run an IPython cluster on an actual compute
 cluster running Windows HPC Server 2008. Here is an outline of the needed
 steps:</p>
 <ol class="arabic simple">
-<li>Create a cluster profile using: <tt class="docutils literal"><span class="pre">ipcluster</span> <span class="pre">create</span> <span class="pre">-p</span> <span class="pre">mycluster</span></tt></li>
+<li>Create a cluster profile using: <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">profile</span> <span class="pre">create</span> <span class="pre">--parallel</span> <span class="pre">profile=mycluster</span></tt></li>
 <li>Edit configuration files in the directory <tt class="file docutils literal"><span class="pre">.ipython\cluster_mycluster</span></tt></li>
-<li>Start the cluster using: <tt class="docutils literal"><span class="pre">ipcluser</span> <span class="pre">start</span> <span class="pre">-p</span> <span class="pre">mycluster</span> <span class="pre">-n</span> <span class="pre">32</span></tt></li>
+<li>Start the cluster using: <tt class="docutils literal"><span class="pre">ipcluser</span> <span class="pre">start</span> <span class="pre">profile=mycluster</span> <span class="pre">n=32</span></tt></li>
 </ol>
 <div class="section" id="creating-a-cluster-profile">
 <h3>Creating a cluster profile<a class="headerlink" href="#creating-a-cluster-profile" title="Permalink to this headline">¶</a></h3>
@@ -286,11 +286,11 @@ directory is a specially named directory (typically located in the
 <tt class="file docutils literal"><span class="pre">.ipython</span></tt> subdirectory of your home directory) that contains the
 configuration files for a particular cluster profile, as well as log files and
 security keys. The naming convention for cluster directories is:
-<tt class="file docutils literal"><span class="pre">cluster_&lt;profile</span> <span class="pre">name&gt;</span></tt>. Thus, the cluster directory for a profile named
+<tt class="file docutils literal"><span class="pre">profile_&lt;profile</span> <span class="pre">name&gt;</span></tt>. Thus, the cluster directory for a profile named
 &#8220;foo&#8221; would be <tt class="file docutils literal"><span class="pre">.ipython\cluster_foo</span></tt>.</p>
 <p>To create a new cluster profile (named &#8220;mycluster&#8221;) and the associated cluster
 directory, type the following command at the Windows Command Prompt:</p>
-<div class="highlight-python"><pre>ipcluster create -p mycluster</pre>
+<div class="highlight-python"><pre>ipython profile create --parallel profile=mycluster</pre>
 </div>
 <p>The output of this command is shown in the screenshot below. Notice how
 <strong class="command">ipcluster</strong> prints out the location of the newly created cluster
@@ -314,9 +314,9 @@ will need to edit the following attributes in the file
 <tt class="file docutils literal"><span class="pre">ipcluster_config.py</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Set these at the top of the file to tell ipcluster to use the</span>
 <span class="c"># Windows HPC job scheduler.</span>
-<span class="n">c</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">controller_launcher</span> <span class="o">=</span> \
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher</span> <span class="o">=</span> \
     <span class="s">&#39;IPython.parallel.apps.launcher.WindowsHPCControllerLauncher&#39;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">Global</span><span class="o">.</span><span class="n">engine_launcher</span> <span class="o">=</span> \
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher</span> <span class="o">=</span> \
     <span class="s">&#39;IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher&#39;</span>
 
 <span class="c"># Set these to the host name of the scheduler (head node) of your cluster.</span>
@@ -339,7 +339,7 @@ that the backslashes are properly escaped.</p>
 <h3>Starting the cluster profile<a class="headerlink" href="#starting-the-cluster-profile" title="Permalink to this headline">¶</a></h3>
 <p>Once a cluster profile has been configured, starting an IPython cluster using
 the profile is simple:</p>
-<div class="highlight-python"><pre>ipcluster start -p mycluster -n 32</pre>
+<div class="highlight-python"><pre>ipcluster start profile=mycluster n=32</pre>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">-n</span></tt> option tells <strong class="command">ipcluster</strong> how many engines to start (in
 this case 32). Stopping the cluster is as simple as typing Control-C.</p>
@@ -441,7 +441,7 @@ function, but runs the calculation in parallel. More involved examples of using
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -66,7 +66,6 @@
 <li><a class="reference internal" href="#bunch"><tt class="docutils literal"><span class="pre">Bunch</span></tt></a></li>
 <li><a class="reference internal" href="#interactiveshell"><tt class="docutils literal"><span class="pre">InteractiveShell</span></tt></a></li>
 <li><a class="reference internal" href="#interactiveshellabc"><tt class="docutils literal"><span class="pre">InteractiveShellABC</span></tt></a></li>
-<li><a class="reference internal" href="#multipleinstanceerror"><tt class="docutils literal"><span class="pre">MultipleInstanceError</span></tt></a></li>
 <li><a class="reference internal" href="#readlinenorecord"><tt class="docutils literal"><span class="pre">ReadlineNoRecord</span></tt></a></li>
 <li><a class="reference internal" href="#separatestr"><tt class="docutils literal"><span class="pre">SeparateStr</span></tt></a></li>
 <li><a class="reference internal" href="#spaceininput"><tt class="docutils literal"><span class="pre">SpaceInInput</span></tt></a></li>
@@ -132,12 +131,12 @@
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.InteractiveShell" title="IPython.core.interactiveshell.InteractiveShell"><tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt></a><a class="headerlink" href="#interactiveshell" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.InteractiveShell">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShell</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt>, <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magic" title="IPython.core.magic.Magic"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magic</span></tt></a></p>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShell</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.SingletonConfigurable" title="IPython.config.configurable.SingletonConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.SingletonConfigurable</span></tt></a>, <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magic" title="IPython.core.magic.Magic"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magic</span></tt></a></p>
 <p>An enhanced, interactive shell for Python.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -264,10 +263,60 @@ Out[12]: True</p>
 <dd><p>Control auto-activation of pdb at exceptions</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.interactiveshell.InteractiveShell.trait_names" title="IPython.core.interactiveshell.InteractiveShell.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.interactiveshell.InteractiveShell.traits" title="IPython.core.interactiveshell.InteractiveShell.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.cleanup">
 <tt class="descname">cleanup</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.cleanup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.interactiveshell.InteractiveShell.clear_instance">
+<em class="property">classmethod </em><tt class="descname">clear_instance</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.clear_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>unset _instance for this class and singleton parents.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.clear_main_mod_cache">
@@ -424,6 +473,31 @@ print &#8216;&lt;%s&gt;&#8217; % parameter_s
 print &#8216;The self object is:&#8217;,self</dd>
 </dl>
 <p>self.define_magic(&#8216;foo&#8217;,foo_impl)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.del_var">
+<tt class="descname">del_var</tt><big>(</big><em>varname</em>, <em>by_name=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.del_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a variable from the various namespaces, so that, as
+far as possible, we&#8217;re not keeping any hidden references to it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>varname</strong> : str</p>
+<blockquote>
+<div><p>The name of the variable to delete.</p>
+</div></blockquote>
+<p><strong>by_name</strong> : bool</p>
+<blockquote class="last">
+<div><p>If True, delete variables with the given name in each
+namespace. If False (default), find the variable in the user
+namespace, and delete references to it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -757,6 +831,11 @@ library), programatically (such as in test suites) or out-of-prcess
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_profile_dir">
+<tt class="descname">init_profile_dir</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.init_prompts">
 <tt class="descname">init_prompts</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_prompts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -807,7 +886,8 @@ therm.</p>
 <dl class="classmethod">
 <dt id="IPython.core.interactiveshell.InteractiveShell.initialized">
 <em class="property">classmethod </em><tt class="descname">initialized</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.initialized" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Has an instance been created?</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.input_splitter">
@@ -819,7 +899,28 @@ therm.</p>
 <dl class="classmethod">
 <dt id="IPython.core.interactiveshell.InteractiveShell.instance">
 <em class="property">classmethod </em><tt class="descname">instance</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.instance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a global InteractiveShell instance.</p>
+<dd><p>Returns a global instance of this class.</p>
+<p>This method create a new instance if none have previously been created
+and returns a previously created instance is one already exists.</p>
+<p>The arguments and keyword arguments passed to this method are passed
+on to the <a class="reference internal" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="IPython.core.interactiveshell.InteractiveShell.__init__"><tt class="xref py py-meth docutils literal"><span class="pre">__init__()</span></tt></a> method of the class upon instantiation.</p>
+<p class="rubric">Examples</p>
+<p>Create a singleton class using instance, and retrieve it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">IPython.config.configurable</span> <span class="kn">import</span> <span class="n">SingletonConfigurable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="o">==</span> <span class="n">Foo</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Create a subclass that is retrived using the base class instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">SingletonConfigurable</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Bam</span><span class="p">(</span><span class="n">Bar</span><span class="p">):</span> <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">=</span> <span class="n">Bam</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bam</span> <span class="o">==</span> <span class="n">Bar</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -1224,7 +1325,7 @@ defined it.</p>
 <p>%gui [GUINAME]</p>
 <p>This magic replaces IPython&#8217;s threaded shells that were activated
 using the (pylab/wthread/etc.) command line flags.  GUI toolkits
-can now be enabled, disabled and swtiched at runtime and keyboard
+can now be enabled, disabled and changed at runtime and keyboard
 interrupts should work without any problems.  The following toolkits
 are supported:  wxPython, PyQt4, PyGTK, and Tk:</p>
 <div class="highlight-python"><pre>%gui wx      # enable wxPython event loop integration
@@ -1264,6 +1365,16 @@ option:</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_load_ext">
 <tt class="descname">magic_load_ext</tt><big>(</big><em>module_str</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_load_ext" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an IPython extension by its module name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.magic_loadpy">
+<tt class="descname">magic_loadpy</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_loadpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a .py python script into the GUI console.</p>
+<p>This magic command can either take a local filename or a url:</p>
+<div class="highlight-python"><pre>%loadpy myscript.py
+%loadpy http://www.example.com/myscript.py</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1845,7 +1956,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0xa04ddbc&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103f23f50&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -2263,6 +2374,21 @@ beta       str         test</pre>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.magic_xdel">
+<tt class="descname">magic_xdel</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_xdel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a variable, trying to clear it from anywhere that
+IPython&#8217;s machinery has references to it. By default, this uses
+the identity of the named object in the user namespace to remove
+references held under other names. The object is also removed
+from the output history.</p>
+<dl class="docutils">
+<dt>Options</dt>
+<dd>-n : Delete the specified name from all namespaces, without
+checking their identity.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_xmode">
 <tt class="descname">magic_xmode</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_xmode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch modes for the exception handlers.</p>
@@ -2442,7 +2568,13 @@ standard library.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.profile">
 <tt class="descname">profile</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.profile" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for unicode strings.</p>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.interactiveshell.InteractiveShell.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2892,15 +3024,54 @@ simply call this method.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.system">
 <tt class="descname">system</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call the given cmd in a subprocess.</p>
+<dd><p>Call the given cmd in a subprocess, piping stdout/err</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
 <blockquote class="last">
-<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as bacground processes are
-not supported.</p>
+<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
+not supported.  Should not be a command that expects input
+other than simple text.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.system_piped">
+<tt class="descname">system_piped</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system_piped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given cmd in a subprocess, piping stdout/err</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote class="last">
+<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
+not supported.  Should not be a command that expects input
+other than simple text.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.system_raw">
+<tt class="descname">system_raw</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given cmd in a subprocess using os.system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote class="last">
+<div><p>Command to execute.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -3024,33 +3195,8 @@ namespace.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShellABC.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShellABC.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
 </dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="multipleinstanceerror">
-<h3><a class="reference internal" href="#IPython.core.interactiveshell.MultipleInstanceError" title="IPython.core.interactiveshell.MultipleInstanceError"><tt class="xref py py-class docutils literal"><span class="pre">MultipleInstanceError</span></tt></a><a class="headerlink" href="#multipleinstanceerror" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.interactiveshell.MultipleInstanceError">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">MultipleInstanceError</tt><a class="headerlink" href="#IPython.core.interactiveshell.MultipleInstanceError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
-<dl class="method">
-<dt id="IPython.core.interactiveshell.MultipleInstanceError.__init__">
-<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.MultipleInstanceError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.MultipleInstanceError.args">
-<tt class="descname">args</tt><a class="headerlink" href="#IPython.core.interactiveshell.MultipleInstanceError.args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.MultipleInstanceError.message">
-<tt class="descname">message</tt><a class="headerlink" href="#IPython.core.interactiveshell.MultipleInstanceError.message" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -3086,15 +3232,15 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateStr" title="IPython.core.interactiveshell.SeparateStr"><tt class="xref py py-class docutils literal"><span class="pre">SeparateStr</span></tt></a><a class="headerlink" href="#separatestr" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateStr">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0xa095cec&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Str</span></tt></p>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103f37d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Str" title="IPython.utils.traitlets.Str"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Str</span></tt></a></p>
 <p>A Str subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
 <div>This is a Str based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
 <p>&#8216;.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateStr.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0xa095cec&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103f37d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TraitType.</p>
 </dd></dl>
 
@@ -3182,7 +3328,7 @@ class has been instantiated.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SpaceInInput.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SpaceInInput.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -3250,7 +3396,7 @@ class has been instantiated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

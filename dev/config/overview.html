@@ -67,6 +67,12 @@
 <li><a class="reference internal" href="#class-based-configuration-inheritance">Class based configuration inheritance</a></li>
 <li><a class="reference internal" href="#configuration-file-location">Configuration file location</a></li>
 <li><a class="reference internal" href="#profiles">Profiles</a></li>
+<li><a class="reference internal" href="#command-line-arguments">Command-line arguments</a><ul>
+<li><a class="reference internal" href="#aliases">Aliases</a></li>
+<li><a class="reference internal" href="#flags">Flags</a></li>
+<li><a class="reference internal" href="#subcommands">Subcommands</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#design-requirements">Design requirements</a></li>
 </ul>
 </li>
@@ -119,8 +125,8 @@ met our requirements.</p>
 your old <tt class="file docutils literal"><span class="pre">ipythonrc</span></tt> or <tt class="file docutils literal"><span class="pre">ipy_user_conf.py</span></tt> configuration files
 to the new system.  Read on for information on how to do this.</p>
 </div>
-<p>The discussion that follows is focused on teaching user&#8217;s how to configure
-IPython to their liking.  Developer&#8217;s who want to know more about how they
+<p>The discussion that follows is focused on teaching users how to configure
+IPython to their liking.  Developers who want to know more about how they
 can enable their objects to take advantage of the configuration system
 should consult our <a class="reference internal" href="../development/index.html#developer-guide"><em>developer guide</em></a></p>
 <div class="section" id="the-main-concepts">
@@ -135,31 +141,51 @@ support dotted attribute style access (<tt class="docutils literal"><span class=
 regular dictionary style access (<tt class="docutils literal"><span class="pre">Foo['bar']</span></tt>). Configuration objects
 are smart. They know how to merge themselves with other configuration
 objects and they automatically create sub-configuration objects.</dd>
-<dt>Application: <a class="reference internal" href="../api/generated/IPython.core.application.html#IPython.core.application.Application" title="IPython.core.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a></dt>
-<dd>An application is a process that does a specific job. The most obvious
+<dt>Application: <a class="reference internal" href="../api/generated/IPython.config.application.html#IPython.config.application.Application" title="IPython.config.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a></dt>
+<dd><p class="first">An application is a process that does a specific job. The most obvious
 application is the <strong class="command">ipython</strong> command line program. Each
-application reads a <em>single</em> configuration file and command line options
+application reads <em>one or more</em> configuration files and a single set of
+command line options
 and then produces a master configuration object for the application. This
 configuration object is then passed to the configurable objects that the
 application creates. These configurable objects implement the actual logic
 of the application and know how to configure themselves given the
-configuration object.</dd>
-<dt>Component: <tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></dt>
+configuration object.</p>
+<p class="last">Applications always have a <cite>log</cite> attribute that is a configured Logger.
+This allows centralized logging configuration per-application.</p>
+</dd>
+<dt>Component: <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a></dt>
 <dd><p class="first">A configurable is a regular Python class that serves as a base class for
 all main classes in an application. The
-<tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> base class is
+<a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> base class is
 lightweight and only does one things.</p>
-<p>This <tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> is a subclass
-of <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt> that knows how to configure
+<p>This <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> is a subclass
+of <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> that knows how to configure
 itself. Class level traits with the metadata <tt class="docutils literal"><span class="pre">config=True</span></tt> become
 values that can be configured from the command line and configuration
 files.</p>
-<p class="last">Developers create <tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt>
+<p class="last">Developers create <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a>
 subclasses that implement all of the logic in the application. Each of
 these subclasses has its own configuration information that controls how
 instances are created.</p>
 </dd>
+<dt>Singletons: <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.SingletonConfigurable" title="IPython.config.configurable.SingletonConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">SingletonConfigurable</span></tt></a></dt>
+<dd>Any object for which there is a single canonical instance. These are
+just like Configurables, except they have a class method
+<a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.SingletonConfigurable.instance" title="IPython.config.configurable.SingletonConfigurable.instance"><tt class="xref py py-meth docutils literal"><span class="pre">instance()</span></tt></a>,
+that returns the current active instance (or creates one if it
+does not exist).  Examples of singletons include
+<tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt>.  This lets
+objects easily connect to the current running Application without passing
+objects around everywhere.  For instance, to get the current running
+Application instance, simply do: <tt class="docutils literal"><span class="pre">app</span> <span class="pre">=</span> <span class="pre">Application.instance()</span></tt>.</dd>
 </dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Singletons are not strictly enforced - you can have many instances
+of a given singleton class, but the <tt class="xref py py-meth docutils literal"><span class="pre">instance()</span></tt> method will always
+return the same one.</p>
+</div>
 <p>Having described these main concepts, we can now state the main idea in our
 configuration system: <em>&#8220;configuration&#8221; allows the default values of class
 attributes to be controlled on a class by class basis</em>. Thus all instances of
@@ -190,7 +216,7 @@ attributes on it.  All you have to know is:</p>
 <li>The type of each attribute.</li>
 </ul>
 <p>The answers to these two questions are provided by the various
-<tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> subclasses that an
+<a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> subclasses that an
 application uses. Let&#8217;s look at how this would work for a simple component
 subclass:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Sample component that can be configured.</span>
@@ -198,7 +224,7 @@ subclass:</p>
 <span class="kn">from</span> <span class="nn">IPython.utils.traitlets</span> <span class="kn">import</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Str</span><span class="p">,</span> <span class="n">Bool</span>
 
 <span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s">&#39;defaultname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">(</span><span class="s">u&#39;defaultname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">ranking</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">99.0</span><span class="p">)</span>
     <span class="c"># The rest of the class implementation would go here..</span>
@@ -219,15 +245,15 @@ to configure this class in a configuration file:</p>
 <p>After this configuration file is loaded, the values set in it will override
 the class defaults anytime a <tt class="xref py py-class docutils literal"><span class="pre">MyClass</span></tt> is created.  Furthermore,
 these attributes will be type checked and validated anytime they are set.
-This type checking is handled by the <tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt> module,
+This type checking is handled by the <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> module,
 which provides the <tt class="xref py py-class docutils literal"><span class="pre">Str</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">Int</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Float</span></tt> types.  In
-addition to these traitlets, the <tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt> provides
+addition to these traitlets, the <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> provides
 traitlets for a number of other types.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Underneath the hood, the <tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> base class is a subclass of
-<tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt>. The
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt> module is a lightweight version of
+<a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a>. The
+<a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> module is a lightweight version of
 <tt class="xref py py-mod docutils literal"><span class="pre">enthought.traits</span></tt>. Our implementation is a pure Python subset
 (mostly API compatible) of <tt class="xref py py-mod docutils literal"><span class="pre">enthought.traits</span></tt> that does not have any
 of the automatic GUI generation capabilities. Our plan is to achieve 100%
@@ -287,6 +313,11 @@ example that loads all of the values from the file <tt class="file docutils lite
 search path for sub-configuration files is inherited from that of the parent.
 Thus, you can typically put the two in the same directory and everything will
 just work.</p>
+<p>You can also load configuration files by profile, for instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">load_subconfig</span><span class="p">(</span><span class="s">&#39;ipython_config.py&#39;</span><span class="p">,</span> <span class="n">profile</span><span class="o">=</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>to inherit your default configuration as a starting point.</p>
 </div>
 <div class="section" id="class-based-configuration-inheritance">
 <h2>Class based configuration inheritance<a class="headerlink" href="#class-based-configuration-inheritance" title="Permalink to this headline">¶</a></h2>
@@ -328,11 +359,12 @@ it doesn&#8217;t know anything about the <tt class="xref py py-attr docutils lit
 </div>
 <div class="section" id="configuration-file-location">
 <span id="ipython-dir"></span><h2>Configuration file location<a class="headerlink" href="#configuration-file-location" title="Permalink to this headline">¶</a></h2>
-<p>So where should you put your configuration files?  By default, all IPython
-applications look in the so called &#8220;IPython directory&#8221;.  The location of
-this directory is determined by the following algorithm:</p>
+<p>So where should you put your configuration files? IPython uses &#8220;profiles&#8221; for
+configuration, and by default, all profiles will be stored in the so called
+&#8220;IPython directory&#8221;. The location of this directory is determined by the
+following algorithm:</p>
 <ul class="simple">
-<li>If the <tt class="docutils literal"><span class="pre">--ipython-dir</span></tt> command line flag is given, its value is used.</li>
+<li>If the <tt class="docutils literal"><span class="pre">ipython_dir</span></tt> command line flag is given, its value is used.</li>
 <li>If not, the value returned by <a class="reference internal" href="../api/generated/IPython.utils.path.html#IPython.utils.path.get_ipython_dir" title="IPython.utils.path.get_ipython_dir"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.path.get_ipython_dir()</span></tt></a>
 is used. This function will first look at the <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">IPYTHON_DIR</span></tt>
 environment variable and then default to a platform-specific default.</li>
@@ -347,37 +379,114 @@ system default.</p>
 <p>For most users, the default value will simply be something like
 <tt class="file docutils literal"><span class="pre">$HOME/.config/ipython</span></tt> on Linux, or <tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>
 elsewhere.</p>
-<p>Once the location of the IPython directory has been determined, you need to
-know what filename to use for the configuration file. The basic idea is that
-each application has its own default configuration filename. The default named
-used by the <strong class="command">ipython</strong> command line program is
-<tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt>.  This value can be overriden by the <tt class="docutils literal"><span class="pre">-config_file</span></tt>
-command line flag.  A sample <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> file can be found
-in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.config.default.ipython_config.py</span></tt>.  Simple copy it to your
-IPython directory to begin using it.</p>
+<p>Once the location of the IPython directory has been determined, you need to know
+which profile you are using. For users with a single configuration, this will
+simply be &#8216;default&#8217;, and will be located in
+<tt class="file docutils literal"><span class="pre">&lt;IPYTHON_DIR&gt;/profile_default</span></tt>.</p>
+<p>The next thing you need to know is what to call your configuration file. The
+basic idea is that each application has its own default configuration filename.
+The default named used by the <strong class="command">ipython</strong> command line program is
+<tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt>, and <em>all</em> IPython applications will use this file.
+Other applications, such as the parallel <strong class="command">ipcluster</strong> scripts or the
+QtConsole will load their own config files <em>after</em> <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt>. To
+load a particular configuration file instead of the default, the name can be
+overridden by the <tt class="docutils literal"><span class="pre">config_file</span></tt> command line flag.</p>
+<p>To generate the default configuration files, do:</p>
+<div class="highlight-python"><pre>$&gt; ipython profile create</pre>
+</div>
+<p>and you will have a default <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> in your IPython directory
+under <tt class="file docutils literal"><span class="pre">profile_default</span></tt>. If you want the default config files for the
+<tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt> applications, add <tt class="docutils literal"><span class="pre">--parallel</span></tt> to the end of the
+command-line args.</p>
 </div>
 <div class="section" id="profiles">
 <span id="id1"></span><h2>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h2>
-<p>A profile is simply a configuration file that follows a simple naming
-convention and can be loaded using a simplified syntax.  The idea is
-that users often want to maintain a set of configuration files for different
-purposes:  one for doing numerical computing with NumPy and SciPy and
-another for doing symbolic computing with SymPy.  Profiles make it easy
-to keep a separate configuration file for each of these purposes.</p>
+<p>A profile is a directory containing configuration and runtime files, such as
+logs, connection info for the parallel apps, and your IPython command history.</p>
+<p>The idea is that users often want to maintain a set of configuration files for
+different purposes: one for doing numerical computing with NumPy and SciPy and
+another for doing symbolic computing with SymPy. Profiles make it easy to keep a
+separate configuration files, logs, and histories for each of these purposes.</p>
 <p>Let&#8217;s start by showing how a profile is used:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ipython -p sympy
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ipython <span class="nv">profile</span><span class="o">=</span>sympy
 </pre></div>
 </div>
-<p>This tells the <strong class="command">ipython</strong> command line program to get its
-configuration from the &#8220;sympy&#8221; profile. The search path for profiles is the
-same as that of regular configuration files. The only difference is that
-profiles are named in a special way. In the case above, the &#8220;sympy&#8221; profile
-would need to have the name <tt class="file docutils literal"><span class="pre">ipython_config_sympy.py</span></tt>.</p>
-<p>The general pattern is this: simply add <tt class="docutils literal"><span class="pre">_profilename</span></tt> to the end of the
-normal configuration file name. Then load the profile by adding <tt class="docutils literal"><span class="pre">-p</span>
-<span class="pre">profilename</span></tt> to your command line options.</p>
-<p>IPython ships with some sample profiles in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.config.profile</span></tt>.
-Simply copy these to your IPython directory to begin using them.</p>
+<p>This tells the <strong class="command">ipython</strong> command line program to get its configuration
+from the &#8220;sympy&#8221; profile. The file names for various profiles do not change. The
+only difference is that profiles are named in a special way. In the case above,
+the &#8220;sympy&#8221; profile means looking for <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> in <tt class="file docutils literal"><span class="pre">&lt;IPYTHON_DIR&gt;/profile_sympy</span></tt>.</p>
+<p>The general pattern is this: simply create a new profile with:</p>
+<div class="highlight-bash"><div class="highlight"><pre>ipython profile create &lt;name&gt;
+</pre></div>
+</div>
+<p>which adds a directory called <tt class="docutils literal"><span class="pre">profile_&lt;name&gt;</span></tt> to your IPython directory. Then
+you can load this profile by adding <tt class="docutils literal"><span class="pre">profile=&lt;name&gt;</span></tt> to your command line
+options. Profiles are supported by all IPython applications.</p>
+<p>IPython ships with some sample profiles in <tt class="file docutils literal"><span class="pre">IPython/config/profile</span></tt>. If
+you create profiles with the name of one of our shipped profiles, these config
+files will be copied over instead of starting with the automatically generated
+config files.</p>
+</div>
+<div class="section" id="command-line-arguments">
+<span id="commandline"></span><h2>Command-line arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<p>IPython exposes <em>all</em> configurable options on the command-line. The command-line
+arguments are generated from the Configurable traits of the classes associated
+with a given Application.  Configuring IPython from the command-line may look
+very similar to an IPython config file</p>
+<p>IPython applications use a parser called
+<tt class="xref py py-class docutils literal"><span class="pre">KeyValueLoader</span></tt> to load values into a Config
+object.  Values are assigned in much the same way as in a config file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython InteractiveShell.use_readline<span class="o">=</span>False BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+</pre></div>
+</div>
+<p>Is the same as adding:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShell</span><span class="o">.</span><span class="n">use_readline</span><span class="o">=</span><span class="bp">False</span>
+<span class="n">c</span><span class="o">.</span><span class="n">BaseIPythonApplication</span><span class="o">.</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;myprofile&#39;</span>
+</pre></div>
+</div>
+<p>to your config file. Key/Value arguments <em>always</em> take a value, separated by &#8216;=&#8217;
+and no spaces.</p>
+<div class="section" id="aliases">
+<h3>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
+<p>For convenience, applications have a mapping of commonly
+used traits, so you don&#8217;t have to specify the whole class name. For these <strong>aliases</strong>, the class need not be specified:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython <span class="nv">profile</span><span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+<span class="c"># is equivalent to</span>
+<span class="nv">$&gt;</span> ipython BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="flags">
+<h3>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h3>
+<p>Applications can also be passed <strong>flags</strong>. Flags are options that take no
+arguments, and are always prefixed with <tt class="docutils literal"><span class="pre">--</span></tt>. They are simply wrappers for
+setting one or more configurables with predefined values, often True/False.</p>
+<p>For instance:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcontroller --debug
+<span class="c"># is equivalent to</span>
+<span class="nv">$&gt;</span> ipcontroller Application.log_level<span class="o">=</span>DEBUG
+<span class="c"># and</span>
+<span class="nv">$&gt;</span> ipython --pylab
+<span class="c"># is equivalent to</span>
+<span class="nv">$&gt;</span> ipython <span class="nv">pylab</span><span class="o">=</span>auto
+</pre></div>
+</div>
+</div>
+<div class="section" id="subcommands">
+<h3>Subcommands<a class="headerlink" href="#subcommands" title="Permalink to this headline">¶</a></h3>
+<p>Some IPython applications have <strong>subcommands</strong>. Subcommands are modeled after
+<strong class="command">git</strong>, and are called with the form <strong class="command">command subcommand
+[...args]</strong>.  Currently, the QtConsole is a subcommand of terminal IPython:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython qtconsole <span class="nv">profile</span><span class="o">=</span>myprofile
+</pre></div>
+</div>
+<p>and <strong class="command">ipcluster</strong> is simply a wrapper for its various subcommands (start,
+stop, engines).</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start <span class="nv">profile</span><span class="o">=</span>myprofile <span class="nv">n</span><span class="o">=</span>4
+</pre></div>
+</div>
+<p>To see a list of the available aliases, flags, and subcommands for an IPython application, simply pass <tt class="docutils literal"><span class="pre">-h</span></tt> or <tt class="docutils literal"><span class="pre">--help</span></tt>.  And to see the full list of configurable options (<em>very</em> long), pass <tt class="docutils literal"><span class="pre">--help-all</span></tt>.</p>
+</div>
 </div>
 <div class="section" id="design-requirements">
 <h2>Design requirements<a class="headerlink" href="#design-requirements" title="Permalink to this headline">¶</a></h2>
@@ -442,7 +551,7 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

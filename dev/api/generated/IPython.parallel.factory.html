@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="parallel.streamsession" href="IPython.parallel.streamsession.html" />
+    <link rel="next" title="parallel.util" href="IPython.parallel.util.html" />
     <link rel="prev" title="parallel.error" href="IPython.parallel.error.html" /> 
   </head>
   <body>
@@ -43,7 +43,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.streamsession.html" title="parallel.streamsession"
+          <a href="IPython.parallel.util.html" title="parallel.util"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.error.html" title="parallel.error"
@@ -62,13 +62,7 @@
   <ul>
 <li><a class="reference internal" href="#">parallel.factory</a><ul>
 <li><a class="reference internal" href="#module-parallel-factory">Module: <tt class="docutils literal"><span class="pre">parallel.factory</span></tt></a></li>
-<li><a class="reference internal" href="#classes">Classes</a><ul>
-<li><a class="reference internal" href="#loggingfactory"><tt class="docutils literal"><span class="pre">LoggingFactory</span></tt></a></li>
 <li><a class="reference internal" href="#registrationfactory"><tt class="docutils literal"><span class="pre">RegistrationFactory</span></tt></a></li>
-<li><a class="reference internal" href="#sessionfactory"><tt class="docutils literal"><span class="pre">SessionFactory</span></tt></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -77,8 +71,8 @@
   <p class="topless"><a href="IPython.parallel.error.html"
                         title="previous chapter">parallel.error</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.parallel.streamsession.html"
-                        title="next chapter">parallel.streamsession</a></p>
+  <p class="topless"><a href="IPython.parallel.util.html"
+                        title="next chapter">parallel.util</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.parallel.factory.txt"
@@ -113,120 +107,59 @@
 <img src="../../_images/inheritance018b4bcaf0.png" usemap="#inheritance018b4bcaf0" class="inheritance"/><map id="inheritance018b4bcaf0" name="inheritance018b4bcaf0">
 </map>
 <span class="target" id="module-IPython.parallel.factory"></span><p>Base config factories.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min RK</li>
+</ul>
 </div>
-<div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="loggingfactory">
-<h3><a class="reference internal" href="#IPython.parallel.factory.LoggingFactory" title="IPython.parallel.factory.LoggingFactory"><tt class="xref py py-class docutils literal"><span class="pre">LoggingFactory</span></tt></a><a class="headerlink" href="#loggingfactory" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="registrationfactory">
+<h2><a class="reference internal" href="#IPython.parallel.factory.RegistrationFactory" title="IPython.parallel.factory.RegistrationFactory"><tt class="xref py py-class docutils literal"><span class="pre">RegistrationFactory</span></tt></a><a class="headerlink" href="#registrationfactory" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="IPython.parallel.factory.LoggingFactory">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">LoggingFactory</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></p>
-<p>A most basic class, that has a <cite>log</cite> (type:<cite>Logger</cite>) attribute, set via a <cite>logname</cite> Trait.</p>
+<dt id="IPython.parallel.factory.RegistrationFactory">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">RegistrationFactory</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.zmq.session.SessionFactory</span></tt></p>
+<p>The Base Configurable for objects that involve registration.</p>
 <dl class="method">
-<dt id="IPython.parallel.factory.LoggingFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a conigurable given a config config.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
-<blockquote class="last">
-<div><p>If this is empty, default values are used. If config is a 
-<tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
-instance.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>Subclasses of Configurable must call the <a class="reference internal" href="#IPython.parallel.factory.LoggingFactory.__init__" title="IPython.parallel.factory.LoggingFactory.__init__"><tt class="xref py py-meth docutils literal"><span class="pre">__init__()</span></tt></a> method of
-<tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> <em>before</em> doing anything else and using 
-<tt class="xref py py-func docutils literal"><span class="pre">super()</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyConfigurable</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MyConfigurable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
-        <span class="c"># Then any other code you need to finish initialization.</span>
-</pre></div>
-</div>
-<p>This ensures that instances will be configured properly.</p>
+<dt id="IPython.parallel.factory.RegistrationFactory.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.factory.LoggingFactory.config">
-<tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.config" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.factory.LoggingFactory.log">
-<tt class="descname">log</tt><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.parallel.factory.LoggingFactory.logname">
-<tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="IPython.parallel.factory.LoggingFactory.on_trait_change">
-<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.on_trait_change" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup a handler to be called when a trait changes.</p>
-<p>This is used to setup dynamic notifications of trait changes.</p>
-<p>Static handlers can be created by creating methods on a HasTraits
-subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
-to create static handler for the trait &#8216;a&#8217;, create the method
-_a_changed(self, name, old, new) (fewer arguments can be used, see
-below).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
-<blockquote>
-<div><p>A callable that is called when a trait changes.  Its 
-signature can be handler(), handler(name), handler(name, new)
-or handler(name, old, new).</p>
-</div></blockquote>
-<p><strong>name</strong> : list, str, None</p>
-<blockquote>
-<div><p>If None, the handler will apply to all traits.  If a list
-of str, handler will apply to all names in the list.  If a
-str, the handler will apply just to that name.</p>
-</div></blockquote>
-<p><strong>remove</strong> : bool</p>
-<blockquote class="last">
-<div><p>If False (the default), then install the handler.  If True
-then unintall it.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.LoggingFactory.trait_metadata">
-<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.trait_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get metadata values for trait by key.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.LoggingFactory.trait_names">
-<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.trait_names" title="Permalink to this definition">¶</a></dt>
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_trait_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.factory.RegistrationFactory.trait_names" title="IPython.parallel.factory.RegistrationFactory.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="IPython.parallel.factory.LoggingFactory.traits">
-<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.LoggingFactory.traits" title="Permalink to this definition">¶</a></dt>
+<dl class="classmethod">
+<dt id="IPython.parallel.factory.RegistrationFactory.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.class_traits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.factory.RegistrationFactory.traits" title="IPython.parallel.factory.RegistrationFactory.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
 <p>The TraitTypes returned don&#8217;t know anything about the values
 that the various HasTrait&#8217;s instances are holding.</p>
 <p>This follows the same algorithm as traits does and does not allow
@@ -234,21 +167,6 @@ for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="registrationfactory">
-<h3><a class="reference internal" href="#IPython.parallel.factory.RegistrationFactory" title="IPython.parallel.factory.RegistrationFactory"><tt class="xref py py-class docutils literal"><span class="pre">RegistrationFactory</span></tt></a><a class="headerlink" href="#registrationfactory" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.parallel.factory.RegistrationFactory">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">RegistrationFactory</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.factory.SessionFactory" title="IPython.parallel.factory.SessionFactory"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.factory.SessionFactory</span></tt></a></p>
-<p>The Base Configurable for objects that involve registration.</p>
-<dl class="method">
-<dt id="IPython.parallel.factory.RegistrationFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.config">
@@ -265,21 +183,9 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.factory.RegistrationFactory.exec_key">
-<tt class="descname">exec_key</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.exec_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.RegistrationFactory.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.ident" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.ip">
 <tt class="descname">ip</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.ip" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -292,7 +198,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.logname">
 <tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -340,16 +246,9 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.factory.RegistrationFactory.packer">
-<tt class="descname">packer</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.packer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.regport">
 <tt class="descname">regport</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.regport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -386,189 +285,16 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.transport">
 <tt class="descname">transport</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.transport" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.RegistrationFactory.unpacker">
-<tt class="descname">unpacker</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.unpacker" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.factory.RegistrationFactory.url">
 <tt class="descname">url</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.url" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.RegistrationFactory.username">
-<tt class="descname">username</tt><a class="headerlink" href="#IPython.parallel.factory.RegistrationFactory.username" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 </dd></dl>
-
-</div>
-<div class="section" id="sessionfactory">
-<h3><a class="reference internal" href="#IPython.parallel.factory.SessionFactory" title="IPython.parallel.factory.SessionFactory"><tt class="xref py py-class docutils literal"><span class="pre">SessionFactory</span></tt></a><a class="headerlink" href="#sessionfactory" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.parallel.factory.SessionFactory">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">SessionFactory</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.factory.LoggingFactory" title="IPython.parallel.factory.LoggingFactory"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.factory.LoggingFactory</span></tt></a></p>
-<p>The Base factory from which every factory in IPython.parallel inherits</p>
-<dl class="method">
-<dt id="IPython.parallel.factory.SessionFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.config">
-<tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.config" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.context">
-<tt class="descname">context</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.context" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.exec_key">
-<tt class="descname">exec_key</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.exec_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.ident">
-<tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.ident" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.log">
-<tt class="descname">log</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.logname">
-<tt class="descname">logname</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.logname" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.loop">
-<tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.loop" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.SessionFactory.on_trait_change">
-<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.on_trait_change" title="Permalink to this definition">¶</a></dt>
-<dd><p>Setup a handler to be called when a trait changes.</p>
-<p>This is used to setup dynamic notifications of trait changes.</p>
-<p>Static handlers can be created by creating methods on a HasTraits
-subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
-to create static handler for the trait &#8216;a&#8217;, create the method
-_a_changed(self, name, old, new) (fewer arguments can be used, see
-below).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
-<blockquote>
-<div><p>A callable that is called when a trait changes.  Its 
-signature can be handler(), handler(name), handler(name, new)
-or handler(name, old, new).</p>
-</div></blockquote>
-<p><strong>name</strong> : list, str, None</p>
-<blockquote>
-<div><p>If None, the handler will apply to all traits.  If a list
-of str, handler will apply to all names in the list.  If a
-str, the handler will apply just to that name.</p>
-</div></blockquote>
-<p><strong>remove</strong> : bool</p>
-<blockquote class="last">
-<div><p>If False (the default), then install the handler.  If True
-then unintall it.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.packer">
-<tt class="descname">packer</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.packer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.session">
-<tt class="descname">session</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.session" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait whose value must be an instance of a specified class.</p>
-<p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.SessionFactory.trait_metadata">
-<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.trait_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get metadata values for trait by key.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.SessionFactory.trait_names">
-<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.trait_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of all the names of this classes traits.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.parallel.factory.SessionFactory.traits">
-<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.traits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of all the traits of this class.</p>
-<p>The TraitTypes returned don&#8217;t know anything about the values
-that the various HasTrait&#8217;s instances are holding.</p>
-<p>This follows the same algorithm as traits does and does not allow
-for any simple way of specifying merely that a metadata name
-exists, but has any value.  This is because get_metadata returns
-None if a metadata key doesn&#8217;t exist.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.unpacker">
-<tt class="descname">unpacker</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.unpacker" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.factory.SessionFactory.username">
-<tt class="descname">username</tt><a class="headerlink" href="#IPython.parallel.factory.SessionFactory.username" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-</div>
-<div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="IPython.parallel.factory.add_registration_arguments">
-<tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">add_registration_arguments</tt><big>(</big><em>parser</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.add_registration_arguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="IPython.parallel.factory.add_session_arguments">
-<tt class="descclassname">IPython.parallel.factory.</tt><tt class="descname">add_session_arguments</tt><big>(</big><em>parser</em><big>)</big><a class="headerlink" href="#IPython.parallel.factory.add_session_arguments" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>
@@ -589,7 +315,7 @@ None if a metadata key doesn&#8217;t exist.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.streamsession.html" title="parallel.streamsession"
+          <a href="IPython.parallel.util.html" title="parallel.util"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.error.html" title="parallel.error"
@@ -603,7 +329,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

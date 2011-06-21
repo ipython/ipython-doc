@@ -65,11 +65,12 @@
 <li><a class="reference internal" href="#loadpy"><tt class="docutils literal"><span class="pre">%loadpy</span></tt></a></li>
 <li><a class="reference internal" href="#pylab">Pylab</a><ul>
 <li><a class="reference internal" href="#pastefig"><tt class="docutils literal"><span class="pre">pastefig()</span></tt></a></li>
-<li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">--pylab</span> <span class="pre">inline</span></tt></a></li>
+<li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">pylab=inline</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#saving-and-printing">Saving and Printing</a></li>
 <li><a class="reference internal" href="#colors-and-highlighting">Colors and Highlighting</a></li>
+<li><a class="reference internal" href="#fonts">Fonts</a></li>
 <li><a class="reference internal" href="#process-management">Process Management</a><ul>
 <li><a class="reference internal" href="#multiple-consoles">Multiple Consoles</a></li>
 <li><a class="reference internal" href="#stopping-kernels-and-consoles">Stopping Kernels and Consoles</a></li>
@@ -122,7 +123,7 @@ running in a <a class="reference internal" href="#pyqt">PyQt</a> GUI.</p>
 configurable.</p>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference external" href="ipython_qt">The original IPython-Qt project description.</a></p>
+<p class="last"><a class="reference internal" href="../development/ipython_qt.html#ipython-qt"><em>The original IPython-Qt project description.</em></a></p>
 </div>
 </div>
 <div class="section" id="loadpy">
@@ -158,20 +159,20 @@ input and the drawing eventloop.</p>
 <div class="section" id="pastefig">
 <h3><tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt><a class="headerlink" href="#pastefig" title="Permalink to this headline">¶</a></h3>
 <p>An additional function, <tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>, will be added to the global namespace if you
-specify the <tt class="docutils literal"><span class="pre">--pylab</span></tt> argument. This takes the active figures in matplotlib, and embeds
+specify the <tt class="docutils literal"><span class="pre">pylab</span></tt> argument. This takes the active figures in matplotlib, and embeds
 them in your document. This is especially useful for <a class="reference internal" href="#saving">saving</a> your work.</p>
 </div>
 <div class="section" id="pylab-inline">
-<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">--pylab</span> <span class="pre">inline</span></tt><a class="headerlink" href="#pylab-inline" title="Permalink to this headline">¶</a></h3>
+<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">pylab=inline</span></tt><a class="headerlink" href="#pylab-inline" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have all of your figures embedded in your session, instead of calling
-<tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">--pylab</span> <span class="pre">inline</span></tt>, and each time you make a plot, it
+<tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">pylab=inline</span></tt>, and each time you make a plot, it
 will show up in your document, as if you had called <tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="saving-and-printing">
 <span id="saving"></span><h2>Saving and Printing<a class="headerlink" href="#saving-and-printing" title="Permalink to this headline">¶</a></h2>
 <p>IPythonQt has the ability to save your current session, as either HTML or XHTML. If you
-have been using <a class="reference external" href="pastefig">pastefig</a> or <a class="reference internal" href="#inline">inline</a> pylab, your figures will be PNG
+have been using <tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt> or <a class="reference internal" href="#inline">inline</a> pylab, your figures will be PNG
 in HTML, or inlined as SVG in XHTML. PNG images have the option to be either in an
 external folder, as in many browsers&#8217; &#8220;Webpage, Complete&#8221; option, or inlined as well, for
 a larger, but more portable file.</p>
@@ -179,8 +180,8 @@ a larger, but more portable file.</p>
 context menu.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Saving is only available to richtext Qt widgets, so make sure you start ipqt with the
-<tt class="docutils literal"><span class="pre">--rich</span></tt> flag, or with <tt class="docutils literal"><span class="pre">--pylab</span></tt>, which always uses a richtext widget.</p>
+<p class="last">Saving is only available to richtext Qt widgets, which are used by default, but
+if you pass the <tt class="docutils literal"><span class="pre">--plain</span></tt> flag, saving will not be available to you.</p>
 </div>
 <p>See these examples of <a class="reference download internal" href="../_downloads/jn.html"><tt class="xref download docutils literal"><span class="pre">png/html</span></tt></a> and <a class="reference download internal" href="../_downloads/jn.xhtml"><tt class="xref download docutils literal"><span class="pre">svg/xhtml</span></tt></a> output. Note that syntax highlighting does not survive export. This is a known
 issue, and is being investigated.</p>
@@ -188,20 +189,19 @@ issue, and is being investigated.</p>
 <div class="section" id="colors-and-highlighting">
 <h2>Colors and Highlighting<a class="headerlink" href="#colors-and-highlighting" title="Permalink to this headline">¶</a></h2>
 <p>Terminal IPython has always had some coloring, but never syntax highlighting. There are a
-few simple color choices, specified by the <tt class="docutils literal"><span class="pre">--colors</span></tt> flag or <tt class="docutils literal"><span class="pre">%colors</span></tt> magic:</p>
+few simple color choices, specified by the <tt class="docutils literal"><span class="pre">colors</span></tt> flag or <tt class="docutils literal"><span class="pre">%colors</span></tt> magic:</p>
 <ul class="simple">
 <li>LightBG for light backgrounds</li>
 <li>Linux for dark backgrounds</li>
 <li>NoColor for a simple colorless terminal</li>
 </ul>
-<p>The Qt widget has full support for the <tt class="docutils literal"><span class="pre">--colors</span></tt> flag, but adds new, more intuitive
-aliases for the colors (the old names still work): dark=Linux, light=LightBG, bw=NoColor.</p>
+<p>The Qt widget has full support for the <tt class="docutils literal"><span class="pre">colors</span></tt> flag used in the terminal shell.</p>
 <p>The Qt widget, however, has full syntax highlighting as you type, handled by the
-<a class="reference internal" href="#pygments">pygments</a> library. The <tt class="docutils literal"><span class="pre">--style</span></tt> argument exposes access to any style by name that can
-be found by pygments, and there are several already installed. The <tt class="docutils literal"><span class="pre">--colors</span></tt> argument,
+<a class="reference internal" href="#pygments">pygments</a> library. The <tt class="docutils literal"><span class="pre">style</span></tt> argument exposes access to any style by name that can
+be found by pygments, and there are several already installed. The <tt class="docutils literal"><span class="pre">colors</span></tt> argument,
 if unspecified, will be guessed based on the chosen style. Similarly, there are default
-styles associated with each <tt class="docutils literal"><span class="pre">--colors</span></tt> option.</p>
-<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython-qtconsole</span> <span class="pre">--colors</span> <span class="pre">dark</span></tt>, which uses the &#8216;monokai&#8217; theme by
+styles associated with each <tt class="docutils literal"><span class="pre">colors</span></tt> option.</p>
+<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython-qtconsole</span> <span class="pre">colors=linux</span></tt>, which uses the &#8216;monokai&#8217; theme by
 default:</p>
 <img alt="../_images/colors_dark.png" src="../_images/colors_dark.png" style="width: 627px;" />
 <div class="admonition note">
@@ -210,7 +210,7 @@ default:</p>
 on your system.</p>
 </div>
 <p>You can also pass the filename of a custom CSS stylesheet, if you want to do your own
-coloring, via the <tt class="docutils literal"><span class="pre">--stylesheet</span></tt> argument.  The default LightBG stylesheet:</p>
+coloring, via the <tt class="docutils literal"><span class="pre">stylesheet</span></tt> argument.  The default LightBG stylesheet:</p>
 <div class="highlight-css"><div class="highlight"><pre><span class="nt">QPlainTextEdit</span><span class="o">,</span> <span class="nt">QTextEdit</span> <span class="p">{</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
         <span class="k">color</span><span class="o">:</span> <span class="nb">black</span> <span class="p">;</span>
         <span class="n">selection</span><span class="o">-</span><span class="k">background-color</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">}</span>
@@ -220,6 +220,13 @@ coloring, via the <tt class="docutils literal"><span class="pre">--stylesheet</s
 <span class="nc">.out-prompt</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">darkred</span><span class="p">;</span> <span class="p">}</span>
 <span class="nc">.out-prompt-number</span> <span class="p">{</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span> <span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="fonts">
+<h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
+<p>The QtConsole has configurable via the ConsoleWidget. To change these, set the <tt class="docutils literal"><span class="pre">font_family</span></tt>
+or <tt class="docutils literal"><span class="pre">font_size</span></tt> traits of the ConsoleWidget. For instance, to use 9pt Anonymous Pro:</p>
+<div class="highlight-python"><pre>$&gt; ipython-qtconsole ConsoleWidget.font_family="Anonymous Pro" ConsoleWidget.font_size=9</pre>
 </div>
 </div>
 <div class="section" id="process-management">
@@ -236,7 +243,7 @@ restart the kernel.</p>
 do not have to all be qt frontends - any IPython frontend can connect and run code.
 When you start ipython-qtconsole, there will be an output line, like:</p>
 <div class="highlight-python"><pre>To connect another client to this kernel, use:
--e --xreq 62109 --sub 62110 --rep 62111 --hb 62112</pre>
+--external shell=62109 iopub=62110 stdin=62111 hb=62112</pre>
 </div>
 <p>Other frontends can connect to your kernel, and share in the execution. This is great for
 collaboration. The <cite>-e</cite> flag is for &#8216;external&#8217;. Starting other consoles with that flag
@@ -244,8 +251,8 @@ will not try to start their own, but rather connect to yours. Ultimately, you wi
 have to specify each port individually, but for now this copy-paste method is best.</p>
 <p>By default (for security reasons), the kernel only listens on localhost, so you can only
 connect multiple frontends to the kernel from your local machine. You can specify to
-listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">--ip</span></tt> argument:</p>
-<div class="highlight-python"><pre>$&gt; ipython-qtconsole --ip 192.168.1.123</pre>
+listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">ip</span></tt> argument:</p>
+<div class="highlight-python"><pre>$&gt; ipython-qtconsole ip=192.168.1.123</pre>
 </div>
 <p>If you specify the ip as 0.0.0.0, that refers to all interfaces, so any computer that can
 see yours can connect to the kernel.</p>
@@ -282,10 +289,6 @@ the Kernel has been shutdown.</li>
 to have these fixed by 0.11 release.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Configuration: The Qt frontend and ZMQ kernel are not yet hooked up to the IPython
-configuration system</li>
-<li>History Persistence: Currently the history of a GUI session does
-not persist between sessions.</li>
 <li>!cmd input: Due to our use of pexpect, we cannot pass input to subprocesses launched
 using the &#8216;!&#8217; escape. (this will not be fixed).</li>
 </ul>
@@ -335,7 +338,7 @@ using the &#8216;!&#8217; escape. (this will not be fixed).</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

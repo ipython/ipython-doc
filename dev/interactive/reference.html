@@ -161,7 +161,7 @@ of the documentation need to be updated to reflect all of these changes.</p>
 </div>
 <p>If invoked with no options, it executes all the files listed in sequence
 and drops you into the interpreter while still acknowledging any options
-you may have set in your ipythonrc file. This behavior is different from
+you may have set in your ipython_config.py. This behavior is different from
 standard Python, which when called as python -i will only execute one
 file and ignore your configuration setup.</p>
 <p>Please note that some of the configuration options are not available at
@@ -175,9 +175,11 @@ Settings\YourUserName in most instances.</p>
 <h3>Special Threading Options<a class="headerlink" href="#special-threading-options" title="Permalink to this headline">¶</a></h3>
 <p>Previously IPython had command line options for controlling GUI event loop
 integration (-gthread, -qthread, -q4thread, -wthread, -pylab). As of IPython
-version 0.11, these have been deprecated. Please see the new <tt class="docutils literal"><span class="pre">%gui</span></tt>
+version 0.11, these have been removed. Please see the new <tt class="docutils literal"><span class="pre">%gui</span></tt>
 magic command or <a class="reference internal" href="#gui-support"><em>this section</em></a> for details on the new
-interface.</p>
+interface, or specify the gui at the commandline:</p>
+<div class="highlight-python"><pre>$ ipython gui=qt</pre>
+</div>
 </div>
 <div class="section" id="regular-options">
 <h3>Regular Options<a class="headerlink" href="#regular-options" title="Permalink to this headline">¶</a></h3>
@@ -189,22 +191,24 @@ used. Some options have an alternate short form, indicated after a <tt class="do
 the provided example for more details on what the options do. Options
 given at the command line override the values set in the ipythonrc file.</p>
 <p>All options with a [no] prepended can be specified in negated form
-(-nooption instead of -option) to turn the feature off.</p>
+(&#8211;no-option instead of &#8211;option) to turn the feature off.</p>
 <blockquote>
 <div><table class="docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">-h<var>elp</var></span></kbd></td>
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
 <td>print a help message and exit.</td></tr>
 </tbody>
 </table>
-<p>-pylab
-Deprecated.  See <a class="reference internal" href="#matplotlib-support"><em>Matplotlib support</em></a>
+<p class="attribution">&mdash;pylab, pylab=&lt;name&gt;
+See <a class="reference internal" href="#matplotlib-support"><em>Matplotlib support</em></a>
 for more details.</p>
-<dl class="docutils">
-<dt>-autocall &lt;val&gt;</dt>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>autocall=&lt;val&gt;</dt>
 <dd>Make IPython automatically call any callable object even if you
 didn&#8217;t type explicit parentheses. For example, &#8216;str 43&#8217; becomes
 &#8216;str(43)&#8217; automatically. The value can be &#8216;0&#8217; to disable the feature,
@@ -212,29 +216,28 @@ didn&#8217;t type explicit parentheses. For example, &#8216;str 43&#8217; become
 arguments on the line, and &#8216;2&#8217; for full autocall, where all callable
 objects are automatically called (even if no arguments are
 present). The default is &#8216;1&#8217;.</dd>
-<dt>-[no]autoindent</dt>
-<dd>Turn automatic indentation on/off.</dd>
-<dt>-[no]automagic</dt>
+</dl>
+<p class="attribution">&mdash;[no-]autoindent
+Turn automatic indentation on/off.</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8211;[no-]automagic</dt>
 <dd>make magic commands automatic (without needing their first character
 to be %). Type %magic at the IPython prompt for more information.</dd>
-<dt>-[no]autoedit_syntax</dt>
-<dd>When a syntax error occurs after editing a file, automatically
-open the file to the trouble causing line for convenient
-fixing.</dd>
 </dl>
-<p>-[no]banner         Print the initial information banner (default on).</p>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-c <var>&lt;command&gt;</var></span></kbd></td>
-<td>execute the given command string. This is similar to the -c
-option in the normal Python interpreter.</td></tr>
-</tbody>
-</table>
+<p class="attribution">&mdash;[no-]autoedit_syntax
+When a syntax error occurs after editing a file, automatically
+open the file to the trouble causing line for convenient
+fixing.</p>
+</div></blockquote>
+<blockquote>
+<div><p>&#8211;[no-]banner               Print the initial information banner (default on).</p>
 <dl class="docutils">
-<dt>-cache_size, cs &lt;n&gt;</dt>
+<dt>c=&lt;command&gt;</dt>
+<dd>execute the given command string. This is similar to the -c
+option in the normal Python interpreter.</dd>
+<dt>cache_size=&lt;n&gt;</dt>
 <dd>size of the output cache (maximum number of entries to hold in
 memory). The default is 1000, you can change it permanently in your
 config file. Setting it to 0 completely disables the caching system,
@@ -242,14 +245,19 @@ and the minimum value accepted is 20 (if you provide a value less than
 20, it is reset to 0 and a warning is issued) This limit is defined
 because otherwise you&#8217;ll spend more time re-flushing a too small cache
 than working.</dd>
-<dt>-classic, cl</dt>
-<dd>Gives IPython a similar feel to the classic Python
-prompt.</dd>
-<dt>-colors &lt;scheme&gt;</dt>
+</dl>
+<p class="attribution">&mdash;classic
+Gives IPython a similar feel to the classic Python
+prompt.</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>colors=&lt;scheme&gt;</dt>
 <dd>Color scheme for prompts and exception reporting. Currently
 implemented: NoColor, Linux and LightBG.</dd>
-<dt>-[no]color_info</dt>
-<dd><p class="first">IPython can display information about objects via a set of functions,
+</dl>
+<p class="attribution">&mdash;[no-]color_info
+IPython can display information about objects via a set of functions,
 and optionally can use colors for this, syntax highlighting source
 code and various other elements.  However, because this information is
 passed through a pager (like &#8216;less&#8217;) and many pagers get confused with
@@ -257,15 +265,20 @@ color codes, this option is off by default. You can test it and turn
 it on permanently in your ipythonrc file if it works for you. As a
 reference, the &#8216;less&#8217; pager supplied with Mandrake 8.2 works ok, but
 that in RedHat 7.2 doesn&#8217;t.</p>
-<p class="last">Test it and turn it on permanently if it works with your
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div>Test it and turn it on permanently if it works with your
 system. The magic function %color_info allows you to toggle this
-interactively for testing.</p>
-</dd>
-<dt>-[no]debug</dt>
-<dd>Show information about the loading process. Very useful to pin down
+interactively for testing.</div></blockquote>
+<p class="attribution">&mdash;[no-]debug
+Show information about the loading process. Very useful to pin down
 problems with your configuration files or to get details about
-session restores.</dd>
-<dt>-[no]deep_reload:</dt>
+session restores.</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8211;[no-]deep_reload:</dt>
 <dd><p class="first">IPython can use the deep_reload module which reloads changes in
 modules recursively (it replaces the reload() function, so you don&#8217;t
 need to change anything to use it).  deep_reload() forces a full
@@ -276,7 +289,7 @@ but deep_reload will still be available as dreload(). This
 feature is off by default [which means that you have both
 normal reload() and dreload()].</p>
 </dd>
-<dt>-editor &lt;name&gt;</dt>
+<dt>editor=&lt;name&gt;</dt>
 <dd>Which editor to use with the %edit command. By default,
 IPython will honor your EDITOR environment variable (if not
 set, vi is the Unix default and notepad the Windows one).
@@ -284,7 +297,7 @@ Since this editor is invoked on the fly by IPython and is
 meant for editing small code snippets, you may want to use a
 small, lightweight editor here (in case your default EDITOR is
 something like Emacs).</dd>
-<dt>-ipythondir &lt;name&gt;</dt>
+<dt>ipython_dir=&lt;name&gt;</dt>
 <dd>name of your IPython configuration directory IPYTHON_DIR. This
 can also be specified through the environment variable
 IPYTHON_DIR.</dd>
@@ -317,35 +330,32 @@ and retrieving a &#8216;snapshot&#8217; of the memory state of IPython. But
 our first attempts failed because of inherent limitations of
 Python&#8217;s Pickle module, so this may have to wait.</p>
 </div></blockquote>
-<dl class="docutils">
-<dt>-[no]messages</dt>
-<dd>Print messages which IPython collects about its startup
-process (default on).</dd>
-<dt>-[no]pdb</dt>
+<p class="attribution">&mdash;[no-]messages
+Print messages which IPython collects about its startup
+process (default on).</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8211;[no-]pdb</dt>
 <dd>Automatically call the pdb debugger after every uncaught
 exception. If you are used to debugging using pdb, this puts
 you automatically inside of it after any call (either in
 IPython or in code called by it) which triggers an exception
 which goes uncaught.</dd>
 </dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-p<var>ydb</var></span></kbd></td>
-<td>Makes IPython use the third party &#8220;pydb&#8221; package as debugger,
-instead of pdb. Requires that pydb is installed.</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-[no]pprint</dt>
+<p class="attribution">&mdash;pydb
+Makes IPython use the third party &#8220;pydb&#8221; package as debugger,
+instead of pdb. Requires that pydb is installed.</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8211;[no-]pprint</dt>
 <dd>ipython can optionally use the pprint (pretty printer) module
 for displaying results. pprint tends to give a nicer display
 of nested data structures. If you like it, you can turn it on
 permanently in your config file (default off).</dd>
 </dl>
-<p>-profile, p &lt;name&gt;</p>
+<p>profile=&lt;name&gt;</p>
 <blockquote>
 <div><p>assume that your config file is ipythonrc-&lt;name&gt; or
 ipy_profile_&lt;name&gt;.py (looks in current dir first, then in
@@ -364,7 +374,7 @@ tasks. For example:</p>
 circular file inclusions, IPython will stop if it reaches 15
 recursive inclusions.</p>
 </div></blockquote>
-<p>-prompt_in1, pi1 &lt;string&gt;</p>
+<p>pi1=&lt;string&gt;</p>
 <blockquote>
 <div>Specify the string used for input prompts. Note that if you are using
 numbered prompts, the number is represented with a &#8216;#&#8217; in the
@@ -373,44 +383,43 @@ them. Default: &#8216;In [#]:&#8217;.  The <a class="reference internal" href=".
 discusses in detail all the available escapes to customize your
 prompts.</div></blockquote>
 <dl class="docutils">
-<dt>-prompt_in2, pi2 &lt;string&gt;</dt>
+<dt>pi2=&lt;string&gt;</dt>
 <dd>Similar to the previous option, but used for the continuation
 prompts. The special sequence &#8216;D&#8217; is similar to &#8216;#&#8217;, but
 with all digits replaced dots (so you can have your
 continuation prompt aligned with your input prompt).  Default:
 &#8216; .D.:&#8217; (note three spaces at the start for alignment with
 &#8216;In [#]&#8217;).</dd>
-<dt>-prompt_out,po &lt;string&gt;</dt>
+<dt>po=&lt;string&gt;</dt>
 <dd>String used for output prompts, also uses numbers like
 prompt_in1. Default: &#8216;Out[#]:&#8217;</dd>
 </dl>
-<table class="docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-q<var>uick</var></span></kbd></td>
-<td>start in bare bones mode (no config file loaded).</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>-rcfile &lt;name&gt;</dt>
+<p class="attribution">&mdash;quick
+start in bare bones mode (no config file loaded).</p>
+</div></blockquote>
+<blockquote>
+<div><dl class="docutils">
+<dt>config_file=&lt;name&gt;</dt>
 <dd><p class="first">name of your IPython resource configuration file. Normally
-IPython loads ipythonrc (from current directory) or
-IPYTHON_DIR/ipythonrc.</p>
+IPython loads ipython_config.py (from current directory) or
+IPYTHON_DIR/profile_default.</p>
 <p class="last">If the loading of your config file fails, IPython starts with
 a bare bones configuration (no modules loaded at all).</p>
 </dd>
-<dt>-[no]readline</dt>
-<dd><p class="first">use the readline library, which is needed to support name
+</dl>
+<p class="attribution">&mdash;[no-]readline
+use the readline library, which is needed to support name
 completion and command history, among other things.  It is
 enabled by default, but may cause problems for users of
 X/Emacs in Python comint or shell buffers.</p>
-<p class="last">Note that X/Emacs &#8216;eterm&#8217; buffers (opened with M-x term) support
+</div></blockquote>
+<blockquote>
+<div><blockquote>
+<div>Note that X/Emacs &#8216;eterm&#8217; buffers (opened with M-x term) support
 IPython&#8217;s readline and syntax coloring fine, only &#8216;emacs&#8217; (M-x
-shell and C-c !) buffers do not.</p>
-</dd>
-<dt>-screen_length, sl &lt;n&gt;</dt>
+shell and C-c !) buffers do not.</div></blockquote>
+<dl class="docutils">
+<dt>sl=&lt;n&gt;</dt>
 <dd><p class="first">number of lines of your screen. This is used to control
 printing of very long strings. Strings longer than this number
 of lines will be sent through a pager instead of directly
@@ -423,45 +432,44 @@ reason this isn&#8217;t working well (it needs curses support), specify
 it yourself. Otherwise don&#8217;t change the default.</p>
 </dd>
 </dl>
-<p>-separate_in, si &lt;string&gt;</p>
+<p>si=&lt;string&gt;</p>
 <blockquote>
 <div>separator before input prompts.
 Default: &#8216;n&#8217;</div></blockquote>
 <dl class="docutils">
-<dt>-separate_out, so &lt;string&gt;</dt>
+<dt>so=&lt;string&gt;</dt>
 <dd>separator before output prompts.
 Default: nothing.</dd>
-<dt>-separate_out2, so2</dt>
+<dt>so2=&lt;string&gt;</dt>
 <dd>separator after output prompts.
 Default: nothing.
 For these three options, use the value 0 to specify no separator.</dd>
 </dl>
-<table class="docutils option-list" frame="void" rules="none">
+<p class="attribution">&mdash;nosep
+shorthand for &#8216;-SeparateIn 0 -SeparateOut 0 -SeparateOut2
+0&#8217;. Simply removes all input/output separators.</p>
+</div></blockquote>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
 <tbody valign="top">
 <tr><td class="option-group">
-<kbd><span class="option">-n<var>osep</var></span></kbd></td>
-<td>shorthand for &#8216;-SeparateIn 0 -SeparateOut 0 -SeparateOut2
-0&#8217;. Simply removes all input/output separators.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-u<var>pgrade</var></span></kbd></td>
-<td>allows you to upgrade your IPYTHON_DIR configuration when you
+<kbd><span class="option">--init</span></kbd></td>
+<td>allows you to initialize your IPYTHON_DIR configuration when you
 install a new version of IPython. Since new versions may
 include new command line options or example files, this copies
-updated ipythonrc-type files. However, it backs up (with a
+updated config files. However, it backs up (with a
 .old extension) all files which it overwrites so that you can
 merge back any customizations you might have in your personal
 files. Note that you should probably use %upgrade instead,
 it&#8217;s a safer alternative.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-V<var>ersion</var></span></kbd></td>
-<td>print version information and exit.</td></tr>
 </tbody>
 </table>
-<p>-wxversion &lt;string&gt;
-Deprecated.</p>
-<p>-xmode &lt;modename&gt;</p>
+<p class="attribution">&mdash;version    print version information and exit.</p>
+</div></blockquote>
+<blockquote>
+<div><p>xmode=&lt;modename&gt;</p>
 <blockquote>
 <div><p>Mode for exception reporting.</p>
 <p>Valid modes: Plain, Context and Verbose.</p>
@@ -1611,7 +1619,7 @@ embedding facilities, described in detail in Sec. 9</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

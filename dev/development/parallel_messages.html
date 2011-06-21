@@ -70,7 +70,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#schedulers">Schedulers</a><ul>
-<li><a class="reference internal" href="#apply-and-apply-bound"><tt class="docutils literal"><span class="pre">apply()</span></tt> and <tt class="docutils literal"><span class="pre">apply_bound()</span></tt></a></li>
+<li><a class="reference internal" href="#apply"><tt class="docutils literal"><span class="pre">apply()</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#control-messages">Control Messages</a></li>
@@ -210,7 +210,7 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">registration_notification</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c"># engine ID that has been registered</span>
-    <span class="s">&#39;queue&#39;</span> <span class="p">:</span> <span class="s">&#39;engine_id&#39;</span> <span class="c"># the IDENT for the engine&#39;s queue</span>
+    <span class="s">&#39;queue&#39;</span> <span class="p">:</span> <span class="s">&#39;engine_uuid&#39;</span> <span class="c"># the IDENT for the engine&#39;s queue</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -309,6 +309,13 @@ message.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>Clients can also query the IPython task database directly with <tt class="xref py py-func docutils literal"><span class="pre">db_query()</span></tt>.</p>
+<p>Message type: <tt class="docutils literal"><span class="pre">db_request</span></tt>:</p>
+<div class="highlight-python"><pre>content = {
+    'query' : {'engine_id' : {'$ge' : 2}} # a MongoDB-style query dict
+    'keys' : ['header', 'client_uuid'] # a list of keys
+}</pre>
+</div>
 </div>
 </div>
 <div class="section" id="schedulers">
@@ -341,8 +348,8 @@ the destination of a task as soon as that destination is known.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="apply-and-apply-bound">
-<h3><tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">apply_bound()</span></tt><a class="headerlink" href="#apply-and-apply-bound" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="apply">
+<h3><tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt><a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>In terms of message classes, the MUX scheduler and Task scheduler relay the exact same
 message types.  Their only difference lies in how the destination is selected.</p>
 <p>The <a class="reference external" href="http://gist.github.com/483294">Namespace</a> model suggests that execution be able to
@@ -356,19 +363,24 @@ later retrieval of the result). This model, unlike the execute message which jus
 code string, must be able to send arbitrary (pickleable) Python objects. And ideally, copy
 as little data as we can. The <cite>buffers</cite> property of a Message was introduced for this
 purpose.</p>
-<p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.zmq.streamsession</span></tt> wraps a
+<p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <a class="reference internal" href="../api/generated/IPython.parallel.util.html#module-IPython.parallel.util" title="IPython.parallel.util"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel.util</span></tt></a> wraps a
 function signature and builds a sendable buffer format for minimal data copying (exactly
 zero copies of numpy array data or buffers or large strings).</p>
+<p><tt class="docutils literal"><span class="pre">apply_request</span></tt> messages have extra information in the subheader</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">apply_request</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;bound&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="c"># whether to execute in the engine&#39;s namespace or unbound</span>
-    <span class="s">&#39;after&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
-    <span class="s">&#39;follow&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
+<div class="highlight-python"><pre>subheader = {
+    'after' : ['msg_id',...], # list of msg_ids or output of Dependency.as_dict()
+    'follow' : ['msg_id',...], # list of msg_ids or output of Dependency.as_dict()
+    'targets' : ['engine_uuid',...] # list of valid engine UUID destinations
+                                    # for the scheduler to choose from.
+    'timeout' : 1.5 # the timeout in seconds, after which a task will be aborted
+    'retries' : 0 # the number of times a task might be retried.
+}
+content = {}
 
-<span class="p">}</span>
-<span class="n">buffers</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;...&#39;</span><span class="p">]</span> <span class="c"># at least 3 in length</span>
-                <span class="c"># as built by build_apply_message(f,args,kwargs)</span>
-</pre></div>
+}
+buffers = ['...'] # at least 3 in length
+                # as built by build_apply_message(f,args,kwargs)</pre>
 </div>
 <p>after/follow represent task dependencies. &#8216;after&#8217; corresponds to a time dependency. The
 request will not arrive at an engine until the &#8216;after&#8217; dependency tasks have completed.
@@ -486,7 +498,7 @@ present the buffer interface.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

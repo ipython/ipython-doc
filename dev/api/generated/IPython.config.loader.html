@@ -25,7 +25,7 @@
     <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.alias" href="IPython.core.alias.html" />
-    <link rel="prev" title="The IPython API" href="../index.html" /> 
+    <link rel="prev" title="config.configurable" href="IPython.config.configurable.html" /> 
   </head>
   <body>
 
@@ -46,7 +46,7 @@
           <a href="IPython.core.alias.html" title="core.alias"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="The IPython API"
+          <a href="IPython.config.configurable.html" title="config.configurable"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -67,6 +67,7 @@
 </li>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#argparseconfigloader"><tt class="docutils literal"><span class="pre">ArgParseConfigLoader</span></tt></a></li>
+<li><a class="reference internal" href="#argumenterror"><tt class="docutils literal"><span class="pre">ArgumentError</span></tt></a></li>
 <li><a class="reference internal" href="#argumentparser"><tt class="docutils literal"><span class="pre">ArgumentParser</span></tt></a></li>
 <li><a class="reference internal" href="#commandlineconfigloader"><tt class="docutils literal"><span class="pre">CommandLineConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#config"><tt class="docutils literal"><span class="pre">Config</span></tt></a></li>
@@ -74,6 +75,7 @@
 <li><a class="reference internal" href="#configloader"><tt class="docutils literal"><span class="pre">ConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#configloadererror"><tt class="docutils literal"><span class="pre">ConfigLoaderError</span></tt></a></li>
 <li><a class="reference internal" href="#fileconfigloader"><tt class="docutils literal"><span class="pre">FileConfigLoader</span></tt></a></li>
+<li><a class="reference internal" href="#keyvalueconfigloader"><tt class="docutils literal"><span class="pre">KeyValueConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#pyfileconfigloader"><tt class="docutils literal"><span class="pre">PyFileConfigLoader</span></tt></a></li>
 </ul>
 </li>
@@ -82,8 +84,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../index.html"
-                        title="previous chapter">The IPython API</a></p>
+  <p class="topless"><a href="IPython.config.configurable.html"
+                        title="previous chapter">config.configurable</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.alias.html"
                         title="next chapter">core.alias</a></p>
@@ -126,6 +128,7 @@
 <ul class="simple">
 <li>Brian Granger</li>
 <li>Fernando Perez</li>
+<li>Min RK</li>
 </ul>
 </div>
 </div>
@@ -137,6 +140,7 @@
 <dt id="IPython.config.loader.ArgParseConfigLoader">
 <em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgParseConfigLoader</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.CommandLineConfigLoader" title="IPython.config.loader.CommandLineConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.CommandLineConfigLoader</span></tt></a></p>
+<p>A loader that uses the argparse module to load from the command line.</p>
 <dl class="method">
 <dt id="IPython.config.loader.ArgParseConfigLoader.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
@@ -156,9 +160,15 @@ sys.argv[1:] is used.</p>
 constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
 </div></blockquote>
 <p><strong>parser_kw</strong> : dict</p>
-<blockquote class="last">
+<blockquote>
 <div><p>A tuple of keyword arguments that will be passed to the
 constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<blockquote class="last">
+<div><p>The resulting Config object.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -178,8 +188,8 @@ constructor of <tt class="xref py py-class docutils literal"><span class="pre">a
 
 <dl class="method">
 <dt id="IPython.config.loader.ArgParseConfigLoader.load_config">
-<tt class="descname">load_config</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parse command line arguments and return as a Struct.</p>
+<tt class="descname">load_config</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse command line arguments and return as a Config object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -195,6 +205,31 @@ arguments from. If not given, the instance&#8217;s self.argv attribute
 </tbody>
 </table>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="argumenterror">
+<h3><a class="reference internal" href="#IPython.config.loader.ArgumentError" title="IPython.config.loader.ArgumentError"><tt class="xref py py-class docutils literal"><span class="pre">ArgumentError</span></tt></a><a class="headerlink" href="#argumenterror" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.config.loader.ArgumentError">
+<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgumentError</tt><a class="headerlink" href="#IPython.config.loader.ArgumentError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.ConfigLoaderError" title="IPython.config.loader.ConfigLoaderError"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.ConfigLoaderError</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.config.loader.ArgumentError.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentError.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.config.loader.ArgumentError.args">
+<tt class="descname">args</tt><a class="headerlink" href="#IPython.config.loader.ArgumentError.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.config.loader.ArgumentError.message">
+<tt class="descname">message</tt><a class="headerlink" href="#IPython.config.loader.ArgumentError.message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -453,24 +488,6 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
 <dd><p>D.values() -&gt; list of D&#8217;s values</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.config.loader.Config.viewitems">
-<tt class="descname">viewitems</tt><a class="headerlink" href="#IPython.config.loader.Config.viewitems" title="Permalink to this definition">¶</a></dt>
-<dd><p>D.viewitems() -&gt; a set-like object providing a view on D&#8217;s items</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.config.loader.Config.viewkeys">
-<tt class="descname">viewkeys</tt><a class="headerlink" href="#IPython.config.loader.Config.viewkeys" title="Permalink to this definition">¶</a></dt>
-<dd><p>D.viewkeys() -&gt; a set-like object providing a view on D&#8217;s keys</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.config.loader.Config.viewvalues">
-<tt class="descname">viewvalues</tt><a class="headerlink" href="#IPython.config.loader.Config.viewvalues" title="Permalink to this definition">¶</a></dt>
-<dd><p>D.viewvalues() -&gt; an object providing a view on D&#8217;s values</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -483,7 +500,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
 <dl class="method">
 <dt id="IPython.config.loader.ConfigError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ConfigError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -553,7 +570,7 @@ to erase any previous state.</p>
 <dl class="method">
 <dt id="IPython.config.loader.ConfigLoaderError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ConfigLoaderError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -603,6 +620,105 @@ here.</p>
 <p>Usually, this will cause self.config to be set and then returned.
 However, in most cases, <a class="reference internal" href="#IPython.config.loader.ConfigLoader.clear" title="IPython.config.loader.ConfigLoader.clear"><tt class="xref py py-meth docutils literal"><span class="pre">ConfigLoader.clear()</span></tt></a> should be called
 to erase any previous state.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="keyvalueconfigloader">
+<h3><a class="reference internal" href="#IPython.config.loader.KeyValueConfigLoader" title="IPython.config.loader.KeyValueConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">KeyValueConfigLoader</span></tt></a><a class="headerlink" href="#keyvalueconfigloader" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.config.loader.KeyValueConfigLoader">
+<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">KeyValueConfigLoader</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KeyValueConfigLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.CommandLineConfigLoader" title="IPython.config.loader.CommandLineConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.CommandLineConfigLoader</span></tt></a></p>
+<p>A config loader that loads key value pairs from the command line.</p>
+<p>This allows command line options to be gives in the following form:</p>
+<div class="highlight-python"><pre>ipython Global.profile="foo" InteractiveShell.autocall=False</pre>
+</div>
+<dl class="method">
+<dt id="IPython.config.loader.KeyValueConfigLoader.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KeyValueConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a key value pair config loader.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list</p>
+<blockquote>
+<div><p>A list that has the form of sys.argv[1:] which has unicode
+elements of the form u&#8221;key=value&#8221;. If this is None (default),
+then sys.argv[1:] will be used.</p>
+</div></blockquote>
+<p><strong>aliases</strong> : dict</p>
+<blockquote>
+<div><p>A dict of aliases for configurable traits.
+Keys are the short aliases, Values are the resolved trait.
+Of the form: <cite>{&#8216;alias&#8217; : &#8216;Configurable.trait&#8217;}</cite></p>
+</div></blockquote>
+<p><strong>flags</strong> : dict</p>
+<blockquote>
+<div><p>A dict of flags, keyed by str name. Vaues can be Config objects,
+dicts, or &#8220;key=value&#8221; strings.  If Config or dict, when the flag
+is triggered, The flag is loaded as <cite>self.config.update(m)</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<blockquote class="last">
+<div><p>The resulting Config object.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">IPython.config.loader</span> <span class="kn">import</span> <span class="n">KeyValueConfigLoader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span> <span class="o">=</span> <span class="n">KeyValueConfigLoader</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cl</span><span class="o">.</span><span class="n">load_config</span><span class="p">([</span><span class="s">&quot;foo=&#39;bar&#39;&quot;</span><span class="p">,</span><span class="s">&quot;A.name=&#39;brian&#39;&quot;</span><span class="p">,</span><span class="s">&quot;B.number=0&quot;</span><span class="p">])</span>
+<span class="go">{&#39;A&#39;: {&#39;name&#39;: &#39;brian&#39;}, &#39;B&#39;: {&#39;number&#39;: 0}, &#39;foo&#39;: &#39;bar&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.KeyValueConfigLoader.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.KeyValueConfigLoader.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.KeyValueConfigLoader.load_config">
+<tt class="descname">load_config</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KeyValueConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse the configuration and generate the Config object.</p>
+<p>After loading, any arguments that are not key-value or
+flags will be stored in self.extra_args - a list of
+unparsed command-line arguments.  This is used for
+arguments such as input files or subcommands.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list, optional</p>
+<blockquote>
+<div><p>A list that has the form of sys.argv[1:] which has unicode
+elements of the form u&#8221;key=value&#8221;. If this is None (default),
+then self.argv will be used.</p>
+</div></blockquote>
+<p><strong>aliases</strong> : dict</p>
+<blockquote>
+<div><p>A dict of aliases for configurable traits.
+Keys are the short aliases, Values are the resolved trait.
+Of the form: <cite>{&#8216;alias&#8217; : &#8216;Configurable.trait&#8217;}</cite></p>
+</div></blockquote>
+<p><strong>flags</strong> : dict</p>
+<blockquote class="last">
+<div><p>A dict of flags, keyed by str name. Values can be Config objects
+or dicts.  When the flag is triggered, The config is loaded as 
+<cite>self.config.update(cfg)</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -676,7 +792,7 @@ paths to try in order.</p>
           <a href="IPython.core.alias.html" title="core.alias"
              >next</a> |</li>
         <li class="right" >
-          <a href="../index.html" title="The IPython API"
+          <a href="IPython.config.configurable.html" title="config.configurable"
              >previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -687,7 +803,7 @@ paths to try in order.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -110,7 +110,7 @@ Message type: ``registration_notification``::
 
     content = {
         'id' : 0, # engine ID that has been registered
-        'queue' : 'engine_id' # the IDENT for the engine's queue
+        'queue' : 'engine_uuid' # the IDENT for the engine's queue
     }
 
 Message type : ``unregistration_notification``::
@@ -219,6 +219,14 @@ Message type: ``purge_reply``::
         'status' : 'ok', # or 'error'
     }
 
+Clients can also query the IPython task database directly with :func:`db_query`.
+
+Message type: ``db_request``::
+
+    content = {
+        'query' : {'engine_id' : {'$ge' : 2}} # a MongoDB-style query dict
+        'keys' : ['header', 'client_uuid'] # a list of keys 
+    }
 
 Schedulers
 ----------
@@ -252,8 +260,8 @@ Message type: ``task_destination``::
         'engine_id' : '1234-abcd-...', # the destination engine's zmq.IDENTITY
     }
 
-:func:`apply` and :func:`apply_bound`
-*************************************
+:func:`apply`
+*************
 
 In terms of message classes, the MUX scheduler and Task scheduler relay the exact same
 message types.  Their only difference lies in how the destination is selected.
@@ -270,16 +278,23 @@ code string, must be able to send arbitrary (pickleable) Python objects. And ide
 as little data as we can. The `buffers` property of a Message was introduced for this
 purpose.
 
-Utility method :func:`build_apply_message` in :mod:`IPython.zmq.streamsession` wraps a
+Utility method :func:`build_apply_message` in :mod:`IPython.parallel.util` wraps a
 function signature and builds a sendable buffer format for minimal data copying (exactly
 zero copies of numpy array data or buffers or large strings).
 
+``apply_request`` messages have extra information in the subheader
+
 Message type: ``apply_request``::
 
-    content = {
-        'bound' : True, # whether to execute in the engine's namespace or unbound
+    subheader = {
         'after' : ['msg_id',...], # list of msg_ids or output of Dependency.as_dict()
         'follow' : ['msg_id',...], # list of msg_ids or output of Dependency.as_dict()
+        'targets' : ['engine_uuid',...] # list of valid engine UUID destinations
+                                        # for the scheduler to choose from.
+        'timeout' : 1.5 # the timeout in seconds, after which a task will be aborted
+        'retries' : 0 # the number of times a task might be retried.
+    }
+    content = {}
         
     }
     buffers = ['...'] # at least 3 in length

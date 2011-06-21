@@ -113,6 +113,10 @@
 </map>
 <span class="target" id="module-IPython.parallel.controller.dictdb"></span><p>A Task logger that presents our DB interface, 
 but exists entirely in memory and implemented with dicts.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min RK</li>
+</ul>
 <p>TaskRecords are dicts of the form:
 {</p>
 <blockquote>
@@ -154,12 +158,12 @@ This may be extended, but is currently.</p>
 <dl class="class">
 <dt id="IPython.parallel.controller.dictdb.BaseDB">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dictdb.</tt><tt class="descname">BaseDB</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a></p>
 <p>Empty Parent class so traitlets work on DB.</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.dictdb.BaseDB.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a conigurable given a config config.</p>
+<dd><p>Create a configurable given a config config.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -187,9 +191,60 @@ instance.</p>
 <p>This ensures that instances will be configured properly.</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.dictdb.BaseDB.trait_names" title="IPython.parallel.controller.dictdb.BaseDB.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.dictdb.BaseDB.traits" title="IPython.parallel.controller.dictdb.BaseDB.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.dictdb.BaseDB.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.dictdb.BaseDB.log">
+<tt class="descname">log</tt><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.log" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
@@ -234,7 +289,7 @@ then unintall it.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.dictdb.BaseDB.session">
 <tt class="descname">session</tt><a class="headerlink" href="#IPython.parallel.controller.dictdb.BaseDB.session" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
@@ -293,7 +348,7 @@ backend should be straightforward.</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.dictdb.DictDB.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a conigurable given a config config.</p>
+<dd><p>Create a configurable given a config config.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -325,6 +380,50 @@ instance.</p>
 <dt id="IPython.parallel.controller.dictdb.DictDB.add_record">
 <tt class="descname">add_record</tt><big>(</big><em>msg_id</em>, <em>rec</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.add_record" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a new Task Record, by msg_id.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.dictdb.DictDB.trait_names" title="IPython.parallel.controller.dictdb.DictDB.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.controller.dictdb.DictDB.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.controller.dictdb.DictDB.traits" title="IPython.parallel.controller.dictdb.DictDB.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -382,6 +481,13 @@ included.</p>
 <dd><p>Get a specific Task Record, by msg_id.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.controller.dictdb.DictDB.log">
+<tt class="descname">log</tt><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.controller.dictdb.DictDB.on_trait_change">
 <tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.on_trait_change" title="Permalink to this definition">¶</a></dt>
@@ -422,7 +528,7 @@ then unintall it.</p>
 <dl class="attribute">
 <dt id="IPython.parallel.controller.dictdb.DictDB.session">
 <tt class="descname">session</tt><a class="headerlink" href="#IPython.parallel.controller.dictdb.DictDB.session" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the unicode trait.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
@@ -491,7 +597,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 11, 2011.
+      Last updated on Jun 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
