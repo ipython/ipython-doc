@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development version &mdash; IPython v0.11.dev documentation</title>
+    <title>Development version &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
-    <link rel="next" title="0.10 series" href="version0.10.html" />
+    <link rel="next" title="0.11 Series" href="version0.11.html" />
     <link rel="prev" title="What’s new in IPython" href="index.html" /> 
   </head>
   <body>
@@ -43,7 +43,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version0.10.html" title="0.10 series"
+          <a href="version0.11.html" title="0.11 Series"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -62,8 +62,6 @@
   <ul>
 <li><a class="reference internal" href="#">Development version</a><ul>
 <li><a class="reference internal" href="#main-ipython-branch">Main <cite>ipython</cite> branch</a><ul>
-<li><a class="reference internal" href="#refactoring">Refactoring</a></li>
-<li><a class="reference internal" href="#zmq-architecture">ZMQ architecture</a></li>
 <li><a class="reference internal" href="#new-features">New features</a></li>
 <li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
@@ -76,8 +74,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">What&#8217;s new in IPython</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="version0.10.html"
-                        title="next chapter">0.10 series</a></p>
+  <p class="topless"><a href="version0.11.html"
+                        title="next chapter">0.11 Series</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/whatsnew/development.txt"
@@ -107,187 +105,15 @@
   <div class="section" id="development-version">
 <h1>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h1>
 <p>The changes listed here are a brief summary of the substantial work on IPython
-since the 0.10.x release series. For more details, please consult the actual
+since the 0.11.x release series. For more details, please consult the actual
 source.</p>
 <div class="section" id="main-ipython-branch">
 <h2>Main <cite>ipython</cite> branch<a class="headerlink" href="#main-ipython-branch" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="refactoring">
-<h3>Refactoring<a class="headerlink" href="#refactoring" title="Permalink to this headline">¶</a></h3>
-<p>As of the 0.11 version of IPython, a signifiant portion of the core has been
-refactored.  This refactoring is founded on a number of new abstractions.
-The main new classes that implement these abstractions are:</p>
-<ul class="simple">
-<li><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraitlets</span></tt>.</li>
-<li><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.component.Component</span></tt>.</li>
-<li><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.application.Application</span></tt>.</li>
-<li><a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.ConfigLoader" title="IPython.config.loader.ConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.ConfigLoader</span></tt></a>.</li>
-<li><a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.Config</span></tt></a></li>
-</ul>
-<p>We are still in the process of writing developer focused documentation about
-these classes, but for now our <a class="reference internal" href="../config/overview.html#config-overview"><em>configuration documentation</em></a> contains a high level overview of the concepts that these
-classes express.</p>
-</div>
-<div class="section" id="zmq-architecture">
-<h3>ZMQ architecture<a class="headerlink" href="#zmq-architecture" title="Permalink to this headline">¶</a></h3>
-<p>There is a new GUI framework for IPython, based on a client-server model in
-which multiple clients can communicate with one IPython kernel, using the
-ZeroMQ messaging framework. There is already a Qt console client, which can
-be started by calling <tt class="docutils literal"><span class="pre">ipython-qtconsole</span></tt>. The protocol is <a class="reference internal" href="../development/messaging.html#messaging"><em>documented</em></a>.</p>
-<p>The parallel computing framework has also been rewritten using ZMQ. The
-protocol is described <a class="reference internal" href="../development/parallel_messages.html#parallel-messages"><em>here</em></a>, and the code is in the
-new <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt> module.</p>
-</div>
 <div class="section" id="new-features">
 <h3>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>The input history is now written to an SQLite database. The API for
-retrieving items from the history has also been redesigned.</li>
-<li>The <tt class="xref py py-mod docutils literal"><span class="pre">IPython.extensions.pretty</span></tt> extension has been moved out of
-quarantine and fully updated to the new extension API.</li>
-<li>New magics for loading/unloading/reloading extensions have been added:
-<tt class="docutils literal"><span class="pre">%load_ext</span></tt>, <tt class="docutils literal"><span class="pre">%unload_ext</span></tt> and <tt class="docutils literal"><span class="pre">%reload_ext</span></tt>.</li>
-<li>The configuration system and configuration files are brand new. See the
-configuration system <a class="reference internal" href="../config/index.html#config-index"><em>documentation</em></a> for more details.</li>
-<li>The <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> class is now a
-<tt class="xref py py-class docutils literal"><span class="pre">Component</span></tt> subclass and has traitlets that
-determine the defaults and runtime environment. The <tt class="docutils literal"><span class="pre">__init__</span></tt> method has
-also been refactored so this class can be instantiated and run without the
-old <tt class="xref py py-mod docutils literal"><span class="pre">ipmaker</span></tt> module.</li>
-<li>The methods of <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> have
-been organized into sections to make it easier to turn more sections
-of functionality into componenets.</li>
-<li>The embedded shell has been refactored into a truly standalone subclass of
-<tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> called <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShellEmbed</span></tt>.  All
-embedding logic has been taken out of the base class and put into the
-embedded subclass.</li>
-<li>I have created methods of <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> to
-help it cleanup after itself. The <tt class="xref py py-meth docutils literal"><span class="pre">cleanup()</span></tt> method controls this. We
-couldn&#8217;t do this in <tt class="xref py py-meth docutils literal"><span class="pre">__del__()</span></tt> because we have cycles in our object
-graph that prevent it from being called.</li>
-<li>Created a new module <a class="reference internal" href="../api/generated/IPython.utils.importstring.html#module-IPython.utils.importstring" title="IPython.utils.importstring"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.importstring</span></tt></a> for resolving
-strings like <tt class="docutils literal"><span class="pre">foo.bar.Bar</span></tt> to the actual class.</li>
-<li>Completely refactored the <a class="reference internal" href="../api/generated/IPython.core.prefilter.html#module-IPython.core.prefilter" title="IPython.core.prefilter"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.prefilter</span></tt></a> module into
-<tt class="xref py py-class docutils literal"><span class="pre">Component</span></tt> subclasses. Added a new layer
-into the prefilter system, called &#8220;transformations&#8221; that all new prefilter
-logic should use (rather than the older &#8220;checker/handler&#8221; approach).</li>
-<li>Aliases are now components (<a class="reference internal" href="../api/generated/IPython.core.alias.html#module-IPython.core.alias" title="IPython.core.alias"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.alias</span></tt></a>).</li>
-<li>We are now using an internally shipped version of
-<tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt> to parse command line options for
-<strong class="command">ipython</strong>.</li>
-<li>New top level <tt class="xref py py-func docutils literal"><span class="pre">embed()</span></tt> function that can be called
-to embed IPython at any place in user&#8217;s code. One the first call it will
-create an <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShellEmbed</span></tt> instance and
-call it. In later calls, it just calls the previously created
-<tt class="xref py py-class docutils literal"><span class="pre">InteractiveShellEmbed</span></tt>.</li>
-<li>Created a component system (<tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.component</span></tt>) that is based on
-<a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a>. Components are arranged into a runtime
-containment tree (not inheritance) that i) automatically propagates
-configuration information and ii) allows components to discover each other
-in a loosely coupled manner. In the future all parts of IPython will be
-subclasses of <tt class="xref py py-class docutils literal"><span class="pre">Component</span></tt>. All IPython
-developers should become familiar with the component system.</li>
-<li>Created a new <a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a> for holding
-configuration information. This is a dict like class with a few extras: i)
-it supports attribute style access, ii) it has a merge function that merges
-two <a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a> instances recursively and iii) it
-will automatically create sub-<a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a>
-instances for attributes that start with an uppercase character.</li>
-<li>Created new configuration loaders in <a class="reference internal" href="../api/generated/IPython.config.loader.html#module-IPython.config.loader" title="IPython.config.loader"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.config.loader</span></tt></a>. These
-loaders provide a unified loading interface for all configuration
-information including command line arguments and configuration files. We
-have two default implementations based on <tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt> and plain python
-files.  These are used to implement the new configuration system.</li>
-<li>Created a top-level <tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt> class in
-<a class="reference internal" href="../api/generated/IPython.core.application.html#module-IPython.core.application" title="IPython.core.application"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.application</span></tt></a> that is designed to encapsulate the starting
-of any IPython process. An application loads and merges all the
-configuration objects, constructs the main application <tt class="xref py py-class docutils literal"><span class="pre">Component</span></tt>
-instances and then starts the application running. The default
-<tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt> class has built-in logic for handling the IPython
-directory as well as profiles.</li>
-<li>The <tt class="xref py py-class docutils literal"><span class="pre">Type</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Instance</span></tt> traitlets now handle classes given
-as strings, like <tt class="docutils literal"><span class="pre">foo.bar.Bar</span></tt>. This is needed for forward declarations.
-But, this was implemented in a careful way so that string to class
-resolution is done at a single point, when the parent
-<tt class="xref py py-class docutils literal"><span class="pre">HasTraitlets</span></tt> is instantiated.</li>
-<li><a class="reference internal" href="../api/generated/IPython.utils.ipstruct.html#module-IPython.utils.ipstruct" title="IPython.utils.ipstruct"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.ipstruct</span></tt></a> has been refactored to be a subclass of
-dict.  It also now has full docstrings and doctests.</li>
-<li>Created a Trait&#8217;s like implementation in <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a>.
-This is a pure Python, lightweight version of a library that is similar to
-<tt class="xref py py-mod docutils literal"><span class="pre">enthought.traits</span></tt>.  We are using this for validation, defaults and
-notification in our new component system.  Although it is not API compatible
-with <tt class="xref py py-mod docutils literal"><span class="pre">enthought.traits</span></tt>, we plan on moving in this direction so that
-eventually our implementation could be replaced by a (yet to exist) pure
-Python version of <tt class="xref py py-mod docutils literal"><span class="pre">enthought.traits</span></tt>.</li>
-<li>Added a new module <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> to manage the integration
-with GUI event loops using <cite>PyOS_InputHook</cite>.  See the docstrings in this
-module or the main IPython docs for details.</li>
-<li>For users, GUI event loop integration is now handled through the new
-<strong class="command">%gui</strong> magic command.  Type <tt class="docutils literal"><span class="pre">%gui?</span></tt> at an IPython prompt for
-documentation.</li>
-<li>The command line options <tt class="docutils literal"><span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">-qthread</span></tt> and
-<tt class="docutils literal"><span class="pre">-gthread</span></tt> just call the appropriate <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a>
-functions.</li>
-<li>For developers <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> provides a simple interface
-for managing the event loops in their interactive GUI applications.
-Examples can be found in our <tt class="file docutils literal"><span class="pre">docs/examples/lib</span></tt> directory.</li>
-</ul>
 </div>
 <div class="section" id="backwards-incompatible-changes">
 <h3>Backwards incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>The extension loading functions have been renamed to
-<tt class="xref py py-func docutils literal"><span class="pre">load_ipython_extension()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">unload_ipython_extension()</span></tt>.</li>
-<li><tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> no longer takes an
-<tt class="docutils literal"><span class="pre">embedded</span></tt> argument. Instead just use the
-<tt class="xref py py-class docutils literal"><span class="pre">InteractiveShellEmbed</span></tt> class.</li>
-<li><tt class="docutils literal"><span class="pre">__IPYTHON__</span></tt> is no longer injected into <tt class="docutils literal"><span class="pre">__builtin__</span></tt>.</li>
-<li><tt class="xref py py-meth docutils literal"><span class="pre">Struct.__init__()</span></tt> no longer takes <cite>None</cite> as its first argument.  It
-must be a <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt> or <tt class="xref py py-class docutils literal"><span class="pre">Struct</span></tt>.</li>
-<li><tt class="xref py py-meth docutils literal"><span class="pre">ipmagic()</span></tt> has been renamed
-<tt class="xref py py-meth docutils literal"><span class="pre">()</span></tt></li>
-<li>The functions <tt class="xref py py-func docutils literal"><span class="pre">ipmagic()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">ipalias()</span></tt> have been removed from
-<tt class="xref py py-mod docutils literal"><span class="pre">__builtins__</span></tt>.</li>
-<li>The references to the global <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt>
-instance (<tt class="docutils literal"><span class="pre">_ip</span></tt>, and <tt class="docutils literal"><span class="pre">__IP</span></tt>) have been removed from the user&#8217;s
-namespace. They are replaced by a new function called <tt class="xref py py-func docutils literal"><span class="pre">get_ipython()</span></tt>
-that returns the current <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt>
-instance. This function is injected into the user&#8217;s namespace and is now the
-main way of accessing IPython&#8217;s API.</li>
-<li>Old style configuration files <tt class="file docutils literal"><span class="pre">ipythonrc</span></tt> and <tt class="file docutils literal"><span class="pre">ipy_user_conf.py</span></tt>
-are no longer supported. Users should migrate there configuration files to
-the new format described <a class="reference internal" href="../config/overview.html#config-overview"><em>here</em></a> and <a class="reference internal" href="../config/ipython.html#configuring-ipython"><em>here</em></a>.</li>
-<li>The old IPython extension API that relied on <tt class="xref py py-func docutils literal"><span class="pre">ipapi()</span></tt> has been
-completely removed. The new extension API is described <a class="reference internal" href="../config/ipython.html#configuring-ipython"><em>here</em></a>.</li>
-<li>Support for <tt class="docutils literal"><span class="pre">qt3</span></tt> has been dropped.  User&#8217;s who need this should use
-previous versions of IPython.</li>
-<li>Removed <tt class="xref py py-mod docutils literal"><span class="pre">shellglobals</span></tt> as it was obsolete.</li>
-<li>Removed all the threaded shells in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.shell</span></tt>. These are no
-longer needed because of the new capabilities in
-<a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a>.</li>
-<li>The <tt class="docutils literal"><span class="pre">-pylab</span></tt> command line flag has been disabled until matplotlib adds
-support for the new <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> approach.  The new stuff
-does work with matplotlib, but you have to set everything up by hand.</li>
-<li>New top-level sub-packages have been created: <tt class="xref py py-mod docutils literal"><span class="pre">IPython.core</span></tt>,
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">IPython.deathrow</span></tt>,
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.quarantine</span></tt>.  All existing top-level modules have been
-moved to appropriate sub-packages.  All internal import statements
-have been updated and tests have been added.  The build system (setup.py
-and friends) have been updated.  See <a class="reference internal" href="../development/reorg.html#module-reorg"><em>this section</em></a> of the
-documentation for descriptions of these new sub-packages.</li>
-<li>Compatability modules have been created for <tt class="xref py py-mod docutils literal"><span class="pre">IPython.Shell</span></tt>,
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.ipapi</span></tt> and <tt class="xref py py-mod docutils literal"><span class="pre">IPython.iplib</span></tt> that display warnings
-and then load the actual implementation from <tt class="xref py py-mod docutils literal"><span class="pre">IPython.core</span></tt>.</li>
-<li><tt class="xref py py-mod docutils literal"><span class="pre">Extensions</span></tt> has been moved to <tt class="xref py py-mod docutils literal"><span class="pre">extensions</span></tt> and all existing
-extensions have been moved to either <tt class="xref py py-mod docutils literal"><span class="pre">IPython.quarantine</span></tt> or
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.deathrow</span></tt>. <tt class="xref py py-mod docutils literal"><span class="pre">IPython.quarantine</span></tt> contains modules that we
-plan on keeping but that need to be updated. <tt class="xref py py-mod docutils literal"><span class="pre">IPython.deathrow</span></tt>
-contains modules that are either dead or that should be maintained as third
-party libraries. More details about this can be found <a class="reference internal" href="../development/reorg.html#module-reorg"><em>here</em></a>.</li>
-<li>The IPython GUIs in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.frontend</span></tt> and <tt class="xref py py-mod docutils literal"><span class="pre">IPython.gui</span></tt> are likely
-broken because of the refactoring in the core.  With proper updates, these
-should still work.  We probably want to get these so they are not using
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.core</span></tt> (which is being phased out).</li>
-</ul>
 </div>
 </div>
 </div>
@@ -308,7 +134,7 @@ should still work.  We probably want to get these so they are not using
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version0.10.html" title="0.10 series"
+          <a href="version0.11.html" title="0.11 Series"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -322,7 +148,7 @@ should still work.  We probably want to get these so they are not using
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

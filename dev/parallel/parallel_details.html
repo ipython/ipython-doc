@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Details of Parallel Computing with IPython &mdash; IPython v0.11.dev documentation</title>
+    <title>Details of Parallel Computing with IPython &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Transitioning from IPython.kernel to IPython.parallel" href="parallel_transition.html" />
     <link rel="prev" title="DAG Dependencies" href="dag_dependencies.html" /> 
@@ -141,7 +141,7 @@
 <span id="parallel-details"></span><h1>Details of Parallel Computing with IPython<a class="headerlink" href="#details-of-parallel-computing-with-ipython" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">There are still many sections to fill out</p>
+<p class="last">There are still many sections to fill out in this doc</p>
 </div>
 <div class="section" id="caveats">
 <h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
@@ -195,9 +195,11 @@ The <tt class="xref py py-attr docutils literal"><span class="pre">ndarray.flags
 <span class="gr">Out[6]: </span><span class="bp">False</span>
 </pre></div>
 </div>
-<p>If you want to safely edit an array in-place after <em>sending</em> it, you must use the <cite>track=True</cite> flag.  IPython always performs non-copying sends of arrays, which return immediately.  You
-must instruct IPython track those messages <em>at send time</em> in order to know for sure that the send has completed.  AsyncResults have a <tt class="xref py py-attr docutils literal"><span class="pre">sent</span></tt> property, and <tt class="xref py py-meth docutils literal"><span class="pre">wait_on_send()</span></tt> method
-for checking and waiting for 0MQ to finish with a buffer.</p>
+<p>If you want to safely edit an array in-place after <em>sending</em> it, you must use the <cite>track=True</cite>
+flag. IPython always performs non-copying sends of arrays, which return immediately. You must
+instruct IPython track those messages <em>at send time</em> in order to know for sure that the send has
+completed. AsyncResults have a <tt class="xref py py-attr docutils literal"><span class="pre">sent</span></tt> property, and <tt class="xref py py-meth docutils literal"><span class="pre">wait_on_send()</span></tt> method for
+checking and waiting for 0MQ to finish with a buffer.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">1024</span><span class="p">,</span><span class="mi">1024</span><span class="p">))</span>
 
 <span class="gp">In [6]: </span><span class="n">view</span><span class="o">.</span><span class="n">track</span><span class="o">=</span><span class="bp">True</span>
@@ -240,12 +242,12 @@ functions that refer to variables in their parent scope have closures.</p>
 <span class="n">f2</span><span class="p">()</span> <span class="c"># returns 2</span>
 </pre></div>
 </div>
-<p>f1 and f2 will have closures referring to the scope in which <cite>inner</cite> was defined, because they
-use the variable &#8216;a&#8217;. As a result, you would not be able to send <tt class="docutils literal"><span class="pre">f1</span></tt> or <tt class="docutils literal"><span class="pre">f2</span></tt> with IPython.
-Note that you <em>would</em> be able to send <cite>f</cite>. This is only true for interactively defined
-functions (as are often used in decorators), and only when there are variables used inside the
-inner function, that are defined in the outer function. If the names are <em>not</em> in the outer
-function, then there will not be a closure, and the generated function will look in
+<p><tt class="docutils literal"><span class="pre">f1</span></tt> and <tt class="docutils literal"><span class="pre">f2</span></tt> will have closures referring to the scope in which <cite>inner</cite> was defined,
+because they use the variable &#8216;a&#8217;. As a result, you would not be able to send <tt class="docutils literal"><span class="pre">f1</span></tt> or <tt class="docutils literal"><span class="pre">f2</span></tt>
+with IPython. Note that you <em>would</em> be able to send <cite>f</cite>. This is only true for interactively
+defined functions (as are often used in decorators), and only when there are variables used
+inside the inner function, that are defined in the outer function. If the names are <em>not</em> in the
+outer function, then there will not be a closure, and the generated function will look in
 <tt class="docutils literal"><span class="pre">globals()</span></tt> for the name:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
     <span class="c"># note that `b` is not referenced in inner&#39;s scope</span>
@@ -280,9 +282,10 @@ and Python functions.  IPython is designed around the use of functions via the c
 Client method, called <cite>apply</cite>.</p>
 <div class="section" id="apply">
 <h3>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
-<p>The principal method of remote execution is <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, of View objects. The Client provides
-the full execution and communication API for engines via its low-level
-<tt class="xref py py-meth docutils literal"><span class="pre">send_apply_message()</span></tt> method.</p>
+<p>The principal method of remote execution is <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, of
+<a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View" title="IPython.parallel.client.view.View"><tt class="xref py py-class docutils literal"><span class="pre">View</span></tt></a> objects. The Client provides the full execution and
+communication API for engines via its low-level <tt class="xref py py-meth docutils literal"><span class="pre">send_apply_message()</span></tt> method, which is used
+by all higher level methods of its Views.</p>
 <dl class="docutils">
 <dt>f <span class="classifier-delimiter">:</span> <span class="classifier">function</span></dt>
 <dd>The fuction to be called remotely</dd>
@@ -345,21 +348,23 @@ DependencyTimeout.</dd>
 </div>
 <div class="section" id="execute-and-run">
 <h3>execute and run<a class="headerlink" href="#execute-and-run" title="Permalink to this headline">¶</a></h3>
-<p>For executing strings of Python code, <tt class="xref py py-class docutils literal"><span class="pre">DirectView`s</span> <span class="pre">also</span> <span class="pre">provide</span> <span class="pre">an</span> <span class="pre">:meth:`execute</span></tt> and a
-<tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt> method, which rather than take functions and arguments, take simple strings.
+<p>For executing strings of Python code, <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> &#8216;s also provide an <tt class="xref py py-meth docutils literal"><span class="pre">execute()</span></tt> and
+a <tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt> method, which rather than take functions and arguments, take simple strings.
 <cite>execute</cite> simply takes a string of Python code to execute, and sends it to the Engine(s). <cite>run</cite>
 is the same as <cite>execute</cite>, but for a <em>file</em>, rather than a string. It is simply a wrapper that
 does something very similar to <tt class="docutils literal"><span class="pre">execute(open(f).read())</span></tt>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">TODO: Example</p>
+<p class="last">TODO: Examples for execute and run</p>
 </div>
 </div>
 </div>
 <div class="section" id="views">
 <h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
-<p>The principal extension of the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> is the
-<tt class="xref py py-class docutils literal"><span class="pre">View</span></tt> class. The client</p>
+<p>The principal extension of the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> is the <tt class="xref py py-class docutils literal"><span class="pre">View</span></tt>
+class. The client is typically a singleton for connecting to a cluster, and presents a
+low-level interface to the Hub and Engines. Most real usage will involve creating one or more
+<tt class="xref py py-class docutils literal"><span class="pre">View</span></tt> objects for working with engines in various ways.</p>
 <div class="section" id="directview">
 <h3>DirectView<a class="headerlink" href="#directview" title="Permalink to this headline">¶</a></h3>
 <p>The <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> is the class for the IPython <a class="reference internal" href="parallel_multiengine.html#parallel-multiengine"><em>Multiplexing Interface</em></a>.</p>
@@ -402,6 +407,24 @@ targets will not change over time if engines are added/removed from the cluster.
 <div class="section" id="execution-via-directview">
 <h4>Execution via DirectView<a class="headerlink" href="#execution-via-directview" title="Permalink to this headline">¶</a></h4>
 <p>The DirectView is the simplest way to work with one or more engines directly (hence the name).</p>
+<p>For instance, to get the process ID of all your engines:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="gp">In [6]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">)</span>
+<span class="gr">Out[6]: </span><span class="p">[</span><span class="mi">1354</span><span class="p">,</span> <span class="mi">1356</span><span class="p">,</span> <span class="mi">1358</span><span class="p">,</span> <span class="mi">1360</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Or to see the hostname of the machine they are on:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="gp">In [6]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">)</span>
+<span class="gr">Out[6]: </span><span class="p">[</span><span class="s">&#39;tesla&#39;</span><span class="p">,</span> <span class="s">&#39;tesla&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: expand on direct execution</p>
+</div>
 </div>
 <div class="section" id="data-movement-via-directview">
 <h4>Data movement via DirectView<a class="headerlink" href="#data-movement-via-directview" title="Permalink to this headline">¶</a></h4>
@@ -439,25 +462,33 @@ between engines, MPI should be used:</p>
 </div>
 <div class="section" id="push-and-pull">
 <h3>Push and pull<a class="headerlink" href="#push-and-pull" title="Permalink to this headline">¶</a></h3>
-<p>push</p>
-<p>pull</p>
+<p><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.push" title="IPython.parallel.client.view.DirectView.push"><tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt></a></p>
+<p><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.pull" title="IPython.parallel.client.view.DirectView.pull"><tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt></a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: write this section</p>
+</div>
 </div>
 <div class="section" id="loadbalancedview">
 <h3>LoadBalancedView<a class="headerlink" href="#loadbalancedview" title="Permalink to this headline">¶</a></h3>
-<p>The <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></a></p>
+<p>The <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></a> is the class for load-balanced execution via the task scheduler.
+These views always run tasks on exactly one engine, but let the scheduler determine where that
+should be, allowing load-balancing of tasks. The LoadBalancedView does allow you to specify
+restrictions on where and when tasks can execute, for more complicated load-balanced workflows.</p>
 </div>
 </div>
 <div class="section" id="data-movement">
 <h2>Data Movement<a class="headerlink" href="#data-movement" title="Permalink to this headline">¶</a></h2>
-<p>Reference</p>
+<p>Since the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></a> does not know where execution will take place, explicit
+data movement methods like push/pull and scatter/gather do not make sense, and are not provided.</p>
 </div>
 <div class="section" id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="asyncresults">
 <h3>AsyncResults<a class="headerlink" href="#asyncresults" title="Permalink to this headline">¶</a></h3>
-<p>Our primary representation is the AsyncResult object, based on the object of the same name in
-the built-in <tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt> module. Our version provides a superset of that
-interface.</p>
+<p>Our primary representation of the results of remote execution is the <a class="reference internal" href="#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a>
+object, based on the object of the same name in the built-in <tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt>
+module. Our version provides a superset of that interface.</p>
 <p>The basic principle of the AsyncResult is the encapsulation of one or more results not yet completed.  Execution methods (including data movement, such as push/pull) will all return
 AsyncResults when <cite>block=False</cite>.</p>
 </div>
@@ -520,7 +551,7 @@ metadata. If the AsyncResult represents multiple calls (e.g. any time <cite>targ
 a CompositeError, a subclass of RemoteError, will be raised.</p>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">For more information on remote exceptions, see <em class="xref std std-ref">the section in the Direct Interface</em>.</p>
+<p class="last">For more information on remote exceptions, see <a class="reference internal" href="parallel_multiengine.html#parallel-exceptions"><em>the section in the Direct Interface</em></a>.</p>
 </div>
 <div class="section" id="extended-interface">
 <h4>Extended interface<a class="headerlink" href="#extended-interface" title="Permalink to this headline">¶</a></h4>
@@ -530,7 +561,8 @@ AsyncResults have a property, <tt class="xref py py-attr docutils literal"><span
 that many calls (any of those submitted via DirectView) will map results to engine IDs. We
 provide a <tt class="xref py py-meth docutils literal"><span class="pre">get_dict()</span></tt>, which is also a wrapper on <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt>, which returns a dictionary
 of the individual results, keyed by engine ID.</p>
-<p>You can also prevent a submitted job from actually executing, via the AsyncResult&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">abort()</span></tt> method.  This will instruct engines to not execute the job when it arrives.</p>
+<p>You can also prevent a submitted job from actually executing, via the AsyncResult&#8217;s
+<tt class="xref py py-meth docutils literal"><span class="pre">abort()</span></tt> method. This will instruct engines to not execute the job when it arrives.</p>
 <p>The larger extension of the AsyncResult API is the <tt class="xref py py-attr docutils literal"><span class="pre">metadata</span></tt> attribute.  The metadata
 is a dictionary (with attribute access) that contains, logically enough, metadata about the
 execution.</p>
@@ -640,9 +672,9 @@ represents a collection of messages, such as a list of msg_ids or one or more As
 objects, can be passed as argument to wait. A timeout can be specified, which will prevent
 the call from blocking for more than a specified time, but the default behavior is to wait
 forever.</p>
-<p>The client also has an <cite>outstanding</cite> attribute - a <tt class="docutils literal"><span class="pre">set</span></tt> of msg_ids that are awaiting replies.
-This is the default if wait is called with no arguments - i.e. wait on <em>all</em> outstanding
-messages.</p>
+<p>The client also has an <tt class="docutils literal"><span class="pre">outstanding</span></tt> attribute - a <tt class="docutils literal"><span class="pre">set</span></tt> of msg_ids that are awaiting
+replies. This is the default if wait is called with no arguments - i.e. wait on <em>all</em>
+outstanding messages.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">TODO wait example</p>
@@ -650,11 +682,11 @@ messages.</p>
 </div>
 <div class="section" id="map">
 <h2>Map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h2>
-<p>Many parallel computing problems can be expressed as a <cite>map</cite>, or running a single program with a
-variety of different inputs. Python has a built-in <a href="#id5"><span class="problematic" id="id6">:py-func:`map`</span></a>, which does exactly this, and
-many parallel execution tools in Python, such as the built-in <a href="#id7"><span class="problematic" id="id8">:py-class:`multiprocessing.Pool`</span></a>
-object provide implementations of <cite>map</cite>. All View objects provide a <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> method as well,
-but the load-balanced and direct implementations differ.</p>
+<p>Many parallel computing problems can be expressed as a <tt class="docutils literal"><span class="pre">map</span></tt>, or running a single program with
+a variety of different inputs. Python has a built-in <tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt>, which does exactly this,
+and many parallel execution tools in Python, such as the built-in
+<tt class="xref py py-class docutils literal"><span class="pre">multiprocessing.Pool</span></tt> object provide implementations of <cite>map</cite>. All View objects
+provide a <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> method as well, but the load-balanced and direct implementations differ.</p>
 <p>Views&#8217; map methods can be called on any number of sequences, but they can also take the <cite>block</cite>
 and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, but <em>only as keywords</em>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">dview</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">*</span><span class="n">sequences</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
@@ -666,16 +698,24 @@ and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth d
 </div>
 <div class="section" id="decorators-and-remotefunctions">
 <h2>Decorators and RemoteFunctions<a class="headerlink" href="#decorators-and-remotefunctions" title="Permalink to this headline">¶</a></h2>
-<p>&#64;parallel</p>
-<p>&#64;remote</p>
-<p>RemoteFunction</p>
-<p>ParallelFunction</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: write this section</p>
+</div>
+<p><tt class="xref py py-func docutils literal"><span class="pre">&#64;parallel()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">&#64;remote()</span></tt></p>
+<p><a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.RemoteFunction" title="IPython.parallel.client.remotefunction.RemoteFunction"><tt class="xref py py-class docutils literal"><span class="pre">RemoteFunction</span></tt></a></p>
+<p><a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.ParallelFunction" title="IPython.parallel.client.remotefunction.ParallelFunction"><tt class="xref py py-class docutils literal"><span class="pre">ParallelFunction</span></tt></a></p>
 </div>
 <div class="section" id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
-<p>&#64;depend</p>
-<p>&#64;require</p>
-<p>Dependency</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">TODO: write this section</p>
+</div>
+<p><tt class="xref py py-func docutils literal"><span class="pre">&#64;depend()</span></tt></p>
+<p><tt class="xref py py-func docutils literal"><span class="pre">&#64;require()</span></tt></p>
+<p><a class="reference internal" href="../api/generated/IPython.parallel.controller.dependency.html#IPython.parallel.controller.dependency.Dependency" title="IPython.parallel.controller.dependency.Dependency"><tt class="xref py py-class docutils literal"><span class="pre">Dependency</span></tt></a></p>
 </div>
 </div>
 
@@ -709,7 +749,7 @@ and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth d
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

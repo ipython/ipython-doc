@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.interactiveshell &mdash; IPython v0.11.dev documentation</title>
+    <title>core.interactiveshell &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.ipapi" href="IPython.core.ipapi.html" />
     <link rel="prev" title="core.inputsplitter" href="IPython.core.inputsplitter.html" /> 
@@ -67,7 +67,7 @@
 <li><a class="reference internal" href="#interactiveshell"><tt class="docutils literal"><span class="pre">InteractiveShell</span></tt></a></li>
 <li><a class="reference internal" href="#interactiveshellabc"><tt class="docutils literal"><span class="pre">InteractiveShellABC</span></tt></a></li>
 <li><a class="reference internal" href="#readlinenorecord"><tt class="docutils literal"><span class="pre">ReadlineNoRecord</span></tt></a></li>
-<li><a class="reference internal" href="#separatestr"><tt class="docutils literal"><span class="pre">SeparateStr</span></tt></a></li>
+<li><a class="reference internal" href="#separateunicode"><tt class="docutils literal"><span class="pre">SeparateUnicode</span></tt></a></li>
 <li><a class="reference internal" href="#spaceininput"><tt class="docutils literal"><span class="pre">SpaceInInput</span></tt></a></li>
 </ul>
 </li>
@@ -528,7 +528,7 @@ namespace, and delete references to it.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.enable_pylab">
-<tt class="descname">enable_pylab</tt><big>(</big><em>gui=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_pylab" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">enable_pylab</tt><big>(</big><em>gui=None</em>, <em>import_all=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_pylab" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -957,7 +957,7 @@ on to the <a class="reference internal" href="#IPython.core.interactiveshell.Int
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic">
-<tt class="descname">magic</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic</tt><big>(</big><em>arg_s</em>, <em>next_input=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call a magic function by name.</p>
 <p>Input: a string containing the name of the magic function to call and
 any additional arguments to be passed to the magic.</p>
@@ -1608,25 +1608,25 @@ numpy display precision will also be set, via <tt class="docutils literal"><span
 <div class="highlight-python"><pre>In [1]: from math import pi
 
 In [2]: %precision 3
-Out[2]: '%.3f'
+Out[2]: u'%.3f'
 
 In [3]: pi
 Out[3]: 3.142
 
 In [4]: %precision %i
-Out[4]: '%i'
+Out[4]: u'%i'
 
 In [5]: pi
 Out[5]: 3
 
 In [6]: %precision %e
-Out[6]: '%e'
+Out[6]: u'%e'
 
 In [7]: pi**10
 Out[7]: 9.364805e+04
 
 In [8]: %precision
-Out[8]: '%r'
+Out[8]: u'%r'
 
 In [9]: pi**10
 Out[9]: 93648.047476082982</pre>
@@ -1956,7 +1956,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103f23f50&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x103c2e320&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -2585,19 +2585,19 @@ standard library.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.prompt_in1">
 <tt class="descname">prompt_in1</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.prompt_in1" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.prompt_in2">
 <tt class="descname">prompt_in2</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.prompt_in2" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.prompt_out">
 <tt class="descname">prompt_out</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.prompt_out" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2661,7 +2661,7 @@ magic.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.readline_remove_delims">
 <tt class="descname">readline_remove_delims</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.readline_remove_delims" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for strings.</p>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2887,27 +2887,27 @@ silenced for zero status, as it is so common).</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.separate_in">
 <tt class="descname">separate_in</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.separate_in" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Str subclass to validate separate_in, separate_out, etc.</p>
+<dd><p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
-<div>This is a Str based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
+<div>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
 <p>&#8216;.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.separate_out">
 <tt class="descname">separate_out</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.separate_out" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Str subclass to validate separate_in, separate_out, etc.</p>
+<dd><p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
-<div>This is a Str based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
+<div>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
 <p>&#8216;.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.separate_out2">
 <tt class="descname">separate_out2</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.separate_out2" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Str subclass to validate separate_in, separate_out, etc.</p>
+<dd><p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
-<div>This is a Str based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
+<div>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
 <p>&#8216;.</p>
 </dd></dl>
 
@@ -3228,51 +3228,51 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="separatestr">
-<h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateStr" title="IPython.core.interactiveshell.SeparateStr"><tt class="xref py py-class docutils literal"><span class="pre">SeparateStr</span></tt></a><a class="headerlink" href="#separatestr" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="separateunicode">
+<h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateUnicode" title="IPython.core.interactiveshell.SeparateUnicode"><tt class="xref py py-class docutils literal"><span class="pre">SeparateUnicode</span></tt></a><a class="headerlink" href="#separateunicode" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
-<dt id="IPython.core.interactiveshell.SeparateStr">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateStr</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103f37d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Str" title="IPython.utils.traitlets.Str"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Str</span></tt></a></p>
-<p>A Str subclass to validate separate_in, separate_out, etc.</p>
+<dt id="IPython.core.interactiveshell.SeparateUnicode">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103c20190&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
+<p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
-<div>This is a Str based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
+<div>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
 <p>&#8216;.</p>
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103f37d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x103c20190&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TraitType.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.error">
-<tt class="descname">error</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.error" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.error">
+<tt class="descname">error</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.error" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.get_default_value">
-<tt class="descname">get_default_value</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.get_default_value" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.get_default_value">
+<tt class="descname">get_default_value</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.get_default_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new instance of the default value.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.get_metadata">
-<tt class="descname">get_metadata</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.get_metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.get_metadata">
+<tt class="descname">get_metadata</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.get_metadata" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.info">
-<tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.info" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.info">
+<tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.init">
-<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.init" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.init">
+<tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.init" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.instance_init">
-<tt class="descname">instance_init</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.instance_init" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.instance_init">
+<tt class="descname">instance_init</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.instance_init" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is called by <tt class="xref py py-meth docutils literal"><span class="pre">HasTraits.__new__()</span></tt> to finish init&#8217;ing.</p>
 <p>Some stages of initialization must be delayed until the parent
 <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt> instance has been created.  This method is
@@ -3297,23 +3297,23 @@ created.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.set_default_value">
-<tt class="descname">set_default_value</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.set_default_value" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.set_default_value">
+<tt class="descname">set_default_value</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.set_default_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the default value on a per instance basis.</p>
-<p>This method is called by <a class="reference internal" href="#IPython.core.interactiveshell.SeparateStr.instance_init" title="IPython.core.interactiveshell.SeparateStr.instance_init"><tt class="xref py py-meth docutils literal"><span class="pre">instance_init()</span></tt></a> to create and
+<p>This method is called by <a class="reference internal" href="#IPython.core.interactiveshell.SeparateUnicode.instance_init" title="IPython.core.interactiveshell.SeparateUnicode.instance_init"><tt class="xref py py-meth docutils literal"><span class="pre">instance_init()</span></tt></a> to create and
 validate the default value.  The creation and validation of 
 default values must be delayed until the parent <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt>
 class has been instantiated.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.set_metadata">
-<tt class="descname">set_metadata</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.set_metadata" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.set_metadata">
+<tt class="descname">set_metadata</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.set_metadata" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.SeparateStr.validate">
-<tt class="descname">validate</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateStr.validate" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.interactiveshell.SeparateUnicode.validate">
+<tt class="descname">validate</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.validate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3396,7 +3396,7 @@ class has been instantiated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

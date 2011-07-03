@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Quick IPython tutorial &mdash; IPython v0.11.dev documentation</title>
+    <title>Introducing IPython &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,9 +22,9 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
-    <link rel="next" title="IPython reference" href="reference.html" />
+    <link rel="next" title="IPython Tips &amp; Tricks" href="tips.html" />
     <link rel="prev" title="Using IPython for interactive work" href="index.html" /> 
   </head>
   <body>
@@ -43,7 +43,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="reference.html" title="IPython reference"
+          <a href="tips.html" title="IPython Tips &amp; Tricks"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Using IPython for interactive work"
@@ -60,29 +60,20 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Quick IPython tutorial</a><ul>
-<li><a class="reference internal" href="#highlights">Highlights</a><ul>
+<li><a class="reference internal" href="#">Introducing IPython</a><ul>
 <li><a class="reference internal" href="#tab-completion">Tab completion</a></li>
-<li><a class="reference internal" href="#explore-your-objects">Explore your objects</a></li>
-<li><a class="reference internal" href="#the-run-magic-command">The <cite>%run</cite> magic command</a></li>
-<li><a class="reference internal" href="#debug-a-python-script">Debug a Python script</a></li>
-<li><a class="reference internal" href="#use-the-output-cache">Use the output cache</a></li>
-<li><a class="reference internal" href="#suppress-output">Suppress output</a></li>
-<li><a class="reference internal" href="#input-cache">Input cache</a></li>
-<li><a class="reference internal" href="#use-your-input-history">Use your input history</a></li>
-<li><a class="reference internal" href="#define-your-own-system-aliases">Define your own system aliases</a></li>
-<li><a class="reference internal" href="#call-system-shell-commands">Call system shell commands</a></li>
-<li><a class="reference internal" href="#use-python-variables-when-calling-the-shell">Use Python variables when calling the shell</a></li>
-<li><a class="reference internal" href="#use-profiles">Use profiles</a></li>
-<li><a class="reference internal" href="#embed-ipython-in-your-programs">Embed IPython in your programs</a></li>
-<li><a class="reference internal" href="#use-the-python-profiler">Use the Python profiler</a></li>
-<li><a class="reference internal" href="#use-ipython-to-present-interactive-demos">Use IPython to present interactive demos</a></li>
-<li><a class="reference internal" href="#run-doctests">Run doctests</a></li>
+<li><a class="reference internal" href="#exploring-your-objects">Exploring your objects</a></li>
+<li><a class="reference internal" href="#magic-functions">Magic functions</a><ul>
+<li><a class="reference internal" href="#running-and-editing">Running and Editing</a></li>
+<li><a class="reference internal" href="#debugging">Debugging</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#source-code-handling-tips">Source code handling tips</a></li>
-<li><a class="reference internal" href="#lightweight-version-control">Lightweight &#8216;version control&#8217;</a></li>
-<li><a class="reference internal" href="#effective-logging">Effective logging</a></li>
+<li><a class="reference internal" href="#history">History</a></li>
+<li><a class="reference internal" href="#system-shell-commands">System shell commands</a><ul>
+<li><a class="reference internal" href="#define-your-own-system-aliases">Define your own system aliases</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -91,8 +82,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">Using IPython for interactive work</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="reference.html"
-                        title="next chapter">IPython reference</a></p>
+  <p class="topless"><a href="tips.html"
+                        title="next chapter">IPython Tips &amp; Tricks</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/interactive/tutorial.txt"
@@ -119,299 +110,121 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="quick-ipython-tutorial">
-<span id="tutorial"></span><h1>Quick IPython tutorial<a class="headerlink" href="#quick-ipython-tutorial" title="Permalink to this headline">¶</a></h1>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">As of the 0.11 version of IPython, some of the features and APIs
-described in this section have been deprecated or are broken.  Our plan
-is to continue to support these features, but they need to be updated
-to take advantage of recent API changes.  Furthermore, this section
-of the documentation need to be updated to reflect all of these changes.</p>
-</div>
-<p>IPython can be used as an improved replacement for the Python prompt,
-and for that you don&#8217;t really need to read any more of this manual. But
-in this section we&#8217;ll try to summarize a few tips on how to make the
-most effective use of it for everyday Python development, highlighting
-things you might miss in the rest of the manual (which is getting long).
-We&#8217;ll give references to parts in the manual which provide more detail
-when appropriate.</p>
-<p>The following article by Jeremy Jones provides an introductory tutorial
-about IPython: <a class="reference external" href="http://www.onlamp.com/pub/a/python/2005/01/27/ipython.html">http://www.onlamp.com/pub/a/python/2005/01/27/ipython.html</a></p>
-<div class="section" id="highlights">
-<h2>Highlights<a class="headerlink" href="#highlights" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="introducing-ipython">
+<span id="tutorial"></span><h1>Introducing IPython<a class="headerlink" href="#introducing-ipython" title="Permalink to this headline">¶</a></h1>
+<p>You don&#8217;t need to know anything beyond Python to start using IPython – just type
+commands as you would at the standard Python prompt. But IPython can do much
+more than the standard prompt. Some key features are described here. For more
+information, check the <a class="reference internal" href="tips.html#tips"><em>tips page</em></a>, or look at examples in the
+<a class="reference external" href="http://ipython.scipy.org/moin/Cookbook">IPython cookbook</a>.</p>
+<p>If you&#8217;ve never used Python before, you might want to look at <a class="reference external" href="http://docs.python.org/tutorial/">the official
+tutorial</a> or an alternative, <a class="reference external" href="http://diveintopython.org/toc/index.html">Dive into
+Python</a>.</p>
 <div class="section" id="tab-completion">
-<h3>Tab completion<a class="headerlink" href="#tab-completion" title="Permalink to this headline">¶</a></h3>
-<p>TAB-completion, especially for attributes, is a convenient way to explore the
-structure of any object you&#8217;re dealing with. Simply type object_name.&lt;TAB&gt; and
-a list of the object&#8217;s attributes will be printed (see <a class="reference internal" href="reference.html#readline"><em>the readline
-section</em></a> for more). Tab completion also works on file and directory
-names, which combined with IPython&#8217;s alias system allows you to do from within
-IPython many of the things you normally would need the system shell for.</p>
+<h2>Tab completion<a class="headerlink" href="#tab-completion" title="Permalink to this headline">¶</a></h2>
+<p>Tab completion, especially for attributes, is a convenient way to explore the
+structure of any object you&#8217;re dealing with. Simply type <tt class="docutils literal"><span class="pre">object_name.&lt;TAB&gt;</span></tt>
+to view the object&#8217;s attributes (see <a class="reference internal" href="reference.html#readline"><em>the readline section</em></a> for
+more). Besides Python objects and keywords, tab completion also works on file
+and directory names.</p>
 </div>
-<div class="section" id="explore-your-objects">
-<h3>Explore your objects<a class="headerlink" href="#explore-your-objects" title="Permalink to this headline">¶</a></h3>
-<p>Typing object_name? will print all sorts of details about any object,
+<div class="section" id="exploring-your-objects">
+<h2>Exploring your objects<a class="headerlink" href="#exploring-your-objects" title="Permalink to this headline">¶</a></h2>
+<p>Typing <tt class="docutils literal"><span class="pre">object_name?</span></tt> will print all sorts of details about any object,
 including docstrings, function definition lines (for call arguments) and
-constructor details for classes. The magic commands %pdoc, %pdef, %psource
-and %pfile will respectively print the docstring, function definition line,
-full source code and the complete file for any object (when they can be
-found). If automagic is on (it is by default), you don&#8217;t need to type the &#8216;%&#8217;
-explicitly. See <a class="reference internal" href="reference.html#dynamic-object-info"><em>this section</em></a> for more.</p>
+constructor details for classes. To get specific information on an object, you
+can use the magic commands <tt class="docutils literal"><span class="pre">%pdoc</span></tt>, <tt class="docutils literal"><span class="pre">%pdef</span></tt>, <tt class="docutils literal"><span class="pre">%psource</span></tt> and <tt class="docutils literal"><span class="pre">%pfile</span></tt></p>
 </div>
-<div class="section" id="the-run-magic-command">
-<h3>The <cite>%run</cite> magic command<a class="headerlink" href="#the-run-magic-command" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="magic-functions">
+<h2>Magic functions<a class="headerlink" href="#magic-functions" title="Permalink to this headline">¶</a></h2>
+<p>IPython has a set of predefined &#8216;magic functions&#8217; that you can call with a
+command line style syntax. These include:</p>
+<ul class="simple">
+<li>Functions that work with code: <tt class="docutils literal"><span class="pre">%run</span></tt>, <tt class="docutils literal"><span class="pre">%edit</span></tt>, <tt class="docutils literal"><span class="pre">%save</span></tt>, <tt class="docutils literal"><span class="pre">%macro</span></tt>,
+<tt class="docutils literal"><span class="pre">%recall</span></tt>, etc.</li>
+<li>Functions which affect the shell: <tt class="docutils literal"><span class="pre">%colors</span></tt>, <tt class="docutils literal"><span class="pre">%xmode</span></tt>, <tt class="docutils literal"><span class="pre">%autoindent</span></tt>, etc.</li>
+<li>Other functions such as <tt class="docutils literal"><span class="pre">%reset</span></tt>, <tt class="docutils literal"><span class="pre">%timeit</span></tt> or <tt class="docutils literal"><span class="pre">%paste</span></tt>.</li>
+</ul>
+<p>You can always call these using the % prefix, and if you&#8217;re typing one on a line
+by itself, you can omit even that:</p>
+<div class="highlight-python"><pre>run thescript.py</pre>
+</div>
+<p>For more details on any magic function, call <tt class="docutils literal"><span class="pre">%somemagic?</span></tt> to read its
+docstring. To see all the available magic functions, call <tt class="docutils literal"><span class="pre">%lsmagic</span></tt>.</p>
+<div class="section" id="running-and-editing">
+<h3>Running and Editing<a class="headerlink" href="#running-and-editing" title="Permalink to this headline">¶</a></h3>
 <p>The %run magic command allows you to run any python script and load all of its
 data directly into the interactive namespace. Since the file is re-read from
-disk each time, changes you make to it are reflected immediately (in contrast
-to the behavior of import). I rarely use import for code I am testing, relying
-on %run instead. See <a class="reference internal" href="reference.html#magic"><em>this section</em></a> for more on this and other
-magic commands, or type the name of any magic command and ? to get details on
-it. See also <a class="reference internal" href="reference.html#dreload"><em>this section</em></a> for a recursive reload command. %run
-also has special flags for timing the execution of your scripts (-t) and for
-executing them under the control of either Python&#8217;s pdb debugger (-d) or
-profiler (-p). With all of these, %run can be used as the main tool for
-efficient interactive development of code which you write in your editor of
-choice.</p>
+disk each time, changes you make to it are reflected immediately (unlike
+imported modules, which have to be specifically reloaded). IPython also includes
+<a class="reference internal" href="reference.html#dreload"><em>dreload</em></a>, a recursive reload function.</p>
+<p>%run has special flags for timing the execution of your scripts (-t), or for
+running them under the control of either Python&#8217;s pdb debugger (-d) or
+profiler (-p).</p>
+<p>The %edit command gives a reasonable approximation of multiline editing,
+by invoking your favorite editor on the spot. IPython will execute the
+code you type in there as if it were typed interactively.</p>
 </div>
-<div class="section" id="debug-a-python-script">
-<h3>Debug a Python script<a class="headerlink" href="#debug-a-python-script" title="Permalink to this headline">¶</a></h3>
-<p>Use the Python debugger, pdb. The %pdb command allows you to toggle on and off
-the automatic invocation of an IPython-enhanced pdb debugger (with coloring,
-tab completion and more) at any uncaught exception. The advantage of this is
-that pdb starts inside the function where the exception occurred, with all data
-still available. You can print variables, see code, execute statements and even
-walk up and down the call stack to track down the true source of the problem
-(which often is many layers in the stack above where the exception gets
-triggered). Running programs with %run and pdb active can be an efficient to
-develop and debug code, in many cases eliminating the need for print statements
-or external debugging tools. I often simply put a 1/0 in a place where I want
-to take a look so that pdb gets called, quickly view whatever variables I need
-to or test various pieces of code and then remove the 1/0. Note also that &#8216;%run
--d&#8217; activates pdb and automatically sets initial breakpoints for you to step
-through your code, watch variables, etc.  The <a class="reference internal" href="reference.html#output-caching"><em>output caching section</em></a> has more details.</p>
+<div class="section" id="debugging">
+<h3>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h3>
+<p>After an exception occurs, you can call <tt class="docutils literal"><span class="pre">%debug</span></tt> to jump into the Python
+debugger (pdb) and examine the problem. Alternatively, if you call <tt class="docutils literal"><span class="pre">%pdb</span></tt>,
+IPython will automatically start the debugger on any uncaught exception. You can
+print variables, see code, execute statements and even walk up and down the
+call stack to track down the true source of the problem. Running programs with
+%run and pdb active can be an efficient way to develop and debug code, in many
+cases eliminating the need for print statements or external debugging tools.</p>
+<p>You can also step through a program from the beginning by calling
+<tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-d</span> <span class="pre">theprogram.py</span></tt>.</p>
 </div>
-<div class="section" id="use-the-output-cache">
-<h3>Use the output cache<a class="headerlink" href="#use-the-output-cache" title="Permalink to this headline">¶</a></h3>
-<p>All output results are automatically stored in a global dictionary named Out
-and variables named _1, _2, etc. alias them. For example, the result of input
-line 4 is available either as Out[4] or as _4. Additionally, three variables
-named _, __ and ___ are always kept updated with the for the last three
-results. This allows you to recall any previous result and further use it for
-new calculations. See <a class="reference internal" href="reference.html#output-caching"><em>the output caching section</em></a> for
-more.</p>
 </div>
-<div class="section" id="suppress-output">
-<h3>Suppress output<a class="headerlink" href="#suppress-output" title="Permalink to this headline">¶</a></h3>
-<p>Put a &#8216;;&#8217; at the end of a line to suppress the printing of output. This is
-useful when doing calculations which generate long output you are not
-interested in seeing. The _* variables and the Out[] list do get updated with
-the contents of the output, even if it is not printed. You can thus still
-access the generated results this way for further processing.</p>
+<div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<p>IPython stores both the commands you enter, and the results it produces. You
+can easily go through previous commands with the up- and down-arrow keys, or
+access your history in more sophisticated ways.</p>
+<p>Input and output history are kept in variables called <tt class="docutils literal"><span class="pre">In</span></tt> and <tt class="docutils literal"><span class="pre">Out</span></tt>, which
+can both be indexed by the prompt number on which they occurred, e.g. <tt class="docutils literal"><span class="pre">In[4]</span></tt>.
+The last three objects in output history are also kept in variables named <tt class="docutils literal"><span class="pre">_</span></tt>,
+<tt class="docutils literal"><span class="pre">__</span></tt> and <tt class="docutils literal"><span class="pre">___</span></tt>.</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">%history</span></tt> magic function to examine past input and output.
+Input history from previous sessions is saved in a database, and IPython can be
+configured to save output history.</p>
+<p>Several other magic functions can use your input history, including <tt class="docutils literal"><span class="pre">%edit</span></tt>,
+<tt class="docutils literal"><span class="pre">%rerun</span></tt>, <tt class="docutils literal"><span class="pre">%recall</span></tt>, <tt class="docutils literal"><span class="pre">%macro</span></tt>, <tt class="docutils literal"><span class="pre">%save</span></tt> and <tt class="docutils literal"><span class="pre">%pastebin</span></tt>. You can use a
+standard format to refer to lines:</p>
+<div class="highlight-python"><pre>%pastebin 3 18-20 ~1/1-5</pre>
 </div>
-<div class="section" id="input-cache">
-<h3>Input cache<a class="headerlink" href="#input-cache" title="Permalink to this headline">¶</a></h3>
-<p>A similar system exists for caching input. All input is stored in a global
-list called In , so you can re-execute lines 22 through 28 plus line 34 by
-typing &#8216;exec In[22:29]+In[34]&#8217; (using Python slicing notation). If you need
-to execute the same set of lines often, you can assign them to a macro with
-the %macro function. See <a class="reference internal" href="reference.html#input-caching"><em>here</em></a> for more.</p>
+<p>This will take line 3 and lines 18 to 20 from the current session, and lines
+1-5 from the previous session.</p>
 </div>
-<div class="section" id="use-your-input-history">
-<h3>Use your input history<a class="headerlink" href="#use-your-input-history" title="Permalink to this headline">¶</a></h3>
-<p>The %hist command can show you all previous input, without line numbers if
-desired (option -n) so you can directly copy and paste code either back in
-IPython or in a text editor. You can also save all your history by turning on
-logging via %logstart; these logs can later be either reloaded as IPython
-sessions or used as code for your programs.</p>
-<p>In particular, note taht the %rep magic function can repeat a command or get a
-command to the input line for further editing:</p>
-<div class="highlight-python"><pre>$ l = ["hei", "vaan"]
-$ "".join(l)
-==&gt; heivaan
-$ %rep
-$ heivaan_ &lt;== cursor blinking</pre>
+<div class="section" id="system-shell-commands">
+<h2>System shell commands<a class="headerlink" href="#system-shell-commands" title="Permalink to this headline">¶</a></h2>
+<p>To run any command at the system shell, simply prefix it with !, e.g.:</p>
+<div class="highlight-python"><pre>!ping www.bbc.co.uk</pre>
 </div>
-<p>For more details, type <tt class="docutils literal"><span class="pre">%rep?</span></tt> as usual.</p>
-</div>
+<p>You can capture the output into a Python list, e.g.: <tt class="docutils literal"><span class="pre">files</span> <span class="pre">=</span> <span class="pre">!ls</span></tt>. To pass
+the values of Python variables or expressions to system commands, prefix them
+with $: <tt class="docutils literal"><span class="pre">!grep</span> <span class="pre">-rF</span> <span class="pre">$pattern</span> <span class="pre">ipython/*</span></tt>. See <a class="reference internal" href="reference.html#system-shell-access"><em>our shell section</em></a> for more details.</p>
 <div class="section" id="define-your-own-system-aliases">
 <h3>Define your own system aliases<a class="headerlink" href="#define-your-own-system-aliases" title="Permalink to this headline">¶</a></h3>
-<p>Even though IPython gives you access to your system shell via the ! prefix,
-it is convenient to have aliases to the system commands you use most often.
+<p>It&#8217;s convenient to have aliases to the system commands you use most often.
 This allows you to work seamlessly from inside IPython with the same commands
 you are used to in your system shell. IPython comes with some pre-defined
 aliases and a complete system for changing directories, both via a stack (see
 %pushd, %popd and %dhist) and via direct %cd. The latter keeps a history of
 visited directories and allows you to go to any previously visited one.</p>
 </div>
-<div class="section" id="call-system-shell-commands">
-<h3>Call system shell commands<a class="headerlink" href="#call-system-shell-commands" title="Permalink to this headline">¶</a></h3>
-<p>Use Python to manipulate the results of system commands. The &#8216;!!&#8217; special
-syntax, and the %sc and %sx magic commands allow you to capture system output
-into Python variables.</p>
 </div>
-<div class="section" id="use-python-variables-when-calling-the-shell">
-<h3>Use Python variables when calling the shell<a class="headerlink" href="#use-python-variables-when-calling-the-shell" title="Permalink to this headline">¶</a></h3>
-<p>Expand python variables when calling the shell (either via &#8216;!&#8217; and &#8216;!!&#8217; or via
-aliases) by prepending a $ in front of them. You can also expand complete
-python expressions. See <a class="reference internal" href="reference.html#system-shell-access"><em>our shell section</em></a> for
-more details.</p>
-</div>
-<div class="section" id="use-profiles">
-<h3>Use profiles<a class="headerlink" href="#use-profiles" title="Permalink to this headline">¶</a></h3>
-<p>Use profiles to maintain different configurations (modules to load, function
-definitions, option settings) for particular tasks. You can then have
-customized versions of IPython for specific purposes. <a class="reference internal" href="../config/overview.html#profiles"><em>This section</em></a> has more details.</p>
-</div>
-<div class="section" id="embed-ipython-in-your-programs">
-<h3>Embed IPython in your programs<a class="headerlink" href="#embed-ipython-in-your-programs" title="Permalink to this headline">¶</a></h3>
-<p>A few lines of code are enough to load a complete IPython inside your own
-programs, giving you the ability to work with your data interactively after
-automatic processing has been completed. See <a class="reference internal" href="reference.html#embedding"><em>here</em></a> for more.</p>
-</div>
-<div class="section" id="use-the-python-profiler">
-<h3>Use the Python profiler<a class="headerlink" href="#use-the-python-profiler" title="Permalink to this headline">¶</a></h3>
-<p>When dealing with performance issues, the %run command with a -p option
-allows you to run complete programs under the control of the Python profiler.
-The %prun command does a similar job for single Python expressions (like
-function calls).</p>
-</div>
-<div class="section" id="use-ipython-to-present-interactive-demos">
-<h3>Use IPython to present interactive demos<a class="headerlink" href="#use-ipython-to-present-interactive-demos" title="Permalink to this headline">¶</a></h3>
-<p>Use the IPython.demo.Demo class to load any Python script as an interactive
-demo. With a minimal amount of simple markup, you can control the execution of
-the script, stopping as needed. See <a class="reference internal" href="reference.html#interactive-demos"><em>here</em></a> for more.</p>
-</div>
-<div class="section" id="run-doctests">
-<h3>Run doctests<a class="headerlink" href="#run-doctests" title="Permalink to this headline">¶</a></h3>
-<p>Run your doctests from within IPython for development and debugging. The
-special %doctest_mode command toggles a mode where the prompt, output and
-exceptions display matches as closely as possible that of the default Python
-interpreter. In addition, this mode allows you to directly paste in code that
-contains leading &#8216;&gt;&gt;&gt;&#8217; prompts, even if they have extra leading whitespace
-(as is common in doctest files). This combined with the &#8216;%history -tn&#8217; call
-to see your translated history (with these extra prompts removed and no line
-numbers) allows for an easy doctest workflow, where you can go from doctest
-to interactive execution to pasting into valid Python code as needed.</p>
-</div>
-</div>
-<div class="section" id="source-code-handling-tips">
-<h2>Source code handling tips<a class="headerlink" href="#source-code-handling-tips" title="Permalink to this headline">¶</a></h2>
-<p>IPython is a line-oriented program, without full control of the
-terminal. Therefore, it doesn&#8217;t support true multiline editing. However,
-it has a number of useful tools to help you in dealing effectively with
-more complex editing.</p>
-<p>The %edit command gives a reasonable approximation of multiline editing,
-by invoking your favorite editor on the spot. IPython will execute the
-code you type in there as if it were typed interactively. Type %edit?
-for the full details on the edit command.</p>
-<p>If you have typed various commands during a session, which you&#8217;d like to
-reuse, IPython provides you with a number of tools. Start by using %hist
-to see your input history, so you can see the line numbers of all input.
-Let us say that you&#8217;d like to reuse lines 10 through 20, plus lines 24
-and 28. All the commands below can operate on these with the syntax:</p>
-<div class="highlight-python"><pre>%command 10-20 24 28</pre>
-</div>
-<p>where the command given can be:</p>
-<blockquote>
-<div><ul class="simple">
-<li>%macro &lt;macroname&gt;: this stores the lines into a variable which,
-when called at the prompt, re-executes the input. Macros can be
-edited later using &#8216;%edit macroname&#8217;, and they can be stored
-persistently across sessions with &#8216;%store macroname&#8217; (the storage
-system is per-profile). The combination of quick macros,
-persistent storage and editing, allows you to easily refine
-quick-and-dirty interactive input into permanent utilities, always
-available both in IPython and as files for general reuse.</li>
-<li>%edit: this will open a text editor with those lines pre-loaded
-for further modification. It will then execute the resulting
-file&#8217;s contents as if you had typed it at the prompt.</li>
-<li>%save &lt;filename&gt;: this saves the lines directly to a named file on
-disk.</li>
-</ul>
-</div></blockquote>
-<p>While %macro saves input lines into memory for interactive re-execution,
-sometimes you&#8217;d like to save your input directly to a file. The %save
-magic does this: its input sytnax is the same as %macro, but it saves
-your input directly to a Python file. Note that the %logstart command
-also saves input, but it logs all input to disk (though you can
-temporarily suspend it and reactivate it with %logoff/%logon); %save
-allows you to select which lines of input you need to save.</p>
-</div>
-<div class="section" id="lightweight-version-control">
-<h2>Lightweight &#8216;version control&#8217;<a class="headerlink" href="#lightweight-version-control" title="Permalink to this headline">¶</a></h2>
-<p>When you call %edit with no arguments, IPython opens an empty editor
-with a temporary file, and it returns the contents of your editing
-session as a string variable. Thanks to IPython&#8217;s output caching
-mechanism, this is automatically stored:</p>
-<div class="highlight-python"><pre>In [1]: %edit
-
-IPython will make a temporary file named: /tmp/ipython_edit_yR-HCN.py
-
-Editing... done. Executing edited code...
-
-hello - this is a temporary file
-
-Out[1]: "print 'hello - this is a temporary file'\n"</pre>
-</div>
-<p>Now, if you call &#8216;%edit -p&#8217;, IPython tries to open an editor with the
-same data as the last time you used %edit. So if you haven&#8217;t used %edit
-in the meantime, this same contents will reopen; however, it will be
-done in a new file. This means that if you make changes and you later
-want to find an old version, you can always retrieve it by using its
-output number, via &#8216;%edit _NN&#8217;, where NN is the number of the output
-prompt.</p>
-<p>Continuing with the example above, this should illustrate this idea:</p>
-<div class="highlight-python"><pre>In [2]: edit -p
-
-IPython will make a temporary file named: /tmp/ipython_edit_nA09Qk.py
-
-Editing... done. Executing edited code...
-
-hello - now I made some changes
-
-Out[2]: "print 'hello - now I made some changes'\n"
-
-In [3]: edit _1
-
-IPython will make a temporary file named: /tmp/ipython_edit_gy6-zD.py
-
-Editing... done. Executing edited code...
-
-hello - this is a temporary file
-
-IPython version control at work :)
-
-Out[3]: "print 'hello - this is a temporary file'\nprint 'IPython version control at work :)'\n"</pre>
-</div>
-<p>This section was written after a contribution by Alexander Belchenko on
-the IPython user list.</p>
-</div>
-<div class="section" id="effective-logging">
-<h2>Effective logging<a class="headerlink" href="#effective-logging" title="Permalink to this headline">¶</a></h2>
-<p>A very useful suggestion sent in by Robert Kern follows:</p>
-<p>I recently happened on a nifty way to keep tidy per-project log files. I
-made a profile for my project (which is called &#8220;parkfield&#8221;):</p>
-<div class="highlight-python"><pre>include ipythonrc
-
-# cancel earlier logfile invocation:
-
-logfile ''
-
-execute import time
-
-execute __cmd = '/Users/kern/research/logfiles/parkfield-%s.log rotate'
-
-execute __IP.magic_logstart(__cmd % time.strftime('%Y-%m-%d'))</pre>
-</div>
-<p>I also added a shell alias for convenience:</p>
-<div class="highlight-python"><pre>alias parkfield="ipython --pylab profile=parkfield"</pre>
-</div>
-<p>Now I have a nice little directory with everything I ever type in,
-organized by project and date.</p>
-<p>Contribute your own: If you have your own favorite tip on using IPython
-efficiently for a certain task (especially things which can&#8217;t be done in
-the normal Python interpreter), don&#8217;t hesitate to send it!</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Much of IPython can be tweaked through configuration. To get started, use the
+command <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">profile</span> <span class="pre">create</span></tt> to produce the default config files. These
+will be placed in <tt class="file docutils literal"><span class="pre">~/.ipython/profile_default</span></tt> or
+<tt class="file docutils literal"><span class="pre">~/.config/ipython/profile_default</span></tt>, and contain comments explaining what
+the various options do.</p>
+<p>Profiles allow you to use IPython for different tasks, keeping separate config
+files and history for each one. More details in <a class="reference internal" href="../config/overview.html#profiles"><em>the profiles section</em></a>.</p>
 </div>
 </div>
 
@@ -431,7 +244,7 @@ the normal Python interpreter), don&#8217;t hesitate to send it!</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="reference.html" title="IPython reference"
+          <a href="tips.html" title="IPython Tips &amp; Tricks"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="Using IPython for interactive work"
@@ -445,7 +258,7 @@ the normal Python interpreter), don&#8217;t hesitate to send it!</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

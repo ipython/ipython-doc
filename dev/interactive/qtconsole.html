@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython as a QtGUI widget &mdash; IPython v0.11.dev documentation</title>
+    <title>IPython as a QtGUI widget &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -76,6 +76,7 @@
 <li><a class="reference internal" href="#stopping-kernels-and-consoles">Stopping Kernels and Consoles</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#qt-and-the-qtconsole">Qt and the QtConsole</a></li>
 <li><a class="reference internal" href="#regressions">Regressions</a></li>
 </ul>
 </li>
@@ -201,12 +202,12 @@ few simple color choices, specified by the <tt class="docutils literal"><span cl
 be found by pygments, and there are several already installed. The <tt class="docutils literal"><span class="pre">colors</span></tt> argument,
 if unspecified, will be guessed based on the chosen style. Similarly, there are default
 styles associated with each <tt class="docutils literal"><span class="pre">colors</span></tt> option.</p>
-<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython-qtconsole</span> <span class="pre">colors=linux</span></tt>, which uses the &#8216;monokai&#8217; theme by
+<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span> <span class="pre">colors=linux</span></tt>, which uses the &#8216;monokai&#8217; theme by
 default:</p>
 <img alt="../_images/colors_dark.png" src="../_images/colors_dark.png" style="width: 627px;" />
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Calling <tt class="docutils literal"><span class="pre">ipython-qtconsole</span> <span class="pre">-h</span></tt> will show all the style names that pygments can find
+<p class="last">Calling <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span> <span class="pre">-h</span></tt> will show all the style names that pygments can find
 on your system.</p>
 </div>
 <p>You can also pass the filename of a custom CSS stylesheet, if you want to do your own
@@ -226,7 +227,7 @@ coloring, via the <tt class="docutils literal"><span class="pre">stylesheet</spa
 <h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
 <p>The QtConsole has configurable via the ConsoleWidget. To change these, set the <tt class="docutils literal"><span class="pre">font_family</span></tt>
 or <tt class="docutils literal"><span class="pre">font_size</span></tt> traits of the ConsoleWidget. For instance, to use 9pt Anonymous Pro:</p>
-<div class="highlight-python"><pre>$&gt; ipython-qtconsole ConsoleWidget.font_family="Anonymous Pro" ConsoleWidget.font_size=9</pre>
+<div class="highlight-python"><pre>$&gt; ipython qtconsole ConsoleWidget.font_family="Anonymous Pro" ConsoleWidget.font_size=9</pre>
 </div>
 </div>
 <div class="section" id="process-management">
@@ -241,7 +242,7 @@ restart the kernel.</p>
 <h3>Multiple Consoles<a class="headerlink" href="#multiple-consoles" title="Permalink to this headline">¶</a></h3>
 <p>Since the Kernel listens on the network, multiple frontends can connect to it.  These
 do not have to all be qt frontends - any IPython frontend can connect and run code.
-When you start ipython-qtconsole, there will be an output line, like:</p>
+When you start ipython qtconsole, there will be an output line, like:</p>
 <div class="highlight-python"><pre>To connect another client to this kernel, use:
 --external shell=62109 iopub=62110 stdin=62111 hb=62112</pre>
 </div>
@@ -252,7 +253,7 @@ have to specify each port individually, but for now this copy-paste method is be
 <p>By default (for security reasons), the kernel only listens on localhost, so you can only
 connect multiple frontends to the kernel from your local machine. You can specify to
 listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">ip</span></tt> argument:</p>
-<div class="highlight-python"><pre>$&gt; ipython-qtconsole ip=192.168.1.123</pre>
+<div class="highlight-python"><pre>$&gt; ipython qtconsole ip=192.168.1.123</pre>
 </div>
 <p>If you specify the ip as 0.0.0.0, that refers to all interfaces, so any computer that can
 see yours can connect to the kernel.</p>
@@ -282,6 +283,47 @@ the Kernel has been shutdown.</li>
 </ul>
 </div></blockquote>
 </div>
+</div>
+<div class="section" id="qt-and-the-qtconsole">
+<h2>Qt and the QtConsole<a class="headerlink" href="#qt-and-the-qtconsole" title="Permalink to this headline">¶</a></h2>
+<p>An important part of working with the QtConsole when you are writing your own Qt code is
+to remember that user code (in the kernel) is <em>not</em> in the same process as the frontend.
+This means that there is not necessarily any Qt code running in the kernel, and under most
+normal circumstances there isn&#8217;t. If, however, you specify <tt class="docutils literal"><span class="pre">pylab=qt</span></tt> at the
+command-line, then there <em>will</em> be a <tt class="xref py py-class docutils literal"><span class="pre">QCoreApplication</span></tt> instance running in the
+kernel process along with user-code. To get a reference to this application, do:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtCore</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="c"># app will be None if there is no such instance</span>
+</pre></div>
+</div>
+<p>A common problem listed in the PyQt4 <a class="reference external" href="http://www.riverbankcomputing.co.uk/static/Docs/PyQt4/html/gotchas.html#garbage-collection">Gotchas</a> is the fact that Python&#8217;s garbage collection
+will destroy Qt objects (Windows, etc.) once there is no longer a Python reference to
+them, so you have to hold on to them.  For instance, in:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">make_window</span><span class="p">():</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">make_and_return_window</span><span class="p">():</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">win</span>
+</pre></div>
+</div>
+<p><tt class="xref py py-func docutils literal"><span class="pre">make_window()</span></tt> will never draw a window, because garbage collection will destroy it
+before it is drawn, whereas <tt class="xref py py-func docutils literal"><span class="pre">make_and_return_window()</span></tt> lets the caller decide when the
+window object should be destroyed.  If, as a developer, you know that you always want your
+objects to last as long as the process, you can attach them to the QApplication instance
+itself:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># do this just once:</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="c"># then when you create Windows, add them to the set</span>
+<span class="k">def</span> <span class="nf">make_window</span><span class="p">():</span>
+    <span class="n">win</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">references</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">win</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the QApplication itself holds a reference to <tt class="docutils literal"><span class="pre">win</span></tt>, so it will never be
+garbage collected until the application itself is destroyed.</p>
 </div>
 <div class="section" id="regressions">
 <h2>Regressions<a class="headerlink" href="#regressions" title="Permalink to this headline">¶</a></h2>
@@ -338,7 +380,7 @@ using the &#8216;!&#8217; escape. (this will not be fixed).</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

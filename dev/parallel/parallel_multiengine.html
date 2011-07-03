@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Direct interface &mdash; IPython v0.11.dev documentation</title>
+    <title>IPython’s Direct interface &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="The IPython task interface" href="parallel_task.html" />
     <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" /> 
@@ -649,7 +649,7 @@ execution, and will fail with an UnmetDependencyError.</p>
 </div>
 </div>
 <div class="section" id="parallel-exceptions">
-<h3>Parallel exceptions<a class="headerlink" href="#parallel-exceptions" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Parallel exceptions<a class="headerlink" href="#parallel-exceptions" title="Permalink to this headline">¶</a></h3>
 <p>In the multiengine interface, parallel commands can raise Python exceptions,
 just like serial commands. But, it is a little subtle, because a single
 parallel command can actually raise multiple exceptions (one for each engine
@@ -662,47 +662,47 @@ more other types of exceptions. Here is how it works:</p>
 <span class="gp">In [77]: </span><span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">)</span>
 <span class="go">---------------------------------------------------------------------------</span>
 <span class="go">CompositeError                            Traceback (most recent call last)</span>
-<span class="go">/home/you/&lt;ipython-input-10-15c2c22dec39&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 dview.execute(&#39;1/0&#39;, block=True)</span>
+<span class="go">/home/user/&lt;ipython-input-10-5d56b303a66c&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 dview.execute(&#39;1/0&#39;)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in execute(self, code, block)</span>
-<span class="go">    460                 default: self.block</span>
-<span class="go">    461         &quot;&quot;&quot;</span>
-<span class="go">--&gt; 462         return self.apply_with_flags(util._execute, args=(code,), block=block)</span>
-<span class="go">    463</span>
-<span class="go">    464     def run(self, filename, block=None):</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in execute(self, code, targets, block)</span>
+<span class="go">    591                 default: self.block</span>
+<span class="go">    592         &quot;&quot;&quot;</span>
+<span class="go">--&gt; 593         return self._really_apply(util._execute, args=(code,), block=block, targets=targets)</span>
+<span class="go">    594</span>
+<span class="go">    595     def run(self, filename, targets=None, block=None):</span>
 
-<span class="go">/home/you/&lt;string&gt; in apply_with_flags(self, f, args, kwargs, block, track)</span>
+<span class="go">/home/user/&lt;string&gt; in _really_apply(self, f, args, kwargs, targets, block, track)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in sync_results(f, self, *args, **kwargs)</span>
-<span class="go">     46 def sync_results(f, self, *args, **kwargs):</span>
-<span class="go">     47     &quot;&quot;&quot;sync relevant results from self.client to our results attribute.&quot;&quot;&quot;</span>
-<span class="go">---&gt; 48     ret = f(self, *args, **kwargs)</span>
-<span class="go">     49     delta = self.outstanding.difference(self.client.outstanding)</span>
-<span class="go">     50     completed = self.outstanding.intersection(delta)</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in sync_results(f, self, *args, **kwargs)</span>
+<span class="go">     55 def sync_results(f, self, *args, **kwargs):</span>
+<span class="go">     56     &quot;&quot;&quot;sync relevant results from self.client to our results attribute.&quot;&quot;&quot;</span>
+<span class="go">---&gt; 57     ret = f(self, *args, **kwargs)</span>
+<span class="go">     58     delta = self.outstanding.difference(self.client.outstanding)</span>
+<span class="go">     59     completed = self.outstanding.intersection(delta)</span>
 
-<span class="go">/home/you/&lt;string&gt; in apply_with_flags(self, f, args, kwargs, block, track)</span>
+<span class="go">/home/user/&lt;string&gt; in _really_apply(self, f, args, kwargs, targets, block, track)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in save_ids(f, self, *args, **kwargs)</span>
-<span class="go">     35     n_previous = len(self.client.history)</span>
-<span class="go">     36     try:</span>
-<span class="go">---&gt; 37         ret = f(self, *args, **kwargs)</span>
-<span class="go">     38     finally:</span>
-<span class="go">     39         nmsgs = len(self.client.history) - n_previous</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in save_ids(f, self, *args, **kwargs)</span>
+<span class="go">     44     n_previous = len(self.client.history)</span>
+<span class="go">     45     try:</span>
+<span class="go">---&gt; 46         ret = f(self, *args, **kwargs)</span>
+<span class="go">     47     finally:</span>
+<span class="go">     48         nmsgs = len(self.client.history) - n_previous</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in apply_with_flags(self, f, args, kwargs, block, track)</span>
-<span class="go">    398         if block:</span>
-<span class="go">    399             try:</span>
-<span class="go">--&gt; 400                 return ar.get()</span>
-<span class="go">    401             except KeyboardInterrupt:</span>
-<span class="go">    402                 pass</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in _really_apply(self, f, args, kwargs, targets, block, track)</span>
+<span class="go">    529         if block:</span>
+<span class="go">    530             try:</span>
+<span class="go">--&gt; 531                 return ar.get()</span>
+<span class="go">    532             except KeyboardInterrupt:</span>
+<span class="go">    533                 pass</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/asyncresult.pyc in get(self, timeout)</span>
-<span class="go">     87                 return self._result</span>
-<span class="go">     88             else:</span>
-<span class="go">---&gt; 89                 raise self._exception</span>
-<span class="go">     90         else:</span>
-<span class="go">     91             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/asyncresult.pyc in get(self, timeout)</span>
+<span class="go">    101                 return self._result</span>
+<span class="go">    102             else:</span>
+<span class="go">--&gt; 103                 raise self._exception</span>
+<span class="go">    104         else:</span>
+<span class="go">    105             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
 
 <span class="go">CompositeError: one or more exceptions from call to method: _execute</span>
 <span class="go">[0:apply]: ZeroDivisionError: integer division or modulo by zero</span>
@@ -716,22 +716,32 @@ information about the individual exceptions that were raised on each engine.
 If you want, you can even raise one of these original exceptions:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [80]: </span><span class="k">try</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">)</span>
-<span class="gp">   ....:</span> <span class="k">except</span> <span class="n">client</span><span class="o">.</span><span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">   ....:</span> <span class="k">except</span> <span class="n">parallel</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
 <span class="gp">   ....:</span>     <span class="n">e</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">()</span>
 <span class="gp">   ....:</span>
 <span class="gp">   ....:</span>
 <span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
+<span class="go">RemoteError                               Traceback (most recent call last)</span>
+<span class="go">/home/user/&lt;ipython-input-17-8597e7e39858&gt; in &lt;module&gt;()</span>
+<span class="go">      2     dview.execute(&#39;1/0&#39;)</span>
+<span class="go">      3 except CompositeError as e:</span>
+<span class="go">----&gt; 4     e.raise_exception()</span>
 
-<span class="go">/ipython1-client-r3021/docs/examples/&lt;ipython console&gt; in &lt;module&gt;()</span>
+<span class="go">/path/to/site-packages/IPython/parallel/error.pyc in raise_exception(self, excid)</span>
+<span class="go">    266             raise IndexError(&quot;an exception with index %i does not exist&quot;%excid)</span>
+<span class="go">    267         else:</span>
+<span class="go">--&gt; 268             raise RemoteError(en, ev, etb, ei)</span>
+<span class="go">    269</span>
+<span class="go">    270</span>
 
-<span class="go">/ipython1-client-r3021/ipython1/kernel/error.pyc in raise_exception(self, excid)</span>
-<span class="go">    156             raise IndexError(&quot;an exception with index %i does not exist&quot;%excid)</span>
-<span class="go">    157         else:</span>
-<span class="go">--&gt; 158             raise et, ev, etb</span>
-<span class="go">    159</span>
-<span class="go">    160 def collect_exceptions(rlist, method):</span>
-
+<span class="go">RemoteError: ZeroDivisionError(integer division or modulo by zero)</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/engine/streamkernel.py&quot;, line 330, in apply_request</span>
+<span class="go">    exec code in working,working</span>
+<span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/util.py&quot;, line 354, in _execute</span>
+<span class="go">    exec code in globals()</span>
+<span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
 <span class="go">ZeroDivisionError: integer division or modulo by zero</span>
 </pre></div>
 </div>
@@ -741,47 +751,47 @@ instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [81]: </span><span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">)</span>
 <span class="go">---------------------------------------------------------------------------</span>
 <span class="go">CompositeError                            Traceback (most recent call last)</span>
-<span class="go">/home/you/&lt;ipython-input-10-15c2c22dec39&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 dview.execute(&#39;1/0&#39;, block=True)</span>
+<span class="go">/home/user/&lt;ipython-input-10-5d56b303a66c&gt; in &lt;module&gt;()</span>
+<span class="go">----&gt; 1 dview.execute(&#39;1/0&#39;)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in execute(self, code, block)</span>
-<span class="go">    460                 default: self.block</span>
-<span class="go">    461         &quot;&quot;&quot;</span>
-<span class="go">--&gt; 462         return self.apply_with_flags(util._execute, args=(code,), block=block)</span>
-<span class="go">    463</span>
-<span class="go">    464     def run(self, filename, block=None):</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in execute(self, code, targets, block)</span>
+<span class="go">    591                 default: self.block</span>
+<span class="go">    592         &quot;&quot;&quot;</span>
+<span class="go">--&gt; 593         return self._really_apply(util._execute, args=(code,), block=block, targets=targets)</span>
+<span class="go">    594</span>
+<span class="go">    595     def run(self, filename, targets=None, block=None):</span>
 
-<span class="go">/home/you/&lt;string&gt; in apply_with_flags(self, f, args, kwargs, block, track)</span>
+<span class="go">/home/user/&lt;string&gt; in _really_apply(self, f, args, kwargs, targets, block, track)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in sync_results(f, self, *args, **kwargs)</span>
-<span class="go">     46 def sync_results(f, self, *args, **kwargs):</span>
-<span class="go">     47     &quot;&quot;&quot;sync relevant results from self.client to our results attribute.&quot;&quot;&quot;</span>
-<span class="go">---&gt; 48     ret = f(self, *args, **kwargs)</span>
-<span class="go">     49     delta = self.outstanding.difference(self.client.outstanding)</span>
-<span class="go">     50     completed = self.outstanding.intersection(delta)</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in sync_results(f, self, *args, **kwargs)</span>
+<span class="go">     55 def sync_results(f, self, *args, **kwargs):</span>
+<span class="go">     56     &quot;&quot;&quot;sync relevant results from self.client to our results attribute.&quot;&quot;&quot;</span>
+<span class="go">---&gt; 57     ret = f(self, *args, **kwargs)</span>
+<span class="go">     58     delta = self.outstanding.difference(self.client.outstanding)</span>
+<span class="go">     59     completed = self.outstanding.intersection(delta)</span>
 
-<span class="go">/home/you/&lt;string&gt; in apply_with_flags(self, f, args, kwargs, block, track)</span>
+<span class="go">/home/user/&lt;string&gt; in _really_apply(self, f, args, kwargs, targets, block, track)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in save_ids(f, self, *args, **kwargs)</span>
-<span class="go">     35     n_previous = len(self.client.history)</span>
-<span class="go">     36     try:</span>
-<span class="go">---&gt; 37         ret = f(self, *args, **kwargs)</span>
-<span class="go">     38     finally:</span>
-<span class="go">     39         nmsgs = len(self.client.history) - n_previous</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in save_ids(f, self, *args, **kwargs)</span>
+<span class="go">     44     n_previous = len(self.client.history)</span>
+<span class="go">     45     try:</span>
+<span class="go">---&gt; 46         ret = f(self, *args, **kwargs)</span>
+<span class="go">     47     finally:</span>
+<span class="go">     48         nmsgs = len(self.client.history) - n_previous</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/view.py in apply_with_flags(self, f, args, kwargs, block, track)</span>
-<span class="go">    398         if block:</span>
-<span class="go">    399             try:</span>
-<span class="go">--&gt; 400                 return ar.get()</span>
-<span class="go">    401             except KeyboardInterrupt:</span>
-<span class="go">    402                 pass</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/view.pyc in _really_apply(self, f, args, kwargs, targets, block, track)</span>
+<span class="go">    529         if block:</span>
+<span class="go">    530             try:</span>
+<span class="go">--&gt; 531                 return ar.get()</span>
+<span class="go">    532             except KeyboardInterrupt:</span>
+<span class="go">    533                 pass</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/asyncresult.pyc in get(self, timeout)</span>
-<span class="go">     87                 return self._result</span>
-<span class="go">     88             else:</span>
-<span class="go">---&gt; 89                 raise self._exception</span>
-<span class="go">     90         else:</span>
-<span class="go">     91             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/asyncresult.pyc in get(self, timeout)</span>
+<span class="go">    101                 return self._result</span>
+<span class="go">    102             else:</span>
+<span class="go">--&gt; 103                 raise self._exception</span>
+<span class="go">    104         else:</span>
+<span class="go">    105             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
 
 <span class="go">CompositeError: one or more exceptions from call to method: _execute</span>
 <span class="go">[0:apply]: ZeroDivisionError: integer division or modulo by zero</span>
@@ -790,25 +800,24 @@ instance:</p>
 <span class="go">[3:apply]: ZeroDivisionError: integer division or modulo by zero</span>
 
 <span class="gp">In [82]: </span><span class="o">%</span><span class="n">debug</span>
-<span class="go">&gt; /path/to/site-packages/IPython/parallel/asyncresult.py(80)get()</span>
-<span class="go">     79             else:</span>
-<span class="go">---&gt; 80                 raise self._exception</span>
-<span class="go">     81         else:</span>
+<span class="go">&gt; /path/to/site-packages/IPython/parallel/client/asyncresult.py(103)get()</span>
+<span class="go">    102             else:</span>
+<span class="go">--&gt; 103                 raise self._exception</span>
+<span class="go">    104         else:</span>
 
-
-<span class="go">ipdb&gt; e.</span>
+<span class="go">ipdb&gt; self._exception.&lt;tab&gt;</span>
 <span class="go">e.__class__         e.__getitem__       e.__new__           e.__setstate__      e.args</span>
 <span class="go">e.__delattr__       e.__getslice__      e.__reduce__        e.__str__           e.elist</span>
 <span class="go">e.__dict__          e.__hash__          e.__reduce_ex__     e.__weakref__       e.message</span>
 <span class="go">e.__doc__           e.__init__          e.__repr__          e._get_engine_str   e.print_tracebacks</span>
 <span class="go">e.__getattribute__  e.__module__        e.__setattr__       e._get_traceback    e.raise_exception</span>
-<span class="go">ipdb&gt; e.print_tracebacks()</span>
+<span class="go">ipdb&gt; self._exception.print_tracebacks()</span>
 <span class="go">[0:apply]:</span>
 <span class="go">Traceback (most recent call last):</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/streamkernel.py&quot;, line 332, in apply_request</span>
-<span class="go">    exec code in working, working</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/engine/streamkernel.py&quot;, line 330, in apply_request</span>
+<span class="go">    exec code in working,working</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/client.py&quot;, line 69, in _execute</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/util.py&quot;, line 354, in _execute</span>
 <span class="go">    exec code in globals()</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
 <span class="go">ZeroDivisionError: integer division or modulo by zero</span>
@@ -816,10 +825,10 @@ instance:</p>
 
 <span class="go">[1:apply]:</span>
 <span class="go">Traceback (most recent call last):</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/streamkernel.py&quot;, line 332, in apply_request</span>
-<span class="go">    exec code in working, working</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/engine/streamkernel.py&quot;, line 330, in apply_request</span>
+<span class="go">    exec code in working,working</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/client.py&quot;, line 69, in _execute</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/util.py&quot;, line 354, in _execute</span>
 <span class="go">    exec code in globals()</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
 <span class="go">ZeroDivisionError: integer division or modulo by zero</span>
@@ -827,10 +836,10 @@ instance:</p>
 
 <span class="go">[2:apply]:</span>
 <span class="go">Traceback (most recent call last):</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/streamkernel.py&quot;, line 332, in apply_request</span>
-<span class="go">    exec code in working, working</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/engine/streamkernel.py&quot;, line 330, in apply_request</span>
+<span class="go">    exec code in working,working</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/client.py&quot;, line 69, in _execute</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/util.py&quot;, line 354, in _execute</span>
 <span class="go">    exec code in globals()</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
 <span class="go">ZeroDivisionError: integer division or modulo by zero</span>
@@ -838,18 +847,14 @@ instance:</p>
 
 <span class="go">[3:apply]:</span>
 <span class="go">Traceback (most recent call last):</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/streamkernel.py&quot;, line 332, in apply_request</span>
-<span class="go">    exec code in working, working</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/engine/streamkernel.py&quot;, line 330, in apply_request</span>
+<span class="go">    exec code in working,working</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
-<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/client.py&quot;, line 69, in _execute</span>
+<span class="go">  File &quot;/path/to/site-packages/IPython/parallel/util.py&quot;, line 354, in _execute</span>
 <span class="go">    exec code in globals()</span>
 <span class="go">  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;</span>
 <span class="go">ZeroDivisionError: integer division or modulo by zero</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">TODO: The above tracebacks are not up to date</p>
 </div>
 <p>All of this same error handling magic even works in non-blocking mode:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [83]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
@@ -859,15 +864,15 @@ instance:</p>
 <span class="gp">In [85]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="go">---------------------------------------------------------------------------</span>
 <span class="go">CompositeError                            Traceback (most recent call last)</span>
-<span class="go">/Users/minrk/&lt;ipython-input-3-8531eb3d26fb&gt; in &lt;module&gt;()</span>
+<span class="go">/home/user/&lt;ipython-input-21-8531eb3d26fb&gt; in &lt;module&gt;()</span>
 <span class="go">----&gt; 1 ar.get()</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/asyncresult.pyc in get(self, timeout)</span>
-<span class="go">     78                 return self._result</span>
-<span class="go">     79             else:</span>
-<span class="go">---&gt; 80                 raise self._exception</span>
-<span class="go">     81         else:</span>
-<span class="go">     82             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
+<span class="go">/path/to/site-packages/IPython/parallel/client/asyncresult.pyc in get(self, timeout)</span>
+<span class="go">    101                 return self._result</span>
+<span class="go">    102             else:</span>
+<span class="go">--&gt; 103                 raise self._exception</span>
+<span class="go">    104         else:</span>
+<span class="go">    105             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
 
 <span class="go">CompositeError: one or more exceptions from call to method: _execute</span>
 <span class="go">[0:apply]: ZeroDivisionError: integer division or modulo by zero</span>
@@ -910,7 +915,7 @@ instance:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

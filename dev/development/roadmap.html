@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development roadmap &mdash; IPython v0.11.dev documentation</title>
+    <title>Development roadmap &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="IPython module organization" href="reorg.html" />
     <link rel="prev" title="Releasing IPython" href="release.html" /> 
@@ -68,8 +68,7 @@
 </li>
 <li><a class="reference internal" href="#major-areas-of-work">Major areas of work</a><ul>
 <li><a class="reference internal" href="#refactoring-the-main-ipython-core">Refactoring the main IPython core</a></li>
-<li><a class="reference internal" href="#process-management-for-ipython-kernel">Process management for <tt class="docutils literal"><span class="pre">IPython.kernel</span></tt></a></li>
-<li><a class="reference internal" href="#performance-problems">Performance problems</a></li>
+<li><a class="reference internal" href="#process-management-for-ipython-parallel">Process management for <tt class="docutils literal"><span class="pre">IPython.parallel</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#porting-to-3-0">Porting to 3.0</a></li>
@@ -128,14 +127,16 @@ based on <tt class="docutils literal"><span class="pre">PyOSInputHook</span></tt
 <li>Refactor the configuration system (done).</li>
 <li>Prepare to refactor IPython&#8217;s core by creating a new component and
 application system (done).</li>
-<li>Start to refactor IPython&#8217;s core by turning everything into components
-(started).</li>
+<li>Start to refactor IPython&#8217;s core by turning everything into configurables
+(mostly done).</li>
 </ul>
 </div>
 <div class="section" id="release-0-12">
 <h3>Release 0.12<a class="headerlink" href="#release-0-12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Continue to refactor IPython&#8217;s core by turning everything into components.</li>
+<li>Continue to refactor IPython&#8217;s core by turning everything into configurables.</li>
+<li>Merge draft html notebook (started).</li>
+<li>Add two-process Terminal frontend using ZMQ architecture.</li>
 </ul>
 </div>
 </div>
@@ -145,78 +146,48 @@ application system (done).</li>
 <h3>Refactoring the main IPython core<a class="headerlink" href="#refactoring-the-main-ipython-core" title="Permalink to this headline">¶</a></h3>
 <p>During the summer of 2009, we began refactoring IPython&#8217;s core. The main
 thrust in this work was to make the IPython core into a set of loosely coupled
-components. The base component class for this is
-<tt class="xref py py-class docutils literal"><span class="pre">IPython.core.component.Component</span></tt>. This section outlines the status of
-this work.</p>
-<p>Parts of the IPython core that have been turned into components:</p>
+components. The base configurable class for this is
+<tt class="xref py py-class docutils literal"><span class="pre">IPython.core.configurable.Configurable</span></tt>. This section outlines the
+status of this work.</p>
+<p>Parts of the IPython core that have been turned into configurables:</p>
 <ul class="simple">
-<li>The main <tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt> class.</li>
+<li>The main <a class="reference internal" href="../api/generated/IPython.core.interactiveshell.html#IPython.core.interactiveshell.InteractiveShell" title="IPython.core.interactiveshell.InteractiveShell"><tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt></a> class.</li>
 <li>The aliases (<a class="reference internal" href="../api/generated/IPython.core.alias.html#module-IPython.core.alias" title="IPython.core.alias"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.alias</span></tt></a>).</li>
+<li>History management (<a class="reference internal" href="../api/generated/IPython.core.history.html#module-IPython.core.history" title="IPython.core.history"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.history</span></tt></a>).</li>
+<li>Plugins (<a class="reference internal" href="../api/generated/IPython.core.plugin.html#module-IPython.core.plugin" title="IPython.core.plugin"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.plugin</span></tt></a>).</li>
 <li>The display and builtin traps (<a class="reference internal" href="../api/generated/IPython.core.display_trap.html#module-IPython.core.display_trap" title="IPython.core.display_trap"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.display_trap</span></tt></a> and
 <a class="reference internal" href="../api/generated/IPython.core.builtin_trap.html#module-IPython.core.builtin_trap" title="IPython.core.builtin_trap"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.builtin_trap</span></tt></a>).</li>
 <li>The prefilter machinery (<a class="reference internal" href="../api/generated/IPython.core.prefilter.html#module-IPython.core.prefilter" title="IPython.core.prefilter"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.prefilter</span></tt></a>).</li>
 </ul>
-<p>Parts of the IPythoncore that still need to be turned into components:</p>
+<p>Parts of the IPython core that still need to be Configurable:</p>
 <ul class="simple">
 <li>Magics.</li>
-<li>Input and output history management.</li>
 <li>Prompts.</li>
 <li>Tab completers.</li>
-<li>Logging.</li>
 <li>Exception handling.</li>
 <li>Anything else.</li>
 </ul>
 </div>
-<div class="section" id="process-management-for-ipython-kernel">
-<h3>Process management for <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel</span></tt><a class="headerlink" href="#process-management-for-ipython-kernel" title="Permalink to this headline">¶</a></h3>
-<p>A number of things need to be done to improve how processes are started
+<div class="section" id="process-management-for-ipython-parallel">
+<h3>Process management for <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt><a class="headerlink" href="#process-management-for-ipython-parallel" title="Permalink to this headline">¶</a></h3>
+<p>A few things need to be done to improve how processes are started
 up and managed for the parallel computing side of IPython:</p>
 <ul class="simple">
-<li>All of the processes need to use the new configuration system, components
-and application.</li>
-<li>We need to add support for other batch systems.</li>
-</ul>
-</div>
-<div class="section" id="performance-problems">
-<h3>Performance problems<a class="headerlink" href="#performance-problems" title="Permalink to this headline">¶</a></h3>
-<p>Currently, we have a number of performance issues in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel</span></tt>:</p>
-<ul class="simple">
-<li>The controller stores a large amount of state in Python dictionaries. Under
-heavy usage, these dicts with get very large, causing memory usage problems.
-We need to develop more scalable solutions to this problem. This will also
-help the controller to be more fault tolerant.</li>
-<li>We currently don&#8217;t have a good way of handling large objects in the
-controller. The biggest problem is that because we don&#8217;t have any way of
-streaming objects, we get lots of temporary copies in the low-level buffers.
-We need to implement a better serialization approach and true streaming
-support.</li>
-<li>The controller currently unpickles and repickles objects. We need to use the
-[push|pull]_serialized methods instead.</li>
-<li>Currently the controller is a bottleneck. The best approach for this is to
-separate the controller itself into multiple processes, one for the core
-controller and one each for the controller interfaces.</li>
+<li>Improve the SSH launcher so it is at least back to the levels of 0.10.2</li>
+<li>We need to add support for other batch systems (LSF, Condor, etc.).</li>
 </ul>
 </div>
 </div>
 <div class="section" id="porting-to-3-0">
 <h2>Porting to 3.0<a class="headerlink" href="#porting-to-3-0" title="Permalink to this headline">¶</a></h2>
-<p>There are no definite plans for porting of IPython to Python 3. The major
-issue is the dependency on Twisted framework for the networking/threading
-stuff. It is possible that it the traditional IPython interactive console
-could be ported more easily since it has no such dependency. Here are a few
-things that will need to be considered when doing such a port especially
-if we want to have a codebase that works directly on both 2.x and 3.x.</p>
-<ol class="arabic simple">
-<li>The syntax for exceptions changed (PEP 3110). The old <cite>except exc, var</cite>
-changed to <cite>except exc as var</cite>. At last count there was 78 occurrences of this
-usage in the code base. This is a particularly problematic issue, because it&#8217;s
-not easy to implement it in a 2.5-compatible way.</li>
-</ol>
-<p>Because it is quite difficult to support simultaneously Python 2.5 and 3.x, we
-will likely at some point put out a release that requires strictly 2.6 and
-abandons 2.5 compatibility.  This will then allow us to port the code to using
-<tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt> as a function, <cite>except exc as var</cite> syntax, etc.  But as of
-version 0.11 at least, we will retain Python 2.5 compatibility.</p>
+<p>Dropping 2.5 support was a major step towards working with Python 3 due to
+future syntax support in 2.6.  IPython 0.11 requires 2.6 now, so 0.10.2 will
+be the last IPython release that supports Python 2.5.</p>
+<p>We currently have a <a class="reference external" href="https://github.com/ipython/ipython-py3k">separate repo</a>
+tracking IPython development that works with Python 3. The core of IPython does
+work, but the parallel computing code in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt> does not yet
+work in Python 3, though the only major dependency of the parallel code, pyzmq,
+does work on Python 3.</p>
 </div>
 </div>
 
@@ -250,7 +221,7 @@ version 0.11 at least, we will retain Python 2.5 compatibility.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

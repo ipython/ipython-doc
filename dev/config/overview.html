@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview of the IPython configuration system &mdash; IPython v0.11.dev documentation</title>
+    <title>Overview of the IPython configuration system &mdash; IPython v0.11.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.dev',
+        VERSION:     '0.11.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
     <link rel="next" title="IPython extensions" href="extensions.html" />
     <link rel="prev" title="Configuration and customization" href="index.html" /> 
@@ -154,7 +154,7 @@ configuration object.</p>
 <p class="last">Applications always have a <cite>log</cite> attribute that is a configured Logger.
 This allows centralized logging configuration per-application.</p>
 </dd>
-<dt>Component: <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a></dt>
+<dt>Configurable: <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a></dt>
 <dd><p class="first">A configurable is a regular Python class that serves as a base class for
 all main classes in an application. The
 <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> base class is
@@ -217,11 +217,11 @@ attributes on it.  All you have to know is:</p>
 </ul>
 <p>The answers to these two questions are provided by the various
 <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> subclasses that an
-application uses. Let&#8217;s look at how this would work for a simple component
+application uses. Let&#8217;s look at how this would work for a simple configurable
 subclass:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Sample component that can be configured.</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Sample configurable:</span>
 <span class="kn">from</span> <span class="nn">IPython.config.configurable</span> <span class="kn">import</span> <span class="n">Configurable</span>
-<span class="kn">from</span> <span class="nn">IPython.utils.traitlets</span> <span class="kn">import</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Str</span><span class="p">,</span> <span class="n">Bool</span>
+<span class="kn">from</span> <span class="nn">IPython.utils.traitlets</span> <span class="kn">import</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Unicode</span><span class="p">,</span> <span class="n">Bool</span>
 
 <span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">(</span><span class="s">u&#39;defaultname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -246,8 +246,8 @@ to configure this class in a configuration file:</p>
 the class defaults anytime a <tt class="xref py py-class docutils literal"><span class="pre">MyClass</span></tt> is created.  Furthermore,
 these attributes will be type checked and validated anytime they are set.
 This type checking is handled by the <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> module,
-which provides the <tt class="xref py py-class docutils literal"><span class="pre">Str</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">Int</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Float</span></tt> types.  In
-addition to these traitlets, the <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> provides
+which provides the <tt class="xref py py-class docutils literal"><span class="pre">Unicode</span></tt>, <tt class="xref py py-class docutils literal"><span class="pre">Int</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">Float</span></tt> types.
+In addition to these traitlets, the <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#module-IPython.utils.traitlets" title="IPython.utils.traitlets"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.traitlets</span></tt></a> provides
 traitlets for a number of other types.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -325,14 +325,14 @@ just work.</p>
 Sometimes, your classes will have an inheritance hierarchy that you want
 to be reflected in the configuration system.  Here is a simple example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.config.configurable</span> <span class="kn">import</span> <span class="n">Configurable</span>
-<span class="kn">from</span> <span class="nn">IPython.utils.traitlets</span> <span class="kn">import</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Str</span><span class="p">,</span> <span class="n">Bool</span>
+<span class="kn">from</span> <span class="nn">IPython.utils.traitlets</span> <span class="kn">import</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Unicode</span><span class="p">,</span> <span class="n">Bool</span>
 
 <span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s">&#39;fooname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">(</span><span class="s">u&#39;fooname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">Foo</span><span class="p">):</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">Str</span><span class="p">(</span><span class="s">&#39;barname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">Unicode</span><span class="p">(</span><span class="s">u&#39;barname&#39;</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">othervalue</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -341,7 +341,7 @@ and <tt class="xref py py-class docutils literal"><span class="pre">Bar</span></
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># config file</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;bestname&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">Foo</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">u&#39;bestname&#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">Bar</span><span class="o">.</span><span class="n">othervalue</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
@@ -505,7 +505,7 @@ Python version, etc. Second, Python has a super simple syntax for accessing
 hierarchical data structures, namely regular attribute access
 (<tt class="docutils literal"><span class="pre">Foo.Bar.Bam.name</span></tt>). Third, using Python makes it easy for users to
 import configuration attributes from one configuration file to another.
-Forth, even though Python is dynamically typed, it does have types that can
+Fourth, even though Python is dynamically typed, it does have types that can
 be checked at runtime. Thus, a <tt class="docutils literal"><span class="pre">1</span></tt> in a config file is the integer &#8216;1&#8217;,
 while a <tt class="docutils literal"><span class="pre">'1'</span></tt> is a string.</li>
 <li>A fully automated method for getting the configuration information to the
@@ -551,7 +551,7 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 21, 2011.
+      Last updated on Jul 03, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
