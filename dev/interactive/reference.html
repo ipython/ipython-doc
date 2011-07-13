@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython v0.11.rc1 documentation</title>
+    <title>IPython reference &mdash; IPython v0.11.rc2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.rc1',
+        VERSION:     '0.11.rc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc2 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -105,7 +105,10 @@
 <li><a class="reference internal" href="#input-of-physical-quantities-with-units">Input of physical quantities with units</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#gui-event-loop-support-support">GUI event loop support support</a></li>
+<li><a class="reference internal" href="#gui-event-loop-support-support">GUI event loop support support</a><ul>
+<li><a class="reference internal" href="#pyqt-and-pyside">PyQt and PySide</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#plotting-with-matplotlib">Plotting with matplotlib</a></li>
 <li><a class="reference internal" href="#interactive-demos-with-ipython">Interactive demos with IPython</a></li>
 </ul>
@@ -170,7 +173,7 @@ integration (-gthread, -qthread, -q4thread, -wthread, -pylab). As of IPython
 version 0.11, these have been removed. Please see the new <tt class="docutils literal"><span class="pre">%gui</span></tt>
 magic command or <a class="reference internal" href="#gui-support"><em>this section</em></a> for details on the new
 interface, or specify the gui at the commandline:</p>
-<div class="highlight-python"><pre>$ ipython gui=qt</pre>
+<div class="highlight-python"><pre>$ ipython --gui=qt</pre>
 </div>
 </div>
 <div class="section" id="regular-options">
@@ -190,7 +193,7 @@ given at the command line override the values set in the ipythonrc file.</p>
 See <a class="reference internal" href="#matplotlib-support"><em>Matplotlib support</em></a>
 for more details.</p>
 <dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">autocall=&lt;val&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--autocall=&lt;val&gt;</span></tt></dt>
 <dd>Make IPython automatically call any callable object even if you
 didn&#8217;t type explicit parentheses. For example, &#8216;str 43&#8217; becomes
 &#8216;str(43)&#8217; automatically. The value can be &#8216;0&#8217; to disable the feature,
@@ -209,10 +212,10 @@ open the file to the trouble causing line for convenient
 fixing.</dd>
 <dt><tt class="docutils literal"><span class="pre">--[no-]banner</span></tt></dt>
 <dd>Print the initial information banner (default on).</dd>
-<dt><tt class="docutils literal"><span class="pre">c=&lt;command&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--c=&lt;command&gt;</span></tt></dt>
 <dd>execute the given command string. This is similar to the -c
 option in the normal Python interpreter.</dd>
-<dt><tt class="docutils literal"><span class="pre">cache_size=&lt;n&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--cache-size=&lt;n&gt;</span></tt></dt>
 <dd>size of the output cache (maximum number of entries to hold in
 memory). The default is 1000, you can change it permanently in your
 config file. Setting it to 0 completely disables the caching system,
@@ -223,7 +226,7 @@ than working.</dd>
 <dt><tt class="docutils literal"><span class="pre">--classic</span></tt></dt>
 <dd>Gives IPython a similar feel to the classic Python
 prompt.</dd>
-<dt><tt class="docutils literal"><span class="pre">colors=&lt;scheme&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--colors=&lt;scheme&gt;</span></tt></dt>
 <dd>Color scheme for prompts and exception reporting. Currently
 implemented: NoColor, Linux and LightBG.</dd>
 <dt><tt class="docutils literal"><span class="pre">--[no-]color_info</span></tt></dt>
@@ -254,7 +257,7 @@ but deep_reload will still be available as dreload(). This
 feature is off by default [which means that you have both
 normal reload() and dreload()].</p>
 </dd>
-<dt><tt class="docutils literal"><span class="pre">editor=&lt;name&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--editor=&lt;name&gt;</span></tt></dt>
 <dd>Which editor to use with the %edit command. By default,
 IPython will honor your EDITOR environment variable (if not
 set, vi is the Unix default and notepad the Windows one).
@@ -262,11 +265,11 @@ Since this editor is invoked on the fly by IPython and is
 meant for editing small code snippets, you may want to use a
 small, lightweight editor here (in case your default EDITOR is
 something like Emacs).</dd>
-<dt><tt class="docutils literal"><span class="pre">ipython_dir=&lt;name&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--ipython_dir=&lt;name&gt;</span></tt></dt>
 <dd>name of your IPython configuration directory IPYTHON_DIR. This
 can also be specified through the environment variable
 IPYTHON_DIR.</dd>
-<dt><tt class="docutils literal"><span class="pre">logfile=&lt;name&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--logfile=&lt;name&gt;</span></tt></dt>
 <dd><p class="first">specify the name of your logfile.</p>
 <p>This implies <tt class="docutils literal"><span class="pre">%logstart</span></tt> at the beginning of your session</p>
 <p class="last">generate a log file of all input. The file is named
@@ -276,7 +279,7 @@ can use this to later restore a session by loading your
 logfile with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--i</span> <span class="pre">ipython_log.py</span></tt></p>
 </dd>
 </dl>
-<p><tt class="docutils literal"><span class="pre">logplay=&lt;name&gt;</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">--logplay=&lt;name&gt;</span></tt></p>
 <blockquote>
 <div><p>NOT AVAILABLE in 0.11</p>
 <p>you can replay a previous log. For restoring a session as close as
@@ -313,7 +316,7 @@ for displaying results. pprint tends to give a nicer display
 of nested data structures. If you like it, you can turn it on
 permanently in your config file (default off).</dd>
 </dl>
-<p><tt class="docutils literal"><span class="pre">profile=&lt;name&gt;</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">--profile=&lt;name&gt;</span></tt></p>
 <blockquote>
 <div><p>Select the IPython profile by name.</p>
 <p>This is a quick way to keep and load multiple
@@ -369,7 +372,7 @@ X/Emacs in Python comint or shell buffers.</p>
 IPython&#8217;s readline and syntax coloring fine, only &#8216;emacs&#8217; (M-x
 shell and C-c !) buffers do not.</p>
 </dd>
-<dt><tt class="docutils literal"><span class="pre">TerminalInteractiveShell.screen_length=&lt;n&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--TerminalInteractiveShell.screen_length=&lt;n&gt;</span></tt></dt>
 <dd><p class="first">number of lines of your screen. This is used to control
 printing of very long strings. Strings longer than this number
 of lines will be sent through a pager instead of directly
@@ -382,15 +385,15 @@ reason this isn&#8217;t working well (it needs curses support), specify
 it yourself. Otherwise don&#8217;t change the default.</p>
 </dd>
 </dl>
-<p><tt class="docutils literal"><span class="pre">TerminalInteractiveShell.separate_in=&lt;string&gt;</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">--TerminalInteractiveShell.separate_in=&lt;string&gt;</span></tt></p>
 <blockquote>
 <div>separator before input prompts.
 Default: &#8216;n&#8217;</div></blockquote>
 <dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">TerminalInteractiveShell.separate_out=&lt;string&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--TerminalInteractiveShell.separate_out=&lt;string&gt;</span></tt></dt>
 <dd>separator before output prompts.
 Default: nothing.</dd>
-<dt><tt class="docutils literal"><span class="pre">TerminalInteractiveShell.separate_out2=&lt;string&gt;</span></tt></dt>
+<dt><tt class="docutils literal"><span class="pre">--TerminalInteractiveShell.separate_out2=&lt;string&gt;</span></tt></dt>
 <dd>separator after output prompts.
 Default: nothing.
 For these three options, use the value 0 to specify no separator.</dd>
@@ -406,7 +409,7 @@ files, this copies updated config files. Note that you should probably
 use %upgrade instead,it&#8217;s a safer alternative.</dd>
 </dl>
 <p><tt class="docutils literal"><span class="pre">--version</span></tt>    print version information and exit.</p>
-<p><tt class="docutils literal"><span class="pre">xmode=&lt;modename&gt;</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">--xmode=&lt;modename&gt;</span></tt></p>
 <blockquote>
 <div><p>Mode for exception reporting.</p>
 <p>Valid modes: Plain, Context and Verbose.</p>
@@ -1405,6 +1408,37 @@ actually need to run the real event loops to do so. This is often needed to
 process pending events at critical points.</p>
 <p>Finally, we also have a number of examples in our source directory
 <tt class="file docutils literal"><span class="pre">docs/examples/lib</span></tt> that demonstrate these capabilities.</p>
+<div class="section" id="pyqt-and-pyside">
+<h3>PyQt and PySide<a class="headerlink" href="#pyqt-and-pyside" title="Permalink to this headline">¶</a></h3>
+<p>When you use <tt class="docutils literal"><span class="pre">gui=qt</span></tt> or <tt class="docutils literal"><span class="pre">pylab=qt</span></tt>, IPython can work with either
+PyQt4 or PySide.  There are three options for configuration here, because
+PyQt4 has two APIs for QString and QVariant - v1, which is the default on
+Python 2, and the more natural v2, which is the only API supported by PySide.
+v2 is also the default for PyQt4 on Python 3.  IPython&#8217;s code for the QtConsole
+uses v2, but you can still use any interface in your code, since the
+Qt frontend is in a different process.</p>
+<p>The default will be to import PyQt4 without configuration of the APIs, thus
+matching what most applications would expect. It will fall back of PySide if
+PyQt4 is unavailable.</p>
+<p>If specified, IPython will respect the environment variable <tt class="docutils literal"><span class="pre">QT_API</span></tt> used
+by ETS.  ETS 4.0 also works with both PyQt4 and PySide, but it requires
+PyQt4 to use its v2 API.  So if <tt class="docutils literal"><span class="pre">QT_API=pyside</span></tt> PySide will be used,
+and if <tt class="docutils literal"><span class="pre">QT_API=pyqt</span></tt> then PyQt4 will be used <em>with the v2 API</em> for
+QString and QVariant, so ETS codes like MayaVi will also work with IPython.</p>
+<p>If you launch IPython in pylab mode with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">pylab=qt</span></tt>, then IPython
+will ask matplotlib which Qt library to use (only if QT_API is <em>not set</em>),
+via the &#8216;backend.qt4&#8217; rcParam.
+If matplotlib is version 1.0.1 or older, then IPython will always use PyQt4
+without setting the v2 APIs, since neither v2 PyQt nor PySide work.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Note that this means for ETS 4 to work with PyQt4, <tt class="docutils literal"><span class="pre">QT_API</span></tt> <em>must</em> be set to
+work with IPython&#8217;s qt integration, because otherwise PyQt4 will be loaded in
+an incompatible mode.</p>
+<p class="last">It also means that you must <em>not</em> have <tt class="docutils literal"><span class="pre">QT_API</span></tt> set if you want to
+use <tt class="docutils literal"><span class="pre">gui=qt</span></tt> with code that requires PyQt4 API v1.</p>
+</div>
+</div>
 </div>
 <div class="section" id="plotting-with-matplotlib">
 <span id="matplotlib-support"></span><h2>Plotting with matplotlib<a class="headerlink" href="#plotting-with-matplotlib" title="Permalink to this headline">¶</a></h2>
@@ -1442,48 +1476,6 @@ interactively commands based on the variables just created. Once you
 want to continue, you simply execute the next block of the demo. The
 following listing shows the markup necessary for dividing a script into
 sections for execution as a demo:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="sd">&quot;&quot;&quot;A simple interactive demo to illustrate the use of IPython&#39;s Demo class.</span>
-
-<span class="sd">Any python script can be run as a demo, but that does little more than showing</span>
-<span class="sd">it on-screen, syntax-highlighted in one shot.  If you add a little simple</span>
-<span class="sd">markup, you can stop at specified intervals and return to the ipython prompt,</span>
-<span class="sd">resuming execution later.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="k">print</span> <span class="s">&#39;Hello, welcome to an interactive IPython demo.&#39;</span>
-<span class="k">print</span> <span class="s">&#39;Executing this block should require confirmation before proceeding,&#39;</span>
-<span class="k">print</span> <span class="s">&#39;unless auto_all has been set to true in the demo object&#39;</span>
-
-<span class="c"># The mark below defines a block boundary, which is a point where IPython will</span>
-<span class="c"># stop execution and return to the interactive prompt.</span>
-<span class="c"># Note that in actual interactive execution, </span>
-<span class="c"># &lt;demo&gt; --- stop ---</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="c"># &lt;demo&gt; --- stop ---</span>
-
-<span class="c"># the mark below makes this block as silent</span>
-<span class="c"># &lt;demo&gt; silent</span>
-
-<span class="k">print</span> <span class="s">&#39;This is a silent block, which gets executed but not printed.&#39;</span>
-
-<span class="c"># &lt;demo&gt; --- stop ---</span>
-<span class="c"># &lt;demo&gt; auto</span>
-<span class="k">print</span> <span class="s">&#39;This is an automatic block.&#39;</span>
-<span class="k">print</span> <span class="s">&#39;It is executed without asking for confirmation, but printed.&#39;</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
-
-<span class="k">print</span> <span class="s">&#39;z=&#39;</span><span class="p">,</span><span class="n">z</span>
-
-<span class="c"># &lt;demo&gt; --- stop ---</span>
-<span class="c"># This is just another normal block.</span>
-<span class="k">print</span> <span class="s">&#39;z is now:&#39;</span><span class="p">,</span> <span class="n">z</span>
-
-<span class="k">print</span> <span class="s">&#39;bye!&#39;</span>
-</pre></div>
-</div>
 <p>In order to run a file as a demo, you must first make a Demo object out
 of it. If the file is named myscript.py, the following code will make a
 demo:</p>
@@ -1549,7 +1541,7 @@ embedding facilities, described in detail in Sec. 9</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 03, 2011.
+      Last updated on Jul 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython as a QtGUI widget &mdash; IPython v0.11.rc1 documentation</title>
+    <title>IPython as a QtGUI widget &mdash; IPython v0.11.rc2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.rc1',
+        VERSION:     '0.11.rc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc2 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -65,7 +65,7 @@
 <li><a class="reference internal" href="#loadpy"><tt class="docutils literal"><span class="pre">%loadpy</span></tt></a></li>
 <li><a class="reference internal" href="#pylab">Pylab</a><ul>
 <li><a class="reference internal" href="#pastefig"><tt class="docutils literal"><span class="pre">pastefig()</span></tt></a></li>
-<li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">pylab=inline</span></tt></a></li>
+<li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">--pylab=inline</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#saving-and-printing">Saving and Printing</a></li>
@@ -129,13 +129,12 @@ configurable.</p>
 </div>
 <div class="section" id="loadpy">
 <h2><tt class="docutils literal"><span class="pre">%loadpy</span></tt><a class="headerlink" href="#loadpy" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="docutils literal"><span class="pre">%loadpy</span></tt> magic has been added, just for the GUI frontend. It takes any python
+<p>The new <tt class="docutils literal"><span class="pre">%loadpy</span></tt> magic takes any python
 script (must end in &#8216;.py&#8217;), and pastes its contents as your next input, so you can edit it
 before executing. The script may be on your machine, but you can also specify a url, and
 it will download the script from the web. This is particularly useful for playing with
 examples from documentation, such as matplotlib.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%</span><span class="n">loadpy</span>
-<span class="go">http://matplotlib.sourceforge.net/plot_directive/mpl_examples/mplot3d/contour3d_demo.py</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%</span><span class="n">loadpy</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">plot_directive</span><span class="o">/</span><span class="n">mpl_examples</span><span class="o">/</span><span class="n">mplot3d</span><span class="o">/</span><span class="n">contour3d_demo</span><span class="o">.</span><span class="n">py</span>
 
 <span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">axes3d</span>
 <span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -164,10 +163,11 @@ specify the <tt class="docutils literal"><span class="pre">pylab</span></tt> arg
 them in your document. This is especially useful for <a class="reference internal" href="#saving">saving</a> your work.</p>
 </div>
 <div class="section" id="pylab-inline">
-<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">pylab=inline</span></tt><a class="headerlink" href="#pylab-inline" title="Permalink to this headline">¶</a></h3>
+<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">--pylab=inline</span></tt><a class="headerlink" href="#pylab-inline" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have all of your figures embedded in your session, instead of calling
-<tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">pylab=inline</span></tt>, and each time you make a plot, it
-will show up in your document, as if you had called <tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>.</p>
+<tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">--pylab=inline</span></tt> when you start the console,
+and each time you make a plot, it will show up in your document, as if you had
+called <tt class="xref py py-func docutils literal"><span class="pre">pastefig()</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="saving-and-printing">
@@ -202,7 +202,7 @@ few simple color choices, specified by the <tt class="docutils literal"><span cl
 be found by pygments, and there are several already installed. The <tt class="docutils literal"><span class="pre">colors</span></tt> argument,
 if unspecified, will be guessed based on the chosen style. Similarly, there are default
 styles associated with each <tt class="docutils literal"><span class="pre">colors</span></tt> option.</p>
-<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span> <span class="pre">colors=linux</span></tt>, which uses the &#8216;monokai&#8217; theme by
+<p>Screenshot of <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span> <span class="pre">--colors=linux</span></tt>, which uses the &#8216;monokai&#8217; theme by
 default:</p>
 <img alt="../_images/colors_dark.png" src="../_images/colors_dark.png" style="width: 627px;" />
 <div class="admonition note">
@@ -227,7 +227,7 @@ coloring, via the <tt class="docutils literal"><span class="pre">stylesheet</spa
 <h2>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h2>
 <p>The QtConsole has configurable via the ConsoleWidget. To change these, set the <tt class="docutils literal"><span class="pre">font_family</span></tt>
 or <tt class="docutils literal"><span class="pre">font_size</span></tt> traits of the ConsoleWidget. For instance, to use 9pt Anonymous Pro:</p>
-<div class="highlight-python"><pre>$&gt; ipython qtconsole ConsoleWidget.font_family="Anonymous Pro" ConsoleWidget.font_size=9</pre>
+<div class="highlight-python"><pre>$&gt; ipython qtconsole --ConsoleWidget.font_family="Anonymous Pro" --ConsoleWidget.font_size=9</pre>
 </div>
 </div>
 <div class="section" id="process-management">
@@ -244,7 +244,7 @@ restart the kernel.</p>
 do not have to all be qt frontends - any IPython frontend can connect and run code.
 When you start ipython qtconsole, there will be an output line, like:</p>
 <div class="highlight-python"><pre>To connect another client to this kernel, use:
---external shell=62109 iopub=62110 stdin=62111 hb=62112</pre>
+--external --shell=62109 --iopub=62110 --stdin=62111 --hb=62112</pre>
 </div>
 <p>Other frontends can connect to your kernel, and share in the execution. This is great for
 collaboration. The <cite>-e</cite> flag is for &#8216;external&#8217;. Starting other consoles with that flag
@@ -253,7 +253,7 @@ have to specify each port individually, but for now this copy-paste method is be
 <p>By default (for security reasons), the kernel only listens on localhost, so you can only
 connect multiple frontends to the kernel from your local machine. You can specify to
 listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">ip</span></tt> argument:</p>
-<div class="highlight-python"><pre>$&gt; ipython qtconsole ip=192.168.1.123</pre>
+<div class="highlight-python"><pre>$&gt; ipython qtconsole --ip=192.168.1.123</pre>
 </div>
 <p>If you specify the ip as 0.0.0.0, that refers to all interfaces, so any computer that can
 see yours can connect to the kernel.</p>
@@ -380,7 +380,7 @@ using the &#8216;!&#8217; escape. (this will not be fixed).</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 03, 2011.
+      Last updated on Jul 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

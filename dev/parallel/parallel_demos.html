@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel examples &mdash; IPython v0.11.rc1 documentation</title>
+    <title>Parallel examples &mdash; IPython v0.11.rc2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.rc1',
+        VERSION:     '0.11.rc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc2 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="DAG Dependencies" href="dag_dependencies.html" />
     <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" /> 
@@ -190,23 +190,23 @@ the result using a 2D matrix in Matplotlib.</p>
 compute the two digit counts for the digits in a single file. Then in a final
 step the counts from each engine will be added up. To perform this
 calculation, we will need two top-level functions from <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt>:</p>
-<div class="highlight-python"><pre>    Read digits of pi from a file and compute the 1 digit frequencies.
-    """
-    d = txt_file_to_digits(filename)
-    freqs = one_digit_freqs(d)
-    return freqs
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">compute_two_digit_freqs</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read digits of pi from a file and compute the 2 digit frequencies.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">txt_file_to_digits</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">two_digit_freqs</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">freqs</span>
 
-def compute_two_digit_freqs(filename):
-    """
-    Read digits of pi from a file and compute the 2 digit frequencies.
-    """
-    d = txt_file_to_digits(filename)
-    freqs = two_digit_freqs(d)
-    return freqs
-
-def reduce_freqs(freqlist):
-    """
-</pre>
+<span class="k">def</span> <span class="nf">reduce_freqs</span><span class="p">(</span><span class="n">freqlist</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add up a list of freq counts to get the total counts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">allfreqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">freqlist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqlist</span><span class="p">:</span>
+        <span class="n">allfreqs</span> <span class="o">+=</span> <span class="n">f</span>
+    <span class="k">return</span> <span class="n">allfreqs</span>
+</pre></div>
 </div>
 <p>We will also use the <tt class="xref py py-func docutils literal"><span class="pre">plot_two_digit_freqs()</span></tt> function to plot the
 results. The code to run this calculation in parallel is contained in
@@ -586,7 +586,7 @@ conclusion is untested.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 03, 2011.
+      Last updated on Jul 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

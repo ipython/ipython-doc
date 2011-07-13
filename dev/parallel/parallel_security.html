@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Security details of IPython &mdash; IPython v0.11.rc1 documentation</title>
+    <title>Security details of IPython &mdash; IPython v0.11.rc2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.rc1',
+        VERSION:     '0.11.rc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc2 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" />
     <link rel="prev" title="IPython’s Task Database" href="parallel_db.html" /> 
@@ -77,13 +77,6 @@
 </li>
 <li><a class="reference internal" href="#other-security-measures">Other security measures</a></li>
 <li><a class="reference internal" href="#summary">Summary</a></li>
-<li><a class="reference internal" href="#other-questions">Other questions</a><ul>
-<li><a class="reference internal" href="#about-keys">About keys</a></li>
-<li><a class="reference internal" href="#self-signed-certificates">Self signed certificates</a></li>
-<li><a class="reference internal" href="#ssl-private-key">SSL private key</a></li>
-<li><a class="reference internal" href="#ssl-versus-foolscap-authentication">SSL versus Foolscap authentication</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -334,62 +327,6 @@ attacking or even probing the system.</p>
 capabilities based authentication model, in conjunction with SSH tunneled
 TCP/IP channels, address the core potential vulnerabilities in the system,
 while still enabling user&#8217;s to use the system in open networks.</p>
-</div>
-<div class="section" id="other-questions">
-<h2>Other questions<a class="headerlink" href="#other-questions" title="Permalink to this headline">¶</a></h2>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">this does not apply to ZMQ, but I am sure there will be questions.</p>
-</div>
-<div class="section" id="about-keys">
-<h3>About keys<a class="headerlink" href="#about-keys" title="Permalink to this headline">¶</a></h3>
-<p>Can you clarify the roles of the certificate and its keys versus the FURL,
-which is also called a key?</p>
-<p>The certificate created by IPython processes is a standard public key x509
-certificate, that is used by the SSL handshake protocol to setup encrypted
-channel between the controller and the IPython engine or client. This public
-and private key associated with this certificate are used only by the SSL
-handshake protocol in setting up this encrypted channel.</p>
-<p>The FURL serves a completely different and independent purpose from the
-key pair associated with the certificate. When we refer to a FURL as a
-key, we are using the word &#8220;key&#8221; in the capabilities based security model
-sense. This has nothing to do with &#8220;key&#8221; in the public/private key sense used
-in the SSL protocol.</p>
-<p>With that said the FURL is used as an cryptographic key, to grant
-IPython engines and clients access to particular capabilities that the
-controller offers.</p>
-</div>
-<div class="section" id="self-signed-certificates">
-<h3>Self signed certificates<a class="headerlink" href="#self-signed-certificates" title="Permalink to this headline">¶</a></h3>
-<p>Is the controller creating a self-signed certificate? Is this created for per
-instance/session, one-time-setup or each-time the controller is started?</p>
-<p>The Foolscap network protocol, which handles the SSL protocol details, creates
-a self-signed x509 certificate using OpenSSL for each IPython process. The
-lifetime of the certificate is handled differently for the IPython controller
-and the engines/client.</p>
-<p>For the IPython engines and client, the certificate is only held in memory for
-the lifetime of its process. It is never written to disk.</p>
-<p>For the controller, the certificate can be created anew each time the
-controller starts or it can be created once and reused each time the
-controller starts. If at any point, the certificate is deleted, a new one is
-created the next time the controller starts.</p>
-</div>
-<div class="section" id="ssl-private-key">
-<h3>SSL private key<a class="headerlink" href="#ssl-private-key" title="Permalink to this headline">¶</a></h3>
-<p>How the private key (associated with the certificate) is distributed?</p>
-<p>In the usual implementation of the SSL protocol, the private key is never
-distributed. We follow this standard always.</p>
-</div>
-<div class="section" id="ssl-versus-foolscap-authentication">
-<h3>SSL versus Foolscap authentication<a class="headerlink" href="#ssl-versus-foolscap-authentication" title="Permalink to this headline">¶</a></h3>
-<p>Many SSL connections only perform one sided authentication (the server to the
-client). How is the client authentication in IPython&#8217;s system related to SSL
-authentication?</p>
-<p>We perform a two way SSL handshake in which both parties request and verify
-the certificate of their peer. This mutual authentication is handled by the
-SSL handshake and is separate and independent from the additional
-authentication steps that the CLIENT and SERVER perform after an encrypted
-channel is established.</p>
 <table class="docutils citation" frame="void" id="rfc5246" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -414,7 +351,6 @@ channel is established.</p>
 <tr><td class="label"><a class="fn-backref" href="#id3">[HMAC]</a></td><td>&lt;<a class="reference external" href="http://tools.ietf.org/html/rfc2104.html">http://tools.ietf.org/html/rfc2104.html</a>&gt;</td></tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 
@@ -448,7 +384,7 @@ channel is established.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 03, 2011.
+      Last updated on Jul 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview of the IPython configuration system &mdash; IPython v0.11.rc1 documentation</title>
+    <title>Overview of the IPython configuration system &mdash; IPython v0.11.rc2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.11.rc1',
+        VERSION:     '0.11.rc2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.11.rc2 documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
     <link rel="next" title="IPython extensions" href="extensions.html" />
     <link rel="prev" title="Configuration and customization" href="index.html" /> 
@@ -408,7 +408,7 @@ different purposes: one for doing numerical computing with NumPy and SciPy and
 another for doing symbolic computing with SymPy. Profiles make it easy to keep a
 separate configuration files, logs, and histories for each of these purposes.</p>
 <p>Let&#8217;s start by showing how a profile is used:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ipython <span class="nv">profile</span><span class="o">=</span>sympy
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ipython --profile<span class="o">=</span>sympy
 </pre></div>
 </div>
 <p>This tells the <strong class="command">ipython</strong> command line program to get its configuration
@@ -420,7 +420,7 @@ the &#8220;sympy&#8221; profile means looking for <tt class="file docutils liter
 </pre></div>
 </div>
 <p>which adds a directory called <tt class="docutils literal"><span class="pre">profile_&lt;name&gt;</span></tt> to your IPython directory. Then
-you can load this profile by adding <tt class="docutils literal"><span class="pre">profile=&lt;name&gt;</span></tt> to your command line
+you can load this profile by adding <tt class="docutils literal"><span class="pre">--profile=&lt;name&gt;</span></tt> to your command line
 options. Profiles are supported by all IPython applications.</p>
 <p>IPython ships with some sample profiles in <tt class="file docutils literal"><span class="pre">IPython/config/profile</span></tt>. If
 you create profiles with the name of one of our shipped profiles, these config
@@ -436,7 +436,7 @@ very similar to an IPython config file</p>
 <p>IPython applications use a parser called
 <tt class="xref py py-class docutils literal"><span class="pre">KeyValueLoader</span></tt> to load values into a Config
 object.  Values are assigned in much the same way as in a config file:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython InteractiveShell.use_readline<span class="o">=</span>False BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython --InteractiveShell.use_readline<span class="o">=</span>False --BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
 </pre></div>
 </div>
 <p>Is the same as adding:</p>
@@ -450,9 +450,9 @@ and no spaces.</p>
 <h3>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
 <p>For convenience, applications have a mapping of commonly
 used traits, so you don&#8217;t have to specify the whole class name. For these <strong>aliases</strong>, the class need not be specified:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython <span class="nv">profile</span><span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython --profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
 <span class="c"># is equivalent to</span>
-<span class="nv">$&gt;</span> ipython BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+<span class="nv">$&gt;</span> ipython --BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -464,11 +464,11 @@ setting one or more configurables with predefined values, often True/False.</p>
 <p>For instance:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcontroller --debug
 <span class="c"># is equivalent to</span>
-<span class="nv">$&gt;</span> ipcontroller Application.log_level<span class="o">=</span>DEBUG
+<span class="nv">$&gt;</span> ipcontroller --Application.log_level<span class="o">=</span>DEBUG
 <span class="c"># and</span>
 <span class="nv">$&gt;</span> ipython --pylab
 <span class="c"># is equivalent to</span>
-<span class="nv">$&gt;</span> ipython <span class="nv">pylab</span><span class="o">=</span>auto
+<span class="nv">$&gt;</span> ipython --pylab<span class="o">=</span>auto
 </pre></div>
 </div>
 </div>
@@ -477,12 +477,12 @@ setting one or more configurables with predefined values, often True/False.</p>
 <p>Some IPython applications have <strong>subcommands</strong>. Subcommands are modeled after
 <strong class="command">git</strong>, and are called with the form <strong class="command">command subcommand
 [...args]</strong>.  Currently, the QtConsole is a subcommand of terminal IPython:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython qtconsole <span class="nv">profile</span><span class="o">=</span>myprofile
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython qtconsole --profile<span class="o">=</span>myprofile
 </pre></div>
 </div>
 <p>and <strong class="command">ipcluster</strong> is simply a wrapper for its various subcommands (start,
 stop, engines).</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start <span class="nv">profile</span><span class="o">=</span>myprofile <span class="nv">n</span><span class="o">=</span>4
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start --profile<span class="o">=</span>myprofile --n<span class="o">=</span>4
 </pre></div>
 </div>
 <p>To see a list of the available aliases, flags, and subcommands for an IPython application, simply pass <tt class="docutils literal"><span class="pre">-h</span></tt> or <tt class="docutils literal"><span class="pre">--help</span></tt>.  And to see the full list of configurable options (<em>very</em> long), pass <tt class="docutils literal"><span class="pre">--help-all</span></tt>.</p>
@@ -551,7 +551,7 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 03, 2011.
+      Last updated on Jul 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
