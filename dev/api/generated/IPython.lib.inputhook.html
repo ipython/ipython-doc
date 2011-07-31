@@ -3,17 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>lib.inputhook &mdash; IPython v0.11.rc4 documentation</title>
+    <title>lib.inputhook &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.11.rc4',
+        VERSION:     '0.12.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.11.rc4 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="lib.irunner" href="IPython.lib.irunner.html" />
     <link rel="prev" title="lib.guisupport" href="IPython.lib.guisupport.html" /> 
@@ -134,7 +137,7 @@ method is provided to clear the references we are holding.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : None or str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : None or str</p>
 <blockquote class="last">
 <div><p>If None, clear all app references.  If (&#8216;wx&#8217;, &#8216;qt4&#8217;) clear
 the app for that toolkit.  References are not held for gtk or tk
@@ -154,7 +157,7 @@ as those toolkits don&#8217;t have the notion of an app.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : optional, ignored</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : optional, ignored</p>
 <blockquote class="last">
 <div><p>This parameter is allowed only so that clear_inputhook() can be
 called with a similar interface as all the <tt class="docutils literal"><span class="pre">enable_*</span></tt> methods.  But
@@ -204,16 +207,17 @@ app like <a class="reference internal" href="#IPython.lib.inputhook.enable_gui" 
 
 <dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.enable_gtk">
-<tt class="descname">enable_gtk</tt><big>(</big><em>app=False</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_gtk" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">enable_gtk</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_gtk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable event loop integration with PyGTK.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : ignored</p>
 <blockquote class="last">
-<div><p>Create a running application object or not.  Because gtk does&#8217;t
-have an app class, this does nothing.</p>
+<div><p>Ignored, it&#8217;s only a placeholder to keep the call signature of all
+gui activation methods consistent, which simplifies the logic of
+supporting magics.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -227,15 +231,16 @@ IPython.</p>
 
 <dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.enable_qt4">
-<tt class="descname">enable_qt4</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_qt4" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">enable_qt4</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_qt4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable event loop integration with PyQt4.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : Qt Application, optional.</p>
 <blockquote class="last">
-<div><p>Create a running application object or not.</p>
+<div><p>Running application to use.  If not given, we probe Qt for an
+existing application object, and create a new one if none is found.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -245,47 +250,51 @@ IPython.</p>
 <p>This methods sets the PyOS_InputHook for PyQt4, which allows
 the PyQt4 to integrate with terminal based applications like
 IPython.</p>
-<p>If <tt class="docutils literal"><span class="pre">app</span></tt> is True, we create an <tt class="xref py py-class docutils literal"><span class="pre">QApplication</span></tt> as follows:</p>
+<p>If <tt class="docutils literal"><span class="pre">app</span></tt> is not given we probe for an existing one, and return it if
+found.  If no existing app is found, we create an <tt class="xref py py-class docutils literal"><span class="pre">QApplication</span></tt>
+as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtCore</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>But, we first check to see if an application has already been 
-created.  If so, we simply return that instance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.enable_tk">
-<tt class="descname">enable_tk</tt><big>(</big><em>app=False</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_tk" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">enable_tk</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_tk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable event loop integration with Tk.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : toplevel <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Tk</span></tt> widget, optional.</p>
 <blockquote class="last">
-<div><p>Create a running application object or not.</p>
+<div><p>Running toplevel widget to use.  If not given, we probe Tk for an
+existing one, and create a new one if none is found.</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>Currently this is a no-op as creating a <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Tk</span></tt> object 
+<p>If you have already created a <tt class="xref py py-class docutils literal"><span class="pre">Tkinter.Tk</span></tt> object, the only
+thing done by this method is to register with the
+<a class="reference internal" href="#IPython.lib.inputhook.InputHookManager" title="IPython.lib.inputhook.InputHookManager"><tt class="xref py py-class docutils literal"><span class="pre">InputHookManager</span></tt></a>, since creating that object automatically
 sets <tt class="docutils literal"><span class="pre">PyOS_InputHook</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.enable_wx">
-<tt class="descname">enable_wx</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_wx" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">enable_wx</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_wx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable event loop integration with wxPython.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : WX Application, optional.</p>
 <blockquote class="last">
-<div><p>Create a running application object or not.</p>
+<div><p>Running application to use.  If not given, we probe WX for an
+existing application object, and create a new one if none is found.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -295,15 +304,13 @@ sets <tt class="docutils literal"><span class="pre">PyOS_InputHook</span></tt>.<
 <p>This methods sets the <tt class="docutils literal"><span class="pre">PyOS_InputHook</span></tt> for wxPython, which allows
 the wxPython to integrate with terminal based applications like
 IPython.</p>
-<p>If <tt class="docutils literal"><span class="pre">app</span></tt> is True, we create an <tt class="xref py py-class docutils literal"><span class="pre">wx.App</span></tt> as follows:</p>
+<p>If <tt class="docutils literal"><span class="pre">app</span></tt> is not given we probe for an existing one, and return it if
+found.  If no existing app is found, we create an <tt class="xref py py-class docutils literal"><span class="pre">wx.App</span></tt> as
+follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">wx</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">App</span><span class="p">(</span><span class="n">redirect</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">clearSigInt</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Both options this constructor are important for things to work
-properly in an interactive context.</p>
-<p>But, we first check to see if an application has already been 
-created.  If so, we simply return that instance.</p>
 </dd></dl>
 
 <dl class="method">
@@ -328,7 +335,7 @@ created.  If so, we simply return that instance.</p>
 
 <dl class="function">
 <dt id="IPython.lib.inputhook.enable_gui">
-<tt class="descclassname">IPython.lib.inputhook.</tt><tt class="descname">enable_gui</tt><big>(</big><em>gui=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.enable_gui" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.lib.inputhook.</tt><tt class="descname">enable_gui</tt><big>(</big><em>gui=None</em>, <em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.enable_gui" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch amongst GUI input hooks by name.</p>
 <p>This is just a utility wrapper around the methods of the InputHookManager
 object.</p>
@@ -336,18 +343,21 @@ object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : optional, string or None</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : optional, string or None</p>
 <blockquote>
 <div><p>If None, clears input hook, otherwise it must be one of the recognized
 GUI names (see <tt class="docutils literal"><span class="pre">GUI_*</span></tt> constants in module).</p>
 </div></blockquote>
-<p><strong>app</strong> : optional, bool</p>
+<p><strong>app</strong> : optional, existing application object.</p>
 <blockquote>
-<div><p>If true, create an app object and return it.</p>
+<div><p>For toolkits that have the concept of a global app, you can supply an
+existing one.  If not given, the toolkit will be probed for one, and if
+none is found, a new one will be created.  Note that GTK does not have
+this concept, and passing an app if <a href="#id1"><span class="problematic" id="id2">`</span></a>gui`==&#8221;GTK&#8221; will raise an error.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>The output of the underlying gui switch routine, typically the actual</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>The output of the underlying gui switch routine, typically the actual</strong> :</p>
 <p><strong>PyOS_InputHook wrapper object or the GUI toolkit app created, if there was</strong> :</p>
 <p class="last"><strong>one.</strong> :</p>
 </td>
@@ -389,8 +399,8 @@ GUI names (see <tt class="docutils literal"><span class="pre">GUI_*</span></tt> 
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 18, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Jul 31, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
     </div>
   </body>
 </html>
