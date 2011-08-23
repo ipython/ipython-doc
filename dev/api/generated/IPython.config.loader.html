@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>config.loader &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>config.loader &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.alias" href="IPython.core.alias.html" />
     <link rel="prev" title="config.configurable" href="IPython.config.configurable.html" /> 
@@ -78,6 +75,7 @@
 <li><a class="reference internal" href="#configloader"><tt class="docutils literal"><span class="pre">ConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#configloadererror"><tt class="docutils literal"><span class="pre">ConfigLoaderError</span></tt></a></li>
 <li><a class="reference internal" href="#fileconfigloader"><tt class="docutils literal"><span class="pre">FileConfigLoader</span></tt></a></li>
+<li><a class="reference internal" href="#kvargparseconfigloader"><tt class="docutils literal"><span class="pre">KVArgParseConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#keyvalueconfigloader"><tt class="docutils literal"><span class="pre">KeyValueConfigLoader</span></tt></a></li>
 <li><a class="reference internal" href="#pyfileconfigloader"><tt class="docutils literal"><span class="pre">PyFileConfigLoader</span></tt></a></li>
 </ul>
@@ -141,18 +139,18 @@
 <h3><a class="reference internal" href="#IPython.config.loader.ArgParseConfigLoader" title="IPython.config.loader.ArgParseConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">ArgParseConfigLoader</span></tt></a><a class="headerlink" href="#argparseconfigloader" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.config.loader.ArgParseConfigLoader">
-<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgParseConfigLoader</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgParseConfigLoader</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.CommandLineConfigLoader" title="IPython.config.loader.CommandLineConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.CommandLineConfigLoader</span></tt></a></p>
 <p>A loader that uses the argparse module to load from the command line.</p>
 <dl class="method">
 <dt id="IPython.config.loader.ArgParseConfigLoader.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a config loader for use with argparse.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : optional, list</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : optional, list</p>
 <blockquote>
 <div><p>If given, used to read command-line arguments from, otherwise
 sys.argv[1:] is used.</p>
@@ -169,7 +167,7 @@ constructor of <tt class="xref py py-class docutils literal"><span class="pre">a
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>The resulting Config object.</p>
 </div></blockquote>
@@ -191,13 +189,13 @@ constructor of <tt class="xref py py-class docutils literal"><span class="pre">a
 
 <dl class="method">
 <dt id="IPython.config.loader.ArgParseConfigLoader.load_config">
-<tt class="descname">load_config</tt><big>(</big><em>argv=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">load_config</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgParseConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse command line arguments and return as a Config object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>args</strong> : optional, list</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>args</strong> : optional, list</p>
 <blockquote class="last">
 <div><p>If given, a list with the structure of sys.argv[1:] to parse
 arguments from. If not given, the instance&#8217;s self.argv attribute
@@ -221,7 +219,7 @@ arguments from. If not given, the instance&#8217;s self.argv attribute
 <dl class="method">
 <dt id="IPython.config.loader.ArgumentError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
+<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -270,6 +268,11 @@ arguments from. If not given, the instance&#8217;s self.argv attribute
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="IPython.config.loader.ArgumentParser.convert_arg_line_to_args">
+<tt class="descname">convert_arg_line_to_args</tt><big>(</big><em>arg_line</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser.convert_arg_line_to_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="IPython.config.loader.ArgumentParser.error">
 <tt class="descname">error</tt><big>(</big><em>message: string</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser.error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prints a usage message incorporating the message to stderr and
@@ -296,6 +299,11 @@ should either exit or raise an exception.</p>
 <dl class="method">
 <dt id="IPython.config.loader.ArgumentParser.format_version">
 <tt class="descname">format_version</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser.format_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.ArgumentParser.get_default">
+<tt class="descname">get_default</tt><big>(</big><em>dest</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser.get_default" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -400,8 +408,9 @@ to erase any previous state.</p>
 
 <dl class="staticmethod">
 <dt id="IPython.config.loader.Config.fromkeys">
-<em class="property">static </em><tt class="descname">fromkeys</tt><big>(</big><em>S</em><span class="optional">[</span>, <em>v</em><span class="optional">]</span><big>)</big> &rarr; New dict with keys from S and values equal to v.<a class="headerlink" href="#IPython.config.loader.Config.fromkeys" title="Permalink to this definition">¶</a></dt>
-<dd><p>v defaults to None.</p>
+<em class="property">static </em><tt class="descname">fromkeys</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.Config.fromkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>dict.fromkeys(S[,v]) -&gt; New dict with keys from S and values equal to v.
+v defaults to None.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -480,6 +489,24 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
 <dd><p>D.values() -&gt; list of D&#8217;s values</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.config.loader.Config.viewitems">
+<tt class="descname">viewitems</tt><a class="headerlink" href="#IPython.config.loader.Config.viewitems" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewitems() -&gt; a set-like object providing a view on D&#8217;s items</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.config.loader.Config.viewkeys">
+<tt class="descname">viewkeys</tt><a class="headerlink" href="#IPython.config.loader.Config.viewkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewkeys() -&gt; a set-like object providing a view on D&#8217;s keys</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.config.loader.Config.viewvalues">
+<tt class="descname">viewvalues</tt><a class="headerlink" href="#IPython.config.loader.Config.viewvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>D.viewvalues() -&gt; an object providing a view on D&#8217;s values</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -492,7 +519,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
 <dl class="method">
 <dt id="IPython.config.loader.ConfigError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ConfigError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
+<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -562,7 +589,7 @@ to erase any previous state.</p>
 <dl class="method">
 <dt id="IPython.config.loader.ConfigLoaderError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.ConfigLoaderError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
+<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -617,6 +644,84 @@ to erase any previous state.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="kvargparseconfigloader">
+<h3><a class="reference internal" href="#IPython.config.loader.KVArgParseConfigLoader" title="IPython.config.loader.KVArgParseConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">KVArgParseConfigLoader</span></tt></a><a class="headerlink" href="#kvargparseconfigloader" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.config.loader.KVArgParseConfigLoader">
+<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">KVArgParseConfigLoader</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KVArgParseConfigLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.ArgParseConfigLoader" title="IPython.config.loader.ArgParseConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.ArgParseConfigLoader</span></tt></a></p>
+<p>A config loader that loads aliases and flags with argparse,
+but will use KVLoader for the rest.  This allows better parsing 
+of common args, such as <cite>ipython -c &#8216;print 5&#8217;</cite>, but still gets
+arbitrary config with <cite>ipython &#8211;InteractiveShell.use_readline=False</cite></p>
+<dl class="method">
+<dt id="IPython.config.loader.KVArgParseConfigLoader.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em>, <em>*parser_args</em>, <em>**parser_kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KVArgParseConfigLoader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a config loader for use with argparse.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : optional, list</p>
+<blockquote>
+<div><p>If given, used to read command-line arguments from, otherwise
+sys.argv[1:] is used.</p>
+</div></blockquote>
+<p><strong>parser_args</strong> : tuple</p>
+<blockquote>
+<div><p>A tuple of positional arguments that will be passed to the
+constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
+</div></blockquote>
+<p><strong>parser_kw</strong> : dict</p>
+<blockquote>
+<div><p>A tuple of keyword arguments that will be passed to the
+constructor of <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<blockquote class="last">
+<div><p>The resulting Config object.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.KVArgParseConfigLoader.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.KVArgParseConfigLoader.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.KVArgParseConfigLoader.get_extra_args">
+<tt class="descname">get_extra_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.KVArgParseConfigLoader.get_extra_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.KVArgParseConfigLoader.load_config">
+<tt class="descname">load_config</tt><big>(</big><em>argv=None</em>, <em>aliases=None</em>, <em>flags=None</em><big>)</big><a class="headerlink" href="#IPython.config.loader.KVArgParseConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse command line arguments and return as a Config object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>args</strong> : optional, list</p>
+<blockquote class="last">
+<div><p>If given, a list with the structure of sys.argv[1:] to parse
+arguments from. If not given, the instance&#8217;s self.argv attribute
+(given at construction time) is used.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="keyvalueconfigloader">
 <h3><a class="reference internal" href="#IPython.config.loader.KeyValueConfigLoader" title="IPython.config.loader.KeyValueConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">KeyValueConfigLoader</span></tt></a><a class="headerlink" href="#keyvalueconfigloader" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -636,7 +741,7 @@ to erase any previous state.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list</p>
 <blockquote>
 <div><p>A list that has the form of sys.argv[1:] which has unicode
 elements of the form u&#8221;key=value&#8221;. If this is None (default),
@@ -656,7 +761,7 @@ is triggered, The flag is loaded as <cite>self.config.update(m)</cite>.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>The resulting Config object.</p>
 </div></blockquote>
@@ -690,7 +795,7 @@ arguments such as input files or subcommands.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list, optional</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list, optional</p>
 <blockquote>
 <div><p>A list that has the form of sys.argv[1:] which has unicode
 elements of the form u&#8221;key=value&#8221;. If this is None (default),
@@ -734,7 +839,7 @@ that are all caps.  These attribute are added to the config Struct.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The file name of the config file.</p>
 </div></blockquote>
@@ -796,8 +901,8 @@ paths to try in order.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

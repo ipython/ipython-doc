@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>parallel.engine.engine &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>parallel.engine.engine &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.engine.kernelstarter" href="IPython.parallel.engine.kernelstarter.html" />
     <link rel="prev" title="parallel.controller.sqlitedb" href="IPython.parallel.controller.sqlitedb.html" /> 
@@ -186,7 +183,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.engine.engine.EngineFactory.complete_registration">
-<tt class="descname">complete_registration</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.complete_registration" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">complete_registration</tt><big>(</big><em>msg</em>, <em>connect</em>, <em>maybe_tunnel</em><big>)</big><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.complete_registration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -204,11 +201,6 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.engine.engine.EngineFactory.created">
-<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.parallel.engine.engine.EngineFactory.display_hook_factory">
 <tt class="descname">display_hook_factory</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.display_hook_factory" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be a subclass of a specified class.</p>
@@ -224,6 +216,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dt id="IPython.parallel.engine.engine.EngineFactory.ident">
 <tt class="descname">ident</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.ident" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.engine.engine.EngineFactory.init_connector">
+<tt class="descname">init_connector</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.init_connector" title="Permalink to this definition">¶</a></dt>
+<dd><p>construct connection function, which handles tunnels.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -279,7 +277,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its 
 signature can be handler(), handler(name), handler(name, new)
@@ -308,6 +306,12 @@ then unintall it.</p>
 <dd><p>A trait whose value must be a subclass of a specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.engine.engine.EngineFactory.paramiko">
+<tt class="descname">paramiko</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.paramiko" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.engine.engine.EngineFactory.register">
 <tt class="descname">register</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.register" title="Permalink to this definition">¶</a></dt>
@@ -332,6 +336,18 @@ then unintall it.</p>
 <tt class="descname">session</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.session" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.engine.engine.EngineFactory.sshkey">
+<tt class="descname">sshkey</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.sshkey" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.engine.engine.EngineFactory.sshserver">
+<tt class="descname">sshserver</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.sshserver" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="method">
@@ -387,6 +403,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.engine.engine.EngineFactory.using_ssh">
+<tt class="descname">using_ssh</tt><a class="headerlink" href="#IPython.parallel.engine.engine.EngineFactory.using_ssh" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -422,8 +444,8 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

@@ -105,9 +105,6 @@ use OpenSSH or Paramiko, or the tunneling utilities are insufficient, then they 
 construct the tunnels themselves, and simply connect clients and engines as if the
 controller were on loopback on the connecting machine.
 
-.. note::
-
-    There is not currently tunneling available for engines.
 
 Authentication
 --------------
@@ -132,11 +129,10 @@ owner, just as is common practice with a user's keys in their `.ssh` directory.
 
 .. warning::
 
-    It is important to note that the key authentication, as emphasized by the use of
-    a uuid rather than generating a key with a cryptographic library, provides a 
-    defense against *accidental* messages more than it does against malicious attacks.
-    If loopback is compromised, it would be trivial for an attacker to intercept messages
-    and deduce the key, as there is no encryption.
+    It is important to note that the signatures protect against unauthorized messages,
+    but, as there is no encryption, provide exactly no protection of data privacy.  It is
+    possible, however, to use a custom serialization scheme (via Session.packer/unpacker
+    traits) that does incorporate your own encryption scheme.
 
 
 

@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>Starting the IPython controller and engines &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -75,7 +72,10 @@
 </li>
 <li><a class="reference internal" href="#using-the-ipcontroller-and-ipengine-commands">Using the <strong class="command">ipcontroller</strong> and <strong class="command">ipengine</strong> commands</a><ul>
 <li><a class="reference internal" href="#starting-the-controller-and-engine-on-your-local-machine">Starting the controller and engine on your local machine</a></li>
-<li><a class="reference internal" href="#starting-the-controller-and-engines-on-different-hosts">Starting the controller and engines on different hosts</a></li>
+<li><a class="reference internal" href="#starting-the-controller-and-engines-on-different-hosts">Starting the controller and engines on different hosts</a><ul>
+<li><a class="reference internal" href="#ssh-tunnels">SSH Tunnels</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#make-json-files-persistent">Make JSON files persistent</a></li>
 <li><a class="reference internal" href="#log-files">Log files</a></li>
 <li><a class="reference internal" href="#configuring-ipcontroller">Configuring <cite>ipcontroller</cite></a><ul>
@@ -217,7 +217,7 @@ and <strong class="command">ipengine</strong> to perform the steps described abo
 <p>The simplest way to use ipcluster requires no configuration, and will
 launch a controller and a number of engines on the local machine. For instance,
 to start one controller and 4 engines on localhost, just do:</p>
-<div class="highlight-python"><pre>$ ipcluster start --n=4</pre>
+<div class="highlight-python"><pre>$ ipcluster start -n 4</pre>
 </div>
 <p>To see other command line options, do:</p>
 <div class="highlight-python"><pre>$ ipcluster -h</pre>
@@ -268,7 +268,7 @@ have not yet supported (such as Condor)</p>
 </pre></div>
 </div>
 <p>If the default MPI configuration is correct, then you can now start your cluster, with:</p>
-<div class="highlight-python"><pre>$ ipcluster start --n=4 --profile=mpi</pre>
+<div class="highlight-python"><pre>$ ipcluster start -n 4 --profile=mpi</pre>
 </div>
 <p>This does the following:</p>
 <ol class="arabic simple">
@@ -390,7 +390,7 @@ connections on all its interfaces, by adding in <tt class="file docutils literal
 </pre></div>
 </div>
 <p>You can now run the cluster with:</p>
-<div class="highlight-python"><pre>$ ipcluster start --profile=pbs --n=128</pre>
+<div class="highlight-python"><pre>$ ipcluster start --profile=pbs -n 128</pre>
 </div>
 <p>Additional configuration options can be found in the PBS section of <tt class="file docutils literal"><span class="pre">ipcluster_config</span></tt>.</p>
 <div class="admonition note">
@@ -530,6 +530,40 @@ flag.</li>
 <p class="last">If the controller&#8217;s and engine&#8217;s hosts all have a shared file system
 (<tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> is the same on all of them), then things
 will just work!</p>
+</div>
+<div class="section" id="ssh-tunnels">
+<h4>SSH Tunnels<a class="headerlink" href="#ssh-tunnels" title="Permalink to this headline">¶</a></h4>
+<p>If your engines are not on the same LAN as the controller, or you are on a highly
+restricted network where your nodes cannot see each others ports, then you can
+use SSH tunnels to connect engines to the controller.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This does not work in all cases.  Manual tunnels may be an option, but are
+highly inconvenient. Support for manual tunnels will be improved.</p>
+</div>
+<p>You can instruct all engines to use ssh, by specifying the ssh server in
+<tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;url&quot;</span><span class="p">:</span><span class="s">&quot;tcp://192.168.1.123:56951&quot;</span><span class="p">,</span>
+  <span class="s">&quot;exec_key&quot;</span><span class="p">:</span><span class="s">&quot;26f4c040-587d-4a4e-b58b-030b96399584&quot;</span><span class="p">,</span>
+  <span class="s">&quot;ssh&quot;</span><span class="p">:</span><span class="s">&quot;user@example.com&quot;</span><span class="p">,</span>
+  <span class="s">&quot;location&quot;</span><span class="p">:</span><span class="s">&quot;192.168.1.123&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will be specified if you give the <tt class="docutils literal"><span class="pre">--enginessh=use&#64;example.com</span></tt> argument when
+starting <strong class="command">ipcontroller</strong>.</p>
+<p>Or you can specify an ssh server on the command-line when starting an engine:</p>
+<div class="highlight-python"><pre>$&gt; ipengine --profile=foo --ssh=my.login.node</pre>
+</div>
+<p>For example, if your system is totally restricted, then all connections will actually be
+loopback, and ssh tunnels will be used to connect engines to the controller:</p>
+<div class="highlight-python"><pre>[node1] $&gt; ipcontroller --enginessh=node1
+[node2] $&gt; ipengine
+[node3] $&gt; ipcluster engines --n=4</pre>
+</div>
+<p>Or if you want to start many engines on each node, the command <cite>ipcluster engines &#8211;n=4</cite>
+without any configuration is equivalent to running ipengine 4 times.</p>
 </div>
 </div>
 <div class="section" id="make-json-files-persistent">
@@ -741,8 +775,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>A Qt Console for IPython &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -74,7 +71,12 @@
 <li><a class="reference internal" href="#colors-and-highlighting">Colors and Highlighting</a></li>
 <li><a class="reference internal" href="#fonts">Fonts</a></li>
 <li><a class="reference internal" href="#process-management">Process Management</a><ul>
-<li><a class="reference internal" href="#multiple-consoles">Multiple Consoles</a></li>
+<li><a class="reference internal" href="#multiple-consoles">Multiple Consoles</a><ul>
+<li><a class="reference internal" href="#security">Security</a></li>
+<li><a class="reference internal" href="#ssh-tunnels">SSH Tunnels</a></li>
+<li><a class="reference internal" href="#manual-ssh-tunnels">Manual SSH tunnels</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stopping-kernels-and-consoles">Stopping Kernels and Consoles</a></li>
 </ul>
 </li>
@@ -134,10 +136,10 @@ is not yet configurable.</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">Since the Qt console tries hard to behave like a terminal, by default it
 immediately executes single lines of input that are complete.  If you want
-to force multiline input, hit <a href="#id1"><span class="problematic" id="id2">:key:`Ctrl-Enter`</span></a> at the end of the first line
-instead of <a href="#id3"><span class="problematic" id="id4">:key:`Enter`</span></a>, and it will open a new line for input.  At any
+to force multiline input, hit <tt class="kbd docutils literal"><span class="pre">Ctrl-Enter</span></tt> at the end of the first line
+instead of <tt class="kbd docutils literal"><span class="pre">Enter</span></tt>, and it will open a new line for input.  At any
 point in a multiline block, you can force its execution (without having to
-go to the bottom) with <a href="#id5"><span class="problematic" id="id6">:key:`Shift-Enter`</span></a>.</p>
+go to the bottom) with <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>.</p>
 </div>
 <div class="section" id="loadpy">
 <h2><tt class="docutils literal"><span class="pre">%loadpy</span></tt><a class="headerlink" href="#loadpy" title="Permalink to this headline">¶</a></h2>
@@ -286,7 +288,7 @@ blocking execution. The frontend can also know, via a heartbeat mechanism, that
 the kernel has died. This means that the frontend can safely restart the
 kernel.</p>
 <div class="section" id="multiple-consoles">
-<h3>Multiple Consoles<a class="headerlink" href="#multiple-consoles" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Multiple Consoles<a class="headerlink" href="#multiple-consoles" title="Permalink to this headline">¶</a></h3>
 <p>Since the Kernel listens on the network, multiple frontends can connect to it.
 These do not have to all be qt frontends - any IPython frontend can connect and
 run code.  When you start ipython qtconsole, there will be an output line,
@@ -295,10 +297,32 @@ like:</p>
 [IPKernelApp] --existing --shell=60690 --iopub=44045 --stdin=38323 --hb=41797</pre>
 </div>
 <p>Other frontends can connect to your kernel, and share in the execution. This is
-great for collaboration. The <cite>-e</cite> flag is for &#8216;external&#8217;. Starting other
+great for collaboration.  The <tt class="docutils literal"><span class="pre">--existing</span></tt> flag means connect to a kernel
+that already exists.  Starting other
 consoles with that flag will not try to start their own, but rather connect to
 yours. Ultimately, you will not have to specify each port individually, but for
 now this copy-paste method is best.</p>
+<p>You can even launch a standalone kernel, and connect and disconnect Qt Consoles
+from various machines.  This lets you keep the same running IPython session
+on your work machine (with matplotlib plots and everything), logging in from home,
+cafés, etc.:</p>
+<div class="highlight-python"><pre>$&gt; ipython kernel
+[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing --shell=60690 --iopub=44045 --stdin=38323 --hb=41797</pre>
+</div>
+<p>This is actually exactly the same as the subprocess launched by the qtconsole, so
+all the information about connecting to a standalone kernel is identical to that
+of connecting to the kernel attached to a running console.</p>
+<div class="section" id="security">
+<span id="kernel-security"></span><h4>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Since the ZMQ code currently has no security, listening on an
+external-facing IP is dangerous.  You are giving any computer that can see
+you on the network the ability to issue arbitrary shell commands as you on
+your machine. Read the rest of this section before listening on external ports
+or running an IPython kernel on a shared machine.</p>
+</div>
 <p>By default (for security reasons), the kernel only listens on localhost, so you
 can only connect multiple frontends to the kernel from your local machine. You
 can specify to listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">ip</span></tt>
@@ -306,13 +330,114 @@ argument:</p>
 <div class="highlight-python"><pre>$&gt; ipython qtconsole --ip=192.168.1.123</pre>
 </div>
 <p>If you specify the ip as 0.0.0.0, that refers to all interfaces, so any
-computer that can see yours can connect to the kernel.</p>
+computer that can see yours on the network can connect to the kernel.</p>
+<p>Messages are not encrypted, so users with access to the ports your kernel is using will be
+able to see any output of the kernel. They will also be able to issue shell commands as
+you, unless you enable HMAC digests, which are <strong>DISABLED</strong> by default.</p>
+<p>The one security feature IPython does provide is protection from unauthorized
+execution. IPython&#8217;s messaging system can sign messages with HMAC digests using
+a shared-key.  The key is never sent over the network, it is only used to generate
+a unique hash for each message, based on its content.  When IPython receives a
+message, it will check that the digest matches. You can use any file that only you
+have access to to generate this key.  One logical choice would be to use your own
+SSH private key. Or you can generate a new random private key with:</p>
+<div class="highlight-python"><pre># generate 1024b of random data, and store in a file only you can read:
+# (assumes IPYTHON_DIR is defined, otherwise use your IPython directory)
+$&gt; python -c "import os; print os.urandom(128).encode('base64')" &gt; $IPYTHON_DIR/sessionkey
+$&gt; chmod 600 $IPYTHON_DIR/sessionkey</pre>
+</div>
+<p>To enable HMAC digests, simply specify the <tt class="docutils literal"><span class="pre">Session.keyfile</span></tt> configurable
+in <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> or at the command-line, as in:</p>
+<div class="highlight-python"><pre># instruct IPython to sign messages with that key:
+$&gt; ipython qtconsole --Session.keyfile=$IPYTHON_DIR/sessionkey</pre>
+</div>
+<p>You must use the same key you used to start the kernel with all frontends, or
+they will be treated as an unauthorized peer (all messages will be ignored).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">IPython will move to using files to store connection information, as is
+done in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt>, at which point HMAC signatures will be
+enabled <em>by default</em>.</p>
+</div>
+</div>
+<div class="section" id="ssh-tunnels">
+<span id="id2"></span><h4>SSH Tunnels<a class="headerlink" href="#ssh-tunnels" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes you want to connect to machines across the internet, or just across
+a LAN that either doesn&#8217;t permit open ports or you don&#8217;t trust the other
+machines on the network.  To do this, you can use SSH tunnels.  SSH tunnels
+are a way to securely forward ports on your local machine to ports on another
+machine, to which you have SSH access.</p>
+<p>In simple cases, IPython&#8217;s tools can forward ports over ssh by simply adding the
+<tt class="docutils literal"><span class="pre">--ssh=remote</span></tt> argument to the usual <tt class="docutils literal"><span class="pre">--existing...</span></tt> set of flags for connecting
+to a running kernel.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Since the ZMQ code currently has no security, listening on an
-external-facing IP is dangerous.  You are giving any computer that can see
-you on the network the ability to issue arbitrary shell commands as you on
-your machine. Be very careful with this.</p>
+<p class="last">Using SSH tunnels does <em>not</em> increase localhost security.  In fact, when
+tunneling from one machine to another <em>both</em> machines have open
+ports on localhost available for connections.</p>
+</div>
+<p>There are two primary models for using SSH tunnels with IPython.  The first
+is to have the Kernel listen only on localhost, and connect to it from
+another machine on the same LAN.</p>
+<p>First, let&#8217;s start a kernel on machine <strong>worker</strong>, listening only
+on loopback:</p>
+<div class="highlight-python"><pre>user@worker $&gt; ipython kernel
+[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+</div>
+<p>In this case, the IP that you would connect
+to would still be 127.0.0.1, but you want to specify the additional <tt class="docutils literal"><span class="pre">--ssh</span></tt> argument
+with the hostname of the kernel (in this example, it&#8217;s &#8216;worker&#8217;):</p>
+<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole  --ssh=worker --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+</div>
+<p>Note again that this opens ports on the <em>client</em> machine that point to your kernel.
+Be sure to use a Session key, as described above, if localhost on <em>either</em> the
+client or kernel machines is untrusted.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the ssh argument is simply passed to openssh, so it can be fully specified <tt class="docutils literal"><span class="pre">user&#64;host:port</span></tt>
+but it will also respect your aliases, etc. in <tt class="file docutils literal"><span class="pre">.ssh/config</span></tt> if you have any.</p>
+</div>
+<p>The second pattern is for connecting to a machine behind a firewall across the internet
+(or otherwise wide network). This time, we have a machine <strong>login</strong> that you have ssh access
+to, which can see <strong>kernel</strong>, but <strong>client</strong> is on another network. The important difference
+now is that <strong>client</strong> can see <strong>login</strong>, but <em>not</em> <strong>worker</strong>. So we need to forward ports from
+client to worker <em>via</em> login. This means that the kernel must be started listening
+on external interfaces, so that its ports are visible to <cite>login</cite>:</p>
+<div class="highlight-python"><pre>user@worker $&gt; ipython kernel --ip=0.0.0.0
+[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+</div>
+<p>Which we can connect to from the client with:</p>
+<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole --ssh=login --ip=192.168.1.123 --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+</div>
+<p>Note that now the IP is the address of worker as seen from login.</p>
+</div>
+<div class="section" id="manual-ssh-tunnels">
+<h4>Manual SSH tunnels<a class="headerlink" href="#manual-ssh-tunnels" title="Permalink to this headline">¶</a></h4>
+<p>It&#8217;s possible that IPython&#8217;s ssh helper functions won&#8217;t work for you, for various
+reasons.  You can still connect to remote machines, as long as you set up the tunnels
+yourself.  The basic format of forwarding a local port to a remote one is:</p>
+<div class="highlight-python"><pre>[client] $&gt; ssh &lt;server&gt; &lt;localport&gt;:&lt;remoteip&gt;:&lt;remoteport&gt; -f -N</pre>
+</div>
+<p>This will forward local connections to <strong>localport</strong> on client to <strong>remoteip:remoteport</strong>
+<em>via</em> <strong>server</strong>. Note that remoteip is interpreted relative to <em>server</em>, not the client.
+So if you have direct ssh access to the machine to which you want to forward connections,
+then the server <em>is</em> the remote machine, and remoteip should be server&#8217;s IP as seen from the
+server itself, i.e. 127.0.0.1.  Thus, to forward local port 12345 to remote port 54321 on
+a machine you can see, do:</p>
+<div class="highlight-python"><pre>[client] $&gt; ssh machine 12345:127.0.0.1:54321 -f -N</pre>
+</div>
+<p>But if your target is actually on a LAN at 192.168.1.123, behind another machine called <strong>login</strong>,
+then you would do:</p>
+<div class="highlight-python"><pre>[client] $&gt; ssh login 12345:192.168.1.16:54321 -f -N</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">-f</span> <span class="pre">-N</span></tt> on the end are flags that tell ssh to run in the background,
+and don&#8217;t actually run any commands beyond creating the tunnel.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">A short discussion of ssh tunnels: <a class="reference external" href="http://www.revsys.com/writings/quicktips/ssh-tunnel.html">http://www.revsys.com/writings/quicktips/ssh-tunnel.html</a></p>
+</div>
 </div>
 </div>
 <div class="section" id="stopping-kernels-and-consoles">
@@ -443,8 +568,8 @@ not support this, but it is being tracked as issue <a class="reference external"
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

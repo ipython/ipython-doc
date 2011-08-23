@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview of the IPython configuration system &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>Overview of the IPython configuration system &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
     <link rel="next" title="IPython extensions" href="extensions.html" />
     <link rel="prev" title="Configuration and customization" href="index.html" /> 
@@ -71,8 +68,11 @@
 <li><a class="reference internal" href="#configuration-file-location">Configuration file location</a></li>
 <li><a class="reference internal" href="#profiles">Profiles</a></li>
 <li><a class="reference internal" href="#command-line-arguments">Command-line arguments</a><ul>
+<li><a class="reference internal" href="#common-arguments">Common Arguments</a><ul>
 <li><a class="reference internal" href="#aliases">Aliases</a></li>
 <li><a class="reference internal" href="#flags">Flags</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#subcommands">Subcommands</a></li>
 </ul>
 </li>
@@ -449,20 +449,32 @@ object.  Values are assigned in much the same way as in a config file:</p>
 </div>
 <p>to your config file. Key/Value arguments <em>always</em> take a value, separated by &#8216;=&#8217;
 and no spaces.</p>
+<div class="section" id="common-arguments">
+<h3>Common Arguments<a class="headerlink" href="#common-arguments" title="Permalink to this headline">¶</a></h3>
+<p>Since the strictness and verbosity of the KVLoader above are not ideal for everyday
+use, common arguments can be specified as <a class="reference internal" href="#flags">flags</a> or <a class="reference internal" href="#aliases">aliases</a>.</p>
+<p>Flags and Aliases are handled by <tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt> instead, allowing for more flexible
+parsing. In general, flags and aliases are prefixed by <tt class="docutils literal"><span class="pre">--</span></tt>, except for those
+that are single characters, in which case they can be specified with a single <tt class="docutils literal"><span class="pre">-</span></tt>, e.g.:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython -i -c <span class="s2">&quot;import numpy; x=numpy.linspace(0,1)&quot;</span> --profile testing --colors<span class="o">=</span>lightbg
+</pre></div>
+</div>
 <div class="section" id="aliases">
-<h3>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h3>
-<p>For convenience, applications have a mapping of commonly
-used traits, so you don&#8217;t have to specify the whole class name. For these <strong>aliases</strong>, the class need not be specified:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython --profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
-<span class="c"># is equivalent to</span>
+<h4>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h4>
+<p>For convenience, applications have a mapping of commonly used traits, so you don&#8217;t have
+to specify the whole class name:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython --profile myprofile
+<span class="c"># and</span>
+<span class="nv">$&gt;</span> ipython --profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
+<span class="c"># are equivalent to</span>
 <span class="nv">$&gt;</span> ipython --BaseIPythonApplication.profile<span class="o">=</span><span class="s1">&#39;myprofile&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="flags">
-<h3>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h3>
+<h4>Flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h4>
 <p>Applications can also be passed <strong>flags</strong>. Flags are options that take no
-arguments, and are always prefixed with <tt class="docutils literal"><span class="pre">--</span></tt>. They are simply wrappers for
+arguments. They are simply wrappers for
 setting one or more configurables with predefined values, often True/False.</p>
 <p>For instance:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcontroller --debug
@@ -472,7 +484,12 @@ setting one or more configurables with predefined values, often True/False.</p>
 <span class="nv">$&gt;</span> ipython --pylab
 <span class="c"># is equivalent to</span>
 <span class="nv">$&gt;</span> ipython --pylab<span class="o">=</span>auto
+<span class="c"># or</span>
+<span class="nv">$&gt;</span> ipython --no-banner
+<span class="c"># is equivalent to</span>
+<span class="nv">$&gt;</span> ipython --TerminalIPythonApp.display_banner<span class="o">=</span>False
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="subcommands">
@@ -554,8 +571,8 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

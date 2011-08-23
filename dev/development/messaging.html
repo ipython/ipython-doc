@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>Messaging in IPython &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
     <link rel="prev" title="IPython module organization" href="reorg.html" /> 
@@ -148,8 +145,7 @@ keep it updated as the implementation evolves, so that we have a single
 common reference for all protocol details.</p>
 </div>
 <p>The basic design is explained in the following diagram:</p>
-<a class="reference external image-reference" href="../_images/frontend-kernel.png"><div align="center" class="align-center"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></div>
-</a>
+<a class="reference external image-reference" href="../_images/frontend-kernel.png"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></a>
 <p>A single kernel can be simultaneously connected to one or more frontends.  The
 kernel has three sockets that serve the following functions:</p>
 <ol class="arabic">
@@ -211,30 +207,29 @@ for sending.</p>
 <h2>General Message Format<a class="headerlink" href="#general-message-format" title="Permalink to this headline">¶</a></h2>
 <p>All messages send or received by any IPython process should have the following
 generic structure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="c"># The message header contains a pair of unique identifiers for the</span>
-  <span class="c"># originating session and the actual message id, in addition to the</span>
-  <span class="c"># username for the process that generated the message.  This is useful in</span>
-  <span class="c"># collaborative settings where multiple users may be interacting with the</span>
-  <span class="c"># same kernel simultaneously, so that frontends can label the various</span>
-  <span class="c"># messages in a meaningful way.</span>
-  <span class="s">&#39;header&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="s">&#39;msg_id&#39;</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
-               <span class="s">&#39;username&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-       <span class="s">&#39;session&#39;</span> <span class="p">:</span> <span class="n">uuid</span>
-     <span class="p">},</span>
+<div class="highlight-python"><pre>{
+  # The message header contains a pair of unique identifiers for the
+  # originating session and the actual message id, in addition to the
+  # username for the process that generated the message.  This is useful in
+  # collaborative settings where multiple users may be interacting with the
+  # same kernel simultaneously, so that frontends can label the various
+  # messages in a meaningful way.
+  'header' : {
+                'msg_id' : uuid,
+                'username' : str,
+                'session' : uuid
+                # All recognized message type strings are listed below.
+                'msg_type' : str,
+     },
 
-  <span class="c"># In a chain of messages, the header from the parent is copied so that</span>
-  <span class="c"># clients can track where messages come from.</span>
-  <span class="s">&#39;parent_header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+  # In a chain of messages, the header from the parent is copied so that
+  # clients can track where messages come from.
+  'parent_header' : dict,
 
-  <span class="c"># All recognized message type strings are listed below.</span>
-  <span class="s">&#39;msg_type&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-
-  <span class="c"># The actual content of the message must be a dict, whose structure</span>
-  <span class="c"># depends on the message type.x</span>
-  <span class="s">&#39;content&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
+  # The actual content of the message must be a dict, whose structure
+  # depends on the message type.x
+  'content' : dict,
+}</pre>
 </div>
 <p>For each message type, the actual content will differ and all existing message
 types are specified in what follows of this document.</p>
@@ -424,7 +419,7 @@ be done in the prompts.  The value of this counter will be returned as the
   <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition-execution-payloads admonition ">
+<div class="admonition-execution-payloads admonition">
 <p class="first admonition-title">Execution payloads</p>
 <p>The notion of an &#8216;execution payload&#8217; is different from a return value of a
 given set of code, which normally is just displayed on the pyout stream
@@ -835,7 +830,7 @@ we could put that information into the metadata secion.</li>
 <tt class="docutils literal"><span class="pre">1+1</span></tt>) is passed to <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt>, which is a callable that can do with
 this value whatever it wants.  The default behavior of <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> in
 the Python interactive prompt is to print to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt> the <tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt> of
-the value as long as it is not <tt class="docutils literal"><span class="pre">None</span></tt> (which isn&#8217;t printed at all).  In our
+the value as long as it is not <tt class="xref docutils literal"><span class="pre">None</span></tt> (which isn&#8217;t printed at all).  In our
 case, the kernel instantiates as <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> an object which has
 similar behavior, but which instead of printing to stdout, broadcasts these
 values as <tt class="docutils literal"><span class="pre">pyout</span></tt> messages for clients to display appropriately.</p>
@@ -1019,8 +1014,8 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 31, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
