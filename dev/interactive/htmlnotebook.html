@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>An HTML Notebook IPython &mdash; IPython v0.12.dev documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.12.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="up" title="Using IPython for interactive work" href="index.html" />
+    <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
+    <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../parallel/index.html" title="Using IPython for parallel computing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="qtconsole.html" title="A Qt Console for IPython"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Using IPython for interactive work</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">An HTML Notebook IPython</a><ul>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
+<li><a class="reference internal" href="#creating-and-editing-notebooks">Creating and editing notebooks</a></li>
+<li><a class="reference internal" href="#workflow-and-limitations">Workflow and limitations</a></li>
+<li><a class="reference internal" href="#text-input">Text input</a></li>
+<li><a class="reference internal" href="#exporting-a-notebook">Exporting a notebook</a></li>
+<li><a class="reference internal" href="#keyboard-use">Keyboard use</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#notebook-document-format">Notebook document format</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="qtconsole.html"
+                        title="previous chapter">A Qt Console for IPython</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../parallel/index.html"
+                        title="next chapter">Using IPython for parallel computing</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/interactive/htmlnotebook.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="an-html-notebook-ipython">
+<span id="htmlnotebook"></span><h1>An HTML Notebook IPython<a class="headerlink" href="#an-html-notebook-ipython" title="Permalink to this headline">¶</a></h1>
+<p>The IPython Notebook consists of two related components:</p>
+<ul class="simple">
+<li>An XML/JSON based Notebook document format for recording and distributing
+Python code and rich text.</li>
+<li>A web-based user interface for authoring and running notebook documents.</li>
+</ul>
+<p>The Notebook can be used by starting the Notebook server with the
+command:</p>
+<div class="highlight-python"><pre>$ ipython notebook</pre>
+</div>
+<p>Note that by default, the notebook doesn&#8217;t load pylab, it&#8217;s just a normal
+IPython session like any other.  If you want pylab support, you must use:</p>
+<div class="highlight-python"><pre>$ ipython notebook --pylab</pre>
+</div>
+<p>which will behave similar to the terminal and Qt console versions, using your
+default matplotlib backend and providing floating interactive plot windows.  If
+you want inline figures, you must manually select the <tt class="docutils literal"><span class="pre">inline</span></tt> backend:</p>
+<div class="highlight-python"><pre>$ ipython notebook --pylab inline</pre>
+</div>
+<p>This server uses the same ZeroMQ-based two process kernel architecture as
+the QT Console as well Tornado for serving HTTP requests. Some of the main
+features of the Notebook include:</p>
+<ul class="simple">
+<li>Display rich data (png/html/latex/svg) in the browser as a result of
+computations.</li>
+<li>Compose text cells using HTML and Markdown.</li>
+<li>Import and export notebook documents in range of formats (.ipynb, .json, .py).</li>
+<li>In browser syntax highlighting, tab completion and autoindentation.</li>
+<li>Inline matplotlib plots that can be stored in Notebook documents and opened
+later.</li>
+</ul>
+<p>See <a class="reference internal" href="../install/index.html#install-index"><em>our installation documentation</em></a> for directions on
+how to install the notebook and its dependencies.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can start more than one notebook server at the same time, if you want to
+work on notebooks in different directories.  By default the first notebook
+server starts in port 8888, later notebooks search for random ports near
+that one.  You can also manually specify the port with the <tt class="docutils literal"><span class="pre">--port</span></tt>
+option, if you want persistent URLs you can bookmark.</p>
+</div>
+<div class="section" id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>The landing page of the notebook server application, which we call the IPython
+Notebook <em>dashboard</em>, shows the notebooks currently available in the directory
+in which the application was started, and allows you to create new notebooks.</p>
+<p>A notebook is a combination of two things:</p>
+<p>1. an interactive session connected to an IPython kernel, controlled by a web
+application that can send input to the console and display many types of output
+(text, graphics, mathematics and more).  This is the same kernel used by the
+<a class="reference internal" href="qtconsole.html#qtconsole"><em>Qt console</em></a>, but in this case the web console sends input in
+persistent cells that you can edit in-place instead of the vertically scrolling
+terminal style used by the Qt console.</p>
+<p>2. a document that can save the inputs and outputs of the session as well as
+additional text that accompanies the code but is not meant for execution.  In
+this way, notebook files serve as a complete computational record of a session
+including explanatory text and mathematics, code and resulting figures.  These
+documents are internally JSON files and are saved with the <tt class="docutils literal"><span class="pre">.ipynb</span></tt>
+extension.</p>
+<p>If you have ever used the Mathematica or Sage notebooks (the latter is also
+<a class="reference external" href="http://sagenb.org">web-based</a>) you should feel right at home.  If you have not, you should be
+able to learn how to use it in just a few minutes.</p>
+<div class="section" id="creating-and-editing-notebooks">
+<h3>Creating and editing notebooks<a class="headerlink" href="#creating-and-editing-notebooks" title="Permalink to this headline">¶</a></h3>
+<p>You can create new notebooks from the dashboard with the <tt class="docutils literal"><span class="pre">New</span> <span class="pre">Notebook</span></tt>
+button or open existing ones by clicking on their name.  Once in a notebook,
+your browser tab will reflect the name of that notebook (prefixed with &#8220;IPy:&#8221;).
+The URL for that notebook is not meant to be human-readable, but it is
+persistent across invocations of the notebook server <em>as long as you don&#8217;t
+rename the notebook</em>, so you can bookmark them for future use.</p>
+<p>You can also drag and dropp into the area listing files any python file: it
+will be imported into a notebook with the same name (but <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension)
+located in the directory where the notebook server was started.  This notebook
+will consist of a single cell with all the code in the file, which you can
+later manually partition into individual cells for gradual execution, add text
+and graphics, etc.</p>
+</div>
+<div class="section" id="workflow-and-limitations">
+<h3>Workflow and limitations<a class="headerlink" href="#workflow-and-limitations" title="Permalink to this headline">¶</a></h3>
+<p>The normal workflow in a notebook is quite similar to a normal IPython session,
+with the difference that you can edit a cell in-place multiple times until you
+obtain the desired results rather than having to rerun separate scripts with
+the <tt class="docutils literal"><span class="pre">%run</span></tt> magic (though magics also work in the notebook).   Typically
+you&#8217;ll work on a problem in pieces, organizing related pieces into cells and
+moving forward as previous parts work correctly.  This is much more convenient
+for interactive exploration than breaking up a computation into scripts that
+must be executed together, especially if parts of them take a long time to run
+(you can use tricks with namespaces and <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-i</span></tt>, but we think the notebook
+is a more natural solution for  that kind of problem).</p>
+<p>The only significant limitation the notebook currently has, compared to the qt
+console, is that it can not run any code that expects input from the kernel
+(such as scripts that call <tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt>).  Very importantly, this means
+that the <tt class="docutils literal"><span class="pre">%debug</span></tt> magic does <em>not</em> work in the notebook!  We intend to
+correct this limitation, but in the meantime, there is a way to debug problems
+in the notebook: you can attach a Qt console to your existing notebook kernel,
+and run <tt class="docutils literal"><span class="pre">%debug</span></tt> from the Qt console.  Simply look for the lines in the
+terminal where you started the kernel that read something like:</p>
+<div class="highlight-python"><pre>[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing --shell=53328 --iopub=53817 --stdin=34736 --hb=45543</pre>
+</div>
+<p>and then start a qt console pointing to that kernel:</p>
+<div class="highlight-python"><pre>ipython qtconsole --existing --shell=53328 --iopub=53817 --stdin=34736 --hb=45543</pre>
+</div>
+</div>
+<div class="section" id="text-input">
+<h3>Text input<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h3>
+<p>In addition to code cells and the output they procude (such as figures), you
+can also type text not meant for execution.  To type text, change the type of a
+cell from <tt class="docutils literal"><span class="pre">Code</span></tt> to <tt class="docutils literal"><span class="pre">Markdown</span></tt> by using the button or the <tt class="kbd docutils literal"><span class="pre">C-m</span> <span class="pre">m</span></tt>
+keybinding (see below).  You can then type any text in <a href="#id2"><span class="problematic" id="id3">Markdown_</span></a> syntax, as
+well as mathematical expressions if you use <tt class="docutils literal"><span class="pre">$...$</span></tt> for inline math or
+<tt class="docutils literal"><span class="pre">$$...$$</span></tt> for displayed math.</p>
+</div>
+<div class="section" id="exporting-a-notebook">
+<h3>Exporting a notebook<a class="headerlink" href="#exporting-a-notebook" title="Permalink to this headline">¶</a></h3>
+<p>If you want to provide others with a static HTML or PDF view of your notebook,
+use the <tt class="docutils literal"><span class="pre">Print</span></tt> button.  This opens a static view of the document, which you
+can print to PDF using your operating system&#8217;s facilities, or save to a file
+with your web browser&#8217;s &#8216;Save&#8217; option (note that typically, this will create
+both an html file <em>and</em> a directory called <cite>notebook_name_files</cite> next to it
+that contains all the necessary style information, so if you intend to share
+this, you must send the directory along with the main html file).</p>
+<p>The <cite>Download</cite> button lets you save a notebook file to the Download area
+configured by your web browser (particularly useful if you are running the
+notebook server on a remote host and need a file locally).  The notebook is
+saved by default with the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension and the files contain JSON data
+that is not meant for human editing or consumption.  But you can always export
+the input part of a notebook to a plain python script by choosing Python format
+in the <cite>Download</cite> drop list.  This removes all output and saves the text cells
+in comment areas.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">While in simple cases you can roundtrip a notebook to Python, edit the
+python file and import it back without loss, this is in general <em>not
+guaranteed to work at all</em>.  As the notebook format evolves in complexity,
+there will be attributes of the notebook that will not survive a roundtrip
+through the Python form.  You should think of the Python format as a way to
+output a script version of a notebook and the import capabilities as a way
+to load existing code to get a notebook started.  But the Python version is
+<em>not</em> an alternate Python format.</p>
+</div>
+</div>
+<div class="section" id="keyboard-use">
+<h3>Keyboard use<a class="headerlink" href="#keyboard-use" title="Permalink to this headline">¶</a></h3>
+<p>All actions in the notebook can be achieved with the mouse, but we have also
+added keyboard shortcuts for the most common ones, so that productive use of
+the notebook can be achieved with minimal mouse intervention.  The main
+key bindings you need to remember are:</p>
+<ul class="simple">
+<li><tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>: execute the current cell (similar to the Qt console),
+show output (if any) and create a new cell below.  Note that in the notebook,
+simply using <tt class="kbd docutils literal"><span class="pre">Enter</span></tt> <em>never</em> forces execution, it simply inserts a new
+line in the current cell.  Therefore, in the notebook you must always use
+<tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> to get execution (or use the mouse and click on the <tt class="docutils literal"><span class="pre">Run</span>
+<span class="pre">Selected</span></tt> button).</li>
+<li><tt class="kbd docutils literal"><span class="pre">Control-Enter</span></tt>: execute the current cell in &#8220;terminal mode&#8221;, where any
+output is shown but the cursor cursor stays in the current cell, whose input
+area is flushed empty.  This is convenient to do quick in-place experiments
+or query things like filesystem content without creating additional cells you
+may not want saved in your notebook.</li>
+<li><tt class="kbd docutils literal"><span class="pre">Control-m</span></tt>: this is the prefix for all other keybindings, which consist
+of an additional single letter.  Type <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">h</span></tt> (that is, the sole
+letter <tt class="kbd docutils literal"><span class="pre">h</span></tt> after <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span></tt>) and IPython will show you the remaining
+available keybindings.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="notebook-document-format">
+<h2>Notebook document format<a class="headerlink" href="#notebook-document-format" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../parallel/index.html" title="Using IPython for parallel computing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="qtconsole.html" title="A Qt Console for IPython"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Using IPython for interactive work</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Aug 23, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

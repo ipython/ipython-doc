@@ -67,6 +67,7 @@
 <li><a class="reference internal" href="#displayformatter"><tt class="docutils literal"><span class="pre">DisplayFormatter</span></tt></a></li>
 <li><a class="reference internal" href="#formatterabc"><tt class="docutils literal"><span class="pre">FormatterABC</span></tt></a></li>
 <li><a class="reference internal" href="#htmlformatter"><tt class="docutils literal"><span class="pre">HTMLFormatter</span></tt></a></li>
+<li><a class="reference internal" href="#jpegformatter"><tt class="docutils literal"><span class="pre">JPEGFormatter</span></tt></a></li>
 <li><a class="reference internal" href="#jsonformatter"><tt class="docutils literal"><span class="pre">JSONFormatter</span></tt></a></li>
 <li><a class="reference internal" href="#javascriptformatter"><tt class="docutils literal"><span class="pre">JavascriptFormatter</span></tt></a></li>
 <li><a class="reference internal" href="#latexformatter"><tt class="docutils literal"><span class="pre">LatexFormatter</span></tt></a></li>
@@ -494,8 +495,10 @@ None if a metadata key doesn&#8217;t exist.</p>
 <li>text/html</li>
 <li>text/latex</li>
 <li>application/json</li>
+<li>application/javascript</li>
 <li>image/png</li>
-<li>immage/svg+xml</li>
+<li>image/jpeg</li>
+<li>image/svg+xml</li>
 </ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -884,6 +887,260 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="attribute">
 <dt id="IPython.core.formatters.HTMLFormatter.type_printers">
 <tt class="descname">type_printers</tt><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.type_printers" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="jpegformatter">
+<h3><a class="reference internal" href="#IPython.core.formatters.JPEGFormatter" title="IPython.core.formatters.JPEGFormatter"><tt class="xref py py-class docutils literal"><span class="pre">JPEGFormatter</span></tt></a><a class="headerlink" href="#jpegformatter" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.formatters.JPEGFormatter">
+<em class="property">class </em><tt class="descclassname">IPython.core.formatters.</tt><tt class="descname">JPEGFormatter</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.formatters.BaseFormatter" title="IPython.core.formatters.BaseFormatter"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.formatters.BaseFormatter</span></tt></a></p>
+<p>A JPEG formatter.</p>
+<p>To define the callables that compute the JPEG representation of your
+objects, define a <tt class="xref py py-meth docutils literal"><span class="pre">_repr_jpeg_()</span></tt> method or use the <a class="reference internal" href="#IPython.core.formatters.JPEGFormatter.for_type" title="IPython.core.formatters.JPEGFormatter.for_type"><tt class="xref py py-meth docutils literal"><span class="pre">for_type()</span></tt></a>
+or <a class="reference internal" href="#IPython.core.formatters.JPEGFormatter.for_type_by_name" title="IPython.core.formatters.JPEGFormatter.for_type_by_name"><tt class="xref py py-meth docutils literal"><span class="pre">for_type_by_name()</span></tt></a> methods to register functions that handle
+this.</p>
+<p>The return value of this formatter should be raw JPEG data, <em>not</em>
+base64 encoded.</p>
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a configurable given a config config.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<blockquote class="last">
+<div><p>If this is empty, default values are used. If config is a 
+<tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
+instance.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Subclasses of Configurable must call the <a class="reference internal" href="#IPython.core.formatters.JPEGFormatter.__init__" title="IPython.core.formatters.JPEGFormatter.__init__"><tt class="xref py py-meth docutils literal"><span class="pre">__init__()</span></tt></a> method of
+<tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> <em>before</em> doing anything else and using 
+<tt class="xref py py-func docutils literal"><span class="pre">super()</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyConfigurable</span><span class="p">(</span><span class="n">Configurable</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyConfigurable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="c"># Then any other code you need to finish initialization.</span>
+</pre></div>
+</div>
+<p>This ensures that instances will be configured properly.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.formatters.JPEGFormatter.trait_names" title="IPython.core.formatters.JPEGFormatter.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.formatters.JPEGFormatter.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.formatters.JPEGFormatter.traits" title="IPython.core.formatters.JPEGFormatter.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.deferred_printers">
+<tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.enabled">
+<tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.for_type">
+<tt class="descname">for_type</tt><big>(</big><em>typ</em>, <em>func</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.for_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a format function for a given type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<blockquote>
+<div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
+</div></blockquote>
+<p><strong>func</strong> : callable</p>
+<blockquote class="last">
+<div><p>The callable that will be called to compute the format data. The
+call signature of this function is simple, it must take the
+object to be formatted and return the raw data for the given
+format. Subclasses may use a different call signature for the
+<cite>func</cite> argument.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.for_type_by_name">
+<tt class="descname">for_type_by_name</tt><big>(</big><em>type_module</em>, <em>type_name</em>, <em>func</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.for_type_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a format function for a type specified by the full dotted
+module and name of the type, rather than the type of the object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<blockquote>
+<div><p>The full dotted name of the module the type is defined in, like
+<tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
+</div></blockquote>
+<p><strong>type_name</strong> : str</p>
+<blockquote>
+<div><p>The name of the type (the class name), like <tt class="docutils literal"><span class="pre">dtype</span></tt></p>
+</div></blockquote>
+<p><strong>func</strong> : callable</p>
+<blockquote class="last">
+<div><p>The callable that will be called to compute the format data. The
+call signature of this function is simple, it must take the
+object to be formatted and return the raw data for the given
+format. Subclasses may use a different call signature for the
+<cite>func</cite> argument.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.format_type">
+<tt class="descname">format_type</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.format_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.print_method">
+<tt class="descname">print_method</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.print_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string holding a valid object name in this version of Python.</p>
+<p>This does not check that the name exists in any scope.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.singleton_printers">
+<tt class="descname">singleton_printers</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.singleton_printers" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.type_printers">
+<tt class="descname">type_printers</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.type_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
@@ -2478,8 +2735,10 @@ None if a metadata key doesn&#8217;t exist.</p>
 <li>text/html</li>
 <li>text/latex</li>
 <li>application/json</li>
+<li>application/javascript</li>
 <li>image/png</li>
-<li>immage/svg+xml</li>
+<li>image/jpeg</li>
+<li>image/svg+xml</li>
 </ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
