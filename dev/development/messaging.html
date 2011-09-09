@@ -64,7 +64,7 @@
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#python-functional-api">Python functional API</a></li>
 <li><a class="reference internal" href="#general-message-format">General Message Format</a></li>
-<li><a class="reference internal" href="#messages-on-the-xrep-xreq-socket">Messages on the XREP/XREQ socket</a><ul>
+<li><a class="reference internal" href="#messages-on-the-router-dealer-socket">Messages on the ROUTER/DEALER socket</a><ul>
 <li><a class="reference internal" href="#execute">Execute</a><ul>
 <li><a class="reference internal" href="#execution-semantics">Execution semantics</a></li>
 <li><a class="reference internal" href="#execution-counter-old-prompt-number">Execution counter (old prompt number)</a></li>
@@ -145,7 +145,8 @@ keep it updated as the implementation evolves, so that we have a single
 common reference for all protocol details.</p>
 </div>
 <p>The basic design is explained in the following diagram:</p>
-<a class="reference external image-reference" href="../_images/frontend-kernel.png"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></a>
+<a class="reference external image-reference" href="../_images/frontend-kernel.png"><div align="center" class="align-center"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></div>
+</a>
 <p>A single kernel can be simultaneously connected to one or more frontends.  The
 kernel has three sockets that serve the following functions:</p>
 <ol class="arabic">
@@ -158,7 +159,7 @@ frontends may display such kernel requests using a special input widget or
 otherwise indicating that the user is to type input for the kernel instead
 of normal commands in the frontend.</p>
 </li>
-<li><p class="first">XREP: this single sockets allows multiple incoming connections from
+<li><p class="first">ROUTER: this single sockets allows multiple incoming connections from
 frontends, and this is the socket where requests for code execution, object
 information, prompts, etc. are made to the kernel by any frontend.  The
 communication on this socket is a sequence of request/reply actions from
@@ -166,13 +167,13 @@ each frontend and the kernel.</p>
 </li>
 <li><p class="first">PUB: this socket is the &#8216;broadcast channel&#8217; where the kernel publishes all
 side effects (stdout, stderr, etc.) as well as the requests coming from any
-client over the XREP socket and its own requests on the REP socket.  There
+client over the ROUTER socket and its own requests on the REP socket.  There
 are a number of actions in Python which generate side effects: <tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt>
 writes to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt>, errors generate tracebacks, etc.  Additionally, in
 a multi-client scenario, we want all frontends to be able to know what each
 other has sent to the kernel (this can be useful in collaborative scenarios,
 for example).  This socket allows both side effects and the information
-about communications taking place with one client over the XREQ/XREP channel
+about communications taking place with one client over the ROUTER/DEALER channel
 to be made available to all clients in a uniform manner.</p>
 <p>All messages are tagged with enough information (details below) for clients
 to know which messages come from their own interaction with the kernel and
@@ -221,6 +222,10 @@ generic structure:</p>
                 # All recognized message type strings are listed below.
                 'msg_type' : str,
      },
+  # The msg's unique identifier and type are stored in the header, but
+  # are also accessible at the top-level for convenience.
+  'msg_id' : uuid,
+  'msg_type' : str,
 
   # In a chain of messages, the header from the parent is copied so that
   # clients can track where messages come from.
@@ -234,8 +239,8 @@ generic structure:</p>
 <p>For each message type, the actual content will differ and all existing message
 types are specified in what follows of this document.</p>
 </div>
-<div class="section" id="messages-on-the-xrep-xreq-socket">
-<h2>Messages on the XREP/XREQ socket<a class="headerlink" href="#messages-on-the-xrep-xreq-socket" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="messages-on-the-router-dealer-socket">
+<h2>Messages on the ROUTER/DEALER socket<a class="headerlink" href="#messages-on-the-router-dealer-socket" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="execute">
 <span id="id1"></span><h3>Execute<a class="headerlink" href="#execute" title="Permalink to this headline">¶</a></h3>
 <p>This message type is used by frontends to ask the kernel to execute code on
@@ -419,7 +424,7 @@ be done in the prompts.  The value of this counter will be returned as the
   <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition-execution-payloads admonition">
+<div class="admonition-execution-payloads admonition ">
 <p class="first admonition-title">Execution payloads</p>
 <p>The notion of an &#8216;execution payload&#8217; is different from a return value of a
 given set of code, which normally is just displayed on the pyout stream
@@ -707,7 +712,7 @@ request it from the kernel when needed.</p>
 <p>When a client connects to the request/reply socket of the kernel, it can issue
 a connect request to get basic information about the kernel, such as the ports
 the other ZeroMQ sockets are listening on. This allows clients to only have
-to know about a single port (the XREQ/XREP channel) to connect to a kernel.</p>
+to know about a single port (the DEALER/ROUTER channel) to connect to a kernel.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">connect_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="p">}</span>
@@ -715,7 +720,7 @@ to know about a single port (the XREQ/XREP channel) to connect to a kernel.</p>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">connect_reply</span></tt>:</p>
 <div class="highlight-python"><pre>content = {
-    'xrep_port' : int  # The port the XREP socket is listening on.
+    'xrep_port' : int  # The port the ROUTER socket is listening on.
     'pub_port' : int   # The port the PUB socket is listening on.
     'req_port' : int   # The port the REQ socket is listening on.
     'hb_port' : int    # The port the heartbeat socket is listening on.
@@ -954,7 +959,7 @@ the python heartbeat code.  But it turns out that we can implement a basic
 heartbeat with pure ZMQ, without using any Python messaging at all.</p>
 <p>The monitor sends out a single zmq message (right now, it is a str of the
 monitor&#8217;s lifetime in seconds), and gets the same message right back, prefixed
-with the zmq identity of the XREQ socket in the heartbeat process. This can be
+with the zmq identity of the DEALER socket in the heartbeat process. This can be
 a uuid, or even a full message, but there doesn&#8217;t seem to be a need for packing
 up a message when the sender and receiver are the exact same Python object.</p>
 <p>The model is this:</p>
@@ -965,7 +970,7 @@ up a message when the sender and receiver are the exact same Python object.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="s">&#39;uuid-abcd-dead-beef&#39;</span><span class="p">,</span> <span class="s">&#39;1.2345678910&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>where the first part is the zmq.IDENTITY of the heart&#8217;s XREQ on the engine, and
+<p>where the first part is the zmq.IDENTITY of the heart&#8217;s DEALER on the engine, and
 the rest is the message sent by the monitor.  No Python code ever has any
 access to the message between the monitor&#8217;s send, and the monitor&#8217;s recv.</p>
 </div>
@@ -1014,7 +1019,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

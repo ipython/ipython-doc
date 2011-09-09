@@ -110,7 +110,7 @@
 <span id="htmlnotebook"></span><h1>An HTML Notebook IPython<a class="headerlink" href="#an-html-notebook-ipython" title="Permalink to this headline">¶</a></h1>
 <p>The IPython Notebook consists of two related components:</p>
 <ul class="simple">
-<li>An XML/JSON based Notebook document format for recording and distributing
+<li>An JSON based Notebook document format for recording and distributing
 Python code and rich text.</li>
 <li>A web-based user interface for authoring and running notebook documents.</li>
 </ul>
@@ -125,16 +125,25 @@ IPython session like any other.  If you want pylab support, you must use:</p>
 <p>which will behave similar to the terminal and Qt console versions, using your
 default matplotlib backend and providing floating interactive plot windows.  If
 you want inline figures, you must manually select the <tt class="docutils literal"><span class="pre">inline</span></tt> backend:</p>
-<div class="highlight-python"><pre>$ ipython notebook --pylab inline</pre>
+<div class="highlight-python"><pre>$ ipython notebook --pylab=inline</pre>
+</div>
+<p>You can start the notebook to communicate via a secure protocol mode using a
+self-signed certificate by typing:</p>
+<div class="highlight-python"><pre>$ ipython notebook --certfile=mycert.pem</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>A self-signed certificate can be generated with openssl. For example:</p>
+<p class="last">openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem</p>
 </div>
 <p>This server uses the same ZeroMQ-based two process kernel architecture as
-the QT Console as well Tornado for serving HTTP requests. Some of the main
+the QT Console as well Tornado for serving HTTP/S requests. Some of the main
 features of the Notebook include:</p>
 <ul class="simple">
 <li>Display rich data (png/html/latex/svg) in the browser as a result of
 computations.</li>
 <li>Compose text cells using HTML and Markdown.</li>
-<li>Import and export notebook documents in range of formats (.ipynb, .json, .py).</li>
+<li>Import and export notebook documents in range of formats (.ipynb, .py).</li>
 <li>In browser syntax highlighting, tab completion and autoindentation.</li>
 <li>Inline matplotlib plots that can be stored in Notebook documents and opened
 later.</li>
@@ -147,7 +156,7 @@ how to install the notebook and its dependencies.</p>
 work on notebooks in different directories.  By default the first notebook
 server starts in port 8888, later notebooks search for random ports near
 that one.  You can also manually specify the port with the <tt class="docutils literal"><span class="pre">--port</span></tt>
-option, if you want persistent URLs you can bookmark.</p>
+option.</p>
 </div>
 <div class="section" id="basic-usage">
 <h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
@@ -155,13 +164,13 @@ option, if you want persistent URLs you can bookmark.</p>
 Notebook <em>dashboard</em>, shows the notebooks currently available in the directory
 in which the application was started, and allows you to create new notebooks.</p>
 <p>A notebook is a combination of two things:</p>
-<p>1. an interactive session connected to an IPython kernel, controlled by a web
+<p>1. An interactive session connected to an IPython kernel, controlled by a web
 application that can send input to the console and display many types of output
 (text, graphics, mathematics and more).  This is the same kernel used by the
 <a class="reference internal" href="qtconsole.html#qtconsole"><em>Qt console</em></a>, but in this case the web console sends input in
 persistent cells that you can edit in-place instead of the vertically scrolling
 terminal style used by the Qt console.</p>
-<p>2. a document that can save the inputs and outputs of the session as well as
+<p>2. A document that can save the inputs and outputs of the session as well as
 additional text that accompanies the code but is not meant for execution.  In
 this way, notebook files serve as a complete computational record of a session
 including explanatory text and mathematics, code and resulting figures.  These
@@ -175,10 +184,9 @@ able to learn how to use it in just a few minutes.</p>
 <p>You can create new notebooks from the dashboard with the <tt class="docutils literal"><span class="pre">New</span> <span class="pre">Notebook</span></tt>
 button or open existing ones by clicking on their name.  Once in a notebook,
 your browser tab will reflect the name of that notebook (prefixed with &#8220;IPy:&#8221;).
-The URL for that notebook is not meant to be human-readable, but it is
-persistent across invocations of the notebook server <em>as long as you don&#8217;t
-rename the notebook</em>, so you can bookmark them for future use.</p>
-<p>You can also drag and dropp into the area listing files any python file: it
+The URL for that notebook is not meant to be human-readable and is <em>not</em>
+persistent across invocations of the notebook server.</p>
+<p>You can also drag and drop into the area listing files any python file: it
 will be imported into a notebook with the same name (but <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension)
 located in the directory where the notebook server was started.  This notebook
 will consist of a single cell with all the code in the file, which you can
@@ -216,7 +224,7 @@ terminal where you started the kernel that read something like:</p>
 <h3>Text input<a class="headerlink" href="#text-input" title="Permalink to this headline">¶</a></h3>
 <p>In addition to code cells and the output they procude (such as figures), you
 can also type text not meant for execution.  To type text, change the type of a
-cell from <tt class="docutils literal"><span class="pre">Code</span></tt> to <tt class="docutils literal"><span class="pre">Markdown</span></tt> by using the button or the <tt class="kbd docutils literal"><span class="pre">C-m</span> <span class="pre">m</span></tt>
+cell from <tt class="docutils literal"><span class="pre">Code</span></tt> to <tt class="docutils literal"><span class="pre">Markdown</span></tt> by using the button or the <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">m</span></tt>
 keybinding (see below).  You can then type any text in <a href="#id2"><span class="problematic" id="id3">Markdown_</span></a> syntax, as
 well as mathematical expressions if you use <tt class="docutils literal"><span class="pre">$...$</span></tt> for inline math or
 <tt class="docutils literal"><span class="pre">$$...$$</span></tt> for displayed math.</p>
@@ -247,7 +255,7 @@ there will be attributes of the notebook that will not survive a roundtrip
 through the Python form.  You should think of the Python format as a way to
 output a script version of a notebook and the import capabilities as a way
 to load existing code to get a notebook started.  But the Python version is
-<em>not</em> an alternate Python format.</p>
+<em>not</em> an alternate notebook format.</p>
 </div>
 </div>
 <div class="section" id="keyboard-use">
@@ -263,12 +271,12 @@ simply using <tt class="kbd docutils literal"><span class="pre">Enter</span></tt
 line in the current cell.  Therefore, in the notebook you must always use
 <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> to get execution (or use the mouse and click on the <tt class="docutils literal"><span class="pre">Run</span>
 <span class="pre">Selected</span></tt> button).</li>
-<li><tt class="kbd docutils literal"><span class="pre">Control-Enter</span></tt>: execute the current cell in &#8220;terminal mode&#8221;, where any
+<li><tt class="kbd docutils literal"><span class="pre">Ctrl-Enter</span></tt>: execute the current cell in &#8220;terminal mode&#8221;, where any
 output is shown but the cursor cursor stays in the current cell, whose input
 area is flushed empty.  This is convenient to do quick in-place experiments
 or query things like filesystem content without creating additional cells you
 may not want saved in your notebook.</li>
-<li><tt class="kbd docutils literal"><span class="pre">Control-m</span></tt>: this is the prefix for all other keybindings, which consist
+<li><tt class="kbd docutils literal"><span class="pre">Ctrl-m</span></tt>: this is the prefix for all other keybindings, which consist
 of an additional single letter.  Type <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">h</span></tt> (that is, the sole
 letter <tt class="kbd docutils literal"><span class="pre">h</span></tt> after <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span></tt>) and IPython will show you the remaining
 available keybindings.</li>
@@ -310,7 +318,7 @@ available keybindings.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

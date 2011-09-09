@@ -137,11 +137,11 @@ the clients via a PUB/SUB MonitoredQueue.</p>
 <h3>Registration<a class="headerlink" href="#registration" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center">
 <img alt="IPython Registration connections" src="../_images/queryfade.png" style="width: 432px;" />
-<p class="caption">Engines and Clients only need to know where the Query <tt class="docutils literal"><span class="pre">XREP</span></tt> is located to start
+<p class="caption">Engines and Clients only need to know where the Query <tt class="docutils literal"><span class="pre">ROUTER</span></tt> is located to start
 connecting.</p>
 </div>
 <p>Once a controller is launched, the only information needed for connecting clients and/or
-engines is the IP/port of the Hub&#8217;s <tt class="docutils literal"><span class="pre">XREP</span></tt> socket called the Registrar. This socket
+engines is the IP/port of the Hub&#8217;s <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket called the Registrar. This socket
 handles connections from both clients and engines, and replies with the remaining
 information necessary to establish the remaining connections. Clients use this same socket for
 querying the Hub for state information.</p>
@@ -154,12 +154,12 @@ querying the Hub for state information.</p>
 </div>
 <p>The heartbeat process has been described elsewhere. To summarize: the Heartbeat Monitor
 publishes a distinct message periodically via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket. Each engine has a
-<tt class="docutils literal"><span class="pre">zmq.FORWARDER</span></tt> device with a <tt class="docutils literal"><span class="pre">SUB</span></tt> socket for input, and <tt class="docutils literal"><span class="pre">XREQ</span></tt> socket for output.
-The <tt class="docutils literal"><span class="pre">SUB</span></tt> socket is connected to the <tt class="docutils literal"><span class="pre">PUB</span></tt> socket labeled <em>ping</em>, and the <tt class="docutils literal"><span class="pre">XREQ</span></tt> is
-connected to the <tt class="docutils literal"><span class="pre">XREP</span></tt> labeled <em>pong</em>. This results in the same message being relayed
-back to the Heartbeat Monitor with the addition of the <tt class="docutils literal"><span class="pre">XREQ</span></tt> prefix. The Heartbeat
-Monitor receives all the replies via an <tt class="docutils literal"><span class="pre">XREP</span></tt> socket, and identifies which hearts are
-still beating by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> prefix of the <tt class="docutils literal"><span class="pre">XREQ</span></tt> sockets, which information
+<tt class="docutils literal"><span class="pre">zmq.FORWARDER</span></tt> device with a <tt class="docutils literal"><span class="pre">SUB</span></tt> socket for input, and <tt class="docutils literal"><span class="pre">DEALER</span></tt> socket for output.
+The <tt class="docutils literal"><span class="pre">SUB</span></tt> socket is connected to the <tt class="docutils literal"><span class="pre">PUB</span></tt> socket labeled <em>ping</em>, and the <tt class="docutils literal"><span class="pre">DEALER</span></tt> is
+connected to the <tt class="docutils literal"><span class="pre">ROUTER</span></tt> labeled <em>pong</em>. This results in the same message being relayed
+back to the Heartbeat Monitor with the addition of the <tt class="docutils literal"><span class="pre">DEALER</span></tt> prefix. The Heartbeat
+Monitor receives all the replies via an <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket, and identifies which hearts are
+still beating by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> prefix of the <tt class="docutils literal"><span class="pre">DEALER</span></tt> sockets, which information
 the Hub uses to notify clients of any changes in the available engines.</p>
 </div>
 <div class="section" id="schedulers">
@@ -174,14 +174,14 @@ messages for its own purposes. Since no Python code may exist between the two so
 queue, all messages sent through these queues (both directions) are also sent via a
 <tt class="docutils literal"><span class="pre">PUB</span></tt> socket to a monitor, which allows the Hub to monitor queue traffic without
 interfering with it.</p>
-<p>For tasks, the engine need not be specified. Messages sent to the <tt class="docutils literal"><span class="pre">XREP</span></tt> socket from the
-client side are assigned to an engine via ZMQ&#8217;s <tt class="docutils literal"><span class="pre">XREQ</span></tt> round-robin load balancing.
+<p>For tasks, the engine need not be specified. Messages sent to the <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket from the
+client side are assigned to an engine via ZMQ&#8217;s <tt class="docutils literal"><span class="pre">DEALER</span></tt> round-robin load balancing.
 Engine replies are directed to specific clients via the IDENTITY of the client, which is
 received as a prefix at the Engine.</p>
-<p>For Multiplexing, <tt class="docutils literal"><span class="pre">XREP</span></tt> is used for both in and output sockets in the device. Clients must
-specify the destination by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of the <tt class="docutils literal"><span class="pre">XREP</span></tt> socket connected to
+<p>For Multiplexing, <tt class="docutils literal"><span class="pre">ROUTER</span></tt> is used for both in and output sockets in the device. Clients must
+specify the destination by the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of the <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket connected to
 the downstream end of the device.</p>
-<p>At the Kernel level, both of these <tt class="docutils literal"><span class="pre">XREP</span></tt> sockets are treated in the same way as the <tt class="docutils literal"><span class="pre">REP</span></tt>
+<p>At the Kernel level, both of these <tt class="docutils literal"><span class="pre">ROUTER</span></tt> sockets are treated in the same way as the <tt class="docutils literal"><span class="pre">REP</span></tt>
 socket in the serial version (except using ZMQStreams instead of explicit sockets).</p>
 <p>Execution can be done in a load-balanced (engine-agnostic) or multiplexed (engine-specified)
 manner. The sockets on the Client and Engine are the same for these two actions, but the
@@ -203,10 +203,10 @@ subscribed by the clients.</p>
 <h3>Client connections<a class="headerlink" href="#client-connections" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-center">
 <img alt="IPython client query connections" src="../_images/queryfade.png" style="width: 432px;" />
-<p class="caption">Clients connect to an <tt class="docutils literal"><span class="pre">XREP</span></tt> socket to query the hub.</p>
+<p class="caption">Clients connect to an <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket to query the hub.</p>
 </div>
-<p>The hub&#8217;s registrar <tt class="docutils literal"><span class="pre">XREP</span></tt> socket also listens for queries from clients as to queue status,
-and control instructions. Clients connect to this socket via an <tt class="docutils literal"><span class="pre">XREQ</span></tt> during registration.</p>
+<p>The hub&#8217;s registrar <tt class="docutils literal"><span class="pre">ROUTER</span></tt> socket also listens for queries from clients as to queue status,
+and control instructions. Clients connect to this socket via an <tt class="docutils literal"><span class="pre">DEALER</span></tt> during registration.</p>
 <div class="figure align-center">
 <img alt="IPython Registration connections" src="../_images/notiffade.png" style="width: 432px;" />
 <p class="caption">Engine registration events are published via a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket.</p>
@@ -249,7 +249,7 @@ registration or unregistration events.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

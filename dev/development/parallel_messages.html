@@ -63,10 +63,10 @@
 <li><a class="reference internal" href="#">Messaging for Parallel Computing</a><ul>
 <li><a class="reference internal" href="#the-controller">The Controller</a></li>
 <li><a class="reference internal" href="#the-hub">The Hub</a><ul>
-<li><a class="reference internal" href="#registration-xrep">Registration (<tt class="docutils literal"><span class="pre">XREP</span></tt>)</a></li>
+<li><a class="reference internal" href="#registration-router">Registration (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)</a></li>
 <li><a class="reference internal" href="#heartbeat">Heartbeat</a></li>
 <li><a class="reference internal" href="#notification-pub">Notification (<tt class="docutils literal"><span class="pre">PUB</span></tt>)</a></li>
-<li><a class="reference internal" href="#client-queries-xrep">Client Queries (<tt class="docutils literal"><span class="pre">XREP</span></tt>)</a></li>
+<li><a class="reference internal" href="#client-queries-router">Client Queries (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#schedulers">Schedulers</a><ul>
@@ -139,12 +139,12 @@ model. It has two major components:</p>
 requests and results.  It has no role in execution and does no relay of messages, so
 large blocking requests or database actions in the Hub do not have the ability to impede
 job submission and results.</p>
-<div class="section" id="registration-xrep">
-<h3>Registration (<tt class="docutils literal"><span class="pre">XREP</span></tt>)<a class="headerlink" href="#registration-xrep" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="registration-router">
+<h3>Registration (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)<a class="headerlink" href="#registration-router" title="Permalink to this headline">¶</a></h3>
 <p>The first function of the Hub is to facilitate and monitor connections of clients
 and engines. Both client and engine registration are handled by the same socket, so only
 one ip/port pair is needed to connect any number of connections and clients.</p>
-<p>Engines register with the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of their two <tt class="docutils literal"><span class="pre">XREQ</span></tt> sockets, one for the
+<p>Engines register with the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of their two <tt class="docutils literal"><span class="pre">DEALER</span></tt> sockets, one for the
 queue, which receives execute requests, and one for the heartbeat, which is used to
 monitor the survival of the Engine process.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">registration_request</span></tt>:</p>
@@ -221,8 +221,8 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="client-queries-xrep">
-<h3>Client Queries (<tt class="docutils literal"><span class="pre">XREP</span></tt>)<a class="headerlink" href="#client-queries-xrep" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="client-queries-router">
+<h3>Client Queries (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)<a class="headerlink" href="#client-queries-router" title="Permalink to this headline">¶</a></h3>
 <p>The hub monitors and logs all queue traffic, so that clients can retrieve past
 results or monitor pending tasks. This information may reside in-memory on the Hub, or
 on disk in a database (SQLite and MongoDB are currently supported).  These requests are
@@ -321,17 +321,17 @@ message.</p>
 <li>Control Scheduler</li>
 </ul>
 </div></blockquote>
-<p>The MUX and Control schedulers are simple MonitoredQueue ØMQ devices, with <tt class="docutils literal"><span class="pre">XREP</span></tt>
+<p>The MUX and Control schedulers are simple MonitoredQueue ØMQ devices, with <tt class="docutils literal"><span class="pre">ROUTER</span></tt>
 sockets on either side. This allows the queue to relay individual messages to particular
 targets via <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> routing. The Task scheduler may be a MonitoredQueue ØMQ
-device, in which case the client-facing socket is <tt class="docutils literal"><span class="pre">XREP</span></tt>, and the engine-facing socket
-is <tt class="docutils literal"><span class="pre">XREQ</span></tt>.  The result of this is that client-submitted messages are load-balanced via
-the <tt class="docutils literal"><span class="pre">XREQ</span></tt> socket, but the engine&#8217;s replies to each message go to the requesting client.</p>
-<p>Raw <tt class="docutils literal"><span class="pre">XREQ</span></tt> scheduling is quite primitive, and doesn&#8217;t allow message introspection, so
+device, in which case the client-facing socket is <tt class="docutils literal"><span class="pre">ROUTER</span></tt>, and the engine-facing socket
+is <tt class="docutils literal"><span class="pre">DEALER</span></tt>.  The result of this is that client-submitted messages are load-balanced via
+the <tt class="docutils literal"><span class="pre">DEALER</span></tt> socket, but the engine&#8217;s replies to each message go to the requesting client.</p>
+<p>Raw <tt class="docutils literal"><span class="pre">DEALER</span></tt> scheduling is quite primitive, and doesn&#8217;t allow message introspection, so
 there are also Python Schedulers that can be used. These Schedulers behave in much the
 same way as a MonitoredQueue does from the outside, but have rich internal logic to
 determine destinations, as well as handle dependency graphs Their sockets are always
-<tt class="docutils literal"><span class="pre">XREP</span></tt> on both sides.</p>
+<tt class="docutils literal"><span class="pre">ROUTER</span></tt> on both sides.</p>
 <p>The Python task schedulers have an additional message type, which informs the Hub of
 the destination of a task as soon as that destination is known.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">task_destination</span></tt>:</p>
@@ -486,7 +486,7 @@ present the buffer interface.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -77,7 +77,6 @@
 <li><a class="reference internal" href="#helphandler"><tt class="docutils literal"><span class="pre">HelpHandler</span></tt></a></li>
 <li><a class="reference internal" href="#ipyautocallchecker"><tt class="docutils literal"><span class="pre">IPyAutocallChecker</span></tt></a></li>
 <li><a class="reference internal" href="#ipyprompttransformer"><tt class="docutils literal"><span class="pre">IPyPromptTransformer</span></tt></a></li>
-<li><a class="reference internal" href="#lineinfo"><tt class="docutils literal"><span class="pre">LineInfo</span></tt></a></li>
 <li><a class="reference internal" href="#macrochecker"><tt class="docutils literal"><span class="pre">MacroChecker</span></tt></a></li>
 <li><a class="reference internal" href="#macrohandler"><tt class="docutils literal"><span class="pre">MacroHandler</span></tt></a></li>
 <li><a class="reference internal" href="#magichandler"><tt class="docutils literal"><span class="pre">MagicHandler</span></tt></a></li>
@@ -2373,57 +2372,6 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="lineinfo">
-<h3><a class="reference internal" href="#IPython.core.prefilter.LineInfo" title="IPython.core.prefilter.LineInfo"><tt class="xref py py-class docutils literal"><span class="pre">LineInfo</span></tt></a><a class="headerlink" href="#lineinfo" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.prefilter.LineInfo">
-<em class="property">class </em><tt class="descclassname">IPython.core.prefilter.</tt><tt class="descname">LineInfo</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.LineInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>A single line of input and associated info.</p>
-<p>Includes the following as properties:</p>
-<dl class="docutils">
-<dt>line</dt>
-<dd>The original, raw line</dd>
-<dt>continue_prompt</dt>
-<dd>Is this line a continuation in a sequence of multiline input?</dd>
-<dt>pre</dt>
-<dd>The initial esc character or whitespace.</dd>
-<dt>pre_char</dt>
-<dd>The escape character(s) in pre or the empty string if there isn&#8217;t one.
-Note that &#8216;!!&#8217; is a possible value for pre_char.  Otherwise it will
-always be a single character.</dd>
-<dt>pre_whitespace</dt>
-<dd>The leading whitespace from pre if it exists.  If there is a pre_char,
-this is just &#8216;&#8217;.</dd>
-<dt>ifun</dt>
-<dd>The &#8216;function part&#8217;, which is basically the maximal initial sequence
-of valid python identifiers and the &#8216;.&#8217; character.  This is what is
-checked for alias and magic transformations, used for auto-calling,
-etc.</dd>
-<dt>the_rest</dt>
-<dd>Everything else on the line.</dd>
-</dl>
-<dl class="method">
-<dt id="IPython.core.prefilter.LineInfo.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.LineInfo.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.prefilter.LineInfo.ofind">
-<tt class="descname">ofind</tt><big>(</big><em>ip</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.LineInfo.ofind" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do a full, attribute-walking lookup of the ifun in the various
-namespaces for the given IPython InteractiveShell instance.</p>
-<p>Return a dict with keys: found,obj,ospace,ismagic</p>
-<p>Note: can cause state changes because of calling getattr, but should
-only be run if autocall is on and if the line hasn&#8217;t matched any
-other, less dangerous handlers.</p>
-<p>Does cache the results of the call, so can be called multiple times
-without worrying about <em>further</em> damaging state.</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 <div class="section" id="macrochecker">
 <h3><a class="reference internal" href="#IPython.core.prefilter.MacroChecker" title="IPython.core.prefilter.MacroChecker"><tt class="xref py py-class docutils literal"><span class="pre">MacroChecker</span></tt></a><a class="headerlink" href="#macrochecker" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -3222,7 +3170,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="method">
 <dt id="IPython.core.prefilter.PrefilterError.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterError.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -4541,7 +4489,7 @@ than ifun, because it can not contain a &#8216;.&#8217; character.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

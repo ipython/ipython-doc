@@ -71,7 +71,6 @@
 <li><a class="reference internal" href="#escapedtransformer"><tt class="docutils literal"><span class="pre">EscapedTransformer</span></tt></a></li>
 <li><a class="reference internal" href="#ipythoninputsplitter"><tt class="docutils literal"><span class="pre">IPythonInputSplitter</span></tt></a></li>
 <li><a class="reference internal" href="#inputsplitter"><tt class="docutils literal"><span class="pre">InputSplitter</span></tt></a></li>
-<li><a class="reference internal" href="#lineinfo"><tt class="docutils literal"><span class="pre">LineInfo</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
@@ -378,41 +377,6 @@ one of the dynamic IPython mechanisms.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="lineinfo">
-<h3><a class="reference internal" href="#IPython.core.inputsplitter.LineInfo" title="IPython.core.inputsplitter.LineInfo"><tt class="xref py py-class docutils literal"><span class="pre">LineInfo</span></tt></a><a class="headerlink" href="#lineinfo" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="IPython.core.inputsplitter.LineInfo">
-<em class="property">class </em><tt class="descclassname">IPython.core.inputsplitter.</tt><tt class="descname">LineInfo</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.inputsplitter.LineInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>A single line of input and associated info.</p>
-<p>This is a utility class that mostly wraps the output of
-<a class="reference internal" href="#IPython.core.inputsplitter.split_user_input" title="IPython.core.inputsplitter.split_user_input"><tt class="xref py py-func docutils literal"><span class="pre">split_user_input()</span></tt></a> into a convenient object to be passed around
-during input transformations.</p>
-<p>Includes the following as properties:</p>
-<dl class="docutils">
-<dt>line</dt>
-<dd>The original, raw line</dd>
-<dt>lspace</dt>
-<dd>Any early whitespace before actual text starts.</dd>
-<dt>esc</dt>
-<dd>The initial esc character (or characters, for double-char escapes like
-&#8216;??&#8217; or &#8216;!!&#8217;).</dd>
-<dt>fpart</dt>
-<dd>The &#8216;function part&#8217;, which is basically the maximal initial sequence
-of valid python identifiers and the &#8216;.&#8217; character.  This is what is
-checked for alias and magic transformations, used for auto-calling,
-etc.</dd>
-<dt>rest</dt>
-<dd>Everything else on the line.</dd>
-</dl>
-<dl class="method">
-<dt id="IPython.core.inputsplitter.LineInfo.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.inputsplitter.LineInfo.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -486,53 +450,6 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="IPython.core.inputsplitter.split_user_input">
-<tt class="descclassname">IPython.core.inputsplitter.</tt><tt class="descname">split_user_input</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.inputsplitter.split_user_input" title="Permalink to this definition">¶</a></dt>
-<dd><p>Split user input into early whitespace, esc-char, function part and rest.</p>
-<p>This is currently handles lines with &#8216;=&#8217; in them in a very inconsistent
-manner.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;x=1&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;&#39;, &#39;x=1&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;?&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;?&#39;, &#39;&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;??&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;??&#39;, &#39;&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39; ?&#39;</span><span class="p">)</span>
-<span class="go">(&#39; &#39;, &#39;?&#39;, &#39;&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39; ??&#39;</span><span class="p">)</span>
-<span class="go">(&#39; &#39;, &#39;??&#39;, &#39;&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;??x&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;??&#39;, &#39;x&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;?x=1&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;&#39;, &#39;?x=1&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;!ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;!&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;  !ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;  &#39;, &#39;!&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;!!ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;!!&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;  !!ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;  &#39;, &#39;!!&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;,ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;,&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;;ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;;&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;  ;ls&#39;</span><span class="p">)</span>
-<span class="go">(&#39;  &#39;, &#39;;&#39;, &#39;ls&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;f.g(x)&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;&#39;, &#39;f.g(x)&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;f.g (x)&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;&#39;, &#39;f.g&#39;, &#39;(x)&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;?</span><span class="si">%hi</span><span class="s">st&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;?&#39;, &#39;%hist&#39;, &#39;&#39;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">split_user_input</span><span class="p">(</span><span class="s">&#39;?x*&#39;</span><span class="p">)</span>
-<span class="go">(&#39;&#39;, &#39;?&#39;, &#39;x*&#39;, &#39;&#39;)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="IPython.core.inputsplitter.transform_assign_magic">
 <tt class="descclassname">IPython.core.inputsplitter.</tt><tt class="descname">transform_assign_magic</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.inputsplitter.transform_assign_magic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle the <cite>a = %who</cite> syntax.</p>
@@ -595,7 +512,7 @@ manner.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

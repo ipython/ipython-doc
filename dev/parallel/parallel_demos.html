@@ -190,24 +190,6 @@ the result using a 2D matrix in Matplotlib.</p>
 compute the two digit counts for the digits in a single file. Then in a final
 step the counts from each engine will be added up. To perform this
 calculation, we will need two top-level functions from <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">compute_two_digit_freqs</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read digits of pi from a file and compute the 2 digit frequencies.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">txt_file_to_digits</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-    <span class="n">freqs</span> <span class="o">=</span> <span class="n">two_digit_freqs</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">freqs</span>
-
-<span class="k">def</span> <span class="nf">reduce_freqs</span><span class="p">(</span><span class="n">freqlist</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add up a list of freq counts to get the total counts.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">allfreqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">freqlist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqlist</span><span class="p">:</span>
-        <span class="n">allfreqs</span> <span class="o">+=</span> <span class="n">f</span>
-    <span class="k">return</span> <span class="n">allfreqs</span>
-</pre></div>
-</div>
 <p>We will also use the <tt class="xref py py-func docutils literal"><span class="pre">plot_two_digit_freqs()</span></tt> function to plot the
 results. The code to run this calculation in parallel is contained in
 <tt class="file docutils literal"><span class="pre">docs/examples/newparallel/parallelpi.py</span></tt>. This code can be run in parallel
@@ -309,51 +291,6 @@ prices and volatilities.</p>
 directory of the IPython source. The function <tt class="xref py py-func docutils literal"><span class="pre">price_options()</span></tt> in
 <tt class="file docutils literal"><span class="pre">mcpricer.py</span></tt> implements the basic Monte Carlo pricing algorithm using
 the NumPy package and is shown here:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">price_options</span><span class="p">(</span><span class="n">S</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">260</span><span class="p">,</span> <span class="n">paths</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Price European and Asian options using a Monte Carlo method.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    S : float</span>
-<span class="sd">        The initial price of the stock.</span>
-<span class="sd">    K : float</span>
-<span class="sd">        The strike price of the option.</span>
-<span class="sd">    sigma : float</span>
-<span class="sd">        The volatility of the stock.</span>
-<span class="sd">    r : float</span>
-<span class="sd">        The risk free interest rate.</span>
-<span class="sd">    days : int</span>
-<span class="sd">        The number of days until the option expires.</span>
-<span class="sd">    paths : int</span>
-<span class="sd">        The number of Monte Carlo paths used to price the option.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    A tuple of (E. call, E. put, A. call, A. put) option prices.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span><span class="p">,</span><span class="n">sqrt</span>
-    
-    <span class="n">h</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="n">days</span>
-    <span class="n">const1</span> <span class="o">=</span> <span class="n">exp</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
-    <span class="n">const2</span> <span class="o">=</span> <span class="n">sigma</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
-    <span class="n">stock_price</span> <span class="o">=</span> <span class="n">S</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>
-    <span class="n">stock_price_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">days</span><span class="p">):</span>
-        <span class="n">growth_factor</span> <span class="o">=</span> <span class="n">const1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">const2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">paths</span><span class="p">))</span>
-        <span class="n">stock_price</span> <span class="o">=</span> <span class="n">stock_price</span><span class="o">*</span><span class="n">growth_factor</span>
-        <span class="n">stock_price_sum</span> <span class="o">=</span> <span class="n">stock_price_sum</span> <span class="o">+</span> <span class="n">stock_price</span>
-    <span class="n">stock_price_avg</span> <span class="o">=</span> <span class="n">stock_price_sum</span><span class="o">/</span><span class="n">days</span>
-    <span class="n">zeros</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>
-    <span class="n">r_factor</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="n">days</span><span class="p">)</span>
-    <span class="n">euro_put</span> <span class="o">=</span> <span class="n">r_factor</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">K</span><span class="o">-</span><span class="n">stock_price</span><span class="p">))</span>
-    <span class="n">asian_put</span> <span class="o">=</span> <span class="n">r_factor</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">K</span><span class="o">-</span><span class="n">stock_price_avg</span><span class="p">))</span>
-    <span class="n">euro_call</span> <span class="o">=</span> <span class="n">r_factor</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">stock_price</span><span class="o">-</span><span class="n">K</span><span class="p">))</span>
-    <span class="n">asian_call</span> <span class="o">=</span> <span class="n">r_factor</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">zeros</span><span class="p">,</span> <span class="n">stock_price_avg</span><span class="o">-</span><span class="n">K</span><span class="p">))</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">euro_call</span><span class="p">,</span> <span class="n">euro_put</span><span class="p">,</span> <span class="n">asian_call</span><span class="p">,</span> <span class="n">asian_put</span><span class="p">)</span>
-</pre></div>
-</div>
 <p>To run this code in parallel, we will use IPython&#8217;s <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> class,
 which distributes work to the engines using dynamic load balancing. This
 view is a wrapper of the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> class shown in
@@ -363,150 +300,6 @@ be found in the file <tt class="file docutils literal"><span class="pre">mcprice
 <tt class="xref py py-meth docutils literal"><span class="pre">TaskClient.run()</span></tt> that calculate the option prices for different
 volatilities and strike prices. The results are then plotted as a 2D contour
 plot using Matplotlib.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
-<span class="sd">&quot;&quot;&quot;Run a Monte-Carlo options pricer in parallel.&quot;&quot;&quot;</span>
-
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Imports</span>
-<span class="c">#-----------------------------------------------------------------------------</span>
-
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">mcpricer</span> <span class="kn">import</span> <span class="n">price_options</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Setup parameters for the run</span>
-<span class="c">#-----------------------------------------------------------------------------</span>
-
-<span class="k">def</span> <span class="nf">ask_question</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">the_type</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> [</span><span class="si">%r</span><span class="s">]: &#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">the_type</span><span class="p">(</span><span class="n">default</span><span class="p">))</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">the_type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">the_type</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
-
-<span class="n">cluster_profile</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Cluster profile&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="s">&quot;default&quot;</span><span class="p">)</span>
-<span class="n">price</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Initial price&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
-<span class="n">rate</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Interest rate&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="n">days</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Days to expiration&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">260</span><span class="p">)</span>
-<span class="n">paths</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Number of MC paths&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
-<span class="n">n_strikes</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Number of strike values&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">min_strike</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Min strike price&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">)</span>
-<span class="n">max_strike</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Max strike price&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">110.0</span><span class="p">)</span>
-<span class="n">n_sigmas</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Number of volatility values&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">min_sigma</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Min volatility&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="n">max_sigma</span> <span class="o">=</span> <span class="n">ask_question</span><span class="p">(</span><span class="s">&quot;Max volatility&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
-
-<span class="n">strike_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_strike</span><span class="p">,</span> <span class="n">max_strike</span><span class="p">,</span> <span class="n">n_strikes</span><span class="p">)</span>
-<span class="n">sigma_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_sigma</span><span class="p">,</span> <span class="n">max_sigma</span><span class="p">,</span> <span class="n">n_sigmas</span><span class="p">)</span>
-
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Setup for parallel calculation</span>
-<span class="c">#-----------------------------------------------------------------------------</span>
-
-<span class="c"># The Client is used to setup the calculation and works with all</span>
-<span class="c"># engines.</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="n">cluster_profile</span><span class="p">)</span>
-
-<span class="c"># A LoadBalancedView is an interface to the engines that provides dynamic load </span>
-<span class="c"># balancing at the expense of not knowing which engine will execute the code.</span>
-<span class="n">view</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span>
-
-<span class="c"># Initialize the common code on the engines. This Python module has the</span>
-<span class="c"># price_options function that prices the options.</span>
-
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Perform parallel calculation</span>
-<span class="c">#-----------------------------------------------------------------------------</span>
-
-<span class="k">print</span> <span class="s">&quot;Running parallel calculation over strike prices and volatilities...&quot;</span>
-<span class="k">print</span> <span class="s">&quot;Strike prices: &quot;</span><span class="p">,</span> <span class="n">strike_vals</span>
-<span class="k">print</span> <span class="s">&quot;Volatilities: &quot;</span><span class="p">,</span> <span class="n">sigma_vals</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-
-<span class="c"># Submit tasks to the TaskClient for each (strike, sigma) pair as a MapTask.</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">async_results</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">strike</span> <span class="ow">in</span> <span class="n">strike_vals</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">sigma</span> <span class="ow">in</span> <span class="n">sigma_vals</span><span class="p">:</span>
-        <span class="n">ar</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">price_options</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">rate</span><span class="p">,</span> <span class="n">days</span><span class="p">,</span> <span class="n">paths</span><span class="p">)</span>
-        <span class="n">async_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ar</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="s">&quot;Submitted tasks: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">async_results</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-
-<span class="c"># Block until all tasks are completed.</span>
-<span class="n">c</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">async_results</span><span class="p">)</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span>
-
-<span class="k">print</span> <span class="s">&quot;Parallel calculation completed, time = </span><span class="si">%s</span><span class="s"> s&quot;</span> <span class="o">%</span> <span class="n">t</span>
-<span class="k">print</span> <span class="s">&quot;Collecting results...&quot;</span>
-
-<span class="c"># Get the results using TaskClient.get_task_result.</span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">ar</span> <span class="ow">in</span> <span class="n">async_results</span><span class="p">]</span>
-
-<span class="c"># Assemble the result into a structured NumPy array.</span>
-<span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n_strikes</span><span class="o">*</span><span class="n">n_sigmas</span><span class="p">,</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;ecall&#39;</span><span class="p">,</span><span class="nb">float</span><span class="p">),(</span><span class="s">&#39;eput&#39;</span><span class="p">,</span><span class="nb">float</span><span class="p">),(</span><span class="s">&#39;acall&#39;</span><span class="p">,</span><span class="nb">float</span><span class="p">),(</span><span class="s">&#39;aput&#39;</span><span class="p">,</span><span class="nb">float</span><span class="p">)]</span>
-<span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">price</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-    <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
-    
-<span class="n">prices</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">n_strikes</span><span class="p">,</span> <span class="n">n_sigmas</span><span class="p">)</span>
-<span class="n">strike_mesh</span><span class="p">,</span> <span class="n">sigma_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">strike_vals</span><span class="p">,</span> <span class="n">sigma_vals</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="s">&quot;Results are available: strike_mesh, sigma_mesh, prices&quot;</span>
-<span class="k">print</span> <span class="s">&quot;To plot results type &#39;plot_options(sigma_mesh, strike_mesh, prices)&#39;&quot;</span>
-
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Utilities</span>
-<span class="c">#-----------------------------------------------------------------------------</span>
-
-<span class="k">def</span> <span class="nf">plot_options</span><span class="p">(</span><span class="n">sigma_mesh</span><span class="p">,</span> <span class="n">strike_mesh</span><span class="p">,</span> <span class="n">prices</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Make a contour plot of the option price in (sigma, strike) space.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sigma_mesh</span><span class="p">,</span> <span class="n">strike_mesh</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;ecall&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;tight&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;European Call&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;Strike Price&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sigma_mesh</span><span class="p">,</span> <span class="n">strike_mesh</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;acall&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;tight&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Asian Call&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sigma_mesh</span><span class="p">,</span> <span class="n">strike_mesh</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;eput&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;tight&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;European Put&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;Volatility&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">&quot;Strike Price&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">sigma_mesh</span><span class="p">,</span> <span class="n">strike_mesh</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;aput&#39;</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;tight&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Asian Put&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">&quot;Volatility&quot;</span><span class="p">)</span>
-
-
-
-    
-</pre></div>
-</div>
 <p>To use this code, start an IPython cluster using <strong class="command">ipcluster</strong>, open
 IPython in the pylab mode with the file <tt class="file docutils literal"><span class="pre">mcdriver.py</span></tt> in your current
 working directory and then type:</p>
@@ -586,7 +379,7 @@ conclusion is untested.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 23, 2011.
+      Last updated on Sep 08, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
