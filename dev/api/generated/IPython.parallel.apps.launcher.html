@@ -64,7 +64,11 @@
 <li><a class="reference internal" href="#module-parallel-apps-launcher">Module: <tt class="docutils literal"><span class="pre">parallel.apps.launcher</span></tt></a></li>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#baselauncher"><tt class="docutils literal"><span class="pre">BaseLauncher</span></tt></a></li>
+<li><a class="reference internal" href="#batchclusterappmixin"><tt class="docutils literal"><span class="pre">BatchClusterAppMixin</span></tt></a></li>
 <li><a class="reference internal" href="#batchsystemlauncher"><tt class="docutils literal"><span class="pre">BatchSystemLauncher</span></tt></a></li>
+<li><a class="reference internal" href="#clusterappmixin"><tt class="docutils literal"><span class="pre">ClusterAppMixin</span></tt></a></li>
+<li><a class="reference internal" href="#controllermixin"><tt class="docutils literal"><span class="pre">ControllerMixin</span></tt></a></li>
+<li><a class="reference internal" href="#enginemixin"><tt class="docutils literal"><span class="pre">EngineMixin</span></tt></a></li>
 <li><a class="reference internal" href="#ipclusterlauncher"><tt class="docutils literal"><span class="pre">IPClusterLauncher</span></tt></a></li>
 <li><a class="reference internal" href="#lsfcontrollerlauncher"><tt class="docutils literal"><span class="pre">LSFControllerLauncher</span></tt></a></li>
 <li><a class="reference internal" href="#lsfenginesetlauncher"><tt class="docutils literal"><span class="pre">LSFEngineSetLauncher</span></tt></a></li>
@@ -386,6 +390,120 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="batchclusterappmixin">
+<h3><a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">BatchClusterAppMixin</span></tt></a><a class="headerlink" href="#batchclusterappmixin" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">BatchClusterAppMixin</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<p>ClusterApp mixin that updates the self.context dict, rather than cl-args.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_names" title="IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.traits" title="IPython.parallel.apps.launcher.BatchClusterAppMixin.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="batchsystemlauncher">
 <h3><a class="reference internal" href="#IPython.parallel.apps.launcher.BatchSystemLauncher" title="IPython.parallel.apps.launcher.BatchSystemLauncher"><tt class="xref py py-class docutils literal"><span class="pre">BatchSystemLauncher</span></tt></a><a class="headerlink" href="#batchsystemlauncher" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
@@ -557,6 +675,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.notify_start">
 <tt class="descname">notify_start</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.notify_start" title="Permalink to this definition">¶</a></dt>
@@ -667,7 +791,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n copies of the process using a batch system.</p>
 </dd></dl>
 
@@ -726,6 +850,370 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.write_batch_script">
 <tt class="descname">write_batch_script</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.write_batch_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiate and write the batch script to the work_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="clusterappmixin">
+<h3><a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">ClusterAppMixin</span></tt></a><a class="headerlink" href="#clusterappmixin" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">ClusterAppMixin</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a></p>
+<p>MixIn for cluster args as traits</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin.trait_names" title="IPython.parallel.apps.launcher.ClusterAppMixin.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin.traits" title="IPython.parallel.apps.launcher.ClusterAppMixin.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="controllermixin">
+<h3><a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">ControllerMixin</span></tt></a><a class="headerlink" href="#controllermixin" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">ControllerMixin</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin.trait_names" title="IPython.parallel.apps.launcher.ControllerMixin.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin.traits" title="IPython.parallel.apps.launcher.ControllerMixin.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.controller_args">
+<tt class="descname">controller_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.controller_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.controller_cmd">
+<tt class="descname">controller_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.controller_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="enginemixin">
+<h3><a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">EngineMixin</span></tt></a><a class="headerlink" href="#enginemixin" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.EngineMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">EngineMixin</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin.trait_names" title="IPython.parallel.apps.launcher.EngineMixin.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin.traits" title="IPython.parallel.apps.launcher.EngineMixin.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.engine_args">
+<tt class="descname">engine_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.engine_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.engine_cmd">
+<tt class="descname">engine_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.engine_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its 
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.EngineMixin.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1013,7 +1501,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.LSFControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LSFControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch a controller using LSF.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.__init__">
@@ -1103,6 +1591,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -1169,6 +1669,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1238,6 +1744,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -1281,7 +1793,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile or profile_dir.</p>
 </dd></dl>
 
@@ -1350,7 +1862,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LSFEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch Engines using LSF</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.__init__">
@@ -1440,6 +1952,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -1506,6 +2030,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1575,6 +2105,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -1618,7 +2154,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n engines by profile or profile_dir.</p>
 </dd></dl>
 
@@ -1845,6 +2381,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LSFLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFLauncher.notify_start">
 <tt class="descname">notify_start</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher.notify_start" title="Permalink to this definition">¶</a></dt>
@@ -1955,7 +2497,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LSFLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n copies of the process using LSF batch system.
 This cant inherit from the base class because bsub expects
 to be piped a shell script in order to honor the #BSUB directives :
@@ -2052,7 +2594,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.LocalControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
 <p>Launch a controller as a regular external process.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.__init__">
@@ -2115,6 +2657,18 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2249,6 +2803,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Am I running.</p>
@@ -2261,7 +2821,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile_dir.</p>
 </dd></dl>
 
@@ -2318,7 +2878,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.LocalEngineLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalEngineLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
 <p>Launch a single engine as a regular externall process.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.__init__">
@@ -2381,6 +2941,18 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2515,6 +3087,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Am I running.</p>
@@ -2527,9 +3105,8 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start the engine by profile_dir.</p>
-</dd></dl>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LocalEngineLauncher.start_data">
@@ -2584,7 +3161,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher" title="IPython.parallel.apps.launcher.BaseLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BaseLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalEngineLauncher" title="IPython.parallel.apps.launcher.LocalEngineLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalEngineLauncher</span></tt></a></p>
 <p>Launch a set of engines as regular external processes.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.__init__">
@@ -2650,6 +3227,24 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.cmd_and_args">
+<tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -2668,9 +3263,25 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python list.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.engine_cmd">
+<tt class="descname">engine_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.engine_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.find_args">
 <tt class="descname">find_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.find_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.handle_stderr">
+<tt class="descname">handle_stderr</tt><big>(</big><em>fd</em>, <em>events</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.handle_stderr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.handle_stdout">
+<tt class="descname">handle_stdout</tt><big>(</big><em>fd</em>, <em>events</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.handle_stdout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2764,6 +3375,23 @@ then unintall it.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.poll">
+<tt class="descname">poll</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.poll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.poll_frequency">
+<tt class="descname">poll_frequency</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.poll_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.running" title="Permalink to this definition">¶</a></dt>
@@ -2777,7 +3405,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n engines by profile or profile_dir.</p>
 </dd></dl>
 
@@ -3090,7 +3718,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIExecControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIExecLauncher" title="IPython.parallel.apps.launcher.MPIExecLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIExecLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIExecLauncher" title="IPython.parallel.apps.launcher.MPIExecLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIExecLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
 <p>Launch a controller using mpiexec.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.__init__">
@@ -3156,6 +3784,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.cmd_and_args">
 <tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -3183,7 +3823,8 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.find_args">
 <tt class="descname">find_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.find_args" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Build self.args using all the fields.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.handle_stderr">
@@ -3305,16 +3946,20 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.program">
 <tt class="descname">program</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.program" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.program_args">
 <tt class="descname">program_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.program_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.running">
@@ -3329,7 +3974,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile_dir.</p>
 </dd></dl>
 
@@ -3386,7 +4031,8 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIExecEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIExecLauncher" title="IPython.parallel.apps.launcher.MPIExecLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIExecLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIExecLauncher" title="IPython.parallel.apps.launcher.MPIExecLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIExecLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
+<p>Launch engines using mpiexec</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.__init__" title="Permalink to this definition">¶</a></dt>
@@ -3451,6 +4097,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cmd_and_args">
 <tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -3461,6 +4119,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.engine_args">
+<tt class="descname">engine_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.engine_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.engine_cmd">
+<tt class="descname">engine_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.engine_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
 </dd></dl>
 
 <dl class="method">
@@ -3589,16 +4259,20 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.program">
 <tt class="descname">program</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.program" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.program_args">
 <tt class="descname">program_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.program_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.running">
@@ -3613,7 +4287,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n engines by profile or profile_dir.</p>
 </dd></dl>
 
@@ -3955,7 +4629,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.PBSControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">PBSControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch a controller using PBS.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.__init__">
@@ -4045,6 +4719,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -4111,6 +4797,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -4180,6 +4872,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -4223,7 +4921,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile or profile_dir.</p>
 </dd></dl>
 
@@ -4292,7 +4990,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">PBSEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch Engines using PBS</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.__init__">
@@ -4382,6 +5080,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -4448,6 +5158,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -4517,6 +5233,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -4560,7 +5282,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n engines by profile or profile_dir.</p>
 </dd></dl>
 
@@ -4787,6 +5509,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.PBSLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSLauncher.notify_start">
 <tt class="descname">notify_start</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSLauncher.notify_start" title="Permalink to this definition">¶</a></dt>
@@ -4897,7 +5625,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.PBSLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n copies of the process using a batch system.</p>
 </dd></dl>
 
@@ -4991,7 +5719,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.SGEControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SGEControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch a controller using SGE.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.__init__">
@@ -5081,6 +5809,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -5147,6 +5887,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -5216,6 +5962,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -5259,7 +6011,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile or profile_dir.</p>
 </dd></dl>
 
@@ -5328,7 +6080,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SGEEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
 <p>Launch Engines with SGE</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.__init__">
@@ -5418,6 +6170,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -5484,6 +6248,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">loop</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
 </dd></dl>
 
 <dl class="method">
@@ -5553,6 +6323,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.queue">
 <tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.queue" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait for unicode strings.</p>
@@ -5596,7 +6372,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n engines by profile or profile_dir.</p>
 </dd></dl>
 
@@ -5823,6 +6599,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SGELauncher.n">
+<tt class="descname">n</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SGELauncher.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGELauncher.notify_start">
 <tt class="descname">notify_start</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGELauncher.notify_start" title="Permalink to this definition">¶</a></dt>
@@ -5933,7 +6715,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SGELauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGELauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGELauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start n copies of the process using a batch system.</p>
 </dd></dl>
 
@@ -6002,7 +6784,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHLauncher" title="IPython.parallel.apps.launcher.SSHLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHLauncher" title="IPython.parallel.apps.launcher.SSHLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.__init__" title="Permalink to this definition">¶</a></dt>
@@ -6067,6 +6849,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.cmd_and_args">
 <tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -6077,6 +6871,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.controller_args">
+<tt class="descname">controller_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.controller_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.controller_cmd">
+<tt class="descname">controller_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.controller_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
 </dd></dl>
 
 <dl class="method">
@@ -6198,16 +7004,20 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.program">
 <tt class="descname">program</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.program" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.program_args">
 <tt class="descname">program_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.program_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.running">
@@ -6234,7 +7044,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em>, <em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -6296,7 +7106,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHEngineLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHLauncher" title="IPython.parallel.apps.launcher.SSHLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHLauncher" title="IPython.parallel.apps.launcher.SSHLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.__init__" title="Permalink to this definition">¶</a></dt>
@@ -6361,6 +7171,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.cmd_and_args">
 <tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
@@ -6371,6 +7193,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.engine_args">
+<tt class="descname">engine_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.engine_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.engine_cmd">
+<tt class="descname">engine_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.engine_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
 </dd></dl>
 
 <dl class="method">
@@ -6492,16 +7326,20 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.program">
 <tt class="descname">program</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.program" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.program_args">
 <tt class="descname">program_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.program_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python list.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.running">
@@ -6528,7 +7366,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHEngineLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em>, <em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -6655,6 +7493,24 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.cmd_and_args">
+<tt class="descname">cmd_and_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.cmd_and_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -6674,6 +7530,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.engine_cmd">
+<tt class="descname">engine_cmd</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.engine_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.engines">
 <tt class="descname">engines</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.engines" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -6682,6 +7544,16 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.find_args">
 <tt class="descname">find_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.find_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.handle_stderr">
+<tt class="descname">handle_stderr</tt><big>(</big><em>fd</em>, <em>events</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.handle_stderr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.handle_stdout">
+<tt class="descname">handle_stdout</tt><big>(</big><em>fd</em>, <em>events</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.handle_stdout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -6775,6 +7647,23 @@ then unintall it.</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.poll">
+<tt class="descname">poll</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.poll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.poll_frequency">
+<tt class="descname">poll_frequency</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.poll_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>A integer trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.running" title="Permalink to this definition">¶</a></dt>
@@ -6788,7 +7677,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start engines by profile or profile_dir.
 <cite>n</cite> is ignored, and the <cite>engines</cite> config property is used instead.</p>
 </dd></dl>
@@ -7083,7 +7972,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.SSHLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em>, <em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>hostname=None</em>, <em>user=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -7170,7 +8059,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">WindowsHPCControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.__init__" title="Permalink to this definition">¶</a></dt>
@@ -7235,6 +8124,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -7242,8 +8143,8 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.extra_args">
-<tt class="descname">extra_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.extra_args" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.controller_args">
+<tt class="descname">controller_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.controller_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
 </dd></dl>
 
@@ -7356,6 +8257,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Am I running.</p>
@@ -7387,7 +8294,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile_dir.</p>
 </dd></dl>
 
@@ -7449,7 +8356,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="class">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">WindowsHPCEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.__init__" title="Permalink to this definition">¶</a></dt>
@@ -7514,6 +8421,18 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.cluster_args">
+<tt class="descname">cluster_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.cluster_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.cluster_id">
+<tt class="descname">cluster_id</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.cluster_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.config" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -7521,8 +8440,8 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.extra_args">
-<tt class="descname">extra_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.extra_args" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.engine_args">
+<tt class="descname">engine_args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.engine_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python list.</p>
 </dd></dl>
 
@@ -7635,6 +8554,12 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.profile_dir">
+<tt class="descname">profile_dir</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.profile_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.running">
 <tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.running" title="Permalink to this definition">¶</a></dt>
 <dd><p>Am I running.</p>
@@ -7666,7 +8591,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.start">
-<tt class="descname">start</tt><big>(</big><em>n</em>, <em>profile_dir</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the controller by profile_dir.</p>
 </dd></dl>
 
@@ -8037,7 +8962,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 08, 2011.
+      Last updated on Sep 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

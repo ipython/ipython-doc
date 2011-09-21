@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="lib.irunner" href="IPython.lib.irunner.html" />
+    <link rel="next" title="lib.inputhookglut" href="IPython.lib.inputhookglut.html" />
     <link rel="prev" title="lib.guisupport" href="IPython.lib.guisupport.html" /> 
   </head>
   <body>
@@ -43,7 +43,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.lib.irunner.html" title="lib.irunner"
+          <a href="IPython.lib.inputhookglut.html" title="lib.inputhookglut"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.lib.guisupport.html" title="lib.guisupport"
@@ -71,8 +71,8 @@
   <p class="topless"><a href="IPython.lib.guisupport.html"
                         title="previous chapter">lib.guisupport</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.lib.irunner.html"
-                        title="next chapter">lib.irunner</a></p>
+  <p class="topless"><a href="IPython.lib.inputhookglut.html"
+                        title="next chapter">lib.inputhookglut</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.lib.inputhook.txt"
@@ -175,9 +175,25 @@ app like <a class="reference internal" href="#IPython.lib.inputhook.enable_gui" 
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.lib.inputhook.InputHookManager.disable_glut">
+<tt class="descname">disable_glut</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.disable_glut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable event loop integration with glut.</p>
+<p>This sets PyOS_InputHook to NULL and set the display function to a
+dummy one and set the timer to a dummy timer that will be triggered
+very far in the future.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.disable_gtk">
 <tt class="descname">disable_gtk</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.disable_gtk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disable event loop integration with PyGTK.</p>
+<p>This merely sets PyOS_InputHook to NULL.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.lib.inputhook.InputHookManager.disable_pyglet">
+<tt class="descname">disable_pyglet</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.disable_pyglet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable event loop integration with pyglet.</p>
 <p>This merely sets PyOS_InputHook to NULL.</p>
 </dd></dl>
 
@@ -203,6 +219,35 @@ app like <a class="reference internal" href="#IPython.lib.inputhook.enable_gui" 
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.lib.inputhook.InputHookManager.enable_glut">
+<tt class="descname">enable_glut</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_glut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable event loop integration with GLUT.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : ignored</p>
+<blockquote class="last">
+<div><p>Ignored, it&#8217;s only a placeholder to keep the call signature of all
+gui activation methods consistent, which simplifies the logic of
+supporting magics.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This methods sets the PyOS_InputHook for GLUT, which allows the GLUT to
+integrate with terminal based applications like IPython. Due to GLUT
+limitations, it is currently not possible to start the event loop
+without first creating a window. You should thus not create another
+window but use instead the created one. See &#8216;gui-glut.py&#8217; in the
+docs/examples/lib directory.</p>
+<p>The default screen mode is set to:
+glut.GLUT_DOUBLE | glut.GLUT_RGBA | glut.GLUT_DEPTH</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.lib.inputhook.InputHookManager.enable_gtk">
 <tt class="descname">enable_gtk</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_gtk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Enable event loop integration with PyGTK.</p>
@@ -223,6 +268,30 @@ supporting magics.</p>
 <p class="rubric">Notes</p>
 <p>This methods sets the PyOS_InputHook for PyGTK, which allows
 the PyGTK to integrate with terminal based applications like
+IPython.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.lib.inputhook.InputHookManager.enable_pyglet">
+<tt class="descname">enable_pyglet</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.InputHookManager.enable_pyglet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable event loop integration with pyglet.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>app</strong> : ignored</p>
+<blockquote class="last">
+<div><p>Ignored, it&#8217;s only a placeholder to keep the call signature of all
+gui activation methods consistent, which simplifies the logic of
+supporting magics.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This methods sets the <tt class="docutils literal"><span class="pre">PyOS_InputHook</span></tt> for pyglet, which allows
+pyglet to integrate with terminal based applications like
 IPython.</p>
 </dd></dl>
 
@@ -382,7 +451,7 @@ this concept, and passing an app if <a href="#id1"><span class="problematic" id=
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.lib.irunner.html" title="lib.irunner"
+          <a href="IPython.lib.inputhookglut.html" title="lib.inputhookglut"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.lib.guisupport.html" title="lib.guisupport"
@@ -396,7 +465,7 @@ this concept, and passing an app if <a href="#id1"><span class="problematic" id=
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 08, 2011.
+      Last updated on Sep 21, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
