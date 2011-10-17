@@ -64,7 +64,7 @@
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#python-functional-api">Python functional API</a></li>
 <li><a class="reference internal" href="#general-message-format">General Message Format</a></li>
-<li><a class="reference internal" href="#messages-on-the-router-dealer-socket">Messages on the ROUTER/DEALER socket</a><ul>
+<li><a class="reference internal" href="#messages-on-the-shell-router-dealer-sockets">Messages on the shell ROUTER/DEALER sockets</a><ul>
 <li><a class="reference internal" href="#execute">Execute</a><ul>
 <li><a class="reference internal" href="#execution-semantics">Execution semantics</a></li>
 <li><a class="reference internal" href="#execution-counter-old-prompt-number">Execution counter (old prompt number)</a></li>
@@ -90,7 +90,7 @@
 <li><a class="reference internal" href="#future-ideas">Future ideas</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#messages-on-the-req-rep-socket">Messages on the REQ/REP socket</a></li>
+<li><a class="reference internal" href="#messages-on-the-stdin-router-dealer-sockets">Messages on the stdin ROUTER/DEALER sockets</a></li>
 <li><a class="reference internal" href="#heartbeat-for-kernels">Heartbeat for kernels</a></li>
 <li><a class="reference internal" href="#todo">ToDo</a></li>
 </ul>
@@ -145,35 +145,34 @@ keep it updated as the implementation evolves, so that we have a single
 common reference for all protocol details.</p>
 </div>
 <p>The basic design is explained in the following diagram:</p>
-<a class="reference external image-reference" href="../_images/frontend-kernel.png"><div align="center" class="align-center"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></div>
-</a>
+<a class="reference external image-reference" href="../_images/frontend-kernel.png"><img alt="IPython kernel/frontend messaging architecture." class="align-center" src="../_images/frontend-kernel.png" style="width: 450px;" /></a>
 <p>A single kernel can be simultaneously connected to one or more frontends.  The
 kernel has three sockets that serve the following functions:</p>
 <ol class="arabic">
-<li><p class="first">REQ: this socket is connected to a <em>single</em> frontend at a time, and it allows
-the kernel to request input from a frontend when <tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt> is called.
-The frontend holding the matching REP socket acts as a &#8216;virtual keyboard&#8217;
+<li><p class="first">stdin: this ROUTER socket is connected to all frontends, and it allows
+the kernel to request input from the active frontend when <tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt> is called.
+The frontend that executed the code has a DEALER socket that acts as a &#8216;virtual keyboard&#8217;
 for the kernel while this communication is happening (illustrated in the
 figure by the black outline around the central keyboard).  In practice,
 frontends may display such kernel requests using a special input widget or
 otherwise indicating that the user is to type input for the kernel instead
 of normal commands in the frontend.</p>
 </li>
-<li><p class="first">ROUTER: this single sockets allows multiple incoming connections from
+<li><p class="first">Shell: this single ROUTER socket allows multiple incoming connections from
 frontends, and this is the socket where requests for code execution, object
 information, prompts, etc. are made to the kernel by any frontend.  The
 communication on this socket is a sequence of request/reply actions from
 each frontend and the kernel.</p>
 </li>
-<li><p class="first">PUB: this socket is the &#8216;broadcast channel&#8217; where the kernel publishes all
+<li><p class="first">IOPub: this socket is the &#8216;broadcast channel&#8217; where the kernel publishes all
 side effects (stdout, stderr, etc.) as well as the requests coming from any
-client over the ROUTER socket and its own requests on the REP socket.  There
+client over the shell socket and its own requests on the stdin socket.  There
 are a number of actions in Python which generate side effects: <tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt>
 writes to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt>, errors generate tracebacks, etc.  Additionally, in
 a multi-client scenario, we want all frontends to be able to know what each
 other has sent to the kernel (this can be useful in collaborative scenarios,
 for example).  This socket allows both side effects and the information
-about communications taking place with one client over the ROUTER/DEALER channel
+about communications taking place with one client over the shell channel
 to be made available to all clients in a uniform manner.</p>
 <p>All messages are tagged with enough information (details below) for clients
 to know which messages come from their own interaction with the kernel and
@@ -239,8 +238,8 @@ generic structure:</p>
 <p>For each message type, the actual content will differ and all existing message
 types are specified in what follows of this document.</p>
 </div>
-<div class="section" id="messages-on-the-router-dealer-socket">
-<h2>Messages on the ROUTER/DEALER socket<a class="headerlink" href="#messages-on-the-router-dealer-socket" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="messages-on-the-shell-router-dealer-sockets">
+<h2>Messages on the shell ROUTER/DEALER sockets<a class="headerlink" href="#messages-on-the-shell-router-dealer-sockets" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="execute">
 <span id="id1"></span><h3>Execute<a class="headerlink" href="#execute" title="Permalink to this headline">¶</a></h3>
 <p>This message type is used by frontends to ask the kernel to execute code on
@@ -269,6 +268,12 @@ separate from the kernel&#8217;s own internal code and variables).</p>
 <span class="c"># Similarly, a dict mapping names to expressions to be evaluated in the</span>
 <span class="c"># user&#39;s dict.</span>
 <span class="s">&#39;user_expressions&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+
+<span class="c"># Some frontends (e.g. the Notebook) do not support stdin requests. If</span>
+<span class="c"># raw_input is called from code executed from such a frontend, a</span>
+<span class="c"># StdinNotImplementedError will be raised.</span>
+<span class="s">&#39;allow_stdin&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -712,7 +717,7 @@ request it from the kernel when needed.</p>
 <p>When a client connects to the request/reply socket of the kernel, it can issue
 a connect request to get basic information about the kernel, such as the ports
 the other ZeroMQ sockets are listening on. This allows clients to only have
-to know about a single port (the DEALER/ROUTER channel) to connect to a kernel.</p>
+to know about a single port (the shell channel) to connect to a kernel.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">connect_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="p">}</span>
@@ -720,9 +725,9 @@ to know about a single port (the DEALER/ROUTER channel) to connect to a kernel.<
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">connect_reply</span></tt>:</p>
 <div class="highlight-python"><pre>content = {
-    'xrep_port' : int  # The port the ROUTER socket is listening on.
-    'pub_port' : int   # The port the PUB socket is listening on.
-    'req_port' : int   # The port the REQ socket is listening on.
+    'shell_port' : int  # The port the shell ROUTER socket is listening on.
+    'iopub_port' : int   # The port the PUB socket is listening on.
+    'stdin_port' : int   # The port the stdin ROUTER socket is listening on.
     'hb_port' : int    # The port the heartbeat socket is listening on.
 }</pre>
 </div>
@@ -922,13 +927,15 @@ propose further actions.</p>
 </div>
 </div>
 </div>
-<div class="section" id="messages-on-the-req-rep-socket">
-<h2>Messages on the REQ/REP socket<a class="headerlink" href="#messages-on-the-req-rep-socket" title="Permalink to this headline">¶</a></h2>
-<p>This is a socket that goes in the opposite direction: from the kernel to a
-<em>single</em> frontend, and its purpose is to allow <tt class="docutils literal"><span class="pre">raw_input</span></tt> and similar
-operations that read from <tt class="docutils literal"><span class="pre">sys.stdin</span></tt> on the kernel to be fulfilled by the
-client.  For now we will keep these messages as simple as possible, since they
-basically only mean to convey the <tt class="docutils literal"><span class="pre">raw_input(prompt)</span></tt> call.</p>
+<div class="section" id="messages-on-the-stdin-router-dealer-sockets">
+<h2>Messages on the stdin ROUTER/DEALER sockets<a class="headerlink" href="#messages-on-the-stdin-router-dealer-sockets" title="Permalink to this headline">¶</a></h2>
+<p>This is a socket where the request/reply pattern goes in the opposite direction:
+from the kernel to a <em>single</em> frontend, and its purpose is to allow
+<tt class="docutils literal"><span class="pre">raw_input</span></tt> and similar operations that read from <tt class="docutils literal"><span class="pre">sys.stdin</span></tt> on the kernel
+to be fulfilled by the client. The request should be made to the frontend that
+made the execution request that prompted <tt class="docutils literal"><span class="pre">raw_input</span></tt> to be called. For now we
+will keep these messages as simple as possible, since they only mean to convey
+the <tt class="docutils literal"><span class="pre">raw_input(prompt)</span></tt> call.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">input_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;prompt&#39;</span> <span class="p">:</span> <span class="nb">str</span> <span class="p">}</span>
 </pre></div>
@@ -1019,7 +1026,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 21, 2011.
+      Last updated on Oct 16, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

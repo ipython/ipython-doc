@@ -173,6 +173,11 @@ plugins loaded.</li>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="IPython.testing.iptest.extract_version">
+<tt class="descclassname">IPython.testing.iptest.</tt><tt class="descname">extract_version</tt><big>(</big><em>mod</em><big>)</big><a class="headerlink" href="#IPython.testing.iptest.extract_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="IPython.testing.iptest.main">
 <tt class="descclassname">IPython.testing.iptest.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.testing.iptest.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -220,8 +225,25 @@ nose or twisted.trial appropriately.</p>
 
 <dl class="function">
 <dt id="IPython.testing.iptest.test_for">
-<tt class="descclassname">IPython.testing.iptest.</tt><tt class="descname">test_for</tt><big>(</big><em>mod</em>, <em>min_version=None</em><big>)</big><a class="headerlink" href="#IPython.testing.iptest.test_for" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test to see if mod is importable.</p>
+<tt class="descclassname">IPython.testing.iptest.</tt><tt class="descname">test_for</tt><big>(</big><em>item</em>, <em>min_version=None</em>, <em>callback=&lt;function extract_version at 0xaff8050&gt;</em><big>)</big><a class="headerlink" href="#IPython.testing.iptest.test_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test to see if item is importable, and optionally check against a minimum
+version.</p>
+<p>If min_version is given, the default behavior is to check against the
+<cite>__version__</cite> attribute of the item, but specifying <cite>callback</cite> allows you to
+extract the value you are interested in. e.g:</p>
+<div class="highlight-python"><pre>In [1]: import sys
+
+In [2]: from IPython.testing.iptest import test_for
+
+In [3]: test_for('sys', (2,6), callback=lambda sys: sys.version_info)
+Out[3]: True</pre>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.testing.iptest.version_tuple">
+<tt class="descclassname">IPython.testing.iptest.</tt><tt class="descname">version_tuple</tt><big>(</big><em>mod</em><big>)</big><a class="headerlink" href="#IPython.testing.iptest.version_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>turn &#8216;2.1.9&#8217; into (2,1,9), and &#8216;2.1dev&#8217; into (2,1,999)</p>
 </dd></dl>
 
 </div>
@@ -257,7 +279,7 @@ nose or twisted.trial appropriately.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 21, 2011.
+      Last updated on Oct 16, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -299,6 +299,17 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.flatten_flags">
+<tt class="descname">flatten_flags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.flatten_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>flatten flags and aliases, so cl-args override as expected.</p>
+<p>This prevents issues such as an alias pointing to InteractiveShell,
+but a config file setting the same trait in TerminalInteraciveShell
+getting inappropriate priority over the command-line arg.</p>
+<p>Only aliases with exactly one descendent in the class list
+will be promoted.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.forward_logging">
 <tt class="descname">forward_logging</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.forward_logging" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -344,7 +355,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">init_logging</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.init_logging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start logging for this application.</p>
 <p>The default is to log to stdout using a StreaHandler. The log level
-starts at loggin.WARN, but this can be adjusted by setting the 
+starts at loggin.WARN, but this can be adjusted by setting the
 <tt class="docutils literal"><span class="pre">log_level</span></tt> attribute.</p>
 </dd></dl>
 
@@ -430,6 +441,12 @@ to False, so errors will make tests fail.</p>
 <dd><p>load config from existing json connector files.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.load_secondary_config">
+<tt class="descname">load_secondary_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.load_secondary_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>secondary config, loading from JSON and setting defaults</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.location">
 <tt class="descname">location</tt><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.location" title="Permalink to this definition">¶</a></dt>
@@ -483,7 +500,7 @@ below).</p>
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
-<div><p>A callable that is called when a trait changes.  Its 
+<div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
 or handler(name, old, new).</p>
 </div></blockquote>
@@ -608,12 +625,6 @@ and should contain examples of the application&#8217;s usage.</p>
 <dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.save_urls">
 <tt class="descname">save_urls</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.save_urls" title="Permalink to this definition">¶</a></dt>
 <dd><p>save the registration urls to files.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.apps.ipcontrollerapp.IPControllerApp.secure">
-<tt class="descname">secure</tt><a class="headerlink" href="#IPython.parallel.apps.ipcontrollerapp.IPControllerApp.secure" title="Permalink to this definition">¶</a></dt>
-<dd><p>A boolean (True, False) trait.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -754,7 +765,7 @@ This raises <tt class="xref py py-exc docutils literal"><span class="pre">PIDFil
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 21, 2011.
+      Last updated on Oct 16, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

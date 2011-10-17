@@ -109,7 +109,7 @@
 <span class="target" id="module-IPython.core.application"></span><p>An application for IPython.</p>
 <p>All top-level applications should use the classes in this module for
 handling configuration and creating componenets.</p>
-<p>The job of an <tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt> is to create the master configuration 
+<p>The job of an <tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt> is to create the master configuration
 object and then create the configurable objects, passing the config to them.</p>
 <p>Authors:</p>
 <ul class="simple">
@@ -276,6 +276,17 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.application.BaseIPythonApplication.flatten_flags">
+<tt class="descname">flatten_flags</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.flatten_flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>flatten flags and aliases, so cl-args override as expected.</p>
+<p>This prevents issues such as an alias pointing to InteractiveShell,
+but a config file setting the same trait in TerminalInteraciveShell
+getting inappropriate priority over the command-line arg.</p>
+<p>Only aliases with exactly one descendent in the class list
+will be promoted.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.application.BaseIPythonApplication.generate_config_file">
 <tt class="descname">generate_config_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.generate_config_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>generate default config file from Configurables</p>
@@ -298,7 +309,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">init_logging</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.application.BaseIPythonApplication.init_logging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start logging for this application.</p>
 <p>The default is to log to stdout using a StreaHandler. The log level
-starts at loggin.WARN, but this can be adjusted by setting the 
+starts at loggin.WARN, but this can be adjusted by setting the
 <tt class="docutils literal"><span class="pre">log_level</span></tt> attribute.</p>
 </dd></dl>
 
@@ -401,7 +412,7 @@ below).</p>
 <tbody valign="top">
 <tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
-<div><p>A callable that is called when a trait changes.  Its 
+<div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
 or handler(name, old, new).</p>
 </div></blockquote>
@@ -599,7 +610,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 21, 2011.
+      Last updated on Oct 16, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
