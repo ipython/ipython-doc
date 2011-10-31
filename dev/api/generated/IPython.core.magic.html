@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.magic &mdash; IPython v0.12.dev documentation</title>
+    <title>core.magic &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.magic_arguments" href="IPython.core.magic_arguments.html" />
     <link rel="prev" title="core.macro" href="IPython.core.macro.html" /> 
@@ -87,7 +90,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -171,6 +174,16 @@ at the command line, but it is is needed in the definition.</p>
 <tt class="descname">arg_err</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.arg_err" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print docstring if incorrect arguments were passed</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.magic.Magic.auto_status">
+<tt class="descname">auto_status</tt><em class="property"> = ['Automagic is OFF, % prefix IS needed for magic functions.', 'Automagic is ON, % prefix NOT needed for magic functions.']</em><a class="headerlink" href="#IPython.core.magic.Magic.auto_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.magic.Magic.configurables">
+<tt class="descname">configurables</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.magic.Magic.configurables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.default_option">
@@ -378,6 +391,63 @@ since the default prompts do not display path information.</p>
 <p class="rubric">Examples</p>
 <p>To get a plain black and white terminal:</p>
 <div class="highlight-python"><pre>%colors nocolor</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magic.magic_config">
+<tt class="descname">magic_config</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>configure IPython</p>
+<blockquote>
+<div>%config Class[.trait=value]</div></blockquote>
+<p>This magic exposes most of the IPython config system. Any
+Configurable class should be able to be configured with the simple
+line:</p>
+<div class="highlight-python"><pre>%config Class.trait=value</pre>
+</div>
+<p>Where <cite>value</cite> will be resolved in the user&#8217;s namespace, if it is an
+expression or variable name.</p>
+<p class="rubric">Examples</p>
+<p>To see what classes are availabe for config, pass no arguments:</p>
+<div class="highlight-python"><pre>In [1]: %config
+Available objects for config:
+    TerminalInteractiveShell
+    HistoryManager
+    PrefilterManager
+    AliasManager
+    IPCompleter
+    DisplayFormatter</pre>
+</div>
+<p>To view what is configurable on a given class, just pass the class name:</p>
+<div class="highlight-python"><pre>In [2]: %config IPCompleter
+IPCompleter options
+-----------------
+IPCompleter.omit__names=&lt;Enum&gt;
+    Current: 2
+    Choices: (0, 1, 2)
+    Instruct the completer to omit private method names
+    Specifically, when completing on ``object.&lt;tab&gt;``.
+    When 2 [default]: all names that start with '_' will be excluded.
+    When 1: all 'magic' names (``__foo__``) will be excluded.
+    When 0: nothing will be excluded.
+IPCompleter.merge_completions=&lt;CBool&gt;
+    Current: True
+    Whether to merge completion results into a single list
+    If False, only the completion results from the first non-empty completer
+    will be returned.
+IPCompleter.greedy=&lt;CBool&gt;
+    Current: False
+    Activate greedy completion
+    This will enable completion on elements of lists, results of function calls,
+    etc., but can be unsafe because the code is actually evaluated on TAB.</pre>
+</div>
+<p>but the real use is in setting values:</p>
+<div class="highlight-python"><pre>In [3]: %config IPCompleter.greedy = True</pre>
+</div>
+<p>and these values are read from the user_ns if they are variables:</p>
+<div class="highlight-python"><pre>In [4]: feeling_greedy=False
+
+In [5]: %config IPCompleter.greedy = feeling_greedy</pre>
 </div>
 </dd></dl>
 
@@ -1118,11 +1188,21 @@ to be Python source and will show it with syntax highlighting.</p>
 interactive support) at any point during an IPython session.</p>
 <p>It will import at the top level numpy as np, pyplot as plt, matplotlib,
 pylab and mlab, as well as all names from numpy and pylab.</p>
+<p>If you are using the inline matplotlib backend for embedded figures,
+you can adjust its behavior via the %config magic:</p>
+<div class="highlight-python"><pre># enable SVG figures, necessary for SVG+XHTML export in the qtconsole
+In [1]: %config InlineBackend.figure_format = 'svg'
+
+# change the behavior of closing all figures at the end of each
+# execution (cell), or allowing reuse of active figures across
+# cells:
+In [2]: %config InlineBackend.close_figures = False</pre>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
 <blockquote class="last">
 <div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;, &#8216;osx&#8217; or
 &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is used,
@@ -1134,16 +1214,20 @@ matplotlib config file) is used.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p>In this case, where the MPL default is TkAgg:
-In [2]: %pylab</p>
-<p>Welcome to pylab, a matplotlib-based Python environment.
+<p>In this case, where the MPL default is TkAgg:</p>
+<div class="highlight-python"><pre>In [2]: %pylab
+
+Welcome to pylab, a matplotlib-based Python environment.
 Backend in use: TkAgg
-For more information, type &#8216;help(pylab)&#8217;.</p>
-<p>But you can explicitly request a different backend:
-In [3]: %pylab qt</p>
-<p>Welcome to pylab, a matplotlib-based Python environment.
+For more information, type 'help(pylab)'.</pre>
+</div>
+<p>But you can explicitly request a different backend:</p>
+<div class="highlight-python"><pre>In [3]: %pylab qt
+
+Welcome to pylab, a matplotlib-based Python environment.
 Backend in use: Qt4Agg
-For more information, type &#8216;help(pylab)&#8217;.</p>
+For more information, type 'help(pylab)'.</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -1179,7 +1263,7 @@ used on slow filesystems.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
 <blockquote class="last">
 <div><p>-s : &#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.
 References to objects may be kept. By default (without this option),
@@ -1238,7 +1322,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x31beaa0&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x10e9a3500&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -1770,8 +1854,8 @@ standard library.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

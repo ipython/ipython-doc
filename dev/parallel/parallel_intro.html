@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview and getting started &mdash; IPython v0.12.dev documentation</title>
+    <title>Overview and getting started &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Starting the IPython controller and engines" href="parallel_process.html" />
     <link rel="prev" title="Using IPython for parallel computing" href="index.html" /> 
@@ -92,7 +95,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -159,6 +162,9 @@ presented here.</p>
 </div>
 <div class="section" id="architecture-overview">
 <h2>Architecture overview<a class="headerlink" href="#architecture-overview" title="Permalink to this headline">¶</a></h2>
+<div class="figure">
+<img alt="../_images/wideView.png" src="../_images/wideView.png" style="width: 300px;" />
+</div>
 <p>The IPython architecture consists of four components:</p>
 <ul class="simple">
 <li>The IPython engine.</li>
@@ -192,7 +198,7 @@ same machine as the Hub, but can be run anywhere from local threads or on remote
 <p>The controller also provides a single point of contact for users who wish to
 utilize the engines connected to the controller. There are different ways of
 working with a controller. In IPython, all of these models are implemented via
-the client&#8217;s <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View.apply" title="IPython.parallel.client.view.View.apply"><tt class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></tt></a> method, with various arguments, or
+the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View.apply" title="IPython.parallel.client.view.View.apply"><tt class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></tt></a> method, after
 constructing <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View" title="IPython.parallel.client.view.View"><tt class="xref py py-class docutils literal"><span class="pre">View</span></tt></a> objects to represent subsets of engines. The two
 primary models for interacting with engines are:</p>
 <ul class="simple">
@@ -264,6 +270,30 @@ to a controller.</dd>
 but since the controller may listen on different ports for clients and
 engines, it is stored separately.</dd>
 </dl>
+<p>ipcontroller-client.json will look something like this, under default localhost
+circumstances:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;url&quot;</span><span class="p">:</span><span class="s">&quot;tcp:\/\/127.0.0.1:54424&quot;</span><span class="p">,</span>
+  <span class="s">&quot;exec_key&quot;</span><span class="p">:</span><span class="s">&quot;a361fe89-92fc-4762-9767-e2f0a05e3130&quot;</span><span class="p">,</span>
+  <span class="s">&quot;ssh&quot;</span><span class="p">:</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+  <span class="s">&quot;location&quot;</span><span class="p">:</span><span class="s">&quot;10.19.1.135&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If, however, you are running the controller on a work node on a cluster, you will likely
+need to use ssh tunnels to connect clients from your laptop to it.  You will also
+probably need to instruct the controller to listen for engines coming from other work nodes
+on the cluster.  An example of ipcontroller-client.json, as created by:</p>
+<div class="highlight-python"><pre>$&gt; ipcontroller --ip=0.0.0.0 --ssh=login.mycluster.com</pre>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;url&quot;</span><span class="p">:</span><span class="s">&quot;tcp:\/\/*:54424&quot;</span><span class="p">,</span>
+  <span class="s">&quot;exec_key&quot;</span><span class="p">:</span><span class="s">&quot;a361fe89-92fc-4762-9767-e2f0a05e3130&quot;</span><span class="p">,</span>
+  <span class="s">&quot;ssh&quot;</span><span class="p">:</span><span class="s">&quot;login.mycluster.com&quot;</span><span class="p">,</span>
+  <span class="s">&quot;location&quot;</span><span class="p">:</span><span class="s">&quot;10.0.0.2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p>More details of how these JSON files are used are given below.</p>
 <p>A detailed description of the security model and its implementation in IPython
 can be found <a class="reference internal" href="parallel_security.html#parallelsecurity"><em>here</em></a>.</p>
@@ -316,7 +346,7 @@ client like this:</p>
 <p>Remember, a client needs to be able to see the Hub&#8217;s ports to connect. So if they are on a
 different machine, you may need to use an ssh server to tunnel access to that machine,
 then you would connect to it with:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">sshserver</span><span class="o">=</span><span class="s">&#39;myhub.example.com&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s">&#39;/path/to/my/ipcontroller-client.json&#39;</span><span class="p">,</span> <span class="n">sshserver</span><span class="o">=</span><span class="s">&#39;me@myhub.example.com&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Where &#8216;myhub.example.com&#8217; is the url or IP address of the machine on
@@ -364,8 +394,8 @@ controller.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

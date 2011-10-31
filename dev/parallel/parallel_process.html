@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython v0.12.dev documentation</title>
+    <title>Starting the IPython controller and engines &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -104,7 +107,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -242,8 +245,32 @@ which should cover most of the available possibilities.</p>
 <h3>Using various batch systems with <strong class="command">ipcluster</strong><a class="headerlink" href="#using-various-batch-systems-with-ipcluster" title="Permalink to this headline">¶</a></h3>
 <p><strong class="command">ipcluster</strong> has a notion of Launchers that can start controllers
 and engines with various remote execution schemes.  Currently supported
-models include <strong class="command">ssh</strong>, <strong class="command">mpiexec</strong>, PBS-style (Torque, SGE),
+models include <strong class="command">ssh</strong>, <strong class="command">mpiexec</strong>, PBS-style (Torque, SGE, LSF),
 and Windows HPC Server.</p>
+<p>In general, these are configured by the <tt class="xref py py-attr docutils literal"><span class="pre">IPClusterEngines.engine_set_launcher_class</span></tt>,
+and <tt class="xref py py-attr docutils literal"><span class="pre">IPClusterStart.controller_launcher_class</span></tt> configurables, which can be the
+fully specified object name (e.g. <tt class="docutils literal"><span class="pre">'IPython.parallel.apps.launcher.LocalControllerLauncher'</span></tt>),
+but if you are using IPython&#8217;s builtin launchers, you can specify just the class name,
+or even just the prefix e.g:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;SSH&#39;</span>
+<span class="c"># equivalent to</span>
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;SSHEngineSetLauncher&#39;</span>
+<span class="c"># both of which expand to</span>
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;IPython.parallel.apps.launcher.SSHEngineSetLauncher&#39;</span>
+</pre></div>
+</div>
+<p>The shortest form being of particular use on the command line, where all you need to do to
+get an IPython cluster running with engines started with MPI is:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start --engines<span class="o">=</span>MPIExec
+</pre></div>
+</div>
+<p>Assuming that the default MPI config is sufficient.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">shortcuts for builtin launcher names were added in 0.12, as was the <tt class="docutils literal"><span class="pre">_class</span></tt> suffix
+on the configurable names.  If you use the old 0.11 names (e.g. <tt class="docutils literal"><span class="pre">engine_set_launcher</span></tt>),
+they will still work, but you will get a deprecation warning that the name has changed.</p>
+</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The Launchers and configuration are designed in such a way that advanced
@@ -264,7 +291,7 @@ have not yet supported (such as Condor)</p>
 </div>
 <p>and edit the file <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_mpi/ipcluster_config.py</span></tt>.</p>
 <p>There, instruct ipcluster to use the MPIExec launchers by adding the lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher</span> <span class="o">=</span> <span class="s">&#39;IPython.parallel.apps.launcher.MPIExecEngineSetLauncher&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIExecEngineSetLauncher&#39;</span>
 </pre></div>
 </div>
 <p>If the default MPI configuration is correct, then you can now start your cluster, with:</p>
@@ -276,7 +303,7 @@ have not yet supported (such as Condor)</p>
 <li>Uses <strong class="command">mpiexec</strong> to start 4 engines.</li>
 </ol>
 <p>If you have a reason to also start the Controller with mpi, you can specify:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher</span> <span class="o">=</span> <span class="s">&#39;IPython.parallel.apps.launcher.MPIExecControllerLauncher&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIExecControllerLauncher&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -308,10 +335,8 @@ with <strong class="command">ipcluster</strong> currently.</p>
 </div>
 <p>And in <tt class="file docutils literal"><span class="pre">ipcluster_config.py</span></tt>, we will select the PBS launchers for the controller
 and engines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher</span> <span class="o">=</span> \
-    <span class="s">&#39;IPython.parallel.apps.launcher.PBSControllerLauncher&#39;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher</span> <span class="o">=</span> \
-    <span class="s">&#39;IPython.parallel.apps.launcher.PBSEngineSetLauncher&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;PBSControllerLauncher&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;PBSEngineSetLauncher&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -413,11 +438,9 @@ and are using ssh-agent <a class="reference internal" href="#ssh">[SSH]</a> for 
 <div class="highlight-python"><pre>$ ipython profile create --parallel --profile=ssh</pre>
 </div>
 <p>To use this mode, select the SSH launchers in <tt class="file docutils literal"><span class="pre">ipcluster_config.py</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher</span> <span class="o">=</span> \
-    <span class="s">&#39;IPython.parallel.apps.launcher.SSHEngineSetLauncher&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;SSHEngineSetLauncher&#39;</span>
 <span class="c"># and if the Controller is also to be remote:</span>
-<span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher</span> <span class="o">=</span> \
-    <span class="s">&#39;IPython.parallel.apps.launcher.SSHControllerLauncher&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;SSHControllerLauncher&#39;</span>
 </pre></div>
 </div>
 <p>The controller&#8217;s remote location and configuration can be specified:</p>
@@ -775,8 +798,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.prefilter &mdash; IPython v0.12.dev documentation</title>
+    <title>core.prefilter &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.profileapp" href="IPython.core.profileapp.html" />
     <link rel="prev" title="core.plugin" href="IPython.core.plugin.html" /> 
@@ -111,7 +114,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -174,19 +177,23 @@ transforms are used to implement additional syntax such as !ls and %magic.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -218,6 +225,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AliasChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AliasChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -237,7 +249,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -304,6 +316,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AliasChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -326,19 +344,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AliasHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -368,6 +390,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.AliasHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.AliasHandler.esc_strings">
@@ -401,7 +428,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -462,6 +489,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AliasHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AliasHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -485,19 +518,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignMagicTransformer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignMagicTransformer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignMagicTransformer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -529,6 +566,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AssignMagicTransformer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AssignMagicTransformer.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -548,7 +590,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -620,6 +662,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">transform</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AssignMagicTransformer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignMagicTransformer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -643,19 +691,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignSystemTransformer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignSystemTransformer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignSystemTransformer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -687,6 +739,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AssignSystemTransformer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AssignSystemTransformer.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -706,7 +763,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -778,6 +835,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">transform</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AssignSystemTransformer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignSystemTransformer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -810,19 +873,23 @@ python code).  E.g. ls=&#8217;hi&#8217;, or ls,that=1,2</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignmentChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignmentChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AssignmentChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -854,6 +921,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AssignmentChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AssignmentChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -873,7 +945,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -940,6 +1012,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AssignmentChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AssignmentChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -962,19 +1040,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1004,6 +1086,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.AutoHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.AutoHandler.esc_strings">
@@ -1037,7 +1124,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1098,6 +1185,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AutoHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1130,19 +1223,23 @@ user namespace which could shadow it.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoMagicChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoMagicChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutoMagicChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1174,6 +1271,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AutoMagicChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AutoMagicChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -1193,7 +1295,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1260,6 +1362,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AutoMagicChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutoMagicChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1288,19 +1396,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutocallChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutocallChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.AutocallChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1332,6 +1444,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.AutocallChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.AutocallChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -1351,7 +1468,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1418,6 +1535,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.AutocallChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.AutocallChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1446,19 +1569,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1490,6 +1617,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.EmacsChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.EmacsChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -1509,7 +1641,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1576,6 +1708,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.EmacsChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1598,19 +1736,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EmacsHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1640,6 +1782,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.EmacsHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.EmacsHandler.esc_strings">
@@ -1673,7 +1820,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1734,6 +1881,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.EmacsHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EmacsHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1763,19 +1916,23 @@ or None if there is no escape char.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EscCharsChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EscCharsChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.EscCharsChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1807,6 +1964,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.EscCharsChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.EscCharsChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -1826,7 +1988,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1893,6 +2055,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.EscCharsChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.EscCharsChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1915,19 +2083,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.HelpHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.HelpHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.HelpHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1957,6 +2129,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.HelpHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.HelpHandler.esc_strings">
@@ -1992,7 +2169,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2053,6 +2230,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.HelpHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.HelpHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2081,19 +2264,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyAutocallChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyAutocallChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyAutocallChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2125,6 +2312,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.IPyAutocallChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.IPyAutocallChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -2144,7 +2336,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2211,6 +2403,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.IPyAutocallChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyAutocallChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2234,19 +2432,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyPromptTransformer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyPromptTransformer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.IPyPromptTransformer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2278,6 +2480,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.IPyPromptTransformer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.IPyPromptTransformer.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -2297,7 +2504,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2369,6 +2576,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">transform</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.IPyPromptTransformer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.IPyPromptTransformer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2396,19 +2609,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2440,6 +2657,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.MacroChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.MacroChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -2459,7 +2681,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2526,6 +2748,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2548,19 +2776,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MacroHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2590,6 +2822,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MacroHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.MacroHandler.esc_strings">
@@ -2622,7 +2859,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2683,6 +2920,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.MacroHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MacroHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2705,19 +2948,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MagicHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MagicHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MagicHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2747,6 +2994,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.MagicHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.MagicHandler.esc_strings">
@@ -2780,7 +3032,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2841,6 +3093,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.MagicHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MagicHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2869,19 +3127,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MultiLineMagicChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MultiLineMagicChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.MultiLineMagicChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2913,6 +3175,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.MultiLineMagicChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.MultiLineMagicChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -2932,7 +3199,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2999,6 +3266,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.MultiLineMagicChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.MultiLineMagicChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3028,19 +3301,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -3072,6 +3349,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.PrefilterChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.PrefilterChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -3091,7 +3373,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -3158,6 +3440,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PrefilterChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3205,19 +3493,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -3247,6 +3539,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.PrefilterHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.PrefilterHandler.esc_strings">
@@ -3280,7 +3577,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -3341,6 +3638,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PrefilterHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3399,19 +3702,23 @@ or <a class="reference internal" href="#IPython.core.prefilter.PrefilterManager.
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterManager.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterManager.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterManager.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -3441,6 +3748,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.PrefilterManager.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.prefilter.PrefilterManager.find_handler">
@@ -3504,7 +3816,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -3649,6 +3961,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>Unregister a transformer instance.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PrefilterManager.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterManager.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3672,19 +3990,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterTransformer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterTransformer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PrefilterTransformer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -3716,6 +4038,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.PrefilterTransformer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.PrefilterTransformer.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -3735,7 +4062,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -3808,6 +4135,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>Transform a line, returning the new one.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PrefilterTransformer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PrefilterTransformer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3831,19 +4164,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PyPromptTransformer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PyPromptTransformer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PyPromptTransformer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -3875,6 +4212,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.PyPromptTransformer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.PyPromptTransformer.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -3894,7 +4236,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -3966,6 +4308,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">transform</tt><big>(</big><em>line</em>, <em>continue_prompt</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PyPromptTransformer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PyPromptTransformer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -3997,19 +4345,23 @@ spurious (and very confusing) geattr() accesses.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PythonOpsChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PythonOpsChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.PythonOpsChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -4041,6 +4393,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.PythonOpsChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.PythonOpsChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -4060,7 +4417,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -4127,6 +4484,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.PythonOpsChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.PythonOpsChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -4154,19 +4517,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeChecker.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeChecker.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeChecker.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -4198,6 +4565,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.prefilter.ShellEscapeChecker.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.prefilter.ShellEscapeChecker.enabled">
 <tt class="descname">enabled</tt><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean (True, False) trait.</p>
@@ -4217,7 +4589,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -4284,6 +4656,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.ShellEscapeChecker.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeChecker.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -4306,19 +4684,23 @@ None if a metadata key doesn&#8217;t exist.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeHandler.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeHandler.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.prefilter.ShellEscapeHandler.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -4348,6 +4730,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prefilter.ShellEscapeHandler.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.prefilter.ShellEscapeHandler.esc_strings">
@@ -4381,7 +4768,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -4442,6 +4829,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.prefilter.ShellEscapeHandler.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prefilter.ShellEscapeHandler.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -4489,8 +4882,8 @@ than ifun, because it can not contain a &#8216;.&#8217; character.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

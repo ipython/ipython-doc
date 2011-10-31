@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The IPython task interface &mdash; IPython v0.12.dev documentation</title>
+    <title>The IPython task interface &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Using MPI with IPython" href="parallel_mpi.html" />
     <link rel="prev" title="IPython’s Direct interface" href="parallel_multiengine.html" /> 
@@ -62,10 +65,11 @@
   <ul>
 <li><a class="reference internal" href="#">The IPython task interface</a><ul>
 <li><a class="reference internal" href="#starting-the-ipython-controller-and-engines">Starting the IPython controller and engines</a></li>
-<li><a class="reference internal" href="#creating-a-client-instance">Creating a <tt class="docutils literal"><span class="pre">Client</span></tt> instance</a></li>
+<li><a class="reference internal" href="#creating-a-loadbalancedview-instance">Creating a <tt class="docutils literal"><span class="pre">LoadBalancedView</span></tt> instance</a></li>
 <li><a class="reference internal" href="#quick-and-easy-parallelism">Quick and easy parallelism</a><ul>
 <li><a class="reference internal" href="#parallel-map">Parallel map</a></li>
 <li><a class="reference internal" href="#parallel-function-decorator">Parallel function decorator</a></li>
+<li><a class="reference internal" href="#map-results-are-iterable">Map results are iterable!</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#dependencies">Dependencies</a><ul>
@@ -109,7 +113,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -150,8 +154,8 @@ the <strong class="command">ipcluster</strong> command:</p>
 <p>For more detailed information about starting the controller and engines, see
 our <a class="reference internal" href="parallel_intro.html#parallel-overview"><em>introduction</em></a> to using IPython for parallel computing.</p>
 </div>
-<div class="section" id="creating-a-client-instance">
-<h2>Creating a <tt class="docutils literal"><span class="pre">Client</span></tt> instance<a class="headerlink" href="#creating-a-client-instance" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="creating-a-loadbalancedview-instance">
+<h2>Creating a <tt class="docutils literal"><span class="pre">LoadBalancedView</span></tt> instance<a class="headerlink" href="#creating-a-loadbalancedview-instance" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to import the IPython <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt>
 module and then create a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> instance, and we will also be using
 a <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt>, here called <cite>lview</cite>:</p>
@@ -194,12 +198,12 @@ the task interface.</p>
 <p>To load-balance <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt>,simply use a LoadBalancedView:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [62]: </span><span class="n">lview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="go">    In [63]: serial_result = map(lambda x:x**10, range(32))</span>
+<span class="gp">In [63]: </span><span class="n">serial_result</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
 
-<span class="go">    In [64]: parallel_result = lview.map(lambda x:x**10, range(32))</span>
+<span class="gp">In [64]: </span><span class="n">parallel_result</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
 
-<span class="go">    In [65]: serial_result==parallel_result</span>
-<span class="go">    Out[65]: True</span>
+<span class="gp">In [65]: </span><span class="n">serial_result</span><span class="o">==</span><span class="n">parallel_result</span>
+<span class="gr">Out[65]: </span><span class="bp">True</span>
 </pre></div>
 </div>
 </div>
@@ -216,6 +220,46 @@ that turns any Python function into a parallel function:</p>
 <span class="gp">In [11]: </span><span class="n">f</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>    <span class="c"># this is done in parallel</span>
 <span class="gr">Out[11]: </span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">10.0</span><span class="p">,</span><span class="mf">160.0</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="map-results-are-iterable">
+<span id="parallel-taskmap"></span><h3>Map results are iterable!<a class="headerlink" href="#map-results-are-iterable" title="Permalink to this headline">¶</a></h3>
+<p>When an AsyncResult object actually maps multiple results (e.g. the <tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt>
+object), you can actually iterate through them, and act on the results as they arrive:</p>
+<div class="highlight-python"><pre>but want to perform logic on elements in the result, or even abort subsequent
+tasks in cases where you are searching for the first affirmative result.
+
+By default, the results will match the ordering of the submitted sequence, but
+if you call `map(...ordered=False)`, then results will be provided to the iterator
+on a first come first serve basis.
+
+Authors
+-------
+* MinRK
+"""
+import time
+
+from IPython import parallel
+
+# create client &amp; view
+rc = parallel.Client()
+dv = rc[:]
+v = rc.load_balanced_view()
+
+# scatter 'id', so id=0,1,2 on engines 0,1,2
+dv.scatter('id', rc.ids, flatten=True)
+print "Engine IDs: ", dv['id']
+
+# create a Reference to `id`. This will be a different value on each engine
+ref = parallel.Reference('id')
+</pre>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p>When AsyncResult or the AsyncMapResult don&#8217;t provide what you need (for instance,
+handling individual results as they arrive, but with metadata), you can always
+just split the original result&#8217;s <tt class="docutils literal"><span class="pre">msg_ids</span></tt> attribute, and handle them as you like.</p>
+<p class="last">For an example of this, see <tt class="file docutils literal"><span class="pre">docs/examples/parallel/customresult.py</span></tt></p>
 </div>
 </div>
 </div>
@@ -252,8 +296,8 @@ some decorators for facilitating this behavior.</p>
 <tt class="docutils literal"><span class="pre">&#64;require</span></tt> decorator lets you define a function that will only run on engines where names
 you specify are importable:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;numpy&#39;</span><span class="p">,</span> <span class="s">&#39;zmq&#39;</span><span class="p">)</span>
-<span class="go">    ...: def myfunc():</span>
-<span class="go">    ...:     return dostuff()</span>
+<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
+<span class="gp">   ....:</span>     <span class="k">return</span> <span class="n">dostuff</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Now, any time you apply <tt class="xref py py-func docutils literal"><span class="pre">myfunc()</span></tt>, the task will only run on a machine that has
@@ -263,20 +307,20 @@ numpy and pyzmq available, and when <tt class="xref py py-func docutils literal"
 <h4>&#64;depend<a class="headerlink" href="#depend" title="Permalink to this headline">¶</a></h4>
 <p>The <tt class="docutils literal"><span class="pre">&#64;depend</span></tt> decorator lets you decorate any function with any <em>other</em> function to
 evaluate the dependency. The dependency function will be called at the start of the task,
-and if it returns <tt class="xref docutils literal"><span class="pre">False</span></tt>, then the dependency will be considered unmet, and the task
+and if it returns <tt class="docutils literal"><span class="pre">False</span></tt>, then the dependency will be considered unmet, and the task
 will be assigned to another engine. If the dependency returns <em>anything other than
 ``False``</em>, the rest of the task will continue.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="k">def</span> <span class="nf">platform_specific</span><span class="p">(</span><span class="n">plat</span><span class="p">):</span>
-<span class="go">    ...:    import sys</span>
-<span class="go">    ...:    return sys.platform == plat</span>
+<span class="gp">   ....:</span>    <span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">   ....:</span>    <span class="k">return</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="n">plat</span>
 
 <span class="gp">In [11]: </span><span class="nd">@depend</span><span class="p">(</span><span class="n">platform_specific</span><span class="p">,</span> <span class="s">&#39;darwin&#39;</span><span class="p">)</span>
-<span class="go">    ...: def mactask():</span>
-<span class="go">    ...:    do_mac_stuff()</span>
+<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">mactask</span><span class="p">():</span>
+<span class="gp">   ....:</span>    <span class="n">do_mac_stuff</span><span class="p">()</span>
 
 <span class="gp">In [12]: </span><span class="nd">@depend</span><span class="p">(</span><span class="n">platform_specific</span><span class="p">,</span> <span class="s">&#39;nt&#39;</span><span class="p">)</span>
-<span class="go">    ...: def wintask():</span>
-<span class="go">    ...:    do_windows_stuff()</span>
+<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">wintask</span><span class="p">():</span>
+<span class="gp">   ....:</span>    <span class="n">do_windows_stuff</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In this case, any time you apply <tt class="docutils literal"><span class="pre">mytask</span></tt>, it will only run on an OSX machine.
@@ -302,7 +346,7 @@ has been met.</p>
 <dt>any|all</dt>
 <dd>Whether the dependency is considered met if <em>any</em> of the dependencies are done, or
 only after <em>all</em> of them have finished.  This is set by a Dependency&#8217;s <tt class="xref py py-attr docutils literal"><span class="pre">all</span></tt>
-boolean attribute, which defaults to <tt class="xref docutils literal"><span class="pre">True</span></tt>.</dd>
+boolean attribute, which defaults to <tt class="docutils literal"><span class="pre">True</span></tt>.</dd>
 <dt>success [default: True]</dt>
 <dd>Whether to consider tasks that succeeded as fulfilling dependencies.</dd>
 <dt>failure [default <span class="classifier-delimiter">:</span> <span class="classifier">False]</span></dt>
@@ -311,7 +355,7 @@ using <cite>failure=True,success=False</cite> is useful for setting up cleanup t
 only when tasks have failed.</dd>
 </dl>
 <p>Sometimes you want to run a task after another, but only if that task succeeded. In this case,
-<tt class="docutils literal"><span class="pre">success</span></tt> should be <tt class="xref docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">failure</span></tt> should be <tt class="xref docutils literal"><span class="pre">False</span></tt>. However sometimes you may
+<tt class="docutils literal"><span class="pre">success</span></tt> should be <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">failure</span></tt> should be <tt class="docutils literal"><span class="pre">False</span></tt>. However sometimes you may
 not care whether the task succeeds, and always want the second task to run, in which case you
 should use <cite>success=failure=True</cite>. The default behavior is to only use successes.</p>
 <p>There are other switches for interpretation that are made at the <em>task</em> level.  These are
@@ -343,9 +387,11 @@ you can skip using Dependency objects, and just pass msg_ids or AsyncResult obje
 
 <span class="gp">In [16]: </span><span class="n">ar2</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
 
-<span class="gp">In [17]: </span><span class="n">ar3</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">f3</span><span class="p">,</span> <span class="n">after</span><span class="o">=</span><span class="p">[</span><span class="n">ar</span><span class="p">,</span><span class="n">ar2</span><span class="p">])</span>
+<span class="gp">In [17]: </span><span class="k">with</span> <span class="n">lview</span><span class="o">.</span><span class="n">temp_flags</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="p">[</span><span class="n">ar</span><span class="p">,</span><span class="n">ar2</span><span class="p">]):</span>
+<span class="gp">   ....:</span>    <span class="n">ar3</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f3</span><span class="p">)</span>
 
-<span class="gp">In [17]: </span><span class="n">ar4</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">f3</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="p">[</span><span class="n">ar</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="gp">In [18]: </span><span class="k">with</span> <span class="n">lview</span><span class="o">.</span><span class="n">temp_flags</span><span class="p">(</span><span class="n">follow</span><span class="o">=</span><span class="p">[</span><span class="n">ar</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="gp">   ....:</span>    <span class="n">ar4</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f3</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition-see-also admonition seealso">
@@ -487,7 +533,7 @@ in the following classes:</p>
 <li>Define some functions to be run as tasks</li>
 <li>Submit your tasks to using the <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> method of your
 <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> instance.</li>
-<li>Use <tt class="xref py py-meth docutils literal"><span class="pre">Client.get_result()</span></tt> to get the results of the
+<li>Use <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.get_result" title="IPython.parallel.client.client.Client.get_result"><tt class="xref py py-meth docutils literal"><span class="pre">Client.get_result()</span></tt></a> to get the results of the
 tasks, or use the <a class="reference internal" href="parallel_details.html#AsyncResult.get" title="AsyncResult.get"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.get()</span></tt></a> method of the results to wait
 for and then receive the results.</li>
 </ol>
@@ -528,8 +574,8 @@ for and then receive the results.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

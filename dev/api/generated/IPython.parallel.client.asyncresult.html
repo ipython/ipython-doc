@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>parallel.client.asyncresult &mdash; IPython v0.12.dev documentation</title>
+    <title>parallel.client.asyncresult &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.client.client" href="IPython.parallel.client.client.html" />
     <link rel="prev" title="parallel.apps.winhpcjob" href="IPython.parallel.apps.winhpcjob.html" /> 
@@ -87,7 +90,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -144,7 +147,7 @@ so use <cite>AsyncHubResult.wait()</cite> sparingly.</p>
 <dt id="IPython.parallel.client.asyncresult.AsyncHubResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -162,6 +165,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <tt class="descname">metadata</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>property for accessing execution metadata.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.msg_ids">
+<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.msg_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncHubResult.r">
@@ -222,13 +230,16 @@ before the send completes.</p>
 <h3><a class="reference internal" href="#IPython.parallel.client.asyncresult.AsyncMapResult" title="IPython.parallel.client.asyncresult.AsyncMapResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt></a><a class="headerlink" href="#asyncmapresult" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.client.asyncresult.</tt><tt class="descname">AsyncMapResult</tt><big>(</big><em>client</em>, <em>msg_ids</em>, <em>mapObject</em>, <em>fname=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.parallel.client.asyncresult.</tt><tt class="descname">AsyncMapResult</tt><big>(</big><em>client</em>, <em>msg_ids</em>, <em>mapObject</em>, <em>fname=''</em>, <em>ordered=True</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.client.asyncresult.AsyncResult</span></tt></a></p>
 <p>Class for representing results of non-blocking gathers.</p>
 <p>This will properly reconstruct the gather.</p>
+<p>This class is iterable at any time, and will wait on results as they come.</p>
+<p>If ordered=False, then the first results to arrive will come first, otherwise
+results will be yielded in the order they were submitted.</p>
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>client</em>, <em>msg_ids</em>, <em>mapObject</em>, <em>fname=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>client</em>, <em>msg_ids</em>, <em>mapObject</em>, <em>fname=''</em>, <em>ordered=True</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -241,7 +252,7 @@ before the send completes.</p>
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -259,6 +270,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <tt class="descname">metadata</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>property for accessing execution metadata.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.msg_ids">
+<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.msg_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.r">
@@ -339,7 +355,7 @@ before the send completes.</p>
 <dt id="IPython.parallel.client.asyncresult.AsyncResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -357,6 +373,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <tt class="descname">metadata</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>property for accessing execution metadata.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.msg_ids">
+<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.msg_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncResult.r">
@@ -456,8 +477,8 @@ before the send completes.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

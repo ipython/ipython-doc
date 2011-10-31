@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.formatters &mdash; IPython v0.12.dev documentation</title>
+    <title>core.formatters &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.history" href="IPython.core.history.html" />
     <link rel="prev" title="core.extensions" href="IPython.core.extensions.html" /> 
@@ -95,7 +98,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -153,7 +156,7 @@ used to compute the format data for their objects (if those objects don&#8217;t
 have the special print methods). The easiest way of using these
 dictionaries is through the <a class="reference internal" href="#IPython.core.formatters.BaseFormatter.for_type" title="IPython.core.formatters.BaseFormatter.for_type"><tt class="xref py py-meth docutils literal"><span class="pre">for_type()</span></tt></a> and <a class="reference internal" href="#IPython.core.formatters.BaseFormatter.for_type_by_name" title="IPython.core.formatters.BaseFormatter.for_type_by_name"><tt class="xref py py-meth docutils literal"><span class="pre">for_type_by_name()</span></tt></a>
 methods.</p>
-<p>If no function/callable is found to compute the format data, <tt class="xref docutils literal"><span class="pre">None</span></tt> is
+<p>If no function/callable is found to compute the format data, <tt class="docutils literal"><span class="pre">None</span></tt> is
 returned and this format type is not used.</p>
 <dl class="method">
 <dt id="IPython.core.formatters.BaseFormatter.__init__">
@@ -163,7 +166,7 @@ returned and this format type is not used.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -194,19 +197,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.BaseFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.BaseFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.BaseFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -238,6 +245,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.BaseFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.BaseFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -257,7 +269,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -284,7 +296,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -327,7 +339,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -393,6 +405,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.BaseFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.BaseFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -410,7 +428,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -441,19 +459,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.DisplayFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.DisplayFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.DisplayFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -484,6 +506,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.core.formatters.DisplayFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.formatters.DisplayFormatter.format">
 <tt class="descname">format</tt><big>(</big><em>obj</em>, <em>include=None</em>, <em>exclude=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.format" title="Permalink to this definition">¶</a></dt>
@@ -504,7 +531,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : object</p>
 <blockquote>
 <div><p>The Python object whose format data will be computed.</p>
 </div></blockquote>
@@ -522,7 +549,7 @@ except for those included in this argument.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>format_dict</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>format_dict</strong> : dict</p>
 <blockquote class="last">
 <div><p>A dictionary of key/value pairs, one or each format that was
 generated for the object. The keys are the format types, which
@@ -562,7 +589,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -615,6 +642,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.DisplayFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.DisplayFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -634,6 +667,16 @@ the HTML representation of the object when called.</p>
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.FormatterABC.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.FormatterABC.enabled">
+<tt class="descname">enabled</tt><em class="property"> = True</em><a class="headerlink" href="#IPython.core.formatters.FormatterABC.enabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.FormatterABC.format_type">
+<tt class="descname">format_type</tt><em class="property"> = 'text/plain'</em><a class="headerlink" href="#IPython.core.formatters.FormatterABC.format_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -660,7 +703,7 @@ could be injected into an existing DOM. It should <em>not</em> include the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -691,19 +734,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.HTMLFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.HTMLFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.HTMLFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -735,6 +782,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.HTMLFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.HTMLFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -754,7 +806,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -781,7 +833,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -824,7 +876,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -890,6 +942,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.HTMLFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.HTMLFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -914,7 +972,7 @@ base64 encoded.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -945,19 +1003,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JPEGFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JPEGFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JPEGFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -989,6 +1051,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.JPEGFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.JPEGFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -1008,7 +1075,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -1035,7 +1102,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -1078,7 +1145,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1144,6 +1211,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.JPEGFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JPEGFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1167,7 +1240,7 @@ this.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -1198,19 +1271,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JSONFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JSONFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JSONFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1242,6 +1319,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.JSONFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.JSONFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -1261,7 +1343,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -1288,7 +1370,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -1331,7 +1413,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1397,6 +1479,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.JSONFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JSONFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1421,7 +1509,7 @@ should <em>not</em> be enclosed in <tt class="docutils literal"><span class="pre
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -1452,19 +1540,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JavascriptFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JavascriptFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.JavascriptFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1496,6 +1588,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.JavascriptFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.JavascriptFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -1515,7 +1612,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -1542,7 +1639,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -1585,7 +1682,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1651,6 +1748,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.JavascriptFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.JavascriptFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1675,7 +1778,7 @@ enclosed in either <tt class="docutils literal"><span class="pre">`$`</span></tt
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -1706,19 +1809,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.LatexFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.LatexFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.LatexFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -1750,6 +1857,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.LatexFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.LatexFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -1769,7 +1881,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -1796,7 +1908,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -1839,7 +1951,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -1905,6 +2017,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.LatexFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.LatexFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -1929,7 +2047,7 @@ base64 encoded.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -1960,19 +2078,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PNGFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PNGFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PNGFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2004,6 +2126,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.PNGFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.PNGFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -2023,7 +2150,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -2050,7 +2177,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -2093,7 +2220,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2159,6 +2286,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.PNGFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PNGFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2197,7 +2330,7 @@ how to write pretty printers.  Here is a simple example:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -2228,19 +2361,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PlainTextFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PlainTextFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.PlainTextFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2270,6 +2407,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.formatters.PlainTextFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.formatters.PlainTextFormatter.deferred_printers">
@@ -2303,7 +2445,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -2330,7 +2472,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -2385,7 +2527,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2457,6 +2599,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.PlainTextFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.core.formatters.PlainTextFormatter.verbose">
 <tt class="descname">verbose</tt><a class="headerlink" href="#IPython.core.formatters.PlainTextFormatter.verbose" title="Permalink to this definition">¶</a></dt>
@@ -2488,7 +2636,7 @@ this.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>config</strong> : Config</p>
 <blockquote class="last">
 <div><p>If this is empty, default values are used. If config is a
 <tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt> instance, it will be used to configure the
@@ -2519,19 +2667,23 @@ instance.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.SVGFormatter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.SVGFormatter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.formatters.SVGFormatter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -2563,6 +2715,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.formatters.SVGFormatter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.formatters.SVGFormatter.deferred_printers">
 <tt class="descname">deferred_printers</tt><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.deferred_printers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
@@ -2582,7 +2739,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>typ</strong> : class</p>
 <blockquote>
 <div><p>The class of the object that will be formatted using <cite>func</cite>.</p>
 </div></blockquote>
@@ -2609,7 +2766,7 @@ module and name of the type, rather than the type of the object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>type_module</strong> : str</p>
 <blockquote>
 <div><p>The full dotted name of the module the type is defined in, like
 <tt class="docutils literal"><span class="pre">numpy</span></tt>.</p>
@@ -2652,7 +2809,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2718,6 +2875,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.formatters.SVGFormatter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.formatters.SVGFormatter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -2744,13 +2907,13 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : object</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : object</p>
 <blockquote>
 <div><p>The Python object whose format data will be computed.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>format_dict</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>format_dict</strong> : dict</p>
 <blockquote>
 <div><p>A dictionary of key/value pairs, one or each format that was
 generated for the object. The keys are the format types, which
@@ -2809,8 +2972,8 @@ except for those included in this argument.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

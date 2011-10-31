@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>parallel.apps.baseapp &mdash; IPython v0.12.dev documentation</title>
+    <title>parallel.apps.baseapp &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.apps.ipclusterapp" href="IPython.parallel.apps.ipclusterapp.html" />
     <link rel="prev" title="nbformat.v2.rwbase" href="IPython.nbformat.v2.rwbase.html" /> 
@@ -86,7 +89,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -169,19 +172,23 @@
 
 <dl class="classmethod">
 <dt id="IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.parallel.apps.baseapp.BaseParallelApplication.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -271,6 +278,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <tt class="descname">crash_handler_class</tt><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.crash_handler_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#IPython.parallel.apps.baseapp.ParallelCrashHandler" title="IPython.parallel.apps.baseapp.ParallelCrashHandler"><tt class="xref py py-class docutils literal"><span class="pre">ParallelCrashHandler</span></tt></a></p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.baseapp.BaseParallelApplication.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.apps.baseapp.BaseParallelApplication.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.apps.baseapp.BaseParallelApplication.description">
@@ -463,7 +475,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -571,7 +583,7 @@ and should contain examples of the application&#8217;s usage.</p>
 <dd><p>Remove the pid file.</p>
 <p>This should be called at shutdown by registering a callback with
 <tt class="xref py py-func docutils literal"><span class="pre">reactor.addSystemEventTrigger()</span></tt>. This needs to return
-<tt class="xref docutils literal"><span class="pre">None</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">None</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
@@ -707,6 +719,16 @@ This raises <a class="reference internal" href="#IPython.parallel.apps.baseapp.P
 <dd><p>Return a string containing a crash report.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.apps.baseapp.ParallelCrashHandler.message_template">
+<tt class="descname">message_template</tt><em class="property"> = &quot;Oops, {app_name} crashed. We do our best to make it stable, but...\n\nA crash report was automatically generated with the following information:\n  - A verbatim copy of the crash traceback.\n  - A copy of your input history during this session.\n  - Data on your current {app_name} configuration.\n\nIt was left in the file named:\n\t'{crash_report_fname}'\nIf you can email this file to the developers, the information in it will help\nthem in understanding and correcting the problem.\n\nYou can mail it to: {contact_name} at {contact_email}\nwith the subject '{app_name} Crash Report'.\n\nIf you want to do it now, the following command will work (under Unix):\nmail -s '{app_name} Crash Report' {contact_email} &lt; {crash_report_fname}\n\nTo ensure accurate tracking of this issue, please file a report about it at:\n{bug_tracker}\n&quot;</em><a class="headerlink" href="#IPython.parallel.apps.baseapp.ParallelCrashHandler.message_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.baseapp.ParallelCrashHandler.section_sep">
+<tt class="descname">section_sep</tt><em class="property"> = '\n\n***************************************************************************\n\n'</em><a class="headerlink" href="#IPython.parallel.apps.baseapp.ParallelCrashHandler.section_sep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -743,8 +765,8 @@ This raises <a class="reference internal" href="#IPython.parallel.apps.baseapp.P
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

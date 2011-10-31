@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.history &mdash; IPython v0.12.dev documentation</title>
+    <title>core.history &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.hooks" href="IPython.core.hooks.html" />
     <link rel="prev" title="core.formatters" href="IPython.core.formatters.html" /> 
@@ -63,6 +66,7 @@
 <li><a class="reference internal" href="#">core.history</a><ul>
 <li><a class="reference internal" href="#module-core-history">Module: <tt class="docutils literal"><span class="pre">core.history</span></tt></a></li>
 <li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#dummydb"><tt class="docutils literal"><span class="pre">DummyDB</span></tt></a></li>
 <li><a class="reference internal" href="#historyaccessor"><tt class="docutils literal"><span class="pre">HistoryAccessor</span></tt></a></li>
 <li><a class="reference internal" href="#historymanager"><tt class="docutils literal"><span class="pre">HistoryManager</span></tt></a></li>
 <li><a class="reference internal" href="#historysavingthread"><tt class="docutils literal"><span class="pre">HistorySavingThread</span></tt></a></li>
@@ -87,7 +91,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -116,24 +120,51 @@
 </div>
 <div class="section" id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dummydb">
+<h3><a class="reference internal" href="#IPython.core.history.DummyDB" title="IPython.core.history.DummyDB"><tt class="xref py py-class docutils literal"><span class="pre">DummyDB</span></tt></a><a class="headerlink" href="#dummydb" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.history.DummyDB">
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">DummyDB</tt><a class="headerlink" href="#IPython.core.history.DummyDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Dummy DB that will act as a black hole for history.</p>
+<p>Only used in the absence of sqlite</p>
+<dl class="method">
+<dt id="IPython.core.history.DummyDB.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.DummyDB.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>x.__init__(...) initializes x; see help(type(x)) for signature</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.DummyDB.commit">
+<tt class="descname">commit</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.history.DummyDB.commit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.DummyDB.execute">
+<tt class="descname">execute</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.history.DummyDB.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="historyaccessor">
 <h3><a class="reference internal" href="#IPython.core.history.HistoryAccessor" title="IPython.core.history.HistoryAccessor"><tt class="xref py py-class docutils literal"><span class="pre">HistoryAccessor</span></tt></a><a class="headerlink" href="#historyaccessor" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.history.HistoryAccessor">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryAccessor</tt><big>(</big><em>profile='default'</em>, <em>hist_file=u''</em>, <em>shell=None</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryAccessor</tt><big>(</big><em>profile='default'</em>, <em>hist_file=u''</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
 <p>Access the history database without adding to it.</p>
 <p>This is intended for use by standalone history tools. IPython shells use
 HistoryManager, below, which is a subclass of this.</p>
 <dl class="method">
 <dt id="IPython.core.history.HistoryAccessor.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>profile='default'</em>, <em>hist_file=u''</em>, <em>shell=None</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>profile='default'</em>, <em>hist_file=u''</em>, <em>config=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new history accessor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>profile</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>profile</strong> : str</p>
 <blockquote>
 <div><p>The name of the profile from which to open history.</p>
 </div></blockquote>
@@ -141,10 +172,6 @@ HistoryManager, below, which is a subclass of this.</p>
 <blockquote>
 <div><p>Path to an SQLite history database stored by IPython. If specified,
 hist_file overrides profile.</p>
-</div></blockquote>
-<p><strong>shell :</strong> :</p>
-<blockquote>
-<div><p>InteractiveShell object, for use by HistoryManager subclass</p>
 </div></blockquote>
 <p><strong>config :</strong> :</p>
 <blockquote class="last">
@@ -164,19 +191,23 @@ hist_file overrides profile.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryAccessor.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryAccessor.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryAccessor.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -208,6 +239,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.core.history.HistoryAccessor.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.history.HistoryAccessor.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.core.history.HistoryAccessor.db">
 <tt class="descname">db</tt><a class="headerlink" href="#IPython.core.history.HistoryAccessor.db" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -222,7 +258,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
 <div><p>Session number to retrieve.</p>
 </div></blockquote>
@@ -248,7 +284,7 @@ is found, None is used.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An iterator over the desired lines. Each line is a 3-tuple, either</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An iterator over the desired lines. Each line is a 3-tuple, either</strong> :</p>
 <p><strong>(session, line, input) if output is False, or</strong> :</p>
 <p class="last"><strong>(session, line, (input, output)) if output is True.</strong> :</p>
 </td>
@@ -266,7 +302,7 @@ commands %hist, %save, %macro, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rangestr</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rangestr</strong> : str</p>
 <blockquote>
 <div><p>A string specifying ranges, e.g. &#8220;5 ~2/1-4&#8221;. See
 <a class="reference internal" href="#IPython.core.history.magic_history" title="IPython.core.history.magic_history"><tt class="xref py py-func docutils literal"><span class="pre">magic_history()</span></tt></a> for full details.</p>
@@ -277,7 +313,7 @@ commands %hist, %save, %macro, etc.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -292,14 +328,14 @@ commands %hist, %save, %macro, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
 <div><p>Session number to retrieve. The current session is 0, and negative
 numbers count back from current session, so -1 is previous session.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(session_id [int], start [datetime], end [datetime], num_cmds [int], remark [unicode])</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(session_id [int], start [datetime], end [datetime], num_cmds [int], remark [unicode])</strong> :</p>
 <p><strong>Sessions that are running or did not exit cleanly will have `end=None`</strong> :</p>
 <p class="last"><strong>and `num_cmds=None`.</strong> :</p>
 </td>
@@ -316,7 +352,7 @@ numbers count back from current session, so -1 is previous session.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
 <blockquote>
 <div><p>The number of lines to get</p>
 </div></blockquote>
@@ -332,7 +368,7 @@ is called by a user command, which it should not return.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -365,7 +401,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -397,7 +433,7 @@ then unintall it.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pattern</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pattern</strong> : str</p>
 <blockquote>
 <div><p>The wildcarded pattern to match when searching</p>
 </div></blockquote>
@@ -411,7 +447,7 @@ then unintall it.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -440,6 +476,12 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.history.HistoryAccessor.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
 </dd></dl>
 
 <dl class="method">
@@ -473,19 +515,23 @@ database lookups.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryManager.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryManager.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.history.HistoryManager.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -515,6 +561,11 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistoryManager.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.history.HistoryManager.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.history.HistoryManager.db">
@@ -567,7 +618,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
 <div><p>Session number to retrieve. The current session is 0, and negative
 numbers count back from current session, so -1 is previous session.</p>
@@ -594,7 +645,7 @@ is found, None is used.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An iterator over the desired lines. Each line is a 3-tuple, either</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An iterator over the desired lines. Each line is a 3-tuple, either</strong> :</p>
 <p><strong>(session, line, input) if output is False, or</strong> :</p>
 <p class="last"><strong>(session, line, (input, output)) if output is True.</strong> :</p>
 </td>
@@ -612,7 +663,7 @@ commands %hist, %save, %macro, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rangestr</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>rangestr</strong> : str</p>
 <blockquote>
 <div><p>A string specifying ranges, e.g. &#8220;5 ~2/1-4&#8221;. See
 <a class="reference internal" href="#IPython.core.history.magic_history" title="IPython.core.history.magic_history"><tt class="xref py py-func docutils literal"><span class="pre">magic_history()</span></tt></a> for full details.</p>
@@ -623,7 +674,7 @@ commands %hist, %save, %macro, etc.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -638,14 +689,14 @@ commands %hist, %save, %macro, etc.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
 <div><p>Session number to retrieve. The current session is 0, and negative
 numbers count back from current session, so -1 is previous session.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(session_id [int], start [datetime], end [datetime], num_cmds [int], remark [unicode])</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(session_id [int], start [datetime], end [datetime], num_cmds [int], remark [unicode])</strong> :</p>
 <p><strong>Sessions that are running or did not exit cleanly will have `end=None`</strong> :</p>
 <p class="last"><strong>and `num_cmds=None`.</strong> :</p>
 </td>
@@ -662,7 +713,7 @@ numbers count back from current session, so -1 is previous session.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>n</strong> : int</p>
 <blockquote>
 <div><p>The number of lines to get</p>
 </div></blockquote>
@@ -678,7 +729,7 @@ is called by a user command, which it should not return.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -735,7 +786,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -800,7 +851,7 @@ optionally open a new session.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pattern</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>pattern</strong> : str</p>
 <blockquote>
 <div><p>The wildcarded pattern to match when searching</p>
 </div></blockquote>
@@ -814,7 +865,7 @@ optionally open a new session.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -843,7 +894,7 @@ variables _i*.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
 <blockquote>
 <div><p>The prompt number of this input.</p>
 </div></blockquote>
@@ -872,7 +923,7 @@ called by run_cell after code has been executed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>line_num</strong> : int</p>
 <blockquote class="last">
 <div><p>The line number from which to save outputs</p>
 </div></blockquote>
@@ -907,6 +958,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.history.HistoryManager.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.history.HistoryManager.writeout_cache">
 <tt class="descname">writeout_cache</tt><big>(</big><em>conn=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.writeout_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write any entries in the cache to the database.</p>
@@ -929,6 +986,11 @@ the cache size reaches a defined threshold.</p>
 <dl class="method">
 <dt id="IPython.core.history.HistorySavingThread.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>history_manager</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistorySavingThread.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistorySavingThread.daemon">
+<tt class="descname">daemon</tt><em class="property"> = True</em><a class="headerlink" href="#IPython.core.history.HistorySavingThread.daemon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -994,6 +1056,11 @@ the cache size reaches a defined threshold.</p>
 exiting. That should be done by calling the HistoryManager&#8217;s
 end_session method.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.history.HistorySavingThread.stop_now">
+<tt class="descname">stop_now</tt><em class="property"> = False</em><a class="headerlink" href="#IPython.core.history.HistorySavingThread.stop_now" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -1111,6 +1178,12 @@ current command.</p>
 </div></blockquote>
 </dd></dl>
 
+<dl class="function">
+<dt id="IPython.core.history.needs_sqlite">
+<tt class="descclassname">IPython.core.history.</tt><tt class="descname">needs_sqlite</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.core.history.needs_sqlite" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an empty list in the absence of sqlite</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -1144,8 +1217,8 @@ current command.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython v0.12.dev documentation</title>
+    <title>A Qt Console for IPython &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="An HTML Notebook IPython" href="htmlnotebook.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -100,7 +103,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -211,6 +214,46 @@ that specific figure:</p>
 calling <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">--pylab=inline</span></tt> when you start the
 console, and each time you make a plot, it will show up in your document, as if
 you had called <tt class="xref py py-func docutils literal"><span class="pre">display(fig)()</span></tt>.</p>
+<p>The inline backend can use either SVG or PNG figures (PNG being the default).
+To switch between them, set the <tt class="docutils literal"><span class="pre">InlineBackend.figure_format</span></tt> configurable
+in a config file, or via the <tt class="docutils literal"><span class="pre">%config</span></tt> magic:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">&#39;svg&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Changing the inline figure format also affects calls to <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt> above,
+even if you are not using the inline backend for all figures.</p>
+</div>
+<p>By default, IPython closes all figures at the completion of each execution. This means you
+don&#8217;t have to manually close figures, which is less convenient when figures aren&#8217;t attached
+to windows with an obvious close button.  It also means that the first matplotlib call in
+each cell will always create a new figure:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="go">&lt;single-line plot&gt;</span>
+
+<span class="gp">In [12]: </span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="go">&lt;another single-line plot&gt;</span>
+</pre></div>
+</div>
+<p>However, it does prevent the list of active figures surviving from one input cell to the
+next, so if you want to continue working with a figure, you must hold on to a reference to
+it:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">fig</span> <span class="o">=</span> <span class="n">gcf</span><span class="p">()</span>
+<span class="gp">   ....:</span> <span class="n">fig</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="go">&lt;plot&gt;</span>
+<span class="gp">In [12]: </span><span class="n">fig</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Random Title&#39;</span><span class="p">)</span>
+<span class="go">&lt;redraw plot with title&gt;</span>
+</pre></div>
+</div>
+<p>This behavior is controlled by the <tt class="xref py py-attr docutils literal"><span class="pre">InlineBackend.close_figures</span></tt> configurable, and
+if you set it to False, via %config or config file, then IPython will <em>not</em> close figures,
+and tools like <tt class="xref py py-func docutils literal"><span class="pre">gcf()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">gca()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">getfigs()</span></tt> will behave the same as they
+do with other backends.  You will, however, have to manually close figures:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># close all active figures:</span>
+<span class="gp">In [13]: </span><span class="p">[</span> <span class="n">fig</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="k">for</span> <span class="n">fig</span> <span class="ow">in</span> <span class="n">getfigs</span><span class="p">()</span> <span class="p">]</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="saving-and-printing">
@@ -220,6 +263,18 @@ XHTML. If you have been using <tt class="xref py py-func docutils literal"><span
 will be PNG in HTML, or inlined as SVG in XHTML. PNG images have the option to
 be either in an external folder, as in many browsers&#8217; &#8220;Webpage, Complete&#8221;
 option, or inlined as well, for a larger, but more portable file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Export to SVG+XHTML requires that you are using SVG figures, which is <em>not</em>
+the default.  To switch the inline figure format to use SVG during an active
+session, do:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">&#39;svg&#39;</span>
+</pre></div>
+</div>
+<p>Or, you can add the same line (c.Inline... instead of %config Inline...) to
+your config files.</p>
+<p class="last">This will only affect figures plotted after making this call</p>
+</div>
 <p>The widget also exposes the ability to print directly, via the default print
 shortcut or context menu.</p>
 <div class="admonition note">
@@ -294,21 +349,60 @@ These do not have to all be qt frontends - any IPython frontend can connect and
 run code.  When you start ipython qtconsole, there will be an output line,
 like:</p>
 <div class="highlight-python"><pre>[IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing --shell=60690 --iopub=44045 --stdin=38323 --hb=41797</pre>
+[IPKernelApp] --existing kernel-12345.json</pre>
 </div>
 <p>Other frontends can connect to your kernel, and share in the execution. This is
 great for collaboration.  The <tt class="docutils literal"><span class="pre">--existing</span></tt> flag means connect to a kernel
-that already exists.  Starting other
-consoles with that flag will not try to start their own, but rather connect to
-yours. Ultimately, you will not have to specify each port individually, but for
-now this copy-paste method is best.</p>
+that already exists.  Starting other consoles
+with that flag will not try to start their own kernel, but rather connect to
+yours.  <tt class="file docutils literal"><span class="pre">kernel-12345.json</span></tt> is a small JSON file with the ip, port, and
+authentication information necessary to connect to your kernel. By default, this file
+will be in your default profile&#8217;s security directory.  If it is somewhere else,
+the output line will print the full path of the connection file, rather than
+just its filename.</p>
+<p>If you need to find the connection info to send, and don&#8217;t know where your connection file
+lives, there are a couple of ways to get it. If you are already running an IPython console
+connected to the kernel, you can use the <tt class="docutils literal"><span class="pre">%connect_info</span></tt> magic to display the information
+necessary to connect another frontend to the kernel.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="o">%</span><span class="n">connect_info</span>
+<span class="go">{</span>
+<span class="go">  &quot;stdin_port&quot;:50255,</span>
+<span class="go">  &quot;ip&quot;:&quot;127.0.0.1&quot;,</span>
+<span class="go">  &quot;hb_port&quot;:50256,</span>
+<span class="go">  &quot;key&quot;:&quot;70be6f0f-1564-4218-8cda-31be40a4d6aa&quot;,</span>
+<span class="go">  &quot;shell_port&quot;:50253,</span>
+<span class="go">  &quot;iopub_port&quot;:50254</span>
+<span class="go">}</span>
+
+<span class="go">Paste the above JSON into a file, and connect with:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing &lt;file&gt;</span>
+<span class="go">or, if you are local, you can connect with just:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing kernel-12345.json</span>
+<span class="go">or even just:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing</span>
+<span class="go">if this is the most recent IPython session you have started.</span>
+</pre></div>
+</div>
+<p>Otherwise, you can find a connection file by name (and optionally profile) with
+<a class="reference internal" href="../api/generated/IPython.lib.kernel.html#IPython.lib.kernel.find_connection_file" title="IPython.lib.kernel.find_connection_file"><tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.kernel.find_connection_file()</span></tt></a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> python -c <span class="s2">&quot;from IPython.lib.kernel import find_connection_file;\</span>
+<span class="s2">print find_connection_file(&#39;kernel-12345.json&#39;)&quot;</span>
+/home/you/.ipython/profile_default/security/kernel-12345.json
+</pre></div>
+</div>
+<p>And if you are using a particular IPython profile:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> python -c <span class="s2">&quot;from IPython.lib.kernel import find_connection_file;\</span>
+<span class="s2">print find_connection_file(&#39;kernel-12345.json&#39;, profile=&#39;foo&#39;)&quot;</span>
+/home/you/.ipython/profile_foo/security/kernel-12345.json
+</pre></div>
+</div>
 <p>You can even launch a standalone kernel, and connect and disconnect Qt Consoles
 from various machines.  This lets you keep the same running IPython session
 on your work machine (with matplotlib plots and everything), logging in from home,
 cafés, etc.:</p>
 <div class="highlight-python"><pre>$&gt; ipython kernel
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing --shell=60690 --iopub=44045 --stdin=38323 --hb=41797</pre>
+[IPKernelApp] --existing kernel-12345.json</pre>
 </div>
 <p>This is actually exactly the same as the subprocess launched by the qtconsole, so
 all the information about connecting to a standalone kernel is identical to that
@@ -317,10 +411,10 @@ of connecting to the kernel attached to a running console.</p>
 <span id="kernel-security"></span><h4>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h4>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Since the ZMQ code currently has no security, listening on an
+<p class="last">Since the ZMQ code currently has no encryption, listening on an
 external-facing IP is dangerous.  You are giving any computer that can see
-you on the network the ability to issue arbitrary shell commands as you on
-your machine. Read the rest of this section before listening on external ports
+you on the network the ability to connect to your kernel, and view your traffic.
+Read the rest of this section before listening on external ports
 or running an IPython kernel on a shared machine.</p>
 </div>
 <p>By default (for security reasons), the kernel only listens on localhost, so you
@@ -329,35 +423,35 @@ can specify to listen on an external interface by specifying the <tt class="docu
 argument:</p>
 <div class="highlight-python"><pre>$&gt; ipython qtconsole --ip=192.168.1.123</pre>
 </div>
-<p>If you specify the ip as 0.0.0.0, that refers to all interfaces, so any
+<p>If you specify the ip as 0.0.0.0 or &#8216;*&#8217;, that means all interfaces, so any
 computer that can see yours on the network can connect to the kernel.</p>
 <p>Messages are not encrypted, so users with access to the ports your kernel is using will be
-able to see any output of the kernel. They will also be able to issue shell commands as
-you, unless you enable HMAC digests, which are <strong>DISABLED</strong> by default.</p>
-<p>The one security feature IPython does provide is protection from unauthorized
-execution. IPython&#8217;s messaging system can sign messages with HMAC digests using
-a shared-key.  The key is never sent over the network, it is only used to generate
-a unique hash for each message, based on its content.  When IPython receives a
-message, it will check that the digest matches. You can use any file that only you
-have access to to generate this key.  One logical choice would be to use your own
-SSH private key. Or you can generate a new random private key with:</p>
+able to see any output of the kernel. They will <strong>NOT</strong> be able to issue shell commands as
+you due to message signatures, which are enabled by default as of IPython 0.12.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you disable message signatures, then any user with access to the ports your
+kernel is listening on can issue arbitrary code as you. <strong>DO NOT</strong> disable message
+signatures unless you have a lot of trust in your environment.</p>
+</div>
+<p>The one security feature IPython does provide is protection from unauthorized execution.
+IPython&#8217;s messaging system will sign messages with HMAC digests using a shared-key. The key
+is never sent over the network, it is only used to generate a unique hash for each message,
+based on its content. When IPython receives a message, it will check that the digest
+matches, and discard the message. You can use any file that only you have access to to
+generate this key, but the default is just to generate a new UUID. You can generate a random
+private key with:</p>
 <div class="highlight-python"><pre># generate 1024b of random data, and store in a file only you can read:
 # (assumes IPYTHON_DIR is defined, otherwise use your IPython directory)
 $&gt; python -c "import os; print os.urandom(128).encode('base64')" &gt; $IPYTHON_DIR/sessionkey
 $&gt; chmod 600 $IPYTHON_DIR/sessionkey</pre>
 </div>
-<p>To enable HMAC digests, simply specify the <tt class="docutils literal"><span class="pre">Session.keyfile</span></tt> configurable
+<p>The <em>contents</em> of this file will be stored in the JSON connection file, so that file
+contains everything you need to connect to and use a kernel.</p>
+<p>To use this generated key, simply specify the <tt class="docutils literal"><span class="pre">Session.keyfile</span></tt> configurable
 in <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> or at the command-line, as in:</p>
-<div class="highlight-python"><pre># instruct IPython to sign messages with that key:
+<div class="highlight-python"><pre># instruct IPython to sign messages with that key, instead of a new UUID
 $&gt; ipython qtconsole --Session.keyfile=$IPYTHON_DIR/sessionkey</pre>
-</div>
-<p>You must use the same key you used to start the kernel with all frontends, or
-they will be treated as an unauthorized peer (all messages will be ignored).</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">IPython will move to using files to store connection information, as is
-done in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt>, at which point HMAC signatures will be
-enabled <em>by default</em>.</p>
 </div>
 </div>
 <div class="section" id="ssh-tunnels">
@@ -369,12 +463,13 @@ are a way to securely forward ports on your local machine to ports on another
 machine, to which you have SSH access.</p>
 <p>In simple cases, IPython&#8217;s tools can forward ports over ssh by simply adding the
 <tt class="docutils literal"><span class="pre">--ssh=remote</span></tt> argument to the usual <tt class="docutils literal"><span class="pre">--existing...</span></tt> set of flags for connecting
-to a running kernel.</p>
+to a running kernel, after copying the JSON connection file (or its contents) to
+the second computer.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Using SSH tunnels does <em>not</em> increase localhost security.  In fact, when
 tunneling from one machine to another <em>both</em> machines have open
-ports on localhost available for connections.</p>
+ports on localhost available for connections to the kernel.</p>
 </div>
 <p>There are two primary models for using SSH tunnels with IPython.  The first
 is to have the Kernel listen only on localhost, and connect to it from
@@ -383,16 +478,18 @@ another machine on the same LAN.</p>
 on loopback:</p>
 <div class="highlight-python"><pre>user@worker $&gt; ipython kernel
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+[IPKernelApp] --existing kernel-12345.json</pre>
 </div>
 <p>In this case, the IP that you would connect
 to would still be 127.0.0.1, but you want to specify the additional <tt class="docutils literal"><span class="pre">--ssh</span></tt> argument
 with the hostname of the kernel (in this example, it&#8217;s &#8216;worker&#8217;):</p>
-<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole  --ssh=worker --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole  --ssh=worker --existing /path/to/kernel-12345.json</pre>
 </div>
-<p>Note again that this opens ports on the <em>client</em> machine that point to your kernel.
-Be sure to use a Session key, as described above, if localhost on <em>either</em> the
-client or kernel machines is untrusted.</p>
+<p>Which will write a new connection file with the forwarded ports, so you can reuse them:</p>
+<div class="highlight-python"><pre>[IPythonQtConsoleApp] To connect another client via this tunnel, use:
+[IPythonQtConsoleApp] --existing kernel-12345-ssh.json</pre>
+</div>
+<p>Note again that this opens ports on the <em>client</em> machine that point to your kernel.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">the ssh argument is simply passed to openssh, so it can be fully specified <tt class="docutils literal"><span class="pre">user&#64;host:port</span></tt>
@@ -406,12 +503,17 @@ client to worker <em>via</em> login. This means that the kernel must be started 
 on external interfaces, so that its ports are visible to <cite>login</cite>:</p>
 <div class="highlight-python"><pre>user@worker $&gt; ipython kernel --ip=0.0.0.0
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+[IPKernelApp] --existing kernel-12345.json</pre>
 </div>
 <p>Which we can connect to from the client with:</p>
-<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole --ssh=login --ip=192.168.1.123 --existing --shell=59480 --iopub=62199 --stdin=64898 --hb=56511</pre>
+<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole --ssh=login --ip=192.168.1.123 --existing /path/to/kernel-12345.json</pre>
 </div>
-<p>Note that now the IP is the address of worker as seen from login.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The IP here is the address of worker as seen from <em>login</em>, and need only be specified if
+the kernel used the ambiguous 0.0.0.0 (all interfaces) address. If it had used
+192.168.1.123 to start with, it would not be needed.</p>
+</div>
 </div>
 <div class="section" id="manual-ssh-tunnels">
 <h4>Manual SSH tunnels<a class="headerlink" href="#manual-ssh-tunnels" title="Permalink to this headline">¶</a></h4>
@@ -568,8 +670,8 @@ not support this, but it is being tracked as issue <a class="reference external"
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>DAG Dependencies &mdash; IPython v0.12.dev documentation</title>
+    <title>DAG Dependencies &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Details of Parallel Computing with IPython" href="parallel_details.html" />
     <link rel="prev" title="Parallel examples" href="parallel_demos.html" /> 
@@ -81,7 +84,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -105,7 +108,7 @@
 for working with Graphs is <a class="reference external" href="http://networkx.lanl.gov/">NetworkX</a>.  Here, we will walk through a demo mapping
 a nx DAG to task dependencies.</p>
 <p>The full script that runs this demo can be found in
-<tt class="file docutils literal"><span class="pre">docs/examples/newparallel/dagdeps.py</span></tt>.</p>
+<tt class="file docutils literal"><span class="pre">docs/examples/parallel/dagdeps.py</span></tt>.</p>
 <div class="section" id="why-are-dags-good-for-task-dependencies">
 <h2>Why are DAGs good for task dependencies?<a class="headerlink" href="#why-are-dags-good-for-task-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>The &#8216;G&#8217; in DAG is &#8216;Graph&#8217;. A Graph is a collection of <strong>nodes</strong> and <strong>edges</strong> that connect
@@ -122,7 +125,7 @@ dependencies to cause a deadlock.</p>
 <h2>A Sample DAG<a class="headerlink" href="#a-sample-dag" title="Permalink to this headline">¶</a></h2>
 <p>Here, we have a very simple 5-node DAG:</p>
 <div class="figure">
-<img alt="../_images/simpledag.png" src="../_images/simpledag.png" />
+<img alt="../_images/simpledag.png" src="../_images/simpledag.png" style="width: 600px;" />
 </div>
 <p>With NetworkX, an arrow is just a fattened bit on the edge. Here, we can see that task 0
 depends on nothing, and can run immediately. 1 and 2 depend on 0; 3 depends on
@@ -166,6 +169,25 @@ depends on nothing, and can run immediately. 1 and 2 depend on 0; 3 depends on
 </div>
 <p>For demonstration purposes, we have a function that generates a random DAG with a given
 number of nodes and edges.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">random_dag</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a random Directed Acyclic Graph (DAG) with a given number of nodes and edges.&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">edges</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nodes</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span><span class="o">=</span><span class="n">a</span>
+        <span class="k">while</span> <span class="n">b</span><span class="o">==</span><span class="n">a</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nodes</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+            <span class="n">edges</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># we closed a loop!</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
 <p>So first, we start with a graph of 32 nodes, with 128 edges:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">G</span> <span class="o">=</span> <span class="n">random_dag</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
@@ -192,11 +214,12 @@ on which it depends:</p>
 <span class="gp">In [6]: </span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="gp">In [7]: </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">():</span>
-<span class="gp">   ...:</span>     <span class="c"># get list of AsyncResult objects from nodes</span>
-<span class="gp">   ...:</span>     <span class="c"># leading into this one as dependencies</span>
-<span class="gp">   ...:</span>     <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">]</span>
-<span class="gp">   ...:</span>     <span class="c"># submit and store AsyncResult object</span>
-<span class="gp">   ...:</span>     <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">],</span> <span class="n">after</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">   ...:</span>    <span class="c"># get list of AsyncResult objects from nodes</span>
+<span class="gp">   ...:</span>    <span class="c"># leading into this one as dependencies</span>
+<span class="gp">   ...:</span>    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">]</span>
+<span class="gp">   ...:</span>    <span class="c"># submit and store AsyncResult object</span>
+<span class="gp">   ...:</span>    <span class="k">with</span> <span class="n">view</span><span class="o">.</span><span class="n">temp_flags</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="gp">   ...:</span>         <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Now that we have submitted all the jobs, we can wait for the results:</p>
@@ -209,6 +232,15 @@ respected.  For this, we can use the <tt class="xref py py-attr docutils literal
 <p>These objects store a variety of metadata about each task, including various timestamps.
 We can validate that the dependencies were respected by checking that each task was
 started after all of its predecessors were completed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">validate_tree</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate that jobs executed after their dependencies.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">started</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">finished</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">completed</span>
+            <span class="k">assert</span> <span class="n">started</span> <span class="o">&gt;</span> <span class="n">finished</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> should have happened after </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>We can also validate the graph visually. By drawing the graph with each node&#8217;s x-position
 as its start time, all arrows must be pointing to the right if dependencies were respected.
 For spreading, the y-position will be the runtime of the task, so long tasks
@@ -220,18 +252,18 @@ will be at the top, and quick, small tasks will be at the bottom.</p>
 <span class="gp">In [12]: </span><span class="n">pos</span> <span class="o">=</span> <span class="p">{};</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="gp">In [12]: </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
-<span class="go">    ...:    md = results[node].metadata</span>
-<span class="go">    ...:    start = date2num(md.started)</span>
-<span class="go">    ...:    runtime = date2num(md.completed) - start</span>
-<span class="go">    ...:    pos[node] = (start, runtime)</span>
-<span class="go">    ...:    colors[node] = md.engine_id</span>
+<span class="gp">   ....:</span>    <span class="n">md</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span>
+<span class="gp">   ....:</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">started</span><span class="p">)</span>
+<span class="gp">   ....:</span>    <span class="n">runtime</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">completed</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span>
+<span class="gp">   ....:</span>    <span class="n">pos</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">runtime</span><span class="p">)</span>
+<span class="gp">   ....:</span>    <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">engine_id</span>
 
 <span class="gp">In [13]: </span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_list</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
-<span class="go">    ...:    cmap=gist_rainbow)</span>
+<span class="gp">   ....:</span>    <span class="n">cmap</span><span class="o">=</span><span class="n">gist_rainbow</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure">
-<img alt="../_images/dagdeps.png" src="../_images/dagdeps.png" />
+<img alt="../_images/dagdeps.png" src="../_images/dagdeps.png" style="width: 600px;" />
 <p class="caption">Time started on x, runtime on y, and color-coded by engine-id (in this case there
 were four engines). Edges denote dependencies.</p>
 </div>
@@ -268,8 +300,8 @@ were four engines). Edges denote dependencies.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

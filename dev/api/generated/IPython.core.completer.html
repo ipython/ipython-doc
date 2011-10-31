@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.completer &mdash; IPython v0.12.dev documentation</title>
+    <title>core.completer &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.completerlib" href="IPython.core.completerlib.html" />
     <link rel="prev" title="core.compilerop" href="IPython.core.compilerop.html" /> 
@@ -88,7 +91,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -179,11 +182,11 @@ its input.</p>
 <h3><a class="reference internal" href="#IPython.core.completer.Completer" title="IPython.core.completer.Completer"><tt class="xref py py-class docutils literal"><span class="pre">Completer</span></tt></a><a class="headerlink" href="#completer" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.completer.Completer">
-<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">Completer</tt><big>(</big><em>namespace=None</em>, <em>global_namespace=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">Completer</tt><big>(</big><em>namespace=None</em>, <em>global_namespace=None</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.core.completer.Completer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>namespace=None</em>, <em>global_namespace=None</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>namespace=None</em>, <em>global_namespace=None</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new completer for the command line.</p>
 <p>Completer(namespace=ns,global_namespace=ns2) -&gt; completer instance.</p>
 <p>If unspecified, the default namespace where completions are performed
@@ -218,19 +221,23 @@ with a __getattr__ hook is evaluated.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.Completer.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.Completer.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.Completer.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -269,6 +276,11 @@ returns None.  The completion should begin with &#8216;text&#8217;.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.core.completer.Completer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.completer.Completer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.completer.Completer.global_matches">
 <tt class="descname">global_matches</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.global_matches" title="Permalink to this definition">¶</a></dt>
@@ -297,7 +309,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -342,6 +354,12 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.completer.Completer.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
 </dd></dl>
 
 </dd></dl>
@@ -392,12 +410,12 @@ automatically builds the necessary</p>
 <h3><a class="reference internal" href="#IPython.core.completer.IPCompleter" title="IPython.core.completer.IPCompleter"><tt class="xref py py-class docutils literal"><span class="pre">IPCompleter</span></tt></a><a class="headerlink" href="#ipcompleter" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.completer.IPCompleter">
-<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">IPCompleter</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>omit__names=True</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">IPCompleter</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.core.completer.Completer" title="IPython.core.completer.Completer"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.completer.Completer</span></tt></a></p>
 <p>Extension of the completer class with IPython-specific features</p>
 <dl class="method">
 <dt id="IPython.core.completer.IPCompleter.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>omit__names=True</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>IPCompleter() -&gt; completer</p>
 <p>Return a completer object suitable for use by the readline library
 via readline.set_completer().</p>
@@ -413,11 +431,6 @@ only be accessed via the ipython instance.</p>
 </ul>
 <p>handle cases (such as IPython embedded inside functions) where
 both Python scopes are visible.</p>
-<ul class="simple">
-<li>The optional omit__names parameter sets the completer to omit the</li>
-</ul>
-<p>&#8216;magic&#8217; names (__magicname__) for python objects unless the text
-to be completed explicitly starts with one or more underscores.</p>
 <ul class="simple">
 <li>If alias_table is supplied, it should be a dictionary of aliases</li>
 </ul>
@@ -464,19 +477,23 @@ with a __getattr__ hook is evaluated.</p>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.IPCompleter.class_get_help">
-<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_get_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_get_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.IPCompleter.class_get_trait_help">
-<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="IPython.core.completer.IPCompleter.class_print_help">
-<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_print_help" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.class_print_help" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the help string for a single trait and print it.</p>
 </dd></dl>
 
@@ -512,7 +529,7 @@ one of them must be given.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string, optional</p>
 <blockquote>
 <div><blockquote>
 <div><p>Text to perform the completion on.  If not given, the line buffer
@@ -533,7 +550,7 @@ remote frontends where kernel has no access to frontend state.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
 <blockquote>
 <div><p>Text that was actually used in the completion.</p>
 </div></blockquote>
@@ -553,6 +570,11 @@ remote frontends where kernel has no access to frontend state.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.completer.IPCompleter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.completer.IPCompleter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.completer.IPCompleter.dispatch_custom_completer">
@@ -594,6 +616,18 @@ defined in self.namespace or self.global_namespace that match.</p>
 <dd><p>Match magics</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.core.completer.IPCompleter.merge_completions">
+<tt class="descname">merge_completions</tt><a class="headerlink" href="#IPython.core.completer.IPCompleter.merge_completions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A casting version of the boolean trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.completer.IPCompleter.omit__names">
+<tt class="descname">omit__names</tt><a class="headerlink" href="#IPython.core.completer.IPCompleter.omit__names" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enum that whose value must be in a given sequence.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.completer.IPCompleter.on_trait_change">
 <tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.on_trait_change" title="Permalink to this definition">¶</a></dt>
@@ -608,7 +642,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -653,7 +687,7 @@ returns None.  The completion should begin with &#8216;text&#8217;.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
 <blockquote class="last">
 <div><blockquote>
 <div><p>Text to perform the completion on.</p>
@@ -694,6 +728,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.completer.IPCompleter.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -718,14 +758,14 @@ original &#8216;~&#8217; instead of its expanded value.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>path</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>path</strong> : str</p>
 <blockquote>
 <div><p>String to be expanded.  If no ~ is present, the output is the same as the
 input.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newpath</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newpath</strong> : str</p>
 <blockquote>
 <div><p>Result of ~ expansion in the input path.</p>
 </div></blockquote>
@@ -753,7 +793,7 @@ the string is odd.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If there is an open quote, the quote character is returned.  Else, return</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If there is an open quote, the quote character is returned.  Else, return</strong> :</p>
 <p class="last"><strong>False.</strong> :</p>
 </td>
 </tr>
@@ -812,8 +852,8 @@ the string is odd.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>

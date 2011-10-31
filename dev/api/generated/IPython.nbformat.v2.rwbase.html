@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nbformat.v2.rwbase &mdash; IPython v0.12.dev documentation</title>
+    <title>nbformat.v2.rwbase &mdash; IPython 0.12.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.apps.baseapp" href="IPython.parallel.apps.baseapp.html" />
     <link rel="prev" title="nbformat.v2.nbxml" href="IPython.nbformat.v2.nbxml.html" /> 
@@ -86,7 +89,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -181,13 +184,24 @@
 <dl class="function">
 <dt id="IPython.nbformat.v2.rwbase.base64_decode">
 <tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">base64_decode</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.base64_decode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base64 encode all bytes objects in the notebook.</p>
+<dd><p>Restore all bytes objects in the notebook from base64-encoded strings.</p>
+<p>Note: This is never used</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.nbformat.v2.rwbase.base64_encode">
 <tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">base64_encode</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.base64_encode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base64 decode all binary objects in the notebook.</p>
+<dd><p>Base64 encode all bytes objects in the notebook.</p>
+<p>These will be b64-encoded unicode strings</p>
+<p>Note: This is never used</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.nbformat.v2.rwbase.restore_bytes">
+<tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">restore_bytes</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.restore_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore bytes of image data from unicode-only formats.</p>
+<p>Base64 encoding is handled elsewhere.  Bytes objects in the notebook are
+always b64-encoded. We DO NOT encode/decode around file formats.</p>
 </dd></dl>
 
 </div>
@@ -223,8 +237,8 @@
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 16, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Oct 30, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
     </div>
   </body>
 </html>
