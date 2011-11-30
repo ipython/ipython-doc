@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>utils.path &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>utils.path &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="utils.pickleshare" href="IPython.utils.pickleshare.html" />
     <link rel="prev" title="utils.notification" href="IPython.utils.notification.html" /> 
@@ -86,7 +83,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -160,7 +157,7 @@ config system in 0.11.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Examples :</th><td class="field-body"><p class="first">In [2]: os.environ[&#8216;FOO&#8217;]=&#8217;test&#8217;</p>
+<tr class="field"><th class="field-name">Examples :</th><td class="field-body"><p class="first">In [2]: os.environ[&#8216;FOO&#8217;]=&#8217;test&#8217;</p>
 <p class="last">In [3]: expand_path(&#8216;variable FOO is $FOO&#8217;)
 Out[3]: &#8216;variable FOO is test&#8217;</p>
 </td>
@@ -190,7 +187,7 @@ automatically try any paths, such as the cwd or the user&#8217;s home directory.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The filename to look for.</p>
 </div></blockquote>
@@ -204,7 +201,7 @@ and <tt class="xref py py-func docutils literal"><span class="pre">expanduser()<
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Raises :exc:`IOError` or returns absolute path to file.</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Raises :exc:`IOError` or returns absolute path to file.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -220,20 +217,34 @@ ending characters.</p>
 
 <dl class="function">
 <dt id="IPython.utils.path.get_home_dir">
-<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_home_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.path.get_home_dir" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the closest possible equivalent to a &#8216;home&#8217; directory.</p>
+<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_home_dir</tt><big>(</big><em>require_writable=False</em><big>)</big><a class="headerlink" href="#IPython.utils.path.get_home_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the &#8216;home&#8217; directory, as a unicode string.</p>
 <ul class="simple">
-<li>On POSIX, we try $HOME.</li>
-<li>On Windows we try:
-- %HOMESHARE%
-- %HOMEDRIVE%HOMEPATH%
-- %USERPROFILE%
-- Registry hack for My Documents
-- %HOME%: rare, but some people with unix-like setups may have defined it</li>
-<li>On Dos C:</li>
+<li>First, check for frozen env in case of py2exe</li>
+<li>Otherwise, defer to os.path.expanduser(&#8216;~&#8217;)</li>
 </ul>
-<p>Currently only Posix and NT are implemented, a HomeDirError exception is
-raised for all other OSes.</p>
+<p>See stdlib docs for how this is determined.
+$HOME is first priority on <em>ALL</em> platforms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>require_writable</strong> : bool [default: False]</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>if True:</dt>
+<dd><p class="first last">guarantees the return value is a writable directory, otherwise
+raises HomeDirError</p>
+</dd>
+<dt>if False:</dt>
+<dd><p class="first last">The path is resolved, but it is not guaranteed to exist or be writable.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -289,7 +300,7 @@ will be [&#8216;.&#8217;, profile.security_dir]</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The file to be found. If it is passed as an absolute path, it will
 simply be returned.</p>
@@ -302,7 +313,7 @@ simply be returned.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Raises :exc:`IOError` if file not found or returns absolute path to file.</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>Raises :exc:`IOError` if file not found or returns absolute path to file.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -382,8 +393,8 @@ command if target is outdated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

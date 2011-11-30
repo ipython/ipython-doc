@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nbformat.v2.rwbase &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>nbformat.v2.rwbase &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.apps.baseapp" href="IPython.parallel.apps.baseapp.html" />
     <link rel="prev" title="nbformat.v2.nbxml" href="IPython.nbformat.v2.nbxml.html" /> 
@@ -89,7 +86,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -197,11 +194,30 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="IPython.nbformat.v2.rwbase.rejoin_lines">
+<tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">rejoin_lines</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.rejoin_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>rejoin multiline text into strings</p>
+<p>For reversing effects of <tt class="docutils literal"><span class="pre">split_lines(nb)</span></tt>.</p>
+<p>This only rejoins lines that have been split, so if text objects were not split
+they will pass through unchanged.</p>
+<p>Used when reading JSON files that may have been passed through split_lines.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.nbformat.v2.rwbase.restore_bytes">
 <tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">restore_bytes</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.restore_bytes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore bytes of image data from unicode-only formats.</p>
 <p>Base64 encoding is handled elsewhere.  Bytes objects in the notebook are
 always b64-encoded. We DO NOT encode/decode around file formats.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.nbformat.v2.rwbase.split_lines">
+<tt class="descclassname">IPython.nbformat.v2.rwbase.</tt><tt class="descname">split_lines</tt><big>(</big><em>nb</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.rwbase.split_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>split likely multiline text into lists of strings</p>
+<p>For file output more friendly to line-based VCS. <tt class="docutils literal"><span class="pre">rejoin_lines(nb)</span></tt> will
+reverse the effects of <tt class="docutils literal"><span class="pre">split_lines(nb)</span></tt>.</p>
+<p>Used when writing JSON files.</p>
 </dd></dl>
 
 </div>
@@ -237,8 +253,8 @@ always b64-encoded. We DO NOT encode/decode around file formats.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

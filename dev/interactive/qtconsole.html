@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>A Qt Console for IPython &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="An HTML Notebook IPython" href="htmlnotebook.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -103,7 +100,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -123,7 +120,7 @@
             
   <div class="section" id="a-qt-console-for-ipython">
 <span id="qtconsole"></span><h1>A Qt Console for IPython<a class="headerlink" href="#a-qt-console-for-ipython" title="Permalink to this headline">¶</a></h1>
-<p>We now have a version of IPython, using the new two-process <a class="reference internal" href="../development/ipythonzmq.html#ipythonzmq"><em>ZeroMQ Kernel</em></a>, running in a <a class="reference internal" href="#pyqt">PyQt</a> GUI.  This is a very lightweight widget that
+<p>We now have a version of IPython, using the new two-process <a class="reference internal" href="../development/ipythonzmq.html#ipythonzmq"><em>ZeroMQ Kernel</em></a>, running in a <a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a> GUI.  This is a very lightweight widget that
 largely feels like a terminal, but provides a number of enhancements only
 possible in a GUI, such as inline figures, proper multiline editing with syntax
 highlighting, graphical calltips, and much more.</p>
@@ -298,7 +295,7 @@ flag or <tt class="docutils literal"><span class="pre">%colors</span></tt> magic
 </ul>
 <p>The Qt widget has full support for the <tt class="docutils literal"><span class="pre">colors</span></tt> flag used in the terminal shell.</p>
 <p>The Qt widget, however, has full syntax highlighting as you type, handled by
-the <a class="reference internal" href="#pygments">pygments</a> library. The <tt class="docutils literal"><span class="pre">style</span></tt> argument exposes access to any style by
+the <a class="reference external" href="http://pygments.org/">pygments</a> library. The <tt class="docutils literal"><span class="pre">style</span></tt> argument exposes access to any style by
 name that can be found by pygments, and there are several already
 installed. The <tt class="docutils literal"><span class="pre">colors</span></tt> argument, if unspecified, will be guessed based on
 the chosen style. Similarly, there are default styles associated with each
@@ -609,34 +606,17 @@ garbage collected until the application itself is destroyed.</p>
 <h2>Regressions<a class="headerlink" href="#regressions" title="Permalink to this headline">¶</a></h2>
 <p>There are some features, where the qt console lags behind the Terminal
 frontend:</p>
-<ul>
-<li><dl class="first docutils">
-<dt>!cmd input: Due to our use of pexpect, we cannot pass input to subprocesses</dt>
-<dd><p class="first last">launched using the &#8216;!&#8217; escape, so you should never call a command that
+<ul class="simple">
+<li>!cmd input: Due to our use of pexpect, we cannot pass input to subprocesses
+launched using the &#8216;!&#8217; escape, so you should never call a command that
 requires interactive input.  For such cases, use the terminal IPython.  This
 will not be fixed, as abandoning pexpect would significantly degrade the
-console experience.</p>
-</dd>
-</dl>
-</li>
-<li><p class="first">Use of <tt class="docutils literal"><span class="pre">\b</span></tt> and <tt class="docutils literal"><span class="pre">\r</span></tt> characters in the console: these are control
+console experience.</li>
+<li>Use of <tt class="docutils literal"><span class="pre">\b</span></tt> and <tt class="docutils literal"><span class="pre">\r</span></tt> characters in the console: these are control
 characters that allow the cursor to move backwards on a line, and are used to
 display things like in-place progress bars in a terminal.  We currently do
-not support this, but it is being tracked as issue <a class="reference external" href="https://github.com/ipython/ipython/issues/629">629</a>.</p>
-</li>
+not support this, but it is being tracked as issue <a class="reference external" href="https://github.com/ipython/ipython/issues/629/">#629</a>.</li>
 </ul>
-<table class="docutils citation" frame="void" id="pyqt" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[PyQt]</td><td>PyQt4 <a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/download">http://www.riverbankcomputing.co.uk/software/pyqt/download</a></td></tr>
-</tbody>
-</table>
-<table class="docutils citation" frame="void" id="pygments" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[pygments]</td><td>Pygments <a class="reference external" href="http://pygments.org/">http://pygments.org/</a></td></tr>
-</tbody>
-</table>
 </div>
 </div>
 
@@ -670,8 +650,8 @@ not support this, but it is being tracked as issue <a class="reference external"
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An HTML Notebook IPython &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>An HTML Notebook IPython &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
@@ -68,12 +65,14 @@
 <li><a class="reference internal" href="#creating-and-editing-notebooks">Creating and editing notebooks</a></li>
 <li><a class="reference internal" href="#workflow-and-limitations">Workflow and limitations</a></li>
 <li><a class="reference internal" href="#text-input">Text input</a></li>
-<li><a class="reference internal" href="#exporting-a-notebook">Exporting a notebook</a></li>
+<li><a class="reference internal" href="#exporting-a-notebook-and-importing-existing-scripts">Exporting a notebook and importing existing scripts</a></li>
 <li><a class="reference internal" href="#keyboard-use">Keyboard use</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#security">Security</a></li>
-<li><a class="reference internal" href="#notebook-document-format">Notebook document format</a></li>
+<li><a class="reference internal" href="#quick-howto-running-a-public-notebook-server">Quick Howto: running a public notebook server</a></li>
+<li><a class="reference internal" href="#the-notebook-format">The notebook format</a></li>
+<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
 </ul>
 </li>
 </ul>
@@ -92,7 +91,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -133,7 +132,7 @@ IPython session like any other.  If you want pylab support, you must use:</p>
 <p>which will behave similar to the terminal and Qt console versions, using your
 default matplotlib backend and providing floating interactive plot windows.  If
 you want inline figures, you must manually select the <tt class="docutils literal"><span class="pre">inline</span></tt> backend:</p>
-<div class="highlight-python"><pre>$ ipython notebook --pylab=inline</pre>
+<div class="highlight-python"><pre>$ ipython notebook --pylab inline</pre>
 </div>
 <p>This server uses the same ZeroMQ-based two process kernel architecture as
 the QT Console as well Tornado for serving HTTP/S requests. Some of the main
@@ -163,18 +162,20 @@ option.</p>
 Notebook <em>dashboard</em>, shows the notebooks currently available in the directory
 in which the application was started, and allows you to create new notebooks.</p>
 <p>A notebook is a combination of two things:</p>
-<p>1. An interactive session connected to an IPython kernel, controlled by a web
-application that can send input to the console and display many types of output
-(text, graphics, mathematics and more).  This is the same kernel used by the
-<a class="reference internal" href="qtconsole.html#qtconsole"><em>Qt console</em></a>, but in this case the web console sends input in
-persistent cells that you can edit in-place instead of the vertically scrolling
-terminal style used by the Qt console.</p>
-<p>2. A document that can save the inputs and outputs of the session as well as
-additional text that accompanies the code but is not meant for execution.  In
-this way, notebook files serve as a complete computational record of a session
-including explanatory text and mathematics, code and resulting figures.  These
-documents are internally JSON files and are saved with the <tt class="docutils literal"><span class="pre">.ipynb</span></tt>
-extension.</p>
+<ol class="arabic simple">
+<li>An interactive session connected to an IPython kernel, controlled by a web
+application that can send input to the console and display many types of
+output (text, graphics, mathematics and more).  This is the same kernel used
+by the <a class="reference internal" href="qtconsole.html#qtconsole"><em>Qt console</em></a>, but in this case the web console sends
+input in persistent cells that you can edit in-place instead of the
+vertically scrolling terminal style used by the Qt console.</li>
+<li>A document that can save the inputs and outputs of the session as well as
+additional text that accompanies the code but is not meant for execution.
+In this way, notebook files serve as a complete computational record of a
+session including explanatory text and mathematics, code and resulting
+figures.  These documents are internally JSON files and are saved with the
+<tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension.</li>
+</ol>
 <p>If you have ever used the Mathematica or Sage notebooks (the latter is also
 <a class="reference external" href="http://sagenb.org">web-based</a>) you should feel right at home.  If you have not, you should be
 able to learn how to use it in just a few minutes.</p>
@@ -217,9 +218,9 @@ computer (i.e. if you are accessing it via your localhost address at
 will open up connected to that same kernel.</p>
 <p>In general, the notebook server prints the full details of how to connect to
 each kernel at the terminal, with lines like:</p>
-<blockquote>
-<div>[IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] &#8211;existing kernel-3bb93edd-6b5a-455c-99c8-3b658f45dde5.json</div></blockquote>
+<div class="highlight-python"><pre>[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing kernel-3bb93edd-6b5a-455c-99c8-3b658f45dde5.json</pre>
+</div>
 <p>This is the name of a JSON file that contains all the port and validation
 information necessary to connect to the kernel.  You can manually start a
 qt console with:</p>
@@ -238,12 +239,12 @@ as the content of the JSON data structure it contains.</p>
 <p>In addition to code cells and the output they produce (such as figures), you
 can also type text not meant for execution.  To type text, change the type of a
 cell from <tt class="docutils literal"><span class="pre">Code</span></tt> to <tt class="docutils literal"><span class="pre">Markdown</span></tt> by using the button or the <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">m</span></tt>
-keybinding (see below).  You can then type any text in <a href="#id2"><span class="problematic" id="id3">Markdown_</span></a> syntax, as
+keybinding (see below).  You can then type any text in <a class="reference external" href="http://daringfireball.net/projects/markdown/basics">Markdown</a> syntax, as
 well as mathematical expressions if you use <tt class="docutils literal"><span class="pre">$...$</span></tt> for inline math or
 <tt class="docutils literal"><span class="pre">$$...$$</span></tt> for displayed math.</p>
 </div>
-<div class="section" id="exporting-a-notebook">
-<h3>Exporting a notebook<a class="headerlink" href="#exporting-a-notebook" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="exporting-a-notebook-and-importing-existing-scripts">
+<h3>Exporting a notebook and importing existing scripts<a class="headerlink" href="#exporting-a-notebook-and-importing-existing-scripts" title="Permalink to this headline">¶</a></h3>
 <p>If you want to provide others with a static HTML or PDF view of your notebook,
 use the <tt class="docutils literal"><span class="pre">Print</span></tt> button.  This opens a static view of the document, which you
 can print to PDF using your operating system&#8217;s facilities, or save to a file
@@ -258,17 +259,26 @@ saved by default with the <tt class="docutils literal"><span class="pre">.ipynb<
 that is not meant for human editing or consumption.  But you can always export
 the input part of a notebook to a plain python script by choosing Python format
 in the <cite>Download</cite> drop list.  This removes all output and saves the text cells
-in comment areas.</p>
+in comment areas.  See ref:<cite>below &lt;notebook_format&gt;</cite> for more details on the
+notebook format.</p>
+<p>The notebook can also <em>import</em> <tt class="docutils literal"><span class="pre">.py</span></tt> files as notebooks, by dragging and
+dropping the file into the notebook dashboard file list area.  By default, the
+entire contents of the file will be loaded into a single code cell.  But if
+prior to import, you manually add the <tt class="docutils literal"><span class="pre">#</span> <span class="pre">&lt;nbformat&gt;2&lt;/nbformat&gt;</span></tt> marker at
+the start and then add separators for text/code cells, you can get a cleaner
+import with the file broken into individual cells.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">While in simple cases you can roundtrip a notebook to Python, edit the
-python file and import it back without loss, this is in general <em>not
-guaranteed to work at all</em>.  As the notebook format evolves in complexity,
-there will be attributes of the notebook that will not survive a roundtrip
-through the Python form.  You should think of the Python format as a way to
-output a script version of a notebook and the import capabilities as a way
-to load existing code to get a notebook started.  But the Python version is
-<em>not</em> an alternate notebook format.</p>
+python file and import it back without loss of main content, this is in
+general <em>not guaranteed to work at all</em>.  First, there is extra metadata
+saved in the notebook that may not be saved to the <tt class="docutils literal"><span class="pre">.py</span></tt> format.  And as
+the notebook format evolves in complexity, there will be attributes of the
+notebook that will not survive a roundtrip through the Python form.  You
+should think of the Python format as a way to output a script version of a
+notebook and the import capabilities as a way to load existing code to get a
+notebook started.  But the Python version is <em>not</em> an alternate notebook
+format.</p>
 </div>
 </div>
 <div class="section" id="keyboard-use">
@@ -297,30 +307,127 @@ available keybindings.</li>
 </div>
 </div>
 <div class="section" id="security">
-<h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
-<p>You can protect your notebook server with a <em>very</em> simple single-password by
-setting the <tt class="xref py py-attr docutils literal"><span class="pre">NotebookApp.password</span></tt> configurable. It is best to do this in
-your <tt class="file docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>, e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Password to use for web authentication</span>
-<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">u&#39;super secret&#39;</span>
+<span id="notebook-security"></span><h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>You can protect your notebook server with a simple single-password by
+setting the <tt class="xref py py-attr docutils literal"><span class="pre">NotebookApp.password</span></tt> configurable. You can prepare a
+hashed password using the function <a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.security.passwd()</span></tt></a>:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.lib</span> <span class="kn">import</span> <span class="n">passwd</span>
+<span class="gp">In [2]: </span><span class="n">passwd</span><span class="p">()</span>
+<span class="go">Enter password:</span>
+<span class="go">Verify password:</span>
+<span class="gr">Out[2]: </span><span class="s">&#39;sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed&#39;</span>
 </pre></div>
 </div>
-<p>because specifying it on the command-line will make it visible to other
-processes on your machine with access to <strong class="command">ps</strong>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><tt class="xref py py-func docutils literal"><span class="pre">passwd()</span></tt></a> can also take the password as a string
+argument. <strong>Do not</strong> pass it as an argument inside an IPython session, as it
+will be saved in your input history.</p>
+</div>
+<p>You can then add this to your <tt class="file docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Password to use for web authentication</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">u&#39;sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed&#39;</span>
+</pre></div>
+</div>
 <p>When using a password, it is a good idea to also use SSL, so that your password
-is not sent in the clear. You can start the notebook to communicate via a secure
-protocol mode using a self-signed certificate by typing:</p>
+is not sent unencrypted by your browser. You can start the notebook to
+communicate via a secure protocol mode using a self-signed certificate by
+typing:</p>
 <div class="highlight-python"><pre>$ ipython notebook --certfile=mycert.pem</pre>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>A self-signed certificate can be generated with openssl. For example:</p>
+<p>A self-signed certificate can be generated with openssl.  For example, the
+following command will create a certificate valid for 365 days with both
+the key and certificate data written to the same file:</p>
 <div class="last highlight-python"><pre>$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem</pre>
 </div>
 </div>
+<p>Your browser will warn you of a dangerous certificate because it is
+self-signed.  If you want to have a fully compliant certificate that will not
+raise warnings, it is possible (but rather involved) to obtain one for free,
+<a class="reference external" href="http://arstechnica.com/security/news/2009/12/how-to-get-set-with-a-secure-sertificate-for-free.ars">as explained in detailed in this tutorial</a>.</p>
+<p>Keep in mind that when you enable SSL support, you&#8217;ll need to access the
+notebook server over <tt class="docutils literal"><span class="pre">https://</span></tt>, not over plain <tt class="docutils literal"><span class="pre">http://</span></tt>.  The startup
+message from the server prints this, but it&#8217;s easy to overlook and think the
+server is for some reason non-responsive.</p>
 </div>
-<div class="section" id="notebook-document-format">
-<h2>Notebook document format<a class="headerlink" href="#notebook-document-format" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-howto-running-a-public-notebook-server">
+<h2>Quick Howto: running a public notebook server<a class="headerlink" href="#quick-howto-running-a-public-notebook-server" title="Permalink to this headline">¶</a></h2>
+<p>If you want to access your notebook server remotely with just a web browser,
+here is a quick set of instructions.  Start by creating a certificate file and
+a hashed password as explained above.  Then, create a custom profile for the
+notebook.  At the command line, type:</p>
+<div class="highlight-python"><pre>ipython profile create nbserver</pre>
+</div>
+<p>In the profile directory, edit the file <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>.  By
+default the file has all fields commented, the minimum set you need to
+uncomment and edit is here:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+
+<span class="c"># Kernel config</span>
+<span class="n">c</span><span class="o">.</span><span class="n">IPKernelApp</span><span class="o">.</span><span class="n">pylab</span> <span class="o">=</span> <span class="s">&#39;inline&#39;</span>  <span class="c"># if you want plotting support always</span>
+
+<span class="c"># Notebook config</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">certfile</span> <span class="o">=</span> <span class="s">u&#39;/absolute/path/to/your/certificate/mycert.pem&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s">&#39;*&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">open_browser</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s">u&#39;sha1:bcd259ccf...your hashed password here&#39;</span>
+<span class="c"># It&#39;s a good idea to put it on a known, fixed port</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">9999</span>
+</pre></div>
+</div>
+<p>You can then start the notebook and access it later by pointing your browser to
+<tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt>.</p>
+</div>
+<div class="section" id="the-notebook-format">
+<span id="notebook-format"></span><h2>The notebook format<a class="headerlink" href="#the-notebook-format" title="Permalink to this headline">¶</a></h2>
+<p>The notebooks themselves are JSON files with an <tt class="docutils literal"><span class="pre">ipynb</span></tt> extension, formatted
+as legibly as possible with minimal extra indentation and cell content broken
+across lines to make them reasonably friendly to use in version-control
+workflows.  You should be very careful if you ever edit manually this JSON
+data, as it is extremely easy to corrupt its internal structure and make the
+file impossible to load.  In general, you should consider the notebook as a
+file meant only to be edited by IPython itself, not for hand-editing.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Binary data such as figures are directly saved in the JSON file.  This
+provides convenient single-file portability but means the files can be
+large and diffs of binary data aren&#8217;t very meaningful.  Since the binary
+blobs are encoded in a single line they only affect one line of the diff
+output, but they are typically very long lines.  You can use the
+&#8216;ClearAll&#8217; button to remove all output from a notebook prior to
+committing it to version control, if this is a concern.</p>
+</div>
+<p>The notebook server can also generate a pure-python version of your notebook,
+by clicking on the &#8216;Download&#8217; button and selecting <tt class="docutils literal"><span class="pre">py</span></tt> as the format.  This
+file will contain all the code cells from your notebook verbatim, and all text
+cells prepended with a comment marker.  The separation between code and text
+cells is indicated with special comments and there is a header indicating the
+format version.  All output is stripped out when exporting to python.</p>
+<p>Here is an example of a simple notebook with one text cell and one code input
+cell, when exported to python format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># &lt;nbformat&gt;2&lt;/nbformat&gt;</span>
+
+<span class="c"># &lt;markdowncell&gt;</span>
+
+<span class="c"># A text cell</span>
+
+<span class="c"># &lt;codecell&gt;</span>
+
+<span class="k">print</span> <span class="s">&quot;hello IPython&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<p>When behind a proxy, especially if your system or browser is set to autodetect
+the proxy, the html notebook might fail to connect to the server&#8217;s websockets,
+and present you with a warning at startup. In this case, you need to configure
+your system not to use the proxy for the server&#8217;s address.</p>
+<p>In Firefox, for example, go to the Preferences panel, Advanced section,
+Network tab, click &#8216;Settings...&#8217;, and add the address of the notebook server
+to the &#8216;No proxy for&#8217; field.</p>
 </div>
 </div>
 
@@ -354,8 +461,8 @@ protocol mode using a self-signed certificate by typing:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

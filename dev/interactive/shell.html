@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython as a system shell &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>IPython as a system shell &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="A Qt Console for IPython" href="qtconsole.html" />
     <link rel="prev" title="IPython reference" href="reference.html" /> 
@@ -76,9 +73,11 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#prompt-customization">Prompt customization</a></li>
-<li><a class="reference internal" href="#string-lists">String lists</a></li>
+<li><a class="reference internal" href="#string-lists">String lists</a><ul>
 <li><a class="reference internal" href="#real-world-example-remove-all-files-outside-version-control">Real world example: remove all files outside version control</a></li>
 <li><a class="reference internal" href="#the-s-n-p-properties">The .s, .n, .p properties</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -97,7 +96,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -155,15 +154,9 @@ alias table</li>
 </ul>
 </div></blockquote>
 <p>The &#8216;sh&#8217; profile is different from the now-obsolete (and unavailable)
-&#8216;pysh&#8217; profile in that:</p>
-<blockquote>
-<div><ul class="simple">
-<li>&#8216;$$var = command&#8217; and &#8216;$var = command&#8217; syntax is not supported</li>
-<li>anymore. Use &#8216;var = !command&#8217; instead (incidentally, this is</li>
-<li>available in all IPython profiles). Note that !!command <em>will</em></li>
-<li>work.</li>
-</ul>
-</div></blockquote>
+&#8216;pysh&#8217; profile in that the <tt class="docutils literal"><span class="pre">$$var</span> <span class="pre">=</span> <span class="pre">command</span></tt> and <tt class="docutils literal"><span class="pre">$var</span> <span class="pre">=</span> <span class="pre">command</span></tt> syntax is
+not supported anymore. Use <tt class="docutils literal"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">!command</span></tt> instead (which is available in all
+IPython profiles).</p>
 </div>
 <div class="section" id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
@@ -258,10 +251,10 @@ Alias stored: psftp (0, 'c:\\opt\\PuTTY\\psftp.exe')
 </pre></div>
 </div>
 <p>You can change the prompt configuration to your liking by editing
-ipy_user_conf.py.</p>
+ipython_config.py.</p>
 </div>
 <div class="section" id="string-lists">
-<h2>String lists<a class="headerlink" href="#string-lists" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>String lists<a class="headerlink" href="#string-lists" title="Permalink to this headline">¶</a></h2>
 <p>String lists (IPython.utils.text.SList) are handy way to process output
 from system commands. They are produced by <tt class="docutils literal"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">!cmd</span></tt> syntax.</p>
 <p>First, we acquire the output of &#8216;ls -l&#8217;:</p>
@@ -337,9 +330,8 @@ example-demo.py  example-gnuplot.py  extension.py  seteditor.py  seteditor.pyc</
 available:</p>
 <div class="highlight-python"><pre>[Q:doc/examples]|21&gt; lines.append('hey')</pre>
 </div>
-</div>
 <div class="section" id="real-world-example-remove-all-files-outside-version-control">
-<h2>Real world example: remove all files outside version control<a class="headerlink" href="#real-world-example-remove-all-files-outside-version-control" title="Permalink to this headline">¶</a></h2>
+<h3>Real world example: remove all files outside version control<a class="headerlink" href="#real-world-example-remove-all-files-outside-version-control" title="Permalink to this headline">¶</a></h3>
 <p>First, capture output of &#8220;hg status&#8221;:</p>
 <div class="highlight-python"><pre>[Q:/ipython]|28&gt; out = !hg status
  ==
@@ -363,13 +355,14 @@ available:</p>
 <p>Now we can just remove these files by doing &#8216;rm $junk.s&#8217;.</p>
 </div>
 <div class="section" id="the-s-n-p-properties">
-<h2>The .s, .n, .p properties<a class="headerlink" href="#the-s-n-p-properties" title="Permalink to this headline">¶</a></h2>
-<p>The &#8216;.s&#8217; property returns one string where lines are separated by
-single space (for convenient passing to system commands). The &#8216;.n&#8217;
-property return one string where the lines are separated by &#8216;n&#8217;
+<h3>The .s, .n, .p properties<a class="headerlink" href="#the-s-n-p-properties" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">.s</span></tt> property returns one string where lines are separated by
+single space (for convenient passing to system commands). The <tt class="docutils literal"><span class="pre">.n</span></tt>
+property return one string where the lines are separated by a newline
 (i.e. the original output of the function). If the items in string
-list are file names, &#8216;.p&#8217; can be used to get a list of &#8220;path&#8221; objects
+list are file names, <tt class="docutils literal"><span class="pre">.p</span></tt> can be used to get a list of &#8220;path&#8221; objects
 for convenient file manipulation.</p>
+</div>
 </div>
 </div>
 
@@ -403,8 +396,8 @@ for convenient file manipulation.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

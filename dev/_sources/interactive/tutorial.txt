@@ -74,9 +74,9 @@ After an exception occurs, you can call ``%debug`` to jump into the Python
 debugger (pdb) and examine the problem. Alternatively, if you call ``%pdb``,
 IPython will automatically start the debugger on any uncaught exception. You can
 print variables, see code, execute statements and even walk up and down the
-call stack to track down the true source of the problem. Running programs with
-%run and pdb active can be an efficient way to develop and debug code, in many
-cases eliminating the need for print statements or external debugging tools.
+call stack to track down the true source of the problem. This can be an efficient
+way to develop and debug code, in many cases eliminating the need for print
+statements or external debugging tools.
 
 You can also step through a program from the beginning by calling
 ``%run -d theprogram.py``.
@@ -88,10 +88,9 @@ IPython stores both the commands you enter, and the results it produces. You
 can easily go through previous commands with the up- and down-arrow keys, or
 access your history in more sophisticated ways.
 
-Input and output history are kept in variables called ``In`` and ``Out``, which
-can both be indexed by the prompt number on which they occurred, e.g. ``In[4]``.
-The last three objects in output history are also kept in variables named ``_``,
-``__`` and ``___``.
+Input and output history are kept in variables called ``In`` and ``Out``, keyed
+by the prompt numbers, e.g. ``In[4]``. The last three objects in output history
+are also kept in variables named ``_``, ``__`` and ``___``.
 
 You can use the ``%history`` magic function to examine past input and output.
 Input history from previous sessions is saved in a database, and IPython can be
@@ -147,14 +146,12 @@ Startup Files
 
 If you want some code to be run at the beginning of every IPython session, the
 easiest way is to add Python (.py) or IPython (.ipy) scripts to your
-:file:`<profile>/startup` directory. Files in this directory will always be executed
-as soon as the IPython shell is constructed, and before any other code or scripts
-you have specified. If you have multiple files in the startup directory, they will
-be run in lexicographical order, so you can control the ordering by adding a '00-'
-prefix.
+:file:`profile_default/startup/` directory. Files here will be executed as soon
+as the IPython shell is constructed, before any other code or scripts you have
+specified. The files will be run in order of their names, so you can control the
+ordering with prefixes, like ``10-myimports.py``.
 
 .. note::
 
-    Automatic startup files are new in IPython 0.12. Use the
-    InteractiveShellApp.exec_files configurable for similar behavior in 0.11.
-
+    Automatic startup files are new in IPython 0.12. Use InteractiveShellApp.exec_files
+    in :file:`ipython_config.py` for similar behavior in 0.11.

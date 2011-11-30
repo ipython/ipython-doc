@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>Starting the IPython controller and engines &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -79,6 +76,7 @@
 <li><a class="reference internal" href="#ssh-tunnels">SSH Tunnels</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#an-example-using-ipcontroller-engine-with-ssh">An example using ipcontroller/engine with ssh</a></li>
 <li><a class="reference internal" href="#make-json-files-persistent">Make JSON files persistent</a></li>
 <li><a class="reference internal" href="#log-files">Log files</a></li>
 <li><a class="reference internal" href="#configuring-ipcontroller">Configuring <cite>ipcontroller</cite></a><ul>
@@ -107,7 +105,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -452,7 +450,7 @@ and are using ssh-agent <a class="reference internal" href="#ssh">[SSH]</a> for 
 <span class="c"># note that remotely launched ipcontroller will not get the contents of</span>
 <span class="c"># the local ipcontroller_config.py unless it resides on the *remote host*</span>
 <span class="c"># in the location specified by the `profile-dir` argument.</span>
-<span class="c"># c.SSHControllerLauncher.program_args = [&#39;--reuse&#39;, &#39;--ip=*&#39;, &#39;--profile-dir=/path/to/cd&#39;]</span>
+<span class="c"># c.SSHControllerLauncher.controller_args = [&#39;--reuse&#39;, &#39;--ip=*&#39;, &#39;--profile-dir=/path/to/cd&#39;]</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -487,7 +485,7 @@ a single location:</p>
 Also, we are using shell scripts to setup and execute commands on remote
 hosts.</li>
 <li>No file movement - This is a regression from 0.10, which moved connection files
-around with scp. This will be improved, but not before 0.11 release.</li>
+around with scp. This will be improved, Pull Requests are welcome.</li>
 </ul>
 </div>
 </div>
@@ -528,13 +526,22 @@ properly.</p>
 <h3>Starting the controller and engines on different hosts<a class="headerlink" href="#starting-the-controller-and-engines-on-different-hosts" title="Permalink to this headline">¶</a></h3>
 <p>When the controller and engines are running on different hosts, things are
 slightly more complicated, but the underlying ideas are the same:</p>
-<ol class="arabic simple">
-<li>Start the controller on a host using <strong class="command">ipcontroller</strong>. The controller must be
+<ol class="arabic">
+<li><p class="first">Start the controller on a host using <strong class="command">ipcontroller</strong>. The controller must be
 instructed to listen on an interface visible to the engine machines, via the <tt class="docutils literal"><span class="pre">ip</span></tt>
-command-line argument or <tt class="docutils literal"><span class="pre">HubFactory.ip</span></tt> in <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt>.</li>
-<li>Copy <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> from <tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> on
-the controller&#8217;s host to the host where the engines will run.</li>
-<li>Use <strong class="command">ipengine</strong> on the engine&#8217;s hosts to start the engines.</li>
+command-line argument or <tt class="docutils literal"><span class="pre">HubFactory.ip</span></tt> in <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt>:</p>
+<div class="highlight-python"><pre>$ ipcontroller --ip=192.168.1.16</pre>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># in ipcontroller_config.py</span>
+<span class="n">HubFactory</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s">&#39;192.168.1.16&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Copy <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> from <tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> on
+the controller&#8217;s host to the host where the engines will run.</p>
+</li>
+<li><p class="first">Use <strong class="command">ipengine</strong> on the engine&#8217;s hosts to start the engines.</p>
+</li>
 </ol>
 <p>The only thing you have to be careful of is to tell <strong class="command">ipengine</strong> where
 the <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> file is located. There are two ways you
@@ -588,6 +595,64 @@ loopback, and ssh tunnels will be used to connect engines to the controller:</p>
 <p>Or if you want to start many engines on each node, the command <cite>ipcluster engines &#8211;n=4</cite>
 without any configuration is equivalent to running ipengine 4 times.</p>
 </div>
+</div>
+<div class="section" id="an-example-using-ipcontroller-engine-with-ssh">
+<h3>An example using ipcontroller/engine with ssh<a class="headerlink" href="#an-example-using-ipcontroller-engine-with-ssh" title="Permalink to this headline">¶</a></h3>
+<p>No configuration files are necessary to use ipcontroller/engine in an SSH environment
+without a shared filesystem. You simply need to make sure that the controller is listening
+on an interface visible to the engines, and move the connection file from the controller to
+the engines.</p>
+<ol class="arabic">
+<li><p class="first">start the controller, listening on an ip-address visible to the engine machines:</p>
+<div class="highlight-python"><pre>[controller.host] $ ipcontroller --ip=192.168.1.16
+
+[IPControllerApp] Using existing profile dir: u'/Users/me/.ipython/profile_default'
+[IPControllerApp] Hub listening on tcp://192.168.1.16:63320 for registration.
+[IPControllerApp] Hub using DB backend: 'IPython.parallel.controller.dictdb.DictDB'
+[IPControllerApp] hub::created hub
+[IPControllerApp] writing connection info to /Users/me/.ipython/profile_default/security/ipcontroller-client.json
+[IPControllerApp] writing connection info to /Users/me/.ipython/profile_default/security/ipcontroller-engine.json
+[IPControllerApp] task::using Python leastload Task scheduler
+[IPControllerApp] Heartmonitor started
+[IPControllerApp] Creating pid file: /Users/me/.ipython/profile_default/pid/ipcontroller.pid
+Scheduler started [leastload]</pre>
+</div>
+</li>
+<li><p class="first">on each engine, fetch the connection file with scp:</p>
+<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ./</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The log output of ipcontroller above shows you where the json files were written.
+They will be in <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> (or <tt class="file docutils literal"><span class="pre">~/.config/ipython</span></tt>) under
+<tt class="file docutils literal"><span class="pre">profile_default/security/ipcontroller-engine.json</span></tt></p>
+</div>
+</li>
+<li><p class="first">start the engines, using the connection file:</p>
+<div class="highlight-python"><pre>[engine.host.n] $ ipengine --file=./ipcontroller-engine.json</pre>
+</div>
+</li>
+</ol>
+<p>A couple of notes:</p>
+<ul>
+<li><p class="first">You can avoid having to fetch the connection file every time by adding <tt class="docutils literal"><span class="pre">--reuse</span></tt> flag
+to ipcontroller, which instructs the controller to read the previous connection file for
+connection info, rather than generate a new one with randomized ports.</p>
+</li>
+<li><p class="first">In step 2, if you fetch the connection file directly into the security dir of a profile,
+then you need not specify its path directly, only the profile (assumes the path exists,
+otherwise you must create it first):</p>
+<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ~/.ipython/profile_ssh/security/
+[engine.host.n] $ ipengine --profile=ssh</pre>
+</div>
+<p>Of course, if you fetch the file into the default profile, no arguments must be passed to
+ipengine at all.</p>
+</li>
+<li><p class="first">Note that ipengine <em>did not</em> specify the ip argument. In general, it is unlikely for any
+connection information to be specified at the command-line to ipengine, as all of this
+information should be contained in the connection file written by ipcontroller.</p>
+</li>
+</ul>
 </div>
 <div class="section" id="make-json-files-persistent">
 <h3>Make JSON files persistent<a class="headerlink" href="#make-json-files-persistent" title="Permalink to this headline">¶</a></h3>
@@ -798,8 +863,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

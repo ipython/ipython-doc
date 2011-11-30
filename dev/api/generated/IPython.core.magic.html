@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.magic &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>core.magic &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.magic_arguments" href="IPython.core.magic_arguments.html" />
     <link rel="prev" title="core.macro" href="IPython.core.macro.html" /> 
@@ -90,7 +87,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -174,16 +171,6 @@ at the command line, but it is is needed in the definition.</p>
 <tt class="descname">arg_err</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.arg_err" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print docstring if incorrect arguments were passed</p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.magic.Magic.auto_status">
-<tt class="descname">auto_status</tt><em class="property"> = ['Automagic is OFF, % prefix IS needed for magic functions.', 'Automagic is ON, % prefix NOT needed for magic functions.']</em><a class="headerlink" href="#IPython.core.magic.Magic.auto_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.magic.Magic.configurables">
-<tt class="descname">configurables</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.magic.Magic.configurables" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.default_option">
@@ -416,6 +403,7 @@ Available objects for config:
     PrefilterManager
     AliasManager
     IPCompleter
+    PromptManager
     DisplayFormatter</pre>
 </div>
 <p>To view what is configurable on a given class, just pass the class name:</p>
@@ -637,13 +625,15 @@ defined it.</p>
 <p>%gui [GUINAME]</p>
 <p>This magic replaces IPython&#8217;s threaded shells that were activated
 using the (pylab/wthread/etc.) command line flags.  GUI toolkits
-can now be enabled, disabled and changed at runtime and keyboard
+can now be enabled at runtime and keyboard
 interrupts should work without any problems.  The following toolkits
-are supported:  wxPython, PyQt4, PyGTK, and Tk:</p>
+are supported:  wxPython, PyQt4, PyGTK, Tk and Cocoa (OSX):</p>
 <div class="highlight-python"><pre>%gui wx      # enable wxPython event loop integration
 %gui qt4|qt  # enable PyQt4 event loop integration
 %gui gtk     # enable PyGTK event loop integration
 %gui tk      # enable Tk event loop integration
+%gui OSX     # enable Cocoa event loop integration
+             # (requires %matplotlib 1.1) 
 %gui         # disable all event loop integration</pre>
 </div>
 <p>WARNING:  after any of these has been called you can simply create
@@ -1202,11 +1192,11 @@ In [2]: %config InlineBackend.close_figures = False</pre>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
 <blockquote class="last">
-<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;, &#8216;osx&#8217; or
-&#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is used,
-otherwise matplotlib&#8217;s default (which you can override in your
+<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;,
+&#8216;osx&#8217; or &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is
+used, otherwise matplotlib&#8217;s default (which you can override in your
 matplotlib config file) is used.</p>
 </div></blockquote>
 </td>
@@ -1263,7 +1253,7 @@ used on slow filesystems.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
 <blockquote class="last">
 <div><p>-s : &#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.
 References to objects may be kept. By default (without this option),
@@ -1322,7 +1312,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x10e9a3500&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x3b2d140&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -1854,8 +1844,8 @@ standard library.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

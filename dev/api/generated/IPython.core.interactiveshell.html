@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.interactiveshell &mdash; IPython 0.12.dev documentation</title>
-    
+    <title>core.interactiveshell &mdash; IPython v0.12.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.ipapi" href="IPython.core.ipapi.html" />
     <link rel="prev" title="core.inputsplitter" href="IPython.core.inputsplitter.html" /> 
@@ -94,7 +91,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -135,12 +132,12 @@
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.InteractiveShell" title="IPython.core.interactiveshell.InteractiveShell"><tt class="xref py py-class docutils literal"><span class="pre">InteractiveShell</span></tt></a><a class="headerlink" href="#interactiveshell" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.InteractiveShell">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShell</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShell</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_module=None</em>, <em>user_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.SingletonConfigurable" title="IPython.config.configurable.SingletonConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.SingletonConfigurable</span></tt></a>, <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magic" title="IPython.core.magic.Magic"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magic</span></tt></a></p>
 <p>An enhanced, interactive shell for Python.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_ns=None</em>, <em>user_global_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>config=None</em>, <em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_module=None</em>, <em>user_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -148,6 +145,15 @@
 <tt class="descname">alias_manager</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.alias_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.interactiveshell.InteractiveShell.all_ns_refs">
+<tt class="descname">all_ns_refs</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.all_ns_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of references to all the namespace dictionaries in which
+IPython might store a user-created object.</p>
+<p>Note that this does not include the displayhook, which also caches
+objects from the output.</p>
 </dd></dl>
 
 <dl class="method">
@@ -158,7 +164,7 @@
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.ask_yes_no">
-<tt class="descname">ask_yes_no</tt><big>(</big><em>prompt</em>, <em>default=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.ask_yes_no" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">ask_yes_no</tt><big>(</big><em>prompt</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.ask_yes_no" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -187,11 +193,6 @@ automatic calling to kick in, like:</p>
 <p>after the user&#8217;s input prompt.  This helps the user understand that the
 input line was transformed automatically by IPython.</p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.InteractiveShell.auto_status">
-<tt class="descname">auto_status</tt><em class="property"> = ['Automagic is OFF, % prefix IS needed for magic functions.', 'Automagic is ON, % prefix NOT needed for magic functions.']</em><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.auto_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.autocall">
@@ -241,7 +242,7 @@ original module&#8217;s __dict__ to be cleared and reused.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ns</strong> : a namespace (a dict, typically)</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ns</strong> : a namespace (a dict, typically)</p>
 <blockquote class="last">
 <div><dl class="docutils">
 <dt>fname <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
@@ -263,7 +264,8 @@ Out[12]: True</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.cache_size">
 <tt class="descname">cache_size</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.cache_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>A integer trait.</p>
+<dd><p>An integer trait.</p>
+<p>Longs that are unnecessary (&lt;= sys.maxint) are cast to ints.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -372,7 +374,7 @@ Out[19]: True</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
 <blockquote>
 <div><blockquote>
 <div><p>A string of text to be completed on.  It can be given as empty and
@@ -390,7 +392,7 @@ completer itself will split the line like readline does.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
 <blockquote>
 <div><blockquote>
 <div><p>The actual text that was completed.</p>
@@ -423,16 +425,6 @@ completer itself will split the line like readline does.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.InteractiveShell.configurables">
-<tt class="descname">configurables</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.configurables" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.InteractiveShell.created">
-<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.debug">
@@ -475,7 +467,7 @@ is false.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
 <blockquote>
 <div><p>The name of the macro.</p>
 </div></blockquote>
@@ -494,14 +486,16 @@ Macro object is created by passing the string to it.</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.define_magic">
 <tt class="descname">define_magic</tt><big>(</big><em>magicname</em>, <em>func</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.define_magic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expose own function as magic function for ipython</p>
-<dl class="docutils">
-<dt>def foo_impl(self,parameter_s=&#8217;&#8216;):</dt>
-<dd>&#8216;My very own magic!. (Use docstrings, IPython reads them).&#8217;
-print &#8216;Magic function. Passed parameter is between &lt; &gt;:&#8217;
-print &#8216;&lt;%s&gt;&#8217; % parameter_s
-print &#8216;The self object is:&#8217;,self</dd>
-</dl>
-<p>self.define_magic(&#8216;foo&#8217;,foo_impl)</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">foo_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">parameter_s</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="s">&#39;My very own magic!. (Use docstrings, IPython reads them).&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Magic function. Passed parameter is between &lt; &gt;:&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;&lt;</span><span class="si">%s</span><span class="s">&gt;&#39;</span> <span class="o">%</span> <span class="n">parameter_s</span>
+    <span class="k">print</span> <span class="s">&#39;The self object is:&#39;</span><span class="p">,</span> <span class="bp">self</span>
+
+<span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="n">foo_impl</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -513,7 +507,7 @@ far as possible, we&#8217;re not keeping any hidden references to it.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>varname</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>varname</strong> : str</p>
 <blockquote>
 <div><p>The name of the variable to delete.</p>
 </div></blockquote>
@@ -567,7 +561,7 @@ user has overwritten.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict</p>
 <blockquote class="last">
 <div><p>A dictionary mapping object names (as strings) to the objects.</p>
 </div></blockquote>
@@ -578,9 +572,37 @@ user has overwritten.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.enable_gui">
+<tt class="descname">enable_gui</tt><big>(</big><em>gui=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_gui" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.enable_pylab">
 <tt class="descname">enable_pylab</tt><big>(</big><em>gui=None</em>, <em>import_all=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_pylab" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Activate pylab support at runtime.</p>
+<p>This turns on support for matplotlib, preloads into the interactive
+namespace all of numpy and pylab, and configures IPython to correctly
+interact with the GUI event loop.  The GUI backend to be used can be
+optionally selected with the optional <a href="#id1"><span class="problematic" id="id2">:param:`gui`</span></a> argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : optional, string</p>
+<blockquote class="last">
+<div><p>If given, dictates the choice of matplotlib GUI backend to use
+(should be one of IPython&#8217;s supported backends, &#8216;qt&#8217;, &#8216;osx&#8217;, &#8216;tk&#8217;,
+&#8216;gtk&#8217;, &#8216;wx&#8217; or &#8216;inline&#8217;), otherwise we use the default chosen by
+matplotlib (as dictated by the matplotlib build-time options plus the
+user&#8217;s matplotlibrc configuration file).  Note that not all backends
+make sense in all contexts, for example a terminal ipython can&#8217;t
+display figures inline.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.ev">
@@ -620,7 +642,8 @@ to be true IPython errors.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.execution_count">
 <tt class="descname">execution_count</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.execution_count" title="Permalink to this definition">¶</a></dt>
-<dd><p>A integer trait.</p>
+<dd><p>An integer trait.</p>
+<p>Longs that are unnecessary (&lt;= sys.maxint) are cast to ints.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -683,7 +706,7 @@ session number: ~n goes n back from the current session.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>target</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>target</strong> : str</p>
 <blockquote>
 <div><p>A string specifying code to retrieve. This will be tried respectively
 as: ranges of input history (see %history for syntax), a filename, or
@@ -696,7 +719,7 @@ retrieval mechanisms.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A string of code.</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A string of code.</strong> :</p>
 <p><strong>ValueError is raised if nothing is found, and TypeError if it evaluates</strong> :</p>
 <p><strong>to an object of another type. In each case, .args[0] is a printable</strong> :</p>
 <p class="last"><strong>message.</strong> :</p>
@@ -726,7 +749,7 @@ retrieval mechanisms.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
 <blockquote>
 <div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
 not supported.</p>
@@ -748,7 +771,8 @@ details.</p>
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.history_length">
 <tt class="descname">history_length</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.history_length" title="Permalink to this definition">¶</a></dt>
-<dd><p>A integer trait.</p>
+<dd><p>An integer trait.</p>
+<p>Longs that are unnecessary (&lt;= sys.maxint) are cast to ints.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -780,7 +804,7 @@ library), programatically (such as in test suites) or out-of-prcess
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.init_create_namespaces">
-<tt class="descname">init_create_namespaces</tt><big>(</big><em>user_ns=None</em>, <em>user_global_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_create_namespaces" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">init_create_namespaces</tt><big>(</big><em>user_module=None</em>, <em>user_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_create_namespaces" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1207,6 +1231,7 @@ Available objects for config:
     PrefilterManager
     AliasManager
     IPCompleter
+    PromptManager
     DisplayFormatter</pre>
 </div>
 <p>To view what is configurable on a given class, just pass the class name:</p>
@@ -1428,13 +1453,15 @@ defined it.</p>
 <p>%gui [GUINAME]</p>
 <p>This magic replaces IPython&#8217;s threaded shells that were activated
 using the (pylab/wthread/etc.) command line flags.  GUI toolkits
-can now be enabled, disabled and changed at runtime and keyboard
+can now be enabled at runtime and keyboard
 interrupts should work without any problems.  The following toolkits
-are supported:  wxPython, PyQt4, PyGTK, and Tk:</p>
+are supported:  wxPython, PyQt4, PyGTK, Tk and Cocoa (OSX):</p>
 <div class="highlight-python"><pre>%gui wx      # enable wxPython event loop integration
 %gui qt4|qt  # enable PyQt4 event loop integration
 %gui gtk     # enable PyGTK event loop integration
 %gui tk      # enable Tk event loop integration
+%gui OSX     # enable Cocoa event loop integration
+             # (requires %matplotlib 1.1) 
 %gui         # disable all event loop integration</pre>
 </div>
 <p>WARNING:  after any of these has been called you can simply create
@@ -1993,11 +2020,11 @@ In [2]: %config InlineBackend.close_figures = False</pre>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
 <blockquote class="last">
-<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;, &#8216;osx&#8217; or
-&#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is used,
-otherwise matplotlib&#8217;s default (which you can override in your
+<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;,
+&#8216;osx&#8217; or &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is
+used, otherwise matplotlib&#8217;s default (which you can override in your
 matplotlib config file) is used.</p>
 </div></blockquote>
 </td>
@@ -2054,7 +2081,7 @@ used on slow filesystems.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
 <blockquote class="last">
 <div><p>-s : &#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.
 References to objects may be kept. By default (without this option),
@@ -2113,7 +2140,7 @@ Out[11]: [&#8216;a&#8217;]</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x10e9a3500&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x3b2d140&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -2268,7 +2295,7 @@ for sequential processing or to be passed to a shell command.</p>
 <p># all-random</p>
 <blockquote>
 <div><p># Capture into variable a
-In [1]: sc a=ls <a href="#id1"><span class="problematic" id="id2">*</span></a>py</p>
+In [1]: sc a=ls <a href="#id3"><span class="problematic" id="id4">*</span></a>py</p>
 <p># a is a string with embedded newlines
 In [2]: a
 Out[2]: &#8216;setup.pynwin32_manual_post_install.py&#8217;</p>
@@ -2296,7 +2323,7 @@ In [6]: for f in a.l:</p>
 the sense that you can equally invoke the .s attribute on them to
 automatically get a whitespace-separated string from their contents:</p>
 <blockquote>
-<div><p>In [7]: sc -l b=ls <a href="#id3"><span class="problematic" id="id4">*</span></a>py</p>
+<div><p>In [7]: sc -l b=ls <a href="#id5"><span class="problematic" id="id6">*</span></a>py</p>
 <p>In [8]: b
 Out[8]: [&#8216;setup.py&#8217;, &#8216;win32_manual_post_install.py&#8217;]</p>
 <p>In [9]: b.s
@@ -2562,49 +2589,6 @@ checking their identity.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.make_user_namespaces">
-<tt class="descname">make_user_namespaces</tt><big>(</big><em>user_ns=None</em>, <em>user_global_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.make_user_namespaces" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a valid local and global user interactive namespaces.</p>
-<p>This builds a dict with the minimal information needed to operate as a
-valid IPython user namespace, which you can pass to the various
-embedding classes in ipython. The default implementation returns the
-same dict for both the locals and the globals to allow functions to
-refer to variables in the namespace. Customized implementations can
-return different dicts. The locals dictionary can actually be anything
-following the basic mapping protocol of a dict, but the globals dict
-must be a true dict, not even a subclass. It is recommended that any
-custom object for the locals namespace synchronize with the globals
-dict somehow.</p>
-<p>Raises TypeError if the provided globals namespace is not a true dict.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>user_ns</strong> : dict-like, optional</p>
-<blockquote>
-<div><p>The current user namespace. The items in this namespace should
-be included in the output. If None, an appropriate blank
-namespace should be created.</p>
-</div></blockquote>
-<p><strong>user_global_ns</strong> : dict, optional</p>
-<blockquote>
-<div><p>The current user global namespace. The items in this namespace
-should be included in the output. If None, an appropriate
-blank namespace should be created.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A pair of dictionary-like object to be used as the local namespace</strong> :</p>
-<blockquote class="last">
-<div><p>of the interpreter and a dict to be used as the global namespace.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.mktempfile">
 <tt class="descname">mktempfile</tt><big>(</big><em>data=None</em>, <em>prefix='ipython_edit_'</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.mktempfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a new tempfile and return its filename.</p>
@@ -2656,7 +2640,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -2736,6 +2720,39 @@ standard library.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.prepare_user_module">
+<tt class="descname">prepare_user_module</tt><big>(</big><em>user_module=None</em>, <em>user_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.prepare_user_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the module and namespace in which user code will be run.</p>
+<p>When IPython is started normally, both parameters are None: a new module
+is created automatically, and its __dict__ used as the namespace.</p>
+<p>If only user_module is provided, its __dict__ is used as the namespace.
+If only user_ns is provided, a dummy module is created, and user_ns
+becomes the global namespace. If both are provided (as they may be
+when embedding), user_ns is the local namespace, and user_module
+provides the global namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>user_module</strong> : module, optional</p>
+<blockquote>
+<div><p>The current user module in which IPython is being run. If None,
+a clean module will be created.</p>
+</div></blockquote>
+<p><strong>user_ns</strong> : dict, optional</p>
+<blockquote>
+<div><p>A namespace in which to run interactive commands.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>A tuple of user_module and user_ns, each properly initialised.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.core.interactiveshell.InteractiveShell.profile">
 <tt class="descname">profile</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.profile" title="Permalink to this definition">¶</a></dt>
@@ -2785,7 +2802,7 @@ standard library.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict, str or list/tuple of str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict, str or list/tuple of str</p>
 <blockquote>
 <div><p>The variables to inject into the user&#8217;s namespace.  If a dict, a
 simple update is done.  If a str, the string is assumed to have
@@ -2857,7 +2874,7 @@ specified regular expression.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>regex</strong> : string or compiled pattern, optional</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>regex</strong> : string or compiled pattern, optional</p>
 <blockquote class="last">
 <div><p>A regular expression pattern that will be used in searching
 variable names in the users namespaces.</p>
@@ -2883,7 +2900,7 @@ interactivity parameter.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nodelist</strong> : list</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nodelist</strong> : list</p>
 <blockquote>
 <div><p>A sequence of AST nodes to run.</p>
 </div></blockquote>
@@ -2914,7 +2931,7 @@ for this parameter will raise a ValueError.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_cell</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_cell</strong> : str</p>
 <blockquote>
 <div><p>The code (including IPython code such as %magic functions) to run.</p>
 </div></blockquote>
@@ -2940,7 +2957,7 @@ traceback.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
 <blockquote>
 <div><p>A compiled code object, to be executed</p>
 </div></blockquote>
@@ -2950,7 +2967,7 @@ traceback.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
 <p class="last"><strong>True</strong> : an error occurred.</p>
 </td>
 </tr>
@@ -2968,7 +2985,7 @@ traceback.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
 <blockquote>
 <div><p>A compiled code object, to be executed</p>
 </div></blockquote>
@@ -2978,7 +2995,7 @@ traceback.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
 <p class="last"><strong>True</strong> : an error occurred.</p>
 </td>
 </tr>
@@ -2997,7 +3014,7 @@ Python files with the .py extension.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : string</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : string</p>
 <blockquote>
 <div><p>The name of the file to be executed.</p>
 </div></blockquote>
@@ -3029,7 +3046,7 @@ silenced for zero status, as it is so common).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : str</p>
 <blockquote class="last">
 <div><p>The name of the file to execute.  The filename must have a
 .ipy extension.</p>
@@ -3044,7 +3061,7 @@ silenced for zero status, as it is so common).</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.save_sys_module_state">
 <tt class="descname">save_sys_module_state</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.save_sys_module_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the state of hooks in the sys module.</p>
-<p>This has to be called after self.user_ns is created.</p>
+<p>This has to be called after self.user_module is created.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -3105,7 +3122,7 @@ run_code() method).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>exc_tuple</strong> : tuple of exception classes</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>exc_tuple</strong> : tuple of exception classes</p>
 <blockquote>
 <div><p>A <em>tuple</em> of exception classes, for which to call the defined
 handler.  It is very important that you use a tuple, and NOT A
@@ -3144,8 +3161,9 @@ disabled.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.set_hook">
-<tt class="descname">set_hook</tt><big>(</big><em>name</em>, <em>hook</em><big>)</big> &rarr; sets an internal IPython hook.<a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_hook" title="Permalink to this definition">¶</a></dt>
-<dd><p>IPython exposes some of its internal API as user-modifiable hooks.  By
+<tt class="descname">set_hook</tt><big>(</big><em>name</em>, <em>hook</em>, <em>priority=50</em>, <em>str_key=None</em>, <em>re_key=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>set_hook(name,hook) -&gt; sets an internal IPython hook.</p>
+<p>IPython exposes some of its internal API as user-modifiable hooks.  By
 adding your function to one of these hooks, you can modify IPython&#8217;s
 behavior to call at runtime your own routines.</p>
 </dd></dl>
@@ -3157,7 +3175,7 @@ behavior to call at runtime your own routines.</p>
 <p>Requires readline.</p>
 <p>Example:</p>
 <p>[D:ipython]|1&gt; _ip.set_next_input(&#8220;Hello Word&#8221;)
-[D:ipython]|2&gt; Hello <a href="#id5"><span class="problematic" id="id6">Word_</span></a>  # cursor is here</p>
+[D:ipython]|2&gt; Hello <a href="#id7"><span class="problematic" id="id8">Word_</span></a>  # cursor is here</p>
 </dd></dl>
 
 <dl class="method">
@@ -3212,7 +3230,7 @@ simply call this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
 <blockquote class="last">
 <div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
 not supported.  Should not be a command that expects input
@@ -3232,7 +3250,7 @@ other than simple text.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
 <blockquote class="last">
 <div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
 not supported.  Should not be a command that expects input
@@ -3252,7 +3270,7 @@ other than simple text.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
 <blockquote class="last">
 <div><p>Command to execute.</p>
 </div></blockquote>
@@ -3300,7 +3318,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>expressions</strong> : dict</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>expressions</strong> : dict</p>
 <blockquote>
 <div><p>A dict with string keys and string values.  The expression values
 should be valid Python expressions, each of which will be evaluated
@@ -3308,13 +3326,18 @@ in the user namespace.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A dict, keyed like the input expressions dict, with the repr() of each</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A dict, keyed like the input expressions dict, with the repr() of each</strong> :</p>
 <p class="last"><strong>value.</strong> :</p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.interactiveshell.InteractiveShell.user_global_ns">
+<tt class="descname">user_global_ns</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.user_global_ns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.user_variables">
@@ -3324,13 +3347,13 @@ in the user namespace.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>names</strong> : list of strings</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>names</strong> : list of strings</p>
 <blockquote>
 <div><p>A list of names of variables to be read from the user namespace.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>A dict, keyed by the input names and with the repr() of each value.</strong> :</p>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>A dict, keyed by the input names and with the repr() of each value.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -3339,7 +3362,7 @@ in the user namespace.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
-<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x398c750&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand python variables in a string.</p>
 <p>The depth argument indicates how many frames above the caller should
 be walked to look for the local namespace where to expand variables.</p>
@@ -3436,7 +3459,7 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <h3><a class="reference internal" href="#IPython.core.interactiveshell.SeparateUnicode" title="IPython.core.interactiveshell.SeparateUnicode"><tt class="xref py py-class docutils literal"><span class="pre">SeparateUnicode</span></tt></a><a class="headerlink" href="#separateunicode" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateUnicode">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x10e9c3d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x38d4e90&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
 <p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
@@ -3444,14 +3467,9 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <p>&#8216;.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateUnicode.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x10e9c3d10&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x38d4e90&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a TraitType.</p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.SeparateUnicode.default_value">
-<tt class="descname">default_value</tt><em class="property"> = u''</em><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.default_value" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateUnicode.error">
@@ -3474,11 +3492,6 @@ so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
 <tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.SeparateUnicode.info_text">
-<tt class="descname">info_text</tt><em class="property"> = 'a unicode string'</em><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.info_text" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateUnicode.init">
 <tt class="descname">init</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.init" title="Permalink to this definition">¶</a></dt>
@@ -3499,7 +3512,7 @@ and also things like the resolution of str given class names in
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt> instance</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt> instance</p>
 <blockquote class="last">
 <div><p>The parent <tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt> instance that has just been
 created.</p>
@@ -3509,11 +3522,6 @@ created.</p>
 </tbody>
 </table>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.interactiveshell.SeparateUnicode.metadata">
-<tt class="descname">metadata</tt><em class="property"> = {}</em><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode.metadata" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.SeparateUnicode.set_default_value">
@@ -3615,8 +3623,8 @@ class has been instantiated.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 30, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.
+      Last updated on Nov 29, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
