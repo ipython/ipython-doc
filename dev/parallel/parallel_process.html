@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython v0.12.dev documentation</title>
+    <title>Starting the IPython controller and engines &mdash; IPython v0.12.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.12.dev',
+        VERSION:     '0.12.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -70,6 +70,7 @@
 <li><a class="reference internal" href="#using-ipcluster-in-ssh-mode">Using <strong class="command">ipcluster</strong> in SSH mode</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#ipython-on-ec2-with-starcluster">IPython on EC2 with StarCluster</a></li>
 <li><a class="reference internal" href="#using-the-ipcontroller-and-ipengine-commands">Using the <strong class="command">ipcontroller</strong> and <strong class="command">ipengine</strong> commands</a><ul>
 <li><a class="reference internal" href="#starting-the-controller-and-engine-on-your-local-machine">Starting the controller and engine on your local machine</a></li>
 <li><a class="reference internal" href="#starting-the-controller-and-engines-on-different-hosts">Starting the controller and engines on different hosts</a><ul>
@@ -259,7 +260,7 @@ or even just the prefix e.g:</p>
 </div>
 <p>The shortest form being of particular use on the command line, where all you need to do to
 get an IPython cluster running with engines started with MPI is:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start --engines<span class="o">=</span>MPIExec
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipcluster start --engines<span class="o">=</span>MPI
 </pre></div>
 </div>
 <p>Assuming that the default MPI config is sufficient.</p>
@@ -288,8 +289,8 @@ have not yet supported (such as Condor)</p>
 <div class="highlight-python"><pre>$ ipython profile create --parallel --profile=mpi</pre>
 </div>
 <p>and edit the file <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_mpi/ipcluster_config.py</span></tt>.</p>
-<p>There, instruct ipcluster to use the MPIExec launchers by adding the lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIExecEngineSetLauncher&#39;</span>
+<p>There, instruct ipcluster to use the MPI launchers by adding the lines:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIEngineSetLauncher&#39;</span>
 </pre></div>
 </div>
 <p>If the default MPI configuration is correct, then you can now start your cluster, with:</p>
@@ -301,7 +302,7 @@ have not yet supported (such as Condor)</p>
 <li>Uses <strong class="command">mpiexec</strong> to start 4 engines.</li>
 </ol>
 <p>If you have a reason to also start the Controller with mpi, you can specify:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIExecControllerLauncher&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIControllerLauncher&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -488,6 +489,13 @@ hosts.</li>
 around with scp. This will be improved, Pull Requests are welcome.</li>
 </ul>
 </div>
+</div>
+<div class="section" id="ipython-on-ec2-with-starcluster">
+<h2>IPython on EC2 with StarCluster<a class="headerlink" href="#ipython-on-ec2-with-starcluster" title="Permalink to this headline">¶</a></h2>
+<p>The excellent <a class="reference external" href="http://web.mit.edu/starcluster">StarCluster</a> toolkit for managing <a class="reference external" href="http://aws.amazon.com/ec2/">Amazon EC2</a> clusters has a plugin
+which makes deploying IPython on EC2 quite simple.  The starcluster plugin uses
+<strong class="command">ipcluster</strong> with the SGE launchers to distribute engines across the
+EC2 cluster.  See their <a class="reference external" href="http://web.mit.edu/starcluster/docs/latest/plugins/ipython.html">ipcluster plugin documentation</a> for more information.</p>
 </div>
 <div class="section" id="using-the-ipcontroller-and-ipengine-commands">
 <h2>Using the <strong class="command">ipcontroller</strong> and <strong class="command">ipengine</strong> commands<a class="headerlink" href="#using-the-ipcontroller-and-ipengine-commands" title="Permalink to this headline">¶</a></h2>
@@ -741,7 +749,7 @@ SSH connections through login.mycluster.net.</p>
 <p>The Hub stores all messages and results passed between Clients and Engines.
 For large and/or long-running clusters, it would be unreasonable to keep all
 of this information in memory. For this reason, we have two database backends:
-<a class="reference internal" href="#id6">[MongoDB]</a> via <a class="reference external" href="http://api.mongodb.org/python/1.9/">PyMongo</a>, and SQLite with the stdlib <tt class="xref py py-mod docutils literal"><span class="pre">sqlite</span></tt>.</p>
+<a class="reference internal" href="#mongodb">[MongoDB]</a> via <a class="reference external" href="http://api.mongodb.org/python/1.9/">PyMongo</a>, and SQLite with the stdlib <tt class="xref py py-mod docutils literal"><span class="pre">sqlite</span></tt>.</p>
 <p>MongoDB is our design target, and the dict-like model it uses has driven our design. As far
 as we are concerned, BSON can be considered essentially the same as JSON, adding support
 for binary data and datetime objects, and any new database backend must support the same
@@ -811,10 +819,10 @@ in some scratch directory.  This can be set with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPEngineApp</span><span class="o">.</span><span class="n">work_dir</span> <span class="o">=</span> <span class="s">u&#39;/path/to/scratch/&#39;</span>
 </pre></div>
 </div>
-<table class="docutils citation" frame="void" id="id6" rules="none">
+<table class="docutils citation" frame="void" id="mongodb" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label">[MongoDB]</td><td>MongoDB database <a class="reference external" href="http://www.mongodb.org">http://www.mongodb.org</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5">[MongoDB]</a></td><td>MongoDB database <a class="reference external" href="http://www.mongodb.org">http://www.mongodb.org</a></td></tr>
 </tbody>
 </table>
 <table class="docutils citation" frame="void" id="pbs" rules="none">
@@ -863,7 +871,7 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 29, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

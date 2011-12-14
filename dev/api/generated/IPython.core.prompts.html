@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.prompts &mdash; IPython v0.12.dev documentation</title>
+    <title>core.prompts &mdash; IPython v0.12.rc1 documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.12.dev',
+        VERSION:     '0.12.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.12.rc1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.pylabtools" href="IPython.core.pylabtools.html" />
     <link rel="prev" title="core.profiledir" href="IPython.core.profiledir.html" /> 
@@ -65,6 +65,7 @@
 <li><a class="reference internal" href="#classes">Classes</a><ul>
 <li><a class="reference internal" href="#lazyevaluate"><tt class="docutils literal"><span class="pre">LazyEvaluate</span></tt></a></li>
 <li><a class="reference internal" href="#promptmanager"><tt class="docutils literal"><span class="pre">PromptManager</span></tt></a></li>
+<li><a class="reference internal" href="#usernsformatter"><tt class="docutils literal"><span class="pre">UserNSFormatter</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
@@ -327,12 +328,6 @@ template.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.core.prompts.PromptManager.rewrite_template">
-<tt class="descname">rewrite_template</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.rewrite_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>A trait for unicode strings.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="IPython.core.prompts.PromptManager.shell">
 <tt class="descname">shell</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.shell" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
@@ -369,6 +364,12 @@ exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.txtwidth">
+<tt class="descname">txtwidth</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.txtwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>An int trait.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.prompts.PromptManager.update_config">
 <tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.update_config" title="Permalink to this definition">¶</a></dt>
@@ -391,6 +392,61 @@ cases, traitlets should take care of calling this automatically.</p>
 <tt class="descname">width</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.width" title="Permalink to this definition">¶</a></dt>
 <dd><p>An int trait.</p>
 </dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="usernsformatter">
+<h3><a class="reference internal" href="#IPython.core.prompts.UserNSFormatter" title="IPython.core.prompts.UserNSFormatter"><tt class="xref py py-class docutils literal"><span class="pre">UserNSFormatter</span></tt></a><a class="headerlink" href="#usernsformatter" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prompts.UserNSFormatter">
+<em class="property">class </em><tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">UserNSFormatter</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">string.Formatter</span></tt></p>
+<p>A Formatter that falls back on a shell&#8217;s user_ns and __builtins__ for name resolution</p>
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.check_unused_args">
+<tt class="descname">check_unused_args</tt><big>(</big><em>used_args</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.check_unused_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.convert_field">
+<tt class="descname">convert_field</tt><big>(</big><em>value</em>, <em>conversion</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.convert_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.format">
+<tt class="descname">format</tt><big>(</big><em>format_string</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.format_field">
+<tt class="descname">format_field</tt><big>(</big><em>value</em>, <em>format_spec</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.format_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.get_field">
+<tt class="descname">get_field</tt><big>(</big><em>field_name</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.get_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.get_value">
+<tt class="descname">get_value</tt><big>(</big><em>key</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.get_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.parse">
+<tt class="descname">parse</tt><big>(</big><em>format_string</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.vformat">
+<tt class="descname">vformat</tt><big>(</big><em>format_string</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.vformat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -454,7 +510,7 @@ dictionary by its corresponding value.  Returns the new string.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 29, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

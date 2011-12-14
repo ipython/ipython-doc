@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using MPI with IPython &mdash; IPython v0.12.dev documentation</title>
+    <title>Using MPI with IPython &mdash; IPython v0.12.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.12.dev',
+        VERSION:     '0.12.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Task Database" href="parallel_db.html" />
     <link rel="prev" title="The IPython task interface" href="parallel_task.html" /> 
@@ -146,10 +146,10 @@ different, let us know and we can help you get started.</p>
 these things to happen.</p>
 <div class="section" id="automatic-starting-using-mpiexec-and-ipcluster">
 <h3>Automatic starting using <strong class="command">mpiexec</strong> and <strong class="command">ipcluster</strong><a class="headerlink" href="#automatic-starting-using-mpiexec-and-ipcluster" title="Permalink to this headline">¶</a></h3>
-<p>The easiest approach is to use the <cite>MPIExec</cite> Launchers in <strong class="command">ipcluster</strong>,
+<p>The easiest approach is to use the <cite>MPI</cite> Launchers in <strong class="command">ipcluster</strong>,
 which will first start a controller and then a set of engines using
 <strong class="command">mpiexec</strong>:</p>
-<div class="highlight-python"><pre>$ ipcluster start -n 4 --elauncher=MPIExecEngineSetLauncher</pre>
+<div class="highlight-python"><pre>$ ipcluster start -n 4 --engines=MPIEngineSetLauncher</pre>
 </div>
 <p>This approach is best as interrupting <strong class="command">ipcluster</strong> will automatically
 stop and clean up the controller and engines.</p>
@@ -158,13 +158,13 @@ stop and clean up the controller and engines.</p>
 <h3>Manual starting using <strong class="command">mpiexec</strong><a class="headerlink" href="#manual-starting-using-mpiexec" title="Permalink to this headline">¶</a></h3>
 <p>If you want to start the IPython engines using the <strong class="command">mpiexec</strong>, just
 do:</p>
-<div class="highlight-python"><pre>$ mpiexec n=4 ipengine --mpi=mpi4py</pre>
+<div class="highlight-python"><pre>$ mpiexec -n 4 ipengine --mpi=mpi4py</pre>
 </div>
 <p>This requires that you already have a controller running and that the FURL
 files for the engines are in place. We also have built in support for
 PyTrilinos <a class="reference internal" href="#pytrilinos">[PyTrilinos]</a>, which can be used (assuming is installed) by
 starting the engines with:</p>
-<div class="highlight-python"><pre>$ mpiexec n=4 ipengine --mpi=pytrilinos</pre>
+<div class="highlight-python"><pre>$ mpiexec -n 4 ipengine --mpi=pytrilinos</pre>
 </div>
 </div>
 <div class="section" id="automatic-starting-using-pbs-and-ipcluster">
@@ -285,7 +285,7 @@ compiled C, C++ and Fortran libraries that have been exposed to Python.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 29, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development version &mdash; IPython v0.12.dev documentation</title>
+    <title>Development version &mdash; IPython v0.12.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.12.dev',
+        VERSION:     '0.12.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.rc1 documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
     <link rel="next" title="0.11 Series" href="version0.11.html" />
     <link rel="prev" title="What’s new in IPython" href="index.html" /> 
@@ -149,8 +149,9 @@ starting a standalone kernel, that can be used with various frontends.</li>
 <li><strong>Multiline History</strong>: Multiline readline history has been restored to the
 Terminal frontend by default (<a class="reference external" href="https://github.com/ipython/ipython/pull/838/">PR #838</a>).</li>
 <li><strong>%store</strong>: The <tt class="docutils literal"><span class="pre">%store</span></tt> magic from earlier versions has been updated and
-placed in an extension, <a class="reference internal" href="../config/extensions/storemagic.html#extensions-storemagic"><em>storemagic</em></a>. Add &#8216;storemagic&#8217; to <tt class="docutils literal"><span class="pre">c.InteractiveShellApp.extensions</span></tt>
-in ipython_config.py to enable it (<a class="reference external" href="https://github.com/ipython/ipython/pull/1029/">PR #1029</a>).</li>
+re-enabled (<a class="reference internal" href="../config/extensions/storemagic.html#extensions-storemagic"><em>storemagic</em></a>; <a class="reference external" href="https://github.com/ipython/ipython/pull/1029/">PR #1029</a>). To autorestore
+stored variables on startup, specify <tt class="docutils literal"><span class="pre">c.StoreMagic.autorestore</span> <span class="pre">=</span> <span class="pre">True</span></tt> in
+<tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt>.</li>
 </ul>
 </div>
 <div class="section" id="major-bugs-fixed">
@@ -216,18 +217,23 @@ import path of each class, e.g.:</p>
 </pre></div>
 </div>
 <p>would now be specified as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPIExec&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">IPClusterEngines</span><span class="o">.</span><span class="n">engine_launcher_class</span> <span class="o">=</span> <span class="s">&#39;MPI&#39;</span>
 <span class="n">IPClusterStart</span><span class="o">.</span><span class="n">controller_launcher_class</span> <span class="o">=</span> <span class="s">&#39;SSH&#39;</span>
 </pre></div>
 </div>
 <p>The full path will still work, and is necessary for using custom launchers not in
 IPython&#8217;s launcher module.</p>
+<p>Further, MPIExec launcher names are now prefixed with just MPI, to better match
+other batch launchers, and be generally more intuitive.  The MPIExec names are
+deprecated, but continue to work.</p>
 </li>
-<li><p class="first">For embedding a shell, note that the parameter <tt class="docutils literal"><span class="pre">user_global_ns</span></tt> has been
-replaced by <tt class="docutils literal"><span class="pre">user_module</span></tt>, and expects a module-like object, rather than
-a namespace dict. The <tt class="docutils literal"><span class="pre">user_ns</span></tt> parameter works the same way as before, and
+<li><p class="first">For embedding a shell, note that the parameters <tt class="docutils literal"><span class="pre">user_global_ns</span></tt> and <tt class="docutils literal"><span class="pre">global_ns</span></tt>
+have been deprectated in favour of <tt class="docutils literal"><span class="pre">user_module</span></tt> and <tt class="docutils literal"><span class="pre">module</span></tt> respsectively.
+The new parameters expect a module-like object, rather than a namespace dict.
+The old parameters remain for backwards compatibility, although <tt class="docutils literal"><span class="pre">user_global_ns</span></tt>
+is now ignored. The <tt class="docutils literal"><span class="pre">user_ns</span></tt> parameter works the same way as before, and
 calling <tt class="xref py py-func docutils literal"><span class="pre">embed()</span></tt> with no arguments still
-works the same way.</p>
+works as before.</p>
 </li>
 </ul>
 </div>
@@ -264,7 +270,7 @@ works the same way.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 29, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>

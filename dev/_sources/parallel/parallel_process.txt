@@ -163,7 +163,7 @@ get an IPython cluster running with engines started with MPI is:
 
 .. sourcecode:: bash
 
-    $> ipcluster start --engines=MPIExec
+    $> ipcluster start --engines=MPI
 
 Assuming that the default MPI config is sufficient.
 
@@ -196,11 +196,11 @@ If these are satisfied, you can create a new profile::
 
 and edit the file :file:`IPYTHONDIR/profile_mpi/ipcluster_config.py`.
 
-There, instruct ipcluster to use the MPIExec launchers by adding the lines:
+There, instruct ipcluster to use the MPI launchers by adding the lines:
 
 .. sourcecode:: python
 
-    c.IPClusterEngines.engine_launcher_class = 'MPIExecEngineSetLauncher'
+    c.IPClusterEngines.engine_launcher_class = 'MPIEngineSetLauncher'
 
 If the default MPI configuration is correct, then you can now start your cluster, with::
 
@@ -215,7 +215,7 @@ If you have a reason to also start the Controller with mpi, you can specify:
 
 .. sourcecode:: python
 
-    c.IPClusterStart.controller_launcher_class = 'MPIExecControllerLauncher'
+    c.IPClusterStart.controller_launcher_class = 'MPIControllerLauncher'
 
 .. note::
 
@@ -439,6 +439,19 @@ Current limitations of the SSH mode of :command:`ipcluster` are:
   hosts.
 * No file movement - This is a regression from 0.10, which moved connection files
   around with scp. This will be improved, Pull Requests are welcome.
+
+
+IPython on EC2 with StarCluster
+===============================
+
+The excellent StarCluster_ toolkit for managing `Amazon EC2`_ clusters has a plugin
+which makes deploying IPython on EC2 quite simple.  The starcluster plugin uses
+:command:`ipcluster` with the SGE launchers to distribute engines across the
+EC2 cluster.  See their `ipcluster plugin documentation`_ for more information.
+
+.. _StarCluster: http://web.mit.edu/starcluster
+.. _Amazon EC2: http://aws.amazon.com/ec2/
+.. _ipcluster plugin documentation: http://web.mit.edu/starcluster/docs/latest/plugins/ipython.html
 
 
 Using the :command:`ipcontroller` and :command:`ipengine` commands
@@ -776,7 +789,6 @@ you can specify any arguments you may need to the PyMongo `Connection
     # keyword args to pymongo.Connection
     c.MongoDB.connection_kwargs = {}
 
-.. _MongoDB: http://www.mongodb.org
 .. _PyMongo: http://api.mongodb.org/python/1.9/
 
 Configuring `ipengine`

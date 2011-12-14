@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython v0.12.dev documentation</title>
+    <title>IPython reference &mdash; IPython v0.12.rc1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.12.dev',
+        VERSION:     '0.12.rc1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.12.rc1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -63,7 +63,7 @@
 <li><a class="reference internal" href="#">IPython reference</a><ul>
 <li><a class="reference internal" href="#command-line-usage">Command-line usage</a><ul>
 <li><a class="reference internal" href="#eventloop-integration">Eventloop integration</a></li>
-<li><a class="reference internal" href="#regular-options">Regular Options</a></li>
+<li><a class="reference internal" href="#id1">Command-line Options</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#interactive-use">Interactive use</a><ul>
@@ -183,88 +183,26 @@ interface, or specify the gui at the commandline:</p>
 <div class="highlight-python"><pre>$ ipython --gui=qt</pre>
 </div>
 </div>
-<div class="section" id="regular-options">
-<h3>Regular Options<a class="headerlink" href="#regular-options" title="Permalink to this headline">¶</a></h3>
-<p>After the above threading options have been given, regular options can
-follow in any order. All options can be abbreviated to their shortest
-non-ambiguous form and are case-sensitive.</p>
-<p>Most options can also be set from your configuration file. See the provided
-example for more details on what the options do. Options given at the command
-line override the values set in the configuration file.</p>
-<p>All options with a [no] prepended can be specified in negated form
-(&#8211;no-option instead of &#8211;option) to turn the feature off.</p>
-<blockquote>
-<div><p><tt class="docutils literal"><span class="pre">-h,</span> <span class="pre">--help</span></tt>  print a help message and exit.</p>
-<p><tt class="docutils literal"><span class="pre">--pylab,</span> <span class="pre">pylab=&lt;name&gt;</span></tt>
-See <a class="reference internal" href="#matplotlib-support"><em>Matplotlib support</em></a>
-for more details.</p>
-<dl class="docutils">
-<dt><tt class="docutils literal"><span class="pre">--autocall=&lt;val&gt;</span></tt></dt>
-<dd>Make IPython automatically call any callable object even if you
-didn&#8217;t type explicit parentheses. For example, &#8216;str 43&#8217; becomes
-&#8216;str(43)&#8217; automatically. The value can be &#8216;0&#8217; to disable the feature,
-&#8216;1&#8217; for smart autocall, where it is not applied if there are no more
-arguments on the line, and &#8216;2&#8217; for full autocall, where all callable
-objects are automatically called (even if no arguments are
-present). The default is &#8216;1&#8217;.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]autoindent</span></tt></dt>
-<dd>Turn automatic indentation on/off.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]automagic</span></tt></dt>
-<dd>make magic commands automatic (without needing their first character
-to be %). Type %magic at the IPython prompt for more information.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]autoedit_syntax</span></tt></dt>
-<dd>When a syntax error occurs after editing a file, automatically
-open the file to the trouble causing line for convenient
-fixing.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]banner</span></tt></dt>
-<dd>Print the initial information banner (default on).</dd>
-<dt><tt class="docutils literal"><span class="pre">-c</span> <span class="pre">&lt;command&gt;</span></tt></dt>
-<dd>execute the given command string. This is similar to the -c
-option in the normal Python interpreter.</dd>
-<dt><tt class="docutils literal"><span class="pre">--cache-size=&lt;n&gt;</span></tt></dt>
-<dd>size of the output cache (maximum number of entries to hold in
-memory). The default is 1000, you can change it permanently in your
-config file. Setting it to 0 completely disables the caching system,
-and the minimum value accepted is 20 (if you provide a value less than
-20, it is reset to 0 and a warning is issued) This limit is defined
-because otherwise you&#8217;ll spend more time re-flushing a too small cache
-than working.</dd>
-<dt><tt class="docutils literal"><span class="pre">--classic</span></tt></dt>
-<dd>Gives IPython a similar feel to the classic Python
-prompt.</dd>
-<dt><tt class="docutils literal"><span class="pre">--colors=&lt;scheme&gt;</span></tt></dt>
-<dd>Color scheme for prompts and exception reporting. Currently
-implemented: NoColor, Linux and LightBG.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]color_info</span></tt></dt>
-<dd><p class="first">IPython can display information about objects via a set of functions,
-and optionally can use colors for this, syntax highlighting source
-code and various other elements.  However, because this information is
-passed through a pager (like &#8216;less&#8217;) and many pagers get confused with
-color codes, this option is off by default. You can test it and turn
-it on permanently in your configuration file if it works for you. As a
-reference, the &#8216;less&#8217; pager supplied with Mandrake 8.2 works ok, but
-that in RedHat 7.2 doesn&#8217;t.</p>
-<p class="last">Test it and turn it on permanently if it works with your
-system. The magic function %color_info allows you to toggle this
-interactively for testing.</p>
-</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]debug</span></tt></dt>
-<dd>Show information about the loading process. Very useful to pin down
-problems with your configuration files or to get details about
-session restores.</dd>
-<dt><tt class="docutils literal"><span class="pre">--[no-]deep_reload</span></tt></dt>
-<dd><p class="first">IPython can use the deep_reload module which reloads changes in
-modules recursively (it replaces the reload() function, so you don&#8217;t
-need to change anything to use it).  deep_reload() forces a full
-reload of modules whose code may have changed, which the default
-reload() function does not.</p>
-<p class="last">When deep_reload is off, IPython will use the normal reload(),
-but deep_reload will still be available as dreload(). This
-feature is off by default [which means that you have both
-normal reload() and dreload()].</p>
-</dd>
-</dl>
-</div></blockquote>
+<div class="section" id="id1">
+<h3>Command-line Options<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>To see the options IPython accepts, use <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--help</span></tt> (and you probably
+should run the output through a pager such as <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--help</span> <span class="pre">|</span> <span class="pre">less</span></tt> for
+more convenient reading).  This shows all the options that have a single-word
+alias to control them, but IPython lets you configure all of its objects from
+the command-line by passing the full class name and a corresponding value; type
+<tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--help-all</span></tt> to see this full list.  For example:</p>
+<div class="highlight-python"><pre>ipython --pylab qt</pre>
+</div>
+<p>is equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span> <span class="o">--</span><span class="n">TerminalIPythonApp</span><span class="o">.</span><span class="n">pylab</span><span class="o">=</span><span class="s">&#39;qt&#39;</span>
+</pre></div>
+</div>
+<p>Note that in the second form, you <em>must</em> use the equal sign, as the expression
+is evaluated as an actual Python assignment.  While in the above example the
+short form is more convenient, only the most common options have a short form,
+while any configurable variable in IPython can be set at the command-line by
+using the long form.  This long form is the same syntax used in the
+configuration files, if you want to set these options permanently.</p>
 </div>
 </div>
 <div class="section" id="interactive-use">
@@ -519,7 +457,7 @@ resume logging to a file which had previously been started with
 before logging has been started.</p>
 </div>
 <div class="section" id="system-shell-access">
-<span id="id1"></span><h3>System shell access<a class="headerlink" href="#system-shell-access" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>System shell access<a class="headerlink" href="#system-shell-access" title="Permalink to this headline">¶</a></h3>
 <p>Any input line beginning with a ! character is passed verbatim (minus
 the !, of course) to the underlying operating system. For example,
 typing <tt class="docutils literal"><span class="pre">!ls</span></tt> will run &#8216;ls&#8217; in the current directory.</p>
@@ -814,10 +752,10 @@ It should be fairly self-explanatory:</p>
 <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
     <span class="n">nested</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
-    <span class="n">shell_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">InteractiveShellEmbed</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_in1</span> <span class="o">=</span> <span class="s">&#39;In &lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_in2</span> <span class="o">=</span> <span class="s">&#39;   .</span><span class="se">\\</span><span class="s">D.: &#39;</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_out</span> <span class="o">=</span> <span class="s">&#39;Out&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
+    <span class="n">prompt_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">PromptManager</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">in_template</span> <span class="o">=</span> <span class="s">&#39;In &lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">in2_template</span> <span class="o">=</span> <span class="s">&#39;   .</span><span class="se">\\</span><span class="s">D.: &#39;</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">out_template</span> <span class="o">=</span> <span class="s">&#39;Out&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&quot;Running nested copies of IPython.&quot;</span>
     <span class="k">print</span> <span class="s">&quot;The prompts for the nested copy have been modified&quot;</span>
@@ -837,12 +775,12 @@ It should be fairly self-explanatory:</p>
 
 <span class="c"># Make a second instance, you can have as many as you want.</span>
 <span class="n">cfg2</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">shell_config</span> <span class="o">=</span> <span class="n">cfg2</span><span class="o">.</span><span class="n">InteractiveShellEmbed</span>
-<span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_in1</span> <span class="o">=</span> <span class="s">&#39;In2&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
+<span class="n">prompt_config</span> <span class="o">=</span> <span class="n">cfg2</span><span class="o">.</span><span class="n">PromptManager</span>
+<span class="n">prompt_config</span><span class="o">.</span><span class="n">in_template</span> <span class="o">=</span> <span class="s">&#39;In2&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">nested</span><span class="p">:</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_in1</span> <span class="o">=</span> <span class="s">&#39;In2&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_in2</span> <span class="o">=</span> <span class="s">&#39;   .</span><span class="se">\\</span><span class="s">D.: &#39;</span>
-    <span class="n">shell_config</span><span class="o">.</span><span class="n">prompt_out</span> <span class="o">=</span> <span class="s">&#39;Out&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">in_template</span> <span class="o">=</span> <span class="s">&#39;In2&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">in2_template</span> <span class="o">=</span> <span class="s">&#39;   .</span><span class="se">\\</span><span class="s">D.: &#39;</span>
+    <span class="n">prompt_config</span><span class="o">.</span><span class="n">out_template</span> <span class="o">=</span> <span class="s">&#39;Out&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
 <span class="n">ipshell2</span> <span class="o">=</span> <span class="n">InteractiveShellEmbed</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="p">,</span>
                         <span class="n">banner1</span> <span class="o">=</span> <span class="s">&#39;Second IPython instance.&#39;</span><span class="p">)</span>
 
@@ -1049,7 +987,7 @@ starting point for writing your own extensions.</p>
 <div class="section" id="pasting-of-code-starting-with-python-or-ipython-prompts">
 <span id="pasting-with-prompts"></span><h3>Pasting of code starting with Python or IPython prompts<a class="headerlink" href="#pasting-of-code-starting-with-python-or-ipython-prompts" title="Permalink to this headline">¶</a></h3>
 <p>IPython is smart enough to filter  out input prompts, be they plain Python ones
-(<tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> and <tt class="docutils literal"><span class="pre">...</span></tt>) or IPython ones (<tt class="docutils literal"><span class="pre">In</span> <span class="pre">[N]:</span></tt> and `` ...:<a href="#id2"><span class="problematic" id="id3">``</span></a>).  You can
+(<tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> and <tt class="docutils literal"><span class="pre">...</span></tt>) or IPython ones (<tt class="docutils literal"><span class="pre">In</span> <span class="pre">[N]:</span></tt> and `` ...:<a href="#id3"><span class="problematic" id="id4">``</span></a>).  You can
 therefore copy and paste from existing interactive sessions without worry.</p>
 <p>The following is a &#8216;screenshot&#8217; of how things work, copying an example from the
 standard Python tutorial:</p>
@@ -1306,7 +1244,7 @@ embedding facilities, see <tt class="xref py py-func docutils literal"><span cla
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 29, 2011.
+      Last updated on Dec 13, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
