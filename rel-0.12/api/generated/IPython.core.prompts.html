@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.prompts &mdash; IPython v0.12 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="core.pylabtools" href="IPython.core.pylabtools.html" />
+    <link rel="prev" title="core.profiledir" href="IPython.core.profiledir.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.pylabtools.html" title="core.pylabtools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.profiledir.html" title="core.profiledir"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core.prompts</a><ul>
+<li><a class="reference internal" href="#module-core-prompts">Module: <tt class="docutils literal"><span class="pre">core.prompts</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#lazyevaluate"><tt class="docutils literal"><span class="pre">LazyEvaluate</span></tt></a></li>
+<li><a class="reference internal" href="#promptmanager"><tt class="docutils literal"><span class="pre">PromptManager</span></tt></a></li>
+<li><a class="reference internal" href="#usernsformatter"><tt class="docutils literal"><span class="pre">UserNSFormatter</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.core.profiledir.html"
+                        title="previous chapter">core.profiledir</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.core.pylabtools.html"
+                        title="next chapter">core.pylabtools</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.core.prompts.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="core-prompts">
+<h1>core.prompts<a class="headerlink" href="#core-prompts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-core-prompts">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.prompts</span></tt><a class="headerlink" href="#module-core-prompts" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.core.prompts</span></tt>:</p>
+<img src="../../_images/inheritance3225efb8d9.png" usemap="#inheritance3225efb8d9" class="inheritance"/><map id="inheritance3225efb8d9" name="inheritance3225efb8d9">
+</map>
+<span class="target" id="module-IPython.core.prompts"></span><p>Classes for handling input/output prompts.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Fernando Perez</li>
+<li>Brian Granger</li>
+<li>Thomas Kluyver</li>
+</ul>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lazyevaluate">
+<h3><a class="reference internal" href="#IPython.core.prompts.LazyEvaluate" title="IPython.core.prompts.LazyEvaluate"><tt class="xref py py-class docutils literal"><span class="pre">LazyEvaluate</span></tt></a><a class="headerlink" href="#lazyevaluate" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prompts.LazyEvaluate">
+<em class="property">class </em><tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">LazyEvaluate</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.LazyEvaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>This is used for formatting strings with values that need to be updated
+at that time, such as the current time or working directory.</p>
+<dl class="method">
+<dt id="IPython.core.prompts.LazyEvaluate.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.LazyEvaluate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="promptmanager">
+<h3><a class="reference internal" href="#IPython.core.prompts.PromptManager" title="IPython.core.prompts.PromptManager"><tt class="xref py py-class docutils literal"><span class="pre">PromptManager</span></tt></a><a class="headerlink" href="#promptmanager" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prompts.PromptManager">
+<em class="property">class </em><tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">PromptManager</tt><big>(</big><em>shell</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>This is the primary interface for producing IPython&#8217;s prompts.</p>
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_config_section">
+<em class="property">classmethod </em><tt class="descname">class_config_section</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_config_section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the config class config section</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_get_help">
+<em class="property">classmethod </em><tt class="descname">class_get_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_get_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for this class in ReST format.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+class defaults.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_get_trait_help">
+<em class="property">classmethod </em><tt class="descname">class_get_trait_help</tt><big>(</big><em>trait</em>, <em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_get_trait_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait.</p>
+<p>If <cite>inst</cite> is given, it&#8217;s current trait values will be used in place of
+the class default.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_print_help">
+<em class="property">classmethod </em><tt class="descname">class_print_help</tt><big>(</big><em>inst=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the help string for a single trait and print it.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.prompts.PromptManager.trait_names" title="IPython.core.prompts.PromptManager.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.core.prompts.PromptManager.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.core.prompts.PromptManager.traits" title="IPython.core.prompts.PromptManager.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.color_scheme">
+<tt class="descname">color_scheme</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.color_scheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.color_scheme_table">
+<tt class="descname">color_scheme_table</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.color_scheme_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.config">
+<tt class="descname">config</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.config" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.in2_template">
+<tt class="descname">in2_template</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.in2_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.in_template">
+<tt class="descname">in_template</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.in_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.invisible_chars">
+<tt class="descname">invisible_chars</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.invisible_chars" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.justify">
+<tt class="descname">justify</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.justify" title="Permalink to this definition">¶</a></dt>
+<dd><p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.lazy_evaluate_fields">
+<tt class="descname">lazy_evaluate_fields</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.lazy_evaluate_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.out_template">
+<tt class="descname">out_template</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.out_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.render">
+<tt class="descname">render</tt><big>(</big><em>name</em>, <em>color=True</em>, <em>just=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the selected prompt.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>Which prompt to render. One of &#8216;in&#8217;, &#8216;in2&#8217;, &#8216;out&#8217;, &#8216;rewrite&#8217;</p>
+</div></blockquote>
+<p><strong>color</strong> : bool</p>
+<blockquote>
+<div><p>If True (default), include ANSI escape sequences for a coloured prompt.</p>
+</div></blockquote>
+<p><strong>just</strong> : bool</p>
+<blockquote>
+<div><p>If True, justify the prompt to the width of the last prompt. The
+default is stored in self.justify.</p>
+</div></blockquote>
+<p><strong>**kwargs :</strong> :</p>
+<blockquote>
+<div><p>Additional arguments will be passed to the string formatting operation,
+so they can override the values that would otherwise fill in the
+template.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>A string containing the rendered prompt.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.shell">
+<tt class="descname">shell</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.templates">
+<tt class="descname">templates</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.templates" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.txtwidth">
+<tt class="descname">txtwidth</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.txtwidth" title="Permalink to this definition">¶</a></dt>
+<dd><p>An int trait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.update_config">
+<tt class="descname">update_config</tt><big>(</big><em>config</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.update_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fire the traits events when the config is updated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.PromptManager.update_prompt">
+<tt class="descname">update_prompt</tt><big>(</big><em>name</em>, <em>new_template=None</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.PromptManager.update_prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called when a prompt template is updated. It processes
+abbreviations used in the prompt template (like #) and calculates how
+many invisible characters (ANSI colour escapes) the resulting prompt
+contains.</p>
+<p>It is also called for each prompt on changing the colour scheme. In both
+cases, traitlets should take care of calling this automatically.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.prompts.PromptManager.width">
+<tt class="descname">width</tt><a class="headerlink" href="#IPython.core.prompts.PromptManager.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>An int trait.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="usernsformatter">
+<h3><a class="reference internal" href="#IPython.core.prompts.UserNSFormatter" title="IPython.core.prompts.UserNSFormatter"><tt class="xref py py-class docutils literal"><span class="pre">UserNSFormatter</span></tt></a><a class="headerlink" href="#usernsformatter" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.prompts.UserNSFormatter">
+<em class="property">class </em><tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">UserNSFormatter</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">string.Formatter</span></tt></p>
+<p>A Formatter that falls back on a shell&#8217;s user_ns and __builtins__ for name resolution</p>
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.check_unused_args">
+<tt class="descname">check_unused_args</tt><big>(</big><em>used_args</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.check_unused_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.convert_field">
+<tt class="descname">convert_field</tt><big>(</big><em>value</em>, <em>conversion</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.convert_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.format">
+<tt class="descname">format</tt><big>(</big><em>format_string</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.format_field">
+<tt class="descname">format_field</tt><big>(</big><em>value</em>, <em>format_spec</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.format_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.get_field">
+<tt class="descname">get_field</tt><big>(</big><em>field_name</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.get_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.get_value">
+<tt class="descname">get_value</tt><big>(</big><em>key</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.get_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.parse">
+<tt class="descname">parse</tt><big>(</big><em>format_string</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.prompts.UserNSFormatter.vformat">
+<tt class="descname">vformat</tt><big>(</big><em>format_string</em>, <em>args</em>, <em>kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.UserNSFormatter.vformat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.prompts.cwd_filt">
+<tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">cwd_filt</tt><big>(</big><em>depth</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.cwd_filt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the last depth elements of the current working directory.</p>
+<p>$HOME is always replaced with &#8216;~&#8217;.
+If depth==0, the full path is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.prompts.cwd_filt2">
+<tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">cwd_filt2</tt><big>(</big><em>depth</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.cwd_filt2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the last depth elements of the current working directory.</p>
+<p>$HOME is always replaced with &#8216;~&#8217;.
+If depth==0, the full path is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.prompts.multiple_replace">
+<tt class="descclassname">IPython.core.prompts.</tt><tt class="descname">multiple_replace</tt><big>(</big><em>dict</em>, <em>text</em><big>)</big><a class="headerlink" href="#IPython.core.prompts.multiple_replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace in &#8216;text&#8217; all occurences of any key in the given
+dictionary by its corresponding value.  Returns the new string.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.pylabtools.html" title="core.pylabtools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.profiledir.html" title="core.profiledir"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Dec 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

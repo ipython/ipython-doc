@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>parallelmagic &mdash; IPython v0.12 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12 documentation" href="../../index.html" />
+    <link rel="up" title="IPython extensions" href="index.html" />
+    <link rel="next" title="storemagic" href="storemagic.html" />
+    <link rel="prev" title="autoreload" href="autoreload.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="storemagic.html" title="storemagic"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="autoreload.html" title="autoreload"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">parallelmagic</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="autoreload.html"
+                        title="previous chapter">autoreload</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="storemagic.html"
+                        title="next chapter">storemagic</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/config/extensions/parallelmagic.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.extensions.parallelmagic">
+<span id="parallelmagic"></span><span id="extensions-parallelmagic"></span><h1>parallelmagic<a class="headerlink" href="#module-IPython.extensions.parallelmagic" title="Permalink to this headline">¶</a></h1>
+<p>Magic command interface for interactive parallel work.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">%autopx</span></tt></p>
+<blockquote>
+<div><p>Toggles auto parallel mode.</p>
+<p>To use this a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance must be created
+and then activated by calling its <tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt> method. Once this
+is called, all commands typed at the command line are send to
+the engines to be executed in parallel. To control which engine
+are used, set the <tt class="docutils literal"><span class="pre">targets</span></tt> attributed of the multiengine client
+before entering <tt class="docutils literal"><span class="pre">%autopx</span></tt> mode.</p>
+<p>Then you can do the following:</p>
+<div class="highlight-python"><pre>In [25]: %autopx
+%autopx to enabled
+
+In [26]: a = 10
+Parallel execution on engine(s): [0,1,2,3]
+In [27]: print a
+Parallel execution on engine(s): [0,1,2,3]
+[stdout:0] 10
+[stdout:1] 10
+[stdout:2] 10
+[stdout:3] 10
+
+
+In [27]: %autopx
+%autopx disabled</pre>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%px</span></tt></p>
+<blockquote>
+<div><p>Executes the given python command in parallel.</p>
+<p>To use this a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance must be created
+and then activated by calling its <tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt> method.</p>
+<p>Then you can do the following:</p>
+<div class="highlight-python"><pre>In [24]: %px a = 5
+Parallel execution on engine(s): all
+Out[24]:
+&lt;Results List&gt;
+[0] In [7]: a = 5
+[1] In [7]: a = 5</pre>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%result</span></tt></p>
+<blockquote>
+<div><p>Print the result of command i on all engines..</p>
+<p>To use this a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance must be created
+and then activated by calling its <tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt> method.</p>
+<p>Then you can do the following:</p>
+<div class="highlight-python"><pre>In [23]: %result
+Out[23]:
+&lt;Results List&gt;
+[0] In [6]: a = 10
+[1] In [6]: a = 10
+
+In [22]: %result 6
+Out[22]:
+&lt;Results List&gt;
+[0] In [6]: a = 10
+[1] In [6]: a = 10</pre>
+</div>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="storemagic.html" title="storemagic"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="autoreload.html" title="autoreload"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" >IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Dec 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,813 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>core.display &mdash; IPython v0.12 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="core.display_trap" href="IPython.core.display_trap.html" />
+    <link rel="prev" title="core.debugger" href="IPython.core.debugger.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.display_trap.html" title="core.display_trap"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.debugger.html" title="core.debugger"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">core.display</a><ul>
+<li><a class="reference internal" href="#module-core-display">Module: <tt class="docutils literal"><span class="pre">core.display</span></tt></a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#displayobject"><tt class="docutils literal"><span class="pre">DisplayObject</span></tt></a></li>
+<li><a class="reference internal" href="#html"><tt class="docutils literal"><span class="pre">HTML</span></tt></a></li>
+<li><a class="reference internal" href="#image"><tt class="docutils literal"><span class="pre">Image</span></tt></a></li>
+<li><a class="reference internal" href="#json"><tt class="docutils literal"><span class="pre">JSON</span></tt></a></li>
+<li><a class="reference internal" href="#javascript"><tt class="docutils literal"><span class="pre">Javascript</span></tt></a></li>
+<li><a class="reference internal" href="#math"><tt class="docutils literal"><span class="pre">Math</span></tt></a></li>
+<li><a class="reference internal" href="#pretty"><tt class="docutils literal"><span class="pre">Pretty</span></tt></a></li>
+<li><a class="reference internal" href="#svg"><tt class="docutils literal"><span class="pre">SVG</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.core.debugger.html"
+                        title="previous chapter">core.debugger</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.core.display_trap.html"
+                        title="next chapter">core.display_trap</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.core.display.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="core-display">
+<h1>core.display<a class="headerlink" href="#core-display" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-core-display">
+<h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.display</span></tt><a class="headerlink" href="#module-core-display" title="Permalink to this headline">¶</a></h2>
+<p>Inheritance diagram for <tt class="docutils literal"><span class="pre">IPython.core.display</span></tt>:</p>
+<img src="../../_images/inheritance93b715422d.png" usemap="#inheritance93b715422d" class="inheritance"/><map id="inheritance93b715422d" name="inheritance93b715422d">
+</map>
+<span class="target" id="module-IPython.core.display"></span><p>Top-level display functions for displaying object in different formats.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Brian Granger</li>
+</ul>
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="displayobject">
+<h3><a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">DisplayObject</span></tt></a><a class="headerlink" href="#displayobject" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.DisplayObject">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">DisplayObject</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.DisplayObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An object that wraps data to be displayed.</p>
+<dl class="method">
+<dt id="IPython.core.display.DisplayObject.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.DisplayObject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.DisplayObject.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.DisplayObject.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="html">
+<h3><a class="reference internal" href="#IPython.core.display.HTML" title="IPython.core.display.HTML"><tt class="xref py py-class docutils literal"><span class="pre">HTML</span></tt></a><a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.HTML">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">HTML</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.HTML" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.HTML.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.HTML.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.HTML.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.HTML.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="image">
+<h3><a class="reference internal" href="#IPython.core.display.Image" title="IPython.core.display.Image"><tt class="xref py py-class docutils literal"><span class="pre">Image</span></tt></a><a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.Image">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Image</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=False</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.Image.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=False</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display an PNG/JPEG image given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the image being displayed
+in the frontend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote>
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+<p><strong>format</strong> : unicode</p>
+<blockquote>
+<div><p>The format of the image data (png/jpeg/jpg). If a filename or URL is given
+for format will be inferred from the filename extension.</p>
+</div></blockquote>
+<p><strong>embed</strong> : bool</p>
+<blockquote class="last">
+<div><p>Should the image data be embedded in the notebook using a data URI (True)
+or be loaded using an &lt;img&gt; tag. Set this to True if you want the image
+to be viewable later with no internet connection. If a filename is given
+embed is always set to True.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.Image.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.Image.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="json">
+<h3><a class="reference internal" href="#IPython.core.display.JSON" title="IPython.core.display.JSON"><tt class="xref py py-class docutils literal"><span class="pre">JSON</span></tt></a><a class="headerlink" href="#json" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.JSON">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">JSON</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.JSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.JSON.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.JSON.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.JSON.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.JSON.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="javascript">
+<h3><a class="reference internal" href="#IPython.core.display.Javascript" title="IPython.core.display.Javascript"><tt class="xref py py-class docutils literal"><span class="pre">Javascript</span></tt></a><a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.Javascript">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Javascript</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Javascript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.Javascript.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Javascript.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.Javascript.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.Javascript.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="math">
+<h3><a class="reference internal" href="#IPython.core.display.Math" title="IPython.core.display.Math"><tt class="xref py py-class docutils literal"><span class="pre">Math</span></tt></a><a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.Math">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Math</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Math" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.Math.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Math.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.Math.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.Math.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="pretty">
+<h3><a class="reference internal" href="#IPython.core.display.Pretty" title="IPython.core.display.Pretty"><tt class="xref py py-class docutils literal"><span class="pre">Pretty</span></tt></a><a class="headerlink" href="#pretty" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.Pretty">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Pretty</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Pretty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.Pretty.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Pretty.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.Pretty.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.Pretty.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="svg">
+<h3><a class="reference internal" href="#IPython.core.display.SVG" title="IPython.core.display.SVG"><tt class="xref py py-class docutils literal"><span class="pre">SVG</span></tt></a><a class="headerlink" href="#svg" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.core.display.SVG">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">SVG</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.SVG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.core.display.SVG.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.SVG.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a display object given raw data.</p>
+<p>When this object is returned by an expression or passed to the
+display function, it will result in the data being displayed
+in the frontend. The MIME type of the data should match the
+subclasses used, so the Png subclass should be used for &#8216;image/png&#8217;
+data. If the data is a URL, the data will first be downloaded
+and then displayed. If</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
+<blockquote>
+<div><p>The raw data or a URL to download the data from.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote class="last">
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.display.SVG.data">
+<tt class="descname">data</tt><a class="headerlink" href="#IPython.core.display.SVG.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.display.SVG.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.display.SVG.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.display.clear_output">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">clear_output</tt><big>(</big><em>stdout=True</em>, <em>stderr=True</em>, <em>other=True</em><big>)</big><a class="headerlink" href="#IPython.core.display.clear_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the output of the current cell receiving output.</p>
+<p>Optionally, each of stdout/stderr or other non-stream data (e.g. anything
+produced by display()) can be excluded from the clear event.</p>
+<p>By default, everything is cleared.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>stdout</strong> : bool [default: True]</p>
+<blockquote>
+<div><p>Whether to clear stdout.</p>
+</div></blockquote>
+<p><strong>stderr</strong> : bool [default: True]</p>
+<blockquote>
+<div><p>Whether to clear stderr.</p>
+</div></blockquote>
+<p><strong>other</strong> : bool [default: True]</p>
+<blockquote class="last">
+<div><p>Whether to clear everything else that is not stdout/stderr
+(e.g. figures,images,HTML, any result of display()).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a Python object in all frontends.</p>
+<p>By default all representations will be computed and sent to the frontends.
+Frontends can decide which representation is used and how.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display.</p>
+</div></blockquote>
+<p><strong>include</strong> : list or tuple, optional</p>
+<blockquote>
+<div><p>A list of format type strings (MIME types) to include in the
+format data dict. If this is set <em>only</em> the format types included
+in this list will be computed.</p>
+</div></blockquote>
+<p><strong>exclude</strong> : list or tuple, optional</p>
+<blockquote class="last">
+<div><p>A list of format type string (MIME types) to exclue in the format
+data dict. If this is set all format types will be computed,
+except for those included in this argument.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_html">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_html</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the HTML representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw HTML data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_javascript">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_javascript</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_javascript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the Javascript representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw javascript data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_jpeg">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_jpeg</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_jpeg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the JPEG representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw JPEG data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_json">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_json</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the JSON representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw json data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_latex">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_latex</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_latex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the LaTeX representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw latex data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_png">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_png</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_png" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the PNG representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw png data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_pretty">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_pretty</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_pretty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the pretty (default) representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw text data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.display_svg">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_svg</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the SVG representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw svg data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote class="last">
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.display_trap.html" title="core.display_trap"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.debugger.html" title="core.debugger"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Dec 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

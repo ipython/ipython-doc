@@ -1,0 +1,182 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nbformat.v2 &mdash; IPython v0.12 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="nbformat.v2.convert" href="IPython.nbformat.v2.convert.html" />
+    <link rel="prev" title="nbformat.v1.rwbase" href="IPython.nbformat.v1.rwbase.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.nbformat.v2.convert.html" title="nbformat.v2.convert"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.nbformat.v1.rwbase.html" title="nbformat.v1.rwbase"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">nbformat.v2</a><ul>
+<li><a class="reference internal" href="#module-IPython.nbformat.v2">Module: <tt class="docutils literal"><span class="pre">nbformat.v2</span></tt></a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.nbformat.v1.rwbase.html"
+                        title="previous chapter">nbformat.v1.rwbase</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.nbformat.v2.convert.html"
+                        title="next chapter">nbformat.v2.convert</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.nbformat.v2.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="nbformat-v2">
+<h1>nbformat.v2<a class="headerlink" href="#nbformat-v2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-IPython.nbformat.v2">
+<span id="module-nbformat-v2"></span><h2>Module: <tt class="xref py py-mod docutils literal"><span class="pre">nbformat.v2</span></tt><a class="headerlink" href="#module-IPython.nbformat.v2" title="Permalink to this headline">¶</a></h2>
+<p>The main API for the v2 notebook format.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Brian Granger</li>
+</ul>
+<dl class="function">
+<dt id="IPython.nbformat.v2.parse_filename">
+<tt class="descclassname">IPython.nbformat.v2.</tt><tt class="descname">parse_filename</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#IPython.nbformat.v2.parse_filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a notebook filename.</p>
+<p>This function takes a notebook filename and returns the notebook
+format (json/py) and the notebook name. This logic can be
+summarized as follows:</p>
+<ul class="simple">
+<li>notebook.ipynb -&gt; (notebook.ipynb, notebook, json)</li>
+<li>notebook.json  -&gt; (notebook.json, notebook, json)</li>
+<li>notebook.py    -&gt; (notebook.py, notebook, py)</li>
+<li>notebook       -&gt; (notebook.ipynb, notebook, json)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : unicode</p>
+<blockquote>
+<div><p>The notebook filename. The filename can use a specific filename
+extention (.ipynb, .json, .py) or none, in which case .ipynb will
+be assumed.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(fname, name, format)</strong> : (unicode, unicode, unicode)</p>
+<blockquote class="last">
+<div><p>The filename, notebook name and format.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.nbformat.v2.convert.html" title="nbformat.v2.convert"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.nbformat.v1.rwbase.html" title="nbformat.v1.rwbase"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Dec 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>autoreload &mdash; IPython v0.12 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.12 documentation" href="../../index.html" />
+    <link rel="up" title="IPython extensions" href="index.html" />
+    <link rel="next" title="parallelmagic" href="parallelmagic.html" />
+    <link rel="prev" title="IPython extensions" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallelmagic.html" title="parallelmagic"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="IPython extensions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">autoreload</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#caveats">Caveats</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">IPython extensions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parallelmagic.html"
+                        title="next chapter">parallelmagic</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/config/extensions/autoreload.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.extensions.autoreload">
+<span id="autoreload"></span><span id="extensions-autoreload"></span><h1>autoreload<a class="headerlink" href="#module-IPython.extensions.autoreload" title="Permalink to this headline">¶</a></h1>
+<p><tt class="docutils literal"><span class="pre">autoreload</span></tt> is an IPython extension that reloads modules
+automatically before executing the line of code typed.</p>
+<p>This makes for example the following workflow possible:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
+
+<span class="gp">In [2]: </span><span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
+
+<span class="gp">In [3]: </span><span class="kn">from</span> <span class="nn">foo</span> <span class="kn">import</span> <span class="n">some_function</span>
+
+<span class="gp">In [4]: </span><span class="n">some_function</span><span class="p">()</span>
+<span class="gr">Out[4]: </span><span class="mi">42</span>
+
+<span class="gp">In [5]: </span><span class="c"># open foo.py in an editor and change some_function to return 43</span>
+
+<span class="gp">In [6]: </span><span class="n">some_function</span><span class="p">()</span>
+<span class="gr">Out[6]: </span><span class="mi">43</span>
+</pre></div>
+</div>
+<p>The module was reloaded without reloading it explicitly, and the
+object imported with <tt class="docutils literal"><span class="pre">from</span> <span class="pre">foo</span> <span class="pre">import</span> <span class="pre">...</span></tt> was also updated.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The following magic commands are provided:</p>
+<p><tt class="docutils literal"><span class="pre">%autoreload</span></tt></p>
+<blockquote>
+<div>Reload all modules (except those excluded by <tt class="docutils literal"><span class="pre">%aimport</span></tt>)
+automatically now.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%autoreload</span> <span class="pre">0</span></tt></p>
+<blockquote>
+<div>Disable automatic reloading.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%autoreload</span> <span class="pre">1</span></tt></p>
+<blockquote>
+<div>Reload all modules imported with <tt class="docutils literal"><span class="pre">%aimport</span></tt> every time before
+executing the Python code typed.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%autoreload</span> <span class="pre">2</span></tt></p>
+<blockquote>
+<div>Reload all modules (except those excluded by <tt class="docutils literal"><span class="pre">%aimport</span></tt>) every
+time before executing the Python code typed.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%aimport</span></tt></p>
+<blockquote>
+<div>List modules which are to be automatically imported or not to be imported.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%aimport</span> <span class="pre">foo</span></tt></p>
+<blockquote>
+<div>Import module &#8216;foo&#8217; and mark it to be autoreloaded for <tt class="docutils literal"><span class="pre">%autoreload</span> <span class="pre">1</span></tt></div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%aimport</span> <span class="pre">-foo</span></tt></p>
+<blockquote>
+<div>Mark module &#8216;foo&#8217; to not be autoreloaded.</div></blockquote>
+</div>
+<div class="section" id="caveats">
+<h2>Caveats<a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<p>Reloading Python modules in a reliable way is in general difficult,
+and unexpected things may occur. <tt class="docutils literal"><span class="pre">%autoreload</span></tt> tries to work around
+common pitfalls by replacing function code objects and parts of
+classes previously in the module with new versions. This makes the
+following things to work:</p>
+<ul class="simple">
+<li>Functions and classes imported via &#8216;from xxx import foo&#8217; are upgraded
+to new versions when &#8216;xxx&#8217; is reloaded.</li>
+<li>Methods and properties of classes are upgraded on reload, so that
+calling &#8216;c.foo()&#8217; on an object &#8216;c&#8217; created before the reload causes
+the new code for &#8216;foo&#8217; to be executed.</li>
+</ul>
+<p>Some of the known remaining caveats are:</p>
+<ul class="simple">
+<li>Replacing code objects does not always succeed: changing a &#64;property
+in a class to an ordinary method or a method to a member variable
+can cause problems (but in old objects only).</li>
+<li>Functions that are removed (eg. via monkey-patching) from a module
+before it is reloaded are not upgraded.</li>
+<li>C extension modules cannot be reloaded, and so cannot be
+autoreloaded.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallelmagic.html" title="parallelmagic"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="IPython extensions"
+             >previous</a> |</li>
+        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" >IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Dec 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
