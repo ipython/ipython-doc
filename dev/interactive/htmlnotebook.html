@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An HTML Notebook IPython &mdash; IPython v0.12.rc1 documentation</title>
+    <title>An HTML Notebook IPython &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.12.rc1',
+        VERSION:     '0.13.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.12.rc1 documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
@@ -66,6 +66,7 @@
 <li><a class="reference internal" href="#workflow-and-limitations">Workflow and limitations</a></li>
 <li><a class="reference internal" href="#text-input">Text input</a></li>
 <li><a class="reference internal" href="#exporting-a-notebook-and-importing-existing-scripts">Exporting a notebook and importing existing scripts</a></li>
+<li><a class="reference internal" href="#importing-or-executing-a-notebook-as-a-normal-python-file">Importing or executing a notebook as a normal Python file</a></li>
 <li><a class="reference internal" href="#keyboard-use">Keyboard use</a></li>
 </ul>
 </li>
@@ -267,13 +268,6 @@ entire contents of the file will be loaded into a single code cell.  But if
 prior to import, you manually add the <tt class="docutils literal"><span class="pre">#</span> <span class="pre">&lt;nbformat&gt;2&lt;/nbformat&gt;</span></tt> marker at
 the start and then add separators for text/code cells, you can get a cleaner
 import with the file broken into individual cells.</p>
-<p>If you want use notebooks as scripts a lot, then you can set:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookManager</span><span class="o">.</span><span class="n">save_script</span><span class="o">=</span><span class="bp">True</span>
-</pre></div>
-</div>
-<p>which will instruct the notebook server to save the <tt class="docutils literal"><span class="pre">.py</span></tt> export of each
-notebook adjacent to the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> at every save.  Then these can be <tt class="docutils literal"><span class="pre">%run</span></tt>
-or imported from regular IPython sessions or other notebooks.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">While in simple cases you can roundtrip a notebook to Python, edit the
@@ -286,6 +280,42 @@ should think of the Python format as a way to output a script version of a
 notebook and the import capabilities as a way to load existing code to get a
 notebook started.  But the Python version is <em>not</em> an alternate notebook
 format.</p>
+</div>
+</div>
+<div class="section" id="importing-or-executing-a-notebook-as-a-normal-python-file">
+<h3>Importing or executing a notebook as a normal Python file<a class="headerlink" href="#importing-or-executing-a-notebook-as-a-normal-python-file" title="Permalink to this headline">¶</a></h3>
+<p>The native format of the notebook, a file with a <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension, is a
+JSON container of all the input and output of the notebook, and therefore not
+valid Python by itself.  This means that by default, you can not import a
+notebook or execute it as a normal python script.  But if you want use
+notebooks as regular Python files, you can start the notebook server with:</p>
+<div class="highlight-python"><pre>ipython notebook --script</pre>
+</div>
+<p>or you can set this option permanently in your configuration file with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookManager</span><span class="o">.</span><span class="n">save_script</span><span class="o">=</span><span class="bp">True</span>
+</pre></div>
+</div>
+<p>This will instruct the notebook server to save the <tt class="docutils literal"><span class="pre">.py</span></tt> export of each
+notebook adjacent to the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> at every save.  These files can be
+<tt class="docutils literal"><span class="pre">%run</span></tt>, imported from regular IPython sessions or other notebooks, or
+executed at the command-line as normal Python files.  Since we export the raw
+code you have typed, for these files to be importable from other code you will
+have to avoid using syntax such as <tt class="docutils literal"><span class="pre">%magics</span></tt> and other IPython-specific
+extensions to the language.</p>
+<p>In regular practice, the standard way to differentiate importable code from the
+&#8216;executable&#8217; part of a script is to put at the bottom:</p>
+<div class="highlight-python"><pre>if __name__ == '__main__':
+  # rest of the code...</pre>
+</div>
+<p>Since all cells in the notebook are run as top-level code, you&#8217;ll need to
+similarly protect <em>all</em> cells that you do not want executed when other scripts
+try to import your notebook.  A convenient shortand for this is to define early
+on:</p>
+<div class="highlight-python"><pre>script = __name__ == '__main__':</pre>
+</div>
+<p>and then on any cell that you need to protect, use:</p>
+<div class="highlight-python"><pre>if script:
+  # rest of the cell...</pre>
 </div>
 </div>
 <div class="section" id="keyboard-use">
@@ -468,7 +498,7 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 13, 2011.
+      Last updated on Dec 19, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
