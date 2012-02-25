@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython v0.13.dev documentation</title>
+    <title>Starting the IPython controller and engines &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -106,7 +109,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -768,6 +771,10 @@ data types.</p>
 
 <span class="c"># and SQLite:</span>
 <span class="n">c</span><span class="o">.</span><span class="n">HubFactory</span><span class="o">.</span><span class="n">db_class</span> <span class="o">=</span> <span class="s">&#39;IPython.parallel.controller.sqlitedb.SQLiteDB&#39;</span>
+
+<span class="c"># You can use NoDB to disable the database altogether, in case you don&#39;t need</span>
+<span class="c"># to reuse tasks or results, and want to keep memory consumption under control.</span>
+<span class="n">c</span><span class="o">.</span><span class="n">HubFactory</span><span class="o">.</span><span class="n">db_class</span> <span class="o">=</span> <span class="s">&#39;IPython.parallel.controller.dictdb.NoDB&#39;</span>
 </pre></div>
 </div>
 <p>When using the proper databases, you can actually allow for tasks to persist from
@@ -789,6 +796,19 @@ you can specify any arguments you may need to the PyMongo <a class="reference ex
 <span class="c"># keyword args to pymongo.Connection</span>
 <span class="n">c</span><span class="o">.</span><span class="n">MongoDB</span><span class="o">.</span><span class="n">connection_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
+</div>
+<p>But sometimes you are moving lots of data around quickly, and you don&#8217;t need
+that information to be stored for later access, even by other Clients to this
+same session. For this case, we have a dummy database, which doesn&#8217;t actually
+store anything. This lets the Hub stay small in memory, at the obvious expense
+of being able to access the information that would have been stored in the
+database (used for task resubmission, requesting results of tasks you didn&#8217;t
+submit, etc.). To use this backend, simply pass <tt class="docutils literal"><span class="pre">--nodb</span></tt> to
+<strong class="command">ipcontroller</strong> on the command-line, or specify the <tt class="xref py py-class docutils literal"><span class="pre">NoDB</span></tt> class
+in your <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt> as described above.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">For more information on the database backends, see the <a class="reference internal" href="parallel_db.html#parallel-db"><em>db backend reference</em></a>.</p>
 </div>
 </div>
 </div>
@@ -871,8 +891,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Feb 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

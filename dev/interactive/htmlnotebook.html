@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An HTML Notebook IPython &mdash; IPython v0.13.dev documentation</title>
+    <title>An HTML Notebook IPython &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
@@ -72,6 +75,7 @@
 </li>
 <li><a class="reference internal" href="#security">Security</a></li>
 <li><a class="reference internal" href="#quick-howto-running-a-public-notebook-server">Quick Howto: running a public notebook server</a></li>
+<li><a class="reference internal" href="#running-with-a-different-url-prefix">Running with a different URL prefix</a></li>
 <li><a class="reference internal" href="#the-notebook-format">The notebook format</a></li>
 <li><a class="reference internal" href="#known-issues">Known Issues</a></li>
 </ul>
@@ -92,7 +96,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -415,7 +419,22 @@ uncomment and edit is here:</p>
 </pre></div>
 </div>
 <p>You can then start the notebook and access it later by pointing your browser to
-<tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt> with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span> <span class="pre">--profile=nbserver</span></tt>.</p>
+</div>
+<div class="section" id="running-with-a-different-url-prefix">
+<h2>Running with a different URL prefix<a class="headerlink" href="#running-with-a-different-url-prefix" title="Permalink to this headline">¶</a></h2>
+<p>The notebook dashboard (i.e. the default landing page with an overview
+of all your notebooks) typically lives at a URL path of
+&#8220;<a class="reference external" href="http://localhost:8888/">http://localhost:8888/</a>&#8221;. If you want to have it, and the rest of the
+notebook, live under a sub-directory,
+e.g. &#8220;<a class="reference external" href="http://localhost:8888/ipython/">http://localhost:8888/ipython/</a>&#8221;, you can do so with
+configuration options like these (see above for instructions about
+modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_project_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_kernel_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">webapp_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;static_url_prefix&#39;</span><span class="p">:</span><span class="s">&#39;/ipython/static/&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="the-notebook-format">
 <span id="notebook-format"></span><h2>The notebook format<a class="headerlink" href="#the-notebook-format" title="Permalink to this headline">¶</a></h2>
@@ -498,8 +517,8 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Feb 25, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
