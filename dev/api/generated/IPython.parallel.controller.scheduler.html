@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>parallel.controller.scheduler &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>parallel.controller.scheduler &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.controller.sqlitedb" href="IPython.parallel.controller.sqlitedb.html" />
     <link rel="prev" title="parallel.controller.hub" href="IPython.parallel.controller.hub.html" /> 
@@ -65,8 +62,11 @@
   <ul>
 <li><a class="reference internal" href="#">parallel.controller.scheduler</a><ul>
 <li><a class="reference internal" href="#module-parallel-controller-scheduler">Module: <tt class="docutils literal"><span class="pre">parallel.controller.scheduler</span></tt></a></li>
-<li><a class="reference internal" href="#class">Class</a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#job"><tt class="docutils literal"><span class="pre">Job</span></tt></a></li>
 <li><a class="reference internal" href="#taskscheduler"><tt class="docutils literal"><span class="pre">TaskScheduler</span></tt></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 </ul>
 </li>
@@ -86,7 +86,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -120,11 +120,30 @@ Python Scheduler exists.</p>
 <li>Min RK</li>
 </ul>
 </div>
-<div class="section" id="class">
-<h2>Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="job">
+<h3><a class="reference internal" href="#IPython.parallel.controller.scheduler.Job" title="IPython.parallel.controller.scheduler.Job"><tt class="xref py py-class docutils literal"><span class="pre">Job</span></tt></a><a class="headerlink" href="#job" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="IPython.parallel.controller.scheduler.Job">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.scheduler.</tt><tt class="descname">Job</tt><big>(</big><em>msg_id</em>, <em>raw_msg</em>, <em>idents</em>, <em>msg</em>, <em>header</em>, <em>targets</em>, <em>after</em>, <em>follow</em>, <em>timeout</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.Job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Simple container for a job</p>
+<dl class="method">
+<dt id="IPython.parallel.controller.scheduler.Job.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>msg_id</em>, <em>raw_msg</em>, <em>idents</em>, <em>msg</em>, <em>header</em>, <em>targets</em>, <em>after</em>, <em>follow</em>, <em>timeout</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.Job.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.scheduler.Job.dependents">
+<tt class="descname">dependents</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.Job.dependents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="taskscheduler">
-<h2><a class="reference internal" href="#IPython.parallel.controller.scheduler.TaskScheduler" title="IPython.parallel.controller.scheduler.TaskScheduler"><tt class="xref py py-class docutils literal"><span class="pre">TaskScheduler</span></tt></a><a class="headerlink" href="#taskscheduler" title="Permalink to this headline">¶</a></h2>
+<h3><a class="reference internal" href="#IPython.parallel.controller.scheduler.TaskScheduler" title="IPython.parallel.controller.scheduler.TaskScheduler"><tt class="xref py py-class docutils literal"><span class="pre">TaskScheduler</span></tt></a><a class="headerlink" href="#taskscheduler" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.controller.scheduler.</tt><tt class="descname">TaskScheduler</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler" title="Permalink to this definition">¶</a></dt>
@@ -181,12 +200,6 @@ The default loads are the number of outstanding jobs.</p>
 <tt class="descname">auditor</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.auditor" title="Permalink to this definition">¶</a></dt>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.blacklist">
-<tt class="descname">blacklist</tt><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.blacklist" title="Permalink to this definition">¶</a></dt>
-<dd><p>An instance of a Python dict.</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -269,11 +282,6 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.scheduler.TaskScheduler.created">
-<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.created" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.depending">
@@ -397,7 +405,7 @@ Override with subclasses.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.maybe_run">
-<tt class="descname">maybe_run</tt><big>(</big><em>msg_id</em>, <em>raw_msg</em>, <em>targets</em>, <em>after</em>, <em>follow</em>, <em>timeout</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.maybe_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">maybe_run</tt><big>(</big><em>job</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.maybe_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>check location dependencies, and run if they are met.</p>
 </dd></dl>
 
@@ -429,7 +437,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -472,7 +480,7 @@ then unintall it.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.save_unmet">
-<tt class="descname">save_unmet</tt><big>(</big><em>msg_id</em>, <em>raw_msg</em>, <em>targets</em>, <em>after</em>, <em>follow</em>, <em>timeout</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.save_unmet" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">save_unmet</tt><big>(</big><em>job</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.save_unmet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a message for later submission when its dependencies are met.</p>
 </dd></dl>
 
@@ -510,7 +518,7 @@ Leave them in the ZMQ queue.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.controller.scheduler.TaskScheduler.submit_task">
-<tt class="descname">submit_task</tt><big>(</big><em>msg_id</em>, <em>raw_msg</em>, <em>targets</em>, <em>follow</em>, <em>timeout</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.submit_task" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">submit_task</tt><big>(</big><em>job</em>, <em>indices=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.scheduler.TaskScheduler.submit_task" title="Permalink to this definition">¶</a></dt>
 <dd><p>Submit a task to any of a subset of our targets.</p>
 </dd></dl>
 
@@ -561,6 +569,7 @@ a task.</p>
 
 </dd></dl>
 
+</div>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
@@ -645,8 +654,8 @@ the LRU of those with the lowest load is chosen.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

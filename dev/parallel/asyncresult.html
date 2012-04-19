@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The AsyncResult object &mdash; IPython v0.13.dev documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.13.dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="up" title="Using IPython for parallel computing" href="index.html" />
+    <link rel="next" title="Using MPI with IPython" href="parallel_mpi.html" />
+    <link rel="prev" title="The IPython task interface" href="parallel_task.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallel_mpi.html" title="Using MPI with IPython"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parallel_task.html" title="The IPython task interface"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The AsyncResult object</a><ul>
+<li><a class="reference internal" href="#beyond-multiprocessing-s-asyncresult">Beyond multiprocessing&#8217;s AsyncResult</a><ul>
+<li><a class="reference internal" href="#get-dict">get_dict</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li><a class="reference internal" href="#timing">Timing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#map-results-are-iterable">Map results are iterable!</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parallel_task.html"
+                        title="previous chapter">The IPython task interface</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parallel_mpi.html"
+                        title="next chapter">Using MPI with IPython</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/parallel/asyncresult.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-asyncresult-object">
+<span id="parallel-asyncresult"></span><h1>The AsyncResult object<a class="headerlink" href="#the-asyncresult-object" title="Permalink to this headline">¶</a></h1>
+<p>In non-blocking mode, <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> submits the command to be executed and
+then returns a <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object immediately. The
+AsyncResult object gives you a way of getting a result at a later
+time through its <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt> method, but it also collects metadata
+on execution.</p>
+<div class="section" id="beyond-multiprocessing-s-asyncresult">
+<h2>Beyond multiprocessing&#8217;s AsyncResult<a class="headerlink" href="#beyond-multiprocessing-s-asyncresult" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object provides a superset of the interface in
+<tt class="xref py py-class docutils literal"><span class="pre">multiprocessing.pool.AsyncResult</span></tt>.  See the
+<a class="reference external" href="http://docs.python.org/library/multiprocessing#multiprocessing.pool.AsyncResult">official Python documentation</a>
+for more on the basics of this interface.</p>
+</div>
+<p>Our AsyncResult objects add a number of convenient features for working with
+parallel results, beyond what is provided by the original AsyncResult.</p>
+<div class="section" id="get-dict">
+<h3>get_dict<a class="headerlink" href="#get-dict" title="Permalink to this headline">¶</a></h3>
+<p>First, is <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.get_dict" title="IPython.parallel.client.asyncresult.AsyncResult.get_dict"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.get_dict()</span></tt></a>, which pulls results as a dictionary
+keyed by engine_id, rather than a flat list.  This is useful for quickly
+coordinating or distributing information about all of the engines.</p>
+<p>As an example, here is a quick call that gives every engine a dict showing
+the PID of every other engine:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="n">pids</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get_dict</span><span class="p">()</span>
+<span class="gp">In [12]: </span><span class="n">rc</span><span class="p">[:][</span><span class="s">&#39;pid_map&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pids</span>
+</pre></div>
+</div>
+<p>This trick is particularly useful when setting up inter-engine communication,
+as in IPython&#8217;s <tt class="file docutils literal"><span class="pre">examples/parallel/interengine</span></tt> examples.</p>
+</div>
+</div>
+<div class="section" id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<p>IPython.parallel tracks some metadata about the tasks, which is stored
+in the <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.metadata" title="IPython.parallel.client.client.Client.metadata"><tt class="xref py py-attr docutils literal"><span class="pre">Client.metadata</span></tt></a> dict.  The AsyncResult object gives you an
+interface for this information as well, including timestamps stdout/err,
+and engine IDs.</p>
+<div class="section" id="timing">
+<h3>Timing<a class="headerlink" href="#timing" title="Permalink to this headline">¶</a></h3>
+<p>IPython tracks various timestamps as <tt class="xref py py-class docutils literal"><span class="pre">datetime</span></tt> objects,
+and the AsyncResult object has a few properties that turn these into useful
+times (in seconds as floats).</p>
+<p>For use while the tasks are still pending:</p>
+<ul>
+<li><p class="first"><tt class="xref py py-attr docutils literal"><span class="pre">ar.elapsed</span></tt> is just the elapsed seconds since submission, for use
+before the AsyncResult is complete.</p>
+</li>
+<li><p class="first"><tt class="xref py py-attr docutils literal"><span class="pre">ar.progress</span></tt> is the number of tasks that have completed.  Fractional progress
+would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mf">1.0</span> <span class="o">*</span> <span class="n">ar</span><span class="o">.</span><span class="n">progress</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ar</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.wait_interactive()</span></tt> will wait for the result to finish, but
+print out status updates on progress and elapsed time while it waits.</p>
+</li>
+</ul>
+<p>For use after the tasks are done:</p>
+<ul class="simple">
+<li><tt class="xref py py-attr docutils literal"><span class="pre">ar.serial_time</span></tt> is the sum of the computation time of all of the tasks
+done in parallel.</li>
+<li><tt class="xref py py-attr docutils literal"><span class="pre">ar.wall_time</span></tt> is the time between the first task submitted and last result
+received.  This is the actual cost of computation, including IPython overhead.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">wall_time is only precise if the Client is waiting for results when
+the task finished, because the <cite>received</cite> timestamp is made when the result is
+unpacked by the Client, triggered by the <tt class="xref py py-meth docutils literal"><span class="pre">spin()</span></tt> call. If you
+are doing work in the Client, and not waiting/spinning, then <cite>received</cite> might
+be artificially high.</p>
+</div>
+<p>An often interesting metric is the time it actually cost to do the work in parallel
+relative to the serial computation, and this can be given simply with</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">speedup</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">serial_time</span> <span class="o">/</span> <span class="n">ar</span><span class="o">.</span><span class="n">wall_time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="map-results-are-iterable">
+<h2>Map results are iterable!<a class="headerlink" href="#map-results-are-iterable" title="Permalink to this headline">¶</a></h2>
+<p>When an AsyncResult object has multiple results (e.g. the <tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt>
+object), you can actually iterate through them, and act on the results as they arrive:</p>
+<div class="highlight-python"><pre>from __future__ import print_function
+
+import time
+
+from IPython import parallel
+
+# create client &amp; view
+rc = parallel.Client()
+dv = rc[:]
+v = rc.load_balanced_view()
+
+# scatter 'id', so id=0,1,2 on engines 0,1,2
+dv.scatter('id', rc.ids, flatten=True)
+print("Engine IDs: ", dv['id'])
+
+# create a Reference to `id`. This will be a different value on each engine
+ref = parallel.Reference('id')
+print("sleeping for `id` seconds on each engine")
+tic = time.time()
+ar = dv.apply(time.sleep, ref)
+for i,r in enumerate(ar):
+    print("%i: %.3f"%(i, time.time()-tic))
+
+def sleep_here(t):
+    import time
+    time.sleep(t)
+    return id,t
+
+# one call per task
+print("running with one call per task")
+amr = v.map(sleep_here, [.01*t for t in range(100)])
+tic = time.time()
+for i,r in enumerate(amr):
+    print("task %i on engine %i: %.3f" % (i, r[0], time.time()-tic))
+
+print("running with four calls per task")
+# with chunksize, we can have four calls per task
+amr = v.map(sleep_here, [.01*t for t in range(100)], chunksize=4)
+tic = time.time()
+for i,r in enumerate(amr):
+    print("task %i on engine %i: %.3f" % (i, r[0], time.time()-tic))
+
+print("running with two calls per task, with unordered results")
+# We can even iterate through faster results first, with ordered=False
+amr = v.map(sleep_here, [.01*t for t in range(100,0,-1)], ordered=False, chunksize=2)
+tic = time.time()
+for i,r in enumerate(amr):
+</pre>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p>When AsyncResult or the AsyncMapResult don&#8217;t provide what you need (for instance,
+handling individual results as they arrive, but with metadata), you can always
+just split the original result&#8217;s <tt class="docutils literal"><span class="pre">msg_ids</span></tt> attribute, and handle them as you like.</p>
+<p class="last">For an example of this, see <tt class="file docutils literal"><span class="pre">docs/examples/parallel/customresult.py</span></tt></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallel_mpi.html" title="Using MPI with IPython"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parallel_task.html" title="The IPython task interface"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

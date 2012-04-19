@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>parallel.client.asyncresult &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>parallel.client.asyncresult &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="parallel.client.client" href="IPython.parallel.client.client.html" />
     <link rel="prev" title="parallel.apps.winhpcjob" href="IPython.parallel.apps.winhpcjob.html" /> 
@@ -90,7 +87,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -143,11 +140,17 @@ so use <cite>AsyncHubResult.wait()</cite> sparingly.</p>
 <dd><p>abort my tasks.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.elapsed">
+<tt class="descname">elapsed</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>elapsed time since initial submission</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncHubResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -167,9 +170,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.msg_ids">
-<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.msg_ids" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.progress">
+<tt class="descname">progress</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of tasks which have been completed at this point.</p>
+<p>Fractional progress would be given by 1.0 * ar.progress / len(ar)</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncHubResult.r">
@@ -201,11 +206,53 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <dd><p>check whether my messages have been sent.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.serial_time">
+<tt class="descname">serial_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.serial_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>serial computation time of a parallel calculation</p>
+<p>Computed as the sum of (completed-started) of each task</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncHubResult.successful">
 <tt class="descname">successful</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.successful" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return whether the call completed without raising an exception.</p>
 <p>Will raise <tt class="docutils literal"><span class="pre">AssertionError</span></tt> if the result is not ready.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.timedelta">
+<tt class="descname">timedelta</tt><big>(</big><em>start</em>, <em>end</em>, <em>start_key=&lt;built-in function min&gt;</em>, <em>end_key=&lt;built-in function max&gt;</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the difference between two sets of timestamps</p>
+<p>The default behavior is to use the earliest of the first
+and the latest of the second list, but this can be changed
+by passing a different</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>start</strong> : one or more datetime objects (e.g. ar.submitted)</p>
+<p><strong>end</strong> : one or more datetime objects (e.g. ar.received)</p>
+<p><strong>start_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>start</cite> to extract the relevant
+entry [defalt: min]</p>
+</div></blockquote>
+<p><strong>end_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>end</cite> to extract the relevant
+entry [default: max]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dt</strong> : float</p>
+<blockquote class="last">
+<div><p>The time elapsed (in seconds) between the two selected timestamps.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -221,6 +268,24 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <p>This is necessary when sending arrays that you intend to edit in-place.
 <cite>timeout</cite> is in seconds, and will raise TimeoutError if it is reached
 before the send completes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.wait_interactive">
+<tt class="descname">wait_interactive</tt><big>(</big><em>interval=1.0</em>, <em>timeout=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.wait_interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>interactive wait, printing progress at regular intervals</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncHubResult.wall_time">
+<tt class="descname">wall_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncHubResult.wall_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>actual computation time of a parallel calculation</p>
+<p>Computed as the time between the latest <cite>received</cite> stamp
+and the earliest <cite>submitted</cite>.</p>
+<p>Only reliable if Client was spinning/waiting when the task finished, because
+the <cite>received</cite> timestamp is created when a result is pulled off of the zmq queue,
+which happens as a result of <cite>client.spin()</cite>.</p>
+<p>For similar comparison of other timestamp pairs, check out AsyncResult.timedelta.</p>
 </dd></dl>
 
 </dd></dl>
@@ -248,11 +313,17 @@ results will be yielded in the order they were submitted.</p>
 <dd><p>abort my tasks.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.elapsed">
+<tt class="descname">elapsed</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>elapsed time since initial submission</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -272,9 +343,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.msg_ids">
-<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.msg_ids" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.progress">
+<tt class="descname">progress</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of tasks which have been completed at this point.</p>
+<p>Fractional progress would be given by 1.0 * ar.progress / len(ar)</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.r">
@@ -306,11 +379,53 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <dd><p>check whether my messages have been sent.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.serial_time">
+<tt class="descname">serial_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.serial_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>serial computation time of a parallel calculation</p>
+<p>Computed as the sum of (completed-started) of each task</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncMapResult.successful">
 <tt class="descname">successful</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.successful" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return whether the call completed without raising an exception.</p>
 <p>Will raise <tt class="docutils literal"><span class="pre">AssertionError</span></tt> if the result is not ready.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.timedelta">
+<tt class="descname">timedelta</tt><big>(</big><em>start</em>, <em>end</em>, <em>start_key=&lt;built-in function min&gt;</em>, <em>end_key=&lt;built-in function max&gt;</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the difference between two sets of timestamps</p>
+<p>The default behavior is to use the earliest of the first
+and the latest of the second list, but this can be changed
+by passing a different</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>start</strong> : one or more datetime objects (e.g. ar.submitted)</p>
+<p><strong>end</strong> : one or more datetime objects (e.g. ar.received)</p>
+<p><strong>start_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>start</cite> to extract the relevant
+entry [defalt: min]</p>
+</div></blockquote>
+<p><strong>end_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>end</cite> to extract the relevant
+entry [default: max]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dt</strong> : float</p>
+<blockquote class="last">
+<div><p>The time elapsed (in seconds) between the two selected timestamps.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -327,6 +442,24 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <p>This is necessary when sending arrays that you intend to edit in-place.
 <cite>timeout</cite> is in seconds, and will raise TimeoutError if it is reached
 before the send completes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.wait_interactive">
+<tt class="descname">wait_interactive</tt><big>(</big><em>interval=1.0</em>, <em>timeout=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.wait_interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>interactive wait, printing progress at regular intervals</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncMapResult.wall_time">
+<tt class="descname">wall_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncMapResult.wall_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>actual computation time of a parallel calculation</p>
+<p>Computed as the time between the latest <cite>received</cite> stamp
+and the earliest <cite>submitted</cite>.</p>
+<p>Only reliable if Client was spinning/waiting when the task finished, because
+the <cite>received</cite> timestamp is created when a result is pulled off of the zmq queue,
+which happens as a result of <cite>client.spin()</cite>.</p>
+<p>For similar comparison of other timestamp pairs, check out AsyncResult.timedelta.</p>
 </dd></dl>
 
 </dd></dl>
@@ -351,11 +484,17 @@ before the send completes.</p>
 <dd><p>abort my tasks.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.elapsed">
+<tt class="descname">elapsed</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.elapsed" title="Permalink to this definition">¶</a></dt>
+<dd><p>elapsed time since initial submission</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncResult.get">
 <tt class="descname">get</tt><big>(</big><em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the result when it arrives.</p>
-<p>If <cite>timeout</cite> is not <tt class="docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
+<p>If <cite>timeout</cite> is not <tt class="xref docutils literal"><span class="pre">None</span></tt> and the result does not arrive within
 <cite>timeout</cite> seconds then <tt class="docutils literal"><span class="pre">TimeoutError</span></tt> is raised. If the
 remote call raised an exception then that exception will be reraised
 by get() inside a <cite>RemoteError</cite>.</p>
@@ -375,9 +514,11 @@ by get() inside a <cite>RemoteError</cite>.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.client.asyncresult.AsyncResult.msg_ids">
-<tt class="descname">msg_ids</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.msg_ids" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.progress">
+<tt class="descname">progress</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.progress" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of tasks which have been completed at this point.</p>
+<p>Fractional progress would be given by 1.0 * ar.progress / len(ar)</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="IPython.parallel.client.asyncresult.AsyncResult.r">
@@ -409,11 +550,53 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <dd><p>check whether my messages have been sent.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.serial_time">
+<tt class="descname">serial_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.serial_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>serial computation time of a parallel calculation</p>
+<p>Computed as the sum of (completed-started) of each task</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="IPython.parallel.client.asyncresult.AsyncResult.successful">
 <tt class="descname">successful</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.successful" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return whether the call completed without raising an exception.</p>
 <p>Will raise <tt class="docutils literal"><span class="pre">AssertionError</span></tt> if the result is not ready.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.timedelta">
+<tt class="descname">timedelta</tt><big>(</big><em>start</em>, <em>end</em>, <em>start_key=&lt;built-in function min&gt;</em>, <em>end_key=&lt;built-in function max&gt;</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.timedelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the difference between two sets of timestamps</p>
+<p>The default behavior is to use the earliest of the first
+and the latest of the second list, but this can be changed
+by passing a different</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>start</strong> : one or more datetime objects (e.g. ar.submitted)</p>
+<p><strong>end</strong> : one or more datetime objects (e.g. ar.received)</p>
+<p><strong>start_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>start</cite> to extract the relevant
+entry [defalt: min]</p>
+</div></blockquote>
+<p><strong>end_key</strong> : callable</p>
+<blockquote>
+<div><p>Function to call on <cite>end</cite> to extract the relevant
+entry [default: max]</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>dt</strong> : float</p>
+<blockquote class="last">
+<div><p>The time elapsed (in seconds) between the two selected timestamps.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -430,6 +613,24 @@ by get() inside a <cite>RemoteError</cite>.</p>
 <p>This is necessary when sending arrays that you intend to edit in-place.
 <cite>timeout</cite> is in seconds, and will raise TimeoutError if it is reached
 before the send completes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.wait_interactive">
+<tt class="descname">wait_interactive</tt><big>(</big><em>interval=1.0</em>, <em>timeout=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.wait_interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>interactive wait, printing progress at regular intervals</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.client.asyncresult.AsyncResult.wall_time">
+<tt class="descname">wall_time</tt><a class="headerlink" href="#IPython.parallel.client.asyncresult.AsyncResult.wall_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>actual computation time of a parallel calculation</p>
+<p>Computed as the time between the latest <cite>received</cite> stamp
+and the earliest <cite>submitted</cite>.</p>
+<p>Only reliable if Client was spinning/waiting when the task finished, because
+the <cite>received</cite> timestamp is created when a result is pulled off of the zmq queue,
+which happens as a result of <cite>client.spin()</cite>.</p>
+<p>For similar comparison of other timestamp pairs, check out AsyncResult.timedelta.</p>
 </dd></dl>
 
 </dd></dl>
@@ -477,8 +678,8 @@ before the send completes.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

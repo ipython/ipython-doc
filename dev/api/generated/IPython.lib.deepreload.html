@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>lib.deepreload &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>lib.deepreload &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="lib.demo" href="IPython.lib.demo.html" />
     <link rel="prev" title="lib.clipboard" href="IPython.lib.clipboard.html" /> 
@@ -84,7 +81,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -120,53 +117,70 @@ To enable it type:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">__builtin__</span><span class="o">.</span><span class="n">dreload</span> <span class="o">=</span> <span class="n">deepreload</span><span class="o">.</span><span class="n">reload</span>
 </pre></div>
 </div>
-<p>This code is almost entirely based on knee.py from the standard library.</p>
+<p>This code is almost entirely based on knee.py, which is a Python
+re-implementation of hierarchical module import.</p>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="IPython.lib.deepreload.add_submodule">
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">add_submodule</tt><big>(</big><em>mod</em>, <em>submod</em>, <em>fullname</em>, <em>subname</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.add_submodule" title="Permalink to this definition">¶</a></dt>
+<dd><p>mod.{subname} = submod</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.lib.deepreload.deep_import_hook">
 <tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">deep_import_hook</tt><big>(</big><em>name</em>, <em>globals=None</em>, <em>locals=None</em>, <em>fromlist=None</em>, <em>level=-1</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.deep_import_hook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Replacement for __import__()</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="IPython.lib.deepreload.deep_reload_hook">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">deep_reload_hook</tt><big>(</big><em>module</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.deep_reload_hook" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="IPython.lib.deepreload.determine_parent">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">determine_parent</tt><big>(</big><em>globals</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.determine_parent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">deep_reload_hook</tt><big>(</big><em>m</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.deep_reload_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replacement for reload().</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="IPython.lib.deepreload.ensure_fromlist">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">ensure_fromlist</tt><big>(</big><em>m</em>, <em>fromlist</em>, <em>recursive=0</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.ensure_fromlist" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">ensure_fromlist</tt><big>(</big><em>mod</em>, <em>fromlist</em>, <em>buf</em>, <em>recursive</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.ensure_fromlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle &#8216;from module import a, b, c&#8217; imports.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.lib.deepreload.get_parent">
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">get_parent</tt><big>(</big><em>globals</em>, <em>level</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the package that an import is being performed in.  If globals comes
+from the module foo.bar.bat (not itself a package), this returns the
+sys.modules entry for foo.bar.  If globals is from a package&#8217;s __init__.py,
+the package&#8217;s entry in sys.modules is returned.</p>
+<p>If globals doesn&#8217;t come from a package or a module in a package, or a
+corresponding entry is not found in sys.modules, None is returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.lib.deepreload.import_submodule">
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">import_submodule</tt><big>(</big><em>mod</em>, <em>subname</em>, <em>fullname</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.import_submodule" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="IPython.lib.deepreload.find_head_package">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">find_head_package</tt><big>(</big><em>parent</em>, <em>name</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.find_head_package" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="IPython.lib.deepreload.import_module">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">import_module</tt><big>(</big><em>partname</em>, <em>fqname</em>, <em>parent</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.import_module" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="IPython.lib.deepreload.load_tail">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">load_tail</tt><big>(</big><em>q</em>, <em>tail</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.load_tail" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="IPython.lib.deepreload.load_next">
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">load_next</tt><big>(</big><em>mod</em>, <em>altmod</em>, <em>name</em>, <em>buf</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.load_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>altmod is either None or same as mod</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="IPython.lib.deepreload.reload">
-<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">reload</tt><big>(</big><em>module, exclude=['sys', '__builtin__', '__main__']</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.reload" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">reload</tt><big>(</big><em>module, exclude=['sys', 'os.path', '__builtin__', '__main__']</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.reload" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively reload all modules used in the given module.  Optionally
 takes a list of modules to exclude from reloading.  The default exclude
 list contains sys, __main__, and __builtin__, to prevent, e.g., resetting
 display, exception, and io hooks.</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="IPython.lib.deepreload.replace_import_hook">
+<tt class="descclassname">IPython.lib.deepreload.</tt><tt class="descname">replace_import_hook</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.lib.deepreload.replace_import_hook" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>
@@ -201,8 +215,8 @@ display, exception, and io hooks.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

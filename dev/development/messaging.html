@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>Messaging in IPython &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
     <link rel="prev" title="IPython module organization" href="reorg.html" /> 
@@ -114,7 +111,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -414,22 +411,17 @@ be done in the prompts.  The value of this counter will be returned as the
 </div>
 <p>When status is &#8216;ok&#8217;, the following extra fields are present:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="c"># The execution payload is a dict with string keys that may have been</span>
+  <span class="c"># &#39;payload&#39; will be a list of payload dicts.</span>
+  <span class="c"># Each execution payload is a dict with string keys that may have been</span>
   <span class="c"># produced by the code being executed.  It is retrieved by the kernel at</span>
   <span class="c"># the end of the execution and sent back to the front end, which can take</span>
   <span class="c"># action on it as needed.  See main text for further details.</span>
-  <span class="s">&#39;payload&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+  <span class="s">&#39;payload&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="p">),</span>
 
   <span class="c"># Results for the user_variables and user_expressions.</span>
   <span class="s">&#39;user_variables&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
   <span class="s">&#39;user_expressions&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-
-  <span class="c"># The kernel will often transform the input provided to it.  If the</span>
-  <span class="c"># &#39;----&gt;&#39; transform had been applied, this is filled, otherwise it&#39;s the</span>
-  <span class="c"># empty string.  So transformations like magics don&#39;t appear here, only</span>
-  <span class="c"># autocall ones.</span>
-  <span class="s">&#39;transformed_code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition-execution-payloads admonition">
@@ -438,18 +430,17 @@ be done in the prompts.  The value of this counter will be returned as the
 given set of code, which normally is just displayed on the pyout stream
 through the PUB socket.  The idea of a payload is to allow special types of
 code, typically magics, to populate a data container in the IPython kernel
-that will be shipped back to the caller via this channel.  The kernel will
-have an API for this, probably something along the lines of:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span><span class="o">.</span><span class="n">exec_payload_add</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+that will be shipped back to the caller via this channel.  The kernel
+has an API for this in the PayloadManager:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span><span class="o">.</span><span class="n">payload_manager</span><span class="o">.</span><span class="n">write_payload</span><span class="p">(</span><span class="n">payload_dict</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="last">though this API is still in the design stages.  The data returned in this
-payload will allow frontends to present special views of what just happened.</p>
+<p class="last">which appends a dictionary to the list of payloads.</p>
 </div>
 <p>When status is &#8216;error&#8217;, the following extra fields are present:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&#39;exc_name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c"># Exception name, as a string</span>
-  <span class="s">&#39;exc_value&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c"># Exception value, as a string</span>
+  <span class="s">&#39;ename&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>   <span class="c"># Exception name, as a string</span>
+  <span class="s">&#39;evalue&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c"># Exception value, as a string</span>
 
   <span class="c"># The traceback will contain a list of frames, represented each as a</span>
   <span class="c"># string.  For now we&#39;ll stick to the existing design of ultraTB, which</span>
@@ -831,7 +822,12 @@ we could put that information into the metadata secion.</li>
 <p>These messages are the re-broadcast of the <tt class="docutils literal"><span class="pre">execute_request</span></tt>.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">pyin</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span>  <span class="c"># Source code to be executed, one or more lines</span>
+    <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c"># Source code to be executed, one or more lines</span>
+
+    <span class="c"># The counter for this execution is also provided so that clients can</span>
+    <span class="c"># display it, since IPython automatically creates variables called _iN</span>
+    <span class="c"># (for input prompt In[N]).</span>
+    <span class="s">&#39;execution_count&#39;</span> <span class="p">:</span> <span class="nb">int</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -843,7 +839,7 @@ we could put that information into the metadata secion.</li>
 <tt class="docutils literal"><span class="pre">1+1</span></tt>) is passed to <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt>, which is a callable that can do with
 this value whatever it wants.  The default behavior of <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> in
 the Python interactive prompt is to print to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt> the <tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt> of
-the value as long as it is not <tt class="docutils literal"><span class="pre">None</span></tt> (which isn&#8217;t printed at all).  In our
+the value as long as it is not <tt class="xref docutils literal"><span class="pre">None</span></tt> (which isn&#8217;t printed at all).  In our
 case, the kernel instantiates as <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> an object which has
 similar behavior, but which instead of printing to stdout, broadcasts these
 values as <tt class="docutils literal"><span class="pre">pyout</span></tt> messages for clients to display appropriately.</p>
@@ -908,7 +904,7 @@ propose further actions.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">crash</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
    <span class="c"># Similarly to the &#39;error&#39; case for execute_reply messages, this will</span>
-   <span class="c"># contain exc_name, exc_type and traceback fields.</span>
+   <span class="c"># contain ename, etype and traceback fields.</span>
 
    <span class="c"># An additional field with supplementary information such as where to</span>
    <span class="c"># send the crash message</span>
@@ -1029,8 +1025,8 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

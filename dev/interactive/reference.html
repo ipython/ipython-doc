@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>IPython reference &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -133,7 +130,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -741,6 +738,7 @@ It should be fairly self-explanatory:</p>
 <span class="sd">things work.</span>
 
 <span class="sd">The code in this file is deliberately extra-verbose, meant for learning.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="c"># The basics to get you going:</span>
 
@@ -760,8 +758,8 @@ It should be fairly self-explanatory:</p>
     <span class="n">prompt_config</span><span class="o">.</span><span class="n">in2_template</span> <span class="o">=</span> <span class="s">&#39;   .</span><span class="se">\\</span><span class="s">D.: &#39;</span>
     <span class="n">prompt_config</span><span class="o">.</span><span class="n">out_template</span> <span class="o">=</span> <span class="s">&#39;Out&lt;</span><span class="se">\\</span><span class="s">#&gt;: &#39;</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">&quot;Running nested copies of IPython.&quot;</span>
-    <span class="k">print</span> <span class="s">&quot;The prompts for the nested copy have been modified&quot;</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Running nested copies of IPython.&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;The prompts for the nested copy have been modified&quot;</span><span class="p">)</span>
     <span class="n">cfg</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
     <span class="n">nested</span> <span class="o">=</span> <span class="mi">1</span>
 
@@ -787,7 +785,7 @@ It should be fairly self-explanatory:</p>
 <span class="n">ipshell2</span> <span class="o">=</span> <span class="n">InteractiveShellEmbed</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">cfg</span><span class="p">,</span>
                         <span class="n">banner1</span> <span class="o">=</span> <span class="s">&#39;Second IPython instance.&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Hello. This is printed from the main controller program.</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Hello. This is printed from the main controller program.</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 
 <span class="c"># You can then call ipshell() anywhere you need it (with an optional</span>
 <span class="c"># message):</span>
@@ -796,7 +794,7 @@ It should be fairly self-explanatory:</p>
         <span class="s">&#39;Note that if you use %kill_embedded, you can fully deactivate</span><span class="se">\n</span><span class="s">&#39;</span>
         <span class="s">&#39;This embedded instance so it will never turn on again&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Back in caller program, moving along...</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Back in caller program, moving along...</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c"># More details:</span>
@@ -833,38 +831,38 @@ It should be fairly self-explanatory:</p>
 <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;spam&#39;</span>
     <span class="n">ipshell</span><span class="p">(</span><span class="s">&#39;***In foo(). Try %whos, or print s or m:&#39;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s">&#39;foo says m = &#39;</span><span class="p">,</span><span class="n">m</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;foo says m = &#39;</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;eggs&#39;</span>
     <span class="n">ipshell</span><span class="p">(</span><span class="s">&#39;***In bar(). Try %whos, or print s or n:&#39;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="s">&#39;bar says n = &#39;</span><span class="p">,</span><span class="n">n</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;bar says n = &#39;</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
     
 <span class="c"># Some calls to the above functions which will trigger IPython:</span>
-<span class="k">print</span> <span class="s">&#39;Main program calling foo(&quot;eggs&quot;)</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Main program calling foo(&quot;eggs&quot;)</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 <span class="n">foo</span><span class="p">(</span><span class="s">&#39;eggs&#39;</span><span class="p">)</span>
 
 <span class="c"># The shell can be put in &#39;dummy&#39; mode where calls to it silently return. This</span>
 <span class="c"># allows you, for example, to globally turn off debugging for a program with a</span>
 <span class="c"># single call.</span>
 <span class="n">ipshell</span><span class="o">.</span><span class="n">dummy_mode</span> <span class="o">=</span> <span class="bp">True</span>
-<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Trying to call IPython which is now &quot;dummy&quot;:&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Trying to call IPython which is now &quot;dummy&quot;:&#39;</span><span class="p">)</span>
 <span class="n">ipshell</span><span class="p">()</span>
-<span class="k">print</span> <span class="s">&#39;Nothing happened...&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Nothing happened...&#39;</span><span class="p">)</span>
 <span class="c"># The global &#39;dummy&#39; mode can still be overridden for a single call</span>
-<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Overriding dummy mode manually:&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Overriding dummy mode manually:&#39;</span><span class="p">)</span>
 <span class="n">ipshell</span><span class="p">(</span><span class="n">dummy</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="c"># Reactivate the IPython shell</span>
 <span class="n">ipshell</span><span class="o">.</span><span class="n">dummy_mode</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="k">print</span> <span class="s">&#39;You can even have multiple embedded instances:&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;You can even have multiple embedded instances:&#39;</span><span class="p">)</span>
 <span class="n">ipshell2</span><span class="p">()</span>
 
-<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Main program calling bar(&quot;spam&quot;)</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">Main program calling bar(&quot;spam&quot;)</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
 <span class="n">bar</span><span class="p">(</span><span class="s">&#39;spam&#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">&#39;Main program finished. Bye!&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Main program finished. Bye!&#39;</span><span class="p">)</span>
 
 <span class="c">#********************** End of file &lt;example-embed.py&gt; ***********************</span>
 </pre></div>
@@ -1142,10 +1140,11 @@ sections for execution as a demo:</p>
 <span class="sd">markup, you can stop at specified intervals and return to the ipython prompt,</span>
 <span class="sd">resuming execution later.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<span class="k">print</span> <span class="s">&#39;Hello, welcome to an interactive IPython demo.&#39;</span>
-<span class="k">print</span> <span class="s">&#39;Executing this block should require confirmation before proceeding,&#39;</span>
-<span class="k">print</span> <span class="s">&#39;unless auto_all has been set to true in the demo object&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Hello, welcome to an interactive IPython demo.&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;Executing this block should require confirmation before proceeding,&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;unless auto_all has been set to true in the demo object&#39;</span><span class="p">)</span>
 
 <span class="c"># The mark below defines a block boundary, which is a point where IPython will</span>
 <span class="c"># stop execution and return to the interactive prompt.</span>
@@ -1160,21 +1159,21 @@ sections for execution as a demo:</p>
 <span class="c"># the mark below makes this block as silent</span>
 <span class="c"># &lt;demo&gt; silent</span>
 
-<span class="k">print</span> <span class="s">&#39;This is a silent block, which gets executed but not printed.&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;This is a silent block, which gets executed but not printed.&#39;</span><span class="p">)</span>
 
 <span class="c"># &lt;demo&gt; --- stop ---</span>
 <span class="c"># &lt;demo&gt; auto</span>
-<span class="k">print</span> <span class="s">&#39;This is an automatic block.&#39;</span>
-<span class="k">print</span> <span class="s">&#39;It is executed without asking for confirmation, but printed.&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;This is an automatic block.&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;It is executed without asking for confirmation, but printed.&#39;</span><span class="p">)</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
 
-<span class="k">print</span> <span class="s">&#39;z=&#39;</span><span class="p">,</span><span class="n">x</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;z=&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
 
 <span class="c"># &lt;demo&gt; --- stop ---</span>
 <span class="c"># This is just another normal block.</span>
-<span class="k">print</span> <span class="s">&#39;z is now:&#39;</span><span class="p">,</span> <span class="n">z</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;z is now:&#39;</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="s">&#39;bye!&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#39;bye!&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In order to run a file as a demo, you must first make a Demo object out
@@ -1242,8 +1241,8 @@ embedding facilities, see <tt class="xref py py-func docutils literal"><span cla
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

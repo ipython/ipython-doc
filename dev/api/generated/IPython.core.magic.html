@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.magic &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>core.magic &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.magic_arguments" href="IPython.core.magic_arguments.html" />
     <link rel="prev" title="core.macro" href="IPython.core.macro.html" /> 
@@ -90,7 +87,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -175,16 +172,6 @@ at the command line, but it is is needed in the definition.</p>
 <dd><p>Print docstring if incorrect arguments were passed</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="IPython.core.magic.Magic.auto_status">
-<tt class="descname">auto_status</tt><em class="property"> = ['Automagic is OFF, % prefix IS needed for magic functions.', 'Automagic is ON, % prefix NOT needed for magic functions.']</em><a class="headerlink" href="#IPython.core.magic.Magic.auto_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.core.magic.Magic.configurables">
-<tt class="descname">configurables</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.magic.Magic.configurables" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="IPython.core.magic.Magic.default_option">
 <tt class="descname">default_option</tt><big>(</big><em>fn</em>, <em>optstr</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.default_option" title="Permalink to this definition">¶</a></dt>
@@ -199,7 +186,7 @@ at the command line, but it is is needed in the definition.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>range_str</strong> : string</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>range_str</strong> : string</p>
 <blockquote>
 <div><p>The set of slices is given as a string, like &#8220;~5/6-~4/2 4:8 9&#8221;,
 since this function is for use by magic functions which get their
@@ -448,6 +435,12 @@ IPCompleter.merge_completions=&lt;CBool&gt;
     Whether to merge completion results into a single list
     If False, only the completion results from the first non-empty completer
     will be returned.
+IPCompleter.limit_to__all__=&lt;CBool&gt;
+    Current: False
+    Instruct the completer to use __all__ for the completion
+    Specifically, when completing on ``object.&lt;tab&gt;``.
+    When True: only those names in obj.__all__ will be included.
+    When False [default]: the __all__ attribute is ignored
 IPCompleter.greedy=&lt;CBool&gt;
     Current: False
     Activate greedy completion
@@ -664,6 +657,7 @@ are supported:  wxPython, PyQt4, PyGTK, Tk and Cocoa (OSX):</p>
 <div class="highlight-python"><pre>%gui wx      # enable wxPython event loop integration
 %gui qt4|qt  # enable PyQt4 event loop integration
 %gui gtk     # enable PyGTK event loop integration
+%gui gtk3    # enable Gtk3 event loop integration
 %gui tk      # enable Tk event loop integration
 %gui OSX     # enable Cocoa event loop integration
              # (requires %matplotlib 1.1) 
@@ -678,6 +672,23 @@ we have already handled that.</p>
 <dt id="IPython.core.magic.Magic.magic_install_default_config">
 <tt class="descname">magic_install_default_config</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_install_default_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>%install_default_config has been deprecated.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magic.magic_install_ext">
+<tt class="descname">magic_install_ext</tt><big>(</big><em>parameter_s</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_install_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download and install an extension from a URL, e.g.:</p>
+<div class="highlight-python"><pre>%install_ext https://bitbucket.org/birkenfeld/ipython-physics/raw/d1310a2ab15d/physics.py</pre>
+</div>
+<p>The URL should point to an importable Python module - either a .py file
+or a .zip file.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>-n filename <span class="classifier-delimiter">:</span> <span class="classifier">Specify a name for the file, rather than taking it from</span></dt>
+<dd>the URL.</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -1220,7 +1231,7 @@ In [2]: %config InlineBackend.close_figures = False</pre>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
 <blockquote class="last">
 <div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;,
 &#8216;osx&#8217; or &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is
@@ -1284,7 +1295,7 @@ the parameters for details).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
+<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>-f</strong> : force reset without asking for confirmation.</p>
 <p><strong>-s</strong> : &#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.</p>
 <blockquote>
 <div><p>References to objects may be kept. By default (without this option),
@@ -1392,7 +1403,7 @@ Out[11]: ['a']</pre>
 
 <dl class="method">
 <dt id="IPython.core.magic.Magic.magic_run">
-<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x1116a3848&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magic_run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x42c4410&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magic.magic_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
@@ -1937,8 +1948,8 @@ standard library.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

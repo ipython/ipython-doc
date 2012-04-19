@@ -3,16 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Testing IPython for users and developers &mdash; IPython 0.13.dev documentation</title>
-    
+    <title>Testing IPython for users and developers &mdash; IPython v0.13.dev documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Releasing IPython" href="release.html" />
     <link rel="prev" title="Documenting IPython" href="doc_guide.html" /> 
@@ -70,7 +67,6 @@
 <li><a class="reference internal" href="#main-tools-ipython-testing">Main tools: <tt class="docutils literal"><span class="pre">IPython.testing</span></tt></a></li>
 <li><a class="reference internal" href="#our-nose-plugin-for-doctests">Our nose plugin for doctests</a></li>
 <li><a class="reference internal" href="#parametric-tests-done-right">Parametric tests done right</a></li>
-<li><a class="reference internal" href="#writing-tests-for-twisted-using-code">Writing tests for Twisted-using code</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#design-requirements">Design requirements</a></li>
@@ -92,7 +88,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" size="18" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -130,13 +126,10 @@ shows non-reproducible information (like filesystem data).</p>
 tests for that subpackage should be skipped if the dependencies are not found.
 This is very important so users don&#8217;t get tests failing simply because they
 don&#8217;t have dependencies.</p>
-<p>The testing system we use is a hybrid of <a class="reference external" href="http://code.google.com/p/python-nose">nose</a> and Twisted&#8217;s <a class="reference external" href="http://twistedmatrix.com/trac/wiki/TwistedTrial">trial</a> test runner.
-We use both because nose detects more things than Twisted and allows for more
-flexible (and lighter-weight) ways of writing tests; in particular we&#8217;ve
+<p>The testing system we use is an extension of the <a class="reference external" href="http://code.google.com/p/python-nose">nose</a> test runner.
+In particular we&#8217;ve
 developed a nose plugin that allows us to paste verbatim IPython sessions and
-test them as doctests, which is extremely important for us.  But the parts of
-IPython that depend on Twisted must be tested using trial, because only trial
-manages the Twisted reactor correctly.</p>
+test them as doctests, which is extremely important for us.</p>
 </div>
 <div class="section" id="for-the-impatient-running-the-tests">
 <h2>For the impatient: running the tests<a class="headerlink" href="#for-the-impatient-running-the-tests" title="Permalink to this headline">¶</a></h2>
@@ -174,7 +167,7 @@ Test suite completed <span class="k">for </span>system with the following inform
  <span class="s1">&#39;sys_version&#39;</span>: <span class="s1">&#39;2.6.6 (r266:84292, Sep 15 2010, 15:52:39) \n[GCC 4.4.5]&#39;</span><span class="o">}</span>
 
 Tools and libraries available at <span class="nb">test time</span>:
-   curses foolscap gobject gtk pexpect twisted wx wx.aui zope.interface
+   curses matplotlib pymongo qt sqlite3 tornado wx wx.aui zmq
 
 Ran 9 <span class="nb">test </span>groups in 67.213s
 
@@ -212,11 +205,6 @@ OK
 <p>When developing, the <em class="xref std std-option">--pdb</em> and <em class="xref std std-option">--pdb-failures</em> of nose are
 particularly useful, these drop you into an interactive pdb session at the
 point of the error or failure respectively.</p>
-<p>To run Twisted-using tests, use the <strong class="command">trial</strong> command on a per file or
-package basis:</p>
-<div class="highlight-bash"><div class="highlight"><pre>trial IPython.kernel
-</pre></div>
-</div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>The system information summary printed above is accessible from the top
@@ -386,18 +374,6 @@ problem at hand, since both work):</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="writing-tests-for-twisted-using-code">
-<h3>Writing tests for Twisted-using code<a class="headerlink" href="#writing-tests-for-twisted-using-code" title="Permalink to this headline">¶</a></h3>
-<p>Tests of Twisted [Twisted] using code should be written by subclassing the
-<tt class="docutils literal"><span class="pre">TestCase</span></tt> class that comes with <tt class="docutils literal"><span class="pre">twisted.trial.unittest</span></tt>. Furthermore, all
-<tt class="xref py py-class docutils literal"><span class="pre">Deferred</span></tt> instances that are created in the test must be properly
-chained and the final one <em>must</em> be the return value of the test method.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The best place to see how to use the testing tools, are the tests for these
-tools themselves, which live in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.testing.tests</span></tt>.</p>
-</div>
-</div>
 </div>
 <div class="section" id="design-requirements">
 <h2>Design requirements<a class="headerlink" href="#design-requirements" title="Permalink to this headline">¶</a></h2>
@@ -488,8 +464,8 @@ this point.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 25, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Apr 18, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>
