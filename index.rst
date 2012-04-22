@@ -27,12 +27,13 @@ Our Main Manual:
 
 .. release
 * Current Development Version (0.13dev): `HTML <dev/index.html>`_.
-* Current Stable Version (0.12): `HTML <rel-0.12/index.html>`.
+* Current Stable Version (0.12.1): `HTML <stable/index.html>`_.
 
 The manuals for all releases by number are here (note that we only have the
 recent ones from the Sphinx build system):
 
-* 0.12: `HTML <rel-0.12/index.html>`_/
+* 0.12.1: `HTML <rel-0.12.1/index.html>`_.
+* 0.12: `HTML <rel-0.12/index.html>`_.
 * 0.11: `HTML <rel-0.11/index.html>`_ and `PDF <rel-0.11/ipython.pdf>`_.
 * 0.10.2: `HTML <rel-0.10.2/html>`_ and `PDF <rel-0.10.2/ipython.pdf>`_.
 * 0.10.1: `HTML <rel-0.10.1/html>`_ and `PDF <rel-0.10.1/ipython.pdf>`_.
