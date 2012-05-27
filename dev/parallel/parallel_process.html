@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Starting the IPython controller and engines &mdash; IPython v0.13.dev documentation</title>
+    <title>Starting the IPython controller and engines &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Direct interface" href="parallel_multiengine.html" />
     <link rel="prev" title="Overview and getting started" href="parallel_intro.html" /> 
@@ -67,7 +70,10 @@
 <li><a class="reference internal" href="#using-various-batch-systems-with-ipcluster">Using various batch systems with <strong class="command">ipcluster</strong></a></li>
 <li><a class="reference internal" href="#using-ipcluster-in-mpiexec-mpirun-mode">Using <strong class="command">ipcluster</strong> in mpiexec/mpirun mode</a></li>
 <li><a class="reference internal" href="#using-ipcluster-in-pbs-mode">Using <strong class="command">ipcluster</strong> in PBS mode</a></li>
-<li><a class="reference internal" href="#using-ipcluster-in-ssh-mode">Using <strong class="command">ipcluster</strong> in SSH mode</a></li>
+<li><a class="reference internal" href="#using-ipcluster-in-ssh-mode">Using <strong class="command">ipcluster</strong> in SSH mode</a><ul>
+<li><a class="reference internal" href="#moving-files-with-ssh">Moving files with SSH</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ipython-on-ec2-with-starcluster">IPython on EC2 with StarCluster</a></li>
@@ -106,7 +112,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -454,13 +460,6 @@ and are using ssh-agent <a class="reference internal" href="#ssh">[SSH]</a> for 
 <span class="c"># c.SSHControllerLauncher.controller_args = [&#39;--reuse&#39;, &#39;--ip=*&#39;, &#39;--profile-dir=/path/to/cd&#39;]</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">SSH mode does not do any file movement, so you will need to distribute configuration
-files manually.  To aid in this, the <cite>reuse_files</cite> flag defaults to True for ssh-launched
-Controllers, so you will only need to do this once, unless you override this flag back
-to False.</p>
-</div>
 <p>Engines are specified in a dictionary, by hostname and the number of engines to be run
 on that host.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">SSHEngineSetLauncher</span><span class="o">.</span><span class="n">engines</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;host1.example.com&#39;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
@@ -482,12 +481,24 @@ a single location:</p>
 </div>
 <p>Current limitations of the SSH mode of <strong class="command">ipcluster</strong> are:</p>
 <ul class="simple">
-<li>Untested on Windows. Would require a working <strong class="command">ssh</strong> on Windows.
-Also, we are using shell scripts to setup and execute commands on remote
-hosts.</li>
-<li>No file movement - This is a regression from 0.10, which moved connection files
-around with scp. This will be improved, Pull Requests are welcome.</li>
+<li>Untested and unsupported on Windows.  Would require a working <strong class="command">ssh</strong> on Windows.
+Also, we are using shell scripts to setup and execute commands on remote hosts.</li>
 </ul>
+<div class="section" id="moving-files-with-ssh">
+<h4>Moving files with SSH<a class="headerlink" href="#moving-files-with-ssh" title="Permalink to this headline">¶</a></h4>
+<p>SSH launchers will try to move connection files, controlled by the <tt class="docutils literal"><span class="pre">to_send</span></tt> and
+<tt class="docutils literal"><span class="pre">to_fetch</span></tt> configurables.  If your machines are on a shared filesystem, this step is
+unnecessary, and can be skipped by setting these to empty lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">SSHLauncher</span><span class="o">.</span><span class="n">to_send</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">c</span><span class="o">.</span><span class="n">SSHLauncher</span><span class="o">.</span><span class="n">to_fetch</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p>If our default guesses about paths don&#8217;t work for you, or other files
+should be moved, you can manually specify these lists as tuples of (local_path,
+remote_path) for to_send, and (remote_path, local_path) for to_fetch.  If you do
+specify these lists explicitly, IPython <em>will not</em> automatically send connection files,
+so you must include this yourself if they should still be sent/retrieved.</p>
+</div>
 </div>
 </div>
 <div class="section" id="ipython-on-ec2-with-starcluster">
@@ -888,8 +899,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 18, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 26, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

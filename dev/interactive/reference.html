@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython v0.13.dev documentation</title>
+    <title>IPython reference &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -68,17 +71,13 @@
 </li>
 <li><a class="reference internal" href="#interactive-use">Interactive use</a><ul>
 <li><a class="reference internal" href="#caution-for-windows-users">Caution for Windows users</a></li>
-<li><a class="reference internal" href="#magic-command-system">Magic command system</a></li>
-<li><a class="reference internal" href="#access-to-the-standard-python-help">Access to the standard Python help</a></li>
-<li><a class="reference internal" href="#dynamic-object-information">Dynamic object information</a></li>
-<li><a class="reference internal" href="#readline-based-features">Readline-based features</a><ul>
-<li><a class="reference internal" href="#command-line-completion">Command line completion</a></li>
-<li><a class="reference internal" href="#search-command-history">Search command history</a></li>
-<li><a class="reference internal" href="#persistent-command-history-across-sessions">Persistent command history across sessions</a></li>
-<li><a class="reference internal" href="#autoindent">Autoindent</a></li>
-<li><a class="reference internal" href="#customizing-readline-behavior">Customizing readline behavior</a></li>
+<li><a class="reference internal" href="#magic-command-system">Magic command system</a><ul>
+<li><a class="reference internal" href="#defining-your-own-magics">Defining your own magics</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#access-to-the-standard-python-help">Access to the standard Python help</a></li>
+<li><a class="reference internal" href="#dynamic-object-information">Dynamic object information</a></li>
+<li><a class="reference internal" href="#readline-based-features">Readline-based features</a></li>
 <li><a class="reference internal" href="#session-logging-and-restoring">Session logging and restoring</a></li>
 <li><a class="reference internal" href="#system-shell-access">System shell access</a></li>
 <li><a class="reference internal" href="#manual-capture-of-command-output">Manual capture of command output</a></li>
@@ -88,11 +87,7 @@
 <li><a class="reference internal" href="#input-caching-system">Input caching system</a></li>
 <li><a class="reference internal" href="#output-caching-system">Output caching system</a></li>
 <li><a class="reference internal" href="#directory-history">Directory history</a></li>
-<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a><ul>
-<li><a class="reference internal" href="#automatic-parentheses">Automatic parentheses</a></li>
-<li><a class="reference internal" href="#automatic-quoting">Automatic quoting</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ipython-as-your-default-python-environment">IPython as your default Python environment</a></li>
@@ -130,7 +125,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -169,7 +164,7 @@ the command line, simply because they are not practical here. Look into
 your configuration files for details on those. There are separate configuration
 files for each profile, and the files look like &#8220;ipython_config.py&#8221; or
 &#8220;ipython_config_&lt;frontendname&gt;.py&#8221;.  Profile directories look like
-&#8220;profile_profilename&#8221; and are typically installed in the IPYTHON_DIR directory.
+&#8220;profile_profilename&#8221; and are typically installed in the IPYTHONDIR directory.
 For Linux users, this will be $HOME/.config/ipython, and for other users it
 will be $HOME/.ipython.  For Windows users, $HOME resolves to C:\Documents and
 Settings\YourUserName in most instances.</p>
@@ -229,16 +224,39 @@ call to a &#8216;magic&#8217; function. These allow you to control the behavior 
 IPython itself, plus a lot of system-type features. They are all
 prefixed with a % character, but parameters are given without
 parentheses or quotes.</p>
-<p>Example: typing <tt class="docutils literal"><span class="pre">%cd</span> <span class="pre">mydir</span></tt> changes your working directory to &#8216;mydir&#8217;, if it
-exists.</p>
-<p>If you have &#8216;automagic&#8217; enabled (as it by default), you don&#8217;t need
-to type in the % explicitly. IPython will scan its internal list of
-magic functions and call one if it exists. With automagic on you can
-then just type <tt class="docutils literal"><span class="pre">cd</span> <span class="pre">mydir</span></tt> to go to directory &#8216;mydir&#8217;. The automagic
-system has the lowest possible precedence in name searches, so defining
-an identifier with the same name as an existing magic function will
-shadow it for automagic use. You can still access the shadowed magic
-function by explicitly using the % character at the beginning of the line.</p>
+<p>Lines that begin with <tt class="docutils literal"><span class="pre">%%</span></tt> signal a <em>cell magic</em>: they take as arguments not
+only the rest of the current line, but all lines below them as well, in the
+current execution block.  Cell magics can in fact make arbitrary modifications
+to the input they receive, which need not even be valid Python code at all.
+They receive the whole block as a single string.</p>
+<p>As a line magic example, the <tt class="docutils literal"><span class="pre">%cd</span></tt> magic works just like the OS command of
+the same name:</p>
+<div class="highlight-python"><pre>In [8]: %cd
+/home/fperez</pre>
+</div>
+<p>The following uses the builtin <tt class="docutils literal"><span class="pre">timeit</span></tt> in cell mode:</p>
+<div class="highlight-python"><pre>In [10]: %%timeit x = range(10000)
+    ...: min(x)
+    ...: max(x)
+    ...:
+1000 loops, best of 3: 438 us per loop</pre>
+</div>
+<p>In this case, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">range(10000)</span></tt> is called as the line argument, and the
+block with <tt class="docutils literal"><span class="pre">min(x)</span></tt> and <tt class="docutils literal"><span class="pre">max(x)</span></tt> is called as the cell body.  The
+<tt class="docutils literal"><span class="pre">timeit</span></tt> magic receives both.</p>
+<p>If you have &#8216;automagic&#8217; enabled (as it by default), you don&#8217;t need to type in
+the single <tt class="docutils literal"><span class="pre">%</span></tt> explicitly for line magics; IPython will scan its internal
+list of magic functions and call one if it exists. With automagic on you can
+then just type <tt class="docutils literal"><span class="pre">cd</span> <span class="pre">mydir</span></tt> to go to directory &#8216;mydir&#8217;:</p>
+<div class="highlight-python"><pre>In [9]: cd mydir
+/home/fperez/mydir</pre>
+</div>
+<p>Note that cell magics <em>always</em> require an explicit <tt class="docutils literal"><span class="pre">%%</span></tt> prefix, automagic
+calling only works for line magics.</p>
+<p>The automagic system has the lowest possible precedence in name searches, so
+defining an identifier with the same name as an existing magic function will
+shadow it for automagic use. You can still access the shadowed magic function
+by explicitly using the <tt class="docutils literal"><span class="pre">%</span></tt> character at the beginning of the line.</p>
 <p>An example (with automagic on) should clarify all this:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">cd</span> <span class="n">ipython</span>     <span class="c"># %cd is called by automagic</span>
 <span class="go">/home/fperez/ipython</span>
@@ -262,24 +280,132 @@ function by explicitly using the % character at the beginning of the line.</p>
 <span class="go">/home/fperez/ipython</span>
 </pre></div>
 </div>
-<p>You can define your own magic functions to extend the system. The
-following example defines a new magic command, %impall:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<div class="section" id="defining-your-own-magics">
+<h4>Defining your own magics<a class="headerlink" href="#defining-your-own-magics" title="Permalink to this headline">¶</a></h4>
+<p>There are two main ways to define your own magic functions: from standalone
+functions and by inheriting from a base class provided by IPython:
+<a class="reference internal" href="../api/generated/IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a>.  Below we show code you can place in a file
+that you load from your configuration, such as any file in the <tt class="docutils literal"><span class="pre">startup</span></tt>
+subdirectory of your default IPython profile.</p>
+<p>First, let us see the simplest case.  The following shows how to create a line
+magic, a cell one and one that works in both modes, using just plain functions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="p">(</span><span class="n">register_line_magic</span><span class="p">,</span> <span class="n">register_cell_magic</span><span class="p">,</span>
+                                <span class="n">register_line_cell_magic</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">doimp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
-    <span class="n">ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span>
-    <span class="n">ip</span><span class="o">.</span><span class="n">ex</span><span class="p">(</span><span class="s">&quot;import </span><span class="si">%s</span><span class="s">; reload(</span><span class="si">%s</span><span class="s">); from </span><span class="si">%s</span><span class="s"> import *&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">arg</span><span class="p">,</span><span class="n">arg</span><span class="p">,</span><span class="n">arg</span><span class="p">)</span> <span class="p">)</span>
+<span class="nd">@register_line_magic</span>
+<span class="k">def</span> <span class="nf">lmagic</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="s">&quot;my line magic&quot;</span>
+    <span class="k">return</span> <span class="n">line</span>
 
-<span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">&#39;impall&#39;</span><span class="p">,</span> <span class="n">doimp</span><span class="p">)</span>
+<span class="nd">@register_cell_magic</span>
+<span class="k">def</span> <span class="nf">cmagic</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+    <span class="s">&quot;my cell magic&quot;</span>
+    <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
+
+<span class="nd">@register_line_cell_magic</span>
+<span class="k">def</span> <span class="nf">lcmagic</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s">&quot;Magic that works both as </span><span class="si">%lc</span><span class="s">magic and as </span><span class="si">%%</span><span class="s">lcmagic&quot;</span>
+    <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Called as line magic&quot;</span>
+        <span class="k">return</span> <span class="n">line</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Called as cell magic&quot;</span>
+        <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
+
+<span class="c"># We delete these to avoid name conflicts for automagic to work</span>
+<span class="k">del</span> <span class="n">lmagic</span><span class="p">,</span> <span class="n">lcmagic</span>
+</pre></div>
+</div>
+<p>You can also create magics of all three kinds by inheriting from the
+<a class="reference internal" href="../api/generated/IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a> class.  This lets you create magics that can
+potentially hold state in between calls, and that have full access to the main
+IPython object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This code can be put in any Python module, it does not require IPython</span>
+<span class="c"># itself to be running already.  It only creates the magics subclass but</span>
+<span class="c"># doesn&#39;t instantiate it yet.</span>
+<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span><span class="p">,</span>
+                                <span class="n">cell_magic</span><span class="p">,</span> <span class="n">line_cell_magic</span><span class="p">)</span>
+
+<span class="c"># The class MUST call this class decorator at creation time</span>
+<span class="nd">@magics_class</span>
+<span class="k">class</span> <span class="nc">MyMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">lmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+        <span class="s">&quot;my line magic&quot;</span>
+        <span class="k">print</span> <span class="s">&quot;Full access to the main IPython object:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span>
+        <span class="k">print</span> <span class="s">&quot;Variables in the user namespace:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">line</span>
+
+    <span class="nd">@cell_magic</span>
+    <span class="k">def</span> <span class="nf">cmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+        <span class="s">&quot;my cell magic&quot;</span>
+        <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
+
+    <span class="nd">@line_cell_magic</span>
+    <span class="k">def</span> <span class="nf">lcmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="s">&quot;Magic that works both as </span><span class="si">%lc</span><span class="s">magic and as </span><span class="si">%%</span><span class="s">lcmagic&quot;</span>
+        <span class="k">if</span> <span class="n">cell</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Called as line magic&quot;</span>
+            <span class="k">return</span> <span class="n">line</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&quot;Called as cell magic&quot;</span>
+            <span class="k">return</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span>
+
+
+<span class="c"># In order to actually use these magics, you must register them with a</span>
+<span class="c"># running IPython.  This code must be placed in a file that is loaded once</span>
+<span class="c"># IPython is up and running:</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="c"># You can register the class itself without instantiating it.  IPython will</span>
+<span class="c"># call the default constructor on it.</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">MyMagics</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to create a class with a different constructor that holds
+additional state, then you should always call the parent constructor and
+instantiate the class yourself before registration:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@magics_class</span>
+<span class="k">class</span> <span class="nc">StatefulMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+    <span class="s">&quot;Magics that hold additional state&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shell</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="c"># You must call the parent constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">StatefulMagics</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="c"># etc...</span>
+
+<span class="c"># This class must then be registered with a manually created instance,</span>
+<span class="c"># since its constructor has different arguments from the default:</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="n">magics</span> <span class="o">=</span> <span class="n">StatefulMagics</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="n">some_data</span><span class="p">)</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">magics</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In earlier versions, IPython had an API for the creation of line magics (cell
+magics did not exist at the time) that required you to create functions with a
+method-looking signature and to manually pass both the function and the name.
+While this API is no longer recommended, it remains indefinitely supported for
+backwards compatibility purposes.  With the old API, you&#8217;d create a magic as
+follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;Line magic called with line:&quot;</span><span class="p">,</span> <span class="n">line</span>
+    <span class="k">print</span> <span class="s">&quot;IPython object:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span>
+
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="c"># Declare this function as the magic %mycommand</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">&#39;mycommand&#39;</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Type <tt class="docutils literal"><span class="pre">%magic</span></tt> for more information, including a list of all available magic
 functions at any time and their docstrings. You can also type
-<tt class="docutils literal"><span class="pre">%magic_function_name?</span></tt> (see <a class="reference internal" href="#dynamic-object-info"><em>below</em></a> for information on
-the &#8216;?&#8217; system) to get information about any particular magic function you are
-interested in.</p>
+<tt class="docutils literal"><span class="pre">%magic_function_name?</span></tt> (see <a class="reference internal" href="#dynamic-object-info"><em>below</em></a> for
+information on the &#8216;?&#8217; system) to get information about any particular magic
+function you are interested in.</p>
 <p>The API documentation for the <a class="reference internal" href="../api/generated/IPython.core.magic.html#module-IPython.core.magic" title="IPython.core.magic"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.core.magic</span></tt></a> module contains the full
 docstrings of all currently available magic commands.</p>
+</div>
 </div>
 <div class="section" id="access-to-the-standard-python-help">
 <h3>Access to the standard Python help<a class="headerlink" href="#access-to-the-standard-python-help" title="Permalink to this headline">¶</a></h3>
@@ -331,15 +457,10 @@ directly on variables. For example, after doing <tt class="docutils literal"><sp
 <p>These features require the GNU readline library, so they won&#8217;t work if your
 Python installation lacks readline support. We will first describe the default
 behavior IPython uses, and then how to change it to suit your preferences.</p>
-<div class="section" id="command-line-completion">
-<h4>Command line completion<a class="headerlink" href="#command-line-completion" title="Permalink to this headline">¶</a></h4>
 <p>At any time, hitting TAB will complete any available python commands or
 variable names, and show you a list of the possible completions if
 there&#8217;s no unambiguous one. It will also complete filenames in the
 current directory if no python names match what you&#8217;ve typed so far.</p>
-</div>
-<div class="section" id="search-command-history">
-<h4>Search command history<a class="headerlink" href="#search-command-history" title="Permalink to this headline">¶</a></h4>
 <p>IPython provides two ways for searching through previous input and thus
 reduce the need for repetitive typing:</p>
 <blockquote>
@@ -353,18 +474,12 @@ searches your history for lines that contain what you&#8217;ve typed so
 far, completing as much as it can.</li>
 </ol>
 </div></blockquote>
-</div>
-<div class="section" id="persistent-command-history-across-sessions">
-<h4>Persistent command history across sessions<a class="headerlink" href="#persistent-command-history-across-sessions" title="Permalink to this headline">¶</a></h4>
 <p>IPython will save your input history when it leaves and reload it next
 time you restart it. By default, the history file is named
-$IPYTHON_DIR/profile_&lt;name&gt;/history.sqlite. This allows you to keep
+$IPYTHONDIR/profile_&lt;name&gt;/history.sqlite. This allows you to keep
 separate histories related to various tasks: commands related to
 numerical work will not be clobbered by a system shell history, for
 example.</p>
-</div>
-<div class="section" id="autoindent">
-<h4>Autoindent<a class="headerlink" href="#autoindent" title="Permalink to this headline">¶</a></h4>
 <p>IPython can recognize lines ending in &#8216;:&#8217; and indent the next line,
 while also un-indenting automatically after &#8216;raise&#8217; or &#8216;return&#8217;.</p>
 <p>This feature uses the readline library, so it will honor your
@@ -392,9 +507,6 @@ can also disable it permanently on in your <tt class="file docutils literal"><sp
 <p class="last">If you want to paste multiple lines in the terminal, it is recommended that
 you use <tt class="docutils literal"><span class="pre">%paste</span></tt>.</p>
 </div>
-</div>
-<div class="section" id="customizing-readline-behavior">
-<h4>Customizing readline behavior<a class="headerlink" href="#customizing-readline-behavior" title="Permalink to this headline">¶</a></h4>
 <p>All these features are based on the GNU readline library, which has an
 extremely customizable interface. Normally, readline is configured via a
 file which defines the behavior of the library; the details of the
@@ -418,7 +530,6 @@ change the default value unless you know what you&#8217;re doing.</li>
 </ul>
 </div></blockquote>
 <p>You will find the default values in your configuration file.</p>
-</div>
 </div>
 <div class="section" id="session-logging-and-restoring">
 <h3>Session logging and restoring<a class="headerlink" href="#session-logging-and-restoring" title="Permalink to this headline">¶</a></h3>
@@ -611,8 +722,6 @@ conveniently view the directory history.</p>
 <h3>Automatic parentheses and quotes<a class="headerlink" href="#automatic-parentheses-and-quotes" title="Permalink to this headline">¶</a></h3>
 <p>These features were adapted from Nathan Gray&#8217;s LazyPython. They are
 meant to allow less typing for common situations.</p>
-<div class="section" id="automatic-parentheses">
-<h4>Automatic parentheses<a class="headerlink" href="#automatic-parentheses" title="Permalink to this headline">¶</a></h4>
 <p>Callable objects (i.e. functions, methods, etc) can be invoked like this
 (notice the commas between the arguments):</p>
 <div class="highlight-python"><pre>In [1]: callable_ob arg1, arg2, arg3
@@ -641,9 +750,6 @@ the new command line preceded by -&gt;. e.g.:</p>
 <div class="highlight-python"><pre>In [6]: callable list
 ------&gt; callable(list)</pre>
 </div>
-</div>
-<div class="section" id="automatic-quoting">
-<h4>Automatic quoting<a class="headerlink" href="#automatic-quoting" title="Permalink to this headline">¶</a></h4>
 <p>You can force automatic quoting of a function&#8217;s arguments by using &#8216;,&#8217;
 or &#8216;;&#8217; as the first character of a line. For example:</p>
 <div class="highlight-python"><pre>In [1]: ,my_function /home/me  # becomes my_function("/home/me")</pre>
@@ -657,7 +763,6 @@ In [3]: ;my_function a b c    # becomes my_function("a b c")</pre>
 <p>Note that the &#8216;,&#8217; or &#8216;;&#8217; MUST be the first character on the line! This
 won&#8217;t work:</p>
 <div class="highlight-python"><pre>In [4]: x = ,my_function /home/me # syntax error</pre>
-</div>
 </div>
 </div>
 </div>
@@ -711,6 +816,14 @@ your Python programs for this to work (detailed examples follow later):</p>
 
 <span class="n">embed</span><span class="p">()</span> <span class="c"># this call anywhere in your program will start IPython</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As of 0.13, you can embed an IPython <em>kernel</em>, for use with qtconsole,
+etc. via <tt class="docutils literal"><span class="pre">IPython.embed_kernel()</span></tt> instead of <tt class="docutils literal"><span class="pre">IPython.embed()</span></tt>.
+It should function just the same as regular embed, but you connect
+an external frontend rather than IPython starting up in the local
+terminal.</p>
 </div>
 <p>You can run embedded instances even in code which is itself being run at
 the IPython interactive prompt with &#8216;%run &lt;filename&gt;&#8217;. Since it&#8217;s easy
@@ -1241,8 +1354,8 @@ embedding facilities, see <tt class="xref py py-func docutils literal"><span cla
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 18, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 26, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

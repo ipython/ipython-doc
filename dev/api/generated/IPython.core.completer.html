@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.completer &mdash; IPython v0.13.dev documentation</title>
+    <title>core.completer &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.completerlib" href="IPython.core.completerlib.html" />
     <link rel="prev" title="core.compilerop" href="IPython.core.compilerop.html" /> 
@@ -88,7 +91,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -273,6 +276,11 @@ returns None.  The completion should begin with &#8216;text&#8217;.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="IPython.core.completer.Completer.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.completer.Completer.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="IPython.core.completer.Completer.global_matches">
 <tt class="descname">global_matches</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#IPython.core.completer.Completer.global_matches" title="Permalink to this definition">¶</a></dt>
@@ -301,7 +309,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -371,22 +379,16 @@ returns the &#8216;word&#8217; to be completed on at the cursor after splitting 
 entire line.</p>
 <p>What characters are used as splitting delimiters can be controlled by
 setting the <cite>delims</cite> attribute (this is a property that internally
-automatically builds the necessary</p>
+automatically builds the necessary regular expression)</p>
 <dl class="method">
 <dt id="IPython.core.completer.CompletionSplitter.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>delims=None</em><big>)</big><a class="headerlink" href="#IPython.core.completer.CompletionSplitter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="IPython.core.completer.CompletionSplitter.get_delims">
-<tt class="descname">get_delims</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.completer.CompletionSplitter.get_delims" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="IPython.core.completer.CompletionSplitter.delims">
+<tt class="descname">delims</tt><a class="headerlink" href="#IPython.core.completer.CompletionSplitter.delims" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the string of delimiter characters.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.completer.CompletionSplitter.set_delims">
-<tt class="descname">set_delims</tt><big>(</big><em>delims</em><big>)</big><a class="headerlink" href="#IPython.core.completer.CompletionSplitter.set_delims" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the delimiters for line splitting.</p>
 </dd></dl>
 
 <dl class="method">
@@ -521,7 +523,7 @@ one of them must be given.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string, optional</p>
 <blockquote>
 <div><blockquote>
 <div><p>Text to perform the completion on.  If not given, the line buffer
@@ -542,7 +544,7 @@ remote frontends where kernel has no access to frontend state.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
 <blockquote>
 <div><p>Text that was actually used in the completion.</p>
 </div></blockquote>
@@ -562,6 +564,11 @@ remote frontends where kernel has no access to frontend state.</p>
 <dd><p>A trait whose value must be an instance of a specified class.</p>
 <p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.completer.IPCompleter.created">
+<tt class="descname">created</tt><em class="property"> = None</em><a class="headerlink" href="#IPython.core.completer.IPCompleter.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.completer.IPCompleter.dispatch_custom_completer">
@@ -635,7 +642,7 @@ below).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
 <blockquote>
 <div><p>A callable that is called when a trait changes.  Its
 signature can be handler(), handler(name), handler(name, new)
@@ -680,7 +687,7 @@ returns None.  The completion should begin with &#8216;text&#8217;.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
 <blockquote class="last">
 <div><blockquote>
 <div><p>Text to perform the completion on.</p>
@@ -751,14 +758,14 @@ original &#8216;~&#8217; instead of its expanded value.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>path</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>path</strong> : str</p>
 <blockquote>
 <div><p>String to be expanded.  If no ~ is present, the output is the same as the
 input.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newpath</strong> : str</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>newpath</strong> : str</p>
 <blockquote>
 <div><p>Result of ~ expansion in the input path.</p>
 </div></blockquote>
@@ -792,7 +799,7 @@ the string is odd.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If there is an open quote, the quote character is returned.  Else, return</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>If there is an open quote, the quote character is returned.  Else, return</strong> :</p>
 <p class="last"><strong>False.</strong> :</p>
 </td>
 </tr>
@@ -839,8 +846,8 @@ the string is odd.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 18, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 26, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

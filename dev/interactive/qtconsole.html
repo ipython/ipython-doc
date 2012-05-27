@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython v0.13.dev documentation</title>
+    <title>A Qt Console for IPython &mdash; IPython 0.13.dev documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython v0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="An HTML Notebook IPython" href="htmlnotebook.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -61,7 +64,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">A Qt Console for IPython</a><ul>
-<li><a class="reference internal" href="#loadpy"><tt class="docutils literal"><span class="pre">%loadpy</span></tt></a></li>
+<li><a class="reference internal" href="#load"><tt class="docutils literal"><span class="pre">%load</span></tt></a></li>
 <li><a class="reference internal" href="#pylab">Pylab</a><ul>
 <li><a class="reference internal" href="#display"><tt class="docutils literal"><span class="pre">display()</span></tt></a></li>
 <li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">--pylab=inline</span></tt></a></li>
@@ -100,7 +103,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -141,14 +144,14 @@ instead of <tt class="kbd docutils literal"><span class="pre">Enter</span></tt>,
 point in a multiline block, you can force its execution (without having to
 go to the bottom) with <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>.</p>
 </div>
-<div class="section" id="loadpy">
-<h2><tt class="docutils literal"><span class="pre">%loadpy</span></tt><a class="headerlink" href="#loadpy" title="Permalink to this headline">¶</a></h2>
-<p>The new <tt class="docutils literal"><span class="pre">%loadpy</span></tt> magic takes any python script (must end in &#8216;.py&#8217;), and
-pastes its contents as your next input, so you can edit it before
-executing. The script may be on your machine, but you can also specify a url,
-and it will download the script from the web. This is particularly useful for
-playing with examples from documentation, such as matplotlib.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%</span><span class="n">loadpy</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">plot_directive</span><span class="o">/</span><span class="n">mpl_examples</span><span class="o">/</span><span class="n">mplot3d</span><span class="o">/</span><span class="n">contour3d_demo</span><span class="o">.</span><span class="n">py</span>
+<div class="section" id="load">
+<h2><tt class="docutils literal"><span class="pre">%load</span></tt><a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h2>
+<p>The new <tt class="docutils literal"><span class="pre">%load</span></tt> magic (previously <tt class="docutils literal"><span class="pre">%loadpy</span></tt>) takes any script, and pastes
+its contents as your next input, so you can edit it before executing. The
+script may be on your machine, but you can also specify an history range, or a
+url, and it will download the script from the web. This is particularly useful
+for playing with examples from documentation, such as matplotlib.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%</span><span class="n">load</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">plot_directive</span><span class="o">/</span><span class="n">mpl_examples</span><span class="o">/</span><span class="n">mplot3d</span><span class="o">/</span><span class="n">contour3d_demo</span><span class="o">.</span><span class="n">py</span>
 
 <span class="gp">In [7]: </span><span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">axes3d</span>
 <span class="gp">   ...:</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -439,16 +442,16 @@ matches, and discard the message. You can use any file that only you have access
 generate this key, but the default is just to generate a new UUID. You can generate a random
 private key with:</p>
 <div class="highlight-python"><pre># generate 1024b of random data, and store in a file only you can read:
-# (assumes IPYTHON_DIR is defined, otherwise use your IPython directory)
-$&gt; python -c "import os; print os.urandom(128).encode('base64')" &gt; $IPYTHON_DIR/sessionkey
-$&gt; chmod 600 $IPYTHON_DIR/sessionkey</pre>
+# (assumes IPYTHONDIR is defined, otherwise use your IPython directory)
+$&gt; python -c "import os; print os.urandom(128).encode('base64')" &gt; $IPYTHONDIR/sessionkey
+$&gt; chmod 600 $IPYTHONDIR/sessionkey</pre>
 </div>
 <p>The <em>contents</em> of this file will be stored in the JSON connection file, so that file
 contains everything you need to connect to and use a kernel.</p>
 <p>To use this generated key, simply specify the <tt class="docutils literal"><span class="pre">Session.keyfile</span></tt> configurable
 in <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> or at the command-line, as in:</p>
 <div class="highlight-python"><pre># instruct IPython to sign messages with that key, instead of a new UUID
-$&gt; ipython qtconsole --Session.keyfile=$IPYTHON_DIR/sessionkey</pre>
+$&gt; ipython qtconsole --Session.keyfile=$IPYTHONDIR/sessionkey</pre>
 </div>
 </div>
 <div class="section" id="ssh-tunnels">
@@ -650,8 +653,8 @@ not support this, but it is being tracked as issue <a class="reference external"
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 18, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on May 26, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
