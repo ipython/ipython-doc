@@ -188,12 +188,12 @@ controller from <tt class="docutils literal"><span class="pre">host0</span></tt>
 (<tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt>) is located.</li>
 </ol>
 <p>At this point, the controller and engines will be connected. By default, the JSON files
-created by the controller are put into the <tt class="file docutils literal"><span class="pre">~/.ipython/profile_default/security</span></tt>
+created by the controller are put into the <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></tt>
 directory. If the engines share a filesystem with the controller, step 2 can be skipped as
 the engines will automatically look at that location.</p>
 <p>The final step required to actually use the running controller from a client is to move
 the JSON file <tt class="file docutils literal"><span class="pre">ipcontroller-client.json</span></tt> from <tt class="docutils literal"><span class="pre">host0</span></tt> to any host where clients
-will be run. If these file are put into the <tt class="file docutils literal"><span class="pre">~/.ipython/profile_default/security</span></tt>
+will be run. If these file are put into the <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></tt>
 directory of the client&#8217;s host, they will be found automatically. Otherwise, the full path
 to them has to be passed to the client&#8217;s constructor.</p>
 </div>
@@ -215,7 +215,7 @@ remote nodes using <strong class="command">ssh</strong>.</li>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Currently <strong class="command">ipcluster</strong> requires that the
-<tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> directory live on a shared filesystem that is
+<tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_&lt;name&gt;/security</span></tt> directory live on a shared filesystem that is
 seen by both the controller and engines. If you don&#8217;t have a shared file
 system you will need to use <strong class="command">ipcontroller</strong> and
 <strong class="command">ipengine</strong> directly.</p>
@@ -525,7 +525,7 @@ the command:</p>
 <div class="highlight-python"><pre>$ ipengine</pre>
 </div>
 <p>The engines should start and automatically connect to the controller using the
-JSON files in <tt class="file docutils literal"><span class="pre">~/.ipython/profile_default/security</span></tt>. You are now ready to use the
+JSON files in <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></tt>. You are now ready to use the
 controller and engines from IPython.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -556,7 +556,7 @@ command-line argument or <tt class="docutils literal"><span class="pre">HubFacto
 </pre></div>
 </div>
 </li>
-<li><p class="first">Copy <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> from <tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> on
+<li><p class="first">Copy <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> from <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_&lt;name&gt;/security</span></tt> on
 the controller&#8217;s host to the host where the engines will run.</p>
 </li>
 <li><p class="first">Use <strong class="command">ipengine</strong> on the engine&#8217;s hosts to start the engines.</p>
@@ -566,7 +566,7 @@ the controller&#8217;s host to the host where the engines will run.</p>
 the <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> file is located. There are two ways you
 can do this:</p>
 <ul class="simple">
-<li>Put <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> in the <tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt>
+<li>Put <tt class="file docutils literal"><span class="pre">ipcontroller-engine.json</span></tt> in the <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_&lt;name&gt;/security</span></tt>
 directory on the engine&#8217;s host, where it will be found automatically.</li>
 <li>Call <strong class="command">ipengine</strong> with the <tt class="docutils literal"><span class="pre">--file=full_path_to_the_file</span></tt>
 flag.</li>
@@ -577,7 +577,7 @@ flag.</li>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If the controller&#8217;s and engine&#8217;s hosts all have a shared file system
-(<tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/security</span></tt> is the same on all of them), then things
+(<tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_&lt;name&gt;/security</span></tt> is the same on all of them), then things
 will just work!</p>
 </div>
 <div class="section" id="ssh-tunnels">
@@ -661,7 +661,7 @@ connection info, rather than generate a new one with randomized ports.</p>
 <li><p class="first">In step 2, if you fetch the connection file directly into the security dir of a profile,
 then you need not specify its path directly, only the profile (assumes the path exists,
 otherwise you must create it first):</p>
-<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ~/.ipython/profile_ssh/security/
+<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ~/.config/ipython/profile_ssh/security/
 [engine.host.n] $ ipengine --profile=ssh</pre>
 </div>
 <p>Of course, if you fetch the file into the default profile, no arguments must be passed to
@@ -701,7 +701,7 @@ automatically use different ports.</p>
 <h3>Log files<a class="headerlink" href="#log-files" title="Permalink to this headline">¶</a></h3>
 <p>All of the components of IPython have log files associated with them.
 These log files can be extremely useful in debugging problems with
-IPython and can be found in the directory <tt class="file docutils literal"><span class="pre">~/.ipython/profile_&lt;name&gt;/log</span></tt>.
+IPython and can be found in the directory <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_&lt;name&gt;/log</span></tt>.
 Sending the log files to us will often help us to debug any problems.</p>
 </div>
 <div class="section" id="configuring-ipcontroller">
@@ -899,7 +899,7 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 26, 2012.
+      Last updated on Jun 05, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

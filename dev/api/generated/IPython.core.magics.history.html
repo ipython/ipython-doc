@@ -258,7 +258,7 @@ confirmation.</dd>
 
 <dl class="attribute">
 <dt id="IPython.core.magics.history.HistoryMagics.magics">
-<tt class="descname">magics</tt><em class="property"> = {'cell': {}, 'line': {'hist': &lt;bound method HistoryMagics.hist of &lt;IPython.core.magics.history.HistoryMagics object at 0x9ab8f8c&gt;&gt;, 'rep': &lt;bound method HistoryMagics.rep of &lt;IPython.core.magics.history.HistoryMagics object at 0x9ab8f8c&gt;&gt;, 'rerun': &lt;bound method HistoryMagics.rerun of &lt;IPython.core.magics.history.HistoryMagics object at 0x9ab8f8c&gt;&gt;, 'history': &lt;bound method HistoryMagics.history of &lt;IPython.core.magics.history.HistoryMagics object at 0x9ab8f8c&gt;&gt;}}</em><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.magics" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magics</tt><em class="property"> = {'cell': {}, 'line': {'hist': &lt;bound method HistoryMagics.hist of &lt;IPython.core.magics.history.HistoryMagics object at 0x2f3c110&gt;&gt;, 'recall': &lt;bound method HistoryMagics.recall of &lt;IPython.core.magics.history.HistoryMagics object at 0x2f3c110&gt;&gt;, 'rep': &lt;bound method HistoryMagics.rep of &lt;IPython.core.magics.history.HistoryMagics object at 0x2f3c110&gt;&gt;, 'rerun': &lt;bound method HistoryMagics.rerun of &lt;IPython.core.magics.history.HistoryMagics object at 0x2f3c110&gt;&gt;, 'history': &lt;bound method HistoryMagics.history of &lt;IPython.core.magics.history.HistoryMagics object at 0x2f3c110&gt;&gt;}}</em><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.magics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -287,6 +287,36 @@ as per the conventions outlined in the shlex module from the
 standard library.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.history.HistoryMagics.recall">
+<tt class="descname">recall</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.recall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repeat a command, or get command to input line for editing.</p>
+<p>%recall and %rep are equivalent.</p>
+<ul class="simple">
+<li>%recall (no arguments):</li>
+</ul>
+<p>Place a string version of last computation result (stored in the
+special &#8216;_&#8217; variable) to the next input prompt. Allows you to create
+elaborate command lines without using copy-paste:</p>
+<div class="highlight-python"><pre> In[1]: l = ["hei", "vaan"]
+ In[2]: "".join(l)
+Out[2]: heivaan
+ In[3]: %rep
+ In[4]: heivaan_ &lt;== cursor blinking</pre>
+</div>
+<p>%recall 45</p>
+<p>Place history line 45 on the next input prompt. Use %hist to find
+out the number.</p>
+<p>%recall 1-4</p>
+<p>Combine the specified lines into one cell, and place it on the next
+input prompt. See %history for the slice syntax.</p>
+<p>%recall foo+bar</p>
+<p>If foo+bar can be evaluated in the user namespace, the result is
+placed at the next input prompt. Otherwise, the history is searched
+for lines which contain that substring, and the most recent one is
+placed at the next input prompt.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -378,7 +408,7 @@ current command.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 26, 2012.
+      Last updated on Jun 05, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

@@ -28,7 +28,7 @@
     <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="IPython extensions" href="index.html" />
     <link rel="next" title="storemagic" href="storemagic.html" />
-    <link rel="prev" title="autoreload" href="autoreload.html" /> 
+    <link rel="prev" title="cythonmagic" href="cythonmagic.html" /> 
   </head>
   <body>
 
@@ -49,7 +49,7 @@
           <a href="storemagic.html" title="storemagic"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="autoreload.html" title="autoreload"
+          <a href="cythonmagic.html" title="cythonmagic"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -71,8 +71,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="autoreload.html"
-                        title="previous chapter">autoreload</a></p>
+  <p class="topless"><a href="cythonmagic.html"
+                        title="previous chapter">cythonmagic</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="storemagic.html"
                         title="next chapter">storemagic</a></p>
@@ -140,31 +140,32 @@ In [27]: %autopx
 <p>To use this a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance must be created
 and then activated by calling its <tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt> method.</p>
 <p>Then you can do the following:</p>
-<div class="highlight-python"><pre>In [24]: %px a = 5
+<div class="highlight-python"><pre>In [24]: %px a = os.getpid()
 Parallel execution on engine(s): all
-Out[24]:
-&lt;Results List&gt;
-[0] In [7]: a = 5
-[1] In [7]: a = 5</pre>
+
+In [25]: %px print a
+[stdout:0] 1234
+[stdout:1] 1235
+[stdout:2] 1236
+[stdout:3] 1237</pre>
 </div>
 </div></blockquote>
 <p><tt class="docutils literal"><span class="pre">%result</span></tt></p>
 <blockquote>
-<div><p>Print the result of command i on all engines..</p>
+<div><p>Print the result of command i on all engines.</p>
 <p>To use this a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance must be created
 and then activated by calling its <tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt> method.</p>
+<p>This lets you recall the results of %px computations after
+asynchronous submission (view.block=False).</p>
 <p>Then you can do the following:</p>
-<div class="highlight-python"><pre>In [23]: %result
-Out[23]:
-&lt;Results List&gt;
-[0] In [6]: a = 10
-[1] In [6]: a = 10
+<div class="highlight-python"><pre>In [23]: %px os.getpid()
+Async parallel execution on engine(s): all
 
-In [22]: %result 6
-Out[22]:
-&lt;Results List&gt;
-[0] In [6]: a = 10
-[1] In [6]: a = 10</pre>
+In [24]: %result
+[ 8] Out[10]: 60920
+[ 9] Out[10]: 60921
+[10] Out[10]: 60922
+[11] Out[10]: 60923</pre>
 </div>
 </div></blockquote>
 </div>
@@ -189,7 +190,7 @@ Out[22]:
           <a href="storemagic.html" title="storemagic"
              >next</a> |</li>
         <li class="right" >
-          <a href="autoreload.html" title="autoreload"
+          <a href="cythonmagic.html" title="cythonmagic"
              >previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -201,7 +202,7 @@ Out[22]:
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 26, 2012.
+      Last updated on Jun 05, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

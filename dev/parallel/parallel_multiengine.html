@@ -76,7 +76,12 @@
 <li><a class="reference internal" href="#blocking-execution">Blocking execution</a></li>
 <li><a class="reference internal" href="#non-blocking-execution">Non-blocking execution</a></li>
 <li><a class="reference internal" href="#the-block-and-targets-keyword-arguments-and-attributes">The <tt class="docutils literal"><span class="pre">block</span></tt> and <tt class="docutils literal"><span class="pre">targets</span></tt> keyword arguments and attributes</a></li>
-<li><a class="reference internal" href="#parallel-magic-commands">Parallel magic commands</a></li>
+<li><a class="reference internal" href="#parallel-magic-commands">Parallel magic commands</a><ul>
+<li><a class="reference internal" href="#px-cell-magic"><tt class="docutils literal"><span class="pre">%%px</span></tt> Cell Magic</a></li>
+<li><a class="reference internal" href="#result-magic"><tt class="docutils literal"><span class="pre">%result</span></tt> Magic</a></li>
+<li><a class="reference internal" href="#autopx"><tt class="docutils literal"><span class="pre">%autopx</span></tt></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#moving-python-objects-around">Moving Python objects around</a><ul>
@@ -354,11 +359,12 @@ blocks until the engines are done executing the command:</p>
 </div>
 <p>You can also select blocking execution on a call-by-call basis with the <tt class="xref py py-meth docutils literal"><span class="pre">apply_sync()</span></tt>
 method:</p>
-<blockquote>
-<div><p>In [7]: dview.block=False</p>
-<p>In [8]: dview.apply_sync(lambda x: a+b+x, 27)
-Out[8]: [42, 42, 42, 42]</p>
-</div></blockquote>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
+
+<span class="gp">In [8]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
+<span class="gr">Out[8]: </span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>Python commands can be executed as strings on specific engines by using a View&#8217;s <tt class="docutils literal"><span class="pre">execute</span></tt>
 method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;c=a+b&#39;</span><span class="p">)</span>
@@ -454,7 +460,7 @@ blocking mode and which engines the command is applied to. The <tt class="xref p
 arguments are not provided. Thus the following logic is used for <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt>:</p>
 <ul class="simple">
 <li>If no keyword argument is provided, the instance attributes are used.</li>
-<li>Keyword argument, if provided override the instance attributes for
+<li>The Keyword arguments, if provided overrides the instance attributes for
 the duration of a single call.</li>
 </ul>
 <p>The following examples demonstrate how to use the instance attributes:</p>
@@ -467,7 +473,7 @@ the duration of a single call.</li>
 <span class="gp">In [19]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="gr">Out[19]: </span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 
-<span class="gp">In [16]: </span><span class="n">dview</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ids</span> <span class="c"># all engines (4)</span>
+<span class="gp">In [20]: </span><span class="n">dview</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ids</span> <span class="c"># all engines (4)</span>
 
 <span class="gp">In [21]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
@@ -481,11 +487,11 @@ the duration of a single call.</li>
 <div class="section" id="parallel-magic-commands">
 <h3>Parallel magic commands<a class="headerlink" href="#parallel-magic-commands" title="Permalink to this headline">¶</a></h3>
 <p>We provide a few IPython magic commands (<tt class="docutils literal"><span class="pre">%px</span></tt>, <tt class="docutils literal"><span class="pre">%autopx</span></tt> and <tt class="docutils literal"><span class="pre">%result</span></tt>)
-that make it more pleasant to execute Python commands on the engines
-interactively. These are simply shortcuts to <tt class="xref py py-meth docutils literal"><span class="pre">execute()</span></tt> and
-<tt class="xref py py-meth docutils literal"><span class="pre">get_result()</span></tt> of the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt>. The <tt class="docutils literal"><span class="pre">%px</span></tt> magic executes a single
-Python command on the engines specified by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the
-<tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance:</p>
+that make it a bit more pleasant to execute Python commands on the engines interactively.
+These are simply shortcuts to <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.execute" title="IPython.parallel.client.view.DirectView.execute"><tt class="xref py py-meth docutils literal"><span class="pre">DirectView.execute()</span></tt></a>
+and <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> methods repsectively.
+The <tt class="docutils literal"><span class="pre">%px</span></tt> magic executes a single Python command on the engines
+specified by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># Create a DirectView for all targets</span>
 <span class="gp">In [22]: </span><span class="n">dv</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span>
 
@@ -502,39 +508,112 @@ Python command on the engines specified by the <tt class="xref py py-attr docuti
 <span class="gp">In [27]: </span><span class="o">%</span><span class="n">px</span> <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
 
-<span class="gp">In [28]: </span><span class="o">%</span><span class="n">px</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">In [28]: </span><span class="o">%</span><span class="n">px</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
+<span class="go">[0] Out[68]: array([ 0.77120707, -0.19448286])</span>
+<span class="go">[1] Out[68]: array([ 1.10815921,  0.05110369])</span>
+<span class="go">[2] Out[68]: array([ 0.74625527, -0.37475081])</span>
+<span class="go">[3] Out[68]: array([ 0.72931905,  0.07159743])</span>
 
-<span class="gp">In [28]: </span><span class="n">dv</span><span class="p">[</span><span class="s">&#39;ev&#39;</span><span class="p">]</span>
-<span class="gr">Out[28]: </span><span class="p">[</span> <span class="n">array</span><span class="p">([</span> <span class="mf">1.09522024</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.09645227</span><span class="p">]),</span>
-<span class="gp">   ....:</span>   <span class="n">array</span><span class="p">([</span> <span class="mf">1.21435496</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.35546712</span><span class="p">]),</span>
-<span class="gp">   ....:</span>   <span class="n">array</span><span class="p">([</span> <span class="mf">0.72180653</span><span class="p">,</span>  <span class="mf">0.07133042</span><span class="p">]),</span>
-<span class="gp">   ....:</span>   <span class="n">array</span><span class="p">([</span>  <span class="mf">1.46384341</span><span class="p">,</span>   <span class="mf">1.04353244e-04</span><span class="p">])</span>
-<span class="gp">   ....:</span> <span class="p">]</span>
+<span class="gp">In [29]: </span><span class="o">%</span><span class="n">px</span> <span class="k">print</span> <span class="s">&#39;hi&#39;</span>
+<span class="go">Parallel execution on engine(s): [0, 1, 2, 3]</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">%result</span></tt> magic gets the most recent result, or takes an argument
-specifying the index of the result to be requested. It is simply a shortcut to the
-<tt class="xref py py-meth docutils literal"><span class="pre">get_result()</span></tt> method:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [29]: </span><span class="n">dv</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">ev</span><span class="p">)</span>
-
-<span class="gp">In [30]: </span><span class="o">%</span><span class="n">result</span>
-<span class="gr">Out[30]: </span><span class="p">[</span> <span class="p">[</span> <span class="mf">1.28167017</span>  <span class="mf">0.14197338</span><span class="p">],</span>
-<span class="gp">   ....:</span>    <span class="p">[</span><span class="o">-</span><span class="mf">0.14093616</span>  <span class="mf">1.27877273</span><span class="p">],</span>
-<span class="gp">   ....:</span>    <span class="p">[</span><span class="o">-</span><span class="mf">0.37023573</span>  <span class="mf">1.06779409</span><span class="p">],</span>
-<span class="gp">   ....:</span>    <span class="p">[</span> <span class="mf">0.83664764</span> <span class="o">-</span><span class="mf">0.25602658</span><span class="p">]</span> <span class="p">]</span>
+<p>Since engines are IPython as well, you can even run magics remotely:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [28]: </span><span class="o">%</span><span class="n">px</span> <span class="o">%</span><span class="n">pylab</span> <span class="n">inline</span>
+<span class="go">Parallel execution on engine(s): [0, 1, 2, 3]</span>
+<span class="go">[stdout:0]</span>
+<span class="go">Welcome to pylab, a matplotlib-based Python environment...</span>
+<span class="go">For more information, type &#39;help(pylab)&#39;.</span>
+<span class="go">[stdout:1]</span>
+<span class="go">Welcome to pylab, a matplotlib-based Python environment...</span>
+<span class="go">For more information, type &#39;help(pylab)&#39;.</span>
+<span class="go">[stdout:2]</span>
+<span class="go">Welcome to pylab, a matplotlib-based Python environment...</span>
+<span class="go">For more information, type &#39;help(pylab)&#39;.</span>
+<span class="go">[stdout:3]</span>
+<span class="go">Welcome to pylab, a matplotlib-based Python environment...</span>
+<span class="go">For more information, type &#39;help(pylab)&#39;.</span>
 </pre></div>
 </div>
+<p>And once in pylab mode with the inline backend,
+you can make plots and they will be displayed in your frontend
+if it suports the inline figures (e.g. notebook or qtconsole):</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [40]: </span><span class="o">%</span><span class="n">px</span> <span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="go">Parallel execution on engine(s): [0, 1, 2, 3]</span>
+<span class="go">&lt;plot0&gt;</span>
+<span class="go">&lt;plot1&gt;</span>
+<span class="go">&lt;plot2&gt;</span>
+<span class="go">&lt;plot3&gt;</span>
+<span class="go">[0] Out[79]: [&lt;matplotlib.lines.Line2D at 0x10a6286d0&gt;]</span>
+<span class="go">[1] Out[79]: [&lt;matplotlib.lines.Line2D at 0x10b9476d0&gt;]</span>
+<span class="go">[2] Out[79]: [&lt;matplotlib.lines.Line2D at 0x110652750&gt;]</span>
+<span class="go">[3] Out[79]: [&lt;matplotlib.lines.Line2D at 0x10c6566d0&gt;]</span>
+</pre></div>
+</div>
+<div class="section" id="px-cell-magic">
+<h4><tt class="docutils literal"><span class="pre">%%px</span></tt> Cell Magic<a class="headerlink" href="#px-cell-magic" title="Permalink to this headline">¶</a></h4>
+<p><cite>%%px</cite> can also be used as a Cell Magic, which accepts <tt class="docutils literal"><span class="pre">--[no]block</span></tt> flags,
+and a <tt class="docutils literal"><span class="pre">--group-outputs</span></tt> argument, which adjust how the outputs of multiple
+engines are presented.</p>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> for the grouping options.</p>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [50]: </span><span class="o">%%</span><span class="n">px</span> <span class="o">--</span><span class="n">block</span> <span class="o">--</span><span class="n">group</span><span class="o">-</span><span class="n">outputs</span><span class="o">=</span><span class="n">engine</span>
+<span class="gp">   ....:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="gp">   ....:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">   ....:</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">   ....:</span> <span class="k">print</span> <span class="n">ev</span>
+<span class="gp">   ....:</span> <span class="n">ev</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="gp">   ....:</span>
+<span class="go">Parallel execution on engine(s): [0, 1, 2, 3]</span>
+<span class="go">[stdout:0] [ 0.60640442  0.95919621]</span>
+<span class="go">[0] Out[73]: 0.9591962130899806</span>
+<span class="go">[stdout:1] [ 0.38501813  1.29430871]</span>
+<span class="go">[1] Out[73]: 1.2943087091452372</span>
+<span class="go">[stdout:2] [-0.85925141  0.9387692 ]</span>
+<span class="go">[2] Out[73]: 0.93876920456230284</span>
+<span class="go">[stdout:3] [ 0.37998269  1.24218246]</span>
+<span class="go">[3] Out[73]: 1.2421824618493817</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result-magic">
+<h4><tt class="docutils literal"><span class="pre">%result</span></tt> Magic<a class="headerlink" href="#result-magic" title="Permalink to this headline">¶</a></h4>
+<p>If you are using <tt class="docutils literal"><span class="pre">%px</span></tt> in non-blocking mode, you won&#8217;t get output.
+You can use <tt class="docutils literal"><span class="pre">%result</span></tt> to display the outputs of the latest command,
+just as is done when <tt class="docutils literal"><span class="pre">%px</span></tt> is blocking:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [39]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="gp">In [40]: </span><span class="o">%</span><span class="n">px</span> <span class="k">print</span> <span class="s">&#39;hi&#39;</span>
+<span class="go">Async parallel execution on engine(s): [0, 1, 2, 3]</span>
+
+<span class="gp">In [41]: </span><span class="o">%</span><span class="n">result</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">%result</span></tt> simply calls <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> on the most recent request.
+You can pass integers as indices if you want a result other than the latest,
+e.g. <tt class="docutils literal"><span class="pre">%result</span> <span class="pre">-2</span></tt>, or <tt class="docutils literal"><span class="pre">%result</span> <span class="pre">0</span></tt> for the first.</p>
+</div>
+<div class="section" id="autopx">
+<h4><tt class="docutils literal"><span class="pre">%autopx</span></tt><a class="headerlink" href="#autopx" title="Permalink to this headline">¶</a></h4>
 <p>The <tt class="docutils literal"><span class="pre">%autopx</span></tt> magic switches to a mode where everything you type is executed
-on the engines given by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
+on the engines until you do <tt class="docutils literal"><span class="pre">%autopx</span></tt> again.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span>
 
 <span class="gp">In [31]: </span><span class="o">%</span><span class="n">autopx</span>
-<span class="go">Auto Parallel Enabled</span>
-<span class="go">Type %autopx to disable</span>
+<span class="go">%autopx enabled</span>
 
 <span class="gp">In [32]: </span><span class="n">max_evals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="go">&lt;IPython.parallel.AsyncResult object at 0x17b8a70&gt;</span>
 
 <span class="gp">In [33]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
 <span class="gp">   ....:</span>     <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
@@ -542,23 +621,17 @@ on the engines given by the <tt class="xref py py-attr docutils literal"><span c
 <span class="gp">   ....:</span>     <span class="n">evals</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="gp">   ....:</span>     <span class="n">max_evals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
 <span class="gp">   ....:</span>
-<span class="gp">   ....:</span>
-<span class="go">&lt;IPython.parallel.AsyncResult object at 0x17af8f0&gt;</span>
 
-<span class="gp">In [34]: </span><span class="o">%</span><span class="n">autopx</span>
+<span class="gp">In [34]: </span><span class="k">print</span> <span class="s">&quot;Average max eigenvalue is: </span><span class="si">%f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">max_evals</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">max_evals</span><span class="p">))</span>
+<span class="go">[stdout:0] Average max eigenvalue is: 10.193101</span>
+<span class="go">[stdout:1] Average max eigenvalue is: 10.064508</span>
+<span class="go">[stdout:2] Average max eigenvalue is: 10.055724</span>
+<span class="go">[stdout:3] Average max eigenvalue is: 10.086876</span>
+
+<span class="gp">In [35]: </span><span class="o">%</span><span class="n">autopx</span>
 <span class="go">Auto Parallel Disabled</span>
-
-<span class="gp">In [35]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span>
-
-<span class="gp">In [36]: </span><span class="n">px</span> <span class="n">ans</span><span class="o">=</span> <span class="s">&quot;Average max eigenvalue is: </span><span class="si">%f</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">max_evals</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">max_evals</span><span class="p">))</span>
-<span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
-
-<span class="gp">In [37]: </span><span class="n">dv</span><span class="p">[</span><span class="s">&#39;ans&#39;</span><span class="p">]</span>
-<span class="gr">Out[37]: </span><span class="p">[</span> <span class="s">&#39;Average max eigenvalue is:  10.1387247332&#39;</span><span class="p">,</span>
-<span class="gp">   ....:</span>   <span class="s">&#39;Average max eigenvalue is:  10.2076902286&#39;</span><span class="p">,</span>
-<span class="gp">   ....:</span>   <span class="s">&#39;Average max eigenvalue is:  10.1891484655&#39;</span><span class="p">,</span>
-<span class="gp">   ....:</span>   <span class="s">&#39;Average max eigenvalue is:  10.1158837784&#39;</span><span class="p">,]</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -583,8 +656,8 @@ engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull
 <span class="gp">In [41]: </span><span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">((</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">))</span>
 <span class="gr">Out[41]: </span><span class="p">[</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">]</span> <span class="p">]</span>
 
-<span class="gp">In [43]: </span><span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s">&#39;speed&#39;</span><span class="p">))</span>
-<span class="gr">Out[43]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
+<span class="gp">In [42]: </span><span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s">&#39;speed&#39;</span><span class="p">))</span>
+<span class="gr">Out[42]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>In non-blocking mode <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> also return
@@ -641,7 +714,6 @@ basic effect using <tt class="xref py py-meth docutils literal"><span class="pre
 
 <span class="gp">In [67]: </span><span class="o">%</span><span class="n">px</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
-<span class="go">Out[67]:</span>
 
 <span class="gp">In [68]: </span><span class="n">y</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
 
@@ -669,7 +741,8 @@ this way.</p>
 designed for use in Dependencies, but can be used to handle remote imports as well.
 Modules or module names passed to <tt class="docutils literal"><span class="pre">&#64;require</span></tt> will be imported before the decorated
 function is called.  If they cannot be imported, the decorated function will never
-execution, and will fail with an UnmetDependencyError.</p>
+execute and will fail with an UnmetDependencyError. Failures of single Engines will
+be collected and raise a CompositeError, as demonstrated in the next section.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [69]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">require</span>
 
 <span class="gp">In [70]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;re&#39;</span><span class="p">):</span>
@@ -952,7 +1025,7 @@ instance:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on May 26, 2012.
+      Last updated on Jun 05, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
