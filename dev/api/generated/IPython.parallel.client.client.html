@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython 0.13.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="parallel.client.map" href="IPython.parallel.client.map.html" />
+    <link rel="next" title="parallel.client.magics" href="IPython.parallel.client.magics.html" />
     <link rel="prev" title="parallel.client.asyncresult" href="IPython.parallel.client.asyncresult.html" /> 
   </head>
   <body>
@@ -46,7 +46,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.client.map.html" title="parallel.client.map"
+          <a href="IPython.parallel.client.magics.html" title="parallel.client.magics"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="parallel.client.asyncresult"
@@ -80,8 +80,8 @@
   <p class="topless"><a href="IPython.parallel.client.asyncresult.html"
                         title="previous chapter">parallel.client.asyncresult</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.parallel.client.map.html"
-                        title="next chapter">parallel.client.map</a></p>
+  <p class="topless"><a href="IPython.parallel.client.magics.html"
+                        title="next chapter">parallel.client.magics</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.parallel.client.client.txt"
@@ -298,6 +298,33 @@ from executing.</p>
 <blockquote class="last">
 <div><p>The jobs to be aborted</p>
 <p>If unspecified/None: abort all outstanding jobs.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.activate">
+<tt class="descname">activate</tt><big>(</big><em>targets='all'</em>, <em>suffix=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a DirectView and register it with IPython magics</p>
+<p>Defines the magics <cite>%px, %autopx, %pxresult, %%px</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>targets: int, list of ints, or &#8216;all&#8217;</strong> :</p>
+<blockquote>
+<div><p>The engines on which the view&#8217;s magics will run</p>
+</div></blockquote>
+<p><strong>suffix: str [default: &#8216;&#8217;]</strong> :</p>
+<blockquote class="last">
+<div><p>The suffix, if any, for the magics.  This allows you to have
+multiple views associated with parallel magics at the same time.</p>
+<p>e.g. <tt class="docutils literal"><span class="pre">rc.activate(targets=0,</span> <span class="pre">suffix='0')</span></tt> will give you
+the magics <tt class="docutils literal"><span class="pre">%px0</span></tt>, <tt class="docutils literal"><span class="pre">%pxresult0</span></tt>, etc. for running magics just
+on engine 0.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -687,8 +714,33 @@ is False, then completed results will be keyed by their <cite>msg_id</cite>.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.shutdown">
-<tt class="descname">shutdown</tt><big>(</big><em>targets=None</em>, <em>restart=False</em>, <em>hub=False</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.shutdown" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">shutdown</tt><big>(</big><em>targets='all'</em>, <em>restart=False</em>, <em>hub=False</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Terminates one or more engine processes, optionally including the hub.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>targets: list of ints or &#8216;all&#8217; [default: all]</strong> :</p>
+<blockquote>
+<div><p>Which engines to shutdown.</p>
+</div></blockquote>
+<p><strong>hub: bool [default: False]</strong> :</p>
+<blockquote>
+<div><p>Whether to include the Hub.  hub=True implies targets=&#8217;all&#8217;.</p>
+</div></blockquote>
+<p><strong>block: bool [default: self.block]</strong> :</p>
+<blockquote>
+<div><p>Whether to wait for clean shutdown replies or not.</p>
+</div></blockquote>
+<p><strong>restart: bool [default: False]</strong> :</p>
+<blockquote class="last">
+<div><p>NOT IMPLEMENTED
+whether to restart engines after shutting them down.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -944,7 +996,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.client.map.html" title="parallel.client.map"
+          <a href="IPython.parallel.client.magics.html" title="parallel.client.magics"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="parallel.client.asyncresult"
@@ -958,7 +1010,7 @@ In either case, this is followed by: for k in F: D[k] = F[k]</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 11, 2012.
+      Last updated on Jun 12, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

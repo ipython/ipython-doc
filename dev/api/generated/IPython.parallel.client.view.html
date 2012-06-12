@@ -168,15 +168,25 @@ else: abort specific msg_id(s).</p>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.DirectView.activate">
-<tt class="descname">activate</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.DirectView.activate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make this <cite>View</cite> active for parallel magic commands.</p>
-<p>IPython has a magic command syntax to work with <cite>MultiEngineClient</cite> objects.
-In a given IPython session there is a single active one.  While
-there can be many <cite>Views</cite> created and used by the user,
-there is only one active one.  The active <cite>View</cite> is used whenever
-the magic commands %px and %autopx are used.</p>
-<p>The activate() method is called on a given <cite>View</cite> to make it
-active.  Once this has been done, the magic commands can be used.</p>
+<tt class="descname">activate</tt><big>(</big><em>suffix=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.DirectView.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate IPython magics associated with this View</p>
+<p>Defines the magics <cite>%px, %autopx, %pxresult, %%px, %pxconfig</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>suffix: str [default: &#8216;&#8217;]</strong> :</p>
+<blockquote class="last">
+<div><p>The suffix, if any, for the magics.  This allows you to have
+multiple views associated with parallel magics at the same time.</p>
+<p>e.g. <tt class="docutils literal"><span class="pre">rc[::2].activate(suffix='_even')</span></tt> will give you
+the magics <tt class="docutils literal"><span class="pre">%px_even</span></tt>, <tt class="docutils literal"><span class="pre">%pxresult_even</span></tt>, etc. for running magics 
+on the even engines.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -1542,7 +1552,7 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 11, 2012.
+      Last updated on Jun 12, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
