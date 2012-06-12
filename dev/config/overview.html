@@ -68,7 +68,10 @@
 <li><a class="reference internal" href="#configuration-objects-and-files">Configuration objects and files</a></li>
 <li><a class="reference internal" href="#configuration-files-inheritance">Configuration files inheritance</a></li>
 <li><a class="reference internal" href="#class-based-configuration-inheritance">Class based configuration inheritance</a></li>
-<li><a class="reference internal" href="#configuration-file-location">Configuration file location</a></li>
+<li><a class="reference internal" href="#configuration-file-location">Configuration file location</a><ul>
+<li><a class="reference internal" href="#locating-these-files">Locating these files</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#profiles">Profiles</a><ul>
 <li><a class="reference internal" href="#security-files">Security Files</a></li>
 <li><a class="reference internal" href="#startup-files">Startup Files</a></li>
@@ -376,7 +379,7 @@ configuration, and by default, all profiles will be stored in the so called
 &#8220;IPython directory&#8221;. The location of this directory is determined by the
 following algorithm:</p>
 <ul class="simple">
-<li>If the <tt class="docutils literal"><span class="pre">ipython_dir</span></tt> command line flag is given, its value is used.</li>
+<li>If the <tt class="docutils literal"><span class="pre">ipython-dir</span></tt> command line flag is given, its value is used.</li>
 <li>If not, the value returned by <a class="reference internal" href="../api/generated/IPython.utils.path.html#IPython.utils.path.get_ipython_dir" title="IPython.utils.path.get_ipython_dir"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.path.get_ipython_dir()</span></tt></a>
 is used. This function will first look at the <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">IPYTHONDIR</span></tt>
 environment variable and then default to a platform-specific default.
@@ -412,6 +415,20 @@ overridden by the <tt class="docutils literal"><span class="pre">config_file</sp
 under <tt class="file docutils literal"><span class="pre">profile_default</span></tt>. If you want the default config files for the
 <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a> applications, add <tt class="docutils literal"><span class="pre">--parallel</span></tt> to the end of the
 command-line args.</p>
+<div class="section" id="locating-these-files">
+<h3>Locating these files<a class="headerlink" href="#locating-these-files" title="Permalink to this headline">¶</a></h3>
+<p>From the command-line, you can quickly locate the IPYTHONDIR or a specific
+profile with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$&gt;</span> ipython locate
+/home/you/.ipython
+
+<span class="nv">$&gt;</span> ipython locate profile foo
+/home/you/.ipython/profile_foo
+</pre></div>
+</div>
+<p>These map to the utility functions: <a class="reference internal" href="../api/generated/IPython.utils.path.html#IPython.utils.path.get_ipython_dir" title="IPython.utils.path.get_ipython_dir"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.path.get_ipython_dir()</span></tt></a>
+and <a class="reference internal" href="../api/generated/IPython.utils.path.html#IPython.utils.path.locate_profile" title="IPython.utils.path.locate_profile"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.path.locate_profile()</span></tt></a> respectively.</p>
+</div>
 </div>
 <div class="section" id="profiles">
 <span id="id1"></span><h2>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h2>
@@ -605,7 +622,7 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 05, 2012.
+      Last updated on Jun 11, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
