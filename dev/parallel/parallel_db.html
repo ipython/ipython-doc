@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Task Database &mdash; IPython 0.13.dev documentation</title>
+    <title>IPython’s Task Database &mdash; IPython 0.13.beta1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.13.dev',
+        VERSION:     '0.13.beta1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.13.beta1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Security details of IPython" href="parallel_security.html" />
     <link rel="prev" title="Using MPI with IPython" href="parallel_mpi.html" /> 
@@ -64,6 +64,8 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">IPython&#8217;s Task Database</a><ul>
+<li><a class="reference internal" href="#enabling-a-db-backend">Enabling a DB Backend</a></li>
+<li><a class="reference internal" href="#using-the-task-database">Using the Task Database</a></li>
 <li><a class="reference internal" href="#example-queries">Example Queries</a></li>
 <li><a class="reference internal" href="#cost">Cost</a></li>
 </ul>
@@ -104,17 +106,32 @@
             
   <div class="section" id="ipython-s-task-database">
 <span id="parallel-db"></span><h1>IPython&#8217;s Task Database<a class="headerlink" href="#ipython-s-task-database" title="Permalink to this headline">¶</a></h1>
-<p>The IPython Hub stores all task requests and results in a database. Currently supported backends
-are: MongoDB, SQLite (the default), and an in-memory DictDB.  The most common use case for
-this is clients requesting results for tasks they did not submit, via:</p>
+<div class="section" id="enabling-a-db-backend">
+<h2>Enabling a DB Backend<a class="headerlink" href="#enabling-a-db-backend" title="Permalink to this headline">¶</a></h2>
+<p>The IPython Hub can store all task requests and results in a database.
+Currently supported backends are: MongoDB, SQLite, and an in-memory DictDB.</p>
+<p>This database behavior is optional due to its potential <a class="reference internal" href="#db-cost"><em>Cost</em></a>,
+so you must enable one, either at the command-line:</p>
+<div class="highlight-python"><pre>$&gt; ipcontroller --dictb # or --mongodb or --sqlitedb</pre>
+</div>
+<p>or in your <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">HubFactory</span><span class="o">.</span><span class="n">db_class</span> <span class="o">=</span> <span class="s">&quot;DictDB&quot;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">HubFactory</span><span class="o">.</span><span class="n">db_class</span> <span class="o">=</span> <span class="s">&quot;MongoDB&quot;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">HubFactory</span><span class="o">.</span><span class="n">db_class</span> <span class="o">=</span> <span class="s">&quot;SQLiteDB&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-task-database">
+<h2>Using the Task Database<a class="headerlink" href="#using-the-task-database" title="Permalink to this headline">¶</a></h2>
+<p>The most common use case for this is clients requesting results for tasks they did not submit, via:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">rc</span><span class="o">.</span><span class="n">get_result</span><span class="p">(</span><span class="n">task_id</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>However, since we have this DB backend, we provide a direct query method in the <tt class="xref py py-class docutils literal"><span class="pre">client</span></tt>
+<p>However, since we have this DB backend, we provide a direct query method in the <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a>
 for users who want deeper introspection into their task history. The <tt class="xref py py-meth docutils literal"><span class="pre">db_query()</span></tt> method of
 the Client is modeled after MongoDB queries, so if you have used MongoDB it should look
-familiar.  In fact, when the MongoDB backend is in use, the query is relayed directly.  However,
-when using other backends, the interface is emulated and only a subset of queries is possible.</p>
+familiar.  In fact, when the MongoDB backend is in use, the query is relayed directly.
+When using other backends, the interface is emulated and only a subset of queries is possible.</p>
 <div class="admonition-see-also admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">MongoDB query docs: <a class="reference external" href="http://www.mongodb.org/display/DOCS/Querying">http://www.mongodb.org/display/DOCS/Querying</a></p>
@@ -160,11 +177,11 @@ MongoDB, the <cite>msg_id</cite> key will always be included, whether requested 
 <td>timestamp for time of submission (set by client)</td>
 </tr>
 <tr class="row-odd"><td>client_uuid</td>
-<td>uuid(bytes)</td>
+<td>uuid(ascii)</td>
 <td>IDENT of client&#8217;s socket</td>
 </tr>
 <tr class="row-even"><td>engine_uuid</td>
-<td>uuid(bytes)</td>
+<td>uuid(ascii)</td>
 <td>IDENT of engine&#8217;s socket</td>
 </tr>
 <tr class="row-odd"><td>started</td>
@@ -192,20 +209,20 @@ MongoDB, the <cite>msg_id</cite> key will always be included, whether requested 
 <td>buffers containing serialized request objects</td>
 </tr>
 <tr class="row-odd"><td>queue</td>
-<td>bytes</td>
+<td>str</td>
 <td>The name of the queue for the task (&#8216;mux&#8217; or &#8216;task&#8217;)</td>
 </tr>
 <tr class="row-even"><td>pyin</td>
-<td>&lt;unused&gt;</td>
-<td>Python input (unused)</td>
+<td>str</td>
+<td>Python input source</td>
 </tr>
 <tr class="row-odd"><td>pyout</td>
-<td>&lt;unused&gt;</td>
-<td>Python output (unused)</td>
+<td>dict</td>
+<td>Python output (pyout message content)</td>
 </tr>
 <tr class="row-even"><td>pyerr</td>
-<td>&lt;unused&gt;</td>
-<td>Python traceback (unused)</td>
+<td>dict</td>
+<td>Python traceback (pyerr message content)</td>
 </tr>
 <tr class="row-odd"><td>stdout</td>
 <td>str</td>
@@ -260,10 +277,11 @@ MongoDB, the <cite>msg_id</cite> key will always be included, whether requested 
 <li>deep polling of task status or metadata</li>
 <li>selecting a subset of tasks, on which to perform a later operation (e.g. wait on result, purge records, resubmit,...)</li>
 </ol>
+</div>
 <div class="section" id="example-queries">
 <h2>Example Queries<a class="headerlink" href="#example-queries" title="Permalink to this headline">¶</a></h2>
 <p>To get all msg_ids that are not completed, only retrieving their ID and start time:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">incomplete</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">db_query</span><span class="p">({</span><span class="s">&#39;complete&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">},</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span> <span class="s">&#39;started&#39;</span><span class="p">])</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">incomplete</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">db_query</span><span class="p">({</span><span class="s">&#39;completed&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">},</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span> <span class="s">&#39;started&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>All jobs started in the last hour by me:</p>
@@ -288,9 +306,9 @@ MongoDB, the <cite>msg_id</cite> key will always be included, whether requested 
 </div>
 </div>
 <div class="section" id="cost">
-<h2>Cost<a class="headerlink" href="#cost" title="Permalink to this headline">¶</a></h2>
+<span id="db-cost"></span><h2>Cost<a class="headerlink" href="#cost" title="Permalink to this headline">¶</a></h2>
 <p>The advantage of the database backends is, of course, that large amounts of
-data can be stored that won&#8217;t fit in memory.  The default &#8216;backend&#8217; is actually
+data can be stored that won&#8217;t fit in memory.  The basic DictDB &#8216;backend&#8217; is actually
 to just store all of this information in a Python dictionary.  This is very fast,
 but will run out of memory quickly if you move a lot of data around, or your
 cluster is to run for a long time.</p>
@@ -336,7 +354,7 @@ control.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 12, 2012.
+      Last updated on Jun 18, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
