@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 0.13.beta1 documentation</title>
+    <title>Messaging in IPython &mdash; IPython 0.14.dev documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.13.beta1',
+        VERSION:     '0.14.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.beta1 documentation" href="../index.html" />
+    <link rel="top" title="IPython 0.14.dev documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
     <link rel="prev" title="IPython module organization" href="reorg.html" /> 
@@ -65,8 +65,8 @@
   <ul>
 <li><a class="reference internal" href="#">Messaging in IPython</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#python-functional-api">Python functional API</a></li>
 <li><a class="reference internal" href="#general-message-format">General Message Format</a></li>
+<li><a class="reference internal" href="#python-functional-api">Python functional API</a></li>
 <li><a class="reference internal" href="#messages-on-the-shell-router-dealer-sockets">Messages on the shell ROUTER/DEALER sockets</a><ul>
 <li><a class="reference internal" href="#execute">Execute</a><ul>
 <li><a class="reference internal" href="#execution-semantics">Execution semantics</a></li>
@@ -199,17 +199,9 @@ representation of all the data, we can communicate with such clients.</p>
 kernel and frontend files for actual implementation details.</p>
 </div>
 </div>
-<div class="section" id="python-functional-api">
-<h2>Python functional API<a class="headerlink" href="#python-functional-api" title="Permalink to this headline">¶</a></h2>
-<p>As messages are dicts, they map naturally to a <tt class="docutils literal"><span class="pre">func(**kw)</span></tt> call form.  We
-should develop, at a few key points, functional forms of all the requests that
-take arguments in this manner and automatically construct the necessary dict
-for sending.</p>
-</div>
 <div class="section" id="general-message-format">
 <h2>General Message Format<a class="headerlink" href="#general-message-format" title="Permalink to this headline">¶</a></h2>
-<p>All messages send or received by any IPython process should have the following
-generic structure:</p>
+<p>A message is defined by the following three-dictionary structure:</p>
 <div class="highlight-python"><pre>{
   # The message header contains a pair of unique identifiers for the
   # originating session and the actual message id, in addition to the
@@ -224,22 +216,38 @@ generic structure:</p>
                 # All recognized message type strings are listed below.
                 'msg_type' : str,
      },
-  # The msg's unique identifier and type are stored in the header, but
-  # are also accessible at the top-level for convenience.
-  'msg_id' : uuid,
-  'msg_type' : str,
 
   # In a chain of messages, the header from the parent is copied so that
   # clients can track where messages come from.
   'parent_header' : dict,
 
   # The actual content of the message must be a dict, whose structure
-  # depends on the message type.x
+  # depends on the message type.
   'content' : dict,
 }</pre>
 </div>
-<p>For each message type, the actual content will differ and all existing message
-types are specified in what follows of this document.</p>
+</div>
+<div class="section" id="python-functional-api">
+<h2>Python functional API<a class="headerlink" href="#python-functional-api" title="Permalink to this headline">¶</a></h2>
+<p>As messages are dicts, they map naturally to a <tt class="docutils literal"><span class="pre">func(**kw)</span></tt> call form.  We
+should develop, at a few key points, functional forms of all the requests that
+take arguments in this manner and automatically construct the necessary dict
+for sending.</p>
+<p>In addition, the Python implementation of the message specification extends
+messages upon deserialization to the following form for convenience:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&#39;header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+  <span class="c"># The msg&#39;s unique identifier and type are always stored in the header,</span>
+  <span class="c"># but the Python implementation copies them to the top level.</span>
+  <span class="s">&#39;msg_id&#39;</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+  <span class="s">&#39;msg_type&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+  <span class="s">&#39;parent_header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+  <span class="s">&#39;content&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>All messages sent to or received by any IPython process should have this
+extended structure.</p>
 </div>
 <div class="section" id="messages-on-the-shell-router-dealer-sockets">
 <h2>Messages on the shell ROUTER/DEALER sockets<a class="headerlink" href="#messages-on-the-shell-router-dealer-sockets" title="Permalink to this headline">¶</a></h2>
@@ -628,7 +636,6 @@ field names that IPython prints at the terminal.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>&#8216;</p>
 </div>
 <div class="section" id="complete">
 <h3>Complete<a class="headerlink" href="#complete" title="Permalink to this headline">¶</a></h3>
@@ -1028,7 +1035,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 18, 2012.
+      Last updated on Jun 30, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

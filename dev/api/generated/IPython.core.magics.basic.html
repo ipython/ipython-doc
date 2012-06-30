@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>core.magics.basic &mdash; IPython 0.13.beta1 documentation</title>
+    <title>core.magics.basic &mdash; IPython 0.14.dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.13.beta1',
+        VERSION:     '0.14.dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.13.beta1 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="core.magics.code" href="IPython.core.magics.code.html" />
     <link rel="prev" title="core.magics.auto" href="IPython.core.magics.auto.html" /> 
@@ -126,6 +126,49 @@ are all part of the base &#8216;IPython experience&#8217;.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="IPython.core.magics.basic.BasicMagics.alias_magic">
+<tt class="descname">alias_magic</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.basic.BasicMagics.alias_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>%alias_magic [-l] [-c] name target</p>
+<p>Create an alias for an existing line or cell magic.</p>
+<p class="rubric">Examples</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first">In [1]: %alias_magic t timeit</p>
+<p>In [2]: %t -n1 pass
+1 loops, best of 3: 954 ns per loop</p>
+<dl class="docutils">
+<dt>In [3]: %%t -n1</dt>
+<dd>...: pass
+...:</dd>
+</dl>
+<p>1 loops, best of 3: 954 ns per loop</p>
+<p>In [4]: %alias_magic &#8211;cell whereami pwd
+UsageError: Cell magic function <cite>%%pwd</cite> not found.
+In [5]: %alias_magic &#8211;line whereami pwd</p>
+<p class="last">In [6]: %whereami
+Out[6]: u&#8217;/home/testuser&#8217;</p>
+</dd>
+<dt>positional arguments:</dt>
+<dd>name        Name of the magic to be created.
+target      Name of the existing line or cell magic.</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l</span>, <span class="option">--line</span></kbd></td>
+<td>Create a line magic alias.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c</span>, <span class="option">--cell</span></kbd></td>
+<td>Create a cell magic alias.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.core.magics.basic.BasicMagics.arg_err">
 <tt class="descname">arg_err</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magics.basic.BasicMagics.arg_err" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print docstring if incorrect arguments were passed</p>
@@ -219,7 +262,7 @@ we have already handled that.</p>
 
 <dl class="attribute">
 <dt id="IPython.core.magics.basic.BasicMagics.magics">
-<tt class="descname">magics</tt><em class="property"> = {'cell': {}, 'line': {'profile': &lt;bound method BasicMagics.profile of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'doctest_mode': &lt;bound method BasicMagics.doctest_mode of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'lsmagic': &lt;bound method BasicMagics.lsmagic of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'magic': &lt;bound method BasicMagics.magic of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'gui': &lt;bound method BasicMagics.gui of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'pprint': &lt;bound method BasicMagics.pprint of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'xmode': &lt;bound method BasicMagics.xmode of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'precision': &lt;bound method BasicMagics.precision of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'quickref': &lt;bound method BasicMagics.quickref of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'colors': &lt;bound method BasicMagics.colors of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'notebook': &lt;bound method BasicMagics.notebook of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;, 'page': &lt;bound method BasicMagics.page of &lt;IPython.core.magics.basic.BasicMagics object at 0x2e88c50&gt;&gt;}}</em><a class="headerlink" href="#IPython.core.magics.basic.BasicMagics.magics" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">magics</tt><em class="property"> = {'cell': {}, 'line': {'profile': 'profile', 'doctest_mode': 'doctest_mode', 'lsmagic': 'lsmagic', 'magic': 'magic', 'gui': 'gui', 'pprint': 'pprint', 'xmode': 'xmode', 'precision': 'precision', 'notebook': 'notebook', 'quickref': 'quickref', 'colors': 'colors', 'alias_magic': 'alias_magic', 'page': 'page'}}</em><a class="headerlink" href="#IPython.core.magics.basic.BasicMagics.magics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -411,7 +454,7 @@ Out[9]: 93648.047476082982</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 18, 2012.
+      Last updated on Jun 30, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
