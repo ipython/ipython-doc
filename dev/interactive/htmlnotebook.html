@@ -74,10 +74,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#security">Security</a></li>
-<li><a class="reference internal" href="#quick-howto-running-a-public-notebook-server">Quick Howto: running a public notebook server</a></li>
+<li><a class="reference internal" href="#quick-how-to-s">Quick how to&#8217;s</a><ul>
+<li><a class="reference internal" href="#running-a-public-notebook-server">Running a public notebook server</a></li>
 <li><a class="reference internal" href="#running-with-a-different-url-prefix">Running with a different URL prefix</a></li>
+<li><a class="reference internal" href="#using-a-different-notebook-store">Using a different notebook store</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#the-notebook-format">The notebook format</a></li>
-<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
+<li><a class="reference internal" href="#known-issues">Known issues</a></li>
 </ul>
 </li>
 </ul>
@@ -331,11 +335,17 @@ the notebook can be achieved with minimal mouse intervention.  The main
 key bindings you need to remember are:</p>
 <ul class="simple">
 <li><tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>: execute the current cell (similar to the Qt console),
-show output (if any) and create a new cell below.  Note that in the notebook,
-simply using <tt class="kbd docutils literal"><span class="pre">Enter</span></tt> <em>never</em> forces execution, it simply inserts a new
-line in the current cell.  Therefore, in the notebook you must always use
-<tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> to get execution (or use the mouse and click on the <tt class="docutils literal"><span class="pre">Run</span>
-<span class="pre">Selected</span></tt> button).</li>
+show output (if any) and jump to the next cell below. If <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>
+was invoked on the last input line, a new code cell will also be created. Note
+that in the notebook, simply using <tt class="kbd docutils literal"><span class="pre">Enter</span></tt> <em>never</em> forces execution,
+it simply inserts a new line in the current cell. Therefore, in the notebook
+you must always use <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> to get execution (or use the mouse and
+click on the <tt class="docutils literal"><span class="pre">Run</span> <span class="pre">Selected</span></tt> button).</li>
+<li><tt class="kbd docutils literal"><span class="pre">Alt-Enter</span></tt>: this combination is similar to the previous one, with the
+exception that, if the next cell below is not empty, a new code cell will be
+added to the notebook, even if the cell execution happens not in the last cell.
+In this regard, <tt class="kbd docutils literal"><span class="pre">Alt-Enter</span></tt>: is simply a shortcut for the <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>,
+<tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">a</span></tt> sequence.</li>
 <li><tt class="kbd docutils literal"><span class="pre">Ctrl-Enter</span></tt>: execute the current cell in &#8220;terminal mode&#8221;, where any
 output is shown but the cursor stays in the current cell, whose input
 area is flushed empty.  This is convenient to do quick in-place experiments
@@ -394,8 +404,10 @@ notebook server over <tt class="docutils literal"><span class="pre">https://</sp
 message from the server prints this, but it&#8217;s easy to overlook and think the
 server is for some reason non-responsive.</p>
 </div>
-<div class="section" id="quick-howto-running-a-public-notebook-server">
-<h2>Quick Howto: running a public notebook server<a class="headerlink" href="#quick-howto-running-a-public-notebook-server" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quick-how-to-s">
+<h2>Quick how to&#8217;s<a class="headerlink" href="#quick-how-to-s" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="running-a-public-notebook-server">
+<h3>Running a public notebook server<a class="headerlink" href="#running-a-public-notebook-server" title="Permalink to this headline">¶</a></h3>
 <p>If you want to access your notebook server remotely with just a web browser,
 here is a quick set of instructions.  Start by creating a certificate file and
 a hashed password as explained above.  Then, create a custom profile for the
@@ -423,7 +435,7 @@ uncomment and edit is here:</p>
 <tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt> with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span> <span class="pre">--profile=nbserver</span></tt>.</p>
 </div>
 <div class="section" id="running-with-a-different-url-prefix">
-<h2>Running with a different URL prefix<a class="headerlink" href="#running-with-a-different-url-prefix" title="Permalink to this headline">¶</a></h2>
+<h3>Running with a different URL prefix<a class="headerlink" href="#running-with-a-different-url-prefix" title="Permalink to this headline">¶</a></h3>
 <p>The notebook dashboard (i.e. the default landing page with an overview
 of all your notebooks) typically lives at a URL path of
 &#8220;<a class="reference external" href="http://localhost:8888/">http://localhost:8888/</a>&#8221;. If you want to have it, and the rest of the
@@ -435,6 +447,27 @@ modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config
 <span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_kernel_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">webapp_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;static_url_prefix&#39;</span><span class="p">:</span><span class="s">&#39;/ipython/static/&#39;</span><span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="using-a-different-notebook-store">
+<h3>Using a different notebook store<a class="headerlink" href="#using-a-different-notebook-store" title="Permalink to this headline">¶</a></h3>
+<p>By default the notebook server stores notebooks as files in the working
+directory of the notebook server, also known as the <tt class="docutils literal"><span class="pre">notebook_dir</span></tt>. This
+logic is implemented in the <tt class="xref py py-class docutils literal"><span class="pre">FileNotebookManager</span></tt> class. However, the
+server can be configured to use a different notebook manager class, which can
+store the notebooks in a different format. Currently, we ship a
+<tt class="xref py py-class docutils literal"><span class="pre">AzureNotebookManager</span></tt> class that stores notebooks in Azure blob
+storage. This can be used by adding the following lines to your
+<tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">notebook_manager_class</span> <span class="o">=</span> <span class="s">&#39;IPython.frontend.html.notebook.azurenbmanager.AzureNotebookManager&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">AzureNotebookManager</span><span class="o">.</span><span class="n">account_name</span> <span class="o">=</span> <span class="s">u&#39;paste_your_account_name_here&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">AzureNotebookManager</span><span class="o">.</span><span class="n">account_key</span> <span class="o">=</span> <span class="s">u&#39;paste_your_account_key_here&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">AzureNotebookManager</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s">u&#39;notebooks&#39;</span>
+</pre></div>
+</div>
+<p>In addition to providing your Azure Blob Storage account name and key, you will
+have to provide a container name; you can use multiple containers to organize
+your Notebooks.</p>
 </div>
 </div>
 <div class="section" id="the-notebook-format">
@@ -477,7 +510,7 @@ cell, when exported to python format:</p>
 </div>
 </div>
 <div class="section" id="known-issues">
-<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <p>When behind a proxy, especially if your system or browser is set to autodetect
 the proxy, the html notebook might fail to connect to the server&#8217;s websockets,
 and present you with a warning at startup. In this case, you need to configure
@@ -518,7 +551,7 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 30, 2012.
+      Last updated on Aug 10, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

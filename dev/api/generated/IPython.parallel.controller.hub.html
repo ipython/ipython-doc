@@ -134,10 +134,9 @@ and monitors traffic through the various queues.</p>
 <p>A simple object for accessing the various zmq connections of an object.
 Attributes are:
 id (int): engine ID
-uuid (str): uuid (unused?)
-queue (str): identity of queue&#8217;s DEALER socket
-registration (str): identity of registration DEALER socket
-heartbeat (str): identity of heartbeat DEALER socket</p>
+uuid (unicode): engine UUID
+pending: set of msg_ids
+stallback: DelayedCallback for stalled registration</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.hub.EngineConnector.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.__init__" title="Permalink to this definition">¶</a></dt>
@@ -161,18 +160,6 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.EngineConnector.control">
-<tt class="descname">control</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.control" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the byte string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.EngineConnector.heartbeat">
-<tt class="descname">heartbeat</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.heartbeat" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the byte string trait.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -226,15 +213,10 @@ then unintall it.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="IPython.parallel.controller.hub.EngineConnector.queue">
-<tt class="descname">queue</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.queue" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the byte string trait.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="IPython.parallel.controller.hub.EngineConnector.registration">
-<tt class="descname">registration</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.registration" title="Permalink to this definition">¶</a></dt>
-<dd><p>A casting version of the byte string trait.</p>
+<dt id="IPython.parallel.controller.hub.EngineConnector.stallback">
+<tt class="descname">stallback</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.stallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
 </dd></dl>
 
 <dl class="method">
@@ -259,6 +241,12 @@ that the various HasTrait&#8217;s instances are holding.</p>
 for any simple way of specifying merely that a metadata name
 exists, but has any value.  This is because get_metadata returns
 None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.hub.EngineConnector.uuid">
+<tt class="descname">uuid</tt><a class="headerlink" href="#IPython.parallel.controller.hub.EngineConnector.uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 </dd></dl>
@@ -463,6 +451,12 @@ IOPub traffic.</p>
 <dt id="IPython.parallel.controller.hub.Hub.engine_info">
 <tt class="descname">engine_info</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.engine_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>An instance of a Python dict.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.controller.hub.Hub.engine_state_file">
+<tt class="descname">engine_state_file</tt><a class="headerlink" href="#IPython.parallel.controller.hub.Hub.engine_state_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -846,6 +840,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.controller.hub.HubFactory.client_url">
+<tt class="descname">client_url</tt><big>(</big><em>channel</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.client_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>return full zmq url for a named client channel</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.config">
 <tt class="descname">config</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.config" title="Permalink to this definition">¶</a></dt>
@@ -901,6 +901,12 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dd><p>A trait for unicode strings.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.parallel.controller.hub.HubFactory.engine_url">
+<tt class="descname">engine_url</tt><big>(</big><em>channel</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.engine_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>return full zmq url for a named engine channel</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.parallel.controller.hub.HubFactory.hb">
 <tt class="descname">hb</tt><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.hb" title="Permalink to this definition">¶</a></dt>
@@ -917,7 +923,7 @@ None if a metadata key doesn&#8217;t exist.</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.hub.HubFactory.init_hub">
 <tt class="descname">init_hub</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.controller.hub.HubFactory.init_hub" title="Permalink to this definition">¶</a></dt>
-<dd><p>construct</p>
+<dd><p>construct Hub object</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1145,7 +1151,7 @@ None if a metadata key doesn&#8217;t exist.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 30, 2012.
+      Last updated on Aug 10, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

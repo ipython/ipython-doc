@@ -81,7 +81,7 @@ representation of all the data, we can communicate with such clients.
 General Message Format
 ======================
 
-A message is defined by the following three-dictionary structure::
+A message is defined by the following four-dictionary structure::
 
     {
       # The message header contains a pair of unique identifiers for the
@@ -105,6 +105,9 @@ A message is defined by the following three-dictionary structure::
       # The actual content of the message must be a dict, whose structure
       # depends on the message type.
       'content' : dict,
+      
+      # Any metadata associated with the message.
+      'metadata' : dict,
     }
 
    
@@ -127,6 +130,7 @@ messages upon deserialization to the following form for convenience::
       'msg_type' : str,
       'parent_header' : dict,
       'content' : dict,
+      'metadata' : dict,
     }
 
 All messages sent to or received by any IPython process should have this
@@ -752,12 +756,50 @@ Message type: ``display_data``::
         # The data dict contains key/value pairs, where the kids are MIME
         # types and the values are the raw data of the representation in that
         # format. The data dict must minimally contain the ``text/plain``
-        # MIME type which is used as a backup representation.        
+        # MIME type which is used as a backup representation.
         'data' : dict,
 
         # Any metadata that describes the data
         'metadata' : dict
     }
+
+
+Raw Data Publication
+--------------------
+
+``display_data`` lets you publish *representations* of data, such as images and html.
+This ``data_pub`` message lets you publish *actual raw data*, sent via message buffers.
+
+data_pub messages are constructed via the :func:`IPython.lib.datapub.publish_data` function:
+
+.. sourcecode:: python
+
+    from IPython.zmq.datapub import publish_data
+    ns = dict(x=my_array)
+    publish_data(ns)
+
+
+Message type: ``data_pub``::
+
+    content = {
+        # the keys of the data dict, after it has been unserialized
+        keys = ['a', 'b']
+    }
+    # the namespace dict will be serialized in the message buffers,
+    # which will have a length of at least one
+    buffers = ['pdict', ...]
+
+
+The interpretation of a sequence of data_pub messages for a given parent request should be
+to update a single namespace with subsequent results.
+
+.. note::
+
+    No frontends directly handle data_pub messages at this time.
+    It is currently only used by the client/engines in :mod:`IPython.parallel`,
+    where engines may publish *data* to the Client,
+    of which the Client can then publish *representations* via ``display_data``
+    to various frontends.
 
 Python inputs
 -------------

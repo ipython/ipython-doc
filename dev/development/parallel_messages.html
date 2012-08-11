@@ -73,7 +73,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#schedulers">Schedulers</a><ul>
-<li><a class="reference internal" href="#apply-and-apply-bound"><tt class="docutils literal"><span class="pre">apply()</span></tt> and <tt class="docutils literal"><span class="pre">apply_bound()</span></tt></a></li>
+<li><a class="reference internal" href="#apply"><tt class="docutils literal"><span class="pre">apply()</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#control-messages">Control Messages</a></li>
@@ -152,9 +152,7 @@ queue, which receives execute requests, and one for the heartbeat, which is used
 monitor the survival of the Engine process.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">registration_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;queue&#39;</span>   <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span><span class="p">,</span> <span class="c"># the MUX queue zmq.IDENTITY</span>
-    <span class="s">&#39;control&#39;</span>   <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span><span class="p">,</span> <span class="c"># the control queue zmq.IDENTITY</span>
-    <span class="s">&#39;heartbeat&#39;</span> <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span> <span class="c"># the heartbeat zmq.IDENTITY</span>
+    <span class="s">&#39;uuid&#39;</span>   <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span><span class="p">,</span> <span class="c"># the zmq.IDENTITY of the engine&#39;s sockets</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -171,10 +169,6 @@ already in use.</p>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
     <span class="c"># if ok:</span>
     <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c"># int, the engine id</span>
-    <span class="s">&#39;queue&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp://127.0.0.1:12345&#39;</span><span class="p">,</span> <span class="c"># connection for engine side of the queue</span>
-    <span class="s">&#39;control&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp://...&#39;</span><span class="p">,</span> <span class="c"># addr for control queue</span>
-    <span class="s">&#39;heartbeat&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&#39;tcp://...&#39;</span><span class="p">,</span><span class="s">&#39;tcp://...&#39;</span><span class="p">),</span> <span class="c"># tuple containing two interfaces needed for heartbeat</span>
-    <span class="s">&#39;task&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp://...&#39;</span><span class="p">,</span> <span class="c"># addr for task queue, or None if no task queue running</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -190,11 +184,6 @@ queries. If any of these addresses is <cite>None</cite>, that functionality is n
 <p>Message type: <tt class="docutils literal"><span class="pre">connection_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
-    <span class="c"># if ok:</span>
-    <span class="s">&#39;queue&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp://127.0.0.1:12345&#39;</span><span class="p">,</span> <span class="c"># connection for client side of the MUX queue</span>
-    <span class="s">&#39;task&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="s">&#39;lru&#39;</span><span class="p">,</span><span class="s">&#39;tcp...&#39;</span><span class="p">),</span> <span class="c"># routing scheme and addr for task queue (len 2 tuple)</span>
-    <span class="s">&#39;query&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp...&#39;</span><span class="p">,</span> <span class="c"># addr for methods to query the hub, like queue_request, etc.</span>
-    <span class="s">&#39;control&#39;</span> <span class="p">:</span> <span class="s">&#39;tcp...&#39;</span><span class="p">,</span> <span class="c"># addr for control methods, like abort, etc.</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -213,15 +202,15 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">registration_notification</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c"># engine ID that has been registered</span>
-    <span class="s">&#39;queue&#39;</span> <span class="p">:</span> <span class="s">&#39;engine_id&#39;</span> <span class="c"># the IDENT for the engine&#39;s queue</span>
+    <span class="s">&#39;uuid&#39;</span> <span class="p">:</span> <span class="s">&#39;engine_id&#39;</span> <span class="c"># the IDENT for the engine&#39;s sockets</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Message type : <tt class="docutils literal"><span class="pre">unregistration_notification</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="mi">0</span> <span class="c"># engine ID that has been unregistered</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight-python"><pre>content = {
+    'id' : 0 # engine ID that has been unregistered
+    'uuid' : 'engine_id' # the IDENT for the engine's sockets
+}</pre>
 </div>
 </div>
 <div class="section" id="client-queries-router">
@@ -344,8 +333,8 @@ the destination of a task as soon as that destination is known.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="apply-and-apply-bound">
-<h3><tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">apply_bound()</span></tt><a class="headerlink" href="#apply-and-apply-bound" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="apply">
+<h3><tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt><a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>In terms of message classes, the MUX scheduler and Task scheduler relay the exact same
 message types.  Their only difference lies in how the destination is selected.</p>
 <p>The <a class="reference external" href="http://gist.github.com/483294">Namespace</a> model suggests that execution be able to
@@ -359,16 +348,15 @@ later retrieval of the result). This model, unlike the execute message which jus
 code string, must be able to send arbitrary (pickleable) Python objects. And ideally, copy
 as little data as we can. The <cite>buffers</cite> property of a Message was introduced for this
 purpose.</p>
-<p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.zmq.streamsession</span></tt> wraps a
+<p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.zmq.serialize</span></tt> wraps a
 function signature and builds a sendable buffer format for minimal data copying (exactly
 zero copies of numpy array data or buffers or large strings).</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">apply_request</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;bound&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="c"># whether to execute in the engine&#39;s namespace or unbound</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;after&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
     <span class="s">&#39;follow&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
-
 <span class="p">}</span>
+<span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">buffers</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;...&#39;</span><span class="p">]</span> <span class="c"># at least 3 in length</span>
                 <span class="c"># as built by build_apply_message(f,args,kwargs)</span>
 </pre></div>
@@ -450,8 +438,8 @@ These can be any functions that translate to/from formats that ZMQ sockets can s
 <p>Previously, messages were bundled as a single json object and one call to
 <tt class="xref py py-func docutils literal"><span class="pre">socket.send_json()</span></tt>. Since the hub inspects all messages, and doesn&#8217;t need to
 see the content of the messages, which can be large, messages are now serialized and sent in
-pieces. All messages are sent in at least 3 parts: the header, the parent header, and the
-content. This allows the controller to unpack and inspect the (always small) header,
+pieces. All messages are sent in at least 4 parts: the header, the parent header, the metadata and the content.
+This allows the controller to unpack and inspect the (always small) header,
 without spending time unpacking the content unless the message is bound for the
 controller. Buffers are added on to the end of the message, and can be any objects that
 present the buffer interface.</p>
@@ -489,7 +477,7 @@ present the buffer interface.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jun 30, 2012.
+      Last updated on Aug 10, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
