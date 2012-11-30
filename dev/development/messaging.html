@@ -269,13 +269,18 @@ separate from the kernel&#8217;s own internal code and variables).</p>
 <span class="c"># A boolean flag which, if True, signals the kernel to execute</span>
 <span class="c"># this code as quietly as possible.  This means that the kernel</span>
 <span class="c"># will compile the code with &#39;exec&#39; instead of &#39;single&#39; (so</span>
-<span class="c"># sys.displayhook will not fire), and will *not*:</span>
+<span class="c"># sys.displayhook will not fire), forces store_history to be False,</span>
+<span class="c"># and will *not*:</span>
 <span class="c">#   - broadcast exceptions on the PUB socket</span>
 <span class="c">#   - do any logging</span>
-<span class="c">#   - populate any history</span>
 <span class="c">#</span>
 <span class="c"># The default is False.</span>
 <span class="s">&#39;silent&#39;</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+
+<span class="c"># A boolean flag which, if True, signals the kernel to populate history</span>
+<span class="c"># The default is True if silent is False.  If silent is True, store_history</span>
+<span class="c"># is forced to be False.</span>
+<span class="s">&#39;store_history&#39;</span> <span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
 
 <span class="c"># A list of variable names from the user&#39;s namespace to be retrieved.  What</span>
 <span class="c"># returns is a JSON string of the variable&#39;s repr(), not a python object.</span>
@@ -404,7 +409,7 @@ codes and associated data.</p>
 <div class="section" id="execution-counter-old-prompt-number">
 <h4>Execution counter (old prompt number)<a class="headerlink" href="#execution-counter-old-prompt-number" title="Permalink to this headline">¶</a></h4>
 <p>The kernel has a single, monotonically increasing counter of all execution
-requests that are made with <tt class="docutils literal"><span class="pre">silent=False</span></tt>.  This counter is used to populate
+requests that are made with <tt class="docutils literal"><span class="pre">store_history=True</span></tt>.  This counter is used to populate
 the <tt class="docutils literal"><span class="pre">In[n]</span></tt>, <tt class="docutils literal"><span class="pre">Out[n]</span></tt> and <tt class="docutils literal"><span class="pre">_n</span></tt> variables, so clients will likely want to
 display it in some form to the user, which will typically (but not necessarily)
 be done in the prompts.  The value of this counter will be returned as the
@@ -417,9 +422,9 @@ be done in the prompts.  The value of this counter will be returned as the
   <span class="c"># One of: &#39;ok&#39; OR &#39;error&#39; OR &#39;abort&#39;</span>
   <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
-  <span class="c"># The global kernel counter that increases by one with each non-silent</span>
-  <span class="c"># executed request.  This will typically be used by clients to display</span>
-  <span class="c"># prompt numbers to the user.  If the request was a silent one, this will</span>
+  <span class="c"># The global kernel counter that increases by one with each request that</span>
+  <span class="c"># stores history.  This will typically be used by clients to display</span>
+  <span class="c"># prompt numbers to the user.  If the request did not store history, this will</span>
   <span class="c"># be the current value of the counter in the kernel.</span>
   <span class="s">&#39;execution_count&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="p">}</span>
@@ -700,7 +705,7 @@ request it from the kernel when needed.</p>
   <span class="s">&#39;start&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
   <span class="s">&#39;stop&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 
-  <span class="c"># If hist_access_type is &#39;tail&#39;, get the last n cells.</span>
+  <span class="c"># If hist_access_type is &#39;tail&#39; or &#39;search&#39;, get the last n cells.</span>
   <span class="s">&#39;n&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 
   <span class="c"># If hist_access_type is &#39;search&#39;, get cells matching the specified glob</span>
@@ -1070,7 +1075,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 10, 2012.
+      Last updated on Nov 30, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

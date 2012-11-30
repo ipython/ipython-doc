@@ -66,10 +66,7 @@
 <li><a class="reference internal" href="#">IPython extensions</a><ul>
 <li><a class="reference internal" href="#getting-extensions">Getting extensions</a></li>
 <li><a class="reference internal" href="#using-extensions">Using extensions</a></li>
-<li><a class="reference internal" href="#writing-extensions">Writing extensions</a><ul>
-<li><a class="reference internal" href="#plugin-class">Plugin class</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#writing-extensions">Writing extensions</a></li>
 <li><a class="reference internal" href="#extensions-bundled-with-ipython">Extensions bundled with IPython</a><ul>
 </ul>
 </li>
@@ -143,7 +140,7 @@ functions to load and unload it. Here is a template:</p>
 def load_ipython_extension(ipython):
     # The `ipython` argument is the currently active `InteractiveShell`
     # instance, which can be used in any way. This allows you to register
-    # new magics, plugins or aliases, for example.
+    # new magics or aliases, for example.
 
 def unload_ipython_extension(ipython):
     # If you want your extension to be unloadable, put that logic here.</pre>
@@ -165,29 +162,6 @@ write extensions, you can also put your extensions in
 <tt class="docutils literal"><span class="pre">sys.path</span></tt> automatically.</p>
 <p>When your extension is ready for general use, please add it to the <a class="reference external" href="http://wiki.ipython.org/Extensions_Index">extensions
 index</a>.</p>
-<div class="section" id="plugin-class">
-<h3>Plugin class<a class="headerlink" href="#plugin-class" title="Permalink to this headline">¶</a></h3>
-<p>More advanced extensions might want to subclass <a class="reference internal" href="../../api/generated/IPython.core.plugin.html#IPython.core.plugin.Plugin" title="IPython.core.plugin.Plugin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.plugin.Plugin</span></tt></a>.
-A plugin can have options configured by IPython&#8217;s main <a class="reference internal" href="../overview.html#config-overview"><em>configuration
-system</em></a>. The code to load and unload it looks like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">load_ipython_extension</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Load the plugin in IPython.&quot;&quot;&quot;</span>
-    <span class="n">plugin</span> <span class="o">=</span> <span class="n">MyPlugin</span><span class="p">(</span><span class="n">shell</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">ip</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">ip</span><span class="o">.</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">register_plugin</span><span class="p">(</span><span class="s">&#39;myplugin&#39;</span><span class="p">,</span> <span class="n">plugin</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Already loaded&quot;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">unload_ipython_extension</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
-    <span class="n">ip</span><span class="o">.</span><span class="n">plugin_manager</span><span class="o">.</span><span class="n">unregister_plugin</span><span class="p">(</span><span class="s">&#39;myplugin&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>For examples, see these files:</p>
-<ul class="simple">
-<li><tt class="file docutils literal"><span class="pre">IPython/extensions/autoreload.py</span></tt></li>
-<li><tt class="file docutils literal"><span class="pre">IPython/extensions/storemagic.py</span></tt></li>
-</ul>
-</div>
 </div>
 <div class="section" id="extensions-bundled-with-ipython">
 <span id="bundled-extensions"></span><h2>Extensions bundled with IPython<a class="headerlink" href="#extensions-bundled-with-ipython" title="Permalink to this headline">¶</a></h2>
@@ -234,7 +208,7 @@ system</em></a>. The code to load and unload it looks like this:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 10, 2012.
+      Last updated on Nov 30, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

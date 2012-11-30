@@ -440,17 +440,18 @@ and use the one with the lower load.</p>
 </div></blockquote>
 <div class="section" id="greedy-assignment">
 <h3>Greedy Assignment<a class="headerlink" href="#greedy-assignment" title="Permalink to this headline">¶</a></h3>
-<p>Tasks are assigned greedily as they are submitted. If their dependencies are
+<p>Tasks can be assigned greedily as they are submitted. If their dependencies are
 met, they will be assigned to an engine right away, and multiple tasks can be
 assigned to an engine at a given time. This limit is set with the
-<tt class="docutils literal"><span class="pre">TaskScheduler.hwm</span></tt> (high water mark) configurable:</p>
+<tt class="docutils literal"><span class="pre">TaskScheduler.hwm</span></tt> (high water mark) configurable in your
+<tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt> config file, with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the most common choices are:</span>
-<span class="n">c</span><span class="o">.</span><span class="n">TaskSheduler</span><span class="o">.</span><span class="n">hwm</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># (minimal latency, default in IPython ≤ 0.12)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">TaskSheduler</span><span class="o">.</span><span class="n">hwm</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># (minimal latency, default in IPython &lt; 0.13)</span>
 <span class="c"># or</span>
-<span class="n">c</span><span class="o">.</span><span class="n">TaskScheduler</span><span class="o">.</span><span class="n">hwm</span> <span class="o">=</span> <span class="mi">1</span> <span class="c"># (most-informed balancing, default in &gt; 0.12)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">TaskScheduler</span><span class="o">.</span><span class="n">hwm</span> <span class="o">=</span> <span class="mi">1</span> <span class="c"># (most-informed balancing, default in ≥ 0.13)</span>
 </pre></div>
 </div>
-<p>In IPython ≤ 0.12,the default is 0, or no-limit. That is, there is no limit to the number of
+<p>In IPython &lt; 0.13, the default is 0, or no-limit. That is, there is no limit to the number of
 tasks that can be outstanding on a given engine. This greatly benefits the
 latency of execution, because network traffic can be hidden behind computation.
 However, this means that workload is assigned without knowledge of how long
@@ -458,9 +459,9 @@ each task might take, and can result in poor load-balancing, particularly for
 submitting a collection of heterogeneous tasks all at once. You can limit this
 effect by setting hwm to a positive integer, 1 being maximum load-balancing (a
 task will never be waiting if there is an idle engine), and any larger number
-being a compromise between load-balance and latency-hiding.</p>
+being a compromise between load-balancing and latency-hiding.</p>
 <p>In practice, some users have been confused by having this optimization on by
-default, and the default value has been changed to 1. This can be slower,
+default, so the default value has been changed to 1 in IPython 0.13. This can be slower,
 but has more obvious behavior and won&#8217;t result in assigning too many tasks to
 some engines in heterogeneous cases.</p>
 </div>
@@ -510,7 +511,7 @@ in the following classes:</p>
 <ul class="simple">
 <li><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></a></li>
 <li><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a></li>
-<li><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView.apply" title="IPython.parallel.client.view.LoadBalancedView.apply"><tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt></a></li>
+<li><tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt></li>
 <li><a class="reference internal" href="../api/generated/IPython.parallel.controller.dependency.html#module-IPython.parallel.controller.dependency" title="IPython.parallel.controller.dependency"><tt class="xref py py-mod docutils literal"><span class="pre">dependency</span></tt></a></li>
 </ul>
 <p>The following is an overview of how to use these classes together:</p>
@@ -560,7 +561,7 @@ for and then receive the results.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 10, 2012.
+      Last updated on Nov 30, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
