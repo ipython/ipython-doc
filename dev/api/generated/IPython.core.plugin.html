@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: utils.ulinecache &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.plugin &mdash; IPython 0.14.dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -27,8 +27,8 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: utils.upgradedir" href="IPython.utils.upgradedir.html" />
-    <link rel="prev" title="Module: utils.traitlets" href="IPython.utils.traitlets.html" /> 
+    <link rel="next" title="Module: core.prefilter" href="IPython.core.prefilter.html" />
+    <link rel="prev" title="Module: core.payloadpage" href="IPython.core.payloadpage.html" /> 
   </head>
   <body>
 
@@ -46,10 +46,10 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.utils.upgradedir.html" title="Module: utils.upgradedir"
+          <a href="IPython.core.prefilter.html" title="Module: core.prefilter"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="IPython.utils.traitlets.html" title="Module: utils.traitlets"
+          <a href="IPython.core.payloadpage.html" title="Module: core.payloadpage"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -63,21 +63,21 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.ulinecache</span></tt></a><ul>
-<li><a class="reference internal" href="#functions">2 Functions</a></li>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.plugin</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">2 Classes</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="IPython.utils.traitlets.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">utils.traitlets</span></tt></a></p>
+  <p class="topless"><a href="IPython.core.payloadpage.html"
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.payloadpage</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.utils.upgradedir.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.upgradedir</span></tt></a></p>
+  <p class="topless"><a href="IPython.core.prefilter.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.prefilter</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../../_sources/api/generated/IPython.utils.ulinecache.txt"
+    <li><a href="../../_sources/api/generated/IPython.core.plugin.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -101,24 +101,33 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.utils.ulinecache">
-<span id="module-utils-ulinecache"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.ulinecache</span></tt><a class="headerlink" href="#module-IPython.utils.ulinecache" title="Permalink to this headline">¶</a></h1>
-<p>Wrapper around linecache which decodes files to unicode according to PEP 263.</p>
-<p>This is only needed for Python 2 - linecache in Python 3 does the same thing
-itself.</p>
-<div class="section" id="functions">
-<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="IPython.utils.ulinecache.getlines">
-<tt class="descclassname">IPython.utils.ulinecache.</tt><tt class="descname">getlines</tt><big>(</big><em>filename</em>, <em>module_globals=None</em><big>)</big><a class="headerlink" href="#IPython.utils.ulinecache.getlines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the lines (as unicode) for a file from the cache.
-Update the cache if it doesn&#8217;t contain an entry for this file already.</p>
+  <div class="section" id="module-IPython.core.plugin">
+<span id="module-core-plugin"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.plugin</span></tt><a class="headerlink" href="#module-IPython.core.plugin" title="Permalink to this headline">¶</a></h1>
+<p>IPython plugins.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Brian Granger</li>
+</ul>
+<div class="section" id="classes">
+<h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.core.plugin.PluginManager">
+<em class="property">class </em><tt class="descclassname">IPython.core.plugin.</tt><tt class="descname">PluginManager</tt><big>(</big><em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.plugin.PluginManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>A manager for IPython plugins.</p>
+<dl class="method">
+<dt id="IPython.core.plugin.PluginManager.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.plugin.PluginManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
-<dl class="function">
-<dt id="IPython.utils.ulinecache.getline">
-<tt class="descclassname">IPython.utils.ulinecache.</tt><tt class="descname">getline</tt><big>(</big><em>filename</em>, <em>lineno</em>, <em>module_globals=None</em><big>)</big><a class="headerlink" href="#IPython.utils.ulinecache.getline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="class">
+<dt id="IPython.core.plugin.Plugin">
+<em class="property">class </em><tt class="descclassname">IPython.core.plugin.</tt><tt class="descname">Plugin</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.plugin.Plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>Base class for IPython plugins.</p>
+</dd></dl>
 
 </div>
 </div>
@@ -139,10 +148,10 @@ Update the cache if it doesn&#8217;t contain an entry for this file already.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.utils.upgradedir.html" title="Module: utils.upgradedir"
+          <a href="IPython.core.prefilter.html" title="Module: core.prefilter"
              >next</a> |</li>
         <li class="right" >
-          <a href="IPython.utils.traitlets.html" title="Module: utils.traitlets"
+          <a href="IPython.core.payloadpage.html" title="Module: core.payloadpage"
              >previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -153,7 +162,7 @@ Update the cache if it doesn&#8217;t contain an entry for this file already.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 30, 2012.
+      Last updated on Dec 07, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

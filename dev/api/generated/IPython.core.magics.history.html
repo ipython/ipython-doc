@@ -111,13 +111,10 @@
 <em class="property">class </em><tt class="descclassname">IPython.core.magics.history.</tt><tt class="descname">HistoryMagics</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a></p>
 <dl class="method">
-<dt id="IPython.core.magics.history.HistoryMagics.history">
-<tt class="descname">history</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.history" title="Permalink to this definition">¶</a></dt>
-<dd><p>%history [-n] [-o] [-p] [-t] [-f FILENAME] [-g [PATTERN [PATTERN ...]]]
-[-l [LIMIT]]</p>
-<blockquote>
-<div>[range [range ...]]</div></blockquote>
-<p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
+<dt id="IPython.core.magics.history.HistoryMagics.hist">
+<tt class="descname">hist</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.hist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
+<p>%history [-o -p -t -n] [-f filename] [range | -g pattern | -l number]</p>
 <p>By default, input history is printed without line numbers so it can be
 directly pasted into an editor. Use -n to show them.</p>
 <p>By default, all input history from the current session is displayed.
@@ -131,67 +128,102 @@ Ranges of history can be indicated using the syntax:
 <div>of 6 sessions ago.</div></blockquote>
 <p>Multiple ranges can be entered, separated by spaces</p>
 <p>The same syntax is used by %macro, %save, %edit, %rerun</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-n: print line numbers for each input.
+This feature is only available if numbered prompts are in use.</p>
+<p>-o: also print outputs for each input.</p>
+<dl class="docutils">
+<dt>-p: print classic &#8216;&gt;&gt;&gt;&#8217; python prompts before each input.  This is</dt>
+<dd>useful for making documentation, and in conjunction with -o, for
+producing doctest-ready output.</dd>
+<dt>-r: (default) print the &#8216;raw&#8217; history, i.e. the actual commands you</dt>
+<dd>typed.</dd>
+</dl>
+<p>-t: print the &#8216;translated&#8217; history, as IPython understands it.
+IPython filters your input and converts it all into valid Python
+source before executing it (things like magics or aliases are turned
+into function calls, for example). With this option, you&#8217;ll see the
+native history instead of the user-entered version: &#8216;%cd /&#8217; will be
+seen as &#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead of &#8216;%cd /&#8217;.</p>
+<p>-g: treat the arg as a pattern to grep for in (full) history.
+This includes the saved history (almost all commands ever written).
+Use &#8216;%hist -g&#8217; to show full saved history (may be very long).</p>
+<p>-l: get the last n lines from all sessions. Specify n as a single
+arg, or the default is the last 10 lines.</p>
+<dl class="docutils">
+<dt>-f FILENAME: instead of printing the output to the screen, redirect</dt>
+<dd>it to the given file.  The file is always overwritten, though <em>when
+it can</em>, IPython asks for confirmation first. In particular, running
+the command &#8216;history -f FILENAME&#8217; from the IPython Notebook
+interface will replace FILENAME even if it already exists <em>without</em>
+confirmation.</dd>
+</dl>
+</div></blockquote>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [6]: %history -n 4-6
+<div class="highlight-python"><pre>In [6]: %hist -n 4-6
 4:a = 12
 5:print a**2
-6:%history -n 4-6</pre>
+6:%hist -n 4-6</pre>
 </div>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.history.HistoryMagics.history">
+<tt class="descname">history</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
+<p>%history [-o -p -t -n] [-f filename] [range | -g pattern | -l number]</p>
+<p>By default, input history is printed without line numbers so it can be
+directly pasted into an editor. Use -n to show them.</p>
+<p>By default, all input history from the current session is displayed.
+Ranges of history can be indicated using the syntax:
+4      : Line 4, current session
+4-6    : Lines 4-6, current session
+243/1-5: Lines 1-5, session 243
+~2/7   : Line 7, session 2 before current
+~8/1-~6/5 : From the first line of 8 sessions ago, to the fifth line</p>
+<blockquote>
+<div>of 6 sessions ago.</div></blockquote>
+<p>Multiple ranges can be entered, separated by spaces</p>
+<p>The same syntax is used by %macro, %save, %edit, %rerun</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-n: print line numbers for each input.
+This feature is only available if numbered prompts are in use.</p>
+<p>-o: also print outputs for each input.</p>
 <dl class="docutils">
-<dt>positional arguments:</dt>
-<dd>range</dd>
-<dt>optional arguments:</dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
-<tr><td class="option-group">
-<kbd><span class="option">-n</span></kbd></td>
-<td>print line numbers for each input. This feature is
-only available if numbered prompts are in use.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-o</span></kbd></td>
-<td>also print outputs for each input.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-p</span></kbd></td>
-<td>print classic &#8216;&gt;&gt;&gt;&#8217; python prompts before each input.
-This is useful for making documentation, and in
-conjunction with -o, for producing doctest-ready
-output.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-t</span></kbd></td>
-<td>print the &#8216;translated&#8217; history, as IPython understands
-it. IPython filters your input and converts it all
-into valid Python source before executing it (things
-like magics or aliases are turned into function calls,
-for example). With this option, you&#8217;ll see the native
-history instead of the user-entered version: &#8216;%cd /&#8217;
-will be seen as &#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead
-of &#8216;%cd /&#8217;.</td></tr>
-<tr><td class="option-group">
-<kbd><span class="option">-f <var>FILENAME</var></span></kbd></td>
-<td>FILENAME: instead of printing the output to the
-screen, redirect it to the given file. The file is
-always overwritten, though <em>when it can</em>, IPython asks
-for confirmation first. In particular, running the
-command &#8216;history -f FILENAME&#8217; from the IPython
-Notebook interface will replace FILENAME even if it
-already exists <em>without</em> confirmation.</td></tr>
-</tbody>
-</table>
-<dl class="last docutils">
-<dt>-g [PATTERN [PATTERN ...]]</dt>
-<dd>treat the arg as a glob pattern to search for in
-(full) history. This includes the saved history
-(almost all commands ever written). The pattern may
-contain &#8216;?&#8217; to match one unknown character and &#8216;*&#8217; to
-match any number of unknown characters. Use &#8216;%hist -g&#8217;
-to show full saved history (may be very long).</dd>
-<dt>-l [LIMIT]            get the last n lines from all sessions. Specify n as a</dt>
-<dd>single arg, or the default is the last 10 lines.</dd>
+<dt>-p: print classic &#8216;&gt;&gt;&gt;&#8217; python prompts before each input.  This is</dt>
+<dd>useful for making documentation, and in conjunction with -o, for
+producing doctest-ready output.</dd>
+<dt>-r: (default) print the &#8216;raw&#8217; history, i.e. the actual commands you</dt>
+<dd>typed.</dd>
 </dl>
-</dd>
+<p>-t: print the &#8216;translated&#8217; history, as IPython understands it.
+IPython filters your input and converts it all into valid Python
+source before executing it (things like magics or aliases are turned
+into function calls, for example). With this option, you&#8217;ll see the
+native history instead of the user-entered version: &#8216;%cd /&#8217; will be
+seen as &#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead of &#8216;%cd /&#8217;.</p>
+<p>-g: treat the arg as a pattern to grep for in (full) history.
+This includes the saved history (almost all commands ever written).
+Use &#8216;%hist -g&#8217; to show full saved history (may be very long).</p>
+<p>-l: get the last n lines from all sessions. Specify n as a single
+arg, or the default is the last 10 lines.</p>
+<dl class="docutils">
+<dt>-f FILENAME: instead of printing the output to the screen, redirect</dt>
+<dd>it to the given file.  The file is always overwritten, though <em>when
+it can</em>, IPython asks for confirmation first. In particular, running
+the command &#8216;history -f FILENAME&#8217; from the IPython Notebook
+interface will replace FILENAME even if it already exists <em>without</em>
+confirmation.</dd>
 </dl>
+</div></blockquote>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><pre>In [6]: %hist -n 4-6
+4:a = 12
+5:print a**2
+6:%hist -n 4-6</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -208,7 +240,37 @@ elaborate command lines without using copy-paste:</p>
 <div class="highlight-python"><pre> In[1]: l = ["hei", "vaan"]
  In[2]: "".join(l)
 Out[2]: heivaan
- In[3]: %recall
+ In[3]: %rep
+ In[4]: heivaan_ &lt;== cursor blinking</pre>
+</div>
+<p>%recall 45</p>
+<p>Place history line 45 on the next input prompt. Use %hist to find
+out the number.</p>
+<p>%recall 1-4</p>
+<p>Combine the specified lines into one cell, and place it on the next
+input prompt. See %history for the slice syntax.</p>
+<p>%recall foo+bar</p>
+<p>If foo+bar can be evaluated in the user namespace, the result is
+placed at the next input prompt. Otherwise, the history is searched
+for lines which contain that substring, and the most recent one is
+placed at the next input prompt.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.history.HistoryMagics.rep">
+<tt class="descname">rep</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#IPython.core.magics.history.HistoryMagics.rep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repeat a command, or get command to input line for editing.</p>
+<p>%recall and %rep are equivalent.</p>
+<ul class="simple">
+<li>%recall (no arguments):</li>
+</ul>
+<p>Place a string version of last computation result (stored in the
+special &#8216;_&#8217; variable) to the next input prompt. Allows you to create
+elaborate command lines without using copy-paste:</p>
+<div class="highlight-python"><pre> In[1]: l = ["hei", "vaan"]
+ In[2]: "".join(l)
+Out[2]: heivaan
+ In[3]: %rep
  In[4]: heivaan_ &lt;== cursor blinking</pre>
 </div>
 <p>%recall 45</p>
@@ -273,7 +335,7 @@ current command.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 30, 2012.
+      Last updated on Dec 07, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
