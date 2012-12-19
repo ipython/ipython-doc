@@ -140,16 +140,18 @@ to add new keys.</p>
 
 <dl class="class">
 <dt id="IPython.parallel.client.client.Client">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.client.client.</tt><tt class="descname">Client</tt><big>(</big><em>url_or_file=None</em>, <em>profile=None</em>, <em>profile_dir=None</em>, <em>ipython_dir=None</em>, <em>context=None</em>, <em>debug=False</em>, <em>exec_key=None</em>, <em>sshserver=None</em>, <em>sshkey=None</em>, <em>password=None</em>, <em>paramiko=None</em>, <em>timeout=10</em>, <em>**extra_args</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.parallel.client.client.</tt><tt class="descname">Client</tt><big>(</big><em>url_file=None</em>, <em>profile=None</em>, <em>profile_dir=None</em>, <em>ipython_dir=None</em>, <em>context=None</em>, <em>debug=False</em>, <em>sshserver=None</em>, <em>sshkey=None</em>, <em>password=None</em>, <em>paramiko=None</em>, <em>timeout=10</em>, <em>cluster_id=None</em>, <em>**extra_args</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a></p>
 <p>A semi-synchronous client to the IPython ZMQ cluster</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>url_or_file</strong> : bytes or unicode; zmq url or path to ipcontroller-client.json</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>url_file</strong> : str/unicode; path to ipcontroller-client.json</p>
 <blockquote>
-<div><p>Connection information for the Hub&#8217;s registration.  If a json connector
+<div><p>This JSON file should contain all the information needed to connect to a cluster,
+and is likely the only argument needed.
+Connection information for the Hub&#8217;s registration.  If a json connector
 file is given, then likely no further configuration is necessary.
 [Default: use profile]</p>
 </div></blockquote>
@@ -158,6 +160,15 @@ file is given, then likely no further configuration is necessary.
 <div><p>The name of the Cluster profile to be used to find connector information.
 If run from an IPython application, the default profile will be the same
 as the running application, otherwise it will be &#8216;default&#8217;.</p>
+</div></blockquote>
+<p><strong>cluster_id</strong> : str</p>
+<blockquote>
+<div><p>String id to added to runtime files, to prevent name collisions when using
+multiple clusters with a single profile simultaneously.
+When set, will look for files named like: &#8216;ipcontroller-&lt;cluster_id&gt;-client.json&#8217;
+Since this is text inserted into filenames, typical recommendations apply:
+Simple character strings are ideal, and spaces are not recommended (but
+should generally work)</p>
 </div></blockquote>
 <p><strong>context</strong> : zmq.Context</p>
 <blockquote>
@@ -180,18 +191,6 @@ as the running application, otherwise it will be &#8216;default&#8217;.</p>
 <p><strong>username</strong> : str</p>
 <blockquote>
 <div><p>set username for the session object</p>
-</div></blockquote>
-<p><strong>packer</strong> : str (import_string) or callable</p>
-<blockquote>
-<div><p>Can be either the simple keyword &#8216;json&#8217; or &#8216;pickle&#8217;, or an import_string to a
-function to serialize messages. Must support same input as
-JSON, and output must be bytes.
-You can pass a callable directly as <cite>pack</cite></p>
-</div></blockquote>
-<p><strong>unpacker</strong> : str (import_string) or callable</p>
-<blockquote>
-<div><p>The inverse of packer.  Only necessary if packer is specified as <em>not</em> one
-of &#8216;json&#8217; or &#8216;pickle&#8217;.</p>
 </div></blockquote>
 <p><strong>#&#8212;&#8212;&#8212;&#8212;&#8211; ssh related args &#8212;&#8212;&#8212;&#8212;&#8212;-</strong> :</p>
 <p><strong># These are args for configuring the ssh tunnel to be used</strong> :</p>
@@ -221,17 +220,6 @@ you will be prompted for it if passwordless key based login is unavailable.</p>
 <blockquote>
 <div><p>flag for whether to use paramiko instead of shell ssh for tunneling.
 [default: True on win32, False else]</p>
-</div></blockquote>
-<p><strong>&#8212;&#8212;- exec authentication args &#8212;&#8212;-</strong> :</p>
-<p><strong>If even localhost is untrusted, you can have some protection against</strong> :</p>
-<p><strong>unauthorized execution by signing messages with HMAC digests.</strong> :</p>
-<p><strong>Messages are still sent as cleartext, so if someone can snoop your</strong> :</p>
-<p><strong>loopback traffic this will not protect your privacy, but will prevent</strong> :</p>
-<p><strong>unauthorized execution.</strong> :</p>
-<p><strong>exec_key</strong> : str</p>
-<blockquote>
-<div><p>an authentication key or file containing a key
-default: None</p>
 </div></blockquote>
 </td>
 </tr>
@@ -294,7 +282,7 @@ legacy: execute, run</p>
 </table>
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>url_or_file=None</em>, <em>profile=None</em>, <em>profile_dir=None</em>, <em>ipython_dir=None</em>, <em>context=None</em>, <em>debug=False</em>, <em>exec_key=None</em>, <em>sshserver=None</em>, <em>sshkey=None</em>, <em>password=None</em>, <em>paramiko=None</em>, <em>timeout=10</em>, <em>**extra_args</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>url_file=None</em>, <em>profile=None</em>, <em>profile_dir=None</em>, <em>ipython_dir=None</em>, <em>context=None</em>, <em>debug=False</em>, <em>sshserver=None</em>, <em>sshkey=None</em>, <em>password=None</em>, <em>paramiko=None</em>, <em>timeout=10</em>, <em>cluster_id=None</em>, <em>**extra_args</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -539,7 +527,7 @@ default : all</p>
 
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.resubmit">
-<tt class="descname">resubmit</tt><big>(</big><em>indices_or_msg_ids=None</em>, <em>subheader=None</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.resubmit" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">resubmit</tt><big>(</big><em>indices_or_msg_ids=None</em>, <em>metadata=None</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.resubmit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resubmit one or more tasks.</p>
 <p>in-flight tasks may not be resubmitted.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -608,14 +596,14 @@ is False, then completed results will be keyed by their <cite>msg_id</cite>.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.send_apply_request">
-<tt class="descname">send_apply_request</tt><big>(</big><em>socket</em>, <em>f</em>, <em>args=None</em>, <em>kwargs=None</em>, <em>subheader=None</em>, <em>track=False</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.send_apply_request" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">send_apply_request</tt><big>(</big><em>socket</em>, <em>f</em>, <em>args=None</em>, <em>kwargs=None</em>, <em>metadata=None</em>, <em>track=False</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.send_apply_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>construct and send an apply message via a socket.</p>
 <p>This is the principal method with which all engine execution is performed by views.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.send_execute_request">
-<tt class="descname">send_execute_request</tt><big>(</big><em>socket</em>, <em>code</em>, <em>silent=True</em>, <em>subheader=None</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.send_execute_request" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">send_execute_request</tt><big>(</big><em>socket</em>, <em>code</em>, <em>silent=True</em>, <em>metadata=None</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.send_execute_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>construct and send an execute request via a socket.</p>
 </dd></dl>
 
@@ -763,7 +751,7 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 07, 2012.
+      Last updated on Dec 19, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

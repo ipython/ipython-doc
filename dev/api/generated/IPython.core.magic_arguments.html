@@ -64,7 +64,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.magic_arguments</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">7 Classes</a></li>
+<li><a class="reference internal" href="#classes">9 Classes</a></li>
 <li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
@@ -140,8 +140,11 @@ arguments:</p>
       -o OPTION, --option OPTION
                             An optional argument.</pre>
 </div>
+<p>Inheritance diagram:</p>
+<img src="../../_images/inheritance20cd358b90.png" usemap="#inheritance20cd358b90" class="inheritance"/><map id="inheritance20cd358b90" name="inheritance20cd358b90">
+</map>
 <div class="section" id="classes">
-<h2>7 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h2>9 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.magic_arguments.MagicHelpFormatter">
 <em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">MagicHelpFormatter</tt><big>(</big><em>prog</em>, <em>indent_increment=2</em>, <em>max_help_position=24</em>, <em>width=None</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.MagicHelpFormatter" title="Permalink to this definition">¶</a></dt>
@@ -151,12 +154,12 @@ arguments:</p>
 
 <dl class="class">
 <dt id="IPython.core.magic_arguments.MagicArgumentParser">
-<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">MagicArgumentParser</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>version=None</em>, <em>parents=None</em>, <em>formatter_class=&lt;class 'IPython.core.magic_arguments.MagicHelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=False</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.MagicArgumentParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">MagicArgumentParser</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>parents=None</em>, <em>formatter_class=&lt;class 'IPython.core.magic_arguments.MagicHelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=False</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.MagicArgumentParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt></p>
 <p>An ArgumentParser tweaked for use by IPython magics.</p>
 <dl class="method">
 <dt id="IPython.core.magic_arguments.MagicArgumentParser.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>version=None</em>, <em>parents=None</em>, <em>formatter_class=&lt;class 'IPython.core.magic_arguments.MagicHelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=False</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.MagicArgumentParser.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>parents=None</em>, <em>formatter_class=&lt;class 'IPython.core.magic_arguments.MagicHelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=False</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.MagicArgumentParser.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -200,35 +203,46 @@ name.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="IPython.core.magic_arguments.argument">
-<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">argument</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.magic_arguments.ArgMethodWrapper">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">ArgMethodWrapper</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.ArgMethodWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.core.magic_arguments.ArgDecorator" title="IPython.core.magic_arguments.ArgDecorator"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic_arguments.ArgDecorator</span></tt></a></p>
-<p>Store arguments and keywords to pass to add_argument().</p>
-<p>Instances also serve to decorate command methods.</p>
+<p>Base class to define a wrapper for ArgumentParser method.</p>
+<p>Child class must define either <cite>_method_name</cite> or <cite>add_to_parser</cite>.</p>
 <dl class="method">
-<dt id="IPython.core.magic_arguments.argument.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.magic_arguments.ArgMethodWrapper.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.ArgMethodWrapper.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.magic_arguments.argument.add_to_parser">
-<tt class="descname">add_to_parser</tt><big>(</big><em>parser</em>, <em>group</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument.add_to_parser" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.magic_arguments.ArgMethodWrapper.add_to_parser">
+<tt class="descname">add_to_parser</tt><big>(</big><em>parser</em>, <em>group</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.ArgMethodWrapper.add_to_parser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add this object&#8217;s information to the parser.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
+<dt id="IPython.core.magic_arguments.argument">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">argument</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.magic_arguments.ArgMethodWrapper" title="IPython.core.magic_arguments.ArgMethodWrapper"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic_arguments.ArgMethodWrapper</span></tt></a></p>
+<p>Store arguments and keywords to pass to add_argument().</p>
+<p>Instances also serve to decorate command methods.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.magic_arguments.defaults">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">defaults</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.magic_arguments.ArgMethodWrapper" title="IPython.core.magic_arguments.ArgMethodWrapper"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic_arguments.ArgMethodWrapper</span></tt></a></p>
+<p>Store arguments and keywords to pass to set_defaults().</p>
+<p>Instances also serve to decorate command methods.</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="IPython.core.magic_arguments.argument_group">
 <em class="property">class </em><tt class="descclassname">IPython.core.magic_arguments.</tt><tt class="descname">argument_group</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument_group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.magic_arguments.ArgDecorator" title="IPython.core.magic_arguments.ArgDecorator"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic_arguments.ArgDecorator</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.magic_arguments.ArgMethodWrapper" title="IPython.core.magic_arguments.ArgMethodWrapper"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic_arguments.ArgMethodWrapper</span></tt></a></p>
 <p>Store arguments and keywords to pass to add_argument_group().</p>
 <p>Instances also serve to decorate command methods.</p>
-<dl class="method">
-<dt id="IPython.core.magic_arguments.argument_group.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument_group.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="IPython.core.magic_arguments.argument_group.add_to_parser">
 <tt class="descname">add_to_parser</tt><big>(</big><em>parser</em>, <em>group</em><big>)</big><a class="headerlink" href="#IPython.core.magic_arguments.argument_group.add_to_parser" title="Permalink to this definition">¶</a></dt>
@@ -303,7 +317,7 @@ name.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 07, 2012.
+      Last updated on Dec 19, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

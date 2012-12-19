@@ -62,6 +62,14 @@
 
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">cythonmagic</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="autoreload.html"
                         title="previous chapter">autoreload</a></p>
@@ -96,10 +104,116 @@
             
   <div class="section" id="module-IPython.extensions.cythonmagic">
 <span id="cythonmagic"></span><span id="extensions-cythonmagic"></span><h1>cythonmagic<a class="headerlink" href="#module-IPython.extensions.cythonmagic" title="Permalink to this headline">¶</a></h1>
-<p>Cython related magics.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">%%cython</span></tt></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>%cython [-c COMPILE_ARGS] [-la LINK_ARGS] [-l LIB] [-L dir] [-I INCLUDE]</dt>
+<dd>[-+] [-f] [-a]</dd>
+</dl>
+</div></blockquote>
+<p>Compile and import everything from a Cython code cell.</p>
+<p>The contents of the cell are written to a <cite>.pyx</cite> file in the
+directory <cite>IPYTHONDIR/cython</cite> using a filename with the hash of the
+code. This file is then cythonized and compiled. The resulting module
+is imported and all of its symbols are injected into the user&#8217;s
+namespace. The usage is similar to that of <cite>%%cython_pyximport</cite> but
+you don&#8217;t have to pass a module name:</p>
+<div class="highlight-python"><pre>%%cython
+def f(x):
+    return 2.0*x</pre>
+</div>
+<p>To compile OpenMP codes, pass the required  <cite>&#8211;compile-args</cite>
+and <cite>&#8211;link-args</cite>.  For example with gcc:</p>
+<div class="highlight-python"><pre>%%cython --compile-args=-fopenmp --link-args=-fopenmp
+...</pre>
+</div>
+<dl class="docutils">
+<dt>optional arguments:</dt>
+<dd><table class="first docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-c <var>COMPILE_ARGS</var></span>, <span class="option">--compile-args <var>COMPILE_ARGS</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Extra flags to pass to compiler via the
+<cite>extra_compile_args</cite> Extension flag (can be specified
+multiple times).</td></tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>-la LINK_ARGS, &#8211;link-args LINK_ARGS</dt>
+<dd>Extra flags to pass to linker via the
+<cite>extra_link_args</cite> Extension flag (can be specified
+multiple times).</dd>
+</dl>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-l <var>LIB</var></span>, <span class="option">--lib <var>LIB</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Add a library to link the extension against (can be
+specified multiple times).</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-L <var>dir</var></span></kbd></td>
+<td>Add a path to the list of libary directories (can be
+specified multiple times).</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-I <var>INCLUDE</var></span>, <span class="option">--include <var>INCLUDE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Add a path to the list of include directories (can be
+specified multiple times).</td></tr>
+</tbody>
+</table>
+<p>-+, &#8211;cplus           Output a C++ rather than C file.
+-f, &#8211;force           Force the compilation of a new module, even if the</p>
+<blockquote>
+<div>source has been previously compiled.</div></blockquote>
+<table class="last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-a</span>, <span class="option">--annotate</span></kbd></td>
+<td>Produce a colorized HTML version of the source.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">%%cython_inline</span></tt></p>
+<blockquote>
+<div><p>Compile and run a Cython code cell using Cython.inline.</p>
+<p>This magic simply passes the body of the cell to Cython.inline
+and returns the result. If the variables <cite>a</cite> and <cite>b</cite> are defined
+in the user&#8217;s namespace, here is a simple example that returns
+their sum:</p>
+<div class="highlight-python"><pre>%%cython_inline
+return a+b</pre>
+</div>
+<p>For most purposes, we recommend the usage of the <cite>%%cython</cite> magic.</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%%cython_pyximport</span></tt></p>
+<blockquote>
+<div><p>Compile and import a Cython code cell using pyximport.</p>
+<p>The contents of the cell are written to a <cite>.pyx</cite> file in the current
+working directory, which is then imported using <cite>pyximport</cite>. This
+magic requires a module name to be passed:</p>
+<div class="highlight-python"><pre>%%cython_pyximport modulename
+def f(x):
+    return 2.0*x</pre>
+</div>
+<p>The compiled module is then imported and all of its symbols are
+injected into the user&#8217;s namespace. For most purposes, we recommend
+the usage of the <cite>%%cython</cite> magic.</p>
+</div></blockquote>
 <p>Author:
 * Brian Granger</p>
 <p>Parts of this code were taken from Cython.inline.</p>
+</div>
 </div>
 
 
@@ -133,7 +247,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 07, 2012.
+      Last updated on Dec 19, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

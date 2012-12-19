@@ -139,6 +139,9 @@ block (see Subclassing below).</li>
 classes.</li>
 </ul>
 </div></blockquote>
+<p>Inheritance diagram:</p>
+<img src="../../_images/inheritance21dba67aa2.png" usemap="#inheritance21dba67aa2" class="inheritance"/><map id="inheritance21dba67aa2" name="inheritance21dba67aa2">
+</map>
 </div>
 <div class="section" id="subclassing">
 <h2>Subclassing<a class="headerlink" href="#subclassing" title="Permalink to this headline">¶</a></h2>
@@ -198,9 +201,11 @@ place a set of stop tags; the other tags are only there to let you fine-tune
 the execution.</p>
 <p>This is probably best explained with the simple example file below.  You can
 copy this into a file named ex_demo.py, and try running it via:</p>
-<p>from IPython.demo import Demo
-d = Demo(&#8216;ex_demo.py&#8217;)
-d()  &lt;&#8212; Call the d object (omit the parens if you have autocall set to 2).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.demo</span> <span class="kn">import</span> <span class="n">Demo</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">Demo</span><span class="p">(</span><span class="s">&#39;ex_demo.py&#39;</span><span class="p">)</span>
+<span class="n">d</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>Each time you call the demo object, it runs the next block.  The demo object
 has a few useful methods for navigation, like again(), edit(), jump(), seek()
 and back().  It can be reset for a new run via reset() or reloaded from disk
@@ -215,31 +220,43 @@ an IPython session, and type:</p>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>The following is a very simple example of a valid demo file.</p>
-<p>#################### EXAMPLE DEMO &lt;ex_demo.py&gt; ###############################
-&#8216;&#8217;&#8216;A simple interactive demo to illustrate the use of IPython&#8217;s Demo class.&#8217;&#8216;&#8217;</p>
-<p>print &#8216;Hello, welcome to an interactive IPython demo.&#8217;</p>
-<p># The mark below defines a block boundary, which is a point where IPython will
-# stop execution and return to the interactive prompt. The dashes are actually
-# optional and used only as a visual aid to clearly separate blocks while
-# editing the demo code.
-# &lt;demo&gt; stop</p>
-<p>x = 1
-y = 2</p>
-<p># &lt;demo&gt; stop</p>
-<p># the mark below makes this block as silent
-# &lt;demo&gt; silent</p>
-<p>print &#8216;This is a silent block, which gets executed but not printed.&#8217;</p>
-<p># &lt;demo&gt; stop
-# &lt;demo&gt; auto
-print &#8216;This is an automatic block.&#8217;
-print &#8216;It is executed without asking for confirmation, but printed.&#8217;
-z = x+y</p>
-<p>print &#8216;z=&#8217;,x</p>
-<p># &lt;demo&gt; stop
-# This is just another normal block.
-print &#8216;z is now:&#8217;, z</p>
-<p>print &#8216;bye!&#8217;
-################### END EXAMPLE DEMO &lt;ex_demo.py&gt; ############################</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#################### EXAMPLE DEMO &lt;ex_demo.py&gt; ###############################</span>
+<span class="sd">&#39;&#39;&#39;A simple interactive demo to illustrate the use of IPython&#39;s Demo class.&#39;&#39;&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;Hello, welcome to an interactive IPython demo.&#39;</span>
+
+<span class="c"># The mark below defines a block boundary, which is a point where IPython will</span>
+<span class="c"># stop execution and return to the interactive prompt. The dashes are actually</span>
+<span class="c"># optional and used only as a visual aid to clearly separate blocks while</span>
+<span class="c"># editing the demo code.</span>
+<span class="c"># &lt;demo&gt; stop</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c"># &lt;demo&gt; stop</span>
+
+<span class="c"># the mark below makes this block as silent</span>
+<span class="c"># &lt;demo&gt; silent</span>
+
+<span class="k">print</span> <span class="s">&#39;This is a silent block, which gets executed but not printed.&#39;</span>
+
+<span class="c"># &lt;demo&gt; stop</span>
+<span class="c"># &lt;demo&gt; auto</span>
+<span class="k">print</span> <span class="s">&#39;This is an automatic block.&#39;</span>
+<span class="k">print</span> <span class="s">&#39;It is executed without asking for confirmation, but printed.&#39;</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+
+<span class="k">print</span> <span class="s">&#39;z=&#39;</span><span class="p">,</span><span class="n">x</span>
+
+<span class="c"># &lt;demo&gt; stop</span>
+<span class="c"># This is just another normal block.</span>
+<span class="k">print</span> <span class="s">&#39;z is now:&#39;</span><span class="p">,</span> <span class="n">z</span>
+
+<span class="k">print</span> <span class="s">&#39;bye!&#39;</span>
+<span class="c">################### END EXAMPLE DEMO &lt;ex_demo.py&gt; ############################</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="classes">
 <h2>8 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
@@ -251,11 +268,11 @@ print &#8216;z is now:&#8217;, z</p>
 
 <dl class="class">
 <dt id="IPython.lib.demo.Demo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">Demo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">Demo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <dl class="method">
 <dt id="IPython.lib.demo.Demo.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a new demo object.  To run the demo, simply call the object.</p>
 <p>See the module docstring for full details and an example (you can use
 IPython.Demo? in IPython to see it).</p>
@@ -331,7 +348,7 @@ explanatory purposes, without damaging your original script.</p>
 
 <dl class="method">
 <dt id="IPython.lib.demo.Demo.marquee">
-<tt class="descname">marquee</tt><big>(</big><em>txt=''</em>, <em>width=78</em>, <em>mark='*'</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo.marquee" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">marquee</tt><big>(</big><em>txt=u''</em>, <em>width=78</em>, <em>mark=u'*'</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.Demo.marquee" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the input string centered in a &#8216;marquee&#8217;.</p>
 </dd></dl>
 
@@ -389,7 +406,7 @@ semantics to those of Python lists.</p>
 
 <dl class="class">
 <dt id="IPython.lib.demo.IPythonDemo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">IPythonDemo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.IPythonDemo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">IPythonDemo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.IPythonDemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.demo.Demo" title="IPython.lib.demo.Demo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.Demo</span></tt></a></p>
 <p>Class for interactive demos with IPython&#8217;s input processing applied.</p>
 <p>This subclasses Demo, but instead of executing each block by the Python
@@ -409,7 +426,7 @@ class requires the input to be valid, pure Python code.</p>
 
 <dl class="class">
 <dt id="IPython.lib.demo.LineDemo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">LineDemo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.LineDemo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">LineDemo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.LineDemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.demo.Demo" title="IPython.lib.demo.Demo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.Demo</span></tt></a></p>
 <p>Demo where each line is executed as a separate block.</p>
 <p>The input script should be valid Python code.</p>
@@ -430,7 +447,7 @@ valid.</p>
 
 <dl class="class">
 <dt id="IPython.lib.demo.IPythonLineDemo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">IPythonLineDemo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.IPythonLineDemo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">IPythonLineDemo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.IPythonLineDemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.demo.IPythonDemo" title="IPython.lib.demo.IPythonDemo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.IPythonDemo</span></tt></a>, <a class="reference internal" href="#IPython.lib.demo.LineDemo" title="IPython.lib.demo.LineDemo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.LineDemo</span></tt></a></p>
 <p>Variant of the LineDemo class whose input is processed by IPython.</p>
 </dd></dl>
@@ -450,7 +467,7 @@ tree.  For example:</p>
 <p>will provide an IPythonDemo class with the mixin&#8217;s features.</p>
 <dl class="method">
 <dt id="IPython.lib.demo.ClearMixin.marquee">
-<tt class="descname">marquee</tt><big>(</big><em>txt=''</em>, <em>width=78</em>, <em>mark='*'</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearMixin.marquee" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">marquee</tt><big>(</big><em>txt=u''</em>, <em>width=78</em>, <em>mark=u'*'</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearMixin.marquee" title="Permalink to this definition">¶</a></dt>
 <dd><p>Blank marquee that returns &#8216;&#8217; no matter what the input.</p>
 </dd></dl>
 
@@ -465,13 +482,13 @@ tree.  For example:</p>
 
 <dl class="class">
 <dt id="IPython.lib.demo.ClearDemo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">ClearDemo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearDemo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">ClearDemo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearDemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.demo.ClearMixin" title="IPython.lib.demo.ClearMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.ClearMixin</span></tt></a>, <a class="reference internal" href="#IPython.lib.demo.Demo" title="IPython.lib.demo.Demo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.Demo</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.lib.demo.ClearIPDemo">
-<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">ClearIPDemo</tt><big>(</big><em>src</em>, <em>title=''</em>, <em>arg_str=''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearIPDemo" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.demo.</tt><tt class="descname">ClearIPDemo</tt><big>(</big><em>src</em>, <em>title=u''</em>, <em>arg_str=u''</em>, <em>auto_all=None</em><big>)</big><a class="headerlink" href="#IPython.lib.demo.ClearIPDemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.demo.ClearMixin" title="IPython.lib.demo.ClearMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.ClearMixin</span></tt></a>, <a class="reference internal" href="#IPython.lib.demo.IPythonDemo" title="IPython.lib.demo.IPythonDemo"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.demo.IPythonDemo</span></tt></a></p>
 </dd></dl>
 
@@ -516,7 +533,7 @@ tree.  For example:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 07, 2012.
+      Last updated on Dec 19, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

@@ -125,9 +125,10 @@ currently active <tt class="xref py py-class docutils literal"><span class="pre"
 the only argument.  You can do anything you want with IPython at
 that point, including defining new magic and aliases, adding new
 components, etc.</p>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">load_ipython_extension()</span></tt> will be called again is you
-load or reload the extension again.  It is up to the extension
-author to add code to manage that.</p>
+<p>You can also optionaly define an <tt class="xref py py-func docutils literal"><span class="pre">unload_ipython_extension(ipython)()</span></tt>
+function, which will be called if the user unloads or reloads the extension.
+The extension manager will only call <tt class="xref py py-func docutils literal"><span class="pre">load_ipython_extension()</span></tt> again
+if the extension is reloaded.</p>
 <p>You can put your extension modules anywhere you want, as long as
 they can be imported by Python&#8217;s standard import mechanism.  However,
 to make it easy to write extensions, you can also put your extensions
@@ -152,8 +153,9 @@ have a .py or .zip extension; otherwise, a ValueError will be raised.</p>
 <dt id="IPython.core.extensions.ExtensionManager.load_extension">
 <tt class="descname">load_extension</tt><big>(</big><em>module_str</em><big>)</big><a class="headerlink" href="#IPython.core.extensions.ExtensionManager.load_extension" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load an IPython extension by its module name.</p>
-<p>If <tt class="xref py py-func docutils literal"><span class="pre">load_ipython_extension()</span></tt> returns anything, this function
-will return that object.</p>
+<p>Returns the string &#8220;already loaded&#8221; if the extension is already loaded,
+&#8220;no load function&#8221; if the module doesn&#8217;t have a load_ipython_extension
+function, or None if it succeeded.</p>
 </dd></dl>
 
 <dl class="method">
@@ -172,6 +174,9 @@ function of the module, if it exists is called.</p>
 <dd><p>Unload an IPython extension by its module name.</p>
 <p>This function looks up the extension&#8217;s name in <tt class="docutils literal"><span class="pre">sys.modules</span></tt> and
 simply calls <tt class="docutils literal"><span class="pre">mod.unload_ipython_extension(self)</span></tt>.</p>
+<p>Returns the string &#8220;no unload function&#8221; if the extension doesn&#8217;t define
+a function to unload itself, &#8220;not loaded&#8221; if the extension isn&#8217;t loaded,
+otherwise None.</p>
 </dd></dl>
 
 </dd></dl>
@@ -209,7 +214,7 @@ simply calls <tt class="docutils literal"><span class="pre">mod.unload_ipython_e
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 07, 2012.
+      Last updated on Dec 19, 2012.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
