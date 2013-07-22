@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.hooks &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.hooks &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,10 +23,10 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.inputsplitter" href="IPython.core.inputsplitter.html" />
-    <link rel="prev" title="Module: core.history" href="IPython.core.history.html" /> 
+    <link rel="prev" title="Module: core.historyapp" href="IPython.core.historyapp.html" /> 
   </head>
   <body>
 
@@ -49,7 +47,7 @@
           <a href="IPython.core.inputsplitter.html" title="Module: core.inputsplitter"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="IPython.core.history.html" title="Module: core.history"
+          <a href="IPython.core.historyapp.html" title="Module: core.historyapp"
              accesskey="P">previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -71,8 +69,8 @@
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="IPython.core.history.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.history</span></tt></a></p>
+  <p class="topless"><a href="IPython.core.historyapp.html"
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.historyapp</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.inputsplitter.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.inputsplitter</span></tt></a></p>
@@ -104,36 +102,30 @@
             
   <div class="section" id="module-IPython.core.hooks">
 <span id="module-core-hooks"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.hooks</span></tt><a class="headerlink" href="#module-IPython.core.hooks" title="Permalink to this headline">¶</a></h1>
-<p>hooks for IPython.</p>
+<p>Hooks for IPython.</p>
 <p>In Python, it is possible to overwrite any method of any object if you really
-want to.  But IPython exposes a few &#8216;hooks&#8217;, methods which are _designed_ to
+want to.  But IPython exposes a few &#8216;hooks&#8217;, methods which are <em>designed</em> to
 be overwritten by users for customization purposes.  This module defines the
 default versions of all such hooks, which get used by IPython if not
 overridden by the user.</p>
-<p>hooks are simple functions, but they should be declared with &#8216;self&#8217; as their
+<p>Hooks are simple functions, but they should be declared with <tt class="docutils literal"><span class="pre">self</span></tt> as their
 first argument, because when activated they are registered into IPython as
-instance methods.  The self argument will be the IPython running instance
+instance methods. The self argument will be the IPython running instance
 itself, so hooks have full access to the entire IPython object.</p>
-<p>If you wish to define a new hook and activate it, you need to put the
-necessary code into a python file which can be either imported or execfile()&#8217;d
-from within your profile&#8217;s ipython_config.py configuration.</p>
-<p>For example, suppose that you have a module called &#8216;myiphooks&#8217; in your
-PYTHONPATH, which contains the following definition:</p>
-<p>import os
-from IPython.core import ipapi
-ip = ipapi.get()</p>
-<dl class="docutils">
-<dt>def calljed(self,filename, linenum):</dt>
-<dd><p class="first">&#8220;My editor hook calls the jed editor directly.&#8221;
-print &#8220;Calling my own editor, jed ...&#8221;
-if os.system(&#8216;jed +%d %s&#8217; % (linenum,filename)) != 0:</p>
-<blockquote class="last">
-<div>raise TryNext()</div></blockquote>
-</dd>
-</dl>
-<p>ip.set_hook(&#8216;editor&#8217;, calljed)</p>
-<p>You can then enable the functionality by doing &#8216;import myiphooks&#8217;
-somewhere in your configuration files or ipython command line.</p>
+<p>If you wish to define a new hook and activate it, you can make an <a class="reference internal" href="../../config/extensions/index.html"><em>extension</em></a> or a <a class="reference internal" href="../../config/overview.html#startup-files"><em>startup script</em></a>. For
+example, you could use a startup file like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">calljed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">filename</span><span class="p">,</span> <span class="n">linenum</span><span class="p">):</span>
+    <span class="s">&quot;My editor hook calls the jed editor directly.&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;Calling my own editor, jed ...&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;jed +</span><span class="si">%d</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">linenum</span><span class="p">,</span><span class="n">filename</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">TryNext</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">load_ipython_extension</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="n">ip</span><span class="o">.</span><span class="n">set_hook</span><span class="p">(</span><span class="s">&#39;editor&#39;</span><span class="p">,</span> <span class="n">calljed</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="section" id="class">
 <h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -254,7 +246,7 @@ to not mess up text entry)</p>
           <a href="IPython.core.inputsplitter.html" title="Module: core.inputsplitter"
              >next</a> |</li>
         <li class="right" >
-          <a href="IPython.core.history.html" title="Module: core.history"
+          <a href="IPython.core.historyapp.html" title="Module: core.historyapp"
              >previous</a> |</li>
         <li><a href="../../index.html">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
@@ -265,8 +257,8 @@ to not mess up text entry)</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

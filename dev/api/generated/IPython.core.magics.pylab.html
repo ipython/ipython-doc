@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.pylab &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.magics.pylab &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.script" href="IPython.core.magics.script.html" />
     <link rel="prev" title="Module: core.magics.osm" href="IPython.core.magics.osm.html" /> 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.magics.osm.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.magics.osm</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.magics.osm</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magics.script.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.script</span></tt></a></p>
@@ -112,14 +110,13 @@
 <dd><p>Bases: <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a></p>
 <p>Magics related to matplotlib&#8217;s pylab support</p>
 <dl class="method">
-<dt id="IPython.core.magics.pylab.PylabMagics.pylab">
-<tt class="descname">pylab</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.pylab.PylabMagics.pylab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load numpy and matplotlib to work interactively.</p>
-<p>%pylab [GUINAME]</p>
-<p>This function lets you activate pylab (matplotlib, numpy and
-interactive support) at any point during an IPython session.</p>
-<p>It will import at the top level numpy as np, pyplot as plt, matplotlib,
-pylab and mlab, as well as all names from numpy and pylab.</p>
+<dt id="IPython.core.magics.pylab.PylabMagics.matplotlib">
+<tt class="descname">matplotlib</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.pylab.PylabMagics.matplotlib" title="Permalink to this definition">¶</a></dt>
+<dd><p>%matplotlib [gui]</p>
+<p>Set up matplotlib to work interactively.</p>
+<p>This function lets you activate matplotlib interactive support
+at any point during an IPython session.
+It does not import anything into the interactive namespace.</p>
 <p>If you are using the inline matplotlib backend for embedded figures,
 you can adjust its behavior via the %config magic:</p>
 <div class="highlight-python"><pre># enable SVG figures, necessary for SVG+XHTML export in the qtconsole
@@ -130,36 +127,76 @@ In [1]: %config InlineBackend.figure_format = 'svg'
 # cells:
 In [2]: %config InlineBackend.close_figures = False</pre>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>guiname</strong> : optional</p>
-<blockquote class="last">
-<div><p>One of the valid arguments to the %gui magic (&#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;,
-&#8216;osx&#8217; or &#8216;tk&#8217;).  If given, the corresponding Matplotlib backend is
-used, otherwise matplotlib&#8217;s default (which you can override in your
-matplotlib config file) is used.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
 <p class="rubric">Examples</p>
 <p>In this case, where the MPL default is TkAgg:</p>
-<div class="highlight-python"><pre>In [2]: %pylab
-
-Welcome to pylab, a matplotlib-based Python environment.
-Backend in use: TkAgg
-For more information, type 'help(pylab)'.</pre>
+<div class="highlight-python"><pre>In [2]: %matplotlib
+Using matplotlib backend: TkAgg</pre>
 </div>
 <p>But you can explicitly request a different backend:</p>
-<div class="highlight-python"><pre>In [3]: %pylab qt
-
-Welcome to pylab, a matplotlib-based Python environment.
-Backend in use: Qt4Agg
-For more information, type 'help(pylab)'.</pre>
+<div class="highlight-python"><pre>In [3]: %matplotlib qt</pre>
 </div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>gui  Name of the matplotlib backend to use (&#8216;gtk&#8217;, &#8216;inline&#8217;, &#8216;osx&#8217;, &#8216;qt&#8217;,</dt>
+<dd>&#8216;qt4&#8217;, &#8216;tk&#8217;, &#8216;wx&#8217;). If given, the corresponding matplotlib backend is
+used, otherwise it will be matplotlib&#8217;s default (which you can set in
+your matplotlib config file).</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.pylab.PylabMagics.pylab">
+<tt class="descname">pylab</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.pylab.PylabMagics.pylab" title="Permalink to this definition">¶</a></dt>
+<dd><p>%pylab [&#8211;no-import-all] [gui]</p>
+<p>Load numpy and matplotlib to work interactively.</p>
+<p>This function lets you activate pylab (matplotlib, numpy and
+interactive support) at any point during an IPython session.</p>
+<p>%pylab makes the following imports:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pylab</span><span class="p">,</span> <span class="n">mlab</span><span class="p">,</span> <span class="n">pyplot</span>
+<span class="n">np</span> <span class="o">=</span> <span class="n">numpy</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">pyplot</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">getfigs</span>
+
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>If you pass <cite>&#8211;no-import-all</cite>, the last two <cite>*</cite> imports will be excluded.</p>
+<p>See the %matplotlib magic for more details about activating matplotlib
+without affecting the interactive namespace.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>gui              Name of the matplotlib backend to use (&#8216;gtk&#8217;, &#8216;inline&#8217;,</dt>
+<dd>&#8216;osx&#8217;, &#8216;qt&#8217;, &#8216;qt4&#8217;, &#8216;tk&#8217;, &#8216;wx&#8217;). If given, the
+corresponding matplotlib backend is used, otherwise it will
+be matplotlib&#8217;s default (which you can set in your
+matplotlib config file).</dd>
+</dl>
+</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--no-import-all</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Prevent IPython from performing <tt class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></tt> into the
+interactive namespace. You can govern the default behavior
+of this flag with the InteractiveShellApp.pylab_import_all
+configurable.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -197,8 +234,8 @@ For more information, type 'help(pylab)'.</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.client.client &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: parallel.client.client &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: parallel.client.magics" href="IPython.parallel.client.magics.html" />
     <link rel="prev" title="Module: parallel.client.asyncresult" href="IPython.parallel.client.asyncresult.html" /> 
@@ -72,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.asyncresult.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">parallel.client.asyncresult</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">parallel.client.asyncresult</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.parallel.client.magics.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.magics</span></tt></a></p>
@@ -477,12 +475,82 @@ using all engines.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.parallel.client.client.Client.purge_results">
-<tt class="descname">purge_results</tt><big>(</big><em>jobs=</em><span class="optional">[</span><span class="optional">]</span>, <em>targets=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_results" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.parallel.client.client.Client.purge_everything">
+<tt class="descname">purge_everything</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_everything" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all content from previous Tasks from both the hub and the local client</p>
+<p>In addition to calling <cite>purge_results(&#8220;all&#8221;)</cite> it also deletes the history and 
+other bookkeeping lists.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.purge_hub_results">
+<tt class="descname">purge_hub_results</tt><big>(</big><em>jobs=</em><span class="optional">[</span><span class="optional">]</span>, <em>targets=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_hub_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tell the Hub to forget results.</p>
 <p>Individual results can be purged by msg_id, or the entire
 history of specific targets can be purged.</p>
 <p>Use <cite>purge_results(&#8216;all&#8217;)</cite> to scrub everything from the Hub&#8217;s db.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>jobs</strong> : str or list of str or AsyncResult objects</p>
+<blockquote>
+<div><p>the msg_ids whose results should be forgotten.</p>
+</div></blockquote>
+<p><strong>targets</strong> : int/str/list of ints/strs</p>
+<blockquote class="last">
+<div><p>The targets, by int_id, whose entire history is to be purged.</p>
+<p>default : None</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.purge_local_results">
+<tt class="descname">purge_local_results</tt><big>(</big><em>jobs=</em><span class="optional">[</span><span class="optional">]</span>, <em>targets=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_local_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the client caches of results and frees such memory.</p>
+<p>Individual results can be purged by msg_id, or the entire
+history of specific targets can be purged.</p>
+<p>Use <cite>purge_local_results(&#8216;all&#8217;)</cite> to scrub everything from the Clients&#8217;s db.</p>
+<p>The client must have no outstanding tasks before purging the caches.
+Raises <cite>AssertionError</cite> if there are still outstanding tasks.</p>
+<p>After this call all <cite>AsyncResults</cite> are invalid and should be discarded.</p>
+<p>If you must &#8220;reget&#8221; the results, you can still do so by using
+<cite>client.get_result(msg_id)</cite> or <cite>client.get_result(asyncresult)</cite>. This will
+redownload the results from the hub if they are still available
+(i.e <cite>client.purge_hub_results(...)</cite> has not been called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>jobs</strong> : str or list of str or AsyncResult objects</p>
+<blockquote>
+<div><p>the msg_ids whose results should be purged.</p>
+</div></blockquote>
+<p><strong>targets</strong> : int/str/list of ints/strs</p>
+<blockquote class="last">
+<div><p>The targets, by int_id, whose entire results are to be purged.</p>
+<p>default : None</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.purge_results">
+<tt class="descname">purge_results</tt><big>(</big><em>jobs=</em><span class="optional">[</span><span class="optional">]</span>, <em>targets=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the cached results from both the hub and the local client</p>
+<p>Individual results can be purged by msg_id, or the entire
+history of specific targets can be purged.</p>
+<p>Use <cite>purge_results(&#8216;all&#8217;)</cite> to scrub every cached result from both the Hub&#8217;s and 
+the Client&#8217;s db.</p>
+<p>Equivalent to calling both <cite>purge_hub_results()</cite> and <cite>purge_client_results()</cite> with 
+the same arguments.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -751,8 +819,8 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

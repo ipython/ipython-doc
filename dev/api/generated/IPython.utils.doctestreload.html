@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: utils.doctestreload &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: utils.doctestreload &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: utils.encoding" href="IPython.utils.encoding.html" />
     <link rel="prev" title="Module: utils.dir2" href="IPython.utils.dir2.html" /> 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.utils.dir2.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">utils.dir2</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">utils.dir2</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.utils.encoding.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.encoding</span></tt></a></p>
@@ -124,18 +122,20 @@ rely on the default behavior, notably doctest.</p>
 <blockquote>
 <div><ul class="simple">
 <li>imports doctest but does NOT reload it (see below).</li>
-<li>resets its global &#8216;master&#8217; attribute to None, so that multiple uses of</li>
-</ul>
-<p>the module interactively don&#8217;t produce cumulative reports.</p>
-<ul class="simple">
-<li>Monkeypatches its core test runner method to protect it from IPython&#8217;s</li>
-</ul>
-<p>modified displayhook.  Doctest expects the default displayhook behavior
+<li>resets its global &#8216;master&#8217; attribute to None, so that multiple uses of
+the module interactively don&#8217;t produce cumulative reports.</li>
+<li>Monkeypatches its core test runner method to protect it from IPython&#8217;s
+modified displayhook.  Doctest expects the default displayhook behavior
 deep down, so our modification breaks it completely.  For this reason, a
 hard monkeypatch seems like a reasonable solution rather than asking
-users to manually use a different doctest runner when under IPython.</p>
+users to manually use a different doctest runner when under IPython.</li>
+</ul>
 </div></blockquote>
 <p class="rubric">Notes</p>
+<p>As of Python 2.6.6, 2.7.1 and 3.2, this monkeypatching is no longer required.
+doctest now takes care of resetting sys.displayhook itself. This function
+remains for now in case anyone has to work with older versions, but it&#8217;s
+no longer called during IPython startup.</p>
 <p>This function <em>used to</em> reload doctest, but this has been disabled because
 reloading doctest unconditionally can cause massive breakage of other
 doctest-dependent modules already in memory, such as those for IPython&#8217;s
@@ -176,8 +176,8 @@ code, but the reload call isn&#8217;t actually made anymore.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

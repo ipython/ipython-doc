@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel examples &mdash; IPython 0.14.dev documentation</title>
+    <title>Parallel examples &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="DAG Dependencies" href="dag_dependencies.html" />
     <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" /> 
@@ -69,7 +67,6 @@
 <li><a class="reference internal" href="#parallel-calculation">Parallel calculation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#parallel-options-pricing">Parallel options pricing</a></li>
 <li><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
@@ -287,60 +284,6 @@ compared to the 10,000 digit calculation.</p>
 <img alt="../_images/two_digit_counts.png" src="../_images/two_digit_counts.png" />
 </div>
 </div>
-<div class="section" id="parallel-options-pricing">
-<h2>Parallel options pricing<a class="headerlink" href="#parallel-options-pricing" title="Permalink to this headline">¶</a></h2>
-<p>An option is a financial contract that gives the buyer of the contract the
-right to buy (a &#8220;call&#8221;) or sell (a &#8220;put&#8221;) a secondary asset (a stock for
-example) at a particular date in the future (the expiration date) for a
-pre-agreed upon price (the strike price). For this right, the buyer pays the
-seller a premium (the option price). There are a wide variety of flavors of
-options (American, European, Asian, etc.) that are useful for different
-purposes: hedging against risk, speculation, etc.</p>
-<p>Much of modern finance is driven by the need to price these contracts
-accurately based on what is known about the properties (such as volatility) of
-the underlying asset. One method of pricing options is to use a Monte Carlo
-simulation of the underlying asset price. In this example we use this approach
-to price both European and Asian (path dependent) options for various strike
-prices and volatilities.</p>
-<p>The code for this example can be found in the <tt class="file docutils literal"><span class="pre">docs/examples/parallel/options</span></tt>
-directory of the IPython source. The function <tt class="xref py py-func docutils literal"><span class="pre">price_options()</span></tt> in
-<tt class="file docutils literal"><span class="pre">mckernel.py</span></tt> implements the basic Monte Carlo pricing algorithm using
-the NumPy package and is shown here:</p>
-<p>To run this code in parallel, we will use IPython&#8217;s <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> class,
-which distributes work to the engines using dynamic load balancing. This
-view is a wrapper of the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> class shown in
-the previous example. The parallel calculation using <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> can
-be found in the file <tt class="file docutils literal"><span class="pre">mcpricer.py</span></tt>. The code in this file creates a
-<tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> instance and then submits a set of tasks using
-<tt class="xref py py-meth docutils literal"><span class="pre">LoadBalancedView.apply()</span></tt> that calculate the option prices for different
-volatilities and strike prices. The results are then plotted as a 2D contour
-plot using Matplotlib.</p>
-<p>To use this code, start an IPython cluster using <strong class="command">ipcluster</strong>, open
-IPython in the pylab mode with the file <tt class="file docutils literal"><span class="pre">mckernel.py</span></tt> in your current
-working directory and then type:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">run</span> <span class="n">mcpricer</span><span class="o">.</span><span class="n">py</span>
-
-<span class="go">Submitted tasks:  30</span>
-</pre></div>
-</div>
-<p>Once all the tasks have finished, the results can be plotted using the
-<tt class="xref py py-func docutils literal"><span class="pre">plot_options()</span></tt> function. Here we make contour plots of the Asian
-call and Asian put options as function of the volatility and strike price:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="n">plot_options</span><span class="p">(</span><span class="n">sigma_vals</span><span class="p">,</span> <span class="n">strike_vals</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;acall&#39;</span><span class="p">])</span>
-
-<span class="gp">In [9]: </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="gr">Out[9]: </span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x18c178d0</span><span class="o">&gt;</span>
-
-<span class="gp">In [10]: </span><span class="n">plot_options</span><span class="p">(</span><span class="n">sigma_vals</span><span class="p">,</span> <span class="n">strike_vals</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="s">&#39;aput&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>These results are shown in the two figures below. On our 15 engines, the
-entire calculation (15 strike prices, 15 volatilities, 100,000 paths for each)
-took 37 seconds in parallel, giving a speedup of 14.1x, which is comparable
-to the speedup observed in our previous example.</p>
-<img alt="../_images/asian_call.png" src="../_images/asian_call.png" />
-<img alt="../_images/asian_put.png" src="../_images/asian_put.png" />
-</div>
 <div class="section" id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">¶</a></h2>
 <p>To conclude these examples, we summarize the key features of IPython&#8217;s
@@ -390,8 +333,8 @@ to get started with IPython&#8217;s parallel capabilities.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

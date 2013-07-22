@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython &mdash; IPython 0.14.dev documentation</title>
+    <title>IPython &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: config.application" href="IPython.config.application.html" />
     <link rel="prev" title="The IPython API" href="../index.html" /> 
@@ -64,7 +62,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">IPython</span></tt></a><ul>
-<li><a class="reference internal" href="#function">1 Function</a></li>
+<li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -105,12 +103,16 @@
 <span id="ipython"></span><h1><a class="reference internal" href="#module-IPython" title="IPython"><tt class="xref py py-mod docutils literal"><span class="pre">IPython</span></tt></a><a class="headerlink" href="#module-IPython" title="Permalink to this headline">¶</a></h1>
 <p>IPython: tools for interactive and parallel computing in Python.</p>
 <p><a class="reference external" href="http://ipython.org">http://ipython.org</a></p>
-<div class="section" id="function">
-<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.embed_kernel">
 <tt class="descclassname">IPython.</tt><tt class="descname">embed_kernel</tt><big>(</big><em>module=None</em>, <em>local_ns=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.embed_kernel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Embed and start an IPython kernel in a given scope.</p>
+<p>If you don&#8217;t want the kernel to initialize the namespace
+from the scope of the surrounding function,
+and/or you want to load full IPython configuration,
+you probably want <cite>IPython.start_kernel()</cite> instead.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -125,9 +127,78 @@
 </div></blockquote>
 <p><strong>kwargs</strong> : various, optional</p>
 <blockquote class="last">
-<div><p>Further keyword args are relayed to the KernelApp constructor,
+<div><p>Further keyword args are relayed to the IPKernelApp constructor,
 allowing configuration of the Kernel.  Will only have an effect
 on the first embed_kernel call for a given process.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.start_ipython">
+<tt class="descclassname">IPython.</tt><tt class="descname">start_ipython</tt><big>(</big><em>argv=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.start_ipython" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch a normal IPython instance (as opposed to embedded)</p>
+<p><cite>IPython.embed()</cite> puts a shell in a particular calling scope,
+such as a function or method for debugging purposes,
+which is often not desirable.</p>
+<p><cite>start_ipython()</cite> does full, regular IPython initialization,
+including loading startup files, configuration, etc.
+much of which is skipped by <cite>embed()</cite>.</p>
+<p>This is a public API method, and will survive implementation changes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list or None, optional</p>
+<blockquote>
+<div><p>If unspecified or None, IPython will parse command-line options from sys.argv.
+To prevent any command-line parsing, pass an empty list: <cite>argv=[]</cite>.</p>
+</div></blockquote>
+<p><strong>user_ns</strong> : dict, optional</p>
+<blockquote>
+<div><p>specify this dictionary to initialize the IPython user namespace with particular values.</p>
+</div></blockquote>
+<p><strong>kwargs</strong> : various, optional</p>
+<blockquote class="last">
+<div><p>Any other kwargs will be passed to the Application constructor,
+such as <cite>config</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.start_kernel">
+<tt class="descclassname">IPython.</tt><tt class="descname">start_kernel</tt><big>(</big><em>argv=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.start_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch a normal IPython kernel instance (as opposed to embedded)</p>
+<p><cite>IPython.embed_kernel()</cite> puts a shell in a particular calling scope,
+such as a function or method for debugging purposes,
+which is often not desirable.</p>
+<p><cite>start_kernel()</cite> does full, regular IPython initialization,
+including loading startup files, configuration, etc.
+much of which is skipped by <cite>embed()</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>argv</strong> : list or None, optional</p>
+<blockquote>
+<div><p>If unspecified or None, IPython will parse command-line options from sys.argv.
+To prevent any command-line parsing, pass an empty list: <cite>argv=[]</cite>.</p>
+</div></blockquote>
+<p><strong>user_ns</strong> : dict, optional</p>
+<blockquote>
+<div><p>specify this dictionary to initialize the IPython user namespace with particular values.</p>
+</div></blockquote>
+<p><strong>kwargs</strong> : various, optional</p>
+<blockquote class="last">
+<div><p>Any other kwargs will be passed to the Application constructor,
+such as <cite>config</cite>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -168,8 +239,8 @@ on the first embed_kernel call for a given process.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

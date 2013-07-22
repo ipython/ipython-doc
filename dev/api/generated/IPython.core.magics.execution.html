@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.execution &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.magics.execution &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.extension" href="IPython.core.magics.extension.html" />
     <link rel="prev" title="Module: core.magics.display" href="IPython.core.magics.display.html" /> 
@@ -65,13 +63,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.magics.execution</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.magics.display.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.magics.display</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.magics.display</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magics.extension.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.extension</span></tt></a></p>
@@ -151,15 +150,37 @@ captured output is discarded.</dd>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.debug">
-<tt class="descname">debug</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate the interactive debugger in post-mortem mode.</p>
-<p>If an exception has just occurred, this lets you inspect its stack
+<tt class="descname">debug</tt><big>(</big><em>line=''</em>, <em>cell=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>%debug [&#8211;breakpoint <a class="reference external" href="FILE:LINE">FILE:LINE</a>] [statement [statement ...]]</p>
+<p>Activate the interactive debugger.</p>
+<p>This magic command support two ways of activating debugger.
+One is to activate debugger before executing code.  This way, you
+can set a break point, to step through the code from the point.
+You can use this mode by giving statements to execute and optionally
+a breakpoint.</p>
+<p>The other one is to activate debugger in post-mortem mode.  You can
+activate this mode simply running %debug without any argument.
+If an exception has just occurred, this lets you inspect its stack
 frames interactively.  Note that this will always work only on the last
 traceback that occurred, so you must call this quickly after an
 exception that you wish to inspect has fired, because if another one
 occurs, it clobbers the previous one.</p>
 <p>If you want IPython to automatically do this on every exception, see
 the %pdb magic for more details.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>statement             Code to run in debugger. You can omit this in cell</dt>
+<dd>magic mode.</dd>
+</dl>
+</dd>
+<dt>optional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>&#8211;breakpoint <a class="reference external" href="FILE:LINE">FILE:LINE</a>, -b <a class="reference external" href="FILE:LINE">FILE:LINE</a></dt>
+<dd>Set break point at LINE in FILE.</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -173,10 +194,15 @@ filenames or string objects.</p>
 </dl>
 <p>Options:</p>
 <blockquote>
-<div>-r: use &#8216;raw&#8217; input.  By default, the &#8216;processed&#8217; history is used,
+<div><p>-r: use &#8216;raw&#8217; input.  By default, the &#8216;processed&#8217; history is used,
 so that magics are loaded in their transformed version to valid
-Python.  If this option is given, the raw input as typed as the
-command line is used instead.</div></blockquote>
+Python.  If this option is given, the raw input as typed at the
+command line is used instead.</p>
+<p>-q: quiet macro definition.  By default, a tag line is printed 
+to indicate the macro has been created, and then the contents of 
+the macro are printed.  If this option is given, then no printout
+is produced once the macro is created.</p>
+</div></blockquote>
 <p>This will define a global variable called <cite>name</cite> which is a string
 made of joining the slices and lines you specify (n1,n2,... numbers
 above) from your input history into a single string. This variable
@@ -186,7 +212,7 @@ executes.</p>
 <p>The syntax for indicating input ranges is described in %history.</p>
 <p>Note: as a &#8216;hidden&#8217; feature, you can also use traditional python slice
 notation, where N:M means numbers N through M-1.</p>
-<p>For example, if your history contains (%hist prints it):</p>
+<p>For example, if your history contains (print using %hist -n ):</p>
 <div class="highlight-python"><pre>44: x=1
 45: y=3
 46: z=x+y
@@ -230,7 +256,7 @@ the %debug magic.</p>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.prun">
-<tt class="descname">prun</tt><big>(</big><em>parameter_s=''</em>, <em>cell=None</em>, <em>user_mode=True</em>, <em>opts=None</em>, <em>arg_lst=None</em>, <em>prog_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.prun" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">prun</tt><big>(</big><em>parameter_s=''</em>, <em>cell=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.prun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a statement through the python code profiler.</p>
 <blockquote>
 <div><dl class="docutils">
@@ -327,11 +353,16 @@ contains profiler specific options as described here.</p>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.run">
-<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x3cde668&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x102f98ed8&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <dl class="docutils">
 <dt>Usage:</dt>
-<dd>%run [-n -i -t [-N&lt;N&gt;] -d [-b&lt;N&gt;] -p [profile options] -G] file [args]</dd>
+<dd><dl class="first last docutils">
+<dt>%run [-n -i -e -G]</dt>
+<dd>[( -t [-N&lt;N&gt;] | -d [-b&lt;N&gt;] | -p [profile options] )]
+( -m mod | file ) [args]</dd>
+</dl>
+</dd>
 </dl>
 <p>Parameters after the filename are passed as command-line arguments to
 the program (put in sys.argv). Then, control returns to IPython&#8217;s
@@ -406,6 +437,9 @@ number for this automatic breakpoint to be &lt;N&gt; by using the -bN option
 <p>will set the first breakpoint at line 40 in myscript.py.  Note that
 the first breakpoint must be set on a line which actually does
 something (not a comment or docstring) for it to stop execution.</p>
+<p>Or you can specify a breakpoint in a different file:</p>
+<div class="highlight-python"><pre>%run -d -b myotherfile.py:20 myscript</pre>
+</div>
 <p>When the pdb debugger starts, you will see a (Pdb) prompt.  You must
 first enter &#8216;c&#8217; (without quotes) to start execution up to the first
 breakpoint.</p>
@@ -444,28 +478,34 @@ For example:</p>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.time">
-<tt class="descname">time</tt><big>(</big><em>parameter_s</em>, <em>local_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.time" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">time</tt><big>(</big><em>line=''</em>, <em>cell=None</em>, <em>local_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time execution of a Python statement or expression.</p>
 <p>The CPU and wall clock times are printed, and the value of the
 expression (if any) is returned.  Note that under Win32, system time
 is always reported as 0, since it can not be measured.</p>
-<p>This function provides very basic timing functionality.  In Python
-2.3, the timeit module offers more control and sophistication, so this
-could be rewritten to use it (patches welcome).</p>
+<p>This function can be used both as a line and cell magic:</p>
+<ul class="simple">
+<li>In line mode you can time a single-line statement (though multiple
+ones can be chained with using semicolons).</li>
+<li>In cell mode, you can time the cell body (a directly 
+following statement raises an error).</li>
+</ul>
+<p>This function provides very basic timing functionality.  Use the timeit 
+magic for more controll over the measurement.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [1]: time 2**128
+<div class="highlight-python"><pre>In [1]: %time 2**128
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00
 Out[1]: 340282366920938463463374607431768211456L
 
 In [2]: n = 1000000
 
-In [3]: time sum(range(n))
+In [3]: %time sum(range(n))
 CPU times: user 1.20 s, sys: 0.05 s, total: 1.25 s
 Wall time: 1.37
 Out[3]: 499999500000L
 
-In [4]: time print 'hello world'
+In [4]: %time print 'hello world'
 hello world
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00
@@ -476,11 +516,11 @@ actual exponentiation is done by Python at compilation time, so while
 the expression can take a noticeable amount of time to compute, that
 time is purely due to the compilation:
 
-In [5]: time 3**9999;
+In [5]: %time 3**9999;
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00 s
 
-In [6]: time 3**999999;
+In [6]: %time 3**999999;
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00 s
 Compiler : 0.78 s</pre>
@@ -549,6 +589,15 @@ those from %timeit.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.magics.execution.parse_breakpoint">
+<tt class="descclassname">IPython.core.magics.execution.</tt><tt class="descname">parse_breakpoint</tt><big>(</big><em>text</em>, <em>current_file</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.parse_breakpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (file, line) for <a class="reference external" href="file:line">file:line</a> and (current_file, line) for line</p>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -581,8 +630,8 @@ those from %timeit.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

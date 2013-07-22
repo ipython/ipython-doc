@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.display &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.display &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.display_trap" href="IPython.core.display_trap.html" />
     <link rel="prev" title="Module: core.debugger" href="IPython.core.debugger.html" /> 
@@ -72,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.debugger.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.debugger</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.debugger</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.display_trap.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.display_trap</span></tt></a></p>
@@ -132,7 +130,7 @@ and then displayed. If</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
 <blockquote>
-<div><p>The raw data or a URL to download the data from.</p>
+<div><p>The raw data or a URL or file to load the data from</p>
 </div></blockquote>
 <p><strong>url</strong> : unicode</p>
 <blockquote>
@@ -234,7 +232,7 @@ string.</p>
 <p><strong>css:</strong> : list or str</p>
 <blockquote class="last">
 <div><p>A sequence of css files to load before running the source code.
-The full URLs of the css files should be give. A single css URL
+The full URLs of the css files should be given. A single css URL
 can also be given as a string.</p>
 </div></blockquote>
 </td>
@@ -247,11 +245,11 @@ can also be given as a string.</p>
 
 <dl class="class">
 <dt id="IPython.core.display.Image">
-<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Image</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=None</em>, <em>width=None</em>, <em>height=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Image</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=None</em>, <em>width=None</em>, <em>height=None</em>, <em>retina=False</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.core.display.Image.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=None</em>, <em>width=None</em>, <em>height=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>format=u'png'</em>, <em>embed=None</em>, <em>width=None</em>, <em>height=None</em>, <em>retina=False</em><big>)</big><a class="headerlink" href="#IPython.core.display.Image.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a display an PNG/JPEG image given raw data.</p>
 <p>When this object is returned by an expression or passed to the
 display function, it will result in the image being displayed
@@ -262,15 +260,18 @@ in the frontend.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : unicode, str or bytes</p>
 <blockquote>
-<div><p>The raw data or a URL to download the data from.</p>
+<div><p>The raw image data or a URL or filename to load the data from.
+This always results in embedded image data.</p>
 </div></blockquote>
 <p><strong>url</strong> : unicode</p>
 <blockquote>
-<div><p>A URL to download the data from.</p>
+<div><p>A URL to download the data from. If you specify <cite>url=</cite>,
+the image data will not be embedded unless you also specify <cite>embed=True</cite>.</p>
 </div></blockquote>
 <p><strong>filename</strong> : unicode</p>
 <blockquote>
-<div><p>Path to a local file to load the data from.</p>
+<div><p>Path to a local file to load the data from.
+Images from a file are always embedded.</p>
 </div></blockquote>
 <p><strong>format</strong> : unicode</p>
 <blockquote>
@@ -291,18 +292,33 @@ default value is <cite>False</cite>.</p>
 <div><p>Width to which to constrain the image in html</p>
 </div></blockquote>
 <p><strong>height</strong> : int</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Height to which to constrain the image in html</p>
+</div></blockquote>
+<p><strong>retina</strong> : bool</p>
+<blockquote class="last">
+<div><p>Automatically set the width and height to half of the measured
+width and height.
+This only works for embedded images because it reads the width/height
+from image data.
+For non-embedded images, you can just set the desired display width
+and height directly.</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<p># embed implicitly True, works in qtconsole and notebook
-Image(&#8216;<a class="reference external" href="http://www.google.fr/images/srpr/logo3w.png">http://www.google.fr/images/srpr/logo3w.png</a>&#8216;)</p>
-<p># embed implicitly False, does not works in qtconsole but works in notebook if
-# internet connection available
+<p># embedded image data, works in qtconsole and notebook
+# when passed positionally, the first arg can be any of raw image data,
+# a URL, or a filename from which to load image data.
+# The result is always embedding image data for inline images.
+Image(&#8216;<a class="reference external" href="http://www.google.fr/images/srpr/logo3w.png">http://www.google.fr/images/srpr/logo3w.png</a>&#8216;)
+Image(&#8216;/path/to/image.jpg&#8217;)
+Image(b&#8217;RAW_PNG_DATA...&#8217;)</p>
+<p># Specifying Image(url=...) does not embed the image data,
+# it only generates <cite>&lt;img&gt;</cite> tag with a link to the source.
+# This will not work in the qtconsole or offline.
 Image(url=&#8217;<a class="reference external" href="http://www.google.fr/images/srpr/logo3w.png">http://www.google.fr/images/srpr/logo3w.png</a>&#8216;)</p>
 </dd></dl>
 
@@ -331,6 +347,11 @@ Frontends can decide which representation is used and how.</p>
 <blockquote>
 <div><p>The Python objects to display.</p>
 </div></blockquote>
+<p><strong>raw</strong> : bool, optional</p>
+<blockquote>
+<div><p>Are the objects to be displayed already mimetype-keyed dicts of raw display data,
+or Python objects that need to be formatted before display? [default: False]</p>
+</div></blockquote>
 <p><strong>include</strong> : list or tuple, optional</p>
 <blockquote>
 <div><p>A list of format type strings (MIME types) to include in the
@@ -338,10 +359,16 @@ format data dict. If this is set <em>only</em> the format types included
 in this list will be computed.</p>
 </div></blockquote>
 <p><strong>exclude</strong> : list or tuple, optional</p>
-<blockquote class="last">
-<div><p>A list of format type string (MIME types) to exclue in the format
+<blockquote>
+<div><p>A list of format type strings (MIME types) to exclude in the format
 data dict. If this is set all format types will be computed,
 except for those included in this argument.</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict, optional</p>
+<blockquote class="last">
+<div><p>A dictionary of metadata to associate with the output.
+mime-type keys in this dictionary will be associated with the individual
+representation formats, if they exist.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -363,9 +390,13 @@ except for those included in this argument.</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -387,9 +418,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -411,9 +446,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -435,9 +474,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -459,9 +502,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -483,9 +530,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -508,9 +559,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -532,9 +587,13 @@ formatted before display? [default: False]</p>
 display.</p>
 </div></blockquote>
 <p><strong>raw</strong> : bool</p>
-<blockquote class="last">
+<blockquote>
 <div><p>Are the data objects raw data or Python objects that need to be
 formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -605,8 +664,8 @@ produced by display()) can be excluded from the clear event.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

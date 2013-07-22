@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.displayhook &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: core.displayhook &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.displaypub" href="IPython.core.displaypub.html" />
     <link rel="prev" title="Module: core.display_trap" href="IPython.core.display_trap.html" /> 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.display_trap.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.display_trap</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.display_trap</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.displaypub.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.displaypub</span></tt></a></p>
@@ -115,14 +113,14 @@
 <h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.displayhook.DisplayHook">
-<em class="property">class </em><tt class="descclassname">IPython.core.displayhook.</tt><tt class="descname">DisplayHook</tt><big>(</big><em>shell=None</em>, <em>cache_size=1000</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.displayhook.</tt><tt class="descname">DisplayHook</tt><big>(</big><em>shell=None</em>, <em>cache_size=1000</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
 <p>The custom IPython displayhook to replace sys.displayhook.</p>
 <p>This class does many things, but the basic idea is that it is a callable
 that gets called anytime user code returns a value.</p>
 <dl class="method">
 <dt id="IPython.core.displayhook.DisplayHook.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>cache_size=1000</em>, <em>config=None</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>cache_size=1000</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -154,12 +152,14 @@ computed.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>format_data</strong> : dict</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(format_dict, md_dict)</strong> : dict</p>
 <blockquote class="last">
-<div><p>A <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt> whose keys are valid MIME types and values are
+<div><p>format_dict is a <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt> whose keys are valid MIME types and values are
 JSON&#8217;able raw data for that MIME type. It is recommended that
 all return values of this should always include the &#8220;text/plain&#8221;
-MIME type representation of the object.</p>
+MIME type representation of the object.
+md_dict is a <tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt> with the same MIME type keys
+of metadata associated with each output.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -199,7 +199,7 @@ MIME type representation of the object.</p>
 
 <dl class="method">
 <dt id="IPython.core.displayhook.DisplayHook.write_format_data">
-<tt class="descname">write_format_data</tt><big>(</big><em>format_dict</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook.write_format_data" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">write_format_data</tt><big>(</big><em>format_dict</em>, <em>md_dict=None</em><big>)</big><a class="headerlink" href="#IPython.core.displayhook.DisplayHook.write_format_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write the format data dict to the frontend.</p>
 <p>This default version of this method simply writes the plain text
 representation of the object to <tt class="docutils literal"><span class="pre">io.stdout</span></tt>. Subclasses should
@@ -210,8 +210,12 @@ frontends.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>format_dict</strong> : dict</p>
-<blockquote class="last">
+<blockquote>
 <div><p>The format dict for the object passed to <cite>sys.displayhook</cite>.</p>
+</div></blockquote>
+<p><strong>md_dict</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>The metadata dict to be associated with the display data.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -262,8 +266,8 @@ frontends.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

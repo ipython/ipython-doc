@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: utils.data &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: utils.data &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: utils.decorators" href="IPython.utils.decorators.html" />
     <link rel="prev" title="Module: utils.daemonize" href="IPython.utils.daemonize.html" /> 
@@ -64,14 +62,14 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.data</span></tt></a><ul>
-<li><a class="reference internal" href="#functions">7 Functions</a></li>
+<li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.utils.daemonize.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">utils.daemonize</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">utils.daemonize</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.utils.decorators.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.decorators</span></tt></a></p>
@@ -105,52 +103,20 @@
 <span id="module-utils-data"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.data</span></tt><a class="headerlink" href="#module-IPython.utils.data" title="Permalink to this headline">¶</a></h1>
 <p>Utilities for working with data structures like lists, dicts and tuples.</p>
 <div class="section" id="functions">
-<h2>7 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.utils.data.uniq_stable">
 <tt class="descclassname">IPython.utils.data.</tt><tt class="descname">uniq_stable</tt><big>(</big><em>elems</em><big>)</big> &rarr; list<a class="headerlink" href="#IPython.utils.data.uniq_stable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return from an iterable, a list of all the unique elements in the input,
 but maintaining the order in which they first appear.</p>
-<p>A naive solution to this problem which just makes a dictionary with the
-elements as keys fails to respect the stability condition, since
-dictionaries are unsorted by nature.</p>
-<p>Note: All elements in the input must be valid dictionary keys for this
-routine to work, as it internally uses a dictionary for efficiency
-reasons.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.utils.data.sort_compare">
-<tt class="descclassname">IPython.utils.data.</tt><tt class="descname">sort_compare</tt><big>(</big><em>lst1</em>, <em>lst2</em>, <em>inplace=1</em><big>)</big><a class="headerlink" href="#IPython.utils.data.sort_compare" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sort and compare two lists.</p>
-<p>By default it does it in place, thus modifying the lists. Use inplace = 0
-to avoid that (at the cost of temporary copy creation).</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.utils.data.list2dict">
-<tt class="descclassname">IPython.utils.data.</tt><tt class="descname">list2dict</tt><big>(</big><em>lst</em><big>)</big><a class="headerlink" href="#IPython.utils.data.list2dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a list of (key,value) pairs and turns it into a dict.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.utils.data.list2dict2">
-<tt class="descclassname">IPython.utils.data.</tt><tt class="descname">list2dict2</tt><big>(</big><em>lst</em>, <em>default=''</em><big>)</big><a class="headerlink" href="#IPython.utils.data.list2dict2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes a list and turns it into a dict.
-Much slower than list2dict, but more versatile. This version can take
-lists with sublists of arbitrary length (including sclars).</p>
+<p>Note: All elements in the input must be hashable for this routine
+to work, as it internally uses a set for efficiency reasons.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.utils.data.flatten">
 <tt class="descclassname">IPython.utils.data.</tt><tt class="descname">flatten</tt><big>(</big><em>seq</em><big>)</big><a class="headerlink" href="#IPython.utils.data.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flatten a list of lists (NOT recursive, only works for 2d lists).</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.utils.data.get_slice">
-<tt class="descclassname">IPython.utils.data.</tt><tt class="descname">get_slice</tt><big>(</big><em>seq</em>, <em>start=0</em>, <em>stop=None</em>, <em>step=1</em><big>)</big><a class="headerlink" href="#IPython.utils.data.get_slice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a slice of a sequence with variable step. Specify start,stop,step.</p>
 </dd></dl>
 
 <dl class="function">
@@ -192,8 +158,8 @@ lists with sublists of arbitrary length (including sclars).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

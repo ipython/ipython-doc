@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview &mdash; IPython 0.14.dev documentation</title>
+    <title>Overview &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
     <link rel="up" title="Installation" href="index.html" />
     <link rel="next" title="Using IPython for interactive work" href="../interactive/index.html" />
     <link rel="prev" title="Installation" href="index.html" /> 
@@ -79,7 +77,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#dependencies-for-ipython-parallel-parallel-computing">Dependencies for IPython.parallel (parallel computing)</a></li>
-<li><a class="reference internal" href="#dependencies-for-ipython-zmq">Dependencies for IPython.zmq</a><ul>
+<li><a class="reference internal" href="#dependencies-for-ipython-kernel-zmq">Dependencies for IPython.kernel.zmq</a><ul>
 <li><a class="reference internal" href="#pyzmq">pyzmq</a></li>
 </ul>
 </li>
@@ -92,8 +90,13 @@
 <li><a class="reference internal" href="#dependencies-for-the-ipython-html-notebook">Dependencies for the IPython HTML notebook</a><ul>
 <li><a class="reference internal" href="#id4">pyzmq</a></li>
 <li><a class="reference internal" href="#tornado">Tornado</a></li>
+<li><a class="reference internal" href="#jinja">Jinja</a></li>
 <li><a class="reference internal" href="#mathjax">MathJax</a></li>
 <li><a class="reference internal" href="#browser-compatibility">Browser Compatibility</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dependencies-for-nbconvert-converting-notebooks-to-various-formats">Dependencies for nbconvert (converting notebooks to various formats)</a><ul>
+<li><a class="reference internal" href="#pandoc">pandoc</a></li>
 </ul>
 </li>
 </ul>
@@ -163,14 +166,16 @@ change this in the future, but for now on Windows, you <em>must</em> install
 <p>If you have <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> installed and you are on OS X or Linux (not
 Windows), the following will download and install IPython <em>and</em> the main
 optional dependencies:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>easy_install ipython<span class="o">[</span>zmq,qtconsole,notebook,test<span class="o">]</span>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>easy_install ipython<span class="o">[</span>all<span class="o">]</span>
 </pre></div>
 </div>
 <p>This will get:</p>
 <ul class="simple">
+<li>jinja2, needed for the notebook</li>
+<li>sphinx, needed for nbconvert</li>
 <li>pyzmq, needed for IPython&#8217;s parallel computing features, qt console and
 notebook.</li>
-<li>pygments, used by the Qt console for syntax highlighting.</li>
+<li>pygments, used by nbconvert and the Qt console for syntax highlighting.</li>
 <li>tornado, needed by the web-based notebook</li>
 <li>nose, used by the test suite.</li>
 </ul>
@@ -346,8 +351,8 @@ PyZMQ.  See the next section for PyZMQ details.</p>
 and OSX clients will use the shell ssh command, but on Windows, we also
 support tunneling with <a class="reference external" href="https://github.com/robey/paramiko">paramiko</a>.</p>
 </div>
-<div class="section" id="dependencies-for-ipython-zmq">
-<h1>Dependencies for IPython.zmq<a class="headerlink" href="#dependencies-for-ipython-zmq" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dependencies-for-ipython-kernel-zmq">
+<h1>Dependencies for IPython.kernel.zmq<a class="headerlink" href="#dependencies-for-ipython-kernel-zmq" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="pyzmq">
 <h2>pyzmq<a class="headerlink" href="#pyzmq" title="Permalink to this headline">¶</a></h2>
 <p>IPython 0.11 introduced some new functionality, including a two-process
@@ -355,7 +360,7 @@ execution model using <a class="reference external" href="http://www.zeromq.org"
 are found in the <a class="reference external" href="https://github.com/zeromq/pyzmq">PyZMQ</a> project, which is easy_install-able once you have
 ZeroMQ installed.  If you are on Python 2.6 or 2.7 on OSX, or 2.7 on Windows,
 pyzmq has eggs that include ZeroMQ itself.</p>
-<p>IPython.zmq depends on pyzmq &gt;= 2.1.4.</p>
+<p>IPython.kernel.zmq depends on pyzmq &gt;= 2.1.4.</p>
 </div>
 </div>
 <div class="section" id="dependencies-for-the-ipython-qt-console">
@@ -367,7 +372,7 @@ PyZMQ.</p>
 </div>
 <div class="section" id="qt">
 <h2>Qt<a class="headerlink" href="#qt" title="Permalink to this headline">¶</a></h2>
-<p>Also with 0.11, a new GUI was added using the work in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.zmq</span></tt>, which
+<p>Also with 0.11, a new GUI was added using the work in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq</span></tt>, which
 can be launched with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span></tt>. The GUI is built on Qt, and works
 with either PyQt, which can be installed from the <a class="reference external" href="http://www.riverbankcomputing.co.uk/">PyQt website</a>, or <a class="reference external" href="http://www.pyside.org/">PySide</a>, from Nokia.</p>
 </div>
@@ -392,37 +397,71 @@ packages, the HTML notebook requires ZeroMQ and PyZMQ.</p>
 is required, in order to support current versions of browsers, due to an update
 to the websocket protocol.</p>
 </div>
+<div class="section" id="jinja">
+<h2>Jinja<a class="headerlink" href="#jinja" title="Permalink to this headline">¶</a></h2>
+<p>The IPython notebook uses the <a class="reference external" href="http://jinja.pocoo.org">Jinja</a> templating tool to render HTML pages.</p>
+</div>
 <div class="section" id="mathjax">
 <h2>MathJax<a class="headerlink" href="#mathjax" title="Permalink to this headline">¶</a></h2>
 <p>The IPython notebook uses the <a class="reference external" href="http://www.mathjax.org">MathJax</a> Javascript library for rendering LaTeX
 in web browsers. Because MathJax is large, we don&#8217;t include it with
 IPython. Normally IPython will load MathJax from a CDN, but if you have a slow
 network connection, or want to use LaTeX without an internet connection at all,
-we do include a utility to aid in downloading MathJax and installing it into
-the proper location:</p>
+you can install MathJax locally.</p>
+<p>A quick and easy method is to install it from a python session:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.external.mathjax</span> <span class="kn">import</span> <span class="n">install_mathjax</span>
 <span class="n">install_mathjax</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This function does require write access to the IPython install directory, so if
-you have a system-wide Python install, it may need to be done from a <tt class="docutils literal"><span class="pre">sudo</span>
-<span class="pre">python</span></tt> session.</p>
+<p>If you need tighter configuration control, you can download your own copy
+of MathJax from <a class="reference external" href="http://www.mathjax.org/download/">http://www.mathjax.org/download/</a> - use the MathJax-2.0 link.
+When you have the file stored locally, install it with:</p>
+<div class="highlight-python"><pre>python -m IPython.external.mathjax /path/to/source/mathjax-MathJax-v2.0-20-g07669ac.zip</pre>
+</div>
+<p>For unusual needs, IPython can tell you what directory it wants to find MathJax in:</p>
+<div class="highlight-python"><pre>python -m IPython.external.mathjax -d /some/other/mathjax</pre>
+</div>
+<p>By default Mathjax will be installed in your ipython profile directory, but you
+can make system wide install, please refer to the documentation and helper function
+of <tt class="xref py py-mod docutils literal"><span class="pre">IPython.external.mathjax</span></tt></p>
 </div>
 <div class="section" id="browser-compatibility">
 <h2>Browser Compatibility<a class="headerlink" href="#browser-compatibility" title="Permalink to this headline">¶</a></h2>
-<p>The notebook uses WebSockets and the flexible box model. These features are
-available in the following browsers:</p>
+<p>The IPython notebook is officially supported on the following browers:</p>
 <ul class="simple">
-<li>Chrome</li>
-<li>Safari</li>
-<li>Firefox 6 and above</li>
-<li>Firefox 4 and 5: These browsers have WebSocket support, but it is disabled by
-default. If you&#8217;re unable to upgrade, you can enable it by entering <tt class="docutils literal"><span class="pre">about:config</span></tt>
-in the URL bar and then setting <tt class="docutils literal"><span class="pre">network.websocket.enabled</span></tt> and
-<tt class="docutils literal"><span class="pre">network.websocket.override-security-block</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li>Chrome ≥ 13</li>
+<li>Safari ≥ 5</li>
+<li>Firefox ≥ 6</li>
 </ul>
-<p>Internet Explorer 9 does not support WebSockets or the flexible box model, but
-these features should appear in Internet Explorer 10.</p>
+<p>The is mainly due to the notebook&#8217;s usage of WebSockets and the flexible box model.</p>
+<p>The following browsers are unsupported:</p>
+<ul class="simple">
+<li>Safari &lt; 5</li>
+<li>Firefox &lt; 6</li>
+<li>Chrome &lt; 13</li>
+<li>Opera (any): CSS issues, but execution might work</li>
+<li>Internet Explorer &lt; 10</li>
+</ul>
+<p>The following specific combinations are known <strong>NOT</strong> to work:</p>
+<ul class="simple">
+<li>Safari, IPython 0.12, tornado ≥ 2.2.0</li>
+<li>Safari with HTTPS connection to notebook and an untrusted certificate (websockets will fail)</li>
+<li>The [diigo Chrome extension](<a class="reference external" href="http://help.diigo.com/tools/chrome-extension">http://help.diigo.com/tools/chrome-extension</a>) seems to interfere with scrolling</li>
+</ul>
+<p>There are some early reports that the Notebook works on Internet Explorer 10, but we
+expect there will be some CSS issues related to the flexible box model.</p>
+</div>
+</div>
+<div class="section" id="dependencies-for-nbconvert-converting-notebooks-to-various-formats">
+<h1>Dependencies for nbconvert (converting notebooks to various formats)<a class="headerlink" href="#dependencies-for-nbconvert-converting-notebooks-to-various-formats" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pandoc">
+<h2>pandoc<a class="headerlink" href="#pandoc" title="Permalink to this headline">¶</a></h2>
+<p>The most important dependency of nbconvert is <a class="reference external" href="http://johnmacfarlane.net/pandoc">Pandoc</a>, a document format translation program.
+This is not a Python package, so it cannot be expressed as a regular IPython dependency with setuptools.</p>
+<p>To install pandoc on Linux, you can generally use your package manager:</p>
+<div class="highlight-python"><pre>sudo apt-get install pandoc</pre>
+</div>
+<p>On other platforms, you can get pandoc from <a class="reference external" href="http://johnmacfarlane.net/pandoc/installing.html">their website</a>.</p>
 </div>
 </div>
 
@@ -456,8 +495,8 @@ these features should appear in Internet Explorer 10.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

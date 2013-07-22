@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Details of Parallel Computing with IPython &mdash; IPython 0.14.dev documentation</title>
+    <title>Details of Parallel Computing with IPython &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Transitioning from IPython.kernel to IPython.parallel" href="parallel_transition.html" />
     <link rel="prev" title="DAG Dependencies" href="dag_dependencies.html" /> 
@@ -231,7 +229,7 @@ functions that refer to variables in their parent scope have closures.</p>
     <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
         <span class="c"># inner will have a closure</span>
         <span class="k">return</span> <span class="n">a</span>
-    <span class="k">return</span> <span class="n">echo</span>
+    <span class="k">return</span> <span class="n">inner</span>
 
 <span class="n">f1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">f2</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -251,7 +249,7 @@ outer function, then there will not be a closure, and the generated function wil
     <span class="k">def</span> <span class="nf">inner</span><span class="p">():</span>
         <span class="c"># this inner will *not* have a closure</span>
         <span class="k">return</span> <span class="n">a</span>
-    <span class="k">return</span> <span class="n">echo</span>
+    <span class="k">return</span> <span class="n">inner</span>
 <span class="n">g1</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">g2</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">g1</span><span class="p">()</span> <span class="c"># raises NameError on &#39;a&#39;</span>
@@ -260,7 +258,7 @@ outer function, then there will not be a closure, and the generated function wil
 </pre></div>
 </div>
 <p><cite>g1</cite> and <cite>g2</cite> <em>will</em> be sendable with IPython, and will treat the engine&#8217;s namespace as
-globals().  The <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> method is implemented based on this principal.  If we did not
+globals().  The <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> method is implemented based on this principle.  If we did not
 provide pull, you could implement it yourself with <cite>apply</cite>, by simply returning objects out
 of the global namespace:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">view</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
@@ -546,7 +544,7 @@ and will raise an exception if there was.</p>
 original exception, a RemoteError will be raised, encapsulating the remote exception with some
 metadata. If the AsyncResult represents multiple calls (e.g. any time <cite>targets</cite> is plural), then
 a CompositeError, a subclass of RemoteError, will be raised.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">For more information on remote exceptions, see <a class="reference internal" href="parallel_multiengine.html#parallel-exceptions"><em>the section in the Direct Interface</em></a>.</p>
 </div>
@@ -746,8 +744,8 @@ and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth d
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

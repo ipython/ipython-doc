@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: utils.path &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: utils.path &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: utils.pickleshare" href="IPython.utils.pickleshare.html" />
     <link rel="prev" title="Module: utils.openpy" href="IPython.utils.openpy.html" /> 
@@ -65,14 +63,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.path</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
-<li><a class="reference internal" href="#functions">18 Functions</a></li>
+<li><a class="reference internal" href="#functions">20 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.utils.openpy.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">utils.openpy</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">utils.openpy</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.utils.pickleshare.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.pickleshare</span></tt></a></p>
@@ -115,7 +113,7 @@
 
 </div>
 <div class="section" id="functions">
-<h2>18 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>20 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.utils.path.get_long_path_name">
 <tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_long_path_name</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.utils.path.get_long_path_name" title="Permalink to this definition">¶</a></dt>
@@ -187,10 +185,7 @@ and <tt class="xref py py-func docutils literal"><span class="pre">expanduser()<
 <dt id="IPython.utils.path.get_home_dir">
 <tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_home_dir</tt><big>(</big><em>require_writable=False</em><big>)</big><a class="headerlink" href="#IPython.utils.path.get_home_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the &#8216;home&#8217; directory, as a unicode string.</p>
-<ul class="simple">
-<li>First, check for frozen env in case of py2exe</li>
-<li>Otherwise, defer to os.path.expanduser(&#8216;~&#8217;)</li>
-</ul>
+<p>Uses os.path.expanduser(&#8216;~&#8217;), and checks for writability.</p>
 <p>See stdlib docs for how this is determined.
 $HOME is first priority on <em>ALL</em> platforms.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -223,11 +218,24 @@ raises HomeDirError</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="IPython.utils.path.get_xdg_cache_dir">
+<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_xdg_cache_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.path.get_xdg_cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the XDG_CACHE_HOME, if it is defined and exists, else None.</p>
+<p>This is only for non-OS X posix (Linux,Unix,etc.) systems.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.utils.path.get_ipython_dir">
 <tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_ipython_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.path.get_ipython_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the IPython directory for this platform and user.</p>
 <p>This uses the logic in <cite>get_home_dir</cite> to find the home directory
 and then adds .ipython to the end of the path.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.path.get_ipython_cache_dir">
+<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_ipython_cache_dir</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.path.get_ipython_cache_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the cache directory it is created if it does not exist.</p>
 </dd></dl>
 
 <dl class="function">
@@ -382,8 +390,8 @@ simply be returned.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

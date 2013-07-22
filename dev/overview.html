@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction &mdash; IPython 0.14.dev documentation</title>
+    <title>Introduction &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '0.14.dev',
+        URL_ROOT:    './',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="index.html" />
     <link rel="next" title="What’s new in IPython" href="whatsnew/index.html" />
     <link rel="prev" title="IPython Documentation" href="index.html" /> 
   </head>
@@ -67,6 +65,7 @@
 <li><a class="reference internal" href="#main-features-of-the-interactive-shell">Main features of the interactive shell</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#decoupled-two-process-model">Decoupled two-process model</a></li>
 <li><a class="reference internal" href="#interactive-parallel-computing">Interactive parallel computing</a><ul>
 <li><a class="reference internal" href="#portability-and-python-requirements">Portability and Python requirements</a></li>
 </ul>
@@ -118,9 +117,12 @@ However, the interpreter supplied with the standard Python distribution
 is somewhat limited for extended interactive use.</p>
 <p>The goal of IPython is to create a comprehensive environment for
 interactive and exploratory computing.  To support this goal, IPython
-has two main components:</p>
+has three main components:</p>
 <ul class="simple">
 <li>An enhanced interactive Python shell.</li>
+<li>A decoupled two-process communication model, which allows for multiple
+clients to connect to a computation kernel, most notably the web-based
+<a class="reference internal" href="interactive/htmlnotebook.html#htmlnotebook"><em>notebook</em></a></li>
 <li>An architecture for interactive parallel computing.</li>
 </ul>
 <p>All of IPython is open source (released under the revised BSD license).</p>
@@ -250,10 +252,35 @@ output, so you can use IPython sessions as doctest code.</li>
 </ul>
 </div>
 </div>
+<div class="section" id="decoupled-two-process-model">
+<span id="ipythonzmq"></span><h2>Decoupled two-process model<a class="headerlink" href="#decoupled-two-process-model" title="Permalink to this headline">¶</a></h2>
+<p>IPython has abstracted and extended the notion of a traditional
+<em>Read-Evaluate-Print Loop</em> (REPL) environment by decoupling the <em>evaluation</em>
+into its own process. We call this process a kernel: it receives execution
+instructions from clients and communicates the results back to them.</p>
+<p>This decoupling allows us to have several clients connected to the same
+kernel, and even allows clients and kernels to live on different machines.
+With the exclusion of the traditional single process terminal-based IPython
+(what you start if you run <tt class="docutils literal"><span class="pre">ipython</span></tt> without any subcommands), all
+other IPython machinery uses this two-process model. This includes <tt class="docutils literal"><span class="pre">ipython</span>
+<span class="pre">console</span></tt>,  <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span></tt>, and <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span></tt>.</p>
+<p>As an example, this means that when you start <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span></tt>, you&#8217;re
+really starting two processes, a kernel and a Qt-based client can send
+commands to and receive results from that kernel. If there is already a kernel
+running that you want to connect to, you can pass the  <tt class="docutils literal"><span class="pre">--existing</span></tt> flag
+which will skip initiating a new kernel and connect to the most recent kernel,
+instead. To connect to a specific kernel once you have several kernels
+running, use the <tt class="docutils literal"><span class="pre">%connect_info</span></tt> magic to get the unique connection file,
+which will be something like <tt class="docutils literal"><span class="pre">--existing</span> <span class="pre">kernel-19732.json</span></tt> but with
+different numbers which correspond to the Process ID of the kernel.</p>
+<p>You can read more about using <a class="reference internal" href="interactive/qtconsole.html#qtconsole"><em>ipython qtconsole</em></a>, and
+<a class="reference internal" href="interactive/htmlnotebook.html#htmlnotebook"><em>ipython notebook</em></a>. There is also a <a class="reference internal" href="development/messaging.html#messaging"><em>message spec</em></a> which documents the protocol for communication between kernels
+and clients.</p>
+</div>
 <div class="section" id="interactive-parallel-computing">
 <h2>Interactive parallel computing<a class="headerlink" href="#interactive-parallel-computing" title="Permalink to this headline">¶</a></h2>
 <p>Increasingly, parallel computer hardware, such as multicore CPUs, clusters and
-supercomputers, is becoming ubiquitous. Over the last 3 years, we have
+supercomputers, is becoming ubiquitous. Over the last several years, we have
 developed an architecture within IPython that allows such hardware to be used
 quickly and easily from Python. Moreover, this architecture is designed to
 support interactive and collaborative parallel computing.</p>
@@ -330,8 +357,8 @@ which can be automatically translated using 2to3.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

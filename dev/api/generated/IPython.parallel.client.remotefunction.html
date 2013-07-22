@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.client.remotefunction &mdash; IPython 0.14.dev documentation</title>
+    <title>Module: parallel.client.remotefunction &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: parallel.client.view" href="IPython.parallel.client.view.html" />
     <link rel="prev" title="Module: parallel.client.map" href="IPython.parallel.client.map.html" /> 
@@ -65,14 +63,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">parallel.client.remotefunction</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">2 Classes</a></li>
-<li><a class="reference internal" href="#functions">3 Functions</a></li>
+<li><a class="reference internal" href="#functions">4 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.map.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">parallel.client.map</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">parallel.client.map</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.parallel.client.view.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.view</span></tt></a></p>
@@ -188,7 +186,8 @@ to use the current <cite>block</cite> attribute of <cite>view</cite></p>
 </div></blockquote>
 <p><strong>ordered</strong> : bool [default: True]</p>
 <blockquote>
-<div><p>Whether</p>
+<div><p>Whether the result should be kept in order. If False,
+results become available as they arrive, regardless of submission order.</p>
 </div></blockquote>
 <p class="last"><strong>**flags</strong> : remaining kwargs are passed to View.temp_flags</p>
 </td>
@@ -203,16 +202,18 @@ to use the current <cite>block</cite> attribute of <cite>view</cite></p>
 <dl class="method">
 <dt id="IPython.parallel.client.remotefunction.ParallelFunction.map">
 <tt class="descname">map</tt><big>(</big><em>*sequences</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.remotefunction.ParallelFunction.map" title="Permalink to this definition">¶</a></dt>
-<dd><p>call a function on each element of a sequence remotely.
+<dd><p>call a function on each element of one or more sequence(s) remotely.
 This should behave very much like the builtin map, but return an AsyncMapResult
 if self.block is False.</p>
+<p>That means it can take generators (will be cast to lists locally),
+and mismatched sequence lengths will be padded with None.</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="functions">
-<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>4 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.parallel.client.remotefunction.remote">
 <tt class="descclassname">IPython.parallel.client.remotefunction.</tt><tt class="descname">remote</tt><big>(</big><em>view</em>, <em>block=None</em>, <em>**flags</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.remotefunction.remote" title="Permalink to this definition">¶</a></dt>
@@ -244,6 +245,13 @@ if self.block is False.</p>
 <p>For use in case of callables that are not functions, and
 thus may not have __name__ defined.</p>
 <p>Order: f.__name__ &gt;  f.name &gt; str(f)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.parallel.client.remotefunction.sync_view_results">
+<tt class="descclassname">IPython.parallel.client.remotefunction.</tt><tt class="descname">sync_view_results</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.remotefunction.sync_view_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>sync relevant results from self.client to our results attribute.</p>
+<p>This is a clone of view.sync_results, but for remote functions</p>
 </dd></dl>
 
 </div>
@@ -279,8 +287,8 @@ thus may not have __name__ defined.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>

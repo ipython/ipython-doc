@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython 0.14.dev documentation</title>
+    <title>IPython reference &mdash; IPython 1.0.0a1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.14.dev',
+        VERSION:     '1.0.0a1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 0.14.dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -77,7 +75,14 @@
 </li>
 <li><a class="reference internal" href="#access-to-the-standard-python-help">Access to the standard Python help</a></li>
 <li><a class="reference internal" href="#dynamic-object-information">Dynamic object information</a></li>
-<li><a class="reference internal" href="#readline-based-features">Readline-based features</a></li>
+<li><a class="reference internal" href="#readline-based-features">Readline-based features</a><ul>
+<li><a class="reference internal" href="#command-line-completion">Command line completion</a></li>
+<li><a class="reference internal" href="#search-command-history">Search command history</a></li>
+<li><a class="reference internal" href="#persistent-command-history-across-sessions">Persistent command history across sessions</a></li>
+<li><a class="reference internal" href="#autoindent">Autoindent</a></li>
+<li><a class="reference internal" href="#customizing-readline-behavior">Customizing readline behavior</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#session-logging-and-restoring">Session logging and restoring</a></li>
 <li><a class="reference internal" href="#system-shell-access">System shell access</a></li>
 <li><a class="reference internal" href="#manual-capture-of-command-output">Manual capture of command output</a></li>
@@ -87,7 +92,11 @@
 <li><a class="reference internal" href="#input-caching-system">Input caching system</a></li>
 <li><a class="reference internal" href="#output-caching-system">Output caching system</a></li>
 <li><a class="reference internal" href="#directory-history">Directory history</a></li>
-<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a></li>
+<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a><ul>
+<li><a class="reference internal" href="#automatic-parentheses">Automatic parentheses</a></li>
+<li><a class="reference internal" href="#automatic-quoting">Automatic quoting</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ipython-as-your-default-python-environment">IPython as your default Python environment</a></li>
@@ -186,10 +195,10 @@ more convenient reading).  This shows all the options that have a single-word
 alias to control them, but IPython lets you configure all of its objects from
 the command-line by passing the full class name and a corresponding value; type
 <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--help-all</span></tt> to see this full list.  For example:</p>
-<div class="highlight-python"><pre>ipython --pylab qt</pre>
+<div class="highlight-python"><pre>ipython --matplotlib qt</pre>
 </div>
 <p>is equivalent to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span> <span class="o">--</span><span class="n">TerminalIPythonApp</span><span class="o">.</span><span class="n">pylab</span><span class="o">=</span><span class="s">&#39;qt&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span> <span class="o">--</span><span class="n">TerminalIPythonApp</span><span class="o">.</span><span class="n">matplotlib</span><span class="o">=</span><span class="s">&#39;qt&#39;</span>
 </pre></div>
 </div>
 <p>Note that in the second form, you <em>must</em> use the equal sign, as the expression
@@ -334,7 +343,7 @@ IPython object:</p>
     <span class="k">def</span> <span class="nf">lmagic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="s">&quot;my line magic&quot;</span>
         <span class="k">print</span> <span class="s">&quot;Full access to the main IPython object:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span>
-        <span class="k">print</span> <span class="s">&quot;Variables in the user namespace:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">print</span> <span class="s">&quot;Variables in the user namespace:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">user_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">line</span>
 
     <span class="nd">@cell_magic</span>
@@ -457,10 +466,15 @@ directly on variables. For example, after doing <tt class="docutils literal"><sp
 <p>These features require the GNU readline library, so they won&#8217;t work if your
 Python installation lacks readline support. We will first describe the default
 behavior IPython uses, and then how to change it to suit your preferences.</p>
+<div class="section" id="command-line-completion">
+<h4>Command line completion<a class="headerlink" href="#command-line-completion" title="Permalink to this headline">¶</a></h4>
 <p>At any time, hitting TAB will complete any available python commands or
 variable names, and show you a list of the possible completions if
 there&#8217;s no unambiguous one. It will also complete filenames in the
 current directory if no python names match what you&#8217;ve typed so far.</p>
+</div>
+<div class="section" id="search-command-history">
+<h4>Search command history<a class="headerlink" href="#search-command-history" title="Permalink to this headline">¶</a></h4>
 <p>IPython provides two ways for searching through previous input and thus
 reduce the need for repetitive typing:</p>
 <blockquote>
@@ -474,19 +488,28 @@ searches your history for lines that contain what you&#8217;ve typed so
 far, completing as much as it can.</li>
 </ol>
 </div></blockquote>
+</div>
+<div class="section" id="persistent-command-history-across-sessions">
+<h4>Persistent command history across sessions<a class="headerlink" href="#persistent-command-history-across-sessions" title="Permalink to this headline">¶</a></h4>
 <p>IPython will save your input history when it leaves and reload it next
 time you restart it. By default, the history file is named
 $IPYTHONDIR/profile_&lt;name&gt;/history.sqlite. This allows you to keep
 separate histories related to various tasks: commands related to
 numerical work will not be clobbered by a system shell history, for
 example.</p>
+</div>
+<div class="section" id="autoindent">
+<h4>Autoindent<a class="headerlink" href="#autoindent" title="Permalink to this headline">¶</a></h4>
 <p>IPython can recognize lines ending in &#8216;:&#8217; and indent the next line,
 while also un-indenting automatically after &#8216;raise&#8217; or &#8216;return&#8217;.</p>
 <p>This feature uses the readline library, so it will honor your
 <tt class="file docutils literal"><span class="pre">~/.inputrc</span></tt> configuration (or whatever file your INPUTRC variable points
 to). Adding the following lines to your <tt class="file docutils literal"><span class="pre">.inputrc</span></tt> file can make
 indenting/unindenting more convenient (M-i indents, M-u unindents):</p>
-<div class="highlight-python"><pre>$if Python
+<div class="highlight-python"><pre># if you don't already have a ~/.inputrc file, you need this include:
+$include /etc/inputrc
+
+$if Python
 "\M-i": "    "
 "\M-u": "\d\d\d\d"
 $endif</pre>
@@ -507,6 +530,9 @@ can also disable it permanently on in your <tt class="file docutils literal"><sp
 <p class="last">If you want to paste multiple lines in the terminal, it is recommended that
 you use <tt class="docutils literal"><span class="pre">%paste</span></tt>.</p>
 </div>
+</div>
+<div class="section" id="customizing-readline-behavior">
+<h4>Customizing readline behavior<a class="headerlink" href="#customizing-readline-behavior" title="Permalink to this headline">¶</a></h4>
 <p>All these features are based on the GNU readline library, which has an
 extremely customizable interface. Normally, readline is configured via a
 file which defines the behavior of the library; the details of the
@@ -530,6 +556,7 @@ change the default value unless you know what you&#8217;re doing.</li>
 </ul>
 </div></blockquote>
 <p>You will find the default values in your configuration file.</p>
+</div>
 </div>
 <div class="section" id="session-logging-and-restoring">
 <h3>Session logging and restoring<a class="headerlink" href="#session-logging-and-restoring" title="Permalink to this headline">¶</a></h3>
@@ -722,6 +749,8 @@ conveniently view the directory history.</p>
 <h3>Automatic parentheses and quotes<a class="headerlink" href="#automatic-parentheses-and-quotes" title="Permalink to this headline">¶</a></h3>
 <p>These features were adapted from Nathan Gray&#8217;s LazyPython. They are
 meant to allow less typing for common situations.</p>
+<div class="section" id="automatic-parentheses">
+<h4>Automatic parentheses<a class="headerlink" href="#automatic-parentheses" title="Permalink to this headline">¶</a></h4>
 <p>Callable objects (i.e. functions, methods, etc) can be invoked like this
 (notice the commas between the arguments):</p>
 <div class="highlight-python"><pre>In [1]: callable_ob arg1, arg2, arg3
@@ -750,6 +779,9 @@ the new command line preceded by -&gt;. e.g.:</p>
 <div class="highlight-python"><pre>In [6]: callable list
 ------&gt; callable(list)</pre>
 </div>
+</div>
+<div class="section" id="automatic-quoting">
+<h4>Automatic quoting<a class="headerlink" href="#automatic-quoting" title="Permalink to this headline">¶</a></h4>
 <p>You can force automatic quoting of a function&#8217;s arguments by using &#8216;,&#8217;
 or &#8216;;&#8217; as the first character of a line. For example:</p>
 <div class="highlight-python"><pre>In [1]: ,my_function /home/me  # becomes my_function("/home/me")</pre>
@@ -763,6 +795,7 @@ In [3]: ;my_function a b c    # becomes my_function("a b c")</pre>
 <p>Note that the &#8216;,&#8217; or &#8216;;&#8217; MUST be the first character on the line! This
 won&#8217;t work:</p>
 <div class="highlight-python"><pre>In [4]: x = ,my_function /home/me # syntax error</pre>
+</div>
 </div>
 </div>
 </div>
@@ -877,7 +910,7 @@ It should be fairly self-explanatory:</p>
     <span class="n">nested</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c"># First import the embeddable shell class</span>
-<span class="kn">from</span> <span class="nn">IPython.frontend.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
+<span class="kn">from</span> <span class="nn">IPython.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
 
 <span class="c"># Now create an instance of the embeddable shell. The first argument is a</span>
 <span class="c"># string with options exactly as you would type them if you were starting</span>
@@ -1000,7 +1033,7 @@ code fragments in your programs which are ready for cut and paste:</p>
     <span class="n">exit_msg</span> <span class="o">=</span> <span class="s">&#39;*** Back in main IPython ***&#39;</span>
 
 <span class="c"># First import the embed function</span>
-<span class="kn">from</span> <span class="nn">IPython.frontend.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
+<span class="kn">from</span> <span class="nn">IPython.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
 <span class="c"># Now create the IPython shell instance. Put ipshell() anywhere in your code</span>
 <span class="c"># where you want it to open.</span>
 <span class="n">ipshell</span> <span class="o">=</span> <span class="n">InteractiveShellEmbed</span><span class="p">(</span><span class="n">banner1</span><span class="o">=</span><span class="n">banner</span><span class="p">,</span> <span class="n">exit_msg</span><span class="o">=</span><span class="n">exit_msg</span><span class="p">)</span>
@@ -1020,7 +1053,7 @@ code fragments in your programs which are ready for cut and paste:</p>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">get_ipython</span>
 <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">IPython.frontend.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
+    <span class="kn">from</span> <span class="nn">IPython.terminal.embed</span> <span class="kn">import</span> <span class="n">InteractiveShellEmbed</span>
     <span class="n">ipshell</span> <span class="o">=</span> <span class="n">InteractiveShellEmbed</span><span class="p">()</span>
     <span class="c"># Now ipshell() will open IPython anywhere in the code</span>
 <span class="k">else</span><span class="p">:</span>
@@ -1100,8 +1133,8 @@ supplied, which we will briefly describe now. These can be used &#8216;as is&#82
 starting point for writing your own extensions.</p>
 <div class="section" id="pasting-of-code-starting-with-python-or-ipython-prompts">
 <span id="pasting-with-prompts"></span><h3>Pasting of code starting with Python or IPython prompts<a class="headerlink" href="#pasting-of-code-starting-with-python-or-ipython-prompts" title="Permalink to this headline">¶</a></h3>
-<p>IPython is smart enough to filter  out input prompts, be they plain Python ones
-(<tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> and <tt class="docutils literal"><span class="pre">...</span></tt>) or IPython ones (<tt class="docutils literal"><span class="pre">In</span> <span class="pre">[N]:</span></tt> and `` ...:<a href="#id3"><span class="problematic" id="id4">``</span></a>).  You can
+<p>IPython is smart enough to filter out input prompts, be they plain Python ones
+(<tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> and <tt class="docutils literal"><span class="pre">...</span></tt>) or IPython ones (<tt class="docutils literal"><span class="pre">In</span> <span class="pre">[N]:</span></tt> and <tt class="docutils literal"><span class="pre">...:</span></tt>).  You can
 therefore copy and paste from existing interactive sessions without worry.</p>
 <p>The following is a &#8216;screenshot&#8217; of how things work, copying an example from the
 standard Python tutorial:</p>
@@ -1135,8 +1168,9 @@ Out[2]: 9</pre>
 </div>
 <div class="section" id="gui-event-loop-support">
 <span id="gui-support"></span><h2>GUI event loop support<a class="headerlink" href="#gui-event-loop-support" title="Permalink to this headline">¶</a></h2>
-<p class="versionadded">
-<span class="versionmodified">New in version 0.11: </span>The <tt class="docutils literal"><span class="pre">%gui</span></tt> magic and <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a>.</p>
+<div class="versionadded">
+<p><span>New in version 0.11: </span>The <tt class="docutils literal"><span class="pre">%gui</span></tt> magic and <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a>.</p>
+</div>
 <p>IPython has excellent support for working interactively with Graphical User
 Interface (GUI) toolkits, such as wxPython, PyQt4/PySide, PyGTK and Tk. This is
 implemented using Python&#8217;s builtin <tt class="docutils literal"><span class="pre">PyOSInputHook</span></tt> hook. This implementation
@@ -1159,8 +1193,8 @@ arguments are <tt class="docutils literal"><span class="pre">wx</span></tt>, <tt
 object, do:</p>
 <div class="highlight-python"><pre>%gui wx</pre>
 </div>
-<p>For information on IPython&#8217;s Matplotlib integration (and the <tt class="docutils literal"><span class="pre">pylab</span></tt> mode)
-see <a class="reference internal" href="#matplotlib-support"><em>this section</em></a>.</p>
+<p>For information on IPython&#8217;s Matplotlib integration (and the <tt class="docutils literal"><span class="pre">matplotlib</span></tt>
+mode) see <a class="reference internal" href="#matplotlib-support"><em>this section</em></a>.</p>
 <p>For developers that want to use IPython&#8217;s GUI event loop integration in the
 form of a library, these capabilities are exposed in library form in the
 <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.lib.guisupport.html#module-IPython.lib.guisupport" title="IPython.lib.guisupport"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.guisupport</span></tt></a> modules.
@@ -1186,7 +1220,7 @@ process pending events at critical points.</p>
 <tt class="file docutils literal"><span class="pre">docs/examples/lib</span></tt> that demonstrate these capabilities.</p>
 <div class="section" id="pyqt-and-pyside">
 <h3>PyQt and PySide<a class="headerlink" href="#pyqt-and-pyside" title="Permalink to this headline">¶</a></h3>
-<p>When you use <tt class="docutils literal"><span class="pre">--gui=qt</span></tt> or <tt class="docutils literal"><span class="pre">--pylab=qt</span></tt>, IPython can work with either
+<p>When you use <tt class="docutils literal"><span class="pre">--gui=qt</span></tt> or <tt class="docutils literal"><span class="pre">--matplotlib=qt</span></tt>, IPython can work with either
 PyQt4 or PySide.  There are three options for configuration here, because
 PyQt4 has two APIs for QString and QVariant - v1, which is the default on
 Python 2, and the more natural v2, which is the only API supported by PySide.
@@ -1201,11 +1235,11 @@ by ETS.  ETS 4.0 also works with both PyQt4 and PySide, but it requires
 PyQt4 to use its v2 API.  So if <tt class="docutils literal"><span class="pre">QT_API=pyside</span></tt> PySide will be used,
 and if <tt class="docutils literal"><span class="pre">QT_API=pyqt</span></tt> then PyQt4 will be used <em>with the v2 API</em> for
 QString and QVariant, so ETS codes like MayaVi will also work with IPython.</p>
-<p>If you launch IPython in pylab mode with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--pylab=qt</span></tt>, then IPython
-will ask matplotlib which Qt library to use (only if QT_API is <em>not set</em>), via
-the &#8216;backend.qt4&#8217; rcParam.  If matplotlib is version 1.0.1 or older, then
-IPython will always use PyQt4 without setting the v2 APIs, since neither v2
-PyQt nor PySide work.</p>
+<p>If you launch IPython in matplotlib mode with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--matplotlib=qt</span></tt>,
+then IPython will ask matplotlib which Qt library to use (only if QT_API is
+<em>not set</em>), via the &#8216;backend.qt4&#8217; rcParam.  If matplotlib is version 1.0.1 or
+older, then IPython will always use PyQt4 without setting the v2 APIs, since
+neither v2 PyQt nor PySide work.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p>Note that this means for ETS 4 to work with PyQt4, <tt class="docutils literal"><span class="pre">QT_API</span></tt> <em>must</em> be set
@@ -1223,13 +1257,15 @@ can produce plots on screen using a variety of GUI toolkits, including Tk,
 PyGTK, PyQt4 and wxPython. It also provides a number of commands useful for
 scientific computing, all with a syntax compatible with that of the popular
 Matlab program.</p>
-<p>To start IPython with matplotlib support, use the <tt class="docutils literal"><span class="pre">--pylab</span></tt> switch.  If no
+<p>To start IPython with matplotlib support, use the <tt class="docutils literal"><span class="pre">--matplotlib</span></tt> switch. If
+IPython is already running, you can run the <tt class="docutils literal"><span class="pre">%matplotlib</span></tt> magic.  If no
 arguments are given, IPython will automatically detect your choice of
-matplotlib backend.  You can also request a specific backend with <tt class="docutils literal"><span class="pre">--pylab</span>
-<span class="pre">backend</span></tt>, where <tt class="docutils literal"><span class="pre">backend</span></tt> must be one of: &#8216;tk&#8217;, &#8216;qt&#8217;, &#8216;wx&#8217;, &#8216;gtk&#8217;, &#8216;osx&#8217;.
-In the web notebook and Qt console, &#8216;inline&#8217; is also a valid backend value,
-which produces static figures inlined inside the application window instead of
-matplotlib&#8217;s interactive figures that live in separate windows.</p>
+matplotlib backend.  You can also request a specific backend with
+<tt class="docutils literal"><span class="pre">%matplotlib</span> <span class="pre">backend</span></tt>, where <tt class="docutils literal"><span class="pre">backend</span></tt> must be one of: &#8216;tk&#8217;, &#8216;qt&#8217;, &#8216;wx&#8217;,
+&#8216;gtk&#8217;, &#8216;osx&#8217;.  In the web notebook and Qt console, &#8216;inline&#8217; is also a valid
+backend value, which produces static figures inlined inside the application
+window instead of matplotlib&#8217;s interactive figures that live in separate
+windows.</p>
 </div>
 <div class="section" id="interactive-demos-with-ipython">
 <span id="interactive-demos"></span><h2>Interactive demos with IPython<a class="headerlink" href="#interactive-demos-with-ipython" title="Permalink to this headline">¶</a></h2>
@@ -1357,8 +1393,8 @@ embedding facilities, see <tt class="xref py py-func docutils literal"><span cla
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 19, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jul 21, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
 </html>
