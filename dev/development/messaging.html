@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 1.0.0a1 documentation</title>
+    <title>Messaging in IPython &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0a1',
+        VERSION:     '1.0.0-rc1: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
     <link rel="prev" title="git resources" href="gitwash/git_resources.html" /> 
@@ -31,7 +31,7 @@
   <body>
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
     <div class="related">
@@ -49,7 +49,7 @@
         <li class="right" >
           <a href="gitwash/git_resources.html" title="git resources"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -64,6 +64,7 @@
 <li><a class="reference internal" href="#">Messaging in IPython</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#general-message-format">General Message Format</a></li>
+<li><a class="reference internal" href="#the-wire-protocol">The Wire Protocol</a></li>
 <li><a class="reference internal" href="#python-functional-api">Python functional API</a></li>
 <li><a class="reference internal" href="#messages-on-the-shell-router-dealer-sockets">Messages on the shell ROUTER/DEALER sockets</a><ul>
 <li><a class="reference internal" href="#execute">Execute</a><ul>
@@ -72,7 +73,6 @@
 <li><a class="reference internal" href="#execution-results">Execution results</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#kernel-attribute-access">Kernel attribute access</a></li>
 <li><a class="reference internal" href="#object-information">Object information</a></li>
 <li><a class="reference internal" href="#complete">Complete</a></li>
 <li><a class="reference internal" href="#history">History</a></li>
@@ -89,8 +89,6 @@
 <li><a class="reference internal" href="#python-outputs">Python outputs</a></li>
 <li><a class="reference internal" href="#python-errors">Python errors</a></li>
 <li><a class="reference internal" href="#kernel-status">Kernel status</a></li>
-<li><a class="reference internal" href="#kernel-crashes">Kernel crashes</a></li>
-<li><a class="reference internal" href="#future-ideas">Future ideas</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#messages-on-the-stdin-router-dealer-sockets">Messages on the stdin ROUTER/DEALER sockets</a></li>
@@ -132,7 +130,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="messaging-in-ipython">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (0.13.2).</p>
+</div>
+</div></blockquote>
+<div class="section" id="messaging-in-ipython">
 <span id="messaging"></span><h1>Messaging in IPython<a class="headerlink" href="#messaging-in-ipython" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -202,33 +207,107 @@ kernel and frontend files for actual implementation details.</p>
 <div class="section" id="general-message-format">
 <h2>General Message Format<a class="headerlink" href="#general-message-format" title="Permalink to this headline">¶</a></h2>
 <p>A message is defined by the following four-dictionary structure:</p>
-<div class="highlight-python"><pre>{
-  # The message header contains a pair of unique identifiers for the
-  # originating session and the actual message id, in addition to the
-  # username for the process that generated the message.  This is useful in
-  # collaborative settings where multiple users may be interacting with the
-  # same kernel simultaneously, so that frontends can label the various
-  # messages in a meaningful way.
-  'header' : {
-                'msg_id' : uuid,
-                'username' : str,
-                'session' : uuid
-                # All recognized message type strings are listed below.
-                'msg_type' : str,
-     },
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="c"># The message header contains a pair of unique identifiers for the</span>
+  <span class="c"># originating session and the actual message id, in addition to the</span>
+  <span class="c"># username for the process that generated the message.  This is useful in</span>
+  <span class="c"># collaborative settings where multiple users may be interacting with the</span>
+  <span class="c"># same kernel simultaneously, so that frontends can label the various</span>
+  <span class="c"># messages in a meaningful way.</span>
+  <span class="s">&#39;header&#39;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;msg_id&#39;</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+                <span class="s">&#39;username&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                <span class="s">&#39;session&#39;</span> <span class="p">:</span> <span class="n">uuid</span><span class="p">,</span>
+                <span class="c"># All recognized message type strings are listed below.</span>
+                <span class="s">&#39;msg_type&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+     <span class="p">},</span>
 
-  # In a chain of messages, the header from the parent is copied so that
-  # clients can track where messages come from.
-  'parent_header' : dict,
+  <span class="c"># In a chain of messages, the header from the parent is copied so that</span>
+  <span class="c"># clients can track where messages come from.</span>
+  <span class="s">&#39;parent_header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 
-  # The actual content of the message must be a dict, whose structure
-  # depends on the message type.
-  'content' : dict,
+  <span class="c"># Any metadata associated with the message.</span>
+  <span class="s">&#39;metadata&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 
-  # Any metadata associated with the message.
-  'metadata' : dict,
-}</pre>
+  <span class="c"># The actual content of the message must be a dict, whose structure</span>
+  <span class="c"># depends on the message type.</span>
+  <span class="s">&#39;content&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+</div>
+<div class="section" id="the-wire-protocol">
+<h2>The Wire Protocol<a class="headerlink" href="#the-wire-protocol" title="Permalink to this headline">¶</a></h2>
+<p>This message format exists at a high level,
+but does not describe the actual <em>implementation</em> at the wire level in zeromq.
+The canonical implementation of the message spec is our <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> class.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section should only be relevant to non-Python consumers of the protocol.
+Python consumers should simply import and use IPython&#8217;s own implementation of the wire protocol
+in the <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.session.Session</span></tt> object.</p>
+</div>
+<p>Every message is serialized to a sequence of at least six blobs of bytes:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
+  <span class="n">b</span><span class="s">&#39;u-u-i-d&#39;</span><span class="p">,</span>         <span class="c"># zmq identity(ies)</span>
+  <span class="n">b</span><span class="s">&#39;&lt;IDS|MSG&gt;&#39;</span><span class="p">,</span>       <span class="c"># delimiter</span>
+  <span class="n">b</span><span class="s">&#39;baddad42&#39;</span><span class="p">,</span>        <span class="c"># HMAC signature</span>
+  <span class="n">b</span><span class="s">&#39;{header}&#39;</span><span class="p">,</span>        <span class="c"># serialized header dict</span>
+  <span class="n">b</span><span class="s">&#39;{parent_header}&#39;</span><span class="p">,</span> <span class="c"># serialized parent header dict</span>
+  <span class="n">b</span><span class="s">&#39;{metadata}&#39;</span><span class="p">,</span>      <span class="c"># serialized metadata dict</span>
+  <span class="n">b</span><span class="s">&#39;{content},        # serialized content dict</span>
+  <span class="n">b</span><span class="s">&#39;blob&#39;</span><span class="p">,</span>            <span class="c"># extra raw data buffer(s)</span>
+  <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The front of the message is the ZeroMQ routing prefix,
+which can be zero or more socket identities.
+This is every piece of the message prior to the delimiter key <tt class="docutils literal"><span class="pre">&lt;IDS|MSG&gt;</span></tt>.
+In the case of IOPub, there should be just one prefix component,
+which is the topic for IOPub subscribers, e.g. <tt class="docutils literal"><span class="pre">pyout</span></tt>, <tt class="docutils literal"><span class="pre">display_data</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In most cases, the IOPub topics are irrelevant and completely ignored,
+because frontends just subscribe to all topics.
+The convention used in the IPython kernel is to use the msg_type as the topic,
+and possibly extra information about the message, e.g. <tt class="docutils literal"><span class="pre">pyout</span></tt> or <tt class="docutils literal"><span class="pre">stream.stdout</span></tt></p>
+</div>
+<p>After the delimiter is the <a class="reference external" href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> signature of the message, used for authentication.
+If authentication is disabled, this should be an empty string.
+By default, the hashing function used for computing these signatures is sha256.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To disable authentication and signature checking,
+set the <cite>key</cite> field of a connection file to an empty string.</p>
+</div>
+<p>The signature is the HMAC hex digest of the concatenation of:</p>
+<ul class="simple">
+<li>A shared key (typically the <tt class="docutils literal"><span class="pre">key</span></tt> field of a connection file)</li>
+<li>The serialized header dict</li>
+<li>The serialized parent header dict</li>
+<li>The serialized metadata dict</li>
+<li>The serialized content dict</li>
+</ul>
+<p>In Python, this is implemented via:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># once:</span>
+<span class="n">digester</span> <span class="o">=</span> <span class="n">HMAC</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">)</span>
+
+<span class="c"># for each message</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">digester</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">serialized_dict</span> <span class="ow">in</span> <span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">serialized_dict</span><span class="p">)</span>
+<span class="n">signature</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After the signature is the actual message, always in four frames of bytes.
+The four dictionaries that compose a message are serialized separately,
+in the order of header, parent header, metadata, and content.
+These can be serialized by any function that turns a dict into bytes.
+The default and most common serialization is JSON, but msgpack and pickle
+are common alternatives.</p>
+<p>After the serialized dicts are zero to many raw data buffers,
+which can be used by message types that support binary data (mainly apply and data_pub).</p>
 </div>
 <div class="section" id="python-functional-api">
 <h2>Python functional API<a class="headerlink" href="#python-functional-api" title="Permalink to this headline">¶</a></h2>
@@ -456,7 +535,10 @@ has an API for this in the PayloadManager:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span><span class="o">.</span><span class="n">payload_manager</span><span class="o">.</span><span class="n">write_payload</span><span class="p">(</span><span class="n">payload_dict</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="last">which appends a dictionary to the list of payloads.</p>
+<p>which appends a dictionary to the list of payloads.</p>
+<p class="last">The payload API is not yet stabilized,
+and should probably not be supported by non-Python kernels at this time.
+In such cases, the payload list should always be empty.</p>
 </div>
 <p>When status is &#8216;error&#8217;, the following extra fields are present:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
@@ -479,66 +561,6 @@ has an API for this in the PayloadManager:</p>
 happens when the kernel was interrupted by a signal.</p>
 </div>
 </div>
-<div class="section" id="kernel-attribute-access">
-<h3>Kernel attribute access<a class="headerlink" href="#kernel-attribute-access" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This part of the messaging spec is not actually implemented in the kernel
-yet.</p>
-</div>
-<p>While this protocol does not specify full RPC access to arbitrary methods of
-the kernel object, the kernel does allow read (and in some cases write) access
-to certain attributes.</p>
-<p>The policy for which attributes can be read is: any attribute of the kernel, or
-its sub-objects, that belongs to a <tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt> object and has been
-declared at the class-level with Traits validation, is in principle accessible
-as long as its name does not begin with a leading underscore.  The attribute
-itself will have metadata indicating whether it allows remote read and/or write
-access.  The message spec follows for attribute read and write requests.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">getattr_request</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># The (possibly dotted) name of the attribute</span>
-    <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>When a <tt class="docutils literal"><span class="pre">getattr_request</span></tt> fails, there are two possible error types:</p>
-<ul class="simple">
-<li>AttributeError: this type of error was raised when trying to access the
-given name by the kernel itself.  This means that the attribute likely
-doesn&#8217;t exist.</li>
-<li>AccessError: the attribute exists but its value is not readable remotely.</li>
-</ul>
-<p>Message type: <tt class="docutils literal"><span class="pre">getattr_reply</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># One of [&#39;ok&#39;, &#39;AttributeError&#39;, &#39;AccessError&#39;].</span>
-    <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="c"># If status is &#39;ok&#39;, a JSON object.</span>
-    <span class="s">&#39;value&#39;</span> <span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Message type: <tt class="docutils literal"><span class="pre">setattr_request</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># The (possibly dotted) name of the attribute</span>
-    <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-
-    <span class="c"># A JSON-encoded object, that will be validated by the Traits</span>
-    <span class="c"># information in the kernel</span>
-    <span class="s">&#39;value&#39;</span> <span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>When a <tt class="docutils literal"><span class="pre">setattr_request</span></tt> fails, there are also two possible error types with
-similar meanings  as those of the <tt class="docutils literal"><span class="pre">getattr_request</span></tt> case, but for writing.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">setattr_reply</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># One of [&#39;ok&#39;, &#39;AttributeError&#39;, &#39;AccessError&#39;].</span>
-    <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
 <div class="section" id="object-information">
 <h3>Object information<a class="headerlink" href="#object-information" title="Permalink to this headline">¶</a></h3>
 <p>One of IPython&#8217;s most used capabilities is the introspection of Python objects
@@ -551,7 +573,7 @@ F1) besides from the user explicitly typing code like <tt class="docutils litera
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># The (possibly dotted) name of the object to be searched in all</span>
     <span class="c"># relevant namespaces</span>
-    <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s">&#39;oname&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
     <span class="c"># The level of detail desired.  The default (0) is equivalent to typing</span>
     <span class="c"># &#39;x?&#39; at the prompt, 1 is equivalent to &#39;x??&#39;.</span>
@@ -609,16 +631,16 @@ field names that IPython prints at the terminal.</p>
 <span class="c"># objects, this field is empty.</span>
 <span class="s">&#39;argspec&#39;</span> <span class="p">:</span> <span class="p">{</span> <span class="c"># The names of all the arguments</span>
               <span class="n">args</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-              <span class="c"># The name of the varargs (*args), if any</span>
-              <span class="n">varargs</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-              <span class="c"># The name of the varkw (**kw), if any</span>
-              <span class="n">varkw</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-              <span class="c"># The values (as strings) of all default arguments.  Note</span>
-              <span class="c"># that these must be matched *in reverse* with the &#39;args&#39;</span>
-              <span class="c"># list above, since the first positional args have no default</span>
-              <span class="c"># value at all.</span>
-              <span class="n">defaults</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-              <span class="p">},</span>
+    <span class="c"># The name of the varargs (*args), if any</span>
+                  <span class="n">varargs</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c"># The name of the varkw (**kw), if any</span>
+    <span class="n">varkw</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c"># The values (as strings) of all default arguments.  Note</span>
+    <span class="c"># that these must be matched *in reverse* with the &#39;args&#39;</span>
+    <span class="c"># list above, since the first positional args have no default</span>
+    <span class="c"># value at all.</span>
+    <span class="n">defaults</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+<span class="p">},</span>
 
 <span class="c"># For instances, provide the constructor signature (the definition of</span>
 <span class="c"># the __init__ method):</span>
@@ -652,30 +674,44 @@ field names that IPython prints at the terminal.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">complete_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># The text to be completed, such as &#39;a.is&#39;</span>
-<span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c"># this may be an empty string if the frontend does not do any lexing,</span>
+    <span class="c"># in which case the kernel must figure out the completion</span>
+    <span class="c"># based on &#39;line&#39; and &#39;cursor_pos&#39;.</span>
+    <span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
-<span class="c"># The full line, such as &#39;print a.is&#39;.  This allows completers to</span>
-<span class="c"># make decisions that may require information about more than just the</span>
-<span class="c"># current word.</span>
-<span class="s">&#39;line&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c"># The full line, such as &#39;print a.is&#39;.  This allows completers to</span>
+    <span class="c"># make decisions that may require information about more than just the</span>
+    <span class="c"># current word.</span>
+    <span class="s">&#39;line&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
-<span class="c"># The entire block of text where the line is.  This may be useful in the</span>
-<span class="c"># case of multiline completions where more context may be needed.  Note: if</span>
-<span class="c"># in practice this field proves unnecessary, remove it to lighten the</span>
-<span class="c"># messages.</span>
+    <span class="c"># The entire block of text where the line is.  This may be useful in the</span>
+    <span class="c"># case of multiline completions where more context may be needed.  Note: if</span>
+    <span class="c"># in practice this field proves unnecessary, remove it to lighten the</span>
+    <span class="c"># messages.</span>
 
-<span class="s">&#39;block&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="s">&#39;block&#39;</span> <span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="n">null</span><span class="o">/</span><span class="bp">None</span><span class="p">,</span>
 
-<span class="c"># The position of the cursor where the user hit &#39;TAB&#39; on the line.</span>
-<span class="s">&#39;cursor_pos&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="c"># The position of the cursor where the user hit &#39;TAB&#39; on the line.</span>
+    <span class="s">&#39;cursor_pos&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">complete_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># The list of all matches to the completion request, such as</span>
+<span class="c"># The list of all matches to the completion request, such as</span>
 <span class="c"># [&#39;a.isalnum&#39;, &#39;a.isalpha&#39;] for the above example.</span>
-<span class="s">&#39;matches&#39;</span> <span class="p">:</span> <span class="nb">list</span>
+<span class="s">&#39;matches&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+
+<span class="c"># the substring of the matched text</span>
+<span class="c"># this is typically the common prefix of the matches,</span>
+<span class="c"># and the text that is already in the block that would be replaced by the full completion.</span>
+<span class="c"># This would be &#39;a.is&#39; in the above example.</span>
+<span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+<span class="c"># status should be &#39;ok&#39; unless an exception was raised during the request,</span>
+<span class="c"># in which case it should be &#39;error&#39;, along with the usual error message content</span>
+<span class="c"># in other messages.</span>
+<span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -745,21 +781,22 @@ to know about a single port (the shell channel) to connect to a kernel.</p>
 </pre></div>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">connect_reply</span></tt>:</p>
-<div class="highlight-python"><pre>content = {
-    'shell_port' : int  # The port the shell ROUTER socket is listening on.
-    'iopub_port' : int   # The port the PUB socket is listening on.
-    'stdin_port' : int   # The port the stdin ROUTER socket is listening on.
-    'hb_port' : int    # The port the heartbeat socket is listening on.
-}</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;shell_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>   <span class="c"># The port the shell ROUTER socket is listening on.</span>
+    <span class="s">&#39;iopub_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>   <span class="c"># The port the PUB socket is listening on.</span>
+    <span class="s">&#39;stdin_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>   <span class="c"># The port the stdin ROUTER socket is listening on.</span>
+    <span class="s">&#39;hb_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>      <span class="c"># The port the heartbeat socket is listening on.</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="kernel-info">
 <h3>Kernel info<a class="headerlink" href="#kernel-info" title="Permalink to this headline">¶</a></h3>
-<p>If a client needs to know what protocol the kernel supports, it can
-ask version number of the messaging protocol supported by the kernel.
-This message can be used to fetch other core information of the
+<p>If a client needs to know information about the kernel, it can
+make a request of the kernel&#8217;s information.
+This message can be used to fetch core information of the
 kernel, including language (e.g., Python), language version number and
-IPython version number.</p>
+IPython version number, and the IPython message spec version number.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">kernel_info_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="p">}</span>
@@ -811,8 +848,6 @@ completed shutdown safely.</p>
 <p>Upon their own shutdown, client applications will typically execute a last
 minute sanity check and forcefully terminate any kernel that is still alive, to
 avoid leaving stray processes in the user&#8217;s machine.</p>
-<p>For both shutdown request and reply, there is no actual content that needs to
-be sent, so the content dict is empty.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">shutdown_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;restart&#39;</span> <span class="p">:</span> <span class="nb">bool</span> <span class="c"># whether the shutdown is final, or precedes a restart</span>
@@ -839,7 +874,7 @@ process is unlikely to respond in any useful way to messages.</p>
 <h3>Streams (stdout,  stderr, etc)<a class="headerlink" href="#streams-stdout-stderr-etc" title="Permalink to this headline">¶</a></h3>
 <p>Message type: <tt class="docutils literal"><span class="pre">stream</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># The name of the stream is one of &#39;stdin&#39;, &#39;stdout&#39;, &#39;stderr&#39;</span>
+    <span class="c"># The name of the stream is one of &#39;stdout&#39;, &#39;stderr&#39;</span>
     <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
     <span class="c"># The data is an arbitrary string to be written to that stream</span>
@@ -847,10 +882,6 @@ process is unlikely to respond in any useful way to messages.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>When a kernel receives a raw_input call, it should also broadcast it on the pub
-socket with the names &#8216;stdin&#8217; and &#8216;stdin_reply&#8217;.  This will allow other clients
-to monitor/display kernel interactions and possibly replay them to their user
-or otherwise expose them.</p>
 </div>
 <div class="section" id="display-data">
 <h3>Display Data<a class="headerlink" href="#display-data" title="Permalink to this headline">¶</a></h3>
@@ -973,12 +1004,11 @@ any JSON object and depends on the format. It is often, but not always a string.
     <span class="c"># (for prompt N).</span>
     <span class="s">&#39;execution_count&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 
-    <span class="c"># The data dict contains key/value pairs, where the kids are MIME</span>
-    <span class="c"># types and the values are the raw data of the representation in that</span>
-    <span class="c"># format. The data dict must minimally contain the ``text/plain``</span>
-    <span class="c"># MIME type which is used as a backup representation.</span>
+    <span class="c"># data and metadata are identical to a display_data message.</span>
+    <span class="c"># the object being displayed is that passed to the display hook,</span>
+    <span class="c"># i.e. the *result* of the execution.</span>
     <span class="s">&#39;data&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-
+    <span class="s">&#39;metadata&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1003,36 +1033,6 @@ any JSON object and depends on the format. It is often, but not always a string.
     <span class="c"># state and when it finishes, it will enter the &#39;idle&#39; state.</span>
     <span class="c"># The kernel will publish state &#39;starting&#39; exactly once at process startup.</span>
     <span class="n">execution_state</span> <span class="p">:</span> <span class="p">(</span><span class="s">&#39;busy&#39;</span><span class="p">,</span> <span class="s">&#39;idle&#39;</span><span class="p">,</span> <span class="s">&#39;starting&#39;</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="kernel-crashes">
-<h3>Kernel crashes<a class="headerlink" href="#kernel-crashes" title="Permalink to this headline">¶</a></h3>
-<p>When the kernel has an unexpected exception, caught by the last-resort
-sys.excepthook, we should broadcast the crash handler&#8217;s output before exiting.
-This will allow clients to notice that a kernel died, inform the user and
-propose further actions.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">crash</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="c"># Similarly to the &#39;error&#39; case for execute_reply messages, this will</span>
-   <span class="c"># contain ename, evalue and traceback fields.</span>
-
-   <span class="c"># An additional field with supplementary information such as where to</span>
-   <span class="c"># send the crash message</span>
-   <span class="s">&#39;info&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="future-ideas">
-<h3>Future ideas<a class="headerlink" href="#future-ideas" title="Permalink to this headline">¶</a></h3>
-<p>Other potential message types, currently unimplemented, listed below as ideas.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">file</span></tt>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-<span class="s">&#39;path&#39;</span> <span class="p">:</span> <span class="s">&#39;cool.jpg&#39;</span><span class="p">,</span>
-<span class="s">&#39;mimetype&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="s">&#39;data&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1128,7 +1128,7 @@ not) when it receives signals.</li>
         <li class="right" >
           <a href="gitwash/git_resources.html" title="git resources"
              >previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -1137,7 +1137,7 @@ not) when it receives signals.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 21, 2013.
+      Last updated on Aug 02, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>

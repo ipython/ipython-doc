@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel examples &mdash; IPython 1.0.0a1 documentation</title>
+    <title>Parallel examples &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0a1',
+        VERSION:     '1.0.0-rc1: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="DAG Dependencies" href="dag_dependencies.html" />
     <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" /> 
@@ -31,7 +31,7 @@
   <body>
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
     <div class="related">
@@ -49,7 +49,7 @@
         <li class="right" >
           <a href="parallel_winhpc.html" title="Getting started with Windows HPC Server 2008"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -104,16 +104,26 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="parallel-examples">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (0.13.2).</p>
+</div>
+</div></blockquote>
+<div class="section" id="parallel-examples">
 <span id="id1"></span><h1>Parallel examples<a class="headerlink" href="#parallel-examples" title="Permalink to this headline">¶</a></h1>
 <p>In this section we describe two more involved examples of using an IPython
-cluster to perform a parallel computation. In these examples, we will be using
-IPython&#8217;s &#8220;pylab&#8221; mode, which enables interactive plotting using the
-Matplotlib package. IPython can be started in this mode by typing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span> <span class="o">--</span><span class="n">pylab</span>
+cluster to perform a parallel computation. We will be doing some plotting,
+so we start IPython with matplotlib integration by typing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython</span> <span class="o">--</span><span class="n">matplotlib</span>
 </pre></div>
 </div>
-<p>at the system command line.</p>
+<p>at the system command line.
+Or you can enable matplotlib integration at any point with:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="o">%</span><span class="n">matplotlib</span>
+</pre></div>
+</div>
 <div class="section" id="million-digits-of-pi">
 <h2>150 million digits of pi<a class="headerlink" href="#million-digits-of-pi" title="Permalink to this headline">¶</a></h2>
 <p>In this example we would like to study the distribution of digits in the
@@ -153,8 +163,6 @@ SymPy:</p>
 <span class="gp">In [10]: </span><span class="n">pi</span> <span class="o">=</span> <span class="n">sympy</span><span class="o">.</span><span class="n">pi</span><span class="o">.</span><span class="n">evalf</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
 
 <span class="gp">In [11]: </span><span class="n">digits</span> <span class="o">=</span> <span class="p">(</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">pi</span><span class="p">)[</span><span class="mi">2</span><span class="p">:])</span>  <span class="c"># create a sequence of digits</span>
-
-<span class="gp">In [12]: </span><span class="n">run</span> <span class="n">pidigits</span><span class="o">.</span><span class="n">py</span>  <span class="c"># load one_digit_freqs/plot_one_digit_freqs</span>
 
 <span class="gp">In [13]: </span><span class="n">freqs</span> <span class="o">=</span> <span class="n">one_digit_freqs</span><span class="p">(</span><span class="n">digits</span><span class="p">)</span>
 
@@ -212,7 +220,7 @@ using IPython by following these steps:</p>
 <li>Use <strong class="command">ipcluster</strong> to start 15 engines. We used 16 cores of an SGE linux
 cluster (1 controller + 15 engines).</li>
 <li>With the file <tt class="file docutils literal"><span class="pre">parallelpi.py</span></tt> in your current working directory, open
-up IPython in pylab mode and type <tt class="docutils literal"><span class="pre">run</span> <span class="pre">parallelpi.py</span></tt>.  This will download
+up IPython, enable matplotlib, and type <tt class="docutils literal"><span class="pre">run</span> <span class="pre">parallelpi.py</span></tt>.  This will download
 the pi files via ftp the first time you run it, if they are not
 present in the Engines&#8217; working directory.</li>
 </ol>
@@ -324,7 +332,7 @@ to get started with IPython&#8217;s parallel capabilities.</li>
         <li class="right" >
           <a href="parallel_winhpc.html" title="Getting started with Windows HPC Server 2008"
              >previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -333,7 +341,7 @@ to get started with IPython&#8217;s parallel capabilities.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 21, 2013.
+      Last updated on Aug 02, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>

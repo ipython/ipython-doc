@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython 1.0.0a1 documentation</title>
+    <title>A Qt Console for IPython &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0a1',
+        VERSION:     '1.0.0-rc1: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,15 +23,15 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0a1 documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
-    <link rel="next" title="The IPython Notebook" href="htmlnotebook.html" />
+    <link rel="next" title="The IPython Notebook" href="notebook.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
   </head>
   <body>
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../index.html"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
     <div class="related">
@@ -44,12 +44,12 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="htmlnotebook.html" title="The IPython Notebook"
+          <a href="notebook.html" title="The IPython Notebook"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="shell.html" title="IPython as a system shell"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -63,9 +63,9 @@
   <ul>
 <li><a class="reference internal" href="#">A Qt Console for IPython</a><ul>
 <li><a class="reference internal" href="#load"><tt class="docutils literal"><span class="pre">%load</span></tt></a></li>
-<li><a class="reference internal" href="#pylab">Pylab</a><ul>
+<li><a class="reference internal" href="#inline-matplotlib">Inline Matplotlib</a><ul>
 <li><a class="reference internal" href="#display"><tt class="docutils literal"><span class="pre">display()</span></tt></a></li>
-<li><a class="reference internal" href="#pylab-inline"><tt class="docutils literal"><span class="pre">--pylab=inline</span></tt></a></li>
+<li><a class="reference internal" href="#matplotlib-inline"><tt class="docutils literal"><span class="pre">--matplotlib</span> <span class="pre">inline</span></tt></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#saving-and-printing">Saving and Printing</a></li>
@@ -91,7 +91,7 @@
   <p class="topless"><a href="shell.html"
                         title="previous chapter">IPython as a system shell</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="htmlnotebook.html"
+  <p class="topless"><a href="notebook.html"
                         title="next chapter">The IPython Notebook</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
@@ -119,7 +119,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="a-qt-console-for-ipython">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (0.13.2).</p>
+</div>
+</div></blockquote>
+<div class="section" id="a-qt-console-for-ipython">
 <span id="qtconsole"></span><h1>A Qt Console for IPython<a class="headerlink" href="#a-qt-console-for-ipython" title="Permalink to this headline">¶</a></h1>
 <p>We now have a version of IPython, using the new two-process <a class="reference internal" href="../overview.html#ipythonzmq"><em>ZeroMQ Kernel</em></a>, running in a <a class="reference external" href="http://www.riverbankcomputing.co.uk/software/pyqt/download">PyQt</a> GUI.  This is a very lightweight widget that
 largely feels like a terminal, but provides a number of enhancements only
@@ -164,41 +171,44 @@ for playing with examples from documentation, such as matplotlib.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="pylab">
-<h2>Pylab<a class="headerlink" href="#pylab" title="Permalink to this headline">¶</a></h2>
-<p>One of the most exciting features of the new console is embedded matplotlib
+<div class="section" id="inline-matplotlib">
+<h2>Inline Matplotlib<a class="headerlink" href="#inline-matplotlib" title="Permalink to this headline">¶</a></h2>
+<p>One of the most exciting features of the QtConsole is embedded matplotlib
 figures. You can use any standard matplotlib GUI backend
 to draw the figures, and since there is now a two-process model, there is no
 longer a conflict between user input and the drawing eventloop.</p>
 <a class="reference internal image-reference" href="../_images/besselj.png"><img alt="../_images/besselj.png" src="../_images/besselj.png" style="width: 519px;" /></a>
 <div class="section" id="display">
-<h3><tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt><a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h3>
-<p>An additional function, <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt>, will be added to the global namespace
-if you specify the <tt class="docutils literal"><span class="pre">--pylab</span></tt> option at the command line. The IPython display
+<span id="id1"></span><h3><tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt><a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h3>
+<p>IPython provides a function <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt> for displaying rich representations
+of objects if they are available. The IPython display
 system provides a mechanism for specifying PNG or SVG (and more)
-representations of objects for GUI frontends. By default, IPython registers
+representations of objects for GUI frontends.
+When you enable matplotlib integration via the <tt class="docutils literal"><span class="pre">%matplotlib</span></tt> magic, IPython registers
 convenient PNG and SVG renderers for matplotlib figures, so you can embed them
 in your document by calling <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt> on one or more of them. This is
 especially useful for <a class="reference internal" href="#saving">saving</a> your work.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="c"># plots in the matplotlib window</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 
-<span class="gp">In [6]: </span><span class="n">display</span><span class="p">(</span><span class="n">gcf</span><span class="p">())</span> <span class="c"># embeds the current figure in the qtconsole</span>
+<span class="gp">In [5]: </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="c"># plots in the matplotlib window</span>
+
+<span class="gp">In [6]: </span><span class="n">display</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">())</span> <span class="c"># embeds the current figure in the qtconsole</span>
 
 <span class="gp">In [7]: </span><span class="n">display</span><span class="p">(</span><span class="o">*</span><span class="n">getfigs</span><span class="p">())</span> <span class="c"># embeds all active figures in the qtconsole</span>
 </pre></div>
 </div>
 <p>If you have a reference to a matplotlib figure object, you can always display
 that specific figure:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">()</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">f</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 
-<span class="gp">In [2]: </span><span class="n">plot</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="gp">In [2]: </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 <span class="gr">Out[2]: </span><span class="p">[</span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">Line2D</span> <span class="n">at</span> <span class="mh">0x7fc6ac03dd90</span><span class="o">&gt;</span><span class="p">]</span>
 
 <span class="gp">In [3]: </span><span class="n">display</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
 
 <span class="c"># Plot is shown here</span>
-<span class="gp">In [4]: </span><span class="n">title</span><span class="p">(</span><span class="s">&#39;A title&#39;</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;A title&#39;</span><span class="p">)</span>
 <span class="gr">Out[4]: </span><span class="o">&lt;</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Text</span> <span class="n">at</span> <span class="mh">0x7fc6ac023450</span><span class="o">&gt;</span>
 
 <span class="gp">In [5]: </span><span class="n">display</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -206,13 +216,14 @@ that specific figure:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="pylab-inline">
-<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">--pylab=inline</span></tt><a class="headerlink" href="#pylab-inline" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="matplotlib-inline">
+<span id="inline"></span><h3><tt class="docutils literal"><span class="pre">--matplotlib</span> <span class="pre">inline</span></tt><a class="headerlink" href="#matplotlib-inline" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have all of your figures embedded in your session, instead of
-calling <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">--pylab=inline</span></tt> when you start the
+calling <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt>, you can specify <tt class="docutils literal"><span class="pre">--matplotlib</span> <span class="pre">inline</span></tt> when you start the
 console, and each time you make a plot, it will show up in your document, as if
 you had called <tt class="xref py py-func docutils literal"><span class="pre">display(fig)()</span></tt>.</p>
 <p>The inline backend can use either SVG or PNG figures (PNG being the default).
+It also supports the special key <tt class="docutils literal"><span class="pre">'retina'</span></tt>, which is 2x PNG for high-DPI displays.
 To switch between them, set the <tt class="docutils literal"><span class="pre">InlineBackend.figure_format</span></tt> configurable
 in a config file, or via the <tt class="docutils literal"><span class="pre">%config</span></tt> magic:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s">&#39;svg&#39;</span>
@@ -227,10 +238,10 @@ even if you are not using the inline backend for all figures.</p>
 don&#8217;t have to manually close figures, which is less convenient when figures aren&#8217;t attached
 to windows with an obvious close button.  It also means that the first matplotlib call in
 each cell will always create a new figure:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 <span class="go">&lt;single-line plot&gt;</span>
 
-<span class="gp">In [12]: </span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">In [12]: </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 <span class="go">&lt;another single-line plot&gt;</span>
 </pre></div>
 </div>
@@ -257,7 +268,7 @@ do with other backends.  You will, however, have to manually close figures:</p>
 <div class="section" id="saving-and-printing">
 <span id="saving"></span><h2>Saving and Printing<a class="headerlink" href="#saving-and-printing" title="Permalink to this headline">¶</a></h2>
 <p>IPythonQt has the ability to save your current session, as either HTML or
-XHTML. If you have been using <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt> or <a class="reference internal" href="#inline">inline</a> pylab, your figures
+XHTML. If you have been using <tt class="xref py py-func docutils literal"><span class="pre">display()</span></tt> or <a class="reference internal" href="#inline">inline</a> matplotlib, your figures
 will be PNG in HTML, or inlined as SVG in XHTML. PNG images have the option to
 be either in an external folder, as in many browsers&#8217; &#8220;Webpage, Complete&#8221;
 option, or inlined as well, for a larger, but more portable file.</p>
@@ -343,7 +354,7 @@ blocking execution. The frontend can also know, via a heartbeat mechanism, that
 the kernel has died. This means that the frontend can safely restart the
 kernel.</p>
 <div class="section" id="multiple-consoles">
-<span id="id1"></span><h3>Multiple Consoles<a class="headerlink" href="#multiple-consoles" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>Multiple Consoles<a class="headerlink" href="#multiple-consoles" title="Permalink to this headline">¶</a></h3>
 <p>Since the Kernel listens on the network, multiple frontends can connect to it.
 These do not have to all be qt frontends - any IPython frontend can connect and
 run code.  When you start ipython qtconsole, there will be an output line,
@@ -455,7 +466,7 @@ $&gt; ipython qtconsole --Session.keyfile=$IPYTHONDIR/sessionkey</pre>
 </div>
 </div>
 <div class="section" id="ssh-tunnels">
-<span id="id2"></span><h4>SSH Tunnels<a class="headerlink" href="#ssh-tunnels" title="Permalink to this headline">¶</a></h4>
+<span id="id3"></span><h4>SSH Tunnels<a class="headerlink" href="#ssh-tunnels" title="Permalink to this headline">¶</a></h4>
 <p>Sometimes you want to connect to machines across the internet, or just across
 a LAN that either doesn&#8217;t permit open ports or you don&#8217;t trust the other
 machines on the network.  To do this, you can use SSH tunnels.  SSH tunnels
@@ -569,7 +580,7 @@ the Kernel has been shutdown.</li>
 Qt code is to remember that user code (in the kernel) is <em>not</em> in the same
 process as the frontend.  This means that there is not necessarily any Qt code
 running in the kernel, and under most normal circumstances there isn&#8217;t. If,
-however, you specify <tt class="docutils literal"><span class="pre">--pylab=qt</span></tt> at the command-line, then there <em>will</em> be a
+however, you specify <tt class="docutils literal"><span class="pre">--matplotlib</span> <span class="pre">qt</span></tt> at the command-line, then there <em>will</em> be a
 <tt class="xref py py-class docutils literal"><span class="pre">QCoreApplication</span></tt> instance running in the kernel process along with
 user-code. To get a reference to this application, do:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtCore</span>
@@ -635,12 +646,12 @@ console experience.</li>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="htmlnotebook.html" title="The IPython Notebook"
+          <a href="notebook.html" title="The IPython Notebook"
              >next</a> |</li>
         <li class="right" >
           <a href="shell.html" title="IPython as a system shell"
              >previous</a> |</li>
-        <li><a href="../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
@@ -649,7 +660,7 @@ console experience.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 21, 2013.
+      Last updated on Aug 02, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>

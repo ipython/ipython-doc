@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: utils.path &mdash; IPython 1.0.0a1 documentation</title>
+    <title>Module: utils.path &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0a1',
+        VERSION:     '1.0.0-rc1: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0a1 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: utils.pickleshare" href="IPython.utils.pickleshare.html" />
     <link rel="prev" title="Module: utils.openpy" href="IPython.utils.openpy.html" /> 
@@ -31,7 +31,7 @@
   <body>
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
-<a href="../../index.html"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
     <div class="related">
@@ -49,7 +49,7 @@
         <li class="right" >
           <a href="IPython.utils.openpy.html" title="Module: utils.openpy"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
        <li><a href="../../index.html">documentation </a> &raquo;</li>
 
@@ -63,14 +63,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.path</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
-<li><a class="reference internal" href="#functions">20 Functions</a></li>
+<li><a class="reference internal" href="#functions">22 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.utils.openpy.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">utils.openpy</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">utils.openpy</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.utils.pickleshare.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.pickleshare</span></tt></a></p>
@@ -100,7 +100,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.utils.path">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (0.13.2).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.utils.path">
 <span id="module-utils-path"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.path</span></tt><a class="headerlink" href="#module-IPython.utils.path" title="Permalink to this headline">¶</a></h1>
 <p>Utilities for path handling.</p>
 <div class="section" id="class">
@@ -113,7 +120,7 @@
 
 </div>
 <div class="section" id="functions">
-<h2>20 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>22 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.utils.path.get_long_path_name">
 <tt class="descclassname">IPython.utils.path.</tt><tt class="descname">get_long_path_name</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.utils.path.get_long_path_name" title="Permalink to this definition">¶</a></dt>
@@ -357,6 +364,24 @@ simply be returned.</p>
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="IPython.utils.path.link">
+<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">link</tt><big>(</big><em>src</em>, <em>dst</em><big>)</big><a class="headerlink" href="#IPython.utils.path.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hard links <tt class="docutils literal"><span class="pre">src</span></tt> to <tt class="docutils literal"><span class="pre">dst</span></tt>, returning 0 or errno.</p>
+<p>Note that the special errno <tt class="docutils literal"><span class="pre">ENOLINK</span></tt> will be returned if <tt class="docutils literal"><span class="pre">os.link</span></tt> isn&#8217;t
+supported by the operating system.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.path.link_or_copy">
+<tt class="descclassname">IPython.utils.path.</tt><tt class="descname">link_or_copy</tt><big>(</big><em>src</em>, <em>dst</em><big>)</big><a class="headerlink" href="#IPython.utils.path.link_or_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempts to hardlink <tt class="docutils literal"><span class="pre">src</span></tt> to <tt class="docutils literal"><span class="pre">dst</span></tt>, copying if the link fails.</p>
+<p>Attempts to maintain the semantics of <tt class="docutils literal"><span class="pre">shutil.copy</span></tt>.</p>
+<p>Because <tt class="docutils literal"><span class="pre">os.link</span></tt> does not overwrite files, a unique temporary file
+will be used if the target already exists, then that file will be moved
+into place.</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -381,7 +406,7 @@ simply be returned.</p>
         <li class="right" >
           <a href="IPython.utils.openpy.html" title="Module: utils.openpy"
              >previous</a> |</li>
-        <li><a href="../../index.html">home</a>|&nbsp;</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
         <li><a href="../../search.html">search</a>|&nbsp;</li>
        <li><a href="../../index.html">documentation </a> &raquo;</li>
 
@@ -390,7 +415,7 @@ simply be returned.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jul 21, 2013.
+      Last updated on Aug 02, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
