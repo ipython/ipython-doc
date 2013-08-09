@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Working remotely &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
+    <title>Running a notebook server &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0-rc1: An Afternoon Hack',
+        VERSION:     '1.0.0: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="Converting notebooks to other formats" href="nbconvert.html" /> 
@@ -61,9 +61,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Working remotely</a><ul>
-<li><a class="reference internal" href="#security">Security</a></li>
-<li><a class="reference internal" href="#connecting-to-an-existing-kernel">Connecting to an existing kernel</a></li>
+<li><a class="reference internal" href="#">Running a notebook server</a><ul>
+<li><a class="reference internal" href="#notebook-security">Notebook security</a></li>
 <li><a class="reference internal" href="#running-a-public-notebook-server">Running a public notebook server</a></li>
 <li><a class="reference internal" href="#running-with-a-different-url-prefix">Running with a different URL prefix</a></li>
 <li><a class="reference internal" href="#using-a-different-notebook-store">Using a different notebook store</a></li>
@@ -80,7 +79,7 @@
                         title="next chapter">Using IPython for parallel computing</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/interactive/working_remotely.txt"
+    <li><a href="../_sources/interactive/public_server.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -104,22 +103,18 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (0.13.2).</p>
-</div>
-</div></blockquote>
-<div class="section" id="working-remotely">
-<h1>Working remotely<a class="headerlink" href="#working-remotely" title="Permalink to this headline">¶</a></h1>
-<p>The IPython Notebook web app is based on a server-client structure.
-This server uses a two-process kernel architecture based on ZeroMQ, as well as
-Tornado for serving HTTP requests. Other clients may connect to the same
-underlying IPython kernel; see below.</p>
-<div class="section" id="security">
-<span id="notebook-security"></span><h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
-<p>You can protect your Notebook server with a simple single password by
+  <div class="section" id="running-a-notebook-server">
+<h1>Running a notebook server<a class="headerlink" href="#running-a-notebook-server" title="Permalink to this headline">¶</a></h1>
+<p>The  <a class="reference internal" href="notebook.html#htmlnotebook"><em>IPython notebook</em></a> web-application is based on a
+server-client structure.  This server uses a <a class="reference internal" href="../overview.html#ipythonzmq"><em>two-process kernel
+architecture</em></a> based on <a class="reference external" href="http://zeromq.org">ZeroMQ</a>, as well as <a class="reference external" href="http://www.tornadoweb.org">Tornado</a> for serving
+HTTP requests. By default, a notebook server runs on <a class="reference external" href="http://127.0.0.1:8888/">http://127.0.0.1:8888/</a>
+and is accessible only from <cite>localhost</cite>. This document describes how you can
+<a class="reference internal" href="#notebook-security"><em>secure a notebook server</em></a> and how to <a class="reference internal" href="#notebook-public-server"><em>run it on
+a public interface</em></a>.</p>
+<div class="section" id="notebook-security">
+<span id="id1"></span><h2>Notebook security<a class="headerlink" href="#notebook-security" title="Permalink to this headline">¶</a></h2>
+<p>You can protect your notebook server with a simple single password by
 setting the <tt class="xref py py-attr docutils literal"><span class="pre">NotebookApp.password</span></tt> configurable. You can prepare a
 hashed password using the function <a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.security.passwd()</span></tt></a>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.lib</span> <span class="kn">import</span> <span class="n">passwd</span>
@@ -159,37 +154,14 @@ pem -out mycert.pem</pre>
 <p>Your browser will warn you of a dangerous certificate because it is
 self-signed.  If you want to have a fully compliant certificate that will not
 raise warnings, it is possible (but rather involved) to obtain one,
-<a class="reference external" href="http://arstechnica.com/security/news/2009/12/how-to-get-set-with-a-">as explained in detailed in this tutorial</a>.</p>
-<p>secure-sertificate-for-free.ars</p>
+as explained in detail in <a class="reference external" href="http://arstechnica.com/security/news/2009/12/how-to-get-set-with-a-secure-sertificate-for-free.ars">this tutorial</a>.</p>
 <p>Keep in mind that when you enable SSL support, you will need to access the
 notebook server over <tt class="docutils literal"><span class="pre">https://</span></tt>, not over plain <tt class="docutils literal"><span class="pre">http://</span></tt>.  The startup
 message from the server prints this, but it is easy to overlook and think the
 server is for some reason non-responsive.</p>
 </div>
-<div class="section" id="connecting-to-an-existing-kernel">
-<h2>Connecting to an existing kernel<a class="headerlink" href="#connecting-to-an-existing-kernel" title="Permalink to this headline">¶</a></h2>
-<p>The notebook server always prints to the terminal the full details of
-how to connect to each kernel, with messages such as the following:</p>
-<div class="highlight-python"><pre>[IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing kernel-3bb93edd-6b5a-455c-99c8-3b658f45dde5.json</pre>
-</div>
-<p>This long string is the name of a JSON file that contains all the port and
-validation information necessary to connect to the kernel.  You can then, for
-example, manually start a Qt console connected to the <em>same</em> kernel with:</p>
-<div class="highlight-python"><pre>$ ipython qtconsole --existing
-kernel-3bb93edd-6b5a-455c-99c8-3b658f45dde5.json</pre>
-</div>
-<p>If you have only a single kernel running, simply typing:</p>
-<div class="highlight-python"><pre>$ ipython qtconsole --existing</pre>
-</div>
-<p>will automatically find it. (It will always find the most recently
-started kernel if there is more than one.)  You can also request this
-connection data by typing <tt class="docutils literal"><span class="pre">%connect_info</span></tt>; this will print the same
-file information as well as the content of the JSON data structure it
-contains.</p>
-</div>
 <div class="section" id="running-a-public-notebook-server">
-<h2>Running a public notebook server<a class="headerlink" href="#running-a-public-notebook-server" title="Permalink to this headline">¶</a></h2>
+<span id="notebook-public-server"></span><h2>Running a public notebook server<a class="headerlink" href="#running-a-public-notebook-server" title="Permalink to this headline">¶</a></h2>
 <p>If you want to access your notebook server remotely via a web browser,
 you can do the following.</p>
 <p>Start by creating a certificate file and a hashed password, as explained
@@ -235,8 +207,8 @@ modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config
 </div>
 <div class="section" id="using-a-different-notebook-store">
 <h2>Using a different notebook store<a class="headerlink" href="#using-a-different-notebook-store" title="Permalink to this headline">¶</a></h2>
-<p>By default, the Notebook app stores the notebook documents that it saves as
-files in the working directory of the Notebook app, also known as the
+<p>By default, the notebook server stores the notebook documents that it saves as
+files in the working directory of the notebook server, also known as the
 <tt class="docutils literal"><span class="pre">notebook_dir</span></tt>. This  logic is implemented in the
 <tt class="xref py py-class docutils literal"><span class="pre">FileNotebookManager</span></tt> class. However, the server can be configured to
 use a different notebook manager class, which can
@@ -257,9 +229,9 @@ organize your notebooks.</p>
 <div class="section" id="known-issues">
 <h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
 <p>When behind a proxy, especially if your system or browser is set to autodetect
-the proxy, the Notebook app might fail to connect to the server&#8217;s websockets,
-and present you with a warning at startup. In this case, you need to configure
-your system not to use the proxy for the server&#8217;s address.</p>
+the proxy, the notebook web application might fail to connect to the server&#8217;s
+websockets, and present you with a warning at startup. In this case, you need
+to configure your system not to use the proxy for the server&#8217;s address.</p>
 <p>For example, in Firefox, go to the Preferences panel, Advanced section,
 Network tab, click &#8216;Settings...&#8217;, and add the address of the notebook server
 to the &#8216;No proxy for&#8217; field.</p>
@@ -296,7 +268,7 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 02, 2013.
+      Last updated on Aug 08, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>

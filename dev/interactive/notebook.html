@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The IPython Notebook &mdash; IPython 1.0.0-rc1: An Afternoon Hack documentation</title>
+    <title>The IPython Notebook &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0-rc1: An Afternoon Hack',
+        VERSION:     '1.0.0: An Afternoon Hack',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0-rc1: An Afternoon Hack documentation" href="../index.html" />
+    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Converting notebooks to other formats" href="nbconvert.html" />
     <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
@@ -63,29 +63,20 @@
   <ul>
 <li><a class="reference internal" href="#">The IPython Notebook</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a><ul>
-<li><a class="reference internal" href="#main-features-of-the-ipython-notebook-web-app">Main features of the IPython Notebook web app</a></li>
+<li><a class="reference internal" href="#main-features-of-the-web-application">Main features of the web application</a></li>
 <li><a class="reference internal" href="#notebook-documents">Notebook documents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#basic-workflow-in-the-ipython-notebook-web-app">Basic workflow in the IPython Notebook web app</a><ul>
-<li><a class="reference internal" href="#starting-up">Starting up</a></li>
-<li><a class="reference internal" href="#notebook-user-interface">Notebook user interface</a><ul>
-<li><a class="reference internal" href="#notebook-title">Notebook title</a></li>
-<li><a class="reference internal" href="#menu-bar">Menu bar</a></li>
-<li><a class="reference internal" href="#toolbar">Toolbar</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#starting-the-notebook-server">Starting the notebook server</a><ul>
 <li><a class="reference internal" href="#creating-a-new-notebook-document">Creating a new notebook document</a></li>
+<li><a class="reference internal" href="#opening-notebooks">Opening notebooks</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#notebook-user-interface">Notebook user interface</a></li>
 <li><a class="reference internal" href="#structure-of-a-notebook-document">Structure of a notebook document</a><ul>
-<li><a class="reference internal" href="#input-cells">Input cells</a></li>
-<li><a class="reference internal" href="#input-cell-types">Input cell types</a><ul>
 <li><a class="reference internal" href="#code-cells">Code cells</a></li>
 <li><a class="reference internal" href="#markdown-cells">Markdown cells</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#raw-input-cells">Raw input cells</a></li>
+<li><a class="reference internal" href="#raw-cells">Raw cells</a></li>
 <li><a class="reference internal" href="#heading-cells">Heading cells</a></li>
 </ul>
 </li>
@@ -93,14 +84,9 @@
 <li><a class="reference internal" href="#keyboard-shortcuts">Keyboard shortcuts</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#magic-commands">Magic commands</a><ul>
-<li><a class="reference internal" href="#line-magics">Line magics</a></li>
-<li><a class="reference internal" href="#cell-magics">Cell magics</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#plotting">Plotting</a></li>
 <li><a class="reference internal" href="#configuring-the-ipython-notebook">Configuring the IPython Notebook</a></li>
-<li><a class="reference internal" href="#importing-py-files">Importing <cite>.py</cite> files</a></li>
+<li><a class="reference internal" href="#importing-py-files">Importing <tt class="docutils literal"><span class="pre">.py</span></tt> files</a></li>
 </ul>
 </li>
 </ul>
@@ -137,99 +123,92 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (0.13.2).</p>
-</div>
-</div></blockquote>
-<div class="section" id="the-ipython-notebook">
+  <div class="section" id="the-ipython-notebook">
 <span id="htmlnotebook"></span><h1>The IPython Notebook<a class="headerlink" href="#the-ipython-notebook" title="Permalink to this headline">¶</a></h1>
-<p>The IPython Notebook is part of the IPython package, which aims to provide a
-powerful, interactive approach to scientific computation.
-The IPython Notebook extends the previous text-console-based approach, and the
-later Qt console, in a qualitatively new diretion, providing a web-based
-application suitable for capturing the whole scientific computation process.</p>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../install/install.html#installnotebook"><em>Installation requirements</em></a> for the Notebook.</p>
-</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The IPython Notebook combines two components:</p>
-<ul>
-<li><p class="first"><strong>The IPython Notebook web application</strong>:</p>
-<blockquote>
-<div><p>The <em>IPython Notebook web app</em> is a browser-based tool for interactive
-authoring of literate computations, in which explanatory text,
-mathematics, computations and rich media output may be combined. Input
-and output are stored in persistent cells that may be edited in-place.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><strong>Notebook documents</strong>:</p>
-<blockquote>
-<div><p><em>Notebook documents</em>, or <em>notebooks</em>, are plain text documents which
-record all inputs and outputs of the computations, interspersed with
-text, mathematics and HTML 5 representations of objects, in a literate
-style.</p>
-</div></blockquote>
-</li>
-</ul>
-<p>Since the similarity in names can lead to some confusion, in this
-documentation we will  use capitalization of the word &#8220;notebook&#8221; to
-distinguish the Notebook app and notebook documents, thinking of the
-Notebook app as being a proper noun. We will also always refer to the
-&#8220;Notebook app&#8221; when we are referring to the browser-based interface,
-and usually to &#8220;notebook documents&#8221;, instead of &#8220;notebooks&#8221;, for added
-precision.</p>
-<p>We refer to the current state of the computational process taking place in the
-Notebook app, i.e. the (numbered) sequence of input and output cells, as the
-<em>notebook space</em>. Notebook documents provide an <em>exact</em>, <em>one-to-one</em> record
-of all the content in the notebook space, as a plain text file in JSON format.
-The Notebook app automatically saves, at certain intervals, the contents of
-the notebook space to a notebook document stored on disk, with the same name
-as the title of the notebook space, and the file extension <tt class="docutils literal"><span class="pre">.ipynb</span></tt>. For
-this reason, there is no confusion about using the same word &#8220;notebook&#8221; for
-both the notebook space and the corresponding notebook document, since they are
-really one and the same concept (we could say that they are &#8220;isomorphic&#8221;).</p>
-<div class="section" id="main-features-of-the-ipython-notebook-web-app">
-<h3>Main features of the IPython Notebook web app<a class="headerlink" href="#main-features-of-the-ipython-notebook-web-app" title="Permalink to this headline">¶</a></h3>
-<p>The main features of the IPython Notebook app include:</p>
+<p>The notebook extends the console-based approach to interactive computing in
+a qualitatively new direction, providing a web-based application suitable for
+capturing the whole computation process: developing, documenting, and
+executing code, as well as communicating the results.  The IPython notebook
+combines two components:</p>
+<p><strong>A web application</strong>: a browser-based tool for interactive authoring of
+documents which combine explanatory text, mathematics, computations and their
+rich media output.</p>
+<p><strong>Notebook documents</strong>: a representation of all content visible in the web
+application, including inputs and outputs of the computations, explanatory
+text, mathematics, images, and rich media representations of objects.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">See the <a class="reference internal" href="../install/install.html#installnotebook"><em>installation documentation</em></a> for directions
+on how to install the notebook and its dependencies.</p>
+</div>
+<div class="section" id="main-features-of-the-web-application">
+<h3>Main features of the web application<a class="headerlink" href="#main-features-of-the-web-application" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>In-browser editing for code, with automatic syntax highlighting and
-indentation and tab completion/introspection.</li>
-<li>Literate combination of code with rich text using the <a class="reference external" href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> markup
-language.</li>
-<li>Mathematics is easily included within the Markdown using LaTeX notation, and
-rendered natively by <a class="reference external" href="http://www.mathjax.org/">MathJax</a>.</li>
-<li>Displays rich data representations (e.g. HTML / LaTeX / SVG) as the result
-of computations.</li>
-<li>Publication-quality figures in a range of formats (SVG / PNG), rendered by
-the <a class="reference external" href="http://matplotlib.org/">matplotlib</a> library, may be included inline and exported.</li>
+<li>In-browser editing for code, with automatic syntax highlighting,
+indentation, and tab completion/introspection.</li>
+<li>The ability to execute code from the browser, with the results of
+computations attached to the code which generated them.</li>
+<li>Displaying the result of computation using rich media representations, such
+as HTML, LaTeX, PNG, SVG, etc. For example, publication-quality figures
+rendered by the <a class="reference external" href="http://matplotlib.org">matplotlib</a> library, can be included inline.</li>
+<li>In-browser editing for rich text using the <a class="reference external" href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> markup language, which
+can provide commentary for the code, is not limited to plain text.</li>
+<li>The ability to easily include mathematical notation within markdown cells
+using LaTeX, and rendered natively by <a class="reference external" href="http://www.mathjax.org/">MathJax</a>.</li>
 </ul>
 </div>
 <div class="section" id="notebook-documents">
 <h3>Notebook documents<a class="headerlink" href="#notebook-documents" title="Permalink to this headline">¶</a></h3>
-<p>Notebook document files are simple <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">JSON</a> files with the
-extension <tt class="docutils literal"><span class="pre">.ipynb</span></tt>.
-Since JSON is just plain text, they can be easily version-controlled and shared with colleagues.
-The notebook stores a <em>complete</em>, <em>reproducible</em>, <em>one-to-one</em> copy of the state of the
-computational state as it is inside the Notebook app. All computations
-carried out, and the corresponding results obtained, can be combined in
-a literate way, interleaving executable code with rich text, mathematics,
-and rich representations of objects.</p>
-<p>Notebooks may easily be exported to a range of static formats, including
-HTML (for example, for blog posts), PDF and slide shows,
-via the new <a href="#id1"><span class="problematic" id="id2">nbconvert_</span></a> command.</p>
+<p>Notebook documents contains the inputs and outputs of a interactive session as
+well as additional text that accompanies the code but is not meant for
+execution.  In this way, notebook files can serve as a complete computational
+record of a session, interleaving executable code with explanatory text,
+mathematics, and rich representations of resulting objects. These documents
+are internally <a class="reference external" href="http://en.wikipedia.org/wiki/JSON">JSON</a> files and are saved with the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension. Since
+JSON is a plain text format, they can be version-controlled and shared with
+colleagues.</p>
+<p>Notebooks may be exported to a range of static formats, including HTML (for
+example, for blog posts), reStructeredText, LaTeX, PDF, and slide shows, via
+the new <a class="reference internal" href="nbconvert.html#nbconvert"><em>nbconvert</em></a> command.</p>
 <p>Furthermore, any  <tt class="docutils literal"><span class="pre">.ipynb</span></tt> notebook document available from a public
-URL can be shared via the <a class="reference external" href="nbviewer">IPython Notebook Viewer</a> service.
-This service loads the notebook document from the URL and will
-render it as a static web page. The results may thus be shared with a
-colleague, or as a public blog post, without other users needing to install
-IPython themselves.  NbViewer is simply NbConvert as a simple heroku webservice.</p>
-<p>See the <a class="reference internal" href="../install/index.html#install-index"><em>installation documentation</em></a> for directions on
-how to install the notebook and its dependencies.</p>
+URL can be shared via the <a class="reference external" href="nbviewer">IPython Notebook Viewer</a> (<a class="reference external" href="http://nbviewer.ipython.org">nbviewer</a>).
+This service loads the notebook document from the URL and renders it as a
+static web page.  The results may thus be shared with a colleague, or as a
+public blog post, without other users needing to install IPython themselves.
+In effect, <a class="reference external" href="http://nbviewer.ipython.org">nbviewer</a> is simply <a class="reference internal" href="nbconvert.html#nbconvert"><em>nbconvert</em></a> as a web service,
+so you can do your own static conversions with nbconvert, without relying on
+nbviewer.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="nbconvert.html#notebook-format"><em>Details on the notebook JSON file format</em></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="starting-the-notebook-server">
+<h2>Starting the notebook server<a class="headerlink" href="#starting-the-notebook-server" title="Permalink to this headline">¶</a></h2>
+<p>You can start running a notebook server from the command line using the
+following command:</p>
+<div class="highlight-python"><pre>ipython notebook</pre>
+</div>
+<p>This will print some information about the notebook server in your console,
+and open a web browser to the URL of the web application (by default,
+<tt class="docutils literal"><span class="pre">http://127.0.0.1:8888</span></tt>).</p>
+<p>The landing page of the IPython notebook web application, the <strong>dashboard</strong>,
+shows the notebooks currently available in the notebook directory (by default,
+the directory from which the notebook server was started).</p>
+<p>You can create new notebooks from the dashboard with the <tt class="docutils literal"><span class="pre">New</span> <span class="pre">Notebook</span></tt>
+button, or open existing ones by clicking on their name.  You can also drag
+and drop <tt class="docutils literal"><span class="pre">.ipynb</span></tt> notebooks and standard <tt class="docutils literal"><span class="pre">.py</span></tt> Python source code files
+into the notebook list area.</p>
+<p>When starting a notebook server from the command line, you can also open a
+particular notebook directly, bypassing the dashboard, with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span>
+<span class="pre">my_notebook.ipynb</span></tt>. The <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension is assumed if no extension is
+given.</p>
+<p>When you are inside an open notebook, the <cite>File | Open...</cite> menu option will
+open the dashboard in a new browser tab, to allow you to open another notebook
+from the notebook directory or to create a new notebook.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can start more than one notebook server at the same time, if you want
@@ -238,122 +217,101 @@ notebook server starts on port 8888, and later notebook servers search for
 ports near that one.  You can also manually specify the port with the
 <tt class="docutils literal"><span class="pre">--port</span></tt> option.</p>
 </div>
-</div>
-</div>
-<div class="section" id="basic-workflow-in-the-ipython-notebook-web-app">
-<h2>Basic workflow in the IPython Notebook web app<a class="headerlink" href="#basic-workflow-in-the-ipython-notebook-web-app" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="starting-up">
-<h3>Starting up<a class="headerlink" href="#starting-up" title="Permalink to this headline">¶</a></h3>
-<p>You can start running the Notebook web app using the following command:</p>
-<div class="highlight-python"><pre>$ ipython notebook</pre>
-</div>
-<p>(Here, and in the sequel, the initial <tt class="docutils literal"><span class="pre">$</span></tt> represents the shell prompt,
-indicating that the command is to be run from the command line in a shell.)</p>
-<p>The landing page of the IPython Notebook application, the <em>dashboard</em>, shows
-the notebooks currently available in the <em>notebook directory</em> (By default, the directory
-from which the notebook was started).
-You can create new notebooks from the dashboard with the <tt class="docutils literal"><span class="pre">New</span> <span class="pre">Notebook</span></tt>
-button, or open existing ones by clicking on their name.
-You can also drag and drop <tt class="docutils literal"><span class="pre">.ipynb</span></tt> notebooks and standard <tt class="docutils literal"><span class="pre">.py</span></tt> Python
-source code files into the notebook list area.</p>
-<p>You can open an existing notebook directly, without having to go via the
-dashboard, with:</p>
-<blockquote>
-<div>ipython notebook my_notebook</div></blockquote>
-<p>The <cite>.ipynb</cite> extension is assumed if no extension is given.</p>
-<p>The <cite>File | Open...</cite> menu option will open the dashboard in a new browser tab,
-to allow you to select a current notebook
-from the notebook directory or to create a new notebook.</p>
-</div>
-<div class="section" id="notebook-user-interface">
-<h3>Notebook user interface<a class="headerlink" href="#notebook-user-interface" title="Permalink to this headline">¶</a></h3>
-<p>When you open a new notebook document in the Notebook, you will be presented
-with the title associated to the notebook space/document, a <em>menu bar</em>, a
-<em>toolbar</em> and an empty <em>input cell</em>.</p>
-<div class="section" id="notebook-title">
-<h4>Notebook title<a class="headerlink" href="#notebook-title" title="Permalink to this headline">¶</a></h4>
-<p>The title of the notebook document that is currently being edited is displayed
-at the top of the page, next to the <tt class="docutils literal"><span class="pre">IP[y]:</span> <span class="pre">Notebook</span></tt> logo. This title may
-be edited directly by clicking on it. The title is reflected in the name of
-the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> notebook document file that is saved.</p>
-</div>
-<div class="section" id="menu-bar">
-<h4>Menu bar<a class="headerlink" href="#menu-bar" title="Permalink to this headline">¶</a></h4>
-<p>The menu bar presents different options that may be used to manipulate the way
-the Notebook functions.</p>
-</div>
-<div class="section" id="toolbar">
-<h4>Toolbar<a class="headerlink" href="#toolbar" title="Permalink to this headline">¶</a></h4>
-<p>The tool bar gives a quick way of accessing the most-used operations within
-the Notebook, by clicking on an icon.</p>
-</div>
-</div>
 <div class="section" id="creating-a-new-notebook-document">
 <h3>Creating a new notebook document<a class="headerlink" href="#creating-a-new-notebook-document" title="Permalink to this headline">¶</a></h3>
-<p>A new notebook space/document may be created at any time, either from the
-dashboard, or using the <cite>File | New</cite> menu option from within an active
-notebook. The new notebook is created within the same directory and
-will open in a new browser tab. It will also be reflected as a new entry in
-the notebook list on the dashboard.</p>
+<p>A new notebook may be created at any time, either from the dashboard, or using
+the <cite>File | New</cite> menu option from within an active notebook. The new notebook
+is created within the same directory and will open in a new browser tab. It
+will also be reflected as a new entry in the notebook list on the dashboard.</p>
 </div>
+<div class="section" id="opening-notebooks">
+<h3>Opening notebooks<a class="headerlink" href="#opening-notebooks" title="Permalink to this headline">¶</a></h3>
+<p>An open notebook has <strong>exactly one</strong> interactive session connected to an
+<a class="reference internal" href="../overview.html#ipythonzmq"><em>IPython kernel</em></a>, which will execute code sent by the user
+and communicate back results.  This kernel remains active if the web browser
+window is closed, and reopening the same notebook from the dashboard will
+reconnect the web application to the same kernel. In the dashboard, notebooks
+with an active kernel have a <tt class="docutils literal"><span class="pre">Shutdown</span></tt> button next to them, whereas
+notebooks without an active kernel have a <tt class="docutils literal"><span class="pre">Delete</span></tt> button in its place.</p>
+<p>Other clients may connect to the same underlying IPython kernel.
+The notebook server always prints to the terminal the full details of
+how to connect to each kernel, with messages such as the following:</p>
+<div class="highlight-python"><pre>[NotebookApp] Kernel started: 87f7d2c0-13e3-43df-8bb8-1bd37aaf3373</pre>
+</div>
+<p>This long string is the kernel&#8217;s ID which is sufficient for getting the
+information necessary to connect to the kernel.  You can also request this
+connection data by running the <tt class="docutils literal"><span class="pre">%connect_info</span></tt> <a class="reference internal" href="tutorial.html#magics-explained"><em>magic</em></a>. This will print the same ID information as well as the
+content of the JSON data structure it contains.</p>
+<p>You can then, for example, manually start a Qt console connected to the <em>same</em>
+kernel from the command line, by passing a portion of the ID:</p>
+<div class="highlight-python"><pre>$ ipython qtconsole --existing 87f7d2c0</pre>
+</div>
+<p>Without an ID, <tt class="docutils literal"><span class="pre">--existing</span></tt> will  connect to the most recently
+started kernel. This can also be done by running the <tt class="docutils literal"><span class="pre">%qtconsole</span></tt>
+<a class="reference internal" href="tutorial.html#magics-explained"><em>magic</em></a> in the notebook.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../overview.html#ipythonzmq"><em>Decoupled two-process model</em></a></p>
+</div>
+</div>
+</div>
+<div class="section" id="notebook-user-interface">
+<h2>Notebook user interface<a class="headerlink" href="#notebook-user-interface" title="Permalink to this headline">¶</a></h2>
+<p>When you create a new notebook document, you will be presented with the
+<strong>notebook name</strong>, a <strong>menu bar</strong>, a <strong>toolbar</strong> and an empty <strong>code
+cell</strong>.</p>
+<p><strong>notebook name</strong>: The name of the notebook document is displayed at the top
+of the page, next to the <tt class="docutils literal"><span class="pre">IP[y]:</span> <span class="pre">Notebook</span></tt> logo. This name reflects the name
+of the <tt class="docutils literal"><span class="pre">.ipynb</span></tt> notebook document file.  Clicking on the notebook name
+brings up a dialog which allows you to rename it. Thus, renaming a notebook
+from &#8220;Untitled0&#8221; to &#8220;My first notebook&#8221; in the browser, renames the
+<tt class="docutils literal"><span class="pre">Untitled0.ipynb</span></tt> file to <tt class="docutils literal"><span class="pre">My</span> <span class="pre">first</span> <span class="pre">notebook.ipynb</span></tt>.</p>
+<p><strong>menu bar</strong>: The menu bar presents different options that may be used to
+manipulate the way the notebook functions.</p>
+<p><strong>toolbar</strong>: The tool bar gives a quick way of performing the most-used
+operations within the notebook, by clicking on an icon.</p>
+<p><strong>code cell</strong>: the default type of cell, read on for an explanation of cells</p>
 </div>
 <div class="section" id="structure-of-a-notebook-document">
 <h2>Structure of a notebook document<a class="headerlink" href="#structure-of-a-notebook-document" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="input-cells">
-<h3>Input cells<a class="headerlink" href="#input-cells" title="Permalink to this headline">¶</a></h3>
-<p>Input cells are at the core of the functionality of the IPython Notebook.
-They are regions in the document in which you can enter different types of
-text and commands. To <em>execute</em> or <em>run</em> the <em>current cell</em>, i.e. the cell
-under the cursor, you can use the <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> key combination.
-This tells the Notebook app to perform the relevant operation for each type of
-cell (see below), and then to display the resulting output.</p>
-<p>The notebook consists of a sequence of input cells, labelled <tt class="docutils literal"><span class="pre">In[n]</span></tt>, which
-may be executed in a non-linear way, and outputs <tt class="docutils literal"><span class="pre">Out[n]</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> is a
-number which denotes the order in which the cells were executed over the
-history of the computational process. The contents of all of these cells are
-accessible as Python variables with the same names, forming a complete record
-of the history of the computation.</p>
-</div>
-<div class="section" id="input-cell-types">
-<h3>Input cell types<a class="headerlink" href="#input-cell-types" title="Permalink to this headline">¶</a></h3>
-<p>Each IPython input cell has a <em>cell type</em>, of which there is a restricted
-number. The type of a cell may be set by using the cell type dropdown on the
-toolbar, or via the following keyboard shortcuts:</p>
-<ul class="simple">
-<li><strong>code</strong>: <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">y</span></tt></li>
-<li><strong>markdown</strong>: <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">m</span></tt></li>
-<li><strong>raw</strong>: <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">t</span></tt></li>
-<li><strong>heading</strong>: <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">1</span></tt> - <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">6</span></tt></li>
-</ul>
-<p>Upon initial creation, each input cell is by default a code cell.</p>
+<p>The notebook consists of a sequence of cells.  A cell is a multi-line
+text input field, and its contents can be executed by using
+<tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>, or by clicking either the &#8220;Play&#8221; button the toolbar, or
+<cite>Cell | Run</cite> in the menu bar.  The execution behavior of a cell is determined
+the cell&#8217;s type.  There are four types of cells: <strong>code cells</strong>, <strong>markdown
+cells</strong>, <strong>raw cells</strong> and <strong>heading cells</strong>.  Every cell starts off
+being a <strong>code cell</strong>, but its type can be changed by using a dropdown on the
+toolbar (which will be &#8220;Code&#8221;, initially), or via <a class="reference internal" href="#keyboard-shortcuts"><em>keyboard shortcuts</em></a>.</p>
 <div class="section" id="code-cells">
-<h4>Code cells<a class="headerlink" href="#code-cells" title="Permalink to this headline">¶</a></h4>
-<p>A <em>code input cell</em> allows you to edit code inline within the cell, with full
-syntax highlighting and autocompletion/introspection. By default, the language
-associated to a code cell is Python, but other languages, such as <tt class="docutils literal"><span class="pre">julia</span></tt>
-and <tt class="docutils literal"><span class="pre">R</span></tt>, can be handled using magic commands (see below).</p>
-<p>When a code cell is executed with <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>, the code that it
-contains is transparently exported and run in that language (with automatic
-compiling, etc., if necessary). The result that is returned from this
-computation  is then displayed in the notebook space as the cell&#8217;s
-<em>output</em>. If this output is of a textual nature, it is placed into a
-numbered <em>output cell</em>. However, many other possible forms of output are also
-possible, including <tt class="docutils literal"><span class="pre">matplotlib</span></tt> figures and HTML tables (as used, for
-example, in the <tt class="docutils literal"><span class="pre">pandas</span></tt> data analyis package). This is known as IPython&#8217;s
+<h3>Code cells<a class="headerlink" href="#code-cells" title="Permalink to this headline">¶</a></h3>
+<p>A <em>code cell</em> allows you to edit and write new code, with full syntax
+highlighting and tab completion. By default, the language associated to a code
+cell is Python, but other languages, such as <tt class="docutils literal"><span class="pre">Julia</span></tt> and <tt class="docutils literal"><span class="pre">R</span></tt>, can be
+handled using <a class="reference internal" href="tutorial.html#magics-explained"><em>cell magic commands</em></a>.</p>
+<p>When a code cell is executed, code that it contains is sent to the kernel
+associated with the notebook.  The results that are returned from this
+computation  are then displayed in the notebook as the cell&#8217;s <em>output</em>. The
+output is not limited to text, with many other possible forms of output are
+also possible, including <tt class="docutils literal"><span class="pre">matplotlib</span></tt> figures and HTML tables (as used, for
+example, in the <tt class="docutils literal"><span class="pre">pandas</span></tt> data analysis package). This is known as IPython&#8217;s
 <em>rich display</em> capability.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference external" href="http://nbviewer.ipython.org/urls/raw.github.com/ipython/ipython/1.x/examples/notebooks/Part%202%20-%20Basic%20Output.ipynb">Basic Output</a>  example notebook</p>
+<p class="last"><a class="reference external" href="http://nbviewer.ipython.org/urls/raw.github.com/ipython/ipython/1.x/examples/notebooks/Part%205%20-%20Rich%20Display%20System.ipynb">Rich Display System</a>  example notebook</p>
+</div>
 </div>
 <div class="section" id="markdown-cells">
-<h4>Markdown cells<a class="headerlink" href="#markdown-cells" title="Permalink to this headline">¶</a></h4>
+<h3>Markdown cells<a class="headerlink" href="#markdown-cells" title="Permalink to this headline">¶</a></h3>
 <p>You can document the computational process in a literate way, alternating
 descriptive text with code, using <em>rich text</em>. In IPython this is accomplished
 by marking up text with the Markdown language. The corresponding cells are
-called <em>Markdown input cells</em>. The Markdown language provides a simple way to
+called <em>Markdown cells</em>. The Markdown language provides a simple way to
 perform this text markup, that is, to specify which parts of the text should
 be emphasized (italics), bold, form lists, etc.</p>
-<p>When a Markdown input cell is executed, the Markdown code is converted into
-the corresponding formatted rich text. This output then <em>replaces</em> the
-original Markdown input cell, leaving just the visually-significant marked up
-rich text.  Markdown allows arbitrary HTML code for formatting.</p>
+<p>When a Markdown cell is executed, the Markdown code is converted into
+the corresponding formatted rich text. Markdown allows arbitrary HTML code for
+formatting.</p>
 <p>Within Markdown cells, you can also include <em>mathematics</em> in a straightforward
 way, using standard LaTeX notation: <tt class="docutils literal"><span class="pre">$...$</span></tt> for inline mathematics and
 <tt class="docutils literal"><span class="pre">$$...$$</span></tt> for displayed mathematics. When the Markdown cell is executed,
@@ -366,26 +324,29 @@ supports a <a class="reference external" href="mathjax_tex">large subset</a> of 
 New LaTeX macros may be defined using standard methods,
 such as <tt class="docutils literal"><span class="pre">\newcommand</span></tt>, by placing them anywhere <em>between math delimiters</em> in
 a Markdown cell. These definitions are then available throughout the rest of
-the IPython session. (Note, however, that more care must be taken when using
-<a href="#id3"><span class="problematic" id="id4">nbconvert_</span></a> to output to LaTeX).</p>
+the IPython session.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="notebook_p4">Markdown Cells</a> example notebook</p>
 </div>
 </div>
-<div class="section" id="raw-input-cells">
-<h3>Raw input cells<a class="headerlink" href="#raw-input-cells" title="Permalink to this headline">¶</a></h3>
-<p><em>Raw</em> input cells provide a place in which you can write <em>output</em> directly.
-Raw cells are not evaluated by the Notebook, and have no output.
-When passed through nbconvert, Raw cells arrive in the destination format unmodified,
-allowing you to type full latex into a raw cell, which will only be rendered
-by latex after conversion by nbconvert.</p>
+<div class="section" id="raw-cells">
+<h3>Raw cells<a class="headerlink" href="#raw-cells" title="Permalink to this headline">¶</a></h3>
+<p><em>Raw</em> cells provide a place in which you can write <em>output</em> directly.
+Raw cells are not evaluated by the notebook.
+When passed through <a class="reference internal" href="nbconvert.html#nbconvert"><em>nbconvert</em></a>, raw cells arrive in the
+destination format unmodified. For example, this allows you to type full LaTeX
+into a raw cell, which will only be rendered by LaTeX after conversion by
+nbconvert.</p>
 </div>
 <div class="section" id="heading-cells">
 <h3>Heading cells<a class="headerlink" href="#heading-cells" title="Permalink to this headline">¶</a></h3>
 <p>You can provide a conceptual structure for your computational document as a
 whole using different levels of headings; there are 6 levels available, from
 level 1 (top level) down to level 6 (paragraph). These can be used later for
-constructing tables of contents, etc.</p>
-<p>As with Markdown cells, a heading input cell is replaced by a rich text
-rendering of the heading when the cell is executed.</p>
+constructing tables of contents, etc.  As with Markdown cells, a heading
+cell is replaced by a rich text rendering of the heading when the cell is
+executed.</p>
 </div>
 </div>
 <div class="section" id="basic-workflow">
@@ -393,46 +354,30 @@ rendering of the heading when the cell is executed.</p>
 <p>The normal workflow in a notebook is, then, quite similar to a standard
 IPython session, with the difference that you can edit cells in-place multiple
 times until you obtain the desired results, rather than having to
-rerun separate scripts with the <tt class="docutils literal"><span class="pre">%run</span></tt> magic command. (Magic commands do,
-however, also work in the notebook; see below).</p>
+rerun separate scripts with the <tt class="docutils literal"><span class="pre">%run</span></tt> magic command.</p>
 <p>Typically, you will work on a computational problem in pieces, organizing
 related ideas into cells and moving forward once previous parts work
 correctly. This is much more convenient for interactive exploration than
 breaking up a computation into scripts that must be executed together, as was
-previously necessary, especially if parts of them take a long time to run</p>
-<p>The only significant limitation that the Notebook currently has, compared to
-the Qt console, is that it cannot run any code that expects input from the
-kernel (such as scripts that call <tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt>).  Very importantly, this
-means that the <tt class="docutils literal"><span class="pre">%debug</span></tt> magic does <em>not</em> currently work in the notebook!</p>
-<p>This limitation will be overcome in the future, but in the meantime, there is
-a simple solution for debugging: you can attach a Qt console to your existing
-notebook kernel, and run <tt class="docutils literal"><span class="pre">%debug</span></tt> from the Qt console.
-If your notebook is running on a local computer (i.e. if you are accessing it
-via your localhost address at <tt class="docutils literal"><span class="pre">127.0.0.1</span></tt>), then you can just type
-<tt class="docutils literal"><span class="pre">%qtconsole</span></tt> in the notebook and a Qt console will open up, connected to
-that same kernel.</p>
+previously necessary, especially if parts of them take a long time to run.</p>
 <p>At certain moments, it may be necessary to interrupt a calculation which is
-taking too long to complete. This may be done with the <tt class="docutils literal"><span class="pre">Kernel</span> <span class="pre">|</span> <span class="pre">Interrupt</span></tt>
-menu option, or the :kbd:<tt class="docutils literal"><span class="pre">Ctrl-i</span></tt> keyboard shortcut.
+taking too long to complete. This may be done with the <cite>Kernel | Interrupt</cite>
+menu option, or the <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">i</span></tt> keyboard shortcut.
 Similarly, it may be necessary or desirable to restart the whole computational
-process, with the <tt class="docutils literal"><span class="pre">Kernel</span> <span class="pre">|</span> <span class="pre">Restart</span></tt> menu option or :kbd:<tt class="docutils literal"><span class="pre">Ctrl-.</span></tt>
-shortcut. This gives an equivalent state to loading the notebook document
-afresh.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">While in simple cases you can &#8220;roundtrip&#8221; a notebook to Python, edit the
-Python file, and then import it back without loss of main content, this is
-in general <em>not guaranteed to work</em>.  First, there is extra metadata
-saved in the notebook that may not be saved to the <tt class="docutils literal"><span class="pre">.py</span></tt> format.  And as
-the notebook format evolves in complexity, there will be attributes of the
-notebook that will not survive a roundtrip through the Python form.  You
-should think of the Python format as a way to output a script version of a
-notebook and the import capabilities as a way to load existing code to get
-a notebook started.  But the Python version is <em>not</em> an alternate notebook
-format.</p>
+process, with the <cite>Kernel | Restart</cite> menu option or <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">.</span></tt>
+shortcut.</p>
+<p>A notebook may be downloaded in either a <tt class="docutils literal"><span class="pre">.ipynb</span></tt> or <tt class="docutils literal"><span class="pre">.py</span></tt> file from the
+menu option <cite>File | Download as</cite>. Choosing the <tt class="docutils literal"><span class="pre">.py</span></tt> option downloads a
+Python <tt class="docutils literal"><span class="pre">.py</span></tt> script, in which all rich output has been removed and the
+content of markdown cells have been inserted as comments.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference external" href="http://nbviewer.ipython.org/urls/raw.github.com/ipython/ipython/1.x/examples/notebooks/Part%25201%2520-%2520Running%2520Code.ipynb">Running Code in the IPython Notebook</a> example notebook</p>
+<p><a class="reference external" href="http://nbviewer.ipython.org/urls/raw.github.com/ipython/ipython/1.x/examples/notebooks/Part%202%20-%20Basic%20Output.ipynb">Basic Output</a> example notebook</p>
+<p class="last"><a class="reference internal" href="#note-about-roundtrip"><em>a warning about doing &#8220;roundtrip&#8221; conversions</em></a>.</p>
 </div>
 <div class="section" id="keyboard-shortcuts">
-<h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3>Keyboard shortcuts<a class="headerlink" href="#keyboard-shortcuts" title="Permalink to this headline">¶</a></h3>
 <p>All actions in the notebook can be performed with the mouse, but keyboard
 shortcuts are also available for the most common ones. The essential shortcuts
 to remember are the following:</p>
@@ -440,10 +385,10 @@ to remember are the following:</p>
 <li><dl class="first docutils">
 <dt><tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>:  run cell</dt>
 <dd><p class="first last">Execute the current cell, show output (if any), and jump to the next cell
-below. If <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> is invoked on the last input cell, a new code
+below. If <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> is invoked on the last cell, a new code
 cell will also be created. Note that in the notebook, typing <tt class="kbd docutils literal"><span class="pre">Enter</span></tt>
 on its own <em>never</em> forces execution, but rather just inserts a new line in
-the current input cell. <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> is equivalent to clicking the
+the current cell. <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt> is equivalent to clicking the
 <tt class="docutils literal"><span class="pre">Cell</span> <span class="pre">|</span> <span class="pre">Run</span></tt> menu item.</p>
 </dd>
 </dl>
@@ -462,7 +407,7 @@ to be saved in the notebook.</p>
 </li>
 <li><dl class="first docutils">
 <dt><tt class="kbd docutils literal"><span class="pre">Alt-Enter</span></tt>: run cell, insert below</dt>
-<dd><p class="first last">Executes the current cell, shows the output, and inserts a <em>new</em> input
+<dd><p class="first last">Executes the current cell, shows the output, and inserts a <em>new</em>
 cell between the current cell and the cell below (if one exists). This
 is thus a shortcut for the sequence <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>, <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">a</span></tt>.
 (<tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">a</span></tt> adds a new cell above the current one.)</p>
@@ -568,132 +513,38 @@ IPython will show you all the available keyboard shortcuts.</p>
 </table>
 </div>
 </div>
-<div class="section" id="magic-commands">
-<h2>Magic commands<a class="headerlink" href="#magic-commands" title="Permalink to this headline">¶</a></h2>
-<p>Magic commands, or <em>magics</em>, are commands for controlling IPython itself.
-They all begin with <tt class="docutils literal"><span class="pre">%</span></tt> and are entered into code input cells; the code
-cells are executed as usual with <tt class="kbd docutils literal"><span class="pre">Shift-Enter</span></tt>.</p>
-<p>The magic commands call special functions defined by IPython which manipulate
-the computational state in certain ways.</p>
-<p>There are two types of magics:</p>
-<blockquote>
-<div><ul>
-<li><p class="first"><strong>line magics</strong>:</p>
-<blockquote>
-<div><p>These begin with a single <tt class="docutils literal"><span class="pre">%</span></tt> and take as arguments the rest of the
-<em>same line</em> of the code cell. Any other lines of the code cell are
-treated as if they were part of a standard code cell.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><strong>cell magics</strong>:</p>
-<blockquote>
-<div><p>These begin with <tt class="docutils literal"><span class="pre">%%</span></tt> and operate on the <em>entire</em> remaining contents
-of the code cell.</p>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-<div class="section" id="line-magics">
-<h3>Line magics<a class="headerlink" href="#line-magics" title="Permalink to this headline">¶</a></h3>
-<p>Some of the available line magics are the following:</p>
-<blockquote>
-<div><ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%load</span> <span class="pre">filename</span></tt>:</p>
-<blockquote>
-<div><p>Loads the contents of the file <tt class="docutils literal"><span class="pre">filename</span></tt> into a new code cell. This
-can be a URL for a remote file.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%timeit</span> <span class="pre">code</span></tt>:</p>
-<blockquote>
-<div><p>An easy way to time how long the single line of code <tt class="docutils literal"><span class="pre">code</span></tt> takes to
-run</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%config</span></tt>:</p>
-<blockquote>
-<div><p>Configuration of the IPython Notebook</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%lsmagic</span></tt>:</p>
-<blockquote>
-<div><p>Provides a list of all available magic commands</p>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-</div>
-<div class="section" id="cell-magics">
-<h3>Cell magics<a class="headerlink" href="#cell-magics" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%%latex</span></tt>:</p>
-<blockquote>
-<div><p>Renders the entire contents of the cell in LaTeX, without needing to use
-explicit LaTeX delimiters.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%%bash</span></tt>:</p>
-<blockquote>
-<div><p>The code cell is executed by sending it to be executed by <tt class="docutils literal"><span class="pre">bash</span></tt>. The
-output of the <tt class="docutils literal"><span class="pre">bash</span></tt> commands is captured and displayed in the
-notebook.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%%file</span> <span class="pre">filename</span></tt>:</p>
-<blockquote>
-<div><p>Writes the contents of the cell to the file <tt class="docutils literal"><span class="pre">filename</span></tt>.
-<strong>Caution</strong>: The file is over-written without warning!</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%%R</span></tt>:</p>
-<blockquote>
-<div><p>Execute the contents of the cell using the R language.</p>
-</div></blockquote>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">%%timeit</span></tt>:</p>
-<blockquote>
-<div><p>Version of <tt class="docutils literal"><span class="pre">%timeit</span></tt> which times the entire block of code in the
-current code cell.</p>
-</div></blockquote>
-</li>
-</ul>
-</div></blockquote>
-<p>Several of the cell magics provide functionality to manipulate the filesystem
-of a remote server to which you otherwise do not have access.</p>
-</div>
-</div>
 <div class="section" id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
-<p>One major feature of the Notebook is the ability to interact with
-plots that are the output of running code cells. IPython is designed to work
-seamlessly with the <tt class="docutils literal"><span class="pre">matplotlib</span></tt> plotting library to provide this
-functionality.</p>
+<p>One major feature of the notebook is the ability to display plots that are the
+output of running code cells. IPython is designed to work seamlessly with the
+<a class="reference external" href="http://matplotlib.org">matplotlib</a> plotting library to provide this functionality.</p>
 <p>To set this up, before any plotting is performed you must execute the
-<tt class="docutils literal"><span class="pre">%matplotlib</span></tt> magic command. This performs the necessary behind-the-scenes
-setup for IPython to work correctly hand in hand with <tt class="docutils literal"><span class="pre">matplotlib</span></tt>; it does
-<em>not</em>, however, actually execute any Python <tt class="docutils literal"><span class="pre">import</span></tt> commands, that is, no
-names are added to the namespace.</p>
+<tt class="docutils literal"><span class="pre">%matplotlib</span></tt>  <a class="reference internal" href="tutorial.html#magics-explained"><em>magic command</em></a>. This performs the
+necessary behind-the-scenes setup for IPython to work correctly hand in hand
+with <tt class="docutils literal"><span class="pre">matplotlib</span></tt>; it does <em>not</em>, however, actually execute any Python
+<tt class="docutils literal"><span class="pre">import</span></tt> commands, that is, no names are added to the namespace.</p>
 <p>If the <tt class="docutils literal"><span class="pre">%matplotlib</span></tt> magic is called without an argument, the
 output of a plotting command is displayed using the default <tt class="docutils literal"><span class="pre">matplotlib</span></tt>
 backend in a separate window. Alternatively, the backend can be explicitly
 requested using, for example:</p>
 <div class="highlight-python"><pre>%matplotlib gtk</pre>
 </div>
-<p>A particularly interesting backend is the <tt class="docutils literal"><span class="pre">inline</span></tt> backend.
-This is applicable only for the IPython Notebook and the IPython QtConsole.
-It can be invoked as follows:</p>
+<p>A particularly interesting backend, provided by IPython, is the <tt class="docutils literal"><span class="pre">inline</span></tt>
+backend.  This is available only for the IPython Notebook and the
+<a class="reference internal" href="qtconsole.html#qtconsole"><em>IPython QtConsole</em></a>.  It can be invoked as follows:</p>
 <div class="highlight-python"><pre>%matplotlib inline</pre>
 </div>
-<p>With this backend, output of plotting commands is displayed <em>inline</em> within
-the notebook format, directly below the input cell that produced it. The
-resulting plots will then also be stored in the notebook document. This
-provides a key part of the functionality for <a class="reference external" href="https://en.wikipedia.org/wiki/Reproducibility">reproducibility</a> that the IPython
-Notebook provides.</p>
+<p>With this backend, the output of plotting commands is displayed <em>inline</em>
+within the notebook, directly below the code cell that produced it. The
+resulting plots will then also be stored in the notebook document.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="http://nbviewer.ipython.org/urls/raw.github.com/ipython/ipython/1.x/examples/notebooks/Part%203%20-%20Plotting%20with%20Matplotlib.ipynb">Plotting with Matplotlib</a>  example notebook</p>
+</div>
 </div>
 <div class="section" id="configuring-the-ipython-notebook">
 <h2>Configuring the IPython Notebook<a class="headerlink" href="#configuring-the-ipython-notebook" title="Permalink to this headline">¶</a></h2>
-<p>The IPython Notebook can be run with a variety of command line arguments.
+<p>The notebook server can be run with a variety of command line arguments.
 To see a list of available options enter:</p>
 <div class="highlight-python"><pre>$ ipython notebook --help</pre>
 </div>
@@ -707,18 +558,41 @@ located, run:</p>
 on available options, use:</p>
 <div class="highlight-python"><pre>$ ipython profile create</pre>
 </div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="../config/overview.html#config-overview"><em>Overview of the IPython configuration system</em></a>, in particular <a class="reference internal" href="../config/overview.html#profiles"><em>Profiles</em></a>.</p>
+<p><a class="reference internal" href="public_server.html#notebook-security"><em>Notebook security</em></a></p>
+<p class="last"><a class="reference internal" href="public_server.html#notebook-public-server"><em>Running a public notebook server</em></a></p>
+</div>
 </div>
 <div class="section" id="importing-py-files">
-<h2>Importing <cite>.py</cite> files<a class="headerlink" href="#importing-py-files" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">.py</span></tt> files will be imported into the IPython Notebook as a notebook with
+<h2>Importing <tt class="docutils literal"><span class="pre">.py</span></tt> files<a class="headerlink" href="#importing-py-files" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">.py</span></tt> files will be imported as a notebook with
 the same basename, but an <tt class="docutils literal"><span class="pre">.ipynb</span></tt> extension, located in the notebook
 directory. The notebook created will have just one cell, which will contain
 all the code in the <tt class="docutils literal"><span class="pre">.py</span></tt> file. You can later manually partition this into
 individual cells using the <tt class="docutils literal"><span class="pre">Edit</span> <span class="pre">|</span> <span class="pre">Split</span> <span class="pre">Cell</span></tt> menu option, or the
 <tt class="kbd docutils literal"><span class="pre">Ctrl-m</span> <span class="pre">-</span></tt> keyboard shortcut.</p>
-<p>nbformat&gt;2&lt;/nbformat&gt;`` at the start of the file, and then add separators for
-text and code cells, to get a cleaner import with the file already broken into
-individual cells.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">.py</span></tt> scripts obtained from a notebook document using <a href="#id3"><span class="problematic" id="id4">nbconvert_</span></a>
+maintain the structure of the notebook in comments. Reimporting such a
+script back into a notebook will preserve this structure.</p>
+<div class="admonition warning" id="note-about-roundtrip">
+<p class="first admonition-title">Warning</p>
+<p class="last">While in simple cases you can &#8220;roundtrip&#8221; a notebook to Python, edit the
+Python file, and then import it back without loss of main content, this is
+in general <em>not guaranteed to work</em>.  First, there is extra metadata
+saved in the notebook that may not be saved to the <tt class="docutils literal"><span class="pre">.py</span></tt> format.  And as
+the notebook format evolves in complexity, there will be attributes of the
+notebook that will not survive a roundtrip through the Python form.  You
+should think of the Python format as a way to output a script version of a
+notebook and the import capabilities as a way to load existing code to get
+a notebook started.  But the Python version is <em>not</em> an alternate notebook
+format.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="nbconvert.html#notebook-format"><em>Notebook JSON file format</em></a></p>
+</div>
 </div>
 </div>
 
@@ -752,7 +626,7 @@ individual cells.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 02, 2013.
+      Last updated on Aug 08, 2013.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
