@@ -1,0 +1,1398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: core.interactiveshell &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0.0: An Afternoon Hack',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: core.logger" href="IPython.core.logger.html" />
+    <link rel="prev" title="Module: core.inputtransformer" href="IPython.core.inputtransformer.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.logger.html" title="Module: core.logger"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.inputtransformer.html" title="Module: core.inputtransformer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.interactiveshell</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">5 Classes</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.core.inputtransformer.html"
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.inputtransformer</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.core.logger.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.logger</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.core.interactiveshell.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.core.interactiveshell">
+<span id="module-core-interactiveshell"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.interactiveshell</span></tt><a class="headerlink" href="#module-IPython.core.interactiveshell" title="Permalink to this headline">¶</a></h1>
+<p>Main IPython class.</p>
+<div class="section" id="classes">
+<h2>5 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.core.interactiveshell.SpaceInInput">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SpaceInInput</tt><a class="headerlink" href="#IPython.core.interactiveshell.SpaceInInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.interactiveshell.SeparateUnicode">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1079cd610&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
+<p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
+<blockquote>
+<div>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and &#8216;n&#8217;-&gt;&#8217;</div></blockquote>
+<p>&#8216;.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">ReadlineNoRecord</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Context manager to execute some code, then reload readline history
+so that interactive input to the code doesn&#8217;t appear when pressing up.</p>
+<dl class="method">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.ReadlineNoRecord.get_readline_tail">
+<tt class="descname">get_readline_tail</tt><big>(</big><em>n=10</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.ReadlineNoRecord.get_readline_tail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the last n items in readline history.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.interactiveshell.InteractiveShell">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShell</tt><big>(</big><em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_module=None</em>, <em>user_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.SingletonConfigurable" title="IPython.config.configurable.SingletonConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.SingletonConfigurable</span></tt></a></p>
+<p>An enhanced, interactive shell for Python.</p>
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_module=None</em>, <em>user_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.interactiveshell.InteractiveShell.all_ns_refs">
+<tt class="descname">all_ns_refs</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.all_ns_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of references to all the namespace dictionaries in which
+IPython might store a user-created object.</p>
+<p>Note that this does not include the displayhook, which also caches
+objects from the output.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.atexit_operations">
+<tt class="descname">atexit_operations</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.atexit_operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will be executed at the time of exit.</p>
+<p>Cleanup operations and saving of persistent data that is done
+unconditionally by IPython should be performed here.</p>
+<p>For things that may depend on startup flags or platform specifics (such
+as having readline or not), register a separate atexit function in the
+code that has the appropriate information, rather than trying to
+clutter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.auto_rewrite_input">
+<tt class="descname">auto_rewrite_input</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.auto_rewrite_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print to the screen the rewritten form of the user&#8217;s command.</p>
+<p>This shows visual feedback by rewriting input lines that cause
+automatic calling to kick in, like:</p>
+<div class="highlight-python"><pre>/f x</pre>
+</div>
+<p>into:</p>
+<div class="highlight-python"><pre>------&gt; f(x)</pre>
+</div>
+<p>after the user&#8217;s input prompt.  This helps the user understand that the
+input line was transformed automatically by IPython.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.core.interactiveshell.InteractiveShell.call_pdb">
+<tt class="descname">call_pdb</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.call_pdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control auto-activation of pdb at exceptions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.clear_main_mod_cache">
+<tt class="descname">clear_main_mod_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.clear_main_mod_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the cache of main modules.</p>
+<p>Mainly for use by utilities like %reset.</p>
+<p class="rubric">Examples</p>
+<p>In [15]: import IPython</p>
+<p>In [16]: m = _ip.new_main_mod(IPython.__file__)</p>
+<p>In [17]: len(_ip._main_mod_cache) &gt; 0
+Out[17]: True</p>
+<p>In [18]: _ip.clear_main_mod_cache()</p>
+<p>In [19]: len(_ip._main_mod_cache) == 0
+Out[19]: True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.complete">
+<tt class="descname">complete</tt><big>(</big><em>text</em>, <em>line=None</em>, <em>cursor_pos=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the completed text and a list of completions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<blockquote>
+<div><blockquote>
+<div><p>A string of text to be completed on.  It can be given as empty and
+instead a line/position pair are given.  In this case, the
+completer itself will split the line like readline does.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>line <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
+<dd><p class="first last">The complete line that text is part of.</p>
+</dd>
+<dt>cursor_pos <span class="classifier-delimiter">:</span> <span class="classifier">int, optional</span></dt>
+<dd><p class="first last">The position of the cursor on the input line.</p>
+</dd>
+</dl>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>text</strong> : string</p>
+<blockquote>
+<div><blockquote>
+<div><p>The actual text that was completed.</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>matches <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd><p class="first last">A sorted list with all possible completions.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>The optional arguments allow the completion to take more context into</strong> :</p>
+<p><strong>account, and are part of the low-level completion API.</strong> :</p>
+<p><strong>This is a wrapper around the completion mechanism, similar to what</strong> :</p>
+<p><strong>readline does at the command line when the TAB key is hit.  By</strong> :</p>
+<p><strong>exposing it as a method, it can be used by other non-readline</strong> :</p>
+<p><strong>environments (such as GUIs) for text completion.</strong> :</p>
+<p><strong>Simple usage example:</strong> :</p>
+<p><strong>In [1]: x = &#8216;hello&#8217;</strong> :</p>
+<p><strong>In [2]: _ip.complete(&#8216;x.l&#8217;)</strong> :</p>
+<p class="last"><strong>Out[2]: (&#8216;x.l&#8217;, [&#8216;x.ljust&#8217;, &#8216;x.lower&#8217;, &#8216;x.lstrip&#8217;])</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.debugger">
+<tt class="descname">debugger</tt><big>(</big><em>force=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.debugger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the pydb/pdb debugger.</p>
+<p>Keywords:</p>
+<blockquote>
+<div><ul class="simple">
+<li>force(False): by default, this routine checks the instance call_pdb</li>
+</ul>
+<p>flag and does not actually invoke the debugger if the flag is false.
+The &#8216;force&#8217; option forces the debugger to activate even if the flag
+is false.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.define_macro">
+<tt class="descname">define_macro</tt><big>(</big><em>name</em>, <em>themacro</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.define_macro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a new macro</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : str</p>
+<blockquote>
+<div><p>The name of the macro.</p>
+</div></blockquote>
+<p><strong>themacro</strong> : str or Macro</p>
+<blockquote class="last">
+<div><p>The action to do upon invoking the macro.  If a string, a new
+Macro object is created by passing the string to it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.del_var">
+<tt class="descname">del_var</tt><big>(</big><em>varname</em>, <em>by_name=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.del_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a variable from the various namespaces, so that, as
+far as possible, we&#8217;re not keeping any hidden references to it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>varname</strong> : str</p>
+<blockquote>
+<div><p>The name of the variable to delete.</p>
+</div></blockquote>
+<p><strong>by_name</strong> : bool</p>
+<blockquote class="last">
+<div><p>If True, delete variables with the given name in each
+namespace. If False (default), find the variable in the user
+namespace, and delete references to it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.drop_by_id">
+<tt class="descname">drop_by_id</tt><big>(</big><em>variables</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.drop_by_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a dict of variables from the user namespace, if they are the
+same as the values in the dictionary.</p>
+<p>This is intended for use by extensions: variables that they&#8217;ve added can
+be taken back out if they are unloaded, without removing any that the
+user has overwritten.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict</p>
+<blockquote class="last">
+<div><p>A dictionary mapping object names (as strings) to the objects.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.enable_matplotlib">
+<tt class="descname">enable_matplotlib</tt><big>(</big><em>gui=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_matplotlib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable interactive matplotlib and inline figure support.</p>
+<p>This takes the following steps:</p>
+<ol class="arabic simple">
+<li>select the appropriate eventloop and matplotlib backend</li>
+<li>set up matplotlib for interactive use with that backend</li>
+<li>configure formatters for inline figure display</li>
+<li>enable the selected gui eventloop</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : optional, string</p>
+<blockquote class="last">
+<div><p>If given, dictates the choice of matplotlib GUI backend to use
+(should be one of IPython&#8217;s supported backends, &#8216;qt&#8217;, &#8216;osx&#8217;, &#8216;tk&#8217;,
+&#8216;gtk&#8217;, &#8216;wx&#8217; or &#8216;inline&#8217;), otherwise we use the default chosen by
+matplotlib (as dictated by the matplotlib build-time options plus the
+user&#8217;s matplotlibrc configuration file).  Note that not all backends
+make sense in all contexts, for example a terminal ipython can&#8217;t
+display figures inline.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.enable_pylab">
+<tt class="descname">enable_pylab</tt><big>(</big><em>gui=None</em>, <em>import_all=True</em>, <em>welcome_message=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.enable_pylab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate pylab support at runtime.</p>
+<p>This turns on support for matplotlib, preloads into the interactive
+namespace all of numpy and pylab, and configures IPython to correctly
+interact with the GUI event loop.  The GUI backend to be used can be
+optionally selected with the optional <tt class="docutils literal"><span class="pre">gui</span></tt> argument.</p>
+<p>This method only adds preloading the namespace to InteractiveShell.enable_matplotlib.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>gui</strong> : optional, string</p>
+<blockquote>
+<div><p>If given, dictates the choice of matplotlib GUI backend to use
+(should be one of IPython&#8217;s supported backends, &#8216;qt&#8217;, &#8216;osx&#8217;, &#8216;tk&#8217;,
+&#8216;gtk&#8217;, &#8216;wx&#8217; or &#8216;inline&#8217;), otherwise we use the default chosen by
+matplotlib (as dictated by the matplotlib build-time options plus the
+user&#8217;s matplotlibrc configuration file).  Note that not all backends
+make sense in all contexts, for example a terminal ipython can&#8217;t
+display figures inline.</p>
+</div></blockquote>
+<p><strong>import_all</strong> : optional, bool, default: True</p>
+<blockquote>
+<div><p>Whether to do <cite>from numpy import *</cite> and <cite>from pylab import *</cite>
+in addition to module imports.</p>
+</div></blockquote>
+<p><strong>welcome_message</strong> : deprecated</p>
+<blockquote class="last">
+<div><p>This argument is ignored, no welcome message will be displayed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.ev">
+<tt class="descname">ev</tt><big>(</big><em>expr</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.ev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate python expression expr in user namespace.</p>
+<p>Returns the result of evaluation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.ex">
+<tt class="descname">ex</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.ex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a normal python statement in user namespace.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.excepthook">
+<tt class="descname">excepthook</tt><big>(</big><em>etype</em>, <em>value</em>, <em>tb</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.excepthook" title="Permalink to this definition">¶</a></dt>
+<dd><p>One more defense for GUI apps that call sys.excepthook.</p>
+<p>GUI frameworks like wxPython trap exceptions and call
+sys.excepthook themselves.  I guess this is a feature that
+enables them to keep running after exceptions that would
+otherwise kill their mainloop. This is a bother for IPython
+which excepts to catch all of the program exceptions with a try:
+except: statement.</p>
+<p>Normally, IPython sets sys.excepthook to a CrashHandler instance, so if
+any app directly invokes sys.excepthook, it will look to the user like
+IPython crashed.  In order to work around this, we can disable the
+CrashHandler and replace it with this excepthook instead, which prints a
+regular traceback using our InteractiveTB.  In this fashion, apps which
+call sys.excepthook will generate a regular-looking exception from
+IPython, and the CrashHandler will only be triggered by real IPython
+crashes.</p>
+<p>This hook should be used sparingly, only in places which are not likely
+to be true IPython errors.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.extract_input_lines">
+<tt class="descname">extract_input_lines</tt><big>(</big><em>range_str</em>, <em>raw=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.extract_input_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a string a set of input history slices.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>range_str</strong> : string</p>
+<blockquote>
+<div><p>The set of slices is given as a string, like &#8220;~5/6-~4/2 4:8 9&#8221;,
+since this function is for use by magic functions which get their
+arguments as strings. The number before the / is the session
+number: ~n goes n back from the current session.</p>
+</div></blockquote>
+<p><strong>Optional Parameters:</strong> :</p>
+<blockquote>
+<div><ul class="simple">
+<li>raw(False): by default, the processed input is used.  If this is</li>
+</ul>
+<p>true, the raw input history is used instead.</p>
+</div></blockquote>
+<p><strong>Note that slices can be called with two notations:</strong> :</p>
+<p><strong>N:M -&gt; standard python form, means including items N...(M-1).</strong> :</p>
+<p class="last"><strong>N-M -&gt; include items N..M (closed endpoint).</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.find_cell_magic">
+<tt class="descname">find_cell_magic</tt><big>(</big><em>magic_name</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_cell_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and return a cell magic by name.</p>
+<p>Returns None if the magic isn&#8217;t found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.find_line_magic">
+<tt class="descname">find_line_magic</tt><big>(</big><em>magic_name</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_line_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and return a line magic by name.</p>
+<p>Returns None if the magic isn&#8217;t found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.find_magic">
+<tt class="descname">find_magic</tt><big>(</big><em>magic_name</em>, <em>magic_kind='line'</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find and return a magic of the given type by name.</p>
+<p>Returns None if the magic isn&#8217;t found.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.find_user_code">
+<tt class="descname">find_user_code</tt><big>(</big><em>target</em>, <em>raw=True</em>, <em>py_only=False</em>, <em>skip_encoding_cookie=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_user_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a code string from history, file, url, or a string or macro.</p>
+<p>This is mainly used by magic functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>target</strong> : str</p>
+<blockquote>
+<div><p>A string specifying code to retrieve. This will be tried respectively
+as: ranges of input history (see %history for syntax), url,
+correspnding .py file, filename, or an expression evaluating to a
+string or Macro in the user namespace.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>If true (default), retrieve raw history. Has no effect on the other
+retrieval mechanisms.</p>
+</div></blockquote>
+<p><strong>py_only</strong> : bool (default False)</p>
+<blockquote>
+<div><p>Only try to fetch python code, do not try alternative methods to decode file
+if unicode fails.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A string of code.</strong> :</p>
+<p><strong>ValueError is raised if nothing is found, and TypeError if it evaluates</strong> :</p>
+<p><strong>to an object of another type. In each case, .args[0] is a printable</strong> :</p>
+<p class="last"><strong>message.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.get_ipython">
+<tt class="descname">get_ipython</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.get_ipython" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the currently running IPython instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.getoutput">
+<tt class="descname">getoutput</tt><big>(</big><em>cmd</em>, <em>split=True</em>, <em>depth=0</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.getoutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get output (possibly including stderr) from a subprocess.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote>
+<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
+not supported.</p>
+</div></blockquote>
+<p><strong>split</strong> : bool, optional</p>
+<blockquote>
+<div><p>If True, split the output into an IPython SList.  Otherwise, an
+IPython LSString is returned.  These are objects similar to normal
+lists and strings, with a few convenience attributes for easier
+manipulation of line-based output.  You can use &#8216;?&#8217; on them for
+details.</p>
+</div></blockquote>
+<p><strong>depth</strong> : int, optional</p>
+<blockquote class="last">
+<div><p>How many frames above the caller are the local variables which should
+be expanded in the command string? The default (0) assumes that the
+expansion variables are in the stack frame calling this function.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_completer">
+<tt class="descname">init_completer</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_completer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the completion machinery.</p>
+<p>This creates completion machinery that can be used by client code,
+either interactively in-process (typically triggered by the readline
+library), programatically (such as in test suites) or out-of-prcess
+(typically over the network by remote frontends).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_environment">
+<tt class="descname">init_environment</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any changes we need to make to the user&#8217;s environment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_history">
+<tt class="descname">init_history</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the command history, and starts regular autosaves.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_latextool">
+<tt class="descname">init_latextool</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_latextool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure LaTeXTool.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_logstart">
+<tt class="descname">init_logstart</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_logstart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize logging in case it was requested at the command line.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_readline">
+<tt class="descname">init_readline</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_readline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Command history completion/saving/reloading.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_user_ns">
+<tt class="descname">init_user_ns</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_user_ns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize all user-visible namespaces to their minimum defaults.</p>
+<p>Certain history lists are also initialized here, as they effectively
+act as user namespaces.</p>
+<p class="rubric">Notes</p>
+<p>All data structures here are only filled in, they are NOT reset by this
+method.  If they were not empty before, data will simply be added to
+therm.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.init_virtualenv">
+<tt class="descname">init_virtualenv</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.init_virtualenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a virtualenv to sys.path so the user can import modules from it.
+This isn&#8217;t perfect: it doesn&#8217;t use the Python interpreter with which the
+virtualenv was built, and it ignores the &#8211;no-site-packages option. A
+warning will appear suggesting the user installs IPython in the
+virtualenv, but for many cases, it probably works well enough.</p>
+<p>Adapted from code snippets online.</p>
+<p><a class="reference external" href="http://blog.ufsoft.org/2009/1/29/ipython-and-virtualenv">http://blog.ufsoft.org/2009/1/29/ipython-and-virtualenv</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.magic">
+<tt class="descname">magic</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>DEPRECATED. Use run_line_magic() instead.</p>
+<p>Call a magic function by name.</p>
+<p>Input: a string containing the name of the magic function to call and
+any additional arguments to be passed to the magic.</p>
+<p>magic(&#8216;name -opt foo bar&#8217;) is equivalent to typing at the ipython
+prompt:</p>
+<p>In[1]: %name -opt foo bar</p>
+<p>To call a magic without arguments, simply use magic(&#8216;name&#8217;).</p>
+<p>This provides a proper Python function to call IPython&#8217;s magics in any
+valid Python code you can type at the interpreter, including loops and
+compound statements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.mktempfile">
+<tt class="descname">mktempfile</tt><big>(</big><em>data=None</em>, <em>prefix='ipython_edit_'</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.mktempfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a new tempfile and return its filename.</p>
+<p>This makes a call to tempfile.mktemp, but it registers the created
+filename internally so ipython cleans it up at exit time.</p>
+<p>Optional inputs:</p>
+<blockquote>
+<div><ul class="simple">
+<li>data(None): if data is given, it gets written out to the temp file</li>
+</ul>
+<p>immediately, and the file is closed again.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.new_main_mod">
+<tt class="descname">new_main_mod</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.new_main_mod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a new &#8216;main&#8217; module object for user code execution.</p>
+<p><tt class="docutils literal"><span class="pre">filename</span></tt> should be the path of the script which will be run in the
+module. Requests with the same filename will get the same module, with
+its namespace cleared.</p>
+<p>When scripts are executed via %run, we must keep a reference to their
+__main__ module (a FakeModule instance) around so that Python doesn&#8217;t
+clear it, rendering references to module globals useless.</p>
+<p>This method keeps said reference in a private dict, keyed by the
+absolute path of the script. This way, for multiple executions of the
+same script we only keep one copy of the namespace (the last one),
+thus preventing memory leaks from old references while allowing the
+objects from the last execution to be accessible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.pre_readline">
+<tt class="descname">pre_readline</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.pre_readline" title="Permalink to this definition">¶</a></dt>
+<dd><p>readline hook to be used at the start of each line.</p>
+<p>Currently it handles auto-indent only.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.prepare_user_module">
+<tt class="descname">prepare_user_module</tt><big>(</big><em>user_module=None</em>, <em>user_ns=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.prepare_user_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the module and namespace in which user code will be run.</p>
+<p>When IPython is started normally, both parameters are None: a new module
+is created automatically, and its __dict__ used as the namespace.</p>
+<p>If only user_module is provided, its __dict__ is used as the namespace.
+If only user_ns is provided, a dummy module is created, and user_ns
+becomes the global namespace. If both are provided (as they may be
+when embedding), user_ns is the local namespace, and user_module
+provides the global namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>user_module</strong> : module, optional</p>
+<blockquote>
+<div><p>The current user module in which IPython is being run. If None,
+a clean module will be created.</p>
+</div></blockquote>
+<p><strong>user_ns</strong> : dict, optional</p>
+<blockquote>
+<div><p>A namespace in which to run interactive commands.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>A tuple of user_module and user_ns, each properly initialised.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.push">
+<tt class="descname">push</tt><big>(</big><em>variables</em>, <em>interactive=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inject a group of variables into the IPython user namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>variables</strong> : dict, str or list/tuple of str</p>
+<blockquote>
+<div><p>The variables to inject into the user&#8217;s namespace.  If a dict, a
+simple update is done.  If a str, the string is assumed to have
+variable names separated by spaces.  A list/tuple of str can also
+be used to give the variable names.  If just the variable names are
+give (list/tuple/str) then the variable values looked up in the
+callers frame.</p>
+</div></blockquote>
+<p><strong>interactive</strong> : bool</p>
+<blockquote class="last">
+<div><p>If True (default), the variables will be listed with the <tt class="docutils literal"><span class="pre">who</span></tt>
+magic.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.register_post_execute">
+<tt class="descname">register_post_execute</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.register_post_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a function for calling after code execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.reset">
+<tt class="descname">reset</tt><big>(</big><em>new_session=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all internal namespaces, and attempt to release references to
+user objects.</p>
+<p>If new_session is True, a new history session will be opened.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.reset_selective">
+<tt class="descname">reset_selective</tt><big>(</big><em>regex=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.reset_selective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear selective variables from internal namespaces based on a
+specified regular expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>regex</strong> : string or compiled pattern, optional</p>
+<blockquote class="last">
+<div><p>A regular expression pattern that will be used in searching
+variable names in the users namespaces.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.restore_sys_module_state">
+<tt class="descname">restore_sys_module_state</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.restore_sys_module_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the state of the sys module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_ast_nodes">
+<tt class="descname">run_ast_nodes</tt><big>(</big><em>nodelist</em>, <em>cell_name</em>, <em>interactivity='last_expr'</em>, <em>compiler=&lt;built-in function compile&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_ast_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a sequence of AST nodes. The execution mode depends on the
+interactivity parameter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nodelist</strong> : list</p>
+<blockquote>
+<div><p>A sequence of AST nodes to run.</p>
+</div></blockquote>
+<p><strong>cell_name</strong> : str</p>
+<blockquote>
+<div><p>Will be passed to the compiler as the filename of the cell. Typically
+the value returned by ip.compile.cache(cell).</p>
+</div></blockquote>
+<p><strong>interactivity</strong> : str</p>
+<blockquote>
+<div><p>&#8216;all&#8217;, &#8216;last&#8217;, &#8216;last_expr&#8217; or &#8216;none&#8217;, specifying which nodes should be
+run interactively (displaying output from expressions). &#8216;last_expr&#8217;
+will run the last node interactively only if it is an expression (i.e.
+expressions in loops or other blocks are not displayed. Other values
+for this parameter will raise a ValueError.</p>
+</div></blockquote>
+<p><strong>compiler</strong> : callable</p>
+<blockquote class="last">
+<div><p>A function with the same interface as the built-in compile(), to turn
+the AST nodes into code objects. Default is the built-in compile().</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_cell">
+<tt class="descname">run_cell</tt><big>(</big><em>raw_cell</em>, <em>store_history=False</em>, <em>silent=False</em>, <em>shell_futures=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_cell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a complete IPython cell.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>raw_cell</strong> : str</p>
+<blockquote>
+<div><p>The code (including IPython code such as %magic functions) to run.</p>
+</div></blockquote>
+<p><strong>store_history</strong> : bool</p>
+<blockquote>
+<div><p>If True, the raw and translated cell will be stored in IPython&#8217;s
+history. For user code calling back into IPython&#8217;s machinery, this
+should be set to False.</p>
+</div></blockquote>
+<p><strong>silent</strong> : bool</p>
+<blockquote>
+<div><p>If True, avoid side-effects, such as implicit displayhooks and
+and logging.  silent=True forces store_history=False.</p>
+</div></blockquote>
+<p><strong>shell_futures</strong> : bool</p>
+<blockquote class="last">
+<div><p>If True, the code will share future statements with the interactive
+shell. It will both be affected by previous __future__ imports, and
+any __future__ imports in the code will affect the shell. If False,
+__future__ imports are not shared in either direction.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_cell_magic">
+<tt class="descname">run_cell_magic</tt><big>(</big><em>magic_name</em>, <em>line</em>, <em>cell</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_cell_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the given cell magic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>magic_name</strong> : str</p>
+<blockquote>
+<div><p>Name of the desired magic function, without &#8216;%&#8217; prefix.</p>
+</div></blockquote>
+<p><strong>line</strong> : str</p>
+<blockquote>
+<div><p>The rest of the first input line as a single string.</p>
+</div></blockquote>
+<p><strong>cell</strong> : str</p>
+<blockquote class="last">
+<div><p>The body of the cell as a (possibly multiline) string.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_code">
+<tt class="descname">run_code</tt><big>(</big><em>code_obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a code object.</p>
+<p>When an exception occurs, self.showtraceback() is called to display a
+traceback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
+<blockquote>
+<div><p>A compiled code object, to be executed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
+<p class="last"><strong>True</strong> : an error occurred.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.run_line_magic">
+<tt class="descname">run_line_magic</tt><big>(</big><em>magic_name</em>, <em>line</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.run_line_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the given line magic.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>magic_name</strong> : str</p>
+<blockquote>
+<div><p>Name of the desired magic function, without &#8216;%&#8217; prefix.</p>
+</div></blockquote>
+<p><strong>line</strong> : str</p>
+<blockquote class="last">
+<div><p>The rest of the input line as a single string.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.runcode">
+<tt class="descname">runcode</tt><big>(</big><em>code_obj</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.runcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a code object.</p>
+<p>When an exception occurs, self.showtraceback() is called to display a
+traceback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code_obj</strong> : code object</p>
+<blockquote>
+<div><p>A compiled code object, to be executed</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>False</strong> : successful execution.</p>
+<p class="last"><strong>True</strong> : an error occurred.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.safe_execfile">
+<tt class="descname">safe_execfile</tt><big>(</big><em>fname</em>, <em>*where</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.safe_execfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>A safe version of the builtin execfile().</p>
+<p>This version will never throw an exception, but instead print
+helpful error messages to the screen.  This only works on pure
+Python files with the .py extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : string</p>
+<blockquote>
+<div><p>The name of the file to be executed.</p>
+</div></blockquote>
+<p><strong>where</strong> : tuple</p>
+<blockquote>
+<div><p>One or two namespaces, passed to execfile() as (globals,locals).
+If only one is given, it is passed as both.</p>
+</div></blockquote>
+<p><strong>exit_ignore</strong> : bool (False)</p>
+<blockquote>
+<div><p>If True, then silence SystemExit for non-zero status (it is always
+silenced for zero status, as it is so common).</p>
+</div></blockquote>
+<p><strong>raise_exceptions</strong> : bool (False)</p>
+<blockquote class="last">
+<div><p>If True raise exceptions everywhere. Meant for testing.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.safe_execfile_ipy">
+<tt class="descname">safe_execfile_ipy</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.safe_execfile_ipy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like safe_execfile, but for .ipy files with IPython syntax.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>fname</strong> : str</p>
+<blockquote class="last">
+<div><p>The name of the file to execute.  The filename must have a
+.ipy extension.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.safe_run_module">
+<tt class="descname">safe_run_module</tt><big>(</big><em>mod_name</em>, <em>where</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.safe_run_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>A safe version of runpy.run_module().</p>
+<p>This version will never throw an exception, but instead print
+helpful error messages to the screen.</p>
+<p><cite>SystemExit</cite> exceptions with status code 0 or None are ignored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>mod_name</strong> : string</p>
+<blockquote>
+<div><p>The name of the module to be executed.</p>
+</div></blockquote>
+<p><strong>where</strong> : dict</p>
+<blockquote class="last">
+<div><p>The globals namespace.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.save_sys_module_state">
+<tt class="descname">save_sys_module_state</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.save_sys_module_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the state of hooks in the sys module.</p>
+<p>This has to be called after self.user_module is created.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_autoindent">
+<tt class="descname">set_autoindent</tt><big>(</big><em>value=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_autoindent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the autoindent flag, checking for readline support.</p>
+<p>If called with no arguments, it acts as a toggle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_completer_frame">
+<tt class="descname">set_completer_frame</tt><big>(</big><em>frame=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_completer_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the frame of the completer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_custom_completer">
+<tt class="descname">set_custom_completer</tt><big>(</big><em>completer</em>, <em>pos=0</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_custom_completer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new custom completer function.</p>
+<p>The position argument (defaults to 0) is the index in the completers
+list where you want the completer to be inserted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_custom_exc">
+<tt class="descname">set_custom_exc</tt><big>(</big><em>exc_tuple</em>, <em>handler</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_custom_exc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a custom exception handler, which will be called if any of the
+exceptions in exc_tuple occur in the mainloop (specifically, in the
+run_code() method).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>exc_tuple</strong> : tuple of exception classes</p>
+<blockquote>
+<div><p>A <em>tuple</em> of exception classes, for which to call the defined
+handler.  It is very important that you use a tuple, and NOT A
+LIST here, because of the way Python&#8217;s except statement works.  If
+you only want to trap a single exception, use a singleton tuple:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">exc_tuple</span> <span class="o">==</span> <span class="p">(</span><span class="n">MyCustomException</span><span class="p">,)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>handler must have the following signature:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">etype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span><span class="p">,</span> <span class="n">tb_offset</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">return</span> <span class="n">structured_traceback</span>
+</pre></div>
+</div>
+<p>Your handler must return a structured traceback (a list of strings),
+or None.</p>
+<p>This will be made into an instance method (via types.MethodType)
+of IPython itself, and it will be called if any of the exceptions
+listed in the exc_tuple are caught. If the handler is None, an
+internal basic one is used, which just prints basic info.</p>
+<p>To protect IPython from crashes, if your handler ever raises an
+exception or returns an invalid result, it will be immediately
+disabled.</p>
+</div></blockquote>
+<p><strong>WARNING: by putting in your own exception handler into IPython&#8217;s main</strong> :</p>
+<p><strong>execution loop, you run a very good chance of nasty crashes.  This</strong> :</p>
+<p class="last"><strong>facility should only be used if you really know what you are doing.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_hook">
+<tt class="descname">set_hook</tt><big>(</big><em>name</em>, <em>hook</em><big>)</big> &rarr; sets an internal IPython hook.<a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>IPython exposes some of its internal API as user-modifiable hooks.  By
+adding your function to one of these hooks, you can modify IPython&#8217;s
+behavior to call at runtime your own routines.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_next_input">
+<tt class="descname">set_next_input</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_next_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the &#8216;default&#8217; input string for the next command line.</p>
+<p>Requires readline.</p>
+<p>Example:</p>
+<div class="highlight-python"><pre>In [1]: _ip.set_next_input("Hello Word")
+In [2]: Hello Word_  # cursor is here</pre>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.set_readline_completer">
+<tt class="descname">set_readline_completer</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.set_readline_completer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset readline&#8217;s completer to be our own.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.show_usage">
+<tt class="descname">show_usage</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.show_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a usage message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.show_usage_error">
+<tt class="descname">show_usage_error</tt><big>(</big><em>exc</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.show_usage_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a short message for UsageErrors</p>
+<p>These are special exceptions that shouldn&#8217;t show a traceback.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.showindentationerror">
+<tt class="descname">showindentationerror</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.showindentationerror" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by run_cell when there&#8217;s an IndentationError in code entered
+at the prompt.</p>
+<p>This is overridden in TerminalInteractiveShell to show a message about
+the %paste magic.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.showsyntaxerror">
+<tt class="descname">showsyntaxerror</tt><big>(</big><em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.showsyntaxerror" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the syntax error that just occurred.</p>
+<p>This doesn&#8217;t display a stack trace because there isn&#8217;t one.</p>
+<p>If a filename is given, it is stuffed in the exception instead
+of what was there before (because Python&#8217;s parser always uses
+&#8220;&lt;string&gt;&#8221; when reading from a string).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.showtraceback">
+<tt class="descname">showtraceback</tt><big>(</big><em>exc_tuple=None</em>, <em>filename=None</em>, <em>tb_offset=None</em>, <em>exception_only=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.showtraceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the exception that just occurred.</p>
+<p>If nothing is known about the exception, this is the method which
+should be used throughout the code for presenting user tracebacks,
+rather than directly invoking the InteractiveTB object.</p>
+<p>A specific showsyntaxerror() also exists, but this method can take
+care of calling it if needed, so unless you are explicitly catching a
+SyntaxError exception, don&#8217;t try to analyze the stack manually and
+simply call this method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.system">
+<tt class="descname">system</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given cmd in a subprocess, piping stdout/err</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote class="last">
+<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
+not supported.  Should not be a command that expects input
+other than simple text.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.system_piped">
+<tt class="descname">system_piped</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system_piped" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given cmd in a subprocess, piping stdout/err</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote class="last">
+<div><p>Command to execute (can not end in &#8216;&amp;&#8217;, as background processes are
+not supported.  Should not be a command that expects input
+other than simple text.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.system_raw">
+<tt class="descname">system_raw</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.system_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given cmd in a subprocess using os.system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>cmd</strong> : str</p>
+<blockquote class="last">
+<div><p>Command to execute.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.transform_ast">
+<tt class="descname">transform_ast</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.transform_ast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the AST transformations from self.ast_transformers</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>node</strong> : ast.Node</p>
+<blockquote>
+<div><p>The root node to be transformed. Typically called with the ast.Module
+produced by parsing user input.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>An ast.Node corresponding to the node it was called with. Note that it</strong> :</p>
+<p><strong>may also modify the passed object, so don&#8217;t rely on references to the</strong> :</p>
+<p class="last"><strong>original AST.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.user_expressions">
+<tt class="descname">user_expressions</tt><big>(</big><em>expressions</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.user_expressions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a dict of expressions in the user&#8217;s namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>expressions</strong> : dict</p>
+<blockquote>
+<div><p>A dict with string keys and string values.  The expression values
+should be valid Python expressions, each of which will be evaluated
+in the user namespace.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A dict, keyed like the input expressions dict, with the rich mime-typed</strong> :</p>
+<p class="last"><strong>display_data of each value.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.user_variables">
+<tt class="descname">user_variables</tt><big>(</big><em>names</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.user_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of variable names from the user&#8217;s namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>names</strong> : list of strings</p>
+<blockquote>
+<div><p>A list of names of variables to be read from the user namespace.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>A dict, keyed by the input names and with the rich mime-type repr(s) of each value.</strong> :</p>
+<p class="last"><strong>Each element will be a sub-dict of the same form as a display_data message.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x107f6ae50&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expand python variables in a string.</p>
+<p>The depth argument indicates how many frames above the caller should
+be walked to look for the local namespace where to expand variables.</p>
+<p>The global namespace for expansion is always the user&#8217;s interactive
+namespace.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.write">
+<tt class="descname">write</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a string to the default output</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.write_err">
+<tt class="descname">write_err</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.write_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a string to the default error output</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.interactiveshell.InteractiveShellABC">
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">InteractiveShellABC</tt><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShellABC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An abstract base class for InteractiveShell.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.interactiveshell.get_default_colors">
+<tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">get_default_colors</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.get_default_colors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.logger.html" title="Module: core.logger"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.inputtransformer.html" title="Module: core.inputtransformer"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Aug 08, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
