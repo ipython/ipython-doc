@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: core.magic &mdash; IPython 1.1.0: An Afternoon Hack documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.1.0: An Afternoon Hack',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 1.1.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: core.magic_arguments" href="IPython.core.magic_arguments.html" />
+    <link rel="prev" title="Module: core.macro" href="IPython.core.macro.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.magic_arguments.html" title="Module: core.magic_arguments"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.macro.html" title="Module: core.macro"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.magic</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">4 Classes</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.core.macro.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.macro</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.core.magic_arguments.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magic_arguments</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.core.magic.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.core.magic">
+<span id="module-core-magic"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.magic</span></tt><a class="headerlink" href="#module-IPython.core.magic" title="Permalink to this headline">¶</a></h1>
+<p>Magic functions for InteractiveShell.</p>
+<div class="section" id="classes">
+<h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.core.magic.Bunch">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">Bunch</tt><a class="headerlink" href="#IPython.core.magic.Bunch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.magic.MagicsManager">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">MagicsManager</tt><big>(</big><em>shell=None</em>, <em>config=None</em>, <em>user_magics=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>Object that handles all magic-related functionality for IPython.</p>
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>config=None</em>, <em>user_magics=None</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.auto_status">
+<tt class="descname">auto_status</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.auto_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return descriptive string with automagic status.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.define_magic">
+<tt class="descname">define_magic</tt><big>(</big><em>name</em>, <em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.define_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Deprecated] Expose own function as magic function for IPython.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">foo_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_s</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+    <span class="s">&#39;My very own magic!. (Use docstrings, IPython reads them).&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Magic function. Passed parameter is between &lt; &gt;:&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;&lt;</span><span class="si">%s</span><span class="s">&gt;&#39;</span> <span class="o">%</span> <span class="n">parameter_s</span>
+    <span class="k">print</span> <span class="s">&#39;The self object is:&#39;</span><span class="p">,</span> <span class="bp">self</span>
+
+<span class="n">ip</span><span class="o">.</span><span class="n">define_magic</span><span class="p">(</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="n">foo_impl</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.lsmagic">
+<tt class="descname">lsmagic</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.lsmagic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dict of currently available magic functions.</p>
+<p>The return dict has the keys &#8216;line&#8217; and &#8216;cell&#8217;, corresponding to the
+two types of magics we support.  Each value is a list of names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.lsmagic_docs">
+<tt class="descname">lsmagic_docs</tt><big>(</big><em>brief=False</em>, <em>missing=''</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.lsmagic_docs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return dict of documentation of magic functions.</p>
+<p>The return dict has the keys &#8216;line&#8217; and &#8216;cell&#8217;, corresponding to the
+two types of magics we support. Each value is a dict keyed by magic
+name whose value is the function docstring. If a docstring is
+unavailable, the value of <cite>missing</cite> is used instead.</p>
+<p>If brief is True, only the first line of each docstring will be returned.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.register">
+<tt class="descname">register</tt><big>(</big><em>*magic_objects</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register one or more instances of Magics.</p>
+<p>Take one or more classes or instances of classes that subclass the main 
+<cite>core.Magic</cite> class, and register them with IPython to use the magic
+functions they provide.  The registration process will then ensure that
+any methods that have decorated to provide line and/or cell magics will
+be recognized with the <cite>%x</cite>/<cite>%%x</cite> syntax as a line/cell magic
+respectively.</p>
+<p>If classes are given, they will be instantiated with the default
+constructor.  If your classes need a custom constructor, you should
+instanitate them first and pass the instance.</p>
+<p>The provided arguments can be an arbitrary mix of classes and instances.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><strong>magic_objects</strong> : one or more classes or instances</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.register_alias">
+<tt class="descname">register_alias</tt><big>(</big><em>alias_name</em>, <em>magic_name</em>, <em>magic_kind='line'</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.register_alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an alias to a magic function.</p>
+<p>The alias is an instance of <a class="reference internal" href="#IPython.core.magic.MagicAlias" title="IPython.core.magic.MagicAlias"><tt class="xref py py-class docutils literal"><span class="pre">MagicAlias</span></tt></a>, which holds the
+name and kind of the magic it should call. Binding is done at
+call time, so if the underlying magic function is changed the alias
+will call the new function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>alias_name</strong> : str</p>
+<blockquote>
+<div><p>The name of the magic to be registered.</p>
+</div></blockquote>
+<p><strong>magic_name</strong> : str</p>
+<blockquote>
+<div><p>The name of an existing magic.</p>
+</div></blockquote>
+<p><strong>magic_kind</strong> : str</p>
+<blockquote class="last">
+<div><p>Kind of magic, one of &#8216;line&#8217; or &#8216;cell&#8217;</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.MagicsManager.register_function">
+<tt class="descname">register_function</tt><big>(</big><em>func</em>, <em>magic_kind='line'</em>, <em>magic_name=None</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.register_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expose a standalone function as magic function for IPython.</p>
+<p>This will create an IPython magic (line, cell or both) from a
+standalone function.  The functions should have the following
+signatures:</p>
+<ul class="simple">
+<li>For line magics: <cite>def f(line)</cite></li>
+<li>For cell magics: <cite>def f(line, cell)</cite></li>
+<li>For a function that does both: <cite>def f(line, cell=None)</cite></li>
+</ul>
+<p>In the latter case, the function will be called with <cite>cell==None</cite> when
+invoked as <cite>%f</cite>, and with cell as a string when invoked as <cite>%%f</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>func</strong> : callable</p>
+<blockquote>
+<div><p>Function to be registered as a magic.</p>
+</div></blockquote>
+<p><strong>magic_kind</strong> : str</p>
+<blockquote>
+<div><p>Kind of magic, one of &#8216;line&#8217;, &#8216;cell&#8217; or &#8216;line_cell&#8217;</p>
+</div></blockquote>
+<p><strong>magic_name</strong> : optional str</p>
+<blockquote class="last">
+<div><p>If given, the name the magic will have in the IPython namespace.  By
+default, the name of the function itself is used.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.magic.Magics">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">Magics</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Base class for implementing magic functions.</p>
+<p>Shell functions which can be reached as %function_name. All magic
+functions should accept a string, which they can parse for their own
+needs. This can make some functions easier to type, eg <cite>%cd ../</cite>
+vs. <cite>%cd(&#8221;../&#8221;)</cite></p>
+<p>Classes providing magic functions need to subclass this class, and they
+MUST:</p>
+<ul class="simple">
+<li>Use the method decorators <cite>&#64;line_magic</cite> and <cite>&#64;cell_magic</cite> to decorate</li>
+</ul>
+<p>individual methods as magic functions, AND</p>
+<ul class="simple">
+<li>Use the class decorator <cite>&#64;magics_class</cite> to ensure that the magic</li>
+</ul>
+<p>methods are properly registered at the instance level upon instance
+initialization.</p>
+<p>See <tt class="xref py py-mod docutils literal"><span class="pre">magic_functions</span></tt> for examples of actual implementation classes.</p>
+<dl class="method">
+<dt id="IPython.core.magic.Magics.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magics.arg_err">
+<tt class="descname">arg_err</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.arg_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print docstring if incorrect arguments were passed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magics.default_option">
+<tt class="descname">default_option</tt><big>(</big><em>fn</em>, <em>optstr</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.default_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an entry in the options_table for fn, with value optstr</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magics.format_latex">
+<tt class="descname">format_latex</tt><big>(</big><em>strng</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.format_latex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format a string for latex inclusion.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magic.Magics.parse_options">
+<tt class="descname">parse_options</tt><big>(</big><em>arg_str</em>, <em>opt_str</em>, <em>*long_opts</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.parse_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse options passed to an argument string.</p>
+<p>The interface is similar to that of getopt(), but it returns back a
+Struct with the options as keys and the stripped argument string still
+as a string.</p>
+<p>arg_str is quoted as a true sys.argv vector by using shlex.split.
+This allows us to easily expand variables, glob files, quote
+arguments, etc.</p>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><p class="first">-mode: default &#8216;string&#8217;. If given as &#8216;list&#8217;, the argument string is
+returned as a list (split on whitespace) instead of a string.</p>
+<p>-list_all: put all option values in lists. Normally only options
+appearing more than once are put in a list.</p>
+<p class="last">-posix (True): whether to split the input line in POSIX mode or not,
+as per the conventions outlined in the shlex module from the
+standard library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.magic.MagicAlias">
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">MagicAlias</tt><big>(</big><em>shell</em>, <em>magic_name</em>, <em>magic_kind</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicAlias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An alias to another magic function.</p>
+<p>An alias is determined by its magic name and magic kind. Lookup
+is done at call time, so if the underlying magic changes the alias
+will call the new function.</p>
+<p>Use the <a class="reference internal" href="#IPython.core.magic.MagicsManager.register_alias" title="IPython.core.magic.MagicsManager.register_alias"><tt class="xref py py-meth docutils literal"><span class="pre">MagicsManager.register_alias()</span></tt></a> method or the
+<cite>%alias_magic</cite> magic function to create and register a new alias.</p>
+<dl class="method">
+<dt id="IPython.core.magic.MagicAlias.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>magic_name</em>, <em>magic_kind</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicAlias.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.magic.on_off">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">on_off</tt><big>(</big><em>tag</em><big>)</big><a class="headerlink" href="#IPython.core.magic.on_off" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an ON/OFF string for a 1/0 input. Simple utility function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magic.compress_dhist">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">compress_dhist</tt><big>(</big><em>dh</em><big>)</big><a class="headerlink" href="#IPython.core.magic.compress_dhist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compress a directory history into a new one with at most 20 entries.</p>
+<p>Return a new list made from the first and last 10 elements of dhist after
+removal of duplicates.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magic.needs_local_scope">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">needs_local_scope</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.needs_local_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator to mark magic functions which need to local scope to run.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magic.magics_class">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">magics_class</tt><big>(</big><em>cls</em><big>)</big><a class="headerlink" href="#IPython.core.magic.magics_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class decorator for all subclasses of the main Magics class.</p>
+<p>Any class that subclasses Magics <em>must</em> also apply this decorator, to
+ensure that all the methods that have been decorated as line/cell magics
+get correctly registered in the class instance.  This is necessary because
+when method decorators run, the class does not exist yet, so they
+temporarily store their information into a module global.  Application of
+this class decorator copies that global data to the class instance and
+clears the global.</p>
+<p>Obviously, this mechanism is not thread-safe, which means that the
+<em>creation</em> of subclasses of Magic should only be done in a single-thread
+context.  Instantiation of the classes has no restrictions.  Given that
+these classes are typically created at IPython startup time and before user
+application code becomes active, in practice this should not pose any
+problems.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magic.record_magic">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">record_magic</tt><big>(</big><em>dct</em>, <em>magic_kind</em>, <em>magic_name</em>, <em>func</em><big>)</big><a class="headerlink" href="#IPython.core.magic.record_magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function to store a function as a magic of a specific kind.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dct</strong> : dict</p>
+<blockquote>
+<div><p>A dictionary with &#8216;line&#8217; and &#8216;cell&#8217; subdicts.</p>
+</div></blockquote>
+<p><strong>magic_kind</strong> : str</p>
+<blockquote>
+<div><p>Kind of magic to be stored.</p>
+</div></blockquote>
+<p><strong>magic_name</strong> : str</p>
+<blockquote>
+<div><p>Key to store the magic as.</p>
+</div></blockquote>
+<p><strong>func</strong> : function</p>
+<blockquote class="last">
+<div><p>Callable object to store.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magic.validate_type">
+<tt class="descclassname">IPython.core.magic.</tt><tt class="descname">validate_type</tt><big>(</big><em>magic_kind</em><big>)</big><a class="headerlink" href="#IPython.core.magic.validate_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensure that the given magic_kind is valid.</p>
+<p>Check that the given magic_kind is one of the accepted spec types (stored
+in the global <cite>magic_spec</cite>), raise ValueError otherwise.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.magic_arguments.html" title="Module: core.magic_arguments"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.core.macro.html" title="Module: core.macro"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Sep 09, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

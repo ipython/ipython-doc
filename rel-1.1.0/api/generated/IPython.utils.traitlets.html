@@ -1,0 +1,974 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: utils.traitlets &mdash; IPython 1.1.0: An Afternoon Hack documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.1.0: An Afternoon Hack',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 1.1.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: utils.tz" href="IPython.utils.tz.html" />
+    <link rel="prev" title="Module: utils.timing" href="IPython.utils.timing.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.tz.html" title="Module: utils.tz"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.timing.html" title="Module: utils.timing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.traitlets</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">38 Classes</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.utils.timing.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">utils.timing</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.utils.tz.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.tz</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.utils.traitlets.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.utils.traitlets">
+<span id="module-utils-traitlets"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.traitlets</span></tt><a class="headerlink" href="#module-IPython.utils.traitlets" title="Permalink to this headline">¶</a></h1>
+<p>A lightweight Traits like module.</p>
+<p>This is designed to provide a lightweight, simple, pure Python version of
+many of the capabilities of enthought.traits.  This includes:</p>
+<ul class="simple">
+<li>Validation</li>
+<li>Type specification with defaults</li>
+<li>Static and dynamic notification</li>
+<li>Basic predefined types</li>
+<li>An API that is similar to enthought.traits</li>
+</ul>
+<p>We don&#8217;t support:</p>
+<ul class="simple">
+<li>Delegation</li>
+<li>Automatic GUI generation</li>
+<li>A full set of trait types.  Most importantly, we don&#8217;t provide container
+traits (list, dict, tuple) that can trigger notifications if their
+contents change.</li>
+<li>API compatibility with enthought.traits</li>
+</ul>
+<p>There are also some important difference in our design:</p>
+<ul class="simple">
+<li>enthought.traits does not validate default values.  We do.</li>
+</ul>
+<p>We choose to create this module because we need these capabilities, but
+we need them to be pure Python so they work in all Python implementations,
+including Jython and IronPython.</p>
+<p>Inheritance diagram:</p>
+<p class="graphviz">
+<img src="../../_images/inheritance-eb01b9e02a992c17222ce535bf7297b382dafb08.png" alt="Inheritance diagram of IPython.utils.traitlets" usemap="#inheritanceae5f0dd51e" class="inheritance"/>
+<map id="inheritanceae5f0dd51e" name="inheritanceae5f0dd51e">
+<area shape="rect" id="node1" href="#IPython.utils.traitlets.CInt" title="A casting version of the int trait." alt="" coords="398,3,480,21"/>
+<area shape="rect" id="node2" href="#IPython.utils.traitlets.Int" title="An int trait." alt="" coords="225,3,302,21"/>
+<area shape="rect" id="node3" href="#IPython.utils.traitlets.Enum" title="An enum that whose value must be in a given sequence." alt="" coords="219,36,308,54"/>
+<area shape="rect" id="node31" href="#IPython.utils.traitlets.CaselessStrEnum" title="An enum of strings that are caseless in validate." alt="" coords="372,36,506,54"/>
+<area shape="rect" id="node4" href="#IPython.utils.traitlets.TraitType" title="A base class for all trait descriptors." alt="" coords="29,242,134,260"/>
+<area shape="rect" id="node8" href="#IPython.utils.traitlets.Float" title="A float trait." alt="" coords="221,77,307,96"/>
+<area shape="rect" id="node10" href="#IPython.utils.traitlets.ClassBasedTraitType" title="A trait with error reporting for Type, Instance and This." alt="" coords="189,127,338,145"/>
+<area shape="rect" id="node11" href="#IPython.utils.traitlets.Unicode" title="A trait for unicode strings." alt="" coords="214,160,313,178"/>
+<area shape="rect" id="node13" href="#IPython.utils.traitlets.Bool" title="A boolean (True, False) trait." alt="" coords="222,193,305,211"/>
+<area shape="rect" id="node16" href="#IPython.utils.traitlets.CRegExp" title="A casting compiled regular expression trait." alt="" coords="213,226,315,244"/>
+<area shape="rect" id="node18" href="#IPython.utils.traitlets.Any" title="utils.traitlets.Any" alt="" coords="223,259,304,277"/>
+<area shape="rect" id="node20" href="#IPython.utils.traitlets.Bytes" title="A trait for byte strings." alt="" coords="220,292,307,310"/>
+<area shape="rect" id="node23" href="#IPython.utils.traitlets.Integer" title="An integer trait." alt="" coords="216,325,311,343"/>
+<area shape="rect" id="node24" href="#IPython.utils.traitlets.TCPAddress" title="A trait for an (ip, port) tuple." alt="" coords="207,358,321,376"/>
+<area shape="rect" id="node26" href="#IPython.utils.traitlets.ObjectName" title="A string holding a valid object name in this version of Python." alt="" coords="206,391,321,409"/>
+<area shape="rect" id="node28" href="#IPython.utils.traitlets.Long" title="A long integer trait." alt="" coords="221,423,307,442"/>
+<area shape="rect" id="node33" href="#IPython.utils.traitlets.Complex" title="A trait for complex numbers." alt="" coords="213,456,315,475"/>
+<area shape="rect" id="node5" href="#IPython.utils.traitlets.Container" title="An instance of a container (list, set, etc.)" alt="" coords="541,86,646,104"/>
+<area shape="rect" id="node9" href="#IPython.utils.traitlets.Set" title="An instance of a Python set." alt="" coords="681,53,759,71"/>
+<area shape="rect" id="node21" href="#IPython.utils.traitlets.List" title="An instance of a Python list." alt="" coords="680,86,760,104"/>
+<area shape="rect" id="node29" href="#IPython.utils.traitlets.Tuple" title="An instance of a Python tuple." alt="" coords="676,119,765,137"/>
+<area shape="rect" id="node6" href="#IPython.utils.traitlets.Instance" title="A trait whose value must be an instance of a specified class." alt="" coords="389,102,489,120"/>
+<area shape="rect" id="node32" href="#IPython.utils.traitlets.Dict" title="An instance of a Python dict." alt="" coords="552,119,634,137"/>
+<area shape="rect" id="node7" href="#IPython.utils.traitlets.CFloat" title="A casting version of the float trait." alt="" coords="393,69,485,87"/>
+<area shape="rect" id="node15" href="#IPython.utils.traitlets.Type" title="A trait whose value must be a subclass of a specified class." alt="" coords="396,135,482,153"/>
+<area shape="rect" id="node22" href="#IPython.utils.traitlets.This" title="A trait for instances of the class containing this trait." alt="" coords="398,168,481,186"/>
+<area shape="rect" id="node36" href="#IPython.utils.traitlets.CUnicode" title="A casting version of the unicode trait." alt="" coords="387,201,491,219"/>
+<area shape="rect" id="node12" href="#IPython.utils.traitlets.CBool" title="A casting version of the boolean trait." alt="" coords="395,234,484,252"/>
+<area shape="rect" id="node14" href="#IPython.utils.traitlets.DefaultValueGenerator" title="A class for generating new default value instances." alt="" coords="3,209,160,227"/>
+<area shape="rect" id="node17" href="#IPython.utils.traitlets.MetaHasTraits" title="A metaclass for HasTraits." alt="" coords="20,176,143,195"/>
+<area shape="rect" id="node19" href="#IPython.utils.traitlets.CBytes" title="A casting version of the byte string trait." alt="" coords="393,292,486,310"/>
+<area shape="rect" id="node25" href="#IPython.utils.traitlets.DottedObjectName" title="A string holding a valid dotted object name in Python, such as A.b3._c" alt="" coords="368,391,510,409"/>
+<area shape="rect" id="node27" href="#IPython.utils.traitlets.CLong" title="A casting version of the long integer trait." alt="" coords="393,423,485,442"/>
+<area shape="rect" id="node30" href="#IPython.utils.traitlets.TraitError" title="utils.traitlets.TraitError" alt="" coords="29,143,134,162"/>
+<area shape="rect" id="node34" href="#IPython.utils.traitlets.CComplex" title="A casting version of the complex number trait." alt="" coords="385,456,493,475"/>
+<area shape="rect" id="node35" href="#IPython.utils.traitlets.HasTraits" title="utils.traitlets.HasTraits" alt="" coords="30,110,134,129"/>
+</map>
+</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Brian Granger</li>
+<li>Enthought, Inc.  Some of the code in this file comes from enthought.traits
+and is licensed under the BSD license.  Also, many of the ideas also come
+from enthought.traits even though our implementation is very different.</li>
+</ul>
+<div class="section" id="classes">
+<h2>38 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="attribute">
+<dt id="IPython.utils.traitlets.NoDefaultSpecified">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">NoDefaultSpecified</tt><a class="headerlink" href="#IPython.utils.traitlets.NoDefaultSpecified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.utils.traitlets.Undefined">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Undefined</tt><a class="headerlink" href="#IPython.utils.traitlets.Undefined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.TraitError">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">TraitError</tt><a class="headerlink" href="#IPython.utils.traitlets.TraitError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.TraitType">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">TraitType</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TraitType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A base class for all trait descriptors.</p>
+<p class="rubric">Notes</p>
+<p>Our implementation of traits is based on Python&#8217;s descriptor
+prototol.  This class is the base class for all such descriptors.  The
+only magic we use is a custom metaclass for the main <a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a>
+class that does the following:</p>
+<ol class="arabic simple">
+<li>Sets the <tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt> attribute of every <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">TraitType</span></tt></a>
+instance in the class dict to the name of the attribute.</li>
+<li>Sets the <tt class="xref py py-attr docutils literal"><span class="pre">this_class</span></tt> attribute of every <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">TraitType</span></tt></a>
+instance in the class dict to the <em>class</em> that declared the trait.
+This is used by the <a class="reference internal" href="#IPython.utils.traitlets.This" title="IPython.utils.traitlets.This"><tt class="xref py py-class docutils literal"><span class="pre">This</span></tt></a> trait to allow subclasses to
+accept superclasses for <a class="reference internal" href="#IPython.utils.traitlets.This" title="IPython.utils.traitlets.This"><tt class="xref py py-class docutils literal"><span class="pre">This</span></tt></a> values.</li>
+</ol>
+<dl class="method">
+<dt id="IPython.utils.traitlets.TraitType.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TraitType.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TraitType.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.TraitType.get_default_value">
+<tt class="descname">get_default_value</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TraitType.get_default_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new instance of the default value.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.TraitType.instance_init">
+<tt class="descname">instance_init</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TraitType.instance_init" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called by <tt class="xref py py-meth docutils literal"><span class="pre">HasTraits.__new__()</span></tt> to finish init&#8217;ing.</p>
+<p>Some stages of initialization must be delayed until the parent
+<a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> instance has been created.  This method is
+called in <tt class="xref py py-meth docutils literal"><span class="pre">HasTraits.__new__()</span></tt> after the instance has been
+created.</p>
+<p>This method trigger the creation and validation of default values
+and also things like the resolution of str given class names in
+<a class="reference internal" href="#IPython.utils.traitlets.Type" title="IPython.utils.traitlets.Type"><tt class="xref py py-class docutils literal"><span class="pre">Type</span></tt></a> and :class`Instance`.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>obj</strong> : <a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> instance</p>
+<blockquote class="last">
+<div><p>The parent <a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> instance that has just been
+created.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.TraitType.set_default_value">
+<tt class="descname">set_default_value</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TraitType.set_default_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value on a per instance basis.</p>
+<p>This method is called by <a class="reference internal" href="#IPython.utils.traitlets.TraitType.instance_init" title="IPython.utils.traitlets.TraitType.instance_init"><tt class="xref py py-meth docutils literal"><span class="pre">instance_init()</span></tt></a> to create and
+validate the default value.  The creation and validation of
+default values must be delayed until the parent <a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a>
+class has been instantiated.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.MetaHasTraits">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">MetaHasTraits</tt><big>(</big><em>name</em>, <em>bases</em>, <em>classdict</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.MetaHasTraits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">type</span></tt></p>
+<p>A metaclass for HasTraits.</p>
+<p>This metaclass makes sure that any TraitType class attributes are
+instantiated and sets their name attribute.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.MetaHasTraits.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>name</em>, <em>bases</em>, <em>classdict</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.MetaHasTraits.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finish initializing the HasTraits class.</p>
+<p>This sets the <tt class="xref py py-attr docutils literal"><span class="pre">this_class</span></tt> attribute of each TraitType in the
+class dict to the newly created class <tt class="docutils literal"><span class="pre">cls</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.HasTraits">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">HasTraits</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.HasTraits.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.utils.traitlets.HasTraits.class_trait_names">
+<em class="property">classmethod </em><tt class="descname">class_trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.class_trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.utils.traitlets.HasTraits.trait_names" title="IPython.utils.traitlets.HasTraits.trait_names"><tt class="xref py py-meth docutils literal"><span class="pre">trait_names()</span></tt></a> method, but is unbound.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="IPython.utils.traitlets.HasTraits.class_traits">
+<em class="property">classmethod </em><tt class="descname">class_traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.class_traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>This method is just like the <a class="reference internal" href="#IPython.utils.traitlets.HasTraits.traits" title="IPython.utils.traitlets.HasTraits.traits"><tt class="xref py py-meth docutils literal"><span class="pre">traits()</span></tt></a> method, but is unbound.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.HasTraits.on_trait_change">
+<tt class="descname">on_trait_change</tt><big>(</big><em>handler</em>, <em>name=None</em>, <em>remove=False</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.on_trait_change" title="Permalink to this definition">¶</a></dt>
+<dd><p>Setup a handler to be called when a trait changes.</p>
+<p>This is used to setup dynamic notifications of trait changes.</p>
+<p>Static handlers can be created by creating methods on a HasTraits
+subclass with the naming convention &#8216;_[traitname]_changed&#8217;.  Thus,
+to create static handler for the trait &#8216;a&#8217;, create the method
+_a_changed(self, name, old, new) (fewer arguments can be used, see
+below).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>handler</strong> : callable</p>
+<blockquote>
+<div><p>A callable that is called when a trait changes.  Its
+signature can be handler(), handler(name), handler(name, new)
+or handler(name, old, new).</p>
+</div></blockquote>
+<p><strong>name</strong> : list, str, None</p>
+<blockquote>
+<div><p>If None, the handler will apply to all traits.  If a list
+of str, handler will apply to all names in the list.  If a
+str, the handler will apply just to that name.</p>
+</div></blockquote>
+<p><strong>remove</strong> : bool</p>
+<blockquote class="last">
+<div><p>If False (the default), then install the handler.  If True
+then unintall it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.HasTraits.trait_metadata">
+<tt class="descname">trait_metadata</tt><big>(</big><em>traitname</em>, <em>key</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.trait_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata values for trait by key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.HasTraits.trait_names">
+<tt class="descname">trait_names</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.trait_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the names of this classes traits.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.HasTraits.traits">
+<tt class="descname">traits</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.HasTraits.traits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all the traits of this class.</p>
+<p>The TraitTypes returned don&#8217;t know anything about the values
+that the various HasTrait&#8217;s instances are holding.</p>
+<p>This follows the same algorithm as traits does and does not allow
+for any simple way of specifying merely that a metadata name
+exists, but has any value.  This is because get_metadata returns
+None if a metadata key doesn&#8217;t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.ClassBasedTraitType">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">ClassBasedTraitType</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.ClassBasedTraitType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A trait with error reporting for Type, Instance and This.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Type">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Type</tt><big>(</big><em>default_value=None</em>, <em>klass=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.ClassBasedTraitType" title="IPython.utils.traitlets.ClassBasedTraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.ClassBasedTraitType</span></tt></a></p>
+<p>A trait whose value must be a subclass of a specified class.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Type.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>default_value=None</em>, <em>klass=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Type.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a Type trait</p>
+<p>A Type trait specifies that its values must be subclasses of
+a particular class.</p>
+<p>If only <tt class="docutils literal"><span class="pre">default_value</span></tt> is given, it is used for the <tt class="docutils literal"><span class="pre">klass</span></tt> as
+well.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>default_value</strong> : class, str or None</p>
+<blockquote>
+<div><p>The default value must be a subclass of klass.  If an str,
+the str must be a fully specified class name, like &#8216;foo.bar.Bah&#8217;.
+The string is resolved into real class, when the parent
+<a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> class is instantiated.</p>
+</div></blockquote>
+<p><strong>klass</strong> : class, str, None</p>
+<blockquote>
+<div><p>Values of this trait must be a subclass of klass.  The klass
+may be specified in a string like: &#8216;foo.bar.MyClass&#8217;.
+The string is resolved into real class, when the parent
+<a class="reference internal" href="#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> class is instantiated.</p>
+</div></blockquote>
+<p><strong>allow_none</strong> : boolean</p>
+<blockquote class="last">
+<div><p>Indicates whether None is allowed as an assignable value. Even if
+<tt class="docutils literal"><span class="pre">False</span></tt>, the default value may be <tt class="docutils literal"><span class="pre">None</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.Type.info">
+<tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Type.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a description of the trait.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.Type.validate">
+<tt class="descname">validate</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Type.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates that the value is a valid object instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.DefaultValueGenerator">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">DefaultValueGenerator</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.DefaultValueGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A class for generating new default value instances.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.DefaultValueGenerator.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.DefaultValueGenerator.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Instance">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Instance</tt><big>(</big><em>klass=None</em>, <em>args=None</em>, <em>kw=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.ClassBasedTraitType" title="IPython.utils.traitlets.ClassBasedTraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.ClassBasedTraitType</span></tt></a></p>
+<p>A trait whose value must be an instance of a specified class.</p>
+<p>The value can also be an instance of a subclass of the specified class.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Instance.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>klass=None</em>, <em>args=None</em>, <em>kw=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Instance.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct an Instance trait.</p>
+<p>This trait allows values that are instances of a particular
+class or its sublclasses.  Our implementation is quite different
+from that of enthough.traits as we don&#8217;t allow instances to be used
+for klass and we handle the <tt class="docutils literal"><span class="pre">args</span></tt> and <tt class="docutils literal"><span class="pre">kw</span></tt> arguments differently.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>klass</strong> : class, str</p>
+<blockquote>
+<div><p>The class that forms the basis for the trait.  Class names
+can also be specified as strings, like &#8216;foo.bar.Bar&#8217;.</p>
+</div></blockquote>
+<p><strong>args</strong> : tuple</p>
+<blockquote>
+<div><p>Positional arguments for generating the default value.</p>
+</div></blockquote>
+<p><strong>kw</strong> : dict</p>
+<blockquote>
+<div><p>Keyword arguments for generating the default value.</p>
+</div></blockquote>
+<p><strong>allow_none</strong> : bool</p>
+<blockquote class="last">
+<div><p>Indicates whether None is allowed as a value.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.Instance.get_default_value">
+<tt class="descname">get_default_value</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Instance.get_default_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a default value instance.</p>
+<p>This is called when the containing HasTraits classes&#8217;
+<tt class="xref py py-meth docutils literal"><span class="pre">__new__()</span></tt> method is called to ensure that a unique instance
+is created for each HasTraits instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.This">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">This</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.This" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.ClassBasedTraitType" title="IPython.utils.traitlets.ClassBasedTraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.ClassBasedTraitType</span></tt></a></p>
+<p>A trait for instances of the class containing this trait.</p>
+<p>Because how how and when class bodies are executed, the <tt class="docutils literal"><span class="pre">This</span></tt>
+trait can only have a default value of None.  This, and because we
+always validate default values, <tt class="docutils literal"><span class="pre">allow_none</span></tt> is <em>always</em> true.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.This.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.This.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Any">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Any</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Any" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Int">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Int</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>An int trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CInt">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CInt</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Int" title="IPython.utils.traitlets.Int"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Int</span></tt></a></p>
+<p>A casting version of the int trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Long">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Long</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Long" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A long integer trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CLong">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CLong</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CLong" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Long" title="IPython.utils.traitlets.Long"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Long</span></tt></a></p>
+<p>A casting version of the long integer trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Integer">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Integer</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>An integer trait.</p>
+<p>Longs that are unnecessary (&lt;= sys.maxint) are cast to ints.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Float">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Float</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Float" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A float trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CFloat">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CFloat</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Float" title="IPython.utils.traitlets.Float"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Float</span></tt></a></p>
+<p>A casting version of the float trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Complex">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Complex</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Complex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A trait for complex numbers.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CComplex">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CComplex</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CComplex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Complex" title="IPython.utils.traitlets.Complex"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Complex</span></tt></a></p>
+<p>A casting version of the complex number trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Bytes">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Bytes</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A trait for byte strings.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CBytes">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CBytes</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CBytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Bytes" title="IPython.utils.traitlets.Bytes"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Bytes</span></tt></a></p>
+<p>A casting version of the byte string trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Unicode">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Unicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A trait for unicode strings.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CUnicode">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CUnicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
+<p>A casting version of the unicode trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.ObjectName">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">ObjectName</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.ObjectName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A string holding a valid object name in this version of Python.</p>
+<p>This does not check that the name exists in any scope.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.ObjectName.coerce_str">
+<tt class="descname">coerce_str</tt><big>(</big><em>obj</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.ObjectName.coerce_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>In Python 2, coerce ascii-only unicode to str</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.DottedObjectName">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">DottedObjectName</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.DottedObjectName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.ObjectName" title="IPython.utils.traitlets.ObjectName"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.ObjectName</span></tt></a></p>
+<p>A string holding a valid dotted object name in Python, such as A.b3._c</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Bool">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Bool</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A boolean (True, False) trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CBool">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CBool</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CBool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Bool" title="IPython.utils.traitlets.Bool"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Bool</span></tt></a></p>
+<p>A casting version of the boolean trait.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Enum">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Enum</tt><big>(</big><em>values</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Enum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>An enum that whose value must be in a given sequence.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Enum.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Enum.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.traitlets.Enum.info">
+<tt class="descname">info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Enum.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a description of the trait.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CaselessStrEnum">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CaselessStrEnum</tt><big>(</big><em>values</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CaselessStrEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Enum" title="IPython.utils.traitlets.Enum"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Enum</span></tt></a></p>
+<p>An enum of strings that are caseless in validate.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Container">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Container</tt><big>(</big><em>trait=None</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Instance" title="IPython.utils.traitlets.Instance"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Instance</span></tt></a></p>
+<p>An instance of a container (list, set, etc.)</p>
+<p>To be subclassed by overriding klass.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Container.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>trait=None</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Container.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a container trait type from a list, set, or tuple.</p>
+<p>The default value is created by doing <tt class="docutils literal"><span class="pre">List(default_value)</span></tt>,
+which creates a copy of the <tt class="docutils literal"><span class="pre">default_value</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">trait</span></tt> can be specified, which restricts the type of elements
+in the container to that TraitType.</p>
+<p>If only one arg is given and it is not a Trait, it is taken as
+<tt class="docutils literal"><span class="pre">default_value</span></tt>:</p>
+<p><tt class="docutils literal"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">List([1,2,3])</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>trait</strong> : TraitType [ optional ]</p>
+<blockquote>
+<div><p>the type for restricting the contents of the Container.  If unspecified,
+types are not checked.</p>
+</div></blockquote>
+<p><strong>default_value</strong> : SequenceType [ optional ]</p>
+<blockquote>
+<div><p>The default value for the Trait.  Must be list/tuple/set, and
+will be cast to the container type.</p>
+</div></blockquote>
+<p><strong>allow_none</strong> : Bool [ default True ]</p>
+<blockquote>
+<div><p>Whether to allow the value to be None</p>
+</div></blockquote>
+<p><strong>**metadata</strong> : any</p>
+<blockquote class="last">
+<div><p>further keys for extensions to the Trait (e.g. config)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.List">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">List</tt><big>(</big><em>trait=None</em>, <em>default_value=None</em>, <em>minlen=0</em>, <em>maxlen=9223372036854775807</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.List" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Container" title="IPython.utils.traitlets.Container"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Container</span></tt></a></p>
+<p>An instance of a Python list.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.List.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>trait=None</em>, <em>default_value=None</em>, <em>minlen=0</em>, <em>maxlen=9223372036854775807</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.List.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a List trait type from a list, set, or tuple.</p>
+<p>The default value is created by doing <tt class="docutils literal"><span class="pre">List(default_value)</span></tt>,
+which creates a copy of the <tt class="docutils literal"><span class="pre">default_value</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">trait</span></tt> can be specified, which restricts the type of elements
+in the container to that TraitType.</p>
+<p>If only one arg is given and it is not a Trait, it is taken as
+<tt class="docutils literal"><span class="pre">default_value</span></tt>:</p>
+<p><tt class="docutils literal"><span class="pre">c</span> <span class="pre">=</span> <span class="pre">List([1,2,3])</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>trait</strong> : TraitType [ optional ]</p>
+<blockquote>
+<div><p>the type for restricting the contents of the Container.  If unspecified,
+types are not checked.</p>
+</div></blockquote>
+<p><strong>default_value</strong> : SequenceType [ optional ]</p>
+<blockquote>
+<div><p>The default value for the Trait.  Must be list/tuple/set, and
+will be cast to the container type.</p>
+</div></blockquote>
+<p><strong>minlen</strong> : Int [ default 0 ]</p>
+<blockquote>
+<div><p>The minimum length of the input list</p>
+</div></blockquote>
+<p><strong>maxlen</strong> : Int [ default sys.maxsize ]</p>
+<blockquote>
+<div><p>The maximum length of the input list</p>
+</div></blockquote>
+<p><strong>allow_none</strong> : Bool [ default True ]</p>
+<blockquote>
+<div><p>Whether to allow the value to be None</p>
+</div></blockquote>
+<p><strong>**metadata</strong> : any</p>
+<blockquote class="last">
+<div><p>further keys for extensions to the Trait (e.g. config)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.utils.traitlets.List.klass">
+<tt class="descname">klass</tt><a class="headerlink" href="#IPython.utils.traitlets.List.klass" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Set">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Set</tt><big>(</big><em>trait=None</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Container" title="IPython.utils.traitlets.Container"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Container</span></tt></a></p>
+<p>An instance of a Python set.</p>
+<dl class="attribute">
+<dt id="IPython.utils.traitlets.Set.klass">
+<tt class="descname">klass</tt><a class="headerlink" href="#IPython.utils.traitlets.Set.klass" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Tuple">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Tuple</tt><big>(</big><em>*traits</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Container" title="IPython.utils.traitlets.Container"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Container</span></tt></a></p>
+<p>An instance of a Python tuple.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Tuple.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*traits</em>, <em>default_value=None</em>, <em>allow_none=True</em>, <em>**medatata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Tuple.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a tuple from a list, set, or tuple.</p>
+<p>Create a fixed-type tuple with Traits:</p>
+<p><tt class="docutils literal"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">Tuple(Int,</span> <span class="pre">Str,</span> <span class="pre">CStr)</span></tt></p>
+<p>would be length 3, with Int,Str,CStr for each element.</p>
+<p>If only one arg is given and it is not a Trait, it is taken as
+default_value:</p>
+<p><tt class="docutils literal"><span class="pre">t</span> <span class="pre">=</span> <span class="pre">Tuple((1,2,3))</span></tt></p>
+<p>Otherwise, <tt class="docutils literal"><span class="pre">default_value</span></tt> <em>must</em> be specified by keyword.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>*traits</strong> : TraitTypes [ optional ]</p>
+<blockquote>
+<div><p>the tsype for restricting the contents of the Tuple.  If unspecified,
+types are not checked. If specified, then each positional argument
+corresponds to an element of the tuple.  Tuples defined with traits
+are of fixed length.</p>
+</div></blockquote>
+<p><strong>default_value</strong> : SequenceType [ optional ]</p>
+<blockquote>
+<div><p>The default value for the Tuple.  Must be list/tuple/set, and
+will be cast to a tuple. If <cite>traits</cite> are specified, the
+<cite>default_value</cite> must conform to the shape and type they specify.</p>
+</div></blockquote>
+<p><strong>allow_none</strong> : Bool [ default True ]</p>
+<blockquote>
+<div><p>Whether to allow the value to be None</p>
+</div></blockquote>
+<p><strong>**metadata</strong> : any</p>
+<blockquote class="last">
+<div><p>further keys for extensions to the Trait (e.g. config)</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.utils.traitlets.Tuple.klass">
+<tt class="descname">klass</tt><a class="headerlink" href="#IPython.utils.traitlets.Tuple.klass" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.Dict">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">Dict</tt><big>(</big><em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.Instance" title="IPython.utils.traitlets.Instance"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Instance</span></tt></a></p>
+<p>An instance of a Python dict.</p>
+<dl class="method">
+<dt id="IPython.utils.traitlets.Dict.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>default_value=None</em>, <em>allow_none=True</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.Dict.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dict trait type from a dict.</p>
+<p>The default value is created by doing <tt class="docutils literal"><span class="pre">dict(default_value)</span></tt>,
+which creates a copy of the <tt class="docutils literal"><span class="pre">default_value</span></tt>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.TCPAddress">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">TCPAddress</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.TCPAddress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A trait for an (ip, port) tuple.</p>
+<p>This allows for both IPv4 IP addresses as well as hostnames.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.traitlets.CRegExp">
+<em class="property">class </em><tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">CRegExp</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x104d59150&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.CRegExp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.utils.traitlets.TraitType" title="IPython.utils.traitlets.TraitType"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.TraitType</span></tt></a></p>
+<p>A casting compiled regular expression trait.</p>
+<p>Accepts both strings and compiled regular expressions. The resulting
+attribute will be a compiled regular expression.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.utils.traitlets.class_of">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">class_of</tt><big>(</big><em>object</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.class_of" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string containing the class name of an object with the
+correct indefinite article (&#8216;a&#8217; or &#8216;an&#8217;) preceding it (e.g., &#8216;an Image&#8217;,
+&#8216;a PlotValue&#8217;).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.traitlets.add_article">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">add_article</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.add_article" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string containing the correct indefinite article (&#8216;a&#8217; or &#8216;an&#8217;)
+prefixed to the specified string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.traitlets.repr_type">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">repr_type</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.repr_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a string representation of a value and its type for readable
+error messages.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.traitlets.is_trait">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">is_trait</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.is_trait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether the given value is an instance or subclass of TraitType.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.traitlets.parse_notifier_name">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">parse_notifier_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.parse_notifier_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the name argument to a list of names.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">parse_notifier_name</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">[&#39;a&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_notifier_name</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">])</span>
+<span class="go">[&#39;a&#39;, &#39;b&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parse_notifier_name</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="go">[&#39;anytrait&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.traitlets.getmembers">
+<tt class="descclassname">IPython.utils.traitlets.</tt><tt class="descname">getmembers</tt><big>(</big><em>object</em>, <em>predicate=None</em><big>)</big><a class="headerlink" href="#IPython.utils.traitlets.getmembers" title="Permalink to this definition">¶</a></dt>
+<dd><p>A safe version of inspect.getmembers that handles missing attributes.</p>
+<p>This is useful when there are descriptor based attributes that for
+some reason raise AttributeError even though they exist.  This happens
+in zope.inteface with the __provides__ attribute.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.tz.html" title="Module: utils.tz"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.timing.html" title="Module: utils.timing"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Sep 09, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
