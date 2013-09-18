@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.client.client &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    <title>Module: parallel.client.client &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0: An Afternoon Hack',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +25,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: parallel.client.futures" href="IPython.parallel.client.futures.html" />
+    <link rel="next" title="Module: parallel.client.magics" href="IPython.parallel.client.magics.html" />
     <link rel="prev" title="Module: parallel.client.asyncresult" href="IPython.parallel.client.asyncresult.html" /> 
   </head>
   <body>
@@ -44,7 +46,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.client.futures.html" title="Module: parallel.client.futures"
+          <a href="IPython.parallel.client.magics.html" title="Module: parallel.client.magics"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="Module: parallel.client.asyncresult"
@@ -70,10 +72,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.asyncresult.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">parallel.client.asyncresult</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.asyncresult</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.parallel.client.futures.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.futures</span></tt></a></p>
+  <p class="topless"><a href="IPython.parallel.client.magics.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.magics</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.parallel.client.client.txt"
@@ -100,7 +102,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.parallel.client.client">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.parallel.client.client">
 <span id="module-parallel-client-client"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">parallel.client.client</span></tt><a class="headerlink" href="#module-IPython.parallel.client.client" title="Permalink to this headline">¶</a></h1>
 <p>A semi-synchronous Client for the ZMQ cluster</p>
 <p>Authors:</p>
@@ -112,7 +121,7 @@
 <dl class="class">
 <dt id="IPython.parallel.client.client.ExecuteReply">
 <em class="property">class </em><tt class="descclassname">IPython.parallel.client.client.</tt><tt class="descname">ExecuteReply</tt><big>(</big><em>msg_id</em>, <em>content</em>, <em>metadata</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.ExecuteReply" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.capture.html#IPython.utils.capture.RichOutput" title="IPython.utils.capture.RichOutput"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.capture.RichOutput</span></tt></a></p>
 <p>wrapper for finished Execute results</p>
 <dl class="method">
 <dt id="IPython.parallel.client.client.ExecuteReply.__init__">
@@ -335,6 +344,14 @@ on engine 0.</p>
 <dt id="IPython.parallel.client.client.Client.clear">
 <tt class="descname">clear</tt><big>(</big><em>targets=None</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the namespace in target(s).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.client.client.Client.close">
+<tt class="descname">close</tt><big>(</big><em>linger=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close my zmq Sockets</p>
+<p>If <cite>linger</cite>, set the zmq LINGER socket option,
+which allows discarding of messages.</p>
 </dd></dl>
 
 <dl class="method">
@@ -805,7 +822,7 @@ default is -1, which means no timeout</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.parallel.client.futures.html" title="Module: parallel.client.futures"
+          <a href="IPython.parallel.client.magics.html" title="Module: parallel.client.magics"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="Module: parallel.client.asyncresult"
@@ -819,8 +836,8 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 08, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Sep 18, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

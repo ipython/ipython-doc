@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using MPI with IPython &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    <title>Using MPI with IPython &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0.0: An Afternoon Hack',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Task Database" href="parallel_db.html" />
     <link rel="prev" title="The AsyncResult object" href="asyncresult.html" /> 
@@ -106,7 +108,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="using-mpi-with-ipython">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="using-mpi-with-ipython">
 <span id="parallelmpi"></span><h1>Using MPI with IPython<a class="headerlink" href="#using-mpi-with-ipython" title="Permalink to this headline">¶</a></h1>
 <p>Often, a parallel algorithm will require moving data between the engines. One
 way of accomplishing this is by doing a pull and then a push using the
@@ -114,15 +123,15 @@ multiengine client. However, this will be slow as all the data has to go
 through the controller to the client and then back through the controller, to
 its final destination.</p>
 <p>A much better way of moving data between engines is to use a message passing
-library, such as the Message Passing Interface (MPI) <a class="reference internal" href="#mpi" id="id1">[MPI]</a>. IPython&#8217;s
+library, such as the Message Passing Interface (MPI) <a class="reference internal" href="#mpi">[MPI]</a>. IPython&#8217;s
 parallel computing architecture has been designed from the ground up to
 integrate with MPI. This document describes how to use MPI with IPython.</p>
 <div class="section" id="additional-installation-requirements">
 <h2>Additional installation requirements<a class="headerlink" href="#additional-installation-requirements" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use MPI with IPython, you will need to install:</p>
 <ul class="simple">
-<li>A standard MPI implementation such as OpenMPI <a class="reference internal" href="#openmpi" id="id2">[OpenMPI]</a> or MPICH.</li>
-<li>The mpi4py <a class="reference internal" href="#mpi4py" id="id3">[mpi4py]</a> package.</li>
+<li>A standard MPI implementation such as OpenMPI <a class="reference internal" href="#openmpi">[OpenMPI]</a> or MPICH.</li>
+<li>The mpi4py <a class="reference internal" href="#mpi4py">[mpi4py]</a> package.</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -163,7 +172,7 @@ do:</p>
 </div>
 <p>This requires that you already have a controller running and that the FURL
 files for the engines are in place. We also have built in support for
-PyTrilinos <a class="reference internal" href="#pytrilinos" id="id4">[PyTrilinos]</a>, which can be used (assuming is installed) by
+PyTrilinos <a class="reference internal" href="#pytrilinos">[PyTrilinos]</a>, which can be used (assuming is installed) by
 starting the engines with:</p>
 <div class="highlight-python"><pre>$ mpiexec -n 4 ipengine --mpi=pytrilinos</pre>
 </div>
@@ -179,7 +188,7 @@ more information on this approach, see our documentation on <a class="reference 
 <p>Once the engines are running with MPI enabled, you are ready to go. You can
 now call any code that uses MPI in the IPython engines. And, all of this can
 be done interactively. Here we show a simple example that uses mpi4py
-<a class="reference internal" href="#mpi4py" id="id5">[mpi4py]</a> version 1.1.0 or later.</p>
+<a class="reference internal" href="#mpi4py">[mpi4py]</a> version 1.1.0 or later.</p>
 <p>First, lets define a simply function that uses MPI to calculate the sum of a
 distributed array. Save the following text in a file called <tt class="file docutils literal"><span class="pre">psum.py</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
@@ -289,8 +298,8 @@ compiled C, C++ and Fortran libraries that have been exposed to Python.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 08, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Sep 18, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

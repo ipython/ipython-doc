@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.interactiveshell &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    <title>Module: core.interactiveshell &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0: An Afternoon Hack',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.logger" href="IPython.core.logger.html" />
     <link rel="prev" title="Module: core.inputtransformer" href="IPython.core.inputtransformer.html" /> 
@@ -70,7 +72,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.inputtransformer.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">core.inputtransformer</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.inputtransformer</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.logger.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.logger</span></tt></a></p>
@@ -100,7 +102,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.core.interactiveshell">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.core.interactiveshell">
 <span id="module-core-interactiveshell"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.interactiveshell</span></tt><a class="headerlink" href="#module-IPython.core.interactiveshell" title="Permalink to this headline">¶</a></h1>
 <p>Main IPython class.</p>
 <div class="section" id="classes">
@@ -113,7 +122,7 @@
 
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateUnicode">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1079cd610&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x500e590&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
 <p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <blockquote>
@@ -199,7 +208,7 @@ input line was transformed automatically by IPython.</p>
 <p>Mainly for use by utilities like %reset.</p>
 <p class="rubric">Examples</p>
 <p>In [15]: import IPython</p>
-<p>In [16]: m = _ip.new_main_mod(IPython.__file__)</p>
+<p>In [16]: m = _ip.new_main_mod(IPython.__file__, &#8216;IPython&#8217;)</p>
 <p>In [17]: len(_ip._main_mod_cache) &gt; 0
 Out[17]: True</p>
 <p>In [18]: _ip.clear_main_mod_cache()</p>
@@ -675,13 +684,15 @@ filename internally so ipython cleans it up at exit time.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.new_main_mod">
-<tt class="descname">new_main_mod</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.new_main_mod" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">new_main_mod</tt><big>(</big><em>filename</em>, <em>modname</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.new_main_mod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a new &#8216;main&#8217; module object for user code execution.</p>
 <p><tt class="docutils literal"><span class="pre">filename</span></tt> should be the path of the script which will be run in the
 module. Requests with the same filename will get the same module, with
 its namespace cleared.</p>
+<p><tt class="docutils literal"><span class="pre">modname</span></tt> should be the module name - normally either &#8216;__main__&#8217; or
+the basename of the file without the extension.</p>
 <p>When scripts are executed via %run, we must keep a reference to their
-__main__ module (a FakeModule instance) around so that Python doesn&#8217;t
+__main__ module around so that Python doesn&#8217;t
 clear it, rendering references to module globals useless.</p>
 <p>This method keeps said reference in a private dict, keyed by the
 absolute path of the script. This way, for multiple executions of the
@@ -751,6 +762,43 @@ callers frame.</p>
 <blockquote class="last">
 <div><p>If True (default), the variables will be listed with the <tt class="docutils literal"><span class="pre">who</span></tt>
 magic.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.register_magic_function">
+<tt class="descname">register_magic_function</tt><big>(</big><em>func</em>, <em>magic_kind='line'</em>, <em>magic_name=None</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.register_magic_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expose a standalone function as magic function for IPython.</p>
+<p>This will create an IPython magic (line, cell or both) from a
+standalone function.  The functions should have the following
+signatures:</p>
+<ul class="simple">
+<li>For line magics: <cite>def f(line)</cite></li>
+<li>For cell magics: <cite>def f(line, cell)</cite></li>
+<li>For a function that does both: <cite>def f(line, cell=None)</cite></li>
+</ul>
+<p>In the latter case, the function will be called with <cite>cell==None</cite> when
+invoked as <cite>%f</cite>, and with cell as a string when invoked as <cite>%%f</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>func</strong> : callable</p>
+<blockquote>
+<div><p>Function to be registered as a magic.</p>
+</div></blockquote>
+<p><strong>magic_kind</strong> : str</p>
+<blockquote>
+<div><p>Kind of magic, one of &#8216;line&#8217;, &#8216;cell&#8217; or &#8216;line_cell&#8217;</p>
+</div></blockquote>
+<p><strong>magic_name</strong> : optional str</p>
+<blockquote class="last">
+<div><p>If given, the name the magic will have in the IPython namespace.  By
+default, the name of the function itself is used.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1321,7 +1369,7 @@ in the user namespace.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
-<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x107f6ae50&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x529ee10&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand python variables in a string.</p>
 <p>The depth argument indicates how many frames above the caller should
 be walked to look for the local namespace where to expand variables.</p>
@@ -1391,8 +1439,8 @@ namespace.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 08, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Sep 18, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

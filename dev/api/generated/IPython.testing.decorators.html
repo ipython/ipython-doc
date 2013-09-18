@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: testing.decorators &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    <title>Module: testing.decorators &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0: An Afternoon Hack',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: testing.globalipapp" href="IPython.testing.globalipapp.html" />
     <link rel="prev" title="Module: testing" href="IPython.testing.html" /> 
@@ -63,14 +65,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">testing.decorators</span></tt></a><ul>
 <li><a class="reference internal" href="#authors">Authors</a></li>
-<li><a class="reference internal" href="#functions">8 Functions</a></li>
+<li><a class="reference internal" href="#functions">10 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.testing.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">testing</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">testing</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.testing.globalipapp.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">testing.globalipapp</span></tt></a></p>
@@ -100,7 +102,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.testing.decorators">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.testing.decorators">
 <span id="module-testing-decorators"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">testing.decorators</span></tt><a class="headerlink" href="#module-IPython.testing.decorators" title="Permalink to this headline">¶</a></h1>
 <p>Decorators for labeling test objects.</p>
 <p>Decorators that merely return a modified version of the original function
@@ -114,9 +123,6 @@ find yourself writing a new one that may be of generic use, add it here.</p>
 <p>Included decorators:</p>
 <p>Lightweight testing that remains unittest-compatible.</p>
 <ul class="simple">
-<li>&#64;parametric, for parametric test support that is vastly easier to use than
-nose&#8217;s for debugging. With ours, if a test fails, the stack under inspection
-is that of the test and not that of the test framework.</li>
 <li>An &#64;as_unittest decorator can be used to tag any normal parameter-less
 function as a unittest TestCase.  Then, both nose and normal unittest will
 recognize it as such.  This will make it easier to migrate away from Nose if
@@ -133,7 +139,7 @@ we&#8217;ve copied verbatim from numpy.</p>
 </ul>
 </div>
 <div class="section" id="functions">
-<h2>8 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>10 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.testing.decorators.as_unittest">
 <tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">as_unittest</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.testing.decorators.as_unittest" title="Permalink to this definition">¶</a></dt>
@@ -282,6 +288,20 @@ available, but delay the &#8216;import numpy&#8217; to test execution time.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="IPython.testing.decorators.decorated_dummy">
+<tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">decorated_dummy</tt><big>(</big><em>dec</em>, <em>name</em><big>)</big><a class="headerlink" href="#IPython.testing.decorators.decorated_dummy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dummy function decorated with dec, with the given name.</p>
+<p class="rubric">Examples</p>
+<p>import IPython.testing.decorators as dec
+setup = dec.decorated_dummy(dec.skip_if_no_x11, __name__)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.testing.decorators.skip_file_no_x11">
+<tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">skip_file_no_x11</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.testing.decorators.skip_file_no_x11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="IPython.testing.decorators.onlyif_cmds_exist">
 <tt class="descclassname">IPython.testing.decorators.</tt><tt class="descname">onlyif_cmds_exist</tt><big>(</big><em>*commands</em><big>)</big><a class="headerlink" href="#IPython.testing.decorators.onlyif_cmds_exist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decorator to skip test when at least one of <cite>commands</cite> is not found.</p>
@@ -320,8 +340,8 @@ available, but delay the &#8216;import numpy&#8217; to test execution time.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 08, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Sep 18, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

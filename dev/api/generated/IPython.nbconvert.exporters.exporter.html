@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: nbconvert.exporters.exporter &mdash; IPython 1.0.0: An Afternoon Hack documentation</title>
+    <title>Module: nbconvert.exporters.exporter &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.0.0: An Afternoon Hack',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +25,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 1.0.0: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: nbconvert.exporters.html" href="IPython.nbconvert.exporters.html.html" />
     <link rel="prev" title="Module: nbconvert.exporters.export" href="IPython.nbconvert.exporters.export.html" /> 
@@ -69,7 +71,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.nbconvert.exporters.export.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">nbconvert.exporters.export</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">nbconvert.exporters.export</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.nbconvert.exporters.html.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">nbconvert.exporters.html</span></tt></a></p>
@@ -99,7 +101,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.nbconvert.exporters.exporter">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.nbconvert.exporters.exporter">
 <span id="module-nbconvert-exporters-exporter"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">nbconvert.exporters.exporter</span></tt><a class="headerlink" href="#module-IPython.nbconvert.exporters.exporter" title="Permalink to this headline">¶</a></h1>
 <p>This module defines Exporter, a highly configurable converter
 that uses Jinja2 to export notebook files into different formats.</p>
@@ -117,32 +126,33 @@ that uses Jinja2 to export notebook files into different formats.</p>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a></p>
 <p>Exports notebooks into other file formats.  Uses Jinja 2 templating engine
 to output new formats.  Inherit from this class if you are creating a new
-template type along with new filters/transformers.  If the filters/
-transformers provided by default suffice, there is no need to inherit from
+template type along with new filters/preprocessors.  If the filters/
+preprocessors provided by default suffice, there is no need to inherit from
 this class.  Instead, override the template_file and file_extension
 traits via a config file.</p>
 <ul class="simple">
-<li>strip_math_space</li>
-<li>posix_path</li>
-<li>indent</li>
+<li>citation2latex</li>
 <li>highlight2html</li>
 <li>filter_data_type</li>
 <li>markdown2html</li>
-<li>comment_lines</li>
-<li>ipython2python</li>
-<li>highlight2latex</li>
 <li>markdown2rst</li>
-<li>strip_dollars</li>
-<li>strip_files_prefix</li>
-<li>html2text</li>
-<li>ansi2html</li>
-<li>ansi2latex</li>
 <li>get_lines</li>
+<li>ansi2latex</li>
 <li>strip_ansi</li>
+<li>comment_lines</li>
 <li>markdown2latex</li>
 <li>escape_latex</li>
 <li>add_anchor</li>
+<li>ipython2python</li>
+<li>posix_path</li>
+<li>highlight2latex</li>
+<li>ansi2html</li>
 <li>wrap_text</li>
+<li>strip_math_space</li>
+<li>indent</li>
+<li>strip_dollars</li>
+<li>html2text</li>
+<li>strip_files_prefix</li>
 </ul>
 <dl class="method">
 <dt id="IPython.nbconvert.exporters.exporter.Exporter.__init__">
@@ -219,7 +229,7 @@ before the default FileSystem ones.</p>
 <p><strong>resources</strong> : dict (<a href="#id1"><span class="problematic" id="id2">**</span></a>kw)</p>
 <blockquote class="last">
 <div><p>of additional resources that can be accessed read/write by 
-transformers and filters.</p>
+preprocessors and filters.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -249,18 +259,18 @@ The filters are accesible within the Jinja templating engine.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.nbconvert.exporters.exporter.Exporter.register_transformer">
-<tt class="descname">register_transformer</tt><big>(</big><em>transformer</em>, <em>enabled=False</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.exporters.exporter.Exporter.register_transformer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a transformer.
-Transformers are classes that act upon the notebook before it is
-passed into the Jinja templating engine.  Transformers are also
+<dt id="IPython.nbconvert.exporters.exporter.Exporter.register_preprocessor">
+<tt class="descname">register_preprocessor</tt><big>(</big><em>preprocessor</em>, <em>enabled=False</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.exporters.exporter.Exporter.register_preprocessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a preprocessor.
+Preprocessors are classes that act upon the notebook before it is
+passed into the Jinja templating engine.  Preprocessors are also
 capable of passing additional information to the Jinja
 templating engine.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><strong>transformer</strong> : transformer</td>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><strong>preprocessor</strong> : preprocessor</td>
 </tr>
 </tbody>
 </table>
@@ -301,8 +311,8 @@ templating engine.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Aug 08, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Sep 18, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
