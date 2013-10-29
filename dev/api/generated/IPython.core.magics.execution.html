@@ -64,7 +64,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.magics.execution</span></tt></a><ul>
-<li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
 <li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
@@ -72,7 +72,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.magics.display.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.display</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.magics.display</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magics.extension.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.extension</span></tt></a></p>
@@ -112,8 +112,52 @@ significant differences from the latest stable release (1.1.0).</p>
 <div class="section" id="module-IPython.core.magics.execution">
 <span id="module-core-magics-execution"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.magics.execution</span></tt><a class="headerlink" href="#module-IPython.core.magics.execution" title="Permalink to this headline">¶</a></h1>
 <p>Implementation of execution-related magic functions.</p>
-<div class="section" id="class">
-<h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.core.magics.execution.TimeitResult">
+<em class="property">class </em><tt class="descclassname">IPython.core.magics.execution.</tt><tt class="descname">TimeitResult</tt><big>(</big><em>loops</em>, <em>repeat</em>, <em>best</em>, <em>all_runs</em>, <em>compile_time</em>, <em>precision</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Object returned by the timeit magic with info about the run.</p>
+<p>Contain the following attributes :</p>
+<p>loops: (int) number of loop done per measurement
+repeat: (int) number of time the mesurement has been repeated
+best: (float) best execusion time / number
+all_runs: (list of float) execusion time of each run (in s)
+compile_time: (float) time of statement compilation (s)</p>
+<dl class="method">
+<dt id="IPython.core.magics.execution.TimeitResult.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>loops</em>, <em>repeat</em>, <em>best</em>, <em>all_runs</em>, <em>compile_time</em>, <em>precision</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitResult.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.core.magics.execution.TimeitTemplateFiller">
+<em class="property">class </em><tt class="descclassname">IPython.core.magics.execution.</tt><tt class="descname">TimeitTemplateFiller</tt><big>(</big><em>ast_setup</em>, <em>ast_stmt</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitTemplateFiller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/ast.html#ast.NodeTransformer" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">ast.NodeTransformer</span></tt></a></p>
+<p>Fill in the AST template for timing execution.</p>
+<p>This is quite closely tied to the template definition, which is in
+<a class="reference internal" href="#IPython.core.magics.execution.ExecutionMagics.timeit" title="IPython.core.magics.execution.ExecutionMagics.timeit"><tt class="xref py py-meth docutils literal"><span class="pre">ExecutionMagics.timeit()</span></tt></a>.</p>
+<dl class="method">
+<dt id="IPython.core.magics.execution.TimeitTemplateFiller.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>ast_setup</em>, <em>ast_stmt</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitTemplateFiller.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.execution.TimeitTemplateFiller.visit_For">
+<tt class="descname">visit_For</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitTemplateFiller.visit_For" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the statement to be timed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.magics.execution.TimeitTemplateFiller.visit_FunctionDef">
+<tt class="descname">visit_FunctionDef</tt><big>(</big><em>node</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.TimeitTemplateFiller.visit_FunctionDef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in the setup statement</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="IPython.core.magics.execution.ExecutionMagics">
 <em class="property">class </em><tt class="descclassname">IPython.core.magics.execution.</tt><tt class="descname">ExecutionMagics</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics" title="Permalink to this definition">¶</a></dt>
@@ -270,8 +314,7 @@ the %debug magic.</p>
 <dt id="IPython.core.magics.execution.ExecutionMagics.prun">
 <tt class="descname">prun</tt><big>(</big><em>parameter_s=''</em>, <em>cell=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.prun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a statement through the python code profiler.</p>
-<blockquote>
-<div><dl class="docutils">
+<dl class="docutils">
 <dt>Usage, in line mode:</dt>
 <dd>%prun [options] statement</dd>
 <dt>Usage, in cell mode:</dt>
@@ -289,29 +332,36 @@ Namespaces are internally managed to work correctly; profile.run
 cannot be used in IPython because it makes certain assumptions about
 namespaces which do not hold under IPython.</p>
 <p>Options:</p>
-<p>-l &lt;limit&gt;: you can place restrictions on what or how much of the
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l <var>&lt;limit&gt;</var></span></kbd></td>
+<td><p class="first">you can place restrictions on what or how much of the
 profile gets printed. The limit value can be:</p>
 <blockquote>
 <div><ul class="simple">
-<li>A string: only information for function names containing this string</li>
-</ul>
-<p>is printed.</p>
-<ul class="simple">
+<li>A string: only information for function names containing this string
+is printed.</li>
 <li>An integer: only these many lines are printed.</li>
-<li>A float (between 0 and 1): this fraction of the report is printed</li>
+<li>A float (between 0 and 1): this fraction of the report is printed
+(for example, use a limit of 0.4 to see the topmost 40% only).</li>
 </ul>
-<p>(for example, use a limit of 0.4 to see the topmost 40% only).</p>
 </div></blockquote>
-<p>You can combine several limits with repeated use of the option. For
-example, &#8216;-l __init__ -l 5&#8217; will print only the topmost 5 lines of
+<p class="last">You can combine several limits with repeated use of the option. For
+example, <tt class="docutils literal"><span class="pre">-l</span> <span class="pre">__init__</span> <span class="pre">-l</span> <span class="pre">5</span></tt> will print only the topmost 5 lines of
 information about class constructors.</p>
-<p>-r: return the pstats.Stats object generated by the profiling. This
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td>return the pstats.Stats object generated by the profiling. This
 object has all the information about the profile in it, and you can
-later use it for further analysis or in other functions.</p>
-</div></blockquote>
-<dl class="docutils">
-<dt>-s &lt;key&gt;: sort profile by given key. You can provide more than one key</dt>
-<dd><p class="first">by using the option several times: &#8216;-s key1 -s key2 -s key3...&#8217;. The
+later use it for further analysis or in other functions.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s <var>&lt;key&gt;</var></span></kbd></td>
+<td><p class="first">sort profile by given key. You can provide more than one key
+by using the option several times: &#8216;-s key1 -s key2 -s key3...&#8217;. The
 default sorting key is &#8216;time&#8217;.</p>
 <p>The following is copied verbatim from the profile documentation
 referenced below:</p>
@@ -321,22 +371,50 @@ before them.</p>
 <p>Abbreviations can be used for any key names, as long as the
 abbreviation is unambiguous.  The following are the keys currently
 defined:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>Valid Arg       Meaning</dt>
-<dd>&#8220;calls&#8221;      call count
-&#8220;cumulative&#8221; cumulative time
-&#8220;file&#8221;       file name
-&#8220;module&#8221;     file name
-&#8220;pcalls&#8221;     primitive call count
-&#8220;line&#8221;       line number
-&#8220;name&#8221;       function name
-&#8220;nfl&#8221;        name/file/line
-&#8220;stdname&#8221;    standard name
-&#8220;time&#8221;       internal time</dd>
-</dl>
-</div></blockquote>
-<p>Note that all sorts on statistics are in descending order (placing
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Valid Arg</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;calls&#8221;</td>
+<td>call count</td>
+</tr>
+<tr class="row-odd"><td>&#8220;cumulative&#8221;</td>
+<td>cumulative time</td>
+</tr>
+<tr class="row-even"><td>&#8220;file&#8221;</td>
+<td>file name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;module&#8221;</td>
+<td>file name</td>
+</tr>
+<tr class="row-even"><td>&#8220;pcalls&#8221;</td>
+<td>primitive call count</td>
+</tr>
+<tr class="row-odd"><td>&#8220;line&#8221;</td>
+<td>line number</td>
+</tr>
+<tr class="row-even"><td>&#8220;name&#8221;</td>
+<td>function name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;nfl&#8221;</td>
+<td>name/file/line</td>
+</tr>
+<tr class="row-even"><td>&#8220;stdname&#8221;</td>
+<td>standard name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;time&#8221;</td>
+<td>internal time</td>
+</tr>
+</tbody>
+</table>
+<p class="last">Note that all sorts on statistics are in descending order (placing
 most time consuming items first), where as name, file, and line number
 searches are in ascending order (i.e., alphabetical). The subtle
 distinction between &#8220;nfl&#8221; and &#8220;stdname&#8221; is that the standard name is a
@@ -346,48 +424,48 @@ would (if the file names were the same) appear in the string order
 &#8220;20&#8221; &#8220;3&#8221; and &#8220;40&#8221;.  In contrast, &#8220;nfl&#8221; does a numeric compare of the
 line numbers.  In fact, sort_stats(&#8220;nfl&#8221;) is the same as
 sort_stats(&#8220;name&#8221;, &#8220;file&#8221;, &#8220;line&#8221;).</p>
-<p>-T &lt;filename&gt;: save profile results as shown on screen to a text
-file. The profile is still shown on screen.</p>
-<p>-D &lt;filename&gt;: save (via dump_stats) profile statistics to given
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-T <var>&lt;filename&gt;</var></span></kbd></td>
+<td>save profile results as shown on screen to a text
+file. The profile is still shown on screen.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-D <var>&lt;filename&gt;</var></span></kbd></td>
+<td>save (via dump_stats) profile statistics to given
 filename. This data is in a format understood by the pstats module, and
 is generated by a call to the dump_stats() method of profile
-objects. The profile is still shown on screen.</p>
-<p>-q: suppress output to the pager.  Best used with -T and/or -D above.</p>
+objects. The profile is still shown on screen.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-q</span></kbd></td>
+<td>suppress output to the pager.  Best used with -T and/or -D above.</td></tr>
+</tbody>
+</table>
 <p>If you want to run complete programs under the profiler&#8217;s control, use
-&#8216;%run -p [prof_opts] filename.py [args to program]&#8217; where prof_opts
+<tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-p</span> <span class="pre">[prof_opts]</span> <span class="pre">filename.py</span> <span class="pre">[args</span> <span class="pre">to</span> <span class="pre">program]</span></tt> where prof_opts
 contains profiler specific options as described here.</p>
 <p>You can read the complete documentation for the profile module with:</p>
-<div class="last highlight-python"><pre>In [1]: import profile; profile.help()</pre>
+<div class="highlight-python"><pre>In [1]: import profile; profile.help()</pre>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.run">
-<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x4ff4c80&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x33e1e60&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd><dl class="first last docutils">
-<dt>%run [-n -i -e -G]</dt>
-<dd>[( -t [-N&lt;N&gt;] | -d [-b&lt;N&gt;] | -p [profile options] )]
-( -m mod | file ) [args]</dd>
-</dl>
-</dd>
-</dl>
+<p>Usage:</p>
+<div class="highlight-python"><pre>%run [-n -i -e -G]
+     [( -t [-N&lt;N&gt;] | -d [-b&lt;N&gt;] | -p [profile options] )]
+     ( -m mod | file ) [args]</pre>
+</div>
 <p>Parameters after the filename are passed as command-line arguments to
 the program (put in sys.argv). Then, control returns to IPython&#8217;s
 prompt.</p>
-<dl class="docutils">
-<dt>This is similar to running at a system prompt:</dt>
-<dd>$ python file args</dd>
-</dl>
-<p>but with the advantage of giving you IPython&#8217;s tracebacks, and of
+<p>This is similar to running at a system prompt <tt class="docutils literal"><span class="pre">python</span> <span class="pre">file</span> <span class="pre">args</span></tt>,
+but with the advantage of giving you IPython&#8217;s tracebacks, and of
 loading all variables into your interactive namespace for further use
 (unless -p is used, see below).</p>
 <p>The file is executed in a namespace initially consisting only of
-__name__==&#8217;__main__&#8217; and sys.argv constructed as indicated. It thus
+<tt class="docutils literal"><span class="pre">__name__=='__main__'</span></tt> and sys.argv constructed as indicated. It thus
 sees its environment as if it were being run as a stand-alone program
 (except for sharing global objects such as previously imported
 modules). But after execution, the IPython interactive namespace gets
@@ -398,52 +476,73 @@ interactive work, while giving each program a &#8216;clean sheet&#8217; to run i
 &#8216;*&#8217;, &#8216;?&#8217;, &#8216;[seq]&#8217; and &#8216;[!seq]&#8217; can be used.  Additionally,
 tilde &#8216;~&#8217; will be expanded into user&#8217;s home directory.  Unlike
 real shells, quotation does not suppress expansions.  Use
-<em>two</em> back slashes (e.g., &#8216;\*&#8217;) to suppress expansions.
+<em>two</em> back slashes (e.g. <tt class="docutils literal"><span class="pre">\\*</span></tt>) to suppress expansions.
 To completely disable these expansions, you can use -G flag.</p>
 <p>Options:</p>
-<p>-n: __name__ is NOT set to &#8216;__main__&#8217;, but to the running file&#8217;s name
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td>__name__ is NOT set to &#8216;__main__&#8217;, but to the running file&#8217;s name
 without extension (as python does under import).  This allows running
 scripts and reloading the definitions in them without calling code
-protected by an &#8216; if __name__ == &#8220;__main__&#8221; &#8216; clause.</p>
-<p>-i: run the file in IPython&#8217;s namespace instead of an empty one. This
+protected by an <tt class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></tt> clause.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>run the file in IPython&#8217;s namespace instead of an empty one. This
 is useful if you are experimenting with code written in a text editor
-which depends on variables defined interactively.</p>
-<p>-e: ignore sys.exit() calls or SystemExit exceptions in the script
+which depends on variables defined interactively.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-e</span></kbd></td>
+<td>ignore sys.exit() calls or SystemExit exceptions in the script
 being run.  This is particularly useful if IPython is being used to
 run unittests, which always exit with a sys.exit() call.  In such
 cases you are interested in the output of the test results, not in
-seeing a traceback of the unittest module.</p>
-<p>-t: print timing information at the end of the run.  IPython will give
+seeing a traceback of the unittest module.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td>print timing information at the end of the run.  IPython will give
 you an estimated CPU time consumption for your script, which under
 Unix uses the resource module to avoid the wraparound problems of
 time.clock().  Under Unix, an estimate of time spent on system tasks
-is also given (for Windows platforms this is reported as 0.0).</p>
-<p>If -t is given, an additional -N&lt;N&gt; option can be given, where &lt;N&gt;
+is also given (for Windows platforms this is reported as 0.0).</td></tr>
+</tbody>
+</table>
+<p>If -t is given, an additional <tt class="docutils literal"><span class="pre">-N&lt;N&gt;</span></tt> option can be given, where &lt;N&gt;
 must be an integer indicating how many times you want the script to
 run.  The final timing report will include total and per run results.</p>
 <p>For example (testing the script uniq_stable.py):</p>
 <div class="highlight-python"><pre>In [1]: run -t uniq_stable
 
-IPython CPU timings (estimated):\
-  User  :    0.19597 s.\
-  System:        0.0 s.\
+IPython CPU timings (estimated):
+  User  :    0.19597 s.
+  System:        0.0 s.
 
 In [2]: run -t -N5 uniq_stable
 
-IPython CPU timings (estimated):\
-Total runs performed: 5\
-  Times :      Total       Per run\
-  User  :   0.910862 s,  0.1821724 s.\
+IPython CPU timings (estimated):
+Total runs performed: 5
+  Times :      Total       Per run
+  User  :   0.910862 s,  0.1821724 s.
   System:        0.0 s,        0.0 s.</pre>
 </div>
-<p>-d: run your program under the control of pdb, the Python debugger.
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-d</span></kbd></td>
+<td><p class="first">run your program under the control of pdb, the Python debugger.
 This allows you to execute your program step by step, watch variables,
 etc.  Internally, what IPython does is similar to calling:</p>
-<blockquote>
-<div>pdb.run(&#8216;execfile(&#8220;YOURFILENAME&#8221;)&#8217;)</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pdb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;execfile(&quot;YOURFILENAME&quot;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>with a breakpoint set on line 1 of your file.  You can change the line
 number for this automatic breakpoint to be &lt;N&gt; by using the -bN option
-(where N must be an integer).  For example:</p>
+(where N must be an integer). For example:</p>
 <div class="highlight-python"><pre>%run -d -b40 myscript</pre>
 </div>
 <p>will set the first breakpoint at line 40 in myscript.py.  Note that
@@ -455,30 +554,47 @@ something (not a comment or docstring) for it to stop execution.</p>
 <p>When the pdb debugger starts, you will see a (Pdb) prompt.  You must
 first enter &#8216;c&#8217; (without quotes) to start execution up to the first
 breakpoint.</p>
-<p>Entering &#8216;help&#8217; gives information about the use of the debugger.  You
+<p class="last">Entering &#8216;help&#8217; gives information about the use of the debugger.  You
 can easily see pdb&#8217;s full documentation with &#8220;import pdb;pdb.help()&#8221;
 at a prompt.</p>
-<p>-p: run program under the control of the Python profiler module (which
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td><p class="first">run program under the control of the Python profiler module (which
 prints a detailed report of execution times, function calls, etc).</p>
 <p>You can pass other options after -p which affect the behavior of the
 profiler itself. See the docs for %prun for details.</p>
 <p>In this mode, the program&#8217;s variables do NOT propagate back to the
 IPython interactive namespace (because they remain in the namespace
 where the profiler executes them).</p>
-<p>Internally this triggers a call to %prun, see its documentation for
+<p class="last">Internally this triggers a call to %prun, see its documentation for
 details on the options available specifically for profiling.</p>
+</td></tr>
+</tbody>
+</table>
 <p>There is one special usage for which the text above doesn&#8217;t apply:
 if the filename ends with .ipy, the file is run as ipython script,
 just as if the commands were written on IPython prompt.</p>
-<p>-m: specify module name to load instead of script path. Similar to
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-m</span></kbd></td>
+<td><p class="first">specify module name to load instead of script path. Similar to
 the -m option for the python interpreter. Use this option last if you
 want to combine with other %run options. Unlike the python interpreter
 only source modules are allowed no .pyc or .pyo files.
 For example:</p>
 <div class="highlight-python"><pre>%run -m example</pre>
 </div>
-<p>will run the example module.</p>
-<p>-G: disable shell-like glob expansion of arguments.</p>
+<p class="last">will run the example module.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-G</span></kbd></td>
+<td>disable shell-like glob expansion of arguments.</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -545,9 +661,9 @@ Compiler : 0.78 s</pre>
 <dd><p>Time execution of a Python statement or expression</p>
 <dl class="docutils">
 <dt>Usage, in line mode:</dt>
-<dd>%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c]] statement</dd>
+<dd>%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c] -q -p&lt;P&gt; -o] statement</dd>
 <dt>or in cell mode:</dt>
-<dd>%%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c]] setup_code
+<dd>%%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c] -q -p&lt;P&gt; -o] setup_code
 code
 code...</dd>
 </dl>
@@ -572,6 +688,11 @@ Windows and measures wall time. On Unix, resource.getrusage is used
 instead and returns the CPU user time.</p>
 <p>-p&lt;P&gt;: use a precision of &lt;P&gt; digits to display the timing result.
 Default: 3</p>
+<p>-q: Quiet, do not print result.</p>
+<dl class="docutils">
+<dt>-o: return a TimeitResult that can be stored in a variable to inspect</dt>
+<dd>the result in more details.</dd>
+</dl>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><pre>In [1]: %timeit pass
 10000000 loops, best of 3: 53.3 ns per loop
@@ -642,7 +763,7 @@ those from %timeit.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

@@ -73,7 +73,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.lib.inputhookqt4.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">lib.inputhookqt4</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">lib.inputhookqt4</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.lib.latextools.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">lib.latextools</span></tt></a></p>
@@ -139,22 +139,22 @@ limitations.  This means that it will NOT work under native windows Python.</li>
 <h2>5 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.lib.irunner.InteractiveRunner">
-<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">InteractiveRunner</tt><big>(</big><em>program</em>, <em>prompts</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.InteractiveRunner" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">InteractiveRunner</tt><big>(</big><em>program</em>, <em>prompts</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.InteractiveRunner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Class to run a sequence of commands through an interactive program.</p>
 <dl class="method">
 <dt id="IPython.lib.irunner.InteractiveRunner.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>program</em>, <em>prompts</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.InteractiveRunner.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>program</em>, <em>prompts</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.InteractiveRunner.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct a runner.</p>
 <p>Inputs:</p>
 <blockquote>
 <div><ul class="simple">
 <li>program: command to execute the given program.</li>
-<li>prompts: a list of patterns to match as valid prompts, in the</li>
-</ul>
-<p>format used by pexpect.  This basically means that it can be either
+<li>prompts: a list of patterns to match as valid prompts, in the
+format used by pexpect.  This basically means that it can be either
 a string (to be compiled as a regular expression) or a list of such
-(it must be a true list, as pexpect does type checks).</p>
+(it must be a true list, as pexpect does type checks).</li>
+</ul>
 <p>If more than one prompt is given, the first is treated as the main
 program prompt and the others as &#8216;continuation&#8217; prompts, like
 python&#8217;s.  This means that blank lines in the input source are
@@ -165,24 +165,22 @@ end of multiline input interactively.</p>
 <p>Optional inputs:</p>
 <blockquote>
 <div><ul class="simple">
-<li>args(None): optional list of strings to pass as arguments to the</li>
+<li>args(None): optional list of strings to pass as arguments to the
+child program.</li>
+<li>out(sys.stdout): if given, an output stream to be used when writing
+output.  The only requirement is that it must have a .write() method.</li>
 </ul>
-<p>child program.</p>
-<ul class="simple">
-<li>out(sys.stdout): if given, an output stream to be used when writing</li>
-</ul>
-<p>output.  The only requirement is that it must have a .write() method.</p>
 </div></blockquote>
 <p>Public members not parameterized in the constructor:</p>
 <blockquote>
 <div><ul class="simple">
-<li>delaybeforesend(0): Newer versions of pexpect have a delay before</li>
-</ul>
-<p>sending each new input.  For our purposes here, it&#8217;s typically best
+<li>delaybeforesend(0): Newer versions of pexpect have a delay before
+sending each new input.  For our purposes here, it&#8217;s typically best
 to just set this to zero, but if you encounter reliability problems
 or want an interactive run to pause briefly at each prompt, just
 increase this value (it is measured in seconds).  Note that this
-variable is not honored at all by older versions of pexpect.</p>
+variable is not honored at all by older versions of pexpect.</li>
+</ul>
 </div></blockquote>
 </dd></dl>
 
@@ -204,7 +202,10 @@ variable is not honored at all by older versions of pexpect.</p>
 <dd><p>Run the given file interactively.</p>
 <p>Inputs:</p>
 <blockquote>
-<div>-fname: name of the file to execute.</div></blockquote>
+<div><ul class="simple">
+<li>fname: name of the file to execute.</li>
+</ul>
+</div></blockquote>
 <p>See the run_source docstring for the meaning of the optional
 arguments.</p>
 </dd></dl>
@@ -216,20 +217,18 @@ arguments.</p>
 <p>Inputs:</p>
 <blockquote>
 <div><ul class="simple">
-<li>source: a string of code to be executed, or an open file object we</li>
+<li>source: a string of code to be executed, or an open file object we
+can iterate over.</li>
 </ul>
-<p>can iterate over.</p>
 </div></blockquote>
 <p>Optional inputs:</p>
 <blockquote>
 <div><ul class="simple">
-<li>interact(False): if true, start to interact with the running</li>
+<li>interact(False): if true, start to interact with the running
+program at the end of the script.  Otherwise, just exit.</li>
+<li>get_output(False): if true, capture the output of the child process
+(filtering the input commands out) and return it as a string.</li>
 </ul>
-<p>program at the end of the script.  Otherwise, just exit.</p>
-<ul class="simple">
-<li>get_output(False): if true, capture the output of the child process</li>
-</ul>
-<p>(filtering the input commands out) and return it as a string.</p>
 </div></blockquote>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -241,7 +240,7 @@ arguments.</p>
 
 <dl class="class">
 <dt id="IPython.lib.irunner.IPythonRunner">
-<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">IPythonRunner</tt><big>(</big><em>program='&lt;ipython&gt;'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.IPythonRunner" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">IPythonRunner</tt><big>(</big><em>program='&lt;ipython&gt;'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.IPythonRunner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.irunner.InteractiveRunner" title="IPython.lib.irunner.InteractiveRunner"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.irunner.InteractiveRunner</span></tt></a></p>
 <p>Interactive IPython runner.</p>
 <p>This initalizes IPython in &#8216;nocolor&#8217; mode for simplicity.  This lets us
@@ -253,7 +252,7 @@ pexpect need to be matched to the actual prompts, so user-customized
 prompts would break this.</p>
 <dl class="method">
 <dt id="IPython.lib.irunner.IPythonRunner.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>program='&lt;ipython&gt;'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.IPythonRunner.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>program='&lt;ipython&gt;'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.IPythonRunner.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>New runner, optionally passing the ipython command to use.</p>
 </dd></dl>
 
@@ -261,12 +260,12 @@ prompts would break this.</p>
 
 <dl class="class">
 <dt id="IPython.lib.irunner.PythonRunner">
-<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">PythonRunner</tt><big>(</big><em>program='/usr/bin/python'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.PythonRunner" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">PythonRunner</tt><big>(</big><em>program='/usr/bin/python'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.PythonRunner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.irunner.InteractiveRunner" title="IPython.lib.irunner.InteractiveRunner"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.irunner.InteractiveRunner</span></tt></a></p>
 <p>Interactive Python runner.</p>
 <dl class="method">
 <dt id="IPython.lib.irunner.PythonRunner.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>program='/usr/bin/python'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.PythonRunner.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>program='/usr/bin/python'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.PythonRunner.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>New runner, optionally passing the python command to use.</p>
 </dd></dl>
 
@@ -274,7 +273,7 @@ prompts would break this.</p>
 
 <dl class="class">
 <dt id="IPython.lib.irunner.SAGERunner">
-<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">SAGERunner</tt><big>(</big><em>program='sage'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.SAGERunner" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">SAGERunner</tt><big>(</big><em>program='sage'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.SAGERunner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.irunner.InteractiveRunner" title="IPython.lib.irunner.InteractiveRunner"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.irunner.InteractiveRunner</span></tt></a></p>
 <p>Interactive SAGE runner.</p>
 <p>WARNING: this runner only works if you manually adjust your SAGE
@@ -283,7 +282,7 @@ configuration so that the &#8216;color&#8217; option in the configuration file i
 color sequences.</p>
 <dl class="method">
 <dt id="IPython.lib.irunner.SAGERunner.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>program='sage'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.SAGERunner.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>program='sage'</em>, <em>args=None</em>, <em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em>, <em>echo=True</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.SAGERunner.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>New runner, optionally passing the sage command to use.</p>
 </dd></dl>
 
@@ -291,7 +290,7 @@ color sequences.</p>
 
 <dl class="class">
 <dt id="IPython.lib.irunner.RunnerFactory">
-<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">RunnerFactory</tt><big>(</big><em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.RunnerFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.irunner.</tt><tt class="descname">RunnerFactory</tt><big>(</big><em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.RunnerFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Code runner factory.</p>
 <p>This class provides an IPython code runner, but enforces that only one
@@ -302,7 +301,7 @@ requested for a different extension type.</p>
 python and ipython syntax.</p>
 <dl class="method">
 <dt id="IPython.lib.irunner.RunnerFactory.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2aaaaab11150&gt;</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.RunnerFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>out=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x2b60706c0150&gt;</em><big>)</big><a class="headerlink" href="#IPython.lib.irunner.RunnerFactory.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiate a code runner.</p>
 </dd></dl>
 
@@ -364,7 +363,7 @@ and os is now None.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

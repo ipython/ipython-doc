@@ -65,13 +65,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.magics.code</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">3 Classes</a></li>
+<li><a class="reference internal" href="#functions">2 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.magics.basic.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.basic</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.magics.basic</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magics.config.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.config</span></tt></a></p>
@@ -133,7 +134,7 @@ significant differences from the latest stable release (1.1.0).</p>
 
 <dl class="class">
 <dt id="IPython.core.magics.code.CodeMagics">
-<em class="property">class </em><tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">CodeMagics</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magics.code.CodeMagics" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">CodeMagics</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.magics.code.CodeMagics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a></p>
 <p>Magics related to code management (loading, saving, editing, ...).</p>
 <dl class="method">
@@ -323,6 +324,39 @@ it asks for confirmation before overwriting existing files.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="functions">
+<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.magics.code.extract_code_ranges">
+<tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">extract_code_ranges</tt><big>(</big><em>ranges_str</em><big>)</big><a class="headerlink" href="#IPython.core.magics.code.extract_code_ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn a string of range for %%load into 2-tuples of (start, stop)
+ready to use as a slice of the content splitted by lines.</p>
+<p class="rubric">Examples</p>
+<p>list(extract_input_ranges(&#8220;5-10 2&#8221;))
+[(4, 10), (1, 2)]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.magics.code.extract_symbols">
+<tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">extract_symbols</tt><big>(</big><em>code</em>, <em>symbols</em><big>)</big><a class="headerlink" href="#IPython.core.magics.code.extract_symbols" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a tuple  (blocks, not_found)
+where <tt class="docutils literal"><span class="pre">blocks</span></tt> is a list of code fragments
+for each symbol parsed from code, and <tt class="docutils literal"><span class="pre">not_found</span></tt> are
+symbols not found in the code.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;a = 10</span>
+
+<span class="go">def b(): return 42</span>
+
+<span class="go">class A: pass&#39;&#39;&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">extract_symbols</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;A,b,z&#39;</span><span class="p">)</span>
+<span class="go">([&quot;class A: pass&quot;, &quot;def b(): return 42&quot;], [&#39;z&#39;])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -355,7 +389,7 @@ it asks for confirmation before overwriting existing files.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

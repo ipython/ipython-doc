@@ -64,7 +64,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.alias</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">3 Classes</a></li>
+<li><a class="reference internal" href="#classes">4 Classes</a></li>
 <li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
@@ -72,7 +72,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.consoleapp.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">consoleapp</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">consoleapp</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.application.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.application</span></tt></a></p>
@@ -118,7 +118,7 @@ significant differences from the latest stable release (1.1.0).</p>
 <li>Brian Granger</li>
 </ul>
 <div class="section" id="classes">
-<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.alias.AliasError">
 <em class="property">class </em><tt class="descclassname">IPython.core.alias.</tt><tt class="descname">AliasError</tt><a class="headerlink" href="#IPython.core.alias.AliasError" title="Permalink to this definition">¶</a></dt>
@@ -132,6 +132,25 @@ significant differences from the latest stable release (1.1.0).</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="IPython.core.alias.Alias">
+<em class="property">class </em><tt class="descclassname">IPython.core.alias.</tt><tt class="descname">Alias</tt><big>(</big><em>shell</em>, <em>name</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.alias.Alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Callable object storing the details of one alias.</p>
+<p>Instances are registered as magic functions to allow use of aliases.</p>
+<dl class="method">
+<dt id="IPython.core.alias.Alias.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>name</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.alias.Alias.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.alias.Alias.validate">
+<tt class="descname">validate</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.alias.Alias.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate the alias, and return the number of arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="IPython.core.alias.AliasManager">
 <em class="property">class </em><tt class="descclassname">IPython.core.alias.</tt><tt class="descname">AliasManager</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
@@ -139,12 +158,6 @@ significant differences from the latest stable release (1.1.0).</p>
 <dt id="IPython.core.alias.AliasManager.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.alias.AliasManager.call_alias">
-<tt class="descname">call_alias</tt><big>(</big><em>alias</em>, <em>rest=''</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.call_alias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call an alias given its name and the rest of the line.</p>
-</dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.alias.AliasManager.define_alias">
@@ -155,44 +168,27 @@ problems.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.alias.AliasManager.expand_alias">
-<tt class="descname">expand_alias</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.expand_alias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Expand an alias in the command line</p>
-<p>Returns the provided command line, possibly with the first word
-(command) translated according to alias expansion rules.</p>
-<dl class="docutils">
-<dt>[ipython]|16&gt; _ip.expand_aliases(&#8220;np myfile.txt&#8221;)</dt>
-<dd>&lt;16&gt; &#8216;q:/opt/np/notepad++.exe myfile.txt&#8217;</dd>
-</dl>
+<dt id="IPython.core.alias.AliasManager.get_alias">
+<tt class="descname">get_alias</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.get_alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an alias, or None if no alias by that name exists.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.alias.AliasManager.expand_aliases">
-<tt class="descname">expand_aliases</tt><big>(</big><em>fn</em>, <em>rest</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.expand_aliases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Expand multiple levels of aliases:</p>
-<p>if:</p>
-<p>alias foo bar /tmp
-alias baz foo</p>
-<p>then:</p>
-<p>baz huhhahhei -&gt; bar /tmp huhhahhei</p>
+<dt id="IPython.core.alias.AliasManager.is_alias">
+<tt class="descname">is_alias</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.is_alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not a given name has been defined as an alias</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.alias.AliasManager.retrieve_alias">
+<tt class="descname">retrieve_alias</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.retrieve_alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the command to which an alias expands.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.alias.AliasManager.soft_define_alias">
 <tt class="descname">soft_define_alias</tt><big>(</big><em>name</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.soft_define_alias" title="Permalink to this definition">¶</a></dt>
 <dd><p>Define an alias, but don&#8217;t raise on an AliasError.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.alias.AliasManager.transform_alias">
-<tt class="descname">transform_alias</tt><big>(</big><em>alias</em>, <em>rest=''</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.transform_alias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transform alias to system command string.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.alias.AliasManager.validate_alias">
-<tt class="descname">validate_alias</tt><big>(</big><em>name</em>, <em>cmd</em><big>)</big><a class="headerlink" href="#IPython.core.alias.AliasManager.validate_alias" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate an alias and return the its number of arguments.</p>
 </dd></dl>
 
 </dd></dl>
@@ -239,7 +235,7 @@ alias baz foo</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

@@ -65,14 +65,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.completer</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">4 Classes</a></li>
-<li><a class="reference internal" href="#functions">5 Functions</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.compilerop.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.compilerop</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.compilerop</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.completerlib.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.completerlib</span></tt></a></p>
@@ -130,31 +130,25 @@ string module!</p>
 <div>readline.parse_and_bind(&#8220;tab: complete&#8221;)</div></blockquote>
 <p>Notes:</p>
 <ul class="simple">
-<li>Exceptions raised by the completer function are <em>ignored</em> (and</li>
-</ul>
-<p>generally cause the completion to fail).  This is a feature &#8211; since
+<li>Exceptions raised by the completer function are <em>ignored</em> (and
+generally cause the completion to fail).  This is a feature &#8211; since
 readline sets the tty device in raw (or cbreak) mode, printing a
 traceback wouldn&#8217;t work well without some complicated hoopla to save,
-reset and restore the tty state.</p>
-<ul class="simple">
-<li>The evaluation of the NAME.NAME... form may cause arbitrary</li>
-</ul>
-<p>application defined code to be executed if an object with a
-__getattr__ hook is found.  Since it is the responsibility of the
+reset and restore the tty state.</li>
+<li>The evaluation of the NAME.NAME... form may cause arbitrary
+application defined code to be executed if an object with a
+<tt class="docutils literal"><span class="pre">__getattr__</span></tt> hook is found.  Since it is the responsibility of the
 application (or the user) to enable this feature, I consider this an
 acceptable risk.  More complicated expressions (e.g. function calls or
-indexing operations) are <em>not</em> evaluated.</p>
-<ul class="simple">
-<li>GNU readline is also used by the built-in functions input() and</li>
-</ul>
-<p>raw_input(), and thus these also benefit/suffer from the completer
+indexing operations) are <em>not</em> evaluated.</li>
+<li>GNU readline is also used by the built-in functions input() and
+raw_input(), and thus these also benefit/suffer from the completer
 features.  Clearly an interactive application can benefit by
 specifying its own completer function and using raw_input() for all
-its input.</p>
-<ul class="simple">
-<li>When the original stdin is not a tty device, GNU readline is never</li>
+its input.</li>
+<li>When the original stdin is not a tty device, GNU readline is never
+used, and this module (and the readline module) are silently inactive.</li>
 </ul>
-<p>used, and this module (and the readline module) are silently inactive.</p>
 <div class="section" id="classes">
 <h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -248,43 +242,31 @@ defined in self.namespace or self.global_namespace that match.</p>
 
 <dl class="class">
 <dt id="IPython.core.completer.IPCompleter">
-<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">IPCompleter</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.completer.</tt><tt class="descname">IPCompleter</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.core.completer.Completer" title="IPython.core.completer.Completer"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.completer.Completer</span></tt></a></p>
 <p>Extension of the completer class with IPython-specific features</p>
 <dl class="method">
 <dt id="IPython.core.completer.IPCompleter.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>alias_table=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>namespace=None</em>, <em>global_namespace=None</em>, <em>use_readline=True</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>IPCompleter() -&gt; completer</p>
 <p>Return a completer object suitable for use by the readline library
 via readline.set_completer().</p>
 <p>Inputs:</p>
 <ul class="simple">
-<li>shell: a pointer to the ipython shell itself.  This is needed</li>
-</ul>
-<p>because this completer knows about magic functions, and those can
-only be accessed via the ipython instance.</p>
-<ul class="simple">
+<li>shell: a pointer to the ipython shell itself.  This is needed
+because this completer knows about magic functions, and those can
+only be accessed via the ipython instance.</li>
 <li>namespace: an optional dict where completions are performed.</li>
-<li>global_namespace: secondary optional dict for completions, to</li>
+<li>global_namespace: secondary optional dict for completions, to
+handle cases (such as IPython embedded inside functions) where
+both Python scopes are visible.</li>
 </ul>
-<p>handle cases (such as IPython embedded inside functions) where
-both Python scopes are visible.</p>
-<ul class="simple">
-<li>If alias_table is supplied, it should be a dictionary of aliases</li>
-</ul>
-<p>to complete.</p>
 <dl class="docutils">
 <dt>use_readline <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
 <dd>If true, use the readline library.  This completer can still function
 without readline, though in that case callers must provide some extra
 information on each call about the current line.</dd>
 </dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.core.completer.IPCompleter.alias_matches">
-<tt class="descname">alias_matches</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#IPython.core.completer.IPCompleter.alias_matches" title="Permalink to this definition">¶</a></dt>
-<dd><p>Match internal system aliases</p>
 </dd></dl>
 
 <dl class="method">
@@ -405,7 +387,7 @@ returns None.  The completion should begin with &#8216;text&#8217;.</p>
 
 </div>
 <div class="section" id="functions">
-<h2>5 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.core.completer.has_open_quotes">
 <tt class="descclassname">IPython.core.completer.</tt><tt class="descname">has_open_quotes</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#IPython.core.completer.has_open_quotes" title="Permalink to this definition">¶</a></dt>
@@ -434,7 +416,7 @@ the string is odd.</p>
 <dt id="IPython.core.completer.expand_user">
 <tt class="descclassname">IPython.core.completer.</tt><tt class="descname">expand_user</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.core.completer.expand_user" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand &#8216;~&#8217;-style usernames in strings.</p>
-<p>This is similar to <tt class="xref py py-func docutils literal"><span class="pre">os.path.expanduser()</span></tt>, but it computes and returns
+<p>This is similar to <a class="reference external" href="http://docs.python.org/2/library/os.path.html#os.path.expanduser" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.path.expanduser()</span></tt></a>, but it computes and returns
 extra information that will be useful if the input was being used in
 computing completions, and you wish to return the completions with the
 original &#8216;~&#8217; instead of its expanded value.</p>
@@ -471,6 +453,23 @@ input.</p>
 <dt id="IPython.core.completer.compress_user">
 <tt class="descclassname">IPython.core.completer.</tt><tt class="descname">compress_user</tt><big>(</big><em>path</em>, <em>tilde_expand</em>, <em>tilde_val</em><big>)</big><a class="headerlink" href="#IPython.core.completer.compress_user" title="Permalink to this definition">¶</a></dt>
 <dd><p>Does the opposite of expand_user, with its outputs.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.completer.penalize_magics_key">
+<tt class="descclassname">IPython.core.completer.</tt><tt class="descname">penalize_magics_key</tt><big>(</big><em>word</em><big>)</big><a class="headerlink" href="#IPython.core.completer.penalize_magics_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>key for sorting that penalizes magic commands in the ordering</p>
+<p>Normal words are left alone.</p>
+<p>Magic commands have the initial % moved to the end, e.g.
+%matplotlib is transformed as follows:</p>
+<p>%matplotlib -&gt; matplotlib%</p>
+<p>[The choice of the final % is arbitrary.]</p>
+<p>Since &#8220;matplotlib&#8221; &lt; &#8220;matplotlib%&#8221; as strings, 
+&#8220;timeit&#8221; will appear before the magic &#8220;%timeit&#8221; in the ordering</p>
+<p>For consistency, move &#8220;%%&#8221; to the end, so cell magics appear <em>after</em>
+line magics with the same name.</p>
+<p>A check is performed that there are no other &#8220;%&#8221; in the string; 
+if there are, then the string is not a magic command and is left unchanged.</p>
 </dd></dl>
 
 <dl class="function">
@@ -512,7 +511,7 @@ input.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

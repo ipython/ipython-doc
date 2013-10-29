@@ -64,14 +64,14 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.handlers</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">4 Classes</a></li>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.html.services.notebooks.filenbmanager.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.filenbmanager</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">html.services.notebooks.filenbmanager</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.html.services.notebooks.nbmanager.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.nbmanager</span></tt></a></p>
@@ -116,17 +116,83 @@ significant differences from the latest stable release (1.1.0).</p>
 <li>Brian Granger</li>
 </ul>
 <div class="section" id="classes">
-<h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="IPython.html.services.notebooks.handlers.NotebookRootHandler">
-<em class="property">class </em><tt class="descclassname">IPython.html.services.notebooks.handlers.</tt><tt class="descname">NotebookRootHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookRootHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.html.base.handlers.html#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a></p>
-</dd></dl>
-
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.html.services.notebooks.handlers.NotebookHandler">
 <em class="property">class </em><tt class="descclassname">IPython.html.services.notebooks.handlers.</tt><tt class="descname">NotebookHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.html.base.handlers.html#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.delete">
+<tt class="descname">delete</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete the notebook in the given notebook path</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.get">
+<tt class="descname">get</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a Notebook or list of notebooks.</p>
+<ul class="simple">
+<li>GET with path and no notebook name lists notebooks in a directory</li>
+<li>GET with path and notebook name returns notebook JSON</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.notebook_location">
+<tt class="descname">notebook_location</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.notebook_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the full URL location of a notebook based.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : unicode</p>
+<blockquote>
+<div><p>The base name of the notebook, such as &#8220;foo.ipynb&#8221;.</p>
+</div></blockquote>
+<p><strong>path</strong> : unicode</p>
+<blockquote class="last">
+<div><p>The URL path of the notebook.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.patch">
+<tt class="descname">patch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>PATCH renames a notebook without re-uploading content.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.post">
+<tt class="descname">post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new notebook in the specified path.</p>
+<p>POST creates new notebooks. The server always decides on the notebook name.</p>
+<dl class="docutils">
+<dt>POST /api/notebooks/path <span class="classifier-delimiter">:</span> <span class="classifier">new untitled notebook in path</span></dt>
+<dd>If content specified, upload a notebook, otherwise start empty.</dd>
+</dl>
+<p>POST /api/notebooks/path?copy=OtherNotebook.ipynb : new copy of OtherNotebook in path</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.handlers.NotebookHandler.put">
+<tt class="descname">put</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the notebook in the location specified by name and path.</p>
+<dl class="docutils">
+<dt>PUT /api/notebooks/path/Name.ipynb <span class="classifier-delimiter">:</span> <span class="classifier">Save notebook at path/Name.ipynb</span></dt>
+<dd>Notebook structure is specified in <cite>content</cite> key of JSON request body.
+If content is not specified, create a new empty notebook.</dd>
+</dl>
+<p>PUT /api/notebooks/path/Name.ipynb?copy=OtherNotebook.ipynb : copy OtherNotebook to Name</p>
+<p>POST and PUT are basically the same. The only difference:</p>
+<ul class="simple">
+<li>with POST, server always picks the name, with PUT the requester does</li>
+</ul>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -198,7 +264,7 @@ significant differences from the latest stable release (1.1.0).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

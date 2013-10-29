@@ -72,7 +72,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.macro.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.macro</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.macro</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magic_arguments.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magic_arguments</span></tt></a></p>
@@ -265,8 +265,8 @@ default, the name of the function itself is used.</p>
 
 <dl class="class">
 <dt id="IPython.core.magic.Magics">
-<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">Magics</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<em class="property">class </em><tt class="descclassname">IPython.core.magic.</tt><tt class="descname">Magics</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
 <p>Base class for implementing magic functions.</p>
 <p>Shell functions which can be reached as %function_name. All magic
 functions should accept a string, which they can parse for their own
@@ -275,18 +275,16 @@ vs. <cite>%cd(&#8221;../&#8221;)</cite></p>
 <p>Classes providing magic functions need to subclass this class, and they
 MUST:</p>
 <ul class="simple">
-<li>Use the method decorators <cite>&#64;line_magic</cite> and <cite>&#64;cell_magic</cite> to decorate</li>
+<li>Use the method decorators <cite>&#64;line_magic</cite> and <cite>&#64;cell_magic</cite> to decorate
+individual methods as magic functions, AND</li>
+<li>Use the class decorator <cite>&#64;magics_class</cite> to ensure that the magic
+methods are properly registered at the instance level upon instance
+initialization.</li>
 </ul>
-<p>individual methods as magic functions, AND</p>
-<ul class="simple">
-<li>Use the class decorator <cite>&#64;magics_class</cite> to ensure that the magic</li>
-</ul>
-<p>methods are properly registered at the instance level upon instance
-initialization.</p>
 <p>See <tt class="xref py py-mod docutils literal"><span class="pre">magic_functions</span></tt> for examples of actual implementation classes.</p>
 <dl class="method">
 <dt id="IPython.core.magic.Magics.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>shell</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.magic.Magics.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -462,7 +460,7 @@ in the global <cite>magic_spec</cite>), raise ValueError otherwise.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>

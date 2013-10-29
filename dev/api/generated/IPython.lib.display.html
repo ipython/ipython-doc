@@ -64,14 +64,14 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">lib.display</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">6 Classes</a></li>
+<li><a class="reference internal" href="#classes">7 Classes</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.lib.demo.html"
-                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">lib.demo</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">lib.demo</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.lib.editorhooks.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">lib.editorhooks</span></tt></a></p>
@@ -113,7 +113,87 @@ significant differences from the latest stable release (1.1.0).</p>
 <p>Various display related classes.</p>
 <p>Authors : MinRK, gregcaporaso, dannystaple</p>
 <div class="section" id="classes">
-<h2>6 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h2>7 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.lib.display.Audio">
+<em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">Audio</tt><big>(</big><em>data=None</em>, <em>filename=None</em>, <em>url=None</em>, <em>embed=None</em>, <em>rate=None</em>, <em>autoplay=False</em><big>)</big><a class="headerlink" href="#IPython.lib.display.Audio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.core.display.html#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<p>Create an audio object.</p>
+<p>When this object is returned by an input cell or passed to the
+display function, it will result in Audio controls being displayed
+in the frontend (only works in the notebook).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>data</strong> : numpy array, list, unicode, str or bytes</p>
+<blockquote>
+<div><p>Can be a
+* Numpy 1d array containing the desired waveform (mono)
+* List of float or integer representing the waveform (mono)
+* String containing the filename
+* Bytestring containing raw PCM data or
+* URL pointing to a file on the web.</p>
+<p>If the array option is used the waveform will be normalized.</p>
+<p>If a filename or url is used the format support will be browser 
+dependent.</p>
+</div></blockquote>
+<p><strong>url</strong> : unicode</p>
+<blockquote>
+<div><p>A URL to download the data from.</p>
+</div></blockquote>
+<p><strong>filename</strong> : unicode</p>
+<blockquote>
+<div><p>Path to a local file to load the data from.</p>
+</div></blockquote>
+<p><strong>embed</strong> : boolean</p>
+<blockquote>
+<div><p>Should the image data be embedded using a data URI (True) or should
+the original source be referenced. Set this to True if you want the 
+audio to playable later with no internet connection in the notebook.</p>
+<p>Default is <cite>True</cite>, unless the keyword argument <cite>url</cite> is set, then
+default value is <cite>False</cite>.</p>
+</div></blockquote>
+<p><strong>rate</strong> : integer</p>
+<blockquote>
+<div><p>The sampling rate of the raw data.
+Only required when data parameter is being used as an array</p>
+</div></blockquote>
+<p><strong>autoplay</strong> : bool</p>
+<blockquote class="last">
+<div><p>Set to True if the audio should immediately start playing.
+Default is <cite>False</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p># Generate a sound
+import numpy as np
+framerate = 44100
+t = np.linspace(0,5,framerate*5)
+data = np.sin(2*np.pi*220*t) + np.sin(2*np.pi*224*t))
+Audio(data,rate=framerate)</p>
+<p>Audio(&#8220;<a class="reference external" href="http://www.nch.com.au/acm/8k16bitpcm.wav">http://www.nch.com.au/acm/8k16bitpcm.wav</a>&#8221;)
+Audio(url=&#8221;<a class="reference external" href="http://www.w3schools.com/html/horse.ogg">http://www.w3schools.com/html/horse.ogg</a>&#8221;)</p>
+<p>Audio(&#8216;/path/to/sound.wav&#8217;)
+Audio(filename=&#8217;/path/to/sound.ogg&#8217;)</p>
+<p>Audio(b&#8217;RAW_WAV_DATA..)
+Audio(data=b&#8217;RAW_WAV_DATA..)</p>
+<dl class="method">
+<dt id="IPython.lib.display.Audio.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>filename=None</em>, <em>url=None</em>, <em>embed=None</em>, <em>rate=None</em>, <em>autoplay=False</em><big>)</big><a class="headerlink" href="#IPython.lib.display.Audio.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.lib.display.Audio.reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.display.Audio.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the raw data from file or URL.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="IPython.lib.display.IFrame">
 <em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">IFrame</tt><big>(</big><em>src</em>, <em>width</em>, <em>height</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.lib.display.IFrame" title="Permalink to this definition">¶</a></dt>
@@ -286,7 +366,7 @@ display(local_files)</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Sep 18, 2013.
+      Last updated on Oct 29, 2013.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
