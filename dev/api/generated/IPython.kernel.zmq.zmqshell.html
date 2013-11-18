@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: kernel.zmq.zmqshell &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0.0-dev: Work in Progress',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: lib.backgroundjobs" href="IPython.lib.backgroundjobs.html" />
+    <link rel="prev" title="Module: kernel.zmq.session" href="IPython.kernel.zmq.session.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.lib.backgroundjobs.html" title="Module: lib.backgroundjobs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.session.html" title="Module: kernel.zmq.session"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.zmqshell</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.zmq.session.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.session</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.lib.backgroundjobs.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">lib.backgroundjobs</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.zmq.zmqshell.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.kernel.zmq.zmqshell">
+<span id="module-kernel-zmq-zmqshell"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.zmq.zmqshell</span></tt><a class="headerlink" href="#module-IPython.kernel.zmq.zmqshell" title="Permalink to this headline">¶</a></h1>
+<p>A ZMQ-based subclass of InteractiveShell.</p>
+<p>This code is meant to ease the refactoring of the base InteractiveShell into
+something with a cleaner architecture for 2-process use, without actually
+breaking InteractiveShell itself.  So we&#8217;re doing something a bit ugly, where
+we subclass and override what we want to fix.  Once this is working well, we
+can go back to the base class and refactor the code for a cleaner inheritance
+implementation that doesn&#8217;t rely on so much monkeypatching.</p>
+<p>But this lets us maintain a fully working IPython as we develop the new
+machinery.  This should thus be thought of as scaffolding.</p>
+<div class="section" id="classes">
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQDisplayPublisher">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.zmqshell.</tt><tt class="descname">ZMQDisplayPublisher</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQDisplayPublisher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.core.displaypub.html#IPython.core.displaypub.DisplayPublisher" title="IPython.core.displaypub.DisplayPublisher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.displaypub.DisplayPublisher</span></tt></a></p>
+<p>A display publisher that publishes data using a ZeroMQ PUB socket.</p>
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQDisplayPublisher.set_parent">
+<tt class="descname">set_parent</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQDisplayPublisher.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parent for outbound messages.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.zmqshell.</tt><tt class="descname">KernelMagics</tt><big>(</big><em>shell=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.core.magic.html#IPython.core.magic.Magics" title="IPython.core.magic.Magics"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.autosave">
+<tt class="descname">autosave</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.autosave" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the autosave interval in the notebook (in seconds).</p>
+<p>The default value is 120, or two minutes.
+<tt class="docutils literal"><span class="pre">%autosave</span> <span class="pre">0</span></tt> will disable autosave.</p>
+<p>This magic only has an effect when called from the notebook interface.
+It has no effect when called in a startup file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.clear">
+<tt class="descname">clear</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the terminal.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.connect_info">
+<tt class="descname">connect_info</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.connect_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print information for connecting other clients to this kernel</p>
+<p>It will print the contents of this session&#8217;s connection file, as well as
+shortcuts for local clients.</p>
+<p>In the simplest case, when called from the most recently launched kernel,
+secondary clients can be connected, simply with:</p>
+<p>$&gt; ipython &lt;app&gt; &#8211;existing</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.doctest_mode">
+<tt class="descname">doctest_mode</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.doctest_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle doctest mode on and off.</p>
+<p>This mode is intended to make IPython behave as much as possible like a
+plain Python shell, from the perspective of how its prompts, exceptions
+and output look.  This makes it easy to copy and paste parts of a
+session into doctests.  It does so by:</p>
+<ul class="simple">
+<li>Changing the prompts to the classic <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> ones.</li>
+<li>Changing the exception reporting mode to &#8216;Plain&#8217;.</li>
+<li>Disabling pretty-printing of output.</li>
+</ul>
+<p>Note that IPython also supports the pasting of code snippets that have
+leading &#8216;&gt;&gt;&gt;&#8217; and &#8216;...&#8217; prompts in them.  This means that you can paste
+doctests from files or docstrings (even if they have leading
+whitespace), and the code will execute correctly.  You can then use
+&#8216;%history -t&#8217; to see the translated history; this will give you the
+input after removal of all the leading prompts and whitespace, which
+can be pasted back into an editor.</p>
+<p>With these features, you can switch into this mode easily whenever you
+need to do testing and changes to doctests, without having to leave
+your existing IPython session.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.edit">
+<tt class="descname">edit</tt><big>(</big><em>parameter_s='', last_call=['', '']</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bring up an editor and execute the resulting code.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%edit [options] [args]</dd>
+</dl>
+<p>%edit runs an external text editor. You will need to set the command for
+this editor via the <tt class="docutils literal"><span class="pre">TerminalInteractiveShell.editor</span></tt> option in your
+configuration file before it will work.</p>
+<p>This command allows you to conveniently edit multi-line code right in
+your IPython session.</p>
+<p>If called without arguments, %edit opens up an empty editor with a
+temporary file and will execute the contents of this file when you
+close it (don&#8217;t forget to save it!).</p>
+<p>Options:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-n <var>&lt;number&gt;</var></span></kbd></td>
+<td>Open the editor at a specified line number. By default, the IPython
+editor hook uses the unix syntax &#8216;editor +N filename&#8217;, but you can
+configure this by providing your own modified hook if your favorite
+editor supports line-number specifications with a different syntax.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>Call the editor with the same data as the previous time it was used,
+regardless of how long ago (in your current session) it was.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td>Use &#8216;raw&#8217; input. This option only applies to input taken from the
+user&#8217;s history.  By default, the &#8216;processed&#8217; history is used, so that
+magics are loaded in their transformed version to valid Python.  If
+this option is given, the raw input as typed as the command line is
+used instead.  When you exit the editor, it will be executed by
+IPython&#8217;s own processor.</td></tr>
+</tbody>
+</table>
+<p>Arguments:</p>
+<p>If arguments are given, the following possibilites exist:</p>
+<ul>
+<li><p class="first">The arguments are numbers or pairs of colon-separated numbers (like
+1 4:8 9). These are interpreted as lines of previous input to be
+loaded into the editor. The syntax is the same of the %macro command.</p>
+</li>
+<li><p class="first">If the argument doesn&#8217;t start with a number, it is evaluated as a
+variable and its contents loaded into the editor. You can thus edit
+any string which contains python code (including the result of
+previous edits).</p>
+</li>
+<li><p class="first">If the argument is the name of an object (other than a string),
+IPython will try to locate the file where it was defined and open the
+editor at the point where it is defined. You can use <tt class="docutils literal"><span class="pre">%edit</span> <span class="pre">function</span></tt>
+to load an editor exactly at the point where &#8216;function&#8217; is defined,
+edit it and have the file be executed automatically.</p>
+<p>If the object is a macro (see %macro for details), this opens up your
+specified editor with a temporary file containing the macro&#8217;s data.
+Upon exit, the macro is reloaded with the contents of the file.</p>
+<p>Note: opening at an exact line is only supported under Unix, and some
+editors (like kedit and gedit up to Gnome 2.8) do not understand the
+&#8216;+NUMBER&#8217; parameter necessary for this feature. Good editors like
+(X)Emacs, vi, jed, pico and joe all do.</p>
+</li>
+<li><p class="first">If the argument is not found as a variable, IPython will look for a
+file with that name (adding .py if necessary) and load it into the
+editor. It will execute its contents with execfile() when you exit,
+loading any code in the file into your interactive namespace.</p>
+</li>
+</ul>
+<p>Unlike in the terminal, this is designed to use a GUI editor, and we do
+not know when it has closed. So the file you edit will not be
+automatically executed or printed.</p>
+<p>Note that %edit is also available through the alias %ed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.less">
+<tt class="descname">less</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.less" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a file through the pager.</p>
+<p>Files ending in .py are syntax-highlighted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.man">
+<tt class="descname">man</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.man" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the man page for the given command and display in pager.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.more">
+<tt class="descname">more</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.more" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a file through the pager.</p>
+<p>Files ending in .py are syntax-highlighted.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.KernelMagics.qtconsole">
+<tt class="descname">qtconsole</tt><big>(</big><em>arg_s</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.KernelMagics.qtconsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a qtconsole connected to this kernel.</p>
+<p>Useful for connecting a qtconsole to running notebooks, for better
+debugging.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.zmqshell.</tt><tt class="descname">ZMQInteractiveShell</tt><big>(</big><em>ipython_dir=None</em>, <em>profile_dir=None</em>, <em>user_module=None</em>, <em>user_ns=None</em>, <em>custom_exceptions=(()</em>, <em>None)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.core.interactiveshell.html#IPython.core.interactiveshell.InteractiveShell" title="IPython.core.interactiveshell.InteractiveShell"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.interactiveshell.InteractiveShell</span></tt></a></p>
+<p>A subclass of InteractiveShell for ZMQ.</p>
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.ask_exit">
+<tt class="descname">ask_exit</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.ask_exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Engage the exit actions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.auto_rewrite_input">
+<tt class="descname">auto_rewrite_input</tt><big>(</big><em>cmd</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.auto_rewrite_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called to show the auto-rewritten input for autocall and friends.</p>
+<p>FIXME: this payload is currently not correctly processed by the
+frontend.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.init_environment">
+<tt class="descname">init_environment</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.init_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the user&#8217;s environment.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.set_next_input">
+<tt class="descname">set_next_input</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.set_next_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send the specified text to the frontend to be presented at the next
+input cell.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.set_parent">
+<tt class="descname">set_parent</tt><big>(</big><em>parent</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.zmqshell.ZMQInteractiveShell.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parent header for associating output with its triggering input</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.lib.backgroundjobs.html" title="Module: lib.backgroundjobs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.session.html" title="Module: kernel.zmq.session"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

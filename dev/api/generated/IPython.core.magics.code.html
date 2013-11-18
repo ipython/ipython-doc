@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -72,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.magics.basic.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.magics.basic</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.basic</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.magics.config.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.magics.config</span></tt></a></p>
@@ -266,6 +264,27 @@ defined it.</p>
 <p class="last">where source can be a filename, URL, input history range or macro</p>
 </dd>
 </dl>
+<p>Options:</p>
+<blockquote>
+<div><p>-r &lt;lines&gt;: Specify lines or ranges of lines to load from the source.
+Ranges could be specified as x-y (x..y) or in python-style x:y 
+(x..(y-1)). Both limits x and y can be left blank (meaning the 
+beginning and end of the file, respectively).</p>
+<p>-s &lt;symbols&gt;: Specify function or classes to load from python source.</p>
+<p>-y : Don&#8217;t ask confirmation for loading source above 200 000 characters.</p>
+</div></blockquote>
+<p>This magic command can either take a local filename, a URL, an history
+range (see %history) or a macro as argument, it will prompt for
+confirmation before loading source with more than 200 000 characters, unless
+-y flag is passed or if the frontend does not support raw_input:</p>
+<div class="highlight-python"><pre>%load myscript.py
+%load 7-27
+%load myMacro
+%load http://www.example.com/myscript.py
+%load -r 5-10 myscript.py
+%load -r 10-20,30,40: foo.py
+%load -s MyClass,wonder_function myscript.py</pre>
+</div>
 </dd></dl>
 
 <dl class="method">
@@ -350,7 +369,7 @@ symbols not found in the code.</p>
 
 <span class="go">class A: pass&#39;&#39;&#39;</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">extract_symbols</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="s">&#39;A,b,z&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">extract_symbols(code, &#39;A,b,z&#39;)</span>
 <span class="go">([&quot;class A: pass&quot;, &quot;def b(): return 42&quot;], [&#39;z&#39;])</span>
 </pre></div>
 </div>
@@ -389,8 +408,8 @@ symbols not found in the code.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -250,12 +248,12 @@ kernel and frontend files for actual implementation details.</p>
 <h2>The Wire Protocol<a class="headerlink" href="#the-wire-protocol" title="Permalink to this headline">¶</a></h2>
 <p>This message format exists at a high level,
 but does not describe the actual <em>implementation</em> at the wire level in zeromq.
-The canonical implementation of the message spec is our <tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt> class.</p>
+The canonical implementation of the message spec is our <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt></a> class.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This section should only be relevant to non-Python consumers of the protocol.
 Python consumers should simply import and use IPython&#8217;s own implementation of the wire protocol
-in the <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.session.Session</span></tt> object.</p>
+in the <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.session.Session</span></tt></a> object.</p>
 </div>
 <p>Every message is serialized to a sequence of at least six blobs of bytes:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
@@ -718,7 +716,7 @@ field names that IPython prints at the terminal.</p>
 <span class="c"># this is typically the common prefix of the matches,</span>
 <span class="c"># and the text that is already in the block that would be replaced by the full completion.</span>
 <span class="c"># This would be &#39;a.is&#39; in the above example.</span>
-<span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="s">&#39;matched_text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
 <span class="c"># status should be &#39;ok&#39; unless an exception was raised during the request,</span>
 <span class="c"># in which case it should be &#39;error&#39;, along with the usual error message content</span>
@@ -767,8 +765,9 @@ request it from the kernel when needed.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p class="versionadded">
-<span class="versionmodified">New in version 4.0: </span>The key <tt class="docutils literal"><span class="pre">unique</span></tt> for <tt class="docutils literal"><span class="pre">history_request</span></tt>.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 4.0: </span>The key <tt class="docutils literal"><span class="pre">unique</span></tt> for <tt class="docutils literal"><span class="pre">history_request</span></tt>.</p>
+</div>
 <p>Message type: <tt class="docutils literal"><span class="pre">history_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
   <span class="c"># A list of 3 tuples, either:</span>
@@ -1082,6 +1081,14 @@ the <tt class="docutils literal"><span class="pre">raw_input(prompt)</span></tt>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
+<p class="last">The stdin socket of the client is required to have the same zmq IDENTITY
+as the client&#8217;s shell socket.
+Because of this, the <tt class="docutils literal"><span class="pre">input_request</span></tt> must be sent with the same IDENTITY
+routing prefix as the <tt class="docutils literal"><span class="pre">execute_reply</span></tt> in order for the frontend to receive
+the message.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p class="last">We do not explicitly try to forward the raw <tt class="docutils literal"><span class="pre">sys.stdin</span></tt> object, because in
 practice the kernel should behave like an interactive program.  When a
 program is opened on the console, the keyboard effectively takes over the
@@ -1127,8 +1134,9 @@ and can communicate in either direction.</p>
 and no messages expect a reply.
 The Kernel listens for these messages on the Shell channel,
 and the Frontend listens for them on the IOPub channel.</p>
-<p class="versionadded">
-<span class="versionmodified">New in version 2.0.</span></p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 2.0.</span></p>
+</div>
 <div class="section" id="opening-a-comm">
 <h3>Opening a Comm<a class="headerlink" href="#opening-a-comm" title="Permalink to this headline">¶</a></h3>
 <p>Opening a Comm produces a <tt class="docutils literal"><span class="pre">comm_open</span></tt> message, to be sent to the other side:</p>
@@ -1223,8 +1231,8 @@ likely that with the payload concept we can build a full solution, but not
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

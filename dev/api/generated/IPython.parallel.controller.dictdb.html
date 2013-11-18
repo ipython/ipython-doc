@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.controller.dependency.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">parallel.controller.dependency</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.controller.dependency</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.parallel.controller.heartmonitor.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.controller.heartmonitor</span></tt></a></p>
@@ -116,39 +114,42 @@ but exists entirely in memory and implemented with dicts.</p>
 <ul class="simple">
 <li>Min RK</li>
 </ul>
-<p>TaskRecords are dicts of the form:
-{</p>
-<blockquote>
-<div>&#8216;msg_id&#8217; : str(uuid),
-&#8216;client_uuid&#8217; : str(uuid),
-&#8216;engine_uuid&#8217; : str(uuid) or None,
-&#8216;header&#8217; : dict(header),
-&#8216;content&#8217;: dict(content),
-&#8216;buffers&#8217;: list(buffers),
-&#8216;submitted&#8217;: datetime,
-&#8216;started&#8217;: datetime or None,
-&#8216;completed&#8217;: datetime or None,
-&#8216;resubmitted&#8217;: datetime or None,
-&#8216;result_header&#8217; : dict(header) or None,
-&#8216;result_content&#8217; : dict(content) or None,
-&#8216;result_buffers&#8217; : list(buffers) or None,</div></blockquote>
-<p>}
-With this info, many of the special categories of tasks can be defined by query:</p>
-<p>pending:  completed is None
-client&#8217;s outstanding: client_uuid = uuid &amp;&amp; completed is None
-MIA: arrived is None (and completed is None)
-etc.</p>
-<p>EngineRecords are dicts of the form:
-{</p>
-<blockquote>
-<div>&#8216;eid&#8217; : int(id),
-&#8216;uuid&#8217;: str(uuid)</div></blockquote>
-<p>}
-This may be extended, but is currently.</p>
-<dl class="docutils">
-<dt>We support a subset of mongodb operators:</dt>
-<dd>$lt,$gt,$lte,$gte,$ne,$in,$nin,$all,$mod,$exists</dd>
-</dl>
+<p>TaskRecords are dicts of the form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;msg_id&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">),</span>
+    <span class="s">&#39;client_uuid&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">),</span>
+    <span class="s">&#39;engine_uuid&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">header</span><span class="p">),</span>
+    <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">content</span><span class="p">),</span>
+    <span class="s">&#39;buffers&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">buffers</span><span class="p">),</span>
+    <span class="s">&#39;submitted&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span>
+    <span class="s">&#39;started&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;completed&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;resubmitted&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;result_header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;result_content&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;result_buffers&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">buffers</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>With this info, many of the special categories of tasks can be defined by query,
+e.g.:</p>
+<ul class="simple">
+<li>pending: completed is None</li>
+<li>client&#8217;s outstanding: client_uuid = uuid &amp;&amp; completed is None</li>
+<li>MIA: arrived is None (and completed is None)</li>
+</ul>
+<p>EngineRecords are dicts of the form:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&#39;eid&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span>
+    <span class="s">&#39;uuid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This may be extended, but is currently.</p>
+<p>We support a subset of mongodb operators:</p>
+<div class="highlight-python"><pre>$lt,$gt,$lte,$gte,$ne,$in,$nin,$all,$mod,$exists</pre>
+</div>
 <div class="section" id="classes">
 <h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -206,7 +207,7 @@ backend should be straightforward.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>check: dict</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>check: dict</strong> :</p>
 <blockquote>
 <div><p>mongodb-style query argument</p>
 </div></blockquote>
@@ -285,8 +286,8 @@ functionality is not required.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

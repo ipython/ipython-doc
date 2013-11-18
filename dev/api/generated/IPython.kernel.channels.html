@@ -1,0 +1,594 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: kernel.channels &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0.0-dev: Work in Progress',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: kernel.channelsabc" href="IPython.kernel.channelsabc.html" />
+    <link rel="prev" title="Module: kernel.blocking.client" href="IPython.kernel.blocking.client.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.channelsabc.html" title="Module: kernel.channelsabc"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.blocking.client.html" title="Module: kernel.blocking.client"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.channels</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">6 Classes</a></li>
+<li><a class="reference internal" href="#functions">2 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.blocking.client.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">kernel.blocking.client</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.channelsabc.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">kernel.channelsabc</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.channels.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.kernel.channels">
+<span id="module-kernel-channels"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.channels</span></tt><a class="headerlink" href="#module-IPython.kernel.channels" title="Permalink to this headline">¶</a></h1>
+<p>Base classes to manage a Client&#8217;s interaction with a running kernel</p>
+<div class="section" id="classes">
+<h2>6 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.kernel.channels.InvalidPortNumber">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">InvalidPortNumber</tt><a class="headerlink" href="#IPython.kernel.channels.InvalidPortNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.channels.ZMQSocketChannel">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">ZMQSocketChannel</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ZMQSocketChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/threading.html#threading.Thread" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></a></p>
+<p>The base class for the channels that use ZMQ sockets.</p>
+<dl class="method">
+<dt id="IPython.kernel.channels.ZMQSocketChannel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ZMQSocketChannel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a channel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>context</strong> : <tt class="xref py py-class docutils literal"><span class="pre">zmq.Context</span></tt></p>
+<blockquote>
+<div><p>The ZMQ context to use.</p>
+</div></blockquote>
+<p><strong>session</strong> : <tt class="xref py py-class docutils literal"><span class="pre">session.Session</span></tt></p>
+<blockquote>
+<div><p>The session to use.</p>
+</div></blockquote>
+<p><strong>address</strong> : zmq url</p>
+<blockquote class="last">
+<div><p>Standard (ip, port) tuple that the kernel is listening on.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.kernel.channels.ZMQSocketChannel.address">
+<tt class="descname">address</tt><a class="headerlink" href="#IPython.kernel.channels.ZMQSocketChannel.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the channel&#8217;s address as a zmq url string.</p>
+<p>These URLS have the form: &#8216;<a class="reference external" href="tcp://127.0.0.1:5555">tcp://127.0.0.1:5555</a>&#8216;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ZMQSocketChannel.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ZMQSocketChannel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the channel&#8217;s event loop and join its thread.</p>
+<p>This calls <a class="reference external" href="http://docs.python.org/2/library/threading.html#threading.Thread.join" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">join()</span></tt></a> and returns when the thread
+terminates. <tt class="xref py py-class docutils literal"><span class="pre">RuntimeError</span></tt> will be raised if
+<a class="reference external" href="http://docs.python.org/2/library/threading.html#threading.Thread.start" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">start()</span></tt></a> is called again.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.channels.ShellChannel">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">ShellChannel</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.kernel.channels.ZMQSocketChannel" title="IPython.kernel.channels.ZMQSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.channels.ZMQSocketChannel</span></tt></a></p>
+<p>The shell channel for issuing request/replies to the kernel.</p>
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.call_handlers">
+<tt class="descname">call_handlers</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.call_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called in the ioloop thread when a message arrives.</p>
+<p>Subclasses should override this method to handle incoming messages.
+It is important to remember that this method is called in the thread
+so that some logic must be done to ensure that the application level
+handlers are called in the application thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.complete">
+<tt class="descname">complete</tt><big>(</big><em>text</em>, <em>line</em>, <em>cursor_pos</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tab complete text in the kernel&#8217;s namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
+<blockquote>
+<div><p>The text to complete.</p>
+</div></blockquote>
+<p><strong>line</strong> : str</p>
+<blockquote>
+<div><p>The full line of text that is the surrounding context for the
+text to complete.</p>
+</div></blockquote>
+<p><strong>cursor_pos</strong> : int</p>
+<blockquote>
+<div><p>The position of the cursor in the line where the completion was
+requested.</p>
+</div></blockquote>
+<p><strong>block</strong> : str, optional</p>
+<blockquote>
+<div><p>The full block of code in which the completion is being requested.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>The msg_id of the message sent.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.execute">
+<tt class="descname">execute</tt><big>(</big><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_variables=None</em>, <em>user_expressions=None</em>, <em>allow_stdin=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute code in the kernel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
+<blockquote>
+<div><p>A string of Python code.</p>
+</div></blockquote>
+<p><strong>silent</strong> : bool, optional (default False)</p>
+<blockquote>
+<div><p>If set, the kernel will execute the code as quietly possible, and
+will force store_history to be False.</p>
+</div></blockquote>
+<p><strong>store_history</strong> : bool, optional (default True)</p>
+<blockquote>
+<div><p>If set, the kernel will store command history.  This is forced
+to be False if silent is True.</p>
+</div></blockquote>
+<p><strong>user_variables</strong> : list, optional</p>
+<blockquote>
+<div><p>A list of variable names to pull from the user&#8217;s namespace.  They
+will come back as a dict with these names as keys and their
+<tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt> as values.</p>
+</div></blockquote>
+<p><strong>user_expressions</strong> : dict, optional</p>
+<blockquote>
+<div><p>A dict mapping names to expressions to be evaluated in the user&#8217;s
+dict. The expression values are returned as strings formatted using
+<tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt>.</p>
+</div></blockquote>
+<p><strong>allow_stdin</strong> : bool, optional (default self.allow_stdin)</p>
+<blockquote>
+<div><p>Flag for whether the kernel can send stdin requests to frontends.</p>
+<p>Some frontends (e.g. the Notebook) do not support stdin requests.
+If raw_input is called from code executed from such a frontend, a
+StdinNotImplementedError will be raised.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>The msg_id of the message sent.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.history">
+<tt class="descname">history</tt><big>(</big><em>raw=True</em>, <em>output=False</em>, <em>hist_access_type='range'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get entries from the kernel&#8217;s history list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>If True, return the raw input.</p>
+</div></blockquote>
+<p><strong>output</strong> : bool</p>
+<blockquote>
+<div><p>If True, then return the output as well.</p>
+</div></blockquote>
+<p><strong>hist_access_type</strong> : str</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8216;range&#8217; (fill in session, start and stop params), &#8216;tail&#8217; (fill in n)</dt>
+<dd><p class="first last">or &#8216;search&#8217; (fill in pattern param).</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>session</strong> : int</p>
+<blockquote>
+<div><p>For a range request, the session from which to get lines. Session
+numbers are positive integers; negative ones count back from the
+current session.</p>
+</div></blockquote>
+<p><strong>start</strong> : int</p>
+<blockquote>
+<div><p>The first line number of a history range.</p>
+</div></blockquote>
+<p><strong>stop</strong> : int</p>
+<blockquote>
+<div><p>The final (excluded) line number of a history range.</p>
+</div></blockquote>
+<p><strong>n</strong> : int</p>
+<blockquote>
+<div><p>The number of lines of history to get for a tail request.</p>
+</div></blockquote>
+<p><strong>pattern</strong> : str</p>
+<blockquote>
+<div><p>The glob-syntax pattern for a search request.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>The msg_id of the message sent.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.kernel_info">
+<tt class="descname">kernel_info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.kernel_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request kernel info.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.object_info">
+<tt class="descname">object_info</tt><big>(</big><em>oname</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.object_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata information about an object in the kernel&#8217;s namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>oname</strong> : str</p>
+<blockquote>
+<div><p>A string specifying the object name.</p>
+</div></blockquote>
+<p><strong>detail_level</strong> : int, optional</p>
+<blockquote>
+<div><p>The level of detail for the introspection (0-2)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>The msg_id of the message sent.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread&#8217;s main activity.  Call start() instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.shutdown">
+<tt class="descname">shutdown</tt><big>(</big><em>restart=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request an immediate kernel shutdown.</p>
+<p>Upon receipt of the (empty) reply, client code can safely assume that
+the kernel has shut down and it&#8217;s safe to forcefully terminate it if
+it&#8217;s still alive.</p>
+<p>The kernel will send the reply via a function registered with Python&#8217;s
+atexit module, ensuring it&#8217;s truly done as the kernel is done with all
+normal operation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the channel&#8217;s event loop and join its thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.channels.IOPubChannel">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">IOPubChannel</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.kernel.channels.ZMQSocketChannel" title="IPython.kernel.channels.ZMQSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.channels.ZMQSocketChannel</span></tt></a></p>
+<p>The iopub channel which listens for messages that the kernel publishes.</p>
+<p>This channel is where all output is published to frontends.</p>
+<dl class="method">
+<dt id="IPython.kernel.channels.IOPubChannel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.IOPubChannel.call_handlers">
+<tt class="descname">call_handlers</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel.call_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called in the ioloop thread when a message arrives.</p>
+<p>Subclasses should override this method to handle incoming messages.
+It is important to remember that this method is called in the thread
+so that some logic must be done to ensure that the application leve
+handlers are called in the application thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.IOPubChannel.flush">
+<tt class="descname">flush</tt><big>(</big><em>timeout=1.0</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel.flush" title="Permalink to this definition">¶</a></dt>
+<dd><p>Immediately processes all pending messages on the iopub channel.</p>
+<p>Callers should use this method to ensure that <a class="reference internal" href="#IPython.kernel.channels.IOPubChannel.call_handlers" title="IPython.kernel.channels.IOPubChannel.call_handlers"><tt class="xref py py-meth docutils literal"><span class="pre">call_handlers()</span></tt></a>
+has been called for all messages that have been received on the
+0MQ SUB socket of this channel.</p>
+<p>This method is thread safe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>timeout</strong> : float, optional</p>
+<blockquote class="last">
+<div><p>The maximum amount of time to spend flushing, in seconds. The
+default is one second.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.IOPubChannel.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread&#8217;s main activity.  Call start() instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.IOPubChannel.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.IOPubChannel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the channel&#8217;s event loop and join its thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.channels.StdInChannel">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">StdInChannel</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.kernel.channels.ZMQSocketChannel" title="IPython.kernel.channels.ZMQSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.channels.ZMQSocketChannel</span></tt></a></p>
+<p>The stdin channel to handle raw_input requests that the kernel makes.</p>
+<dl class="method">
+<dt id="IPython.kernel.channels.StdInChannel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.StdInChannel.call_handlers">
+<tt class="descname">call_handlers</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel.call_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called in the ioloop thread when a message arrives.</p>
+<p>Subclasses should override this method to handle incoming messages.
+It is important to remember that this method is called in the thread
+so that some logic must be done to ensure that the application leve
+handlers are called in the application thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.StdInChannel.input">
+<tt class="descname">input</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a string of raw input to the kernel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.StdInChannel.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread&#8217;s main activity.  Call start() instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.StdInChannel.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.StdInChannel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the channel&#8217;s event loop and join its thread.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.channels.HBChannel">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">HBChannel</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.kernel.channels.ZMQSocketChannel" title="IPython.kernel.channels.ZMQSocketChannel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.channels.ZMQSocketChannel</span></tt></a></p>
+<p>The heartbeat channel which monitors the kernel heartbeat.</p>
+<p>Note that the heartbeat channel is paused by default. As long as you start
+this channel, the kernel manager will ensure that it is paused and un-paused
+as appropriate.</p>
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>context</em>, <em>session</em>, <em>address</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.call_handlers">
+<tt class="descname">call_handlers</tt><big>(</big><em>since_last_heartbeat</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.call_handlers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called in the ioloop thread when a message arrives.</p>
+<p>Subclasses should override this method to handle incoming messages.
+It is important to remember that this method is called in the thread
+so that some logic must be done to ensure that the application level
+handlers are called in the application thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.is_beating">
+<tt class="descname">is_beating</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.is_beating" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the heartbeat running and responsive (and not paused).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.pause">
+<tt class="descname">pause</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pause the heartbeat.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread&#8217;s main activity.  Call start() instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the channel&#8217;s event loop and join its thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.HBChannel.unpause">
+<tt class="descname">unpause</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.HBChannel.unpause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unpause the heartbeat.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.kernel.channels.validate_string_list">
+<tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">validate_string_list</tt><big>(</big><em>lst</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.validate_string_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate that the input is a list of strings.</p>
+<p>Raises ValueError if not.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.channels.validate_string_dict">
+<tt class="descclassname">IPython.kernel.channels.</tt><tt class="descname">validate_string_dict</tt><big>(</big><em>dct</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.validate_string_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate that the input is a dict with string keys and values.</p>
+<p>Raises ValueError if not.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.channelsabc.html" title="Module: kernel.channelsabc"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.blocking.client.html" title="Module: kernel.blocking.client"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.html.services.notebooks.filenbmanager.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">html.services.notebooks.filenbmanager</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.filenbmanager</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.html.services.notebooks.nbmanager.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.nbmanager</span></tt></a></p>
@@ -145,7 +143,7 @@ significant differences from the latest stable release (1.1.0).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>name</strong> : unicode</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : unicode</p>
 <blockquote>
 <div><p>The base name of the notebook, such as &#8220;foo.ipynb&#8221;.</p>
 </div></blockquote>
@@ -171,26 +169,28 @@ significant differences from the latest stable release (1.1.0).</p>
 <dd><p>Create a new notebook in the specified path.</p>
 <p>POST creates new notebooks. The server always decides on the notebook name.</p>
 <dl class="docutils">
-<dt>POST /api/notebooks/path <span class="classifier-delimiter">:</span> <span class="classifier">new untitled notebook in path</span></dt>
-<dd>If content specified, upload a notebook, otherwise start empty.</dd>
+<dt>POST /api/notebooks/path</dt>
+<dd>New untitled notebook in path. If content specified, upload a
+notebook, otherwise start empty.</dd>
+<dt>POST /api/notebooks/path?copy=OtherNotebook.ipynb</dt>
+<dd>New copy of OtherNotebook in path</dd>
 </dl>
-<p>POST /api/notebooks/path?copy=OtherNotebook.ipynb : new copy of OtherNotebook in path</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.notebooks.handlers.NotebookHandler.put">
 <tt class="descname">put</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.handlers.NotebookHandler.put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves the notebook in the location specified by name and path.</p>
+<p>PUT is very similar to POST, but the requester specifies the name,
+whereas with POST, the server picks the name.</p>
 <dl class="docutils">
-<dt>PUT /api/notebooks/path/Name.ipynb <span class="classifier-delimiter">:</span> <span class="classifier">Save notebook at path/Name.ipynb</span></dt>
-<dd>Notebook structure is specified in <cite>content</cite> key of JSON request body.
-If content is not specified, create a new empty notebook.</dd>
+<dt>PUT /api/notebooks/path/Name.ipynb</dt>
+<dd>Save notebook at <tt class="docutils literal"><span class="pre">path/Name.ipynb</span></tt>. Notebook structure is specified
+in <cite>content</cite> key of JSON request body. If content is not specified,
+create a new empty notebook.</dd>
+<dt>PUT /api/notebooks/path/Name.ipynb?copy=OtherNotebook.ipynb</dt>
+<dd>Copy OtherNotebook to Name</dd>
 </dl>
-<p>PUT /api/notebooks/path/Name.ipynb?copy=OtherNotebook.ipynb : copy OtherNotebook to Name</p>
-<p>POST and PUT are basically the same. The only difference:</p>
-<ul class="simple">
-<li>with POST, server always picks the name, with PUT the requester does</li>
-</ul>
 </dd></dl>
 
 </dd></dl>
@@ -264,8 +264,8 @@ If content is not specified, create a new empty notebook.</dd>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

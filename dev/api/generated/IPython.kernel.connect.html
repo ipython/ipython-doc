@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: kernel.connect &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0.0-dev: Work in Progress',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: kernel.inprocess.blocking" href="IPython.kernel.inprocess.blocking.html" />
+    <link rel="prev" title="Module: kernel.comm.manager" href="IPython.kernel.comm.manager.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.inprocess.blocking.html" title="Module: kernel.inprocess.blocking"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.comm.manager.html" title="Module: kernel.comm.manager"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.connect</span></tt></a><ul>
+<li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.comm.manager.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">kernel.comm.manager</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.inprocess.blocking.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">kernel.inprocess.blocking</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.connect.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.kernel.connect">
+<span id="module-kernel-connect"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.connect</span></tt><a class="headerlink" href="#module-IPython.kernel.connect" title="Permalink to this headline">¶</a></h1>
+<p>Utilities for connecting to kernels</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Min Ragan-Kelley</li>
+</ul>
+<div class="section" id="class">
+<h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.kernel.connect.ConnectionFileMixin">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">ConnectionFileMixin</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>Mixin for configurable classes that work with connection files</p>
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.cleanup_connection_file">
+<tt class="descname">cleanup_connection_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.cleanup_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup connection file <em>if we wrote it</em></p>
+<p>Will not raise if the connection file was already removed somehow.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.cleanup_ipc_files">
+<tt class="descname">cleanup_ipc_files</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.cleanup_ipc_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cleanup ipc files if we wrote them.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.connect_control">
+<tt class="descname">connect_control</tt><big>(</big><em>identity=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.connect_control" title="Permalink to this definition">¶</a></dt>
+<dd><p>return zmq Socket connected to the Heartbeat channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.connect_hb">
+<tt class="descname">connect_hb</tt><big>(</big><em>identity=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.connect_hb" title="Permalink to this definition">¶</a></dt>
+<dd><p>return zmq Socket connected to the Heartbeat channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.connect_iopub">
+<tt class="descname">connect_iopub</tt><big>(</big><em>identity=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.connect_iopub" title="Permalink to this definition">¶</a></dt>
+<dd><p>return zmq Socket connected to the IOPub channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.connect_shell">
+<tt class="descname">connect_shell</tt><big>(</big><em>identity=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.connect_shell" title="Permalink to this definition">¶</a></dt>
+<dd><p>return zmq Socket connected to the Shell channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.connect_stdin">
+<tt class="descname">connect_stdin</tt><big>(</big><em>identity=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.connect_stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>return zmq Socket connected to the StdIn channel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.get_connection_info">
+<tt class="descname">get_connection_info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.get_connection_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the connection info as a dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.load_connection_file">
+<tt class="descname">load_connection_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.load_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load connection info from JSON dict in self.connection_file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.connect.ConnectionFileMixin.write_connection_file">
+<tt class="descname">write_connection_file</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.connect.ConnectionFileMixin.write_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write connection info to JSON dict in self.connection_file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.kernel.connect.write_connection_file">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">write_connection_file</tt><big>(</big><em>fname=None</em>, <em>shell_port=0</em>, <em>iopub_port=0</em>, <em>stdin_port=0</em>, <em>hb_port=0</em>, <em>control_port=0</em>, <em>ip=''</em>, <em>key=''</em>, <em>transport='tcp'</em>, <em>signature_scheme='hmac-sha256'</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.write_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a JSON config file, including the selection of random ports.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : unicode</p>
+<blockquote>
+<div><p>The path to the file to write</p>
+</div></blockquote>
+<p><strong>shell_port</strong> : int, optional</p>
+<blockquote>
+<div><p>The port to use for ROUTER (shell) channel.</p>
+</div></blockquote>
+<p><strong>iopub_port</strong> : int, optional</p>
+<blockquote>
+<div><p>The port to use for the SUB channel.</p>
+</div></blockquote>
+<p><strong>stdin_port</strong> : int, optional</p>
+<blockquote>
+<div><p>The port to use for the ROUTER (raw input) channel.</p>
+</div></blockquote>
+<p><strong>control_port</strong> : int, optional</p>
+<blockquote>
+<div><p>The port to use for the ROUTER (control) channel.</p>
+</div></blockquote>
+<p><strong>hb_port</strong> : int, optional</p>
+<blockquote>
+<div><p>The port to use for the heartbeat REP channel.</p>
+</div></blockquote>
+<p><strong>ip</strong> : str, optional</p>
+<blockquote>
+<div><p>The ip address the kernel will bind to.</p>
+</div></blockquote>
+<p><strong>key</strong> : str, optional</p>
+<blockquote>
+<div><p>The Session key used for message authentication.</p>
+</div></blockquote>
+<p><strong>signature_scheme</strong> : str, optional</p>
+<blockquote class="last">
+<div><p>The scheme used for message authentication.
+This has the form &#8216;digest-hash&#8217;, where &#8216;digest&#8217;
+is the scheme used for digests, and &#8216;hash&#8217; is the name of the hash function
+used by the digest scheme.
+Currently, &#8216;hmac&#8217; is the only supported digest scheme,
+and &#8216;sha256&#8217; is the default hash function.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.connect.get_connection_file">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">get_connection_file</tt><big>(</big><em>app=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.get_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path to the connection file of an app</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>app</strong> : IPKernelApp instance [optional]</p>
+<blockquote class="last">
+<div><p>If unspecified, the currently running app will be used</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.connect.find_connection_file">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">find_connection_file</tt><big>(</big><em>filename</em>, <em>profile=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.find_connection_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>find a connection file, and return its absolute path.</p>
+<p>The current working directory and the profile&#8217;s security
+directory will be searched for the file if it is not given by
+absolute path.</p>
+<p>If profile is unspecified, then the current running application&#8217;s
+profile will be used, or &#8216;default&#8217;, if not run from IPython.</p>
+<p>If the argument does not match an existing file, it will be interpreted as a
+fileglob, and the matching file in the profile&#8217;s security dir with
+the latest access time will be used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<blockquote>
+<div><p>The connection file or fileglob to search for.</p>
+</div></blockquote>
+<p><strong>profile</strong> : str [optional]</p>
+<blockquote>
+<div><p>The name of the profile to use when searching for the connection file,
+if different from the current IPython session or &#8216;default&#8217;.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>str</strong> : The absolute path of the connection file.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.connect.get_connection_info">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">get_connection_info</tt><big>(</big><em>connection_file=None</em>, <em>unpack=False</em>, <em>profile=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.get_connection_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the connection information for the current Kernel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>connection_file</strong> : str [optional]</p>
+<blockquote>
+<div><p>The connection file to be used. Can be given by absolute path, or
+IPython will search in the security directory of a given profile.
+If run from IPython,</p>
+<p>If unspecified, the connection file for the currently running
+IPython Kernel will be used, which is only allowed from inside a kernel.</p>
+</div></blockquote>
+<p><strong>unpack</strong> : bool [default: False]</p>
+<blockquote>
+<div><p>if True, return the unpacked dict, otherwise just the string contents
+of the file.</p>
+</div></blockquote>
+<p><strong>profile</strong> : str [optional]</p>
+<blockquote>
+<div><p>The name of the profile to use when searching for the connection file,
+if different from the current IPython session or &#8216;default&#8217;.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>The connection dictionary of the current kernel, as string or dict,</strong> :</p>
+<p class="last"><strong>depending on `unpack`.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.connect.connect_qtconsole">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">connect_qtconsole</tt><big>(</big><em>connection_file=None</em>, <em>argv=None</em>, <em>profile=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.connect_qtconsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect a qtconsole to the current kernel.</p>
+<p>This is useful for connecting a second qtconsole to a kernel, or to a
+local notebook.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>connection_file</strong> : str [optional]</p>
+<blockquote>
+<div><p>The connection file to be used. Can be given by absolute path, or
+IPython will search in the security directory of a given profile.
+If run from IPython,</p>
+<p>If unspecified, the connection file for the currently running
+IPython Kernel will be used, which is only allowed from inside a kernel.</p>
+</div></blockquote>
+<p><strong>argv</strong> : list [optional]</p>
+<blockquote>
+<div><p>Any extra args to be passed to the console.</p>
+</div></blockquote>
+<p><strong>profile</strong> : str [optional]</p>
+<blockquote>
+<div><p>The name of the profile to use when searching for the connection file,
+if different from the current IPython session or &#8216;default&#8217;.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>subprocess.Popen instance running the qtconsole frontend</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.connect.tunnel_to_kernel">
+<tt class="descclassname">IPython.kernel.connect.</tt><tt class="descname">tunnel_to_kernel</tt><big>(</big><em>connection_info</em>, <em>sshserver</em>, <em>sshkey=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.connect.tunnel_to_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>tunnel connections to a kernel via ssh</p>
+<p>This will open four SSH tunnels from localhost on this machine to the
+ports associated with the kernel.  They can be either direct
+localhost-localhost tunnels, or if an intermediate server is necessary,
+the kernel must be listening on a public IP.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>connection_info</strong> : dict or str (path)</p>
+<blockquote>
+<div><p>Either a connection dict, or the path to a JSON connection file</p>
+</div></blockquote>
+<p><strong>sshserver</strong> : str</p>
+<blockquote>
+<div><p>The ssh sever to use to tunnel to the kernel. Can be a full
+<cite>user&#64;server:port</cite> string. ssh config aliases are respected.</p>
+</div></blockquote>
+<p><strong>sshkey</strong> : str [optional]</p>
+<blockquote>
+<div><p>Path to file containing ssh key to use for authentication.
+Only necessary if your ssh config does not already associate
+a keyfile with the host.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>(shell, iopub, stdin, hb)</strong> : ints</p>
+<blockquote class="last">
+<div><p>The four ports on localhost that have been forwarded to the kernel.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.inprocess.blocking.html" title="Module: kernel.inprocess.blocking"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.comm.manager.html" title="Module: kernel.comm.manager"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>

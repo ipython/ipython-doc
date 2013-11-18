@@ -25,3 +25,5 @@ on the IPython GitHub wiki.
    parallel_messages
    parallel_connections
    pycompat
+   config
+   inputhook_app

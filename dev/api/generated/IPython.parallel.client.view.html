@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -72,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.remotefunction.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">parallel.client.remotefunction</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.remotefunction</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.parallel.controller.dependency.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.controller.dependency</span></tt></a></p>
@@ -128,7 +126,7 @@ significant differences from the latest stable release (1.1.0).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Methods :</th><td class="field-body"><p class="first"><strong>spin</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Methods:</th><td class="field-body"><p class="first"><strong>spin</strong> :</p>
 <blockquote>
 <div><p>flushes incoming results and registration state changes
 control methods spin, and requesting <cite>ids</cite> also ensures up to date</p>
@@ -171,7 +169,7 @@ legacy: execute, run</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>jobs</strong> : None, str, list of strs, optional</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>jobs</strong> : None, str, list of strs, optional</p>
 <blockquote class="last">
 <div><p>if None: abort all jobs.
 else: abort specific msg_id(s).</p>
@@ -185,42 +183,38 @@ else: abort specific msg_id(s).</p>
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.apply">
 <tt class="descname">apply</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.apply" title="Permalink to this definition">¶</a></dt>
-<dd><p>calls f(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs) on remote engines, returning the result.</p>
+<dd><p>calls <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt> on remote engines, returning the result.</p>
 <p>This method sets all apply flags via this View&#8217;s attributes.</p>
-<dl class="docutils">
-<dt>if self.block is False:</dt>
-<dd>returns AsyncResult</dd>
-<dt>else:</dt>
-<dd>returns actual result of f(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs)</dd>
-</dl>
+<p>Returns <a class="reference internal" href="IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a>
+instance if <tt class="docutils literal"><span class="pre">self.block</span></tt> is False, otherwise the return value of
+<tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.apply_async">
 <tt class="descname">apply_async</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.apply_async" title="Permalink to this definition">¶</a></dt>
-<dd><p>calls f(<a href="#id9"><span class="problematic" id="id10">*</span></a>args, <a href="#id11"><span class="problematic" id="id12">**</span></a>kwargs) on remote engines in a nonblocking manner.</p>
-<p>returns AsyncResult</p>
+<dd><p>calls <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt> on remote engines in a nonblocking manner.</p>
+<p>Returns <a class="reference internal" href="IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> instance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.apply_sync">
 <tt class="descname">apply_sync</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.apply_sync" title="Permalink to this definition">¶</a></dt>
-<dd><p>calls f(<a href="#id13"><span class="problematic" id="id14">*</span></a>args, <a href="#id15"><span class="problematic" id="id16">**</span></a>kwargs) on remote engines in a blocking manner,
+<dd><p>calls <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt> on remote engines in a blocking manner,
 returning the result.</p>
-<p>returns: actual result of f(<a href="#id17"><span class="problematic" id="id18">*</span></a>args, <a href="#id19"><span class="problematic" id="id20">**</span></a>kwargs)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.get_result">
 <tt class="descname">get_result</tt><big>(</big><em>indices_or_msg_ids=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.get_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>return one or more results, specified by history index or msg_id.</p>
-<p>See client.get_result for details.</p>
+<p>See <a class="reference internal" href="IPython.parallel.client.client.html#IPython.parallel.client.client.Client.get_result" title="IPython.parallel.client.client.Client.get_result"><tt class="xref py py-meth docutils literal"><span class="pre">IPython.parallel.client.client.Client.get_result()</span></tt></a> for details.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.imap">
 <tt class="descname">imap</tt><big>(</big><em>f</em>, <em>*sequences</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.imap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parallel version of <cite>itertools.imap</cite>.</p>
+<dd><p>Parallel version of <a class="reference external" href="http://docs.python.org/2/library/itertools.html#itertools.imap" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">itertools.imap()</span></tt></a>.</p>
 <p>See <cite>self.map</cite> for details.</p>
 </dd></dl>
 
@@ -233,16 +227,16 @@ returning the result.</p>
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.map_async">
 <tt class="descname">map_async</tt><big>(</big><em>f</em>, <em>*sequences</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.map_async" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parallel version of builtin <cite>map</cite>, using this view&#8217;s engines.</p>
-<p>This is equivalent to map(...block=False)</p>
+<dd><p>Parallel version of builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">map()</span></tt></a>, using this view&#8217;s engines.</p>
+<p>This is equivalent to <tt class="docutils literal"><span class="pre">map(...block=False)</span></tt>.</p>
 <p>See <cite>self.map</cite> for details.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.parallel.client.view.View.map_sync">
 <tt class="descname">map_sync</tt><big>(</big><em>f</em>, <em>*sequences</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.View.map_sync" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parallel version of builtin <cite>map</cite>, using this view&#8217;s engines.</p>
-<p>This is equivalent to map(...block=True)</p>
+<dd><p>Parallel version of builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">map()</span></tt></a>, using this view&#8217;s engines.</p>
+<p>This is equivalent to <tt class="docutils literal"><span class="pre">map(...block=True)</span></tt>.</p>
 <p>See <cite>self.map</cite> for details.</p>
 </dd></dl>
 
@@ -280,7 +274,7 @@ These attributes can be set all at once by name with this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>block</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>block</strong> : bool</p>
 <blockquote>
 <div><p>whether to wait for results</p>
 </div></blockquote>
@@ -333,7 +327,7 @@ sends.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>jobs</strong> : int, str, or list of ints and/or strs, or one or more AsyncResult objects</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>jobs</strong> : int, str, or list of ints and/or strs, or one or more AsyncResult objects</p>
 <blockquote>
 <div><p>ints are indices to self.history
 strs are msg_ids
@@ -346,7 +340,7 @@ default is -1, which means no timeout</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>True</strong> : when all msg_ids are done</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>True</strong> : when all msg_ids are done</p>
 <p class="last"><strong>False</strong> : timeout reached, some msg_ids still outstanding</p>
 </td>
 </tr>
@@ -387,7 +381,7 @@ default is -1, which means no timeout</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>suffix: str [default: &#8216;&#8217;]</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>suffix: str [default: &#8216;&#8217;]</strong> :</p>
 <blockquote class="last">
 <div><p>The suffix, if any, for the magics.  This allows you to have
 multiple views associated with parallel magics at the same time.</p>
@@ -416,7 +410,7 @@ on the even engines.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
 <blockquote>
 <div><p>the code string to be executed</p>
 </div></blockquote>
@@ -454,7 +448,7 @@ default: self.block</p>
 <dl class="method">
 <dt id="IPython.parallel.client.view.DirectView.map">
 <tt class="descname">map</tt><big>(</big><em>f</em>, <em>*sequences</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.DirectView.map" title="Permalink to this definition">¶</a></dt>
-<dd><p>view.map(f, <a href="#id21"><span class="problematic" id="id22">*</span></a>sequences, block=self.block) =&gt; list|AsyncMapResult</p>
+<dd><p><tt class="docutils literal"><span class="pre">view.map(f,</span> <span class="pre">*sequences,</span> <span class="pre">block=self.block)</span></tt> =&gt; list|AsyncMapResult</p>
 <p>Parallel version of builtin <cite>map</cite>, using this View&#8217;s <cite>targets</cite>.</p>
 <p>There will be one task per target, so work will be chunked
 if the sequences are longer than <cite>targets</cite>.</p>
@@ -463,7 +457,7 @@ if the sequences are longer than <cite>targets</cite>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>f</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f</strong> : callable</p>
 <blockquote>
 <div><p>function to be mapped</p>
 </div></blockquote>
@@ -477,23 +471,16 @@ if the sequences are longer than <cite>targets</cite>.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>if block=False:</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>If block=False</strong> :</p>
 <blockquote>
-<div><dl class="docutils">
-<dt>AsyncMapResult</dt>
-<dd><p class="first last">An object like AsyncResult, but which reassembles the sequence of results
+<div><p>An <a class="reference internal" href="IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncMapResult" title="IPython.parallel.client.asyncresult.AsyncMapResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt></a> instance.
+An object like AsyncResult, but which reassembles the sequence of results
 into a single list. AsyncMapResults can be iterated through before all
 results are complete.</p>
-</dd>
-</dl>
 </div></blockquote>
-<p><strong>else:</strong> :</p>
+<p><strong>else</strong> :</p>
 <blockquote class="last">
-<div><dl class="docutils">
-<dt>list</dt>
-<dd><p class="first last">the result of map(f,*sequences)</p>
-</dd>
-</dl>
+<div><p>A list, the result of <tt class="docutils literal"><span class="pre">map(f,*sequences)</span></tt></p>
 </div></blockquote>
 </td>
 </tr>
@@ -517,7 +504,7 @@ can also take a list of keys, in which case it will return a list of objects.</p
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>ns</strong> : dict</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ns</strong> : dict</p>
 <blockquote>
 <div><p>dict of keys with which to update engine namespace(s)</p>
 </div></blockquote>
@@ -540,7 +527,7 @@ can also take a list of keys, in which case it will return a list of objects.</p
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : str</p>
 <blockquote>
 <div><p>The path to the file</p>
 </div></blockquote>
@@ -613,7 +600,7 @@ imports.</p>
 <dl class="method">
 <dt id="IPython.parallel.client.view.LoadBalancedView.map">
 <tt class="descname">map</tt><big>(</big><em>f</em>, <em>*sequences</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.view.LoadBalancedView.map" title="Permalink to this definition">¶</a></dt>
-<dd><p>view.map(f, <a href="#id23"><span class="problematic" id="id24">*</span></a>sequences, block=self.block, chunksize=1, ordered=True) =&gt; list|AsyncMapResult</p>
+<dd><p><tt class="docutils literal"><span class="pre">view.map(f,</span> <span class="pre">*sequences,</span> <span class="pre">block=self.block,</span> <span class="pre">chunksize=1,</span> <span class="pre">ordered=True)</span></tt> =&gt; list|AsyncMapResult</p>
 <p>Parallel version of builtin <cite>map</cite>, load-balanced by this View.</p>
 <p><cite>block</cite>, and <cite>chunksize</cite> can be specified by keyword only.</p>
 <p>Each <cite>chunksize</cite> elements will be a separate task, and will be
@@ -623,7 +610,7 @@ as soon as they arrive.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>f</strong> : callable</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>f</strong> : callable</p>
 <blockquote>
 <div><p>function to be mapped</p>
 </div></blockquote>
@@ -654,18 +641,16 @@ Has no effect when block=True.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>if block=False:</strong> :</p>
-<blockquote class="last">
-<div><dl class="docutils">
-<dt>AsyncMapResult</dt>
-<dd><p class="first last">An object like AsyncResult, but which reassembles the sequence of results
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>if block=False</strong> :</p>
+<blockquote>
+<div><p>An <a class="reference internal" href="IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncMapResult" title="IPython.parallel.client.asyncresult.AsyncMapResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt></a> instance.
+An object like AsyncResult, but which reassembles the sequence of results
 into a single list. AsyncMapResults can be iterated through before all
 results are complete.</p>
-</dd>
-<dt>else:</dt>
-<dd><p class="first last">the result of map(f,*sequences)</p>
-</dd>
-</dl>
+</div></blockquote>
+<p><strong>else</strong> :</p>
+<blockquote class="last">
+<div><p>A list, the result of <tt class="docutils literal"><span class="pre">map(f,*sequences)</span></tt></p>
 </div></blockquote>
 </td>
 </tr>
@@ -684,7 +669,7 @@ argument with this method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>block</strong> : bool</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>block</strong> : bool</p>
 <blockquote>
 <div><p>whether to wait for results</p>
 </div></blockquote>
@@ -781,8 +766,8 @@ DependencyTimeout.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

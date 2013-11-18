@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -66,6 +64,7 @@
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">parallel.client.magics</span></tt></a><ul>
 <li><a class="reference internal" href="#usage">Usage</a><ul>
 <li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#id1">Examples</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#class">1 Class</a></li>
@@ -76,7 +75,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.client.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">parallel.client.client</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.client</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.parallel.client.map.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.map</span></tt></a></p>
@@ -119,8 +118,7 @@ significant differences from the latest stable release (1.1.0).</p>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p><tt class="docutils literal"><span class="pre">%autopx</span></tt></p>
-<blockquote>
-<div><p>Toggles auto parallel mode.</p>
+<p>Toggles auto parallel mode.</p>
 <p>Once this is called, all commands typed at the command line are send to
 the engines to be executed in parallel. To control which engine are
 used, the <tt class="docutils literal"><span class="pre">targets</span></tt> attribute of the view before
@@ -142,10 +140,10 @@ Parallel execution on engine(s): [0,1,2,3]
 In [27]: %autopx
 %autopx disabled</pre>
 </div>
-</div></blockquote>
 <p><tt class="docutils literal"><span class="pre">%px</span></tt></p>
-<blockquote>
-<div><p>Executes the given python command in parallel.</p>
+<p>Executes the given python command in parallel.</p>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>In [24]: %px a = os.getpid()
 Parallel execution on engine(s): all
 
@@ -155,15 +153,15 @@ In [25]: %px print a
 [stdout:2] 1236
 [stdout:3] 1237</pre>
 </div>
-</div></blockquote>
 <p><tt class="docutils literal"><span class="pre">%pxresult</span></tt></p>
-<blockquote>
-<div>%result [-o SAVE_NAME] [&#8211;group-outputs {engine,order,type}] [-e] [-r]</div></blockquote>
+<div class="highlight-python"><pre>%result [-o SAVE_NAME] [--group-outputs {engine,order,type}] [-e] [-r]</pre>
+</div>
 <p>Print the result of the last asynchronous %px command.</p>
 <p>This lets you recall the results of %px computations after
 asynchronous submission (block=False).</p>
-<div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id1">
+<h3>Examples<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><pre>In [23]: %px os.getpid()
 Async parallel execution on engine(s): all
 
@@ -175,7 +173,7 @@ Out[11:10]: 60923</pre>
 </div>
 <dl class="docutils">
 <dt>optional arguments:</dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
+<dd><table class="first last docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
 <tbody valign="top">
@@ -184,23 +182,18 @@ Out[11:10]: 60923</pre>
 </tr>
 <tr><td>&nbsp;</td><td>store the AsyncResult object for this computation in
 the global namespace under this name.</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>&#8211;group-outputs {engine,order,type}</dt>
-<dd>Group the outputs in a particular way. Choices are:
-type: group outputs of all engines by type (stdout,
-stderr, displaypub, etc.). engine: display all output
-for each engine together. order: like type, but
-individual displaypub output from each engine is
-collated. For example, if multiple plots are generated
-by each engine, the first figure of each engine will
-be displayed, then the second of each, etc.</dd>
-</dl>
-<table class="last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--group-outputs <var>&lt;{engine,order,type}&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Group the outputs in a particular way. Choices are:
+<strong>type</strong>: group outputs of all engines by type
+(stdout, stderr, displaypub, etc.). <strong>engine</strong>:
+display all output for each engine together.
+<strong>order</strong>: like type, but individual displaypub output
+from each engine is collated. For example, if multiple
+plots are generated by each engine, the first figure
+of each engine will be displayed, then the second of
+each, etc.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">-e</span></kbd></td>
 <td>group outputs by engine (same as group-outputs=engine)</td></tr>
@@ -212,8 +205,8 @@ be displayed, then the second of each, etc.</dd>
 </dd>
 </dl>
 <p><tt class="docutils literal"><span class="pre">%pxconfig</span></tt></p>
-<blockquote>
-<div>%pxconfig [&#8211;no-verbose] [&#8211;verbose] [&#8211;local] [-t TARGETS] [-a] [-b]</div></blockquote>
+<div class="highlight-python"><pre>%pxconfig [--no-verbose] [--verbose] [--local] [-t TARGETS] [-a] [-b]</pre>
+</div>
 <p>configure default targets/blocking for %px magics</p>
 <dl class="docutils">
 <dt>optional arguments:</dt>
@@ -287,8 +280,9 @@ In [27]: %autopx
 <dl class="method">
 <dt id="IPython.parallel.client.magics.ParallelMagics.cell_px">
 <tt class="descname">cell_px</tt><big>(</big><em>line=''</em>, <em>cell=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.magics.ParallelMagics.cell_px" title="Permalink to this definition">¶</a></dt>
-<dd><p>%cell_px [&#8211;no-verbose] [&#8211;verbose] [&#8211;local] [-t TARGETS] [-a] [-b]
-[-o SAVE_NAME] [&#8211;group-outputs {engine,order,type}] [-e] [-r]</p>
+<dd><div class="highlight-python"><pre>%cell_px [--no-verbose] [--verbose] [--local] [-t TARGETS] [-a] [-b]
+             [-o SAVE_NAME] [--group-outputs {engine,order,type}] [-e] [-r]</pre>
+</div>
 <p>Executes the cell in parallel.</p>
 <p class="rubric">Examples</p>
 <div class="highlight-python"><pre>In [24]: %%px --noblock
@@ -304,7 +298,7 @@ In [25]: %%px
 </div>
 <dl class="docutils">
 <dt>optional arguments:</dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
+<dd><table class="first last docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
 <tbody valign="top">
@@ -332,23 +326,18 @@ In [25]: %%px
 </tr>
 <tr><td>&nbsp;</td><td>store the AsyncResult object for this computation in
 the global namespace under this name.</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>&#8211;group-outputs {engine,order,type}</dt>
-<dd>Group the outputs in a particular way. Choices are:
-type: group outputs of all engines by type (stdout,
-stderr, displaypub, etc.). engine: display all output
-for each engine together. order: like type, but
-individual displaypub output from each engine is
-collated. For example, if multiple plots are generated
-by each engine, the first figure of each engine will
-be displayed, then the second of each, etc.</dd>
-</dl>
-<table class="last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--group-outputs <var>&lt;{engine,order,type}&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Group the outputs in a particular way. Choices are:
+<strong>type</strong>: group outputs of all engines by type
+(stdout, stderr, displaypub, etc.). <strong>engine</strong>:
+display all output for each engine together.
+<strong>order</strong>: like type, but individual displaypub output
+from each engine is collated. For example, if multiple
+plots are generated by each engine, the first figure
+of each engine will be displayed, then the second of
+each, etc.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">-e</span></kbd></td>
 <td>group outputs by engine (same as group-outputs=engine)</td></tr>
@@ -386,7 +375,8 @@ In [25]: %px print a
 <dl class="method">
 <dt id="IPython.parallel.client.magics.ParallelMagics.pxconfig">
 <tt class="descname">pxconfig</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.magics.ParallelMagics.pxconfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>%pxconfig [&#8211;no-verbose] [&#8211;verbose] [&#8211;local] [-t TARGETS] [-a] [-b]</p>
+<dd><div class="highlight-python"><pre>%pxconfig [--no-verbose] [--verbose] [--local] [-t TARGETS] [-a] [-b]</pre>
+</div>
 <p>configure default targets/blocking for %px magics</p>
 <dl class="docutils">
 <dt>optional arguments:</dt>
@@ -430,7 +420,8 @@ In [25]: %px print a
 <dl class="method">
 <dt id="IPython.parallel.client.magics.ParallelMagics.result">
 <tt class="descname">result</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.magics.ParallelMagics.result" title="Permalink to this definition">¶</a></dt>
-<dd><p>%result [-o SAVE_NAME] [&#8211;group-outputs {engine,order,type}] [-e] [-r]</p>
+<dd><div class="highlight-python"><pre>%result [-o SAVE_NAME] [--group-outputs {engine,order,type}] [-e] [-r]</pre>
+</div>
 <p>Print the result of the last asynchronous %px command.</p>
 <p>This lets you recall the results of %px computations after
 asynchronous submission (block=False).</p>
@@ -446,7 +437,7 @@ Out[11:10]: 60923</pre>
 </div>
 <dl class="docutils">
 <dt>optional arguments:</dt>
-<dd><table class="first docutils option-list" frame="void" rules="none">
+<dd><table class="first last docutils option-list" frame="void" rules="none">
 <col class="option" />
 <col class="description" />
 <tbody valign="top">
@@ -455,23 +446,18 @@ Out[11:10]: 60923</pre>
 </tr>
 <tr><td>&nbsp;</td><td>store the AsyncResult object for this computation in
 the global namespace under this name.</td></tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>&#8211;group-outputs {engine,order,type}</dt>
-<dd>Group the outputs in a particular way. Choices are:
-type: group outputs of all engines by type (stdout,
-stderr, displaypub, etc.). engine: display all output
-for each engine together. order: like type, but
-individual displaypub output from each engine is
-collated. For example, if multiple plots are generated
-by each engine, the first figure of each engine will
-be displayed, then the second of each, etc.</dd>
-</dl>
-<table class="last docutils option-list" frame="void" rules="none">
-<col class="option" />
-<col class="description" />
-<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--group-outputs <var>&lt;{engine,order,type}&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Group the outputs in a particular way. Choices are:
+<strong>type</strong>: group outputs of all engines by type
+(stdout, stderr, displaypub, etc.). <strong>engine</strong>:
+display all output for each engine together.
+<strong>order</strong>: like type, but individual displaypub output
+from each engine is collated. For example, if multiple
+plots are generated by each engine, the first figure
+of each engine will be displayed, then the second of
+each, etc.</td></tr>
 <tr><td class="option-group">
 <kbd><span class="option">-e</span></kbd></td>
 <td>group outputs by engine (same as group-outputs=engine)</td></tr>
@@ -536,8 +522,8 @@ be displayed, then the second of each, etc.</dd>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

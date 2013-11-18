@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -65,14 +63,14 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">nbconvert.exporters.export</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
-<li><a class="reference internal" href="#functions">4 Functions</a></li>
+<li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.lib.security.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">lib.security</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">lib.security</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.nbconvert.exporters.exporter.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">nbconvert.exporters.exporter</span></tt></a></p>
@@ -122,36 +120,37 @@ significant differences from the latest stable release (1.1.0).</p>
 
 </div>
 <div class="section" id="functions">
-<h2>4 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="IPython.nbconvert.exporters.export.DocDecorator">
-<tt class="descclassname">IPython.nbconvert.exporters.export.</tt><tt class="descname">DocDecorator</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.exporters.export.DocDecorator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.nbconvert.exporters.export.export">
 <tt class="descclassname">IPython.nbconvert.exporters.export.</tt><tt class="descname">export</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.exporters.export.export" title="Permalink to this definition">¶</a></dt>
 <dd><p>Export a notebook object using specific exporter class.</p>
-<dl class="docutils">
-<dt>exporter <span class="classifier-delimiter">:</span> <span class="classifier">Exporter class type or instance</span></dt>
-<dd>Class type or instance of the exporter that should be used.  If the 
-method initializes it&#8217;s own instance of the class, it is ASSUMED that 
-the class type provided exposes a constructor (__init__) with the same 
-signature as the base Exporter class.</dd>
-</dl>
-<p>nb : Notebook node
-config : config (optional, keyword arg)</p>
-<blockquote>
-<div>User configuration instance.</div></blockquote>
-<dl class="docutils">
-<dt>resources <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional, keyword arg)</span></dt>
-<dd>Resources used in the conversion process.</dd>
-</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tuple- output, resources, exporter_instance</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>exporter</strong> : class:<cite>~IPython.nbconvert.exporters.exporter.Exporter</cite> class or instance</p>
+<blockquote>
+<div><p>Class type or instance of the exporter that should be used.  If the
+method initializes it&#8217;s own instance of the class, it is ASSUMED that
+the class type provided exposes a constructor (<tt class="docutils literal"><span class="pre">__init__</span></tt>) with the same
+signature as the base Exporter class.</p>
+</div></blockquote>
+<p><strong>nb</strong> : <a class="reference internal" href="IPython.nbformat.v3.nbbase.html#IPython.nbformat.v3.nbbase.NotebookNode" title="IPython.nbformat.v3.nbbase.NotebookNode"><tt class="xref py py-class docutils literal"><span class="pre">NotebookNode</span></tt></a></p>
+<blockquote>
+<div><p>The notebook to export.</p>
+</div></blockquote>
+<p><strong>config</strong> : config (optional, keyword arg)</p>
+<blockquote>
+<div><p>User configuration instance.</p>
+</div></blockquote>
+<p><strong>resources</strong> : dict (optional, keyword arg)</p>
+<blockquote>
+<div><p>Resources used in the conversion process.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>tuple- output, resources, exporter_instance</strong> :</p>
 <p><strong>output</strong> : str</p>
 <blockquote>
 <div><p>Jinja 2 output.  This is the resulting converted notebook.</p>
@@ -162,16 +161,17 @@ config : config (optional, keyword arg)</p>
 process.</p>
 </div></blockquote>
 <p><strong>exporter_instance</strong> : Exporter</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Instance of the Exporter class used to export the document.  Useful
 to caller because it provides a &#8216;file_extension&#8217; property which
 specifies what extension the output should be saved as.</p>
 </div></blockquote>
-<p class="last"><strong>WARNING: API WILL CHANGE IN FUTURE RELEASES OF NBCONVERT</strong> :</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>WARNING: API WILL CHANGE IN FUTURE RELEASES OF NBCONVERT</p>
 </dd></dl>
 
 <dl class="function">
@@ -180,23 +180,29 @@ specifies what extension the output should be saved as.</p>
 <dd><p>Export a notebook object to a template type by its name.  Reflection
 (Inspect) is used to find the template&#8217;s corresponding explicit export
 method defined in this module.  That method is then called directly.</p>
-<dl class="docutils">
-<dt>format_name <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>Name of the template style to export to.</dd>
-</dl>
-<p>nb : Notebook node
-config : config (optional, keyword arg)</p>
-<blockquote>
-<div>User configuration instance.</div></blockquote>
-<dl class="docutils">
-<dt>resources <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional, keyword arg)</span></dt>
-<dd>Resources used in the conversion process.</dd>
-</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>tuple- output, resources, exporter_instance</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>format_name</strong> : str</p>
+<blockquote>
+<div><p>Name of the template style to export to.</p>
+</div></blockquote>
+<p><strong>nb</strong> : <a class="reference internal" href="IPython.nbformat.v3.nbbase.html#IPython.nbformat.v3.nbbase.NotebookNode" title="IPython.nbformat.v3.nbbase.NotebookNode"><tt class="xref py py-class docutils literal"><span class="pre">NotebookNode</span></tt></a></p>
+<blockquote>
+<div><p>The notebook to export.</p>
+</div></blockquote>
+<p><strong>config</strong> : config (optional, keyword arg)</p>
+<blockquote>
+<div><p>User configuration instance.</p>
+</div></blockquote>
+<p><strong>resources</strong> : dict (optional, keyword arg)</p>
+<blockquote>
+<div><p>Resources used in the conversion process.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>tuple- output, resources, exporter_instance</strong> :</p>
 <p><strong>output</strong> : str</p>
 <blockquote>
 <div><p>Jinja 2 output.  This is the resulting converted notebook.</p>
@@ -207,16 +213,17 @@ config : config (optional, keyword arg)</p>
 process.</p>
 </div></blockquote>
 <p><strong>exporter_instance</strong> : Exporter</p>
-<blockquote>
+<blockquote class="last">
 <div><p>Instance of the Exporter class used to export the document.  Useful
 to caller because it provides a &#8216;file_extension&#8217; property which
 specifies what extension the output should be saved as.</p>
 </div></blockquote>
-<p class="last"><strong>WARNING: API WILL CHANGE IN FUTURE RELEASES OF NBCONVERT</strong> :</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p class="rubric">Notes</p>
+<p>WARNING: API WILL CHANGE IN FUTURE RELEASES OF NBCONVERT</p>
 </dd></dl>
 
 <dl class="function">
@@ -259,8 +266,8 @@ specifies what extension the output should be saved as.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

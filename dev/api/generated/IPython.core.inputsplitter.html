@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -75,7 +73,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.core.hooks.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">core.hooks</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">core.hooks</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.core.inputtransformer.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">core.inputtransformer</span></tt></a></p>
@@ -168,26 +166,22 @@ user prefilters we had before).</li>
 <em class="property">class </em><tt class="descclassname">IPython.core.inputsplitter.</tt><tt class="descname">InputSplitter</tt><a class="headerlink" href="#IPython.core.inputsplitter.InputSplitter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>An object that can accumulate lines of Python source before execution.</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>This object is designed to be fed python source line-by-line, using</dt>
-<dd><a class="reference internal" href="#IPython.core.inputsplitter.InputSplitter.push" title="IPython.core.inputsplitter.InputSplitter.push"><tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt></a>. It will return on each push whether the currently pushed
+<p>This object is designed to be fed python source line-by-line, using
+<a class="reference internal" href="#IPython.core.inputsplitter.InputSplitter.push" title="IPython.core.inputsplitter.InputSplitter.push"><tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt></a>. It will return on each push whether the currently pushed
 code could be executed already. In addition, it provides a method called
 <a class="reference internal" href="#IPython.core.inputsplitter.InputSplitter.push_accepts_more" title="IPython.core.inputsplitter.InputSplitter.push_accepts_more"><tt class="xref py py-meth docutils literal"><span class="pre">push_accepts_more()</span></tt></a> that can be used to query whether more input
-can be pushed into a single interactive block.</dd>
-</dl>
+can be pushed into a single interactive block.</p>
 <p>This is a simple example of how an interactive terminal-based client can use
 this tool:</p>
-<div class="highlight-python"><pre>isp = InputSplitter()
-while isp.push_accepts_more():
-    indent = ' '*isp.indent_spaces
-    prompt = '&gt;&gt;&gt; ' + indent
-    line = indent + raw_input(prompt)
-    isp.push(line)
-print 'Input source was:</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">isp</span> <span class="o">=</span> <span class="n">InputSplitter</span><span class="p">()</span>
+<span class="k">while</span> <span class="n">isp</span><span class="o">.</span><span class="n">push_accepts_more</span><span class="p">():</span>
+    <span class="n">indent</span> <span class="o">=</span> <span class="s">&#39; &#39;</span><span class="o">*</span><span class="n">isp</span><span class="o">.</span><span class="n">indent_spaces</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="s">&#39;&gt;&gt;&gt; &#39;</span> <span class="o">+</span> <span class="n">indent</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">indent</span> <span class="o">+</span> <span class="nb">raw_input</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="n">isp</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Input source was:</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">isp</span><span class="o">.</span><span class="n">source_reset</span><span class="p">(),</span>
+</pre></div>
 </div>
-</div></blockquote>
-<p>&#8216;, isp.source_reset(),</p>
 <dl class="method">
 <dt id="IPython.core.inputsplitter.InputSplitter.__init__">
 <tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.core.inputsplitter.InputSplitter.__init__" title="Permalink to this definition">¶</a></dt>
@@ -206,13 +200,13 @@ exception was produced, the method returns True.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lines</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lines</strong> : string</p>
 <blockquote>
 <div><p>One or more lines of Python input.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>is_complete</strong> : boolean</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_complete</strong> : boolean</p>
 <blockquote class="last">
 <div><p>True if the current input source (the result of the current input
 plus prior inputs) forms a complete Python execution block.  Note that
@@ -283,13 +277,13 @@ exception was produced, the method returns True.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>lines</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>lines</strong> : string</p>
 <blockquote>
 <div><p>One or more lines of Python input.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>is_complete</strong> : boolean</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_complete</strong> : boolean</p>
 <blockquote>
 <div><p>True if the current input source (the result of the current input</p>
 </div></blockquote>
@@ -348,9 +342,9 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><strong>s</strong> : string</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> : string</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><strong>n</strong> : int</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>n</strong> : int</td>
 </tr>
 </tbody>
 </table>
@@ -365,7 +359,7 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
 <blockquote class="last">
 <div><p>A single or multiline string.</p>
 </div></blockquote>
@@ -384,7 +378,7 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
 <blockquote class="last">
 <div><p>A single or multiline string.</p>
 </div></blockquote>
@@ -403,13 +397,13 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>src</strong> : string</p>
 <blockquote>
 <div><p>A single or multiline input string.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first last"><strong>String with all Python comments removed.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>String with all Python comments removed.</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -456,8 +450,8 @@ mixing of tabs and spaces in the user&#8217;s input.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

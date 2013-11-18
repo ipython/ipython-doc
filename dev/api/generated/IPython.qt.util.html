@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -72,7 +70,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.qt.svg.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">qt.svg</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">qt.svg</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.sphinxext.ipython_console_highlighting.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">sphinxext.ipython_console_highlighting</span></tt></a></p>
@@ -109,13 +107,75 @@
 significant differences from the latest stable release (1.1.0).</p>
 </div>
 </div></blockquote>
-<div class="section" id="module-qt-util">
-<h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">qt.util</span></tt><a class="headerlink" href="#module-qt-util" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-IPython.qt.util">
+<span id="module-qt-util"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">qt.util</span></tt><a class="headerlink" href="#module-IPython.qt.util" title="Permalink to this headline">¶</a></h1>
+<p>Defines miscellaneous Qt-related helper classes and functions.</p>
 <div class="section" id="classes">
 <h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.qt.util.MetaQObjectHasTraits">
+<em class="property">class </em><tt class="descclassname">IPython.qt.util.</tt><tt class="descname">MetaQObjectHasTraits</tt><big>(</big><em>mcls</em>, <em>name</em>, <em>bases</em>, <em>classdict</em><big>)</big><a class="headerlink" href="#IPython.qt.util.MetaQObjectHasTraits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">Shiboken.ObjectType</span></tt>, <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.MetaHasTraits" title="IPython.utils.traitlets.MetaHasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.MetaHasTraits</span></tt></a></p>
+<p>A metaclass that inherits from the metaclasses of HasTraits and QObject.</p>
+<p>Using this metaclass allows a class to inherit from both HasTraits and
+QObject. Using SuperQObject instead of QObject is highly recommended. See
+QtKernelManager for an example.</p>
+<dl class="method">
+<dt id="IPython.qt.util.MetaQObjectHasTraits.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>mcls</em>, <em>name</em>, <em>bases</em>, <em>classdict</em><big>)</big><a class="headerlink" href="#IPython.qt.util.MetaQObjectHasTraits.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.qt.util.SuperQObject">
+<em class="property">class </em><tt class="descclassname">IPython.qt.util.</tt><tt class="descname">SuperQObject</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.qt.util.SuperQObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">PySide.QtCore.QObject</span></tt></p>
+<p>Permits the use of super() in class hierarchies that contain QObject.</p>
+<p>Unlike QObject, SuperQObject does not accept a QObject parent. If it did,
+super could not be emulated properly (all other classes in the heierarchy
+would have to accept the parent argument&#8211;they don&#8217;t, of course, because
+they don&#8217;t inherit QObject.)</p>
+<p>This class is primarily useful for attaching signals to existing non-Qt
+classes. See QtKernelManagerMixin for an example.</p>
+<dl class="method">
+<dt id="IPython.qt.util.SuperQObject.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.qt.util.SuperQObject.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="function">
 <h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.qt.util.get_font">
+<tt class="descclassname">IPython.qt.util.</tt><tt class="descname">get_font</tt><big>(</big><em>family</em>, <em>fallback=None</em><big>)</big><a class="headerlink" href="#IPython.qt.util.get_font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a font of the requested family, using fallback as alternative.</p>
+<p>If a fallback is provided, it is used in case the requested family isn&#8217;t
+found.  If no fallback is given, no alternative is chosen and Qt&#8217;s internal
+algorithms may automatically choose a fallback font.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>family</strong> : str</p>
+<blockquote>
+<div><p>A font name.</p>
+</div></blockquote>
+<p><strong>fallback</strong> : str</p>
+<blockquote>
+<div><p>A font name.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>font</strong> : QFont object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 </div>
 
@@ -149,8 +209,8 @@ significant differences from the latest stable release (1.1.0).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

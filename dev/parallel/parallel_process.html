@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -188,7 +186,7 @@ localhost by default. If you see Timeout errors on engines or clients, then the 
 thing you should check is the ip address the controller is listening on, and make sure
 that it is visible from the timing out machine.</p>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">Our <a class="reference external" href="parallel_security">notes</a> on security in the new parallel computing code.</p>
 </div>
@@ -223,8 +221,8 @@ controller and engines in the following situations:</p>
 <li>When the controller and engines are all run on localhost. This is useful
 for testing or running on a multicore computer.</li>
 <li>When engines are started using the <strong class="command">mpiexec</strong> command that comes
-with most MPI <a class="reference internal" href="parallel_mpi.html#mpi">[MPI]</a> implementations</li>
-<li>When engines are started using the PBS <a class="reference internal" href="#pbs">[PBS]</a> batch system
+with most MPI <a class="reference internal" href="parallel_mpi.html#mpi" id="id1">[MPI]</a> implementations</li>
+<li>When engines are started using the PBS <a class="reference internal" href="#pbs" id="id2">[PBS]</a> batch system
 (or other <cite>qsub</cite> systems, such as SGE).</li>
 <li>When the controller is started on localhost and the engines are started on
 remote nodes using <strong class="command">ssh</strong>.</li>
@@ -338,7 +336,7 @@ much reason to do this unless sysadmins demand it.</p>
 don&#8217;t make any calls to MPI or call <tt class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></tt>. However, older MPI
 implementations actually require each process to call <tt class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></tt> upon
 starting. The easiest way of having this done is to install the mpi4py
-<a class="reference internal" href="parallel_mpi.html#mpi4py">[mpi4py]</a> package and then specify the <tt class="docutils literal"><span class="pre">c.MPI.use</span></tt> option in <tt class="file docutils literal"><span class="pre">ipengine_config.py</span></tt>:</p>
+<a class="reference internal" href="parallel_mpi.html#mpi4py" id="id3">[mpi4py]</a> package and then specify the <tt class="docutils literal"><span class="pre">c.MPI.use</span></tt> option in <tt class="file docutils literal"><span class="pre">ipengine_config.py</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">MPI</span><span class="o">.</span><span class="n">use</span> <span class="o">=</span> <span class="s">&#39;mpi4py&#39;</span>
 </pre></div>
 </div>
@@ -455,7 +453,7 @@ nodes and <strong class="command">ipcontroller</strong> can be run remotely as w
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When using this mode it highly recommended that you have set up SSH keys
-and are using ssh-agent <a class="reference internal" href="#ssh">[SSH]</a> for password-less logins.</p>
+and are using ssh-agent <a class="reference internal" href="#ssh" id="id4">[SSH]</a> for password-less logins.</p>
 </div>
 <p>As usual, we start by creating a clean profile:</p>
 <div class="highlight-python"><pre>$ ipython profile create --parallel --profile=ssh</pre>
@@ -661,7 +659,7 @@ Scheduler started [leastload]</pre>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The log output of ipcontroller above shows you where the json files were written.
-They will be in <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> (or <tt class="file docutils literal"><span class="pre">~/.config/ipython</span></tt>) under
+They will be in <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> under
 <tt class="file docutils literal"><span class="pre">profile_default/security/ipcontroller-engine.json</span></tt></p>
 </div>
 </li>
@@ -679,7 +677,7 @@ connection info, rather than generate a new one with randomized ports.</p>
 <li><p class="first">In step 2, if you fetch the connection file directly into the security dir of a profile,
 then you need not specify its path directly, only the profile (assumes the path exists,
 otherwise you must create it first):</p>
-<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ~/.config/ipython/profile_ssh/security/
+<div class="highlight-python"><pre>[engine.host.n] $ scp controller.host:.ipython/profile_default/security/ipcontroller-engine.json ~/.ipython/profile_ssh/security/
 [engine.host.n] $ ipengine --profile=ssh</pre>
 </div>
 <p>Of course, if you fetch the file into the default profile, no arguments must be passed to
@@ -782,12 +780,12 @@ SSH connections through login.mycluster.net.</p>
 <p>The Hub stores all messages and results passed between Clients and Engines.
 For large and/or long-running clusters, it would be unreasonable to keep all
 of this information in memory. For this reason, we have two database backends:
-<a class="reference internal" href="#mongodb">[MongoDB]</a> via <a class="reference external" href="http://api.mongodb.org/python/1.9/">PyMongo</a>, and SQLite with the stdlib <tt class="xref py py-mod docutils literal"><span class="pre">sqlite</span></tt>.</p>
+<a class="reference internal" href="#mongodb" id="id5">[MongoDB]</a> via <a class="reference external" href="http://api.mongodb.org/python/1.9/">PyMongo</a>, and SQLite with the stdlib <tt class="xref py py-mod docutils literal"><span class="pre">sqlite</span></tt>.</p>
 <p>MongoDB is our design target, and the dict-like model it uses has driven our design. As far
 as we are concerned, BSON can be considered essentially the same as JSON, adding support
 for binary data and datetime objects, and any new database backend must support the same
 data types.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">MongoDB <a class="reference external" href="http://www.mongodb.org/display/DOCS/BSON">BSON doc</a></p>
 </div>
@@ -836,7 +834,7 @@ database (used for task resubmission, requesting results of tasks you didn&#8217
 submit, etc.). To use this backend, simply pass <tt class="docutils literal"><span class="pre">--nodb</span></tt> to
 <strong class="command">ipcontroller</strong> on the command-line, or specify the <tt class="xref py py-class docutils literal"><span class="pre">NoDB</span></tt> class
 in your <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt> as described above.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">For more information on the database backends, see the <a class="reference internal" href="parallel_db.html#parallel-db"><em>db backend reference</em></a>.</p>
 </div>
@@ -921,8 +919,8 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

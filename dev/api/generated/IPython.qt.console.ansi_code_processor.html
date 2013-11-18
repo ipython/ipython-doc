@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -71,7 +69,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.qt.client.html"
-                        title="previous chapter">Module: <tt class="docutils literal docutils literal docutils literal"><span class="pre">qt.client</span></tt></a></p>
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">qt.client</span></tt></a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="IPython.qt.console.bracket_matcher.html"
                         title="next chapter">Module: <tt class="docutils literal"><span class="pre">qt.console.bracket_matcher</span></tt></a></p>
@@ -108,10 +106,123 @@
 significant differences from the latest stable release (1.1.0).</p>
 </div>
 </div></blockquote>
-<div class="section" id="module-qt-console-ansi-code-processor">
-<h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">qt.console.ansi_code_processor</span></tt><a class="headerlink" href="#module-qt-console-ansi-code-processor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-IPython.qt.console.ansi_code_processor">
+<span id="module-qt-console-ansi-code-processor"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">qt.console.ansi_code_processor</span></tt><a class="headerlink" href="#module-IPython.qt.console.ansi_code_processor" title="Permalink to this headline">¶</a></h1>
+<p>Utilities for processing ANSI escape codes and special ASCII characters.</p>
 <div class="section" id="classes">
 <h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor">
+<em class="property">class </em><tt class="descclassname">IPython.qt.console.ansi_code_processor.</tt><tt class="descname">AnsiCodeProcessor</tt><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Translates special ASCII characters and ANSI escape codes into readable
+attributes. It also supports a few non-standard, xterm-specific codes.</p>
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.__init__">
+<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.reset_sgr">
+<tt class="descname">reset_sgr</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.reset_sgr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset graphics attributs to their default values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_csi_code">
+<tt class="descname">set_csi_code</tt><big>(</big><em>command</em>, <em>params=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_csi_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set attributes based on CSI (Control Sequence Introducer) code.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>command</strong> : str</p>
+<blockquote>
+<div><p>The code identifier, i.e. the final character in the sequence.</p>
+</div></blockquote>
+<p><strong>params</strong> : sequence of integers, optional</p>
+<blockquote class="last">
+<div><p>The parameter codes for the command.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_osc_code">
+<tt class="descname">set_osc_code</tt><big>(</big><em>params</em><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_osc_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set attributes based on OSC (Operating System Command) parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : sequence of str</p>
+<blockquote class="last">
+<div><p>The parameters for the command.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_sgr_code">
+<tt class="descname">set_sgr_code</tt><big>(</big><em>params</em><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.set_sgr_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set attributes based on SGR (Select Graphic Rendition) codes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>params</strong> : sequence of ints</p>
+<blockquote class="last">
+<div><p>A list of SGR codes for one or more SGR commands. Usually this
+sequence will have one element per command, although certain
+xterm-specific commands requires multiple elements.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.split_string">
+<tt class="descname">split_string</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor.split_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields substrings for which the same escape code applies.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor">
+<em class="property">class </em><tt class="descclassname">IPython.qt.console.ansi_code_processor.</tt><tt class="descname">QtAnsiCodeProcessor</tt><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.qt.console.ansi_code_processor.AnsiCodeProcessor" title="IPython.qt.console.ansi_code_processor.AnsiCodeProcessor"><tt class="xref py py-class docutils literal"><span class="pre">IPython.qt.console.ansi_code_processor.AnsiCodeProcessor</span></tt></a></p>
+<p>Translates ANSI escape codes into QTextCharFormats.</p>
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.get_color">
+<tt class="descname">get_color</tt><big>(</big><em>color</em>, <em>intensity=0</em><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a QColor for a given color code, or None if one cannot be
+constructed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.get_format">
+<tt class="descname">get_format</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.get_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a QTextCharFormat that encodes the current style attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.set_background_color">
+<tt class="descname">set_background_color</tt><big>(</big><em>color</em><big>)</big><a class="headerlink" href="#IPython.qt.console.ansi_code_processor.QtAnsiCodeProcessor.set_background_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a background color (a QColor), attempt to set a color map
+that will be aesthetically pleasing.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
@@ -145,8 +256,8 @@ significant differences from the latest stable release (1.1.0).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

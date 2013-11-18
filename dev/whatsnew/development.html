@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -66,6 +64,8 @@
 <li><a class="reference internal" href="#">Development version</a><ul>
 <li><a class="reference internal" href="#select-notebook-name-when-renaming-a-notebook">Select Notebook Name When Renaming a Notebook</a></li>
 <li><a class="reference internal" href="#clear-output-changes">clear_output changes</a></li>
+<li><a class="reference internal" href="#extending-configurable-containers">Extending Configurable Containers</a></li>
+<li><a class="reference internal" href="#single-codebase-python-3-support">Single codebase Python 3 support</a></li>
 <li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
 </li>
@@ -140,6 +140,41 @@ user to double buffer the output.</li>
 <li>The output div height is remembered when the <tt class="docutils literal"><span class="pre">wait=True</span></tt> flag is used.</li>
 </ul>
 </div>
+<div class="section" id="extending-configurable-containers">
+<h2>Extending Configurable Containers<a class="headerlink" href="#extending-configurable-containers" title="Permalink to this headline">¶</a></h2>
+<p>Some configurable traits are containers (list, dict, set)
+Config objects now support calling <tt class="docutils literal"><span class="pre">extend</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt>, <tt class="docutils literal"><span class="pre">insert</span></tt>, etc.
+on traits in config files, which will ultimately result in calling
+those methods on the original object.</p>
+<p>The effect being that you can now add to containers without having to copy/paste
+the initial value:</p>
+<div class="highlight-python"><pre>   c = get_config()
+   c.InlineBackend.rc.update({ 'figure.figsize' : (6, 4) })
+
+* In notebook, Showing tooltip on tab has been disables to avoid conflict with
+  completion, Shift-Tab could still be used to invoke tooltip when inside
+  function signature and/or on selection.</pre>
+</div>
+</div>
+<div class="section" id="single-codebase-python-3-support">
+<h2>Single codebase Python 3 support<a class="headerlink" href="#single-codebase-python-3-support" title="Permalink to this headline">¶</a></h2>
+<p>IPython previously supported Python 3 by running 2to3 during setup. We
+have now switched to a single codebase which runs natively on Python 2.7
+and 3.3.</p>
+<p>For notes on how to maintain this, see <a class="reference internal" href="../development/pycompat.html"><em>Writing code for Python 2 and 3</em></a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">object_info_request</span></tt> as been replaced by <tt class="docutils literal"><span class="pre">object_info</span></tt> for consistency in the javascript API.
+<tt class="docutils literal"><span class="pre">object_info</span></tt> as a simpler interface to register callback that is incompatible with <tt class="docutils literal"><span class="pre">object_info_request</span></tt>.</li>
+<li>Previous versions of IPython on Linux would use the XDG config directory,
+creating <tt class="file docutils literal"><span class="pre">~/.config/ipython</span></tt> by default. We have decided to go
+back to <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> for consistency among systems. IPython will
+issue a warning if it finds the XDG location, and will move it to the new
+location if there isn&#8217;t already a directory there.</li>
+<li>Equations, images and tables are now centered in Markdown cells.</li>
+<li>Multiline equations are now centered in output areas; single line equations
+remain left justified.</li>
+</ul>
+</div>
 <div class="section" id="backwards-incompatible-changes">
 <h2>Backwards incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -195,8 +230,8 @@ If you need to keep the exact output of <strong class="command">pycolor</strong>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Oct 29, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
     </div>
   </body>
 </html>

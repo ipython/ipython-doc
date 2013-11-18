@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Specific config details &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0.0-dev: Work in Progress',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="up" title="Configuration and customization" href="index.html" />
+    <link rel="next" title="IPython extensions" href="extensions/index.html" />
+    <link rel="prev" title="IPython Qt console options" href="options/qtconsole.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="extensions/index.html" title="IPython extensions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="options/qtconsole.html" title="IPython Qt console options"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Configuration and customization</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Specific config details</a><ul>
+<li><a class="reference internal" href="#prompts">Prompts</a></li>
+<li><a class="reference internal" href="#terminal-colors">Terminal Colors</a><ul>
+<li><a class="reference internal" href="#colors-in-the-pager">Colors in the pager</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#editor-configuration">Editor configuration</a><ul>
+<li><a class="reference internal" href="#vim">Vim</a></li>
+<li><a class="reference internal" href="#x-emacs">(X)Emacs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="options/qtconsole.html"
+                        title="previous chapter">IPython Qt console options</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="extensions/index.html"
+                        title="next chapter">IPython extensions</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/config/details.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="specific-config-details">
+<h1>Specific config details<a class="headerlink" href="#specific-config-details" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prompts">
+<h2>Prompts<a class="headerlink" href="#prompts" title="Permalink to this headline">¶</a></h2>
+<p>In the terminal, the format of the input and output prompts can be
+customised. This does not currently affect other frontends.</p>
+<p>The following codes in the prompt string will be substituted into the
+prompt string:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="37%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Short</th>
+<th class="head">Long</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>%n,\#</td>
+<td>{color.number}{count}{color.prompt}</td>
+<td>history counter with bolding</td>
+</tr>
+<tr class="row-odd"><td>\N</td>
+<td>{count}</td>
+<td>history counter without bolding</td>
+</tr>
+<tr class="row-even"><td>\D</td>
+<td>{dots}</td>
+<td>series of dots the same width as the history counter</td>
+</tr>
+<tr class="row-odd"><td>\T</td>
+<td>{time}</td>
+<td>current time</td>
+</tr>
+<tr class="row-even"><td>\w</td>
+<td>{cwd}</td>
+<td>current working directory</td>
+</tr>
+<tr class="row-odd"><td>\W</td>
+<td>{cwd_last}</td>
+<td>basename of CWD</td>
+</tr>
+<tr class="row-even"><td>\Xn</td>
+<td>{cwd_x[n]}</td>
+<td>Show the last n terms of the CWD. n=0 means show all.</td>
+</tr>
+<tr class="row-odd"><td>\Yn</td>
+<td>{cwd_y[n]}</td>
+<td>Like Xn, but show &#8216;~&#8217; for $HOME</td>
+</tr>
+<tr class="row-even"><td>\h</td>
+<td>&nbsp;</td>
+<td>hostname, up to the first &#8216;.&#8217;</td>
+</tr>
+<tr class="row-odd"><td>\H</td>
+<td>&nbsp;</td>
+<td>full hostname</td>
+</tr>
+<tr class="row-even"><td>\u</td>
+<td>&nbsp;</td>
+<td>username (from the $USER environment variable)</td>
+</tr>
+<tr class="row-odd"><td>\v</td>
+<td>&nbsp;</td>
+<td>IPython version</td>
+</tr>
+<tr class="row-even"><td>\$</td>
+<td>&nbsp;</td>
+<td>root symbol (&#8220;$&#8221; for normal user or &#8220;#&#8221; for root)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">\\</span></tt></td>
+<td>&nbsp;</td>
+<td>escaped &#8216;\&#8217;</td>
+</tr>
+<tr class="row-even"><td>\n</td>
+<td>&nbsp;</td>
+<td>newline</td>
+</tr>
+<tr class="row-odd"><td>\r</td>
+<td>&nbsp;</td>
+<td>carriage return</td>
+</tr>
+<tr class="row-even"><td>n/a</td>
+<td>{color.&lt;Name&gt;}</td>
+<td>set terminal colour - see below for list of names</td>
+</tr>
+</tbody>
+</table>
+<p>Available colour names are: Black, BlinkBlack, BlinkBlue, BlinkCyan,
+BlinkGreen, BlinkLightGray, BlinkPurple, BlinkRed, BlinkYellow, Blue,
+Brown, Cyan, DarkGray, Green, LightBlue, LightCyan, LightGray, LightGreen,
+LightPurple, LightRed, Purple, Red, White, Yellow. The selected colour
+scheme also defines the names <em>prompt</em> and <em>number</em>. Finally, the name
+<em>normal</em> resets the terminal to its default colour.</p>
+<p>So, this config:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">PromptManager</span><span class="o">.</span><span class="n">in_template</span> <span class="o">=</span> <span class="s">&quot;{color.LightGreen}{time}{color.Yellow} \u{color.normal}&gt;&gt;&gt;&quot;</span>
+</pre></div>
+</div>
+<p>will produce input prompts with the time in light green, your username
+in yellow, and a <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> prompt in the default terminal colour.</p>
+</div>
+<div class="section" id="terminal-colors">
+<span id="termcolour"></span><h2>Terminal Colors<a class="headerlink" href="#terminal-colors" title="Permalink to this headline">¶</a></h2>
+<p>The default IPython configuration has most bells and whistles turned on
+(they&#8217;re pretty safe). But there&#8217;s one that may cause problems on some
+systems: the use of color on screen for displaying information. This is
+very useful, since IPython can show prompts and exception tracebacks
+with various colors, display syntax-highlighted source code, and in
+general make it easier to visually parse information.</p>
+<p>The following terminals seem to handle the color sequences fine:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Linux main text console, KDE Konsole, Gnome Terminal, E-term,
+rxvt, xterm.</li>
+<li>CDE terminal (tested under Solaris). This one boldfaces light colors.</li>
+<li>(X)Emacs buffers. See the <a class="reference internal" href="#emacs"><em>(X)Emacs</em></a> section for more details on
+using IPython with (X)Emacs.</li>
+<li>A Windows (XP/2k) command prompt with <a class="reference external" href="https://code.launchpad.net/pyreadline">pyreadline</a>.</li>
+<li>A Windows (XP/2k) CygWin shell. Although some users have reported
+problems; it is not clear whether there is an issue for everyone
+or only under specific configurations. If you have full color
+support under cygwin, please post to the IPython mailing list so
+this issue can be resolved for all users.</li>
+</ul>
+</div></blockquote>
+<p>These have shown problems:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Windows command prompt in WinXP/2k logged into a Linux machine via
+telnet or ssh.</li>
+<li>Windows native command prompt in WinXP/2k, without Gary Bishop&#8217;s
+extensions. Once Gary&#8217;s readline library is installed, the normal
+WinXP/2k command prompt works perfectly.</li>
+</ul>
+</div></blockquote>
+<p>Currently the following color schemes are available:</p>
+<blockquote>
+<div><ul class="simple">
+<li>NoColor: uses no color escapes at all (all escapes are empty &#8216;&#8217; &#8216;&#8217;
+strings). This &#8216;scheme&#8217; is thus fully safe to use in any terminal.</li>
+<li>Linux: works well in Linux console type environments: dark
+background with light fonts. It uses bright colors for
+information, so it is difficult to read if you have a light
+colored background.</li>
+<li>LightBG: the basic colors are similar to those in the Linux scheme
+but darker. It is easy to read in terminals with light backgrounds.</li>
+</ul>
+</div></blockquote>
+<p>IPython uses colors for two main groups of things: prompts and
+tracebacks which are directly printed to the terminal, and the object
+introspection system which passes large sets of data through a pager.</p>
+<p>If you are seeing garbage sequences in your terminal and no colour, you
+may need to disable colours: run <tt class="docutils literal"><span class="pre">%colors</span> <span class="pre">NoColor</span></tt> inside IPython, or
+add this to a config file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">InteractiveShell</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="s">&#39;NoColor&#39;</span>
+</pre></div>
+</div>
+<div class="section" id="colors-in-the-pager">
+<h3>Colors in the pager<a class="headerlink" href="#colors-in-the-pager" title="Permalink to this headline">¶</a></h3>
+<p>On some systems, the default pager has problems with ANSI colour codes.
+To configure your default pager to allow these:</p>
+<ol class="arabic simple">
+<li>Set the environment PAGER variable to <tt class="docutils literal"><span class="pre">less</span></tt>.</li>
+<li>Set the environment LESS variable to <tt class="docutils literal"><span class="pre">-r</span></tt> (plus any other options
+you always want to pass to less by default). This tells less to
+properly interpret control sequences, which is how color
+information is given to your terminal.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="editor-configuration">
+<span id="editors"></span><h2>Editor configuration<a class="headerlink" href="#editor-configuration" title="Permalink to this headline">¶</a></h2>
+<p>IPython can integrate with text editors in a number of different ways:</p>
+<ul class="simple">
+<li>Editors (such as <a class="reference external" href="http://www.gnu.org/software/emacs/">(X)Emacs</a>, <a class="reference external" href="http://www.vim.org/">vim</a> and <a class="reference external" href="http://macromates.com/">TextMate</a>) can
+send code to IPython for execution.</li>
+<li>IPython&#8217;s <tt class="docutils literal"><span class="pre">%edit</span></tt> magic command can open an editor of choice to edit
+a code block.</li>
+</ul>
+<p>The %edit command (and its alias %ed) will invoke the editor set in your
+environment as <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">EDITOR</span></tt>. If this variable is not set, it will default
+to vi under Linux/Unix and to notepad under Windows. You may want to set this
+variable properly and to a lightweight editor which doesn&#8217;t take too long to
+start (that is, something other than a new instance of Emacs). This way you
+can edit multi-line code quickly and with the power of a real editor right
+inside IPython.</p>
+<p>You can also control the editor by setting <tt class="xref py py-attr docutils literal"><span class="pre">TerminalInteractiveShell.editor</span></tt>
+in <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt>.</p>
+<div class="section" id="vim">
+<h3>Vim<a class="headerlink" href="#vim" title="Permalink to this headline">¶</a></h3>
+<p>Paul Ivanov&#8217;s <a class="reference external" href="https://github.com/ivanov/vim-ipython">vim-ipython</a> provides
+powerful IPython integration for vim.</p>
+</div>
+<div class="section" id="x-emacs">
+<span id="emacs"></span><h3>(X)Emacs<a class="headerlink" href="#x-emacs" title="Permalink to this headline">¶</a></h3>
+<p>If you are a dedicated Emacs user, and want to use Emacs when IPython&#8217;s
+<tt class="docutils literal"><span class="pre">%edit</span></tt> magic command is called you should set up the Emacs server so that
+new requests are handled by the original process. This means that almost no
+time is spent in handling the request (assuming an Emacs process is already
+running). For this to work, you need to set your EDITOR environment variable
+to &#8216;emacsclient&#8217;. The code below, supplied by Francois Pinard, can then be
+used in your <tt class="file docutils literal"><span class="pre">.emacs</span></tt> file to enable the server:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">defvar</span> <span class="nv">server-buffer-clients</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nb">fboundp</span> <span class="ss">&#39;server-start</span><span class="p">)</span> <span class="p">(</span><span class="nb">string-equal</span> <span class="p">(</span><span class="nv">getenv</span> <span class="s">&quot;TERM&quot;</span><span class="p">)</span> <span class="ss">&#39;xterm</span><span class="p">))</span>
+  <span class="p">(</span><span class="nv">server-start</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">defun</span> <span class="nv">fp-kill-server-with-buffer-routine</span> <span class="p">()</span>
+    <span class="p">(</span><span class="nb">and</span> <span class="nv">server-buffer-clients</span> <span class="p">(</span><span class="nv">server-done</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;kill-buffer-hook</span> <span class="ss">&#39;fp-kill-server-with-buffer-routine</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Thanks to the work of Alexander Schmolck and Prabhu Ramachandran,
+currently (X)Emacs and IPython get along very well in other ways.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You will need to use a recent enough version of <tt class="file docutils literal"><span class="pre">python-mode.el</span></tt>,
+along with the file <tt class="file docutils literal"><span class="pre">ipython.el</span></tt>. You can check that the version you
+have of <tt class="file docutils literal"><span class="pre">python-mode.el</span></tt> is new enough by either looking at the
+revision number in the file itself, or asking for it in (X)Emacs via <tt class="docutils literal"><span class="pre">M-x</span>
+<span class="pre">py-version</span></tt>. Versions 4.68 and newer contain the necessary fixes for
+proper IPython support.</p>
+</div>
+<p>The file <tt class="file docutils literal"><span class="pre">ipython.el</span></tt> is included with the IPython distribution, in the
+directory <tt class="file docutils literal"><span class="pre">docs/emacs</span></tt>. Once you put these files in your Emacs path, all
+you need in your <tt class="file docutils literal"><span class="pre">.emacs</span></tt> file is:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;ipython</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This should give you full support for executing code snippets via
+IPython, opening IPython as your Python shell via <tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">!</span></tt>, etc.</p>
+<p>You can customize the arguments passed to the IPython instance at startup by
+setting the <tt class="docutils literal"><span class="pre">py-python-command-args</span></tt> variable.  For example, to start always
+with <tt class="docutils literal"><span class="pre">matplotlib</span></tt> integration and hardcoded light-background colors, you can use:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">py-python-command-args</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;--matplotlib&quot;</span> <span class="s">&quot;--colors&quot;</span> <span class="s">&quot;LightBG&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>If you happen to get garbage instead of colored prompts as described in
+the previous section, you may need to set also in your <tt class="file docutils literal"><span class="pre">.emacs</span></tt> file:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">ansi-color-for-comint-mode</span> <span class="no">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notes on emacs support:</p>
+<ul class="simple">
+<li>There is one caveat you should be aware of: you must start the IPython shell
+before attempting to execute any code regions via <tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">|</span></tt>. Simply type
+<tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">!</span></tt> to start IPython before passing any code regions to the
+interpreter, and you shouldn&#8217;t experience any problems. This is due to a bug
+in Python itself, which has been fixed for Python 2.3, but exists as of
+Python 2.2.2 (reported as SF bug [ 737947 ]).</li>
+<li>The (X)Emacs support is maintained by Alexander Schmolck, so all
+comments/requests should be directed to him through the IPython mailing
+lists.</li>
+<li>This code is still somewhat experimental so it&#8217;s a bit rough around the
+edges (although in practice, it works quite well).</li>
+<li>Be aware that if you customized <tt class="docutils literal"><span class="pre">py-python-command</span></tt> previously, this value
+will override what <tt class="file docutils literal"><span class="pre">ipython.el</span></tt> does (because loading the customization
+variables comes later).</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="extensions/index.html" title="IPython extensions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="options/qtconsole.html" title="IPython Qt console options"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Configuration and customization</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Nov 18, 2013.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+    </div>
+  </body>
+</html>
