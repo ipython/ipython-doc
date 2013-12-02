@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -63,7 +65,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.io</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">3 Classes</a></li>
-<li><a class="reference internal" href="#functions">4 Functions</a></li>
+<li><a class="reference internal" href="#functions">5 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -152,7 +154,7 @@ it for duplication.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>file_or_name</strong> : filename or open filehandle (writable)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>file_or_name</strong> : filename or open filehandle (writable)</p>
 <blockquote>
 <div><p>File that will be duplicated</p>
 </div></blockquote>
@@ -189,13 +191,15 @@ it for duplication.</p>
 
 </div>
 <div class="section" id="functions">
-<h2>4 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>5 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.utils.io.ask_yes_no">
-<tt class="descclassname">IPython.utils.io.</tt><tt class="descname">ask_yes_no</tt><big>(</big><em>prompt</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#IPython.utils.io.ask_yes_no" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.utils.io.</tt><tt class="descname">ask_yes_no</tt><big>(</big><em>prompt</em>, <em>default=None</em>, <em>interrupt=None</em><big>)</big><a class="headerlink" href="#IPython.utils.io.ask_yes_no" title="Permalink to this definition">¶</a></dt>
 <dd><p>Asks a question and returns a boolean (y/n) answer.</p>
 <p>If default is given (one of &#8216;y&#8217;,&#8217;n&#8217;), it is used if the user input is
-empty. Otherwise the question is repeated until an answer is given.</p>
+empty. If interrupt is given (one of &#8216;y&#8217;,&#8217;n&#8217;), it is used if the user
+presses Ctrl-C. Otherwise the question is repeated until an answer is
+given.</p>
 <p>An EOF is treated as the default answer.  If there is no default, an
 exception is raised to prevent infinite loops.</p>
 <p>Valid answers are: y/yes/n/no (match is not case sensitive).</p>
@@ -209,7 +213,7 @@ exception is raised to prevent infinite loops.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>src</strong> : string or list of strings (no need for ending newlines if list)</p>
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>src</strong> : string or list of strings (no need for ending newlines if list)</p>
 <blockquote>
 <div><p>Source code to be written to the file.</p>
 </div></blockquote>
@@ -219,7 +223,7 @@ exception is raised to prevent infinite loops.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>(filename, open filehandle)</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>(filename, open filehandle)</strong> :</p>
 <blockquote class="last">
 <div><p>It is the caller&#8217;s responsibility to close the open file and unlink it.</p>
 </div></blockquote>
@@ -239,6 +243,17 @@ exception is raised to prevent infinite loops.</p>
 <dt id="IPython.utils.io.raw_print_err">
 <tt class="descclassname">IPython.utils.io.</tt><tt class="descname">raw_print_err</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.utils.io.raw_print_err" title="Permalink to this definition">¶</a></dt>
 <dd><p>Raw print to sys.__stderr__, otherwise identical interface to print().</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.io.unicode_std_stream">
+<tt class="descclassname">IPython.utils.io.</tt><tt class="descname">unicode_std_stream</tt><big>(</big><em>stream='stdout'</em><big>)</big><a class="headerlink" href="#IPython.utils.io.unicode_std_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a wrapper to write unicode to stdout/stderr as UTF-8.</p>
+<p>This ignores environment variables and default encodings, to reliably write
+unicode to stdout or stderr.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">unicode_std_stream</span><span class="p">()</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;ł@e¶ŧ←&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -274,8 +289,8 @@ exception is raised to prevent infinite loops.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 18, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+      Last updated on Dec 02, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

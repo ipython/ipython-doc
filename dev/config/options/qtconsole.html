@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -103,6 +105,29 @@ significant differences from the latest stable release (1.1.0).</p>
 <h1>IPython Qt console options<a class="headerlink" href="#ipython-qt-console-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
+<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p>Close all figures at the end of each cell.</p>
+<p>When True, ensures that each cell starts with no active figures, but it also
+means that one must keep track of references in order to edit or redraw
+figures in subsequent cells. This mode is ideal for the notebook, where
+residual plots from other cells might be surprising.</p>
+<p class="last">When False, one must call figure() to create new figures. This means that
+gcf() and getfigs() can reference figures created in other cells, and the
+active figure can continue to be edited with pylab/pyplot methods that
+reference the current active figure. This mode facilitates iterative editing
+of figures, and behaves most consistently with other matplotlib backends,
+but figure barriers between cells must be explicit.</p>
+</dd>
+<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;svg&#8217;|&#8217;png&#8217;|&#8217;retina&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;png&#8217;</p>
+<p class="last">The image format for figures with the inline backend.</p>
+</dd>
+<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
+<p class="last">Subset of matplotlib rcParams that should be different for the inline
+backend.</p>
+</dd>
 <dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Should we autorestart the kernel if it dies.</p>
@@ -379,29 +404,6 @@ the style sheet is queried for Pygments style information.</p>
 <p class="last">The width of the console at start time in number of characters (will double
 with <cite>hsplit</cite> paging)</p>
 </dd>
-<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p>Close all figures at the end of each cell.</p>
-<p>When True, ensures that each cell starts with no active figures, but it also
-means that one must keep track of references in order to edit or redraw
-figures in subsequent cells. This mode is ideal for the notebook, where
-residual plots from other cells might be surprising.</p>
-<p class="last">When False, one must call figure() to create new figures. This means that
-gcf() and getfigs() can reference figures created in other cells, and the
-active figure can continue to be edited with pylab/pyplot methods that
-reference the current active figure. This mode facilitates iterative editing
-of figures, and behaves most consistently with other matplotlib backends,
-but figure barriers between cells must be explicit.</p>
-</dd>
-<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;svg&#8217;|&#8217;png&#8217;|&#8217;retina&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;png&#8217;</p>
-<p class="last">The image format for figures with the inline backend.</p>
-</dd>
-<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
-<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
-<p class="last">Subset of matplotlib rcParams that should be different for the inline
-backend.</p>
-</dd>
 </dl>
 </div>
 
@@ -436,8 +438,8 @@ backend.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Nov 18, 2013.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b3.
+      Last updated on Dec 02, 2013.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
