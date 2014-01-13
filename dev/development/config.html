@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -65,7 +63,11 @@
   <ul>
 <li><a class="reference internal" href="#">Overview of the IPython configuration system</a><ul>
 <li><a class="reference internal" href="#the-main-concepts">The main concepts</a></li>
-<li><a class="reference internal" href="#configuration-objects-and-files">Configuration objects and files</a></li>
+<li><a class="reference internal" href="#configuration-objects-and-files">Configuration objects and files</a><ul>
+<li><a class="reference internal" href="#python-configuration-files">Python configuration Files</a></li>
+<li><a class="reference internal" href="#json-configuration-files">JSON configuration Files</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#configuration-files-inheritance">Configuration files inheritance</a></li>
 <li><a class="reference internal" href="#class-based-configuration-inheritance">Class based configuration inheritance</a></li>
 <li><a class="reference internal" href="#configuration-file-location">Configuration file location</a><ul>
@@ -141,10 +143,10 @@ Each of these abstractions is represented by a Python class.</p>
 <dt>Configuration object: <a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a></dt>
 <dd>A configuration object is a simple dictionary-like class that holds
 configuration attributes and sub-configuration objects. These classes
-support dotted attribute style access (<tt class="docutils literal"><span class="pre">Foo.bar</span></tt>) in addition to the
-regular dictionary style access (<tt class="docutils literal"><span class="pre">Foo['bar']</span></tt>). Configuration objects
-are smart. They know how to merge themselves with other configuration
-objects and they automatically create sub-configuration objects.</dd>
+support dotted attribute style access (<tt class="docutils literal"><span class="pre">cfg.Foo.bar</span></tt>) in addition to the
+regular dictionary style access (<tt class="docutils literal"><span class="pre">cfg['Foo']['bar']</span></tt>).
+The Config object is a wrapper around a simple dictionary with some convenience methods,
+such as merging and automatic section creation.</dd>
 <dt>Application: <a class="reference internal" href="../api/generated/IPython.config.application.html#IPython.config.application.Application" title="IPython.config.application.Application"><tt class="xref py py-class docutils literal"><span class="pre">Application</span></tt></a></dt>
 <dd><p class="first">An application is a process that does a specific job. The most obvious
 application is the <strong class="command">ipython</strong> command line program. Each
@@ -203,12 +205,21 @@ trait values. This is done by overriding the configuration.</p>
 </div>
 <div class="section" id="configuration-objects-and-files">
 <h2>Configuration objects and files<a class="headerlink" href="#configuration-objects-and-files" title="Permalink to this headline">¶</a></h2>
-<p>A configuration file is simply a pure Python file that sets the attributes
-of a global, pre-created configuration object.  This configuration object is a
-<a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a> instance.  While in a configuration
-file, to get a reference to this object, simply call the <tt class="xref py py-func docutils literal"><span class="pre">get_config()</span></tt>
-function.  We inject this function into the global namespace that the
-configuration file is executed in.</p>
+<p>A configuration object is little more than a wrapper around a dictionary.
+A configuration <em>file</em> is simply a mechanism for producing that object.
+The main IPython configuration file is a plain Python script,
+which can perform extensive logic to populate the config object.
+IPython 2.0 introduces a JSON configuration file,
+which is just a direct JSON serialization of the config dictionary,
+which is easily processed by external software.</p>
+<p>When both Python and JSON configuration file are present, both will be loaded,
+with JSON configuration having higher priority.</p>
+<div class="section" id="python-configuration-files">
+<h3>Python configuration Files<a class="headerlink" href="#python-configuration-files" title="Permalink to this headline">¶</a></h3>
+<p>A Python configuration file is a pure Python file that populates a configuration object.
+This configuration object is a <a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a> instance.
+While in a configuration file, to get a reference to this object, simply call the <tt class="xref py py-func docutils literal"><span class="pre">get_config()</span></tt>
+function, which is available in the global namespace of the script.</p>
 <p>Here is an example of a super simple configuration file that does nothing:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
 </pre></div>
@@ -216,10 +227,11 @@ configuration file is executed in.</p>
 <p>Once you get a reference to the configuration object, you simply set
 attributes on it.  All you have to know is:</p>
 <ul class="simple">
-<li>The name of each attribute.</li>
+<li>The name of the class to configure.</li>
+<li>The name of the attribute.</li>
 <li>The type of each attribute.</li>
 </ul>
-<p>The answers to these two questions are provided by the various
+<p>The answers to these questions are provided by the various
 <a class="reference internal" href="../api/generated/IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">Configurable</span></tt></a> subclasses that an
 application uses. Let&#8217;s look at how this would work for a simple configurable
 subclass:</p>
@@ -235,7 +247,7 @@ subclass:</p>
 </pre></div>
 </div>
 <p>In this example, we see that <tt class="xref py py-class docutils literal"><span class="pre">MyClass</span></tt> has three attributes, two
-of whom (<tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">ranking</span></tt>) can be configured.  All of the attributes
+of which (<tt class="docutils literal"><span class="pre">name</span></tt>, <tt class="docutils literal"><span class="pre">ranking</span></tt>) can be configured.  All of the attributes
 are given types and default values.  If a <tt class="xref py py-class docutils literal"><span class="pre">MyClass</span></tt> is instantiated,
 but not configured, these default values will be used.  But let&#8217;s see how
 to configure this class in a configuration file:</p>
@@ -289,8 +301,33 @@ instance is dynamically created for that attribute. This allows deeply
 hierarchical information created easily (<tt class="docutils literal"><span class="pre">c.Foo.Bar.value</span></tt>) on the fly.</p>
 </div>
 </div>
+<div class="section" id="json-configuration-files">
+<h3>JSON configuration Files<a class="headerlink" href="#json-configuration-files" title="Permalink to this headline">¶</a></h3>
+<p>A JSON configuration file is simply a file that contains a
+<a class="reference internal" href="../api/generated/IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a> dictionary serialized to JSON.
+A JSON configuration file has the same base name as a Python configuration file,
+but with a .json extension.</p>
+<p>Configuration described in previous section could be written as follows in a
+JSON configuration file:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;MyClass&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;coolname&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;ranking&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSON configuration files can be more easily generated or processed by programs
+or other languages.</p>
+</div>
+</div>
 <div class="section" id="configuration-files-inheritance">
 <h2>Configuration files inheritance<a class="headerlink" href="#configuration-files-inheritance" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section only apply to Python configuration files.</p>
+</div>
 <p>Let&#8217;s say you want to have different configuration files for various purposes.
 Our configuration system makes it easy for one configuration file to inherit
 the information in another configuration file. The <tt class="xref py py-func docutils literal"><span class="pre">load_subconfig()</span></tt>
@@ -488,7 +525,7 @@ and no spaces.</p>
 <h3>Common Arguments<a class="headerlink" href="#common-arguments" title="Permalink to this headline">¶</a></h3>
 <p>Since the strictness and verbosity of the KVLoader above are not ideal for everyday
 use, common arguments can be specified as <a class="reference internal" href="#flags">flags</a> or <a class="reference internal" href="#aliases">aliases</a>.</p>
-<p>Flags and Aliases are handled by <a class="reference external" href="http://docs.python.org/2/library/argparse.html#argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> instead, allowing for more flexible
+<p>Flags and Aliases are handled by <a class="reference external" href="http://docs.python.org/2/library/argparse.html#module-argparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">argparse</span></tt></a> instead, allowing for more flexible
 parsing. In general, flags and aliases are prefixed by <tt class="docutils literal"><span class="pre">--</span></tt>, except for those
 that are single characters, in which case they can be specified with a single <tt class="docutils literal"><span class="pre">-</span></tt>, e.g.:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ipython -i -c <span class="s2">&quot;import numpy; x=numpy.linspace(0,1)&quot;</span> --profile testing --colors<span class="o">=</span>lightbg
@@ -516,7 +553,7 @@ setting one or more configurables with predefined values, often True/False.</p>
 <span class="c"># is equivalent to</span>
 <span class="nv">$ </span>ipcontroller --Application.log_level<span class="o">=</span>DEBUG
 <span class="c"># and</span>
-<span class="nv">$ </span>ipython --matploitlib
+<span class="nv">$ </span>ipython --matplotlib
 <span class="c"># is equivalent to</span>
 <span class="nv">$ </span>ipython --matplotlib auto
 <span class="c"># or</span>
@@ -606,8 +643,8 @@ configured when a program starts.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

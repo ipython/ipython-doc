@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -132,7 +130,7 @@ dependencies to cause a deadlock.</p>
 <h2>A Sample DAG<a class="headerlink" href="#a-sample-dag" title="Permalink to this headline">¶</a></h2>
 <p>Here, we have a very simple 5-node DAG:</p>
 <div class="figure">
-<img alt="../_images/simpledag.png" src="../_images/simpledag.png" style="width: 600px;" />
+<a class="reference internal image-reference" href="../_images/simpledag.png"><img alt="../_images/simpledag.png" src="../_images/simpledag.png" style="width: 600px;" /></a>
 </div>
 <p>With NetworkX, an arrow is just a fattened bit on the edge. Here, we can see that task 0
 depends on nothing, and can run immediately. 1 and 2 depend on 0; 3 depends on
@@ -202,10 +200,10 @@ number of nodes and edges.</p>
 <p>Now, we need to build our dict of jobs corresponding to the nodes on the graph:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="n">jobs</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="c"># in reality, each job would presumably be different</span>
-<span class="c"># randomwait is just a function that sleeps for a random interval</span>
+<span class="go"># in reality, each job would presumably be different</span>
+<span class="go"># randomwait is just a function that sleeps for a random interval</span>
 <span class="gp">In [4]: </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
-<span class="gp">   ...:</span>     <span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">randomwait</span>
+<span class="gp">   ...: </span>    <span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">randomwait</span>
 </pre></div>
 </div>
 <p>Once we have a dict of jobs matching the nodes on the graph, we can start submitting jobs,
@@ -221,12 +219,12 @@ on which it depends:</p>
 <span class="gp">In [6]: </span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="gp">In [7]: </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">topological_sort</span><span class="p">():</span>
-<span class="gp">   ...:</span>    <span class="c"># get list of AsyncResult objects from nodes</span>
-<span class="gp">   ...:</span>    <span class="c"># leading into this one as dependencies</span>
-<span class="gp">   ...:</span>    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">]</span>
-<span class="gp">   ...:</span>    <span class="c"># submit and store AsyncResult object</span>
-<span class="gp">   ...:</span>    <span class="k">with</span> <span class="n">view</span><span class="o">.</span><span class="n">temp_flags</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-<span class="gp">   ...:</span>         <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+<span class="gp">   ...: </span>   <span class="c"># get list of AsyncResult objects from nodes</span>
+<span class="gp">   ...: </span>   <span class="c"># leading into this one as dependencies</span>
+<span class="gp">   ...: </span>   <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span> <span class="n">results</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">)</span> <span class="p">]</span>
+<span class="gp">   ...: </span>   <span class="c"># submit and store AsyncResult object</span>
+<span class="gp">   ...: </span>   <span class="k">with</span> <span class="n">view</span><span class="o">.</span><span class="n">temp_flags</span><span class="p">(</span><span class="n">after</span><span class="o">=</span><span class="n">deps</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="gp">   ...: </span>        <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_with_flags</span><span class="p">(</span><span class="n">jobs</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>Now that we have submitted all the jobs, we can wait for the results:</p>
@@ -259,18 +257,18 @@ will be at the top, and quick, small tasks will be at the bottom.</p>
 <span class="gp">In [12]: </span><span class="n">pos</span> <span class="o">=</span> <span class="p">{};</span> <span class="n">colors</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="gp">In [12]: </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
-<span class="gp">   ....:</span>    <span class="n">md</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span>
-<span class="gp">   ....:</span>    <span class="n">start</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">started</span><span class="p">)</span>
-<span class="gp">   ....:</span>    <span class="n">runtime</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">completed</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span>
-<span class="gp">   ....:</span>    <span class="n">pos</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">runtime</span><span class="p">)</span>
-<span class="gp">   ....:</span>    <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">engine_id</span>
+<span class="gp">   ....: </span>   <span class="n">md</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span>
+<span class="gp">   ....: </span>   <span class="n">start</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">started</span><span class="p">)</span>
+<span class="gp">   ....: </span>   <span class="n">runtime</span> <span class="o">=</span> <span class="n">date2num</span><span class="p">(</span><span class="n">md</span><span class="o">.</span><span class="n">completed</span><span class="p">)</span> <span class="o">-</span> <span class="n">start</span>
+<span class="gp">   ....: </span>   <span class="n">pos</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">runtime</span><span class="p">)</span>
+<span class="gp">   ....: </span>   <span class="n">colors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">engine_id</span>
 
 <span class="gp">In [13]: </span><span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_list</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">node_color</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span>
-<span class="gp">   ....:</span>    <span class="n">cmap</span><span class="o">=</span><span class="n">gist_rainbow</span><span class="p">)</span>
+<span class="gp">   ....: </span>   <span class="n">cmap</span><span class="o">=</span><span class="n">gist_rainbow</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure">
-<img alt="../_images/dagdeps.png" src="../_images/dagdeps.png" style="width: 600px;" />
+<a class="reference internal image-reference" href="../_images/dagdeps.png"><img alt="../_images/dagdeps.png" src="../_images/dagdeps.png" style="width: 600px;" /></a>
 <p class="caption">Time started on x, runtime on y, and color-coded by engine-id (in this case there
 were four engines). Edges denote dependencies.</p>
 </div>
@@ -307,8 +305,8 @@ were four engines). Edges denote dependencies.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

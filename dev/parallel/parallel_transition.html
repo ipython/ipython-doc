@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -131,7 +129,7 @@ ipcontroller script for starting all of the controller processes.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">TODO: fill this out after config system is updated</p>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">Detailed <a class="reference internal" href="parallel_process.html#parallel-process"><em>Parallel Process</em></a> doc for configuring and launching
 IPython processes.</p>
@@ -146,20 +144,20 @@ cluster, and View objects are created from that Client that provide the differen
 execution.</p>
 <p>To create a new client, and set up the default direct and load-balanced objects:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># old</span>
-<span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.kernel</span> <span class="kn">import</span> <span class="n">client</span> <span class="k">as</span> <span class="n">kclient</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">IPython.kernel</span> <span class="kn">import</span> <span class="n">client</span> <span class="k">as</span> <span class="n">kclient</span>
 
-<span class="gp">In [2]: </span><span class="n">mec</span> <span class="o">=</span> <span class="n">kclient</span><span class="o">.</span><span class="n">MultiEngineClient</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">mec</span> <span class="o">=</span> <span class="n">kclient</span><span class="o">.</span><span class="n">MultiEngineClient</span><span class="p">()</span>
 
-<span class="gp">In [3]: </span><span class="n">tc</span> <span class="o">=</span> <span class="n">kclient</span><span class="o">.</span><span class="n">TaskClient</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">tc</span> <span class="o">=</span> <span class="n">kclient</span><span class="o">.</span><span class="n">TaskClient</span><span class="p">()</span>
 
 <span class="c"># new</span>
-<span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 
-<span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 
-<span class="gp">In [3]: </span><span class="n">dview</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">dview</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span>
 
-<span class="gp">In [4]: </span><span class="n">lbview</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">lbview</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -186,12 +184,12 @@ to the client (<tt class="docutils literal"><span class="pre">view</span> <span 
 communicating with engines remain: <cite>execute</cite>, <cite>run</cite>, <cite>push</cite>, <cite>pull</cite>, <cite>scatter</cite>, <cite>gather</cite>. These
 methods all behave in much the same way as they did on a MultiEngineClient.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># old</span>
-<span class="gp">In [2]: </span><span class="n">mec</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">mec</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 
 <span class="c"># new</span>
-<span class="gp">In [2]: </span><span class="n">view</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">view</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
 <span class="c"># or</span>
-<span class="gp">In [2]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This extends to any method that communicates with the engines.</p>
@@ -214,7 +212,7 @@ need for network requests for an up-to-date list).</p>
 functions without issue.</p>
 </li>
 </ul>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="parallel_multiengine.html#parallel-multiengine"><em>Our Direct Interface doc</em></a> for a simple tutorial with the
 DirectView.</p>
@@ -233,7 +231,7 @@ a single function that takes arguments, and returns objects.</p>
 <p>The load-balanced interface is provided by the <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> class, created by the client:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">lbview</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span>
 
-<span class="c"># load-balancing can also be restricted to a subset of engines:</span>
+<span class="go"># load-balancing can also be restricted to a subset of engines:</span>
 <span class="gp">In [10]: </span><span class="n">lbview</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -258,13 +256,13 @@ engine, and another resides on the client.  You might construct a task that look
 </pre></div>
 </div>
 <p>In the new code, this is simpler:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="kn">import</span> <span class="nn">numpy</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="s">import numpy</span>
 
-<span class="gp">In [11]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Reference</span>
+<span class="gp">In [11]: </span><span class="s">from IPython.parallel import Reference</span>
 
-<span class="gp">In [12]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">lbview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="n">Reference</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">),</span> <span class="n">B</span><span class="p">)</span>
+<span class="gp">In [12]: </span><span class="s">ar = lbview.apply(numpy.dot, Reference(&#39;A&#39;), B)</span>
 
-<span class="gp">In [13]: </span><span class="n">C</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="gp">In [13]: </span><span class="s">C = ar.get()</span>
 </pre></div>
 </div>
 <p>Note the use of <tt class="docutils literal"><span class="pre">Reference</span></tt> This is a convenient representation of an object that exists
@@ -274,11 +272,11 @@ the engine. In order to deal with this, there is also a <cite>clear_after</cite>
 pollution of the namespace, and bloating of engine memory. This is not necessary with the new
 code, because only those objects explicitly pushed (or set via <cite>globals()</cite>) will be resident on
 the engine beyond the duration of the task.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">Dependencies also work very differently than in IPython.kernel.  See our <a class="reference internal" href="parallel_task.html#parallel-dependencies"><em>doc on Dependencies</em></a> for details.</p>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="parallel_task.html#parallel-task"><em>Our Task Interface doc</em></a> for a simple tutorial with the
 LoadBalancedView.</p>
@@ -287,7 +285,7 @@ LoadBalancedView.</p>
 <h3>PendingResults to AsyncResults<a class="headerlink" href="#pendingresults-to-asyncresults" title="Permalink to this headline">¶</a></h3>
 <p>With the departure from Twisted, we no longer have the <tt class="xref py py-class docutils literal"><span class="pre">Deferred</span></tt> class for representing
 unfinished results. For this, we have an AsyncResult object, based on the object of the same
-name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a> module. Our version provides a superset of that
+name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#module-multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a> module. Our version provides a superset of that
 interface.</p>
 <p>However, unlike in IPython.kernel, we do not have PendingDeferred, PendingResult, or TaskResult
 objects. Simply this one object, the AsyncResult. Every asynchronous (<cite>block=False</cite>) call
@@ -300,19 +298,19 @@ returns one.</p>
 </div>
 <p>There are still some things that behave the same as IPython.kernel:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># old</span>
-<span class="gp">In [5]: </span><span class="n">pr</span> <span class="o">=</span> <span class="n">mec</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">In [6]: </span><span class="n">pr</span><span class="o">.</span><span class="n">r</span>
-<span class="gr">Out[6]: </span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">pr</span> <span class="o">=</span> <span class="n">mec</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">pr</span><span class="o">.</span><span class="n">r</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 
 <span class="c"># new</span>
-<span class="gp">In [5]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">In [6]: </span><span class="n">ar</span><span class="o">.</span><span class="n">r</span>
-<span class="gr">Out[6]: </span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">r</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">.r</span></tt> or <tt class="docutils literal"><span class="pre">.result</span></tt> property simply calls <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt>, waiting for and returning the
 result.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><a class="reference internal" href="asyncresult.html"><em>AsyncResult details</em></a></p>
 </div>
@@ -350,8 +348,8 @@ result.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

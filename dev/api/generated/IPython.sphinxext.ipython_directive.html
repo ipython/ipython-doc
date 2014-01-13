@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -121,10 +119,17 @@ python input by giving the argument python to the directive. The output looks
 like an interactive ipython section.</p>
 <p>To enable this directive, simply list it in your Sphinx <tt class="docutils literal"><span class="pre">conf.py</span></tt> file
 (making sure the directory where you placed it is visible to sphinx, as is
-needed for all Sphinx directives).</p>
-<p>By default this directive assumes that your prompts are unchanged IPython ones,
-but this can be customized. The configurable options that can be placed in
-conf.py are</p>
+needed for all Sphinx directives). For example, to enable syntax highlighting
+and the IPython directive:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;IPython.sphinxext.ipython_console_highlighting&#39;</span><span class="p">,</span>
+              <span class="s">&#39;IPython.sphinxext.ipython_directive&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The IPython directive outputs code-blocks with the language &#8216;ipython&#8217;. So
+if you do not have the syntax highlighting extension enabled as well, then
+all rendered code-blocks will be uncolored. By default this directive assumes
+that your prompts are unchanged IPython ones, but this can be customized.
+The configurable options that can be placed in conf.py are:</p>
 <dl class="docutils">
 <dt>ipython_savefig_dir:</dt>
 <dd>The directory in which to save the figures. This is relative to the
@@ -145,7 +150,45 @@ in the prompt.</dd>
 <dd>The string to represent the IPython prompt in the generated ReST. The
 default is &#8216;Out [%d]:&#8217;. This expects that the line numbers are used
 in the prompt.</dd>
+<dt>ipython_mplbackend:</dt>
+<dd>The string which specifies if the embedded Sphinx shell should import
+Matplotlib and set the backend. The value specifies a backend that is
+passed to <cite>matplotlib.use()</cite> before any lines in <cite>ipython_execlines</cite> are
+executed. If not specified in conf.py, then the default value of &#8216;agg&#8217; is
+used. To use the IPython directive without matplotlib as a dependency, set
+the value to <cite>None</cite>. It may end up that matplotlib is still imported
+if the user specifies so in <cite>ipython_execlines</cite> or makes use of the
+&#64;savefig pseudo decorator.</dd>
+<dt>ipython_execlines:</dt>
+<dd>A list of strings to be exec&#8217;d in the embedded Sphinx shell. Typical
+usage is to make certain packages always available. Set this to an empty
+list if you wish to have no imports always available. If specified in
+conf.py as <cite>None</cite>, then it has the effect of making no imports available.
+If omitted from conf.py altogether, then the default value of
+[&#8216;import numpy as np&#8217;, &#8216;import matplotlib.pyplot as plt&#8217;] is used.</dd>
+<dt>ipython_holdcount</dt>
+<dd>When the &#64;suppress pseudo-decorator is used, the execution count can be
+incremented or not. The default behavior is to hold the execution count,
+corresponding to a value of <cite>True</cite>. Set this to <cite>False</cite> to increment
+the execution count after each suppressed command.</dd>
 </dl>
+<p>As an example, to use the IPython directive when <cite>matplotlib</cite> is not available,
+one sets the backend to <cite>None</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython_mplbackend</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>An example usage of the directive is:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+
+    In [1]: x = 1
+
+    In [2]: y = x**2
+
+    In [3]: print(y)
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://matplotlib.org/sampledoc/ipython_directive.html">http://matplotlib.org/sampledoc/ipython_directive.html</a> for additional
+documentation.</p>
 <div class="section" id="todo">
 <h2>ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -167,13 +210,26 @@ separated code.</li>
 <h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell">
-<em class="property">class </em><tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">EmbeddedSphinxShell</tt><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">EmbeddedSphinxShell</tt><big>(</big><em>exec_lines=None</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>An embedded IPython instance to run inside Sphinx</p>
 <dl class="method">
 <dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.__init__">
-<tt class="descname">__init__</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>exec_lines=None</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.custom_doctest">
+<tt class="descname">custom_doctest</tt><big>(</big><em>decorator</em>, <em>input_lines</em>, <em>found</em>, <em>submitted</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.custom_doctest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a specialized doctest.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.ensure_pyplot">
+<tt class="descname">ensure_pyplot</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.ensure_pyplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that pyplot has been imported into the embedded IPython shell.</p>
+<p>Also, makes sure to set the backend appropriately if not set already.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_block">
@@ -212,14 +268,14 @@ separated code.</li>
 
 <dl class="method">
 <dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_output">
-<tt class="descname">process_output</tt><big>(</big><em>data</em>, <em>output_prompt</em>, <em>input_lines</em>, <em>output</em>, <em>is_doctest</em>, <em>image_file</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_output" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">process_output</tt><big>(</big><em>data</em>, <em>output_prompt</em>, <em>input_lines</em>, <em>output</em>, <em>is_doctest</em>, <em>decorator</em>, <em>image_file</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process data block for OUTPUT token.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_pure_python">
 <tt class="descname">process_pure_python</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_pure_python" title="Permalink to this definition">¶</a></dt>
-<dd><p>content is a list of strings. it is unedited directive conent</p>
+<dd><p>content is a list of strings. it is unedited directive content</p>
 <p>This runs it line by line in the InteractiveShell, prepends
 prompts as needed capturing stderr and stdout, then returns
 the content as a list as if it were ipython code</p>
@@ -307,8 +363,8 @@ OUTPUT: the output string, possibly multi-line</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -166,15 +164,15 @@ module and then create a <a class="reference internal" href="../api/generated/IP
 accurate. If the controller was started on a remote machine, you must copy that connection
 file to the client machine, or enter its contents as arguments to the Client constructor:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># If you have copied the json connector file from the controller:</span>
-<span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s">&#39;/path/to/ipcontroller-client.json&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s">&#39;/path/to/ipcontroller-client.json&#39;</span><span class="p">)</span>
 <span class="c"># or to connect with a specific profile you have set up:</span>
-<span class="gp">In [3]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To make sure there are engines connected to the controller, users can get a list
 of engine ids:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="n">rc</span><span class="o">.</span><span class="n">ids</span>
-<span class="gr">Out[3]: </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gh">Out[3]: </span><span class="go">[0, 1, 2, 3]</span>
 </pre></div>
 </div>
 <p>Here we see that there are four engines ready to do work for us.</p>
@@ -183,7 +181,7 @@ constructed via list-access to the client:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">dview</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span> <span class="c"># use all engines</span>
 </pre></div>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">For more information, see the in-depth explanation of <a class="reference internal" href="parallel_details.html#parallel-details"><em>Views</em></a>.</p>
 </div>
@@ -205,7 +203,7 @@ DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre
 <span class="gp">In [63]: </span><span class="n">parallel_result</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">map_sync</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
 
 <span class="gp">In [67]: </span><span class="n">serial_result</span><span class="o">==</span><span class="n">parallel_result</span>
-<span class="gr">Out[67]: </span><span class="bp">True</span>
+<span class="gh">Out[67]: </span><span class="go">True</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -214,7 +212,7 @@ DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre
 not do dynamic load balancing. For a load balanced version, use a
 <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt>.</p>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> is implemented via <tt class="xref py py-class docutils literal"><span class="pre">ParallelFunction</span></tt>.</p>
 </div>
@@ -225,13 +223,13 @@ not do dynamic load balancing. For a load balanced version, use a
 they execute on one or more engines, rather than locally. IPython provides
 two decorators:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="nd">@dview.remote</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">getpid</span><span class="p">():</span>
-<span class="gp">   ....:</span>     <span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">   ....:</span>     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+<span class="gp">   ....: </span><span class="k">def</span> <span class="nf">getpid</span><span class="p">():</span>
+<span class="gp">   ....: </span>    <span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
 <span class="gp">   ....:</span>
 
 <span class="gp">In [11]: </span><span class="n">getpid</span><span class="p">()</span>
-<span class="gr">Out[11]: </span><span class="p">[</span><span class="mi">12345</span><span class="p">,</span> <span class="mi">12346</span><span class="p">,</span> <span class="mi">12347</span><span class="p">,</span> <span class="mi">12348</span><span class="p">]</span>
+<span class="gh">Out[11]: </span><span class="go">[12345, 12346, 12347, 12348]</span>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">&#64;parallel</span></tt> decorator creates parallel functions, that break up an element-wise
@@ -241,15 +239,15 @@ operations and distribute them, reconstructing the result.</p>
 <span class="gp">In [13]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span><span class="mi">48</span><span class="p">))</span>
 
 <span class="gp">In [14]: </span><span class="nd">@dview.parallel</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">pmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
-<span class="gp">   ....:</span>     <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+<span class="gp">   ....: </span><span class="k">def</span> <span class="nf">pmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
 
 <span class="gp">In [15]: </span><span class="n">C_local</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">A</span>
 
 <span class="gp">In [16]: </span><span class="n">C_remote</span> <span class="o">=</span> <span class="n">pmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
 
 <span class="gp">In [17]: </span><span class="p">(</span><span class="n">C_local</span> <span class="o">==</span> <span class="n">C_remote</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-<span class="gr">Out[17]: </span><span class="bp">True</span>
+<span class="gh">Out[17]: </span><span class="go">True</span>
 </pre></div>
 </div>
 <p>Calling a <tt class="docutils literal"><span class="pre">&#64;parallel</span></tt> function <em>does not</em> correspond to map. It is used for splitting
@@ -284,18 +282,18 @@ parallel functions do have a map method.</p>
 </table>
 <p>A quick example to illustrate the difference in arguments for the two modes:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="nd">@dview.parallel</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="gp">   ....:</span>     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">   ....: </span><span class="k">def</span> <span class="nf">echo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">   ....:</span>
 
 <span class="gp">In [17]: </span><span class="n">echo</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="gr">Out[17]: </span><span class="p">[</span><span class="s">&#39;[0, 1]&#39;</span><span class="p">,</span> <span class="s">&#39;[2]&#39;</span><span class="p">,</span> <span class="s">&#39;[3]&#39;</span><span class="p">,</span> <span class="s">&#39;[4]&#39;</span><span class="p">]</span>
+<span class="gh">Out[17]: </span><span class="go">[&#39;[0, 1]&#39;, &#39;[2]&#39;, &#39;[3]&#39;, &#39;[4]&#39;]</span>
 
 <span class="gp">In [18]: </span><span class="n">echo</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
-<span class="gr">Out[18]: </span><span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;2&#39;</span><span class="p">,</span> <span class="s">&#39;3&#39;</span><span class="p">,</span> <span class="s">&#39;4&#39;</span><span class="p">]</span>
+<span class="gh">Out[18]: </span><span class="go">[&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;]</span>
 </pre></div>
 </div>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">See the <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.parallel" title="IPython.parallel.client.remotefunction.parallel"><tt class="xref py py-func docutils literal"><span class="pre">parallel()</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.remote" title="IPython.parallel.client.remotefunction.remote"><tt class="xref py py-func docutils literal"><span class="pre">remote()</span></tt></a>
 decorators for options.</p>
@@ -334,7 +332,7 @@ without corrupting the message.</dd>
 </dl>
 <p>Creating a view is simple: index-access on a client creates a <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a>.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">view</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-<span class="gr">Out[4]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gh">Out[4]: </span><span class="go">&lt;DirectView [1, 2]&gt;</span>
 
 <span class="gp">In [5]: </span><span class="n">view</span><span class="o">.</span><span class="n">apply</span><span class="o">&lt;</span><span class="n">tab</span><span class="o">&gt;</span>
 <span class="go">view.apply  view.apply_async  view.apply_sync</span>
@@ -355,7 +353,7 @@ blocks until the engines are done executing the command:</p>
 <span class="gp">In [5]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="gp">In [6]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
-<span class="gr">Out[6]: </span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+<span class="gh">Out[6]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
 <p>You can also select blocking execution on a call-by-call basis with the <tt class="xref py py-meth docutils literal"><span class="pre">apply_sync()</span></tt>
@@ -363,7 +361,7 @@ method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
 
 <span class="gp">In [8]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span>
-<span class="gr">Out[8]: </span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+<span class="gh">Out[8]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
 <p>Python commands can be executed as strings on specific engines by using a View&#8217;s <tt class="docutils literal"><span class="pre">execute</span></tt>
@@ -373,7 +371,7 @@ method:</p>
 <span class="gp">In [7]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;c=a-b&#39;</span><span class="p">)</span>
 
 <span class="gp">In [8]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">]</span> <span class="c"># shorthand for dview.pull(&#39;c&#39;, block=True)</span>
-<span class="gr">Out[8]: </span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">]</span>
+<span class="gh">Out[8]: </span><span class="go">[15, -5, 15, -5]</span>
 </pre></div>
 </div>
 </div>
@@ -383,48 +381,48 @@ method:</p>
 then returns a <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object immediately. The
 <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object gives you a way of getting a result at a later
 time through its <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt> method.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">Docs on the <a class="reference internal" href="asyncresult.html#parallel-asyncresult"><em>AsyncResult</em></a> object.</p>
 </div>
 <p>This allows you to quickly submit long running commands without blocking your
 local Python/IPython session:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># define our function</span>
-<span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-<span class="go">  ....:     import time</span>
-<span class="go">  ....:     tic = time.time()</span>
-<span class="go">  ....:     time.sleep(t)</span>
-<span class="go">  ....:     return time.time()-tic</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+  <span class="o">....</span><span class="p">:</span>     <span class="kn">import</span> <span class="nn">time</span>
+  <span class="o">....</span><span class="p">:</span>     <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+  <span class="o">....</span><span class="p">:</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="o">....</span><span class="p">:</span>     <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span>
 
 <span class="c"># In non-blocking mode</span>
-<span class="gp">In [7]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="c"># Now block for the result</span>
-<span class="gp">In [8]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-<span class="gr">Out[8]: </span><span class="p">[</span><span class="mf">2.0006198883056641</span><span class="p">,</span> <span class="mf">1.9997570514678955</span><span class="p">,</span> <span class="mf">1.9996809959411621</span><span class="p">,</span> <span class="mf">2.0003249645233154</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="mf">2.0006198883056641</span><span class="p">,</span> <span class="mf">1.9997570514678955</span><span class="p">,</span> <span class="mf">1.9996809959411621</span><span class="p">,</span> <span class="mf">2.0003249645233154</span><span class="p">]</span>
 
 <span class="c"># Again in non-blocking mode</span>
-<span class="gp">In [9]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
 <span class="c"># Poll to see if the result is ready</span>
-<span class="gp">In [10]: </span><span class="n">ar</span><span class="o">.</span><span class="n">ready</span><span class="p">()</span>
-<span class="gr">Out[10]: </span><span class="bp">False</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">ready</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="bp">False</span>
 
 <span class="c"># ask for the result, but wait a maximum of 1 second:</span>
-<span class="gp">In [45]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">TimeoutError                              Traceback (most recent call last)</span>
-<span class="go">/home/you/&lt;ipython-input-45-7cd858bbb8e0&gt; in &lt;module&gt;()</span>
-<span class="go">----&gt; 1 ar.get(1)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">45</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="n">TimeoutError</span>                              <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">you</span><span class="o">/&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="mi">7</span><span class="n">cd858bbb8e0</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="go">/path/to/site-packages/IPython/parallel/asyncresult.pyc in get(self, timeout)</span>
-<span class="go">     62                 raise self._exception</span>
-<span class="go">     63         else:</span>
-<span class="go">---&gt; 64             raise error.TimeoutError(&quot;Result not ready.&quot;)</span>
-<span class="go">     65</span>
-<span class="go">     66     def ready(self):</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">IPython</span><span class="o">/</span><span class="n">parallel</span><span class="o">/</span><span class="n">asyncresult</span><span class="o">.</span><span class="n">pyc</span> <span class="ow">in</span> <span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+     <span class="mi">62</span>                 <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span>
+     <span class="mi">63</span>         <span class="k">else</span><span class="p">:</span>
+<span class="o">---&gt;</span> <span class="mi">64</span>             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(</span><span class="s">&quot;Result not ready.&quot;</span><span class="p">)</span>
+     <span class="mi">65</span>
+     <span class="mi">66</span>     <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-<span class="go">TimeoutError: Result not ready.</span>
+<span class="n">TimeoutError</span><span class="p">:</span> <span class="n">Result</span> <span class="ow">not</span> <span class="n">ready</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -440,15 +438,15 @@ tuple of <a class="reference internal" href="parallel_details.html#AsyncResult" 
 and blocks until all of the associated results are ready:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [72]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
 
-<span class="c"># A trivial list of AsyncResults objects</span>
+<span class="go"># A trivial list of AsyncResults objects</span>
 <span class="gp">In [73]: </span><span class="n">pr_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
 
-<span class="c"># Wait until all of them are done</span>
+<span class="go"># Wait until all of them are done</span>
 <span class="gp">In [74]: </span><span class="n">dview</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">pr_list</span><span class="p">)</span>
 
-<span class="c"># Then, their results are ready using get() or the `.r` attribute</span>
+<span class="go"># Then, their results are ready using get() or the `.r` attribute</span>
 <span class="gp">In [75]: </span><span class="n">pr_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-<span class="gr">Out[75]: </span><span class="p">[</span><span class="mf">2.9982571601867676</span><span class="p">,</span> <span class="mf">2.9982588291168213</span><span class="p">,</span> <span class="mf">2.9987530708312988</span><span class="p">,</span> <span class="mf">2.9990990161895752</span><span class="p">]</span>
+<span class="gh">Out[75]: </span><span class="go">[2.9982571601867676, 2.9982588291168213, 2.9987530708312988, 2.9990990161895752]</span>
 </pre></div>
 </div>
 </div>
@@ -472,19 +470,19 @@ the duration of a single call.</li>
 <span class="gp">In [18]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="mi">10</span><span class="p">)</span>
 
 <span class="gp">In [19]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-<span class="gr">Out[19]: </span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="gh">Out[19]: </span><span class="go">[10, 10]</span>
 
 <span class="gp">In [20]: </span><span class="n">dview</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ids</span> <span class="c"># all engines (4)</span>
 
 <span class="gp">In [21]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="gp">In [22]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="mi">42</span><span class="p">)</span>
-<span class="gr">Out[22]: </span><span class="p">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+<span class="gh">Out[22]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
 <p>The <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> instance attributes of the
 <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> also determine the behavior of the parallel magic commands.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">See the documentation of the <a class="reference internal" href="magics.html#parallel-magics"><em>Parallel Magics</em></a>.</p>
 </div>
@@ -500,19 +498,19 @@ engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull
 <h3>Basic push and pull<a class="headerlink" href="#basic-push-and-pull" title="Permalink to this headline">¶</a></h3>
 <p>Here are some examples of how you use <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [38]: </span><span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">1.03234</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">3453</span><span class="p">))</span>
-<span class="gr">Out[38]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
+<span class="gh">Out[38]: </span><span class="go">[None,None,None,None]</span>
 
 <span class="gp">In [39]: </span><span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
-<span class="gr">Out[39]: </span><span class="p">[</span> <span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">]</span>
+<span class="gh">Out[39]: </span><span class="go">[ 1.03234, 1.03234, 1.03234, 1.03234]</span>
 
 <span class="gp">In [40]: </span><span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="gr">Out[40]: </span><span class="mi">3453</span>
+<span class="gh">Out[40]: </span><span class="go">3453</span>
 
 <span class="gp">In [41]: </span><span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">((</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">))</span>
-<span class="gr">Out[41]: </span><span class="p">[</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mi">3453</span><span class="p">]</span> <span class="p">]</span>
+<span class="gh">Out[41]: </span><span class="go">[ [1.03234, 3453], [1.03234, 3453], [1.03234, 3453], [1.03234, 3453] ]</span>
 
 <span class="gp">In [42]: </span><span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s">&#39;speed&#39;</span><span class="p">))</span>
-<span class="gr">Out[42]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
+<span class="gh">Out[42]: </span><span class="go">[None,None,None,None]</span>
 </pre></div>
 </div>
 <p>In non-blocking mode <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> also return
@@ -520,7 +518,7 @@ engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [48]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="gp">In [49]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-<span class="gr">Out[49]: </span><span class="p">[</span><span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">,</span> <span class="mf">1.03234</span><span class="p">]</span>
+<span class="gh">Out[49]: </span><span class="go">[1.03234, 1.03234, 1.03234, 1.03234]</span>
 </pre></div>
 </div>
 </div>
@@ -533,7 +531,7 @@ appear as a local dictionary. Underneath, these methods call <tt class="xref py 
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [51]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="s">&#39;bar&#39;</span><span class="p">]</span>
 
 <span class="gp">In [52]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
-<span class="gr">Out[52]: </span><span class="p">[</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">]</span> <span class="p">]</span>
+<span class="gh">Out[52]: </span><span class="go">[ [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;] ]</span>
 </pre></div>
 </div>
 </div>
@@ -547,13 +545,13 @@ interactive IPython session to the engines and <tt class="xref py py-meth docuti
 engines back to the interactive IPython session. For scatter/gather operations
 between engines, MPI, pyzmq, or some other direct interconnect should be used.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [58]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
-<span class="gr">Out[58]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
+<span class="gh">Out[58]: </span><span class="go">[None,None,None,None]</span>
 
 <span class="gp">In [59]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
-<span class="gr">Out[59]: </span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span> <span class="p">]</span>
+<span class="gh">Out[59]: </span><span class="go">[ [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15] ]</span>
 
 <span class="gp">In [60]: </span><span class="n">dview</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
-<span class="gr">Out[60]: </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="gh">Out[60]: </span><span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]</span>
 </pre></div>
 </div>
 </div>
@@ -567,7 +565,7 @@ we don&#8217;t have fully parallel list comprehensions, it is simple to get the
 basic effect using <tt class="xref py py-meth docutils literal"><span class="pre">scatter()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">gather()</span></tt>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [66]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
 
-<span class="gp">In [67]: </span><span class="o">%</span><span class="n">px</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="gp">In [67]: </span><span class="o">%</span><span class="k">px</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
 
 <span class="gp">In [68]: </span><span class="n">y</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
@@ -583,7 +581,7 @@ basic effect using <tt class="xref py py-meth docutils literal"><span class="pre
 and on your remote engines.  This can be done with the <tt class="xref py py-class docutils literal"><span class="pre">ContextManager</span></tt>
 created by a DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">sync_imports()</span></tt> method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [69]: </span><span class="k">with</span> <span class="n">dview</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
-<span class="gp">   ....:</span>     <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">   ....: </span>    <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="go">importing numpy on engine(s)</span>
 </pre></div>
 </div>
@@ -601,15 +599,15 @@ be collected and raise a CompositeError, as demonstrated in the next section.</p
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [69]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">require</span>
 
 <span class="gp">In [70]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;re&#39;</span><span class="p">):</span>
-<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-<span class="gp">   ....:</span>     <span class="c"># re is guaranteed to be available</span>
-<span class="gp">   ....:</span>     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="gp">   ....: </span><span class="k">def</span> <span class="nf">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="c"># re is guaranteed to be available</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-<span class="c"># you can also pass modules themselves, that you already have locally:</span>
+<span class="go"># you can also pass modules themselves, that you already have locally:</span>
 <span class="gp">In [71]: </span><span class="nd">@require</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
-<span class="gp">   ....:</span> <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-<span class="gp">   ....:</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="gp">   ....:</span>     <span class="k">return</span> <span class="n">t</span>
+<span class="gp">   ....: </span><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">t</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -632,43 +630,43 @@ more other types of exceptions. Here is how it works:</p>
 
 <span class="gp">In [79]: </span><span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;1/0&quot;</span><span class="p">)</span>
 <span class="go">[0:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[1:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[2:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[3:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 </pre></div>
 </div>
 <p>Notice how the error message printed when <tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> is raised has
 information about the individual exceptions that were raised on each engine.
 If you want, you can even raise one of these original exceptions:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [80]: </span><span class="k">try</span><span class="p">:</span>
-<span class="gp">   ....:</span>     <span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">   ....:</span> <span class="k">except</span> <span class="n">parallel</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-<span class="gp">   ....:</span>     <span class="n">e</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">()</span>
+<span class="gp">   ....: </span>    <span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">   ....: </span><span class="k">except</span> <span class="n">parallel</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">   ....: </span>    <span class="n">e</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">()</span>
 <span class="gp">   ....:</span>
 <span class="gp">   ....:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 </pre></div>
 </div>
 <p>If you are working in IPython, you can simple type <tt class="docutils literal"><span class="pre">%debug</span></tt> after one of
@@ -676,40 +674,42 @@ these <tt class="xref py py-exc docutils literal"><span class="pre">CompositeErr
 instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [81]: </span><span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">)</span>
 <span class="go">[0:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[1:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[2:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">[3:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="n">execute</span><span class="p">]:</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="gp">In [82]: </span><span class="o">%</span><span class="n">debug</span>
+<span class="gp">In [82]: </span><span class="o">%</span><span class="k">debug</span>
 <span class="go">&gt; /.../site-packages/IPython/parallel/client/asyncresult.py(125)get()</span>
 <span class="go">    124             else:</span>
 <span class="go">--&gt; 125                 raise self._exception</span>
 <span class="go">    126         else:</span>
 
+<span class="go"># Here, self._exception is the CompositeError instance:</span>
 
 <span class="go">ipdb&gt; e = self._exception</span>
 <span class="go">ipdb&gt; e</span>
 <span class="go">CompositeError(4)</span>
 
+<span class="go"># we can tab-complete on e to see available methods:</span>
 <span class="go">ipdb&gt; e.&lt;TAB&gt;</span>
 <span class="go">e.args               e.message            e.traceback</span>
 <span class="go">e.elist              e.msg</span>
@@ -717,12 +717,13 @@ instance:</p>
 <span class="go">e.engine_info        e.raise_exception</span>
 <span class="go">e.evalue             e.render_traceback</span>
 
+<span class="go"># We can then display the individual tracebacks, if we want:</span>
 <span class="go">ipdb&gt; e.print_traceback(1)</span>
 <span class="go">[1:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 </pre></div>
 </div>
 <p>Since you might have 100 engines, you probably don&#8217;t want to see 100 tracebacks
@@ -732,14 +733,14 @@ to <tt class="xref py py-attr docutils literal"><span class="pre">CompositeError
 You can change this limit to suit your needs with:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
 <span class="gp">In [21]: </span><span class="n">CompositeError</span><span class="o">.</span><span class="n">tb_limit</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">In [22]: </span><span class="o">%</span><span class="n">px</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
+<span class="gp">In [22]: </span><span class="o">%</span><span class="k">px</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
 <span class="go">[0:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">NameError                                 Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 a=b</span>
-<span class="go">NameError: name &#39;b&#39; is not defined</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
+<span class="ne">NameError</span>: name &#39;b&#39; is not defined
 
-<span class="go">... 3 more exceptions ...</span>
+<span class="o">...</span> <span class="mi">3</span> <span class="n">more</span> <span class="n">exceptions</span> <span class="o">...</span>
 </pre></div>
 </div>
 <p>All of this same error handling magic even works in non-blocking mode:</p>
@@ -749,12 +750,12 @@ You can change this limit to suit your needs with:</p>
 
 <span class="gp">In [85]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="go">[0:execute]:</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">ZeroDivisionError                         Traceback (most recent call last)</span>
-<span class="go">----&gt; 1 1/0</span>
-<span class="go">ZeroDivisionError: integer division or modulo by zero</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ZeroDivisionError</span><span class="g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
+<span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 
-<span class="go">... 3 more exceptions ...</span>
+<span class="o">...</span> <span class="mi">3</span> <span class="n">more</span> <span class="n">exceptions</span> <span class="o">...</span>
 </pre></div>
 </div>
 </div>
@@ -791,8 +792,8 @@ You can change this limit to suit your needs with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

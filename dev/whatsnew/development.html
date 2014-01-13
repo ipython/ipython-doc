@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -68,6 +66,11 @@
 <li><a class="reference internal" href="#clear-output-changes">clear_output changes</a></li>
 <li><a class="reference internal" href="#extending-configurable-containers">Extending Configurable Containers</a></li>
 <li><a class="reference internal" href="#single-codebase-python-3-support">Single codebase Python 3 support</a></li>
+<li><a class="reference internal" href="#changes-to-hidden-namespace-on-startup">changes to hidden namespace on startup</a></li>
+<li><a class="reference internal" href="#using-dill-to-expand-serialization-support">Using dill to expand serialization support</a></li>
+<li><a class="reference internal" href="#new-ipython-console-lexer">New IPython Console Lexer</a></li>
+<li><a class="reference internal" href="#displayformatter-changes">DisplayFormatter changes</a></li>
+<li><a class="reference internal" href="#other-changes">Other changes</a></li>
 <li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
 </li>
@@ -121,10 +124,6 @@ significant differences from the latest stable release (1.1.0).</p>
 conflicts for other Pull Requests). Instead, create a new file in the
 <cite>docs/source/whatsnew/pr</cite> folder</p>
 </div>
-<ul class="simple">
-<li><cite>%%capture</cite> cell magic now captures the rich display output, not just
-stdout/stderr</li>
-</ul>
 <div class="section" id="select-notebook-name-when-renaming-a-notebook">
 <h2>Select Notebook Name When Renaming a Notebook<a class="headerlink" href="#select-notebook-name-when-renaming-a-notebook" title="Permalink to this headline">¶</a></h2>
 <p>The default notebook name is Untitled. It&#8217;s unlikely you want to keep this name
@@ -150,12 +149,9 @@ on traits in config files, which will ultimately result in calling
 those methods on the original object.</p>
 <p>The effect being that you can now add to containers without having to copy/paste
 the initial value:</p>
-<div class="highlight-python"><pre>   c = get_config()
-   c.InlineBackend.rc.update({ 'figure.figsize' : (6, 4) })
-
-* In notebook, Showing tooltip on tab has been disables to avoid conflict with
-  completion, Shift-Tab could still be used to invoke tooltip when inside
-  function signature and/or on selection.</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">InlineBackend</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">update</span><span class="p">({</span> <span class="s">&#39;figure.figsize&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">})</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="single-codebase-python-3-support">
@@ -164,7 +160,104 @@ the initial value:</p>
 have now switched to a single codebase which runs natively on Python 2.7
 and 3.3.</p>
 <p>For notes on how to maintain this, see <a class="reference internal" href="../development/pycompat.html"><em>Writing code for Python 2 and 3</em></a>.</p>
+</div>
+<div class="section" id="changes-to-hidden-namespace-on-startup">
+<h2>changes to hidden namespace on startup<a class="headerlink" href="#changes-to-hidden-namespace-on-startup" title="Permalink to this headline">¶</a></h2>
+<p>Previously, all names declared in code run at startup
+(startup files, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-i</span> <span class="pre">script.py</span></tt>, etc.)
+were added to the hidden namespace, which hides the names from tools like <tt class="docutils literal"><span class="pre">%whos</span></tt>.
+There are two changes to this behavior:</p>
+<ol class="arabic simple">
+<li>Scripts run on the command-line <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-i</span> <span class="pre">script.py``now</span> <span class="pre">behave</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">as</span> <span class="pre">if</span> <span class="pre">they</span> <span class="pre">were</span>
+<span class="pre">passed</span> <span class="pre">to</span> <span class="pre">``%run</span></tt>, so their variables are never hidden.</li>
+<li>A boolean config flag <tt class="docutils literal"><span class="pre">InteractiveShellApp.hide_initial_ns</span></tt> has been added to optionally
+disable the hidden behavior altogether. The default behavior is unchanged.</li>
+</ol>
+</div>
+<div class="section" id="using-dill-to-expand-serialization-support">
+<h2>Using dill to expand serialization support<a class="headerlink" href="#using-dill-to-expand-serialization-support" title="Permalink to this headline">¶</a></h2>
+<p>adds <a class="reference internal" href="../api/generated/IPython.utils.pickleutil.html#IPython.utils.pickleutil.use_dill" title="IPython.utils.pickleutil.use_dill"><tt class="xref py py-func docutils literal"><span class="pre">use_dill()</span></tt></a> for allowing
+dill to extend serialization support in <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a> (closures, etc.).
+Also adds <tt class="xref py py-meth docutils literal"><span class="pre">DirectView.use_dill()</span></tt> convenience method for enabling dill
+locally and on all engines with one call.</p>
+</div>
+<div class="section" id="new-ipython-console-lexer">
+<h2>New IPython Console Lexer<a class="headerlink" href="#new-ipython-console-lexer" title="Permalink to this headline">¶</a></h2>
+<p>The IPython console lexer has been rewritten and now supports tracebacks
+and customized input/output prompts. An entire suite of lexers is now
+available at <a class="reference internal" href="../api/generated/IPython.nbconvert.utils.lexers.html#module-IPython.nbconvert.utils.lexers" title="IPython.nbconvert.utils.lexers"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.nbconvert.utils.lexers</span></tt></a>. These include:</p>
+<dl class="docutils">
+<dt>IPythonLexer &amp; IPython3Lexer</dt>
+<dd>Lexers for pure IPython (python + magic/shell commands)</dd>
+<dt>IPythonPartialTracebackLexer &amp; IPythonTracebackLexer</dt>
+<dd>Supports 2.x and 3.x via the keyword <cite>python3</cite>. The partial traceback
+lexer reads everything but the Python code appearing in a traceback.
+The full lexer combines the partial lexer with an IPython lexer.</dd>
+<dt>IPythonConsoleLexer</dt>
+<dd>A lexer for IPython console sessions, with support for tracebacks.
+Supports 2.x and 3.x via the keyword <cite>python3</cite>.</dd>
+<dt>IPyLexer</dt>
+<dd>A friendly lexer which examines the first line of text and from it,
+decides whether to use an IPython lexer or an IPython console lexer.
+Supports 2.x and 3.x via the keyword <cite>python3</cite>.</dd>
+</dl>
+<p>Previously, the <tt class="xref py py-class docutils literal"><span class="pre">IPythonConsoleLexer</span></tt> class was available at
+<tt class="xref py py-mod docutils literal"><span class="pre">IPython.sphinxext.ipython_console_hightlight</span></tt>.  It was inserted
+into Pygments&#8217; list of available lexers under the name <cite>ipython</cite>.  It should
+be mentioned that this name is inaccurate, since an IPython console session
+is not the same as IPython code (which itself is a superset of the Python
+language).</p>
+<p>Now, the Sphinx extension inserts two console lexers into Pygments&#8217; list of
+available lexers. Both are IPyLexer instances under the names: <cite>ipython</cite> and
+<cite>ipython3</cite>. Although the names can be confusing (as mentioned above), their
+continued use is, in part, to maintain backwards compatibility and to
+aid typical usage. If a project needs to make Pygments aware of more than just
+the IPyLexer class, then one should not make the IPyLexer class available under
+the name <cite>ipython</cite> and use <cite>ipy</cite> or some other non-conflicting value.</p>
+<p>Code blocks such as:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
+
+    In [1]: 2**2
+    Out[1]: 4
+</pre></div>
+</div>
+<p>will continue to work as before, but now, they will also properly highlight
+tracebacks.  For pure IPython code, the same lexer will also work:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
+
+    x = &#39;&#39;.join(map(str, range(10)))
+    !echo $x
+</pre></div>
+</div>
+<p>Since the first line of the block did not begin with a standard IPython console
+prompt, the entire block is assumed to consist of IPython code instead.</p>
+</div>
+<div class="section" id="displayformatter-changes">
+<h2>DisplayFormatter changes<a class="headerlink" href="#displayformatter-changes" title="Permalink to this headline">¶</a></h2>
+<p>There was no official way to query or remove callbacks in the Formatter API.
+To remedy this, the following methods are added to <tt class="xref py py-class docutils literal"><span class="pre">BaseFormatter</span></tt>:</p>
 <ul class="simple">
+<li><tt class="docutils literal"><span class="pre">lookup(instance)</span></tt> - return appropriate callback or a given object</li>
+<li><tt class="docutils literal"><span class="pre">lookup_by_type(type_or_str)</span></tt> - return appropriate callback for a given type or <tt class="docutils literal"><span class="pre">'mod.name'</span></tt> type string</li>
+<li><tt class="docutils literal"><span class="pre">pop(type_or_str)</span></tt> - remove a type (by type or string).
+Pass a second argument to avoid KeyError (like dict).</li>
+</ul>
+<p>All of the above methods raise a KeyError if no match is found.</p>
+<p>And the following methods are changed:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">for_type(type_or_str)</span></tt> - behaves the same as before, only adding support for <tt class="docutils literal"><span class="pre">'mod.name'</span></tt>
+type strings in addition to plain types. This removes the need for <tt class="docutils literal"><span class="pre">for_type_by_name()</span></tt>,
+but it remains for backward compatibility.</li>
+</ul>
+</div>
+<div class="section" id="other-changes">
+<h2>Other changes<a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><cite>%%capture</cite> cell magic now captures the rich display output, not just
+stdout/stderr</li>
+<li>In notebook, Showing tooltip on tab has been disables to avoid conflict with
+completion, Shift-Tab could still be used to invoke tooltip when inside
+function signature and/or on selection.</li>
 <li><tt class="docutils literal"><span class="pre">object_info_request</span></tt> as been replaced by <tt class="docutils literal"><span class="pre">object_info</span></tt> for consistency in the javascript API.
 <tt class="docutils literal"><span class="pre">object_info</span></tt> as a simpler interface to register callback that is incompatible with <tt class="docutils literal"><span class="pre">object_info_request</span></tt>.</li>
 <li>Previous versions of IPython on Linux would use the XDG config directory,
@@ -175,6 +268,18 @@ location if there isn&#8217;t already a directory there.</li>
 <li>Equations, images and tables are now centered in Markdown cells.</li>
 <li>Multiline equations are now centered in output areas; single line equations
 remain left justified.</li>
+<li>IPython config objects can be loaded from and serialized to JSON.
+JSON config file have the same base name as their <tt class="docutils literal"><span class="pre">.py</span></tt> counterpart,
+and will be loaded with higher priority if found.</li>
+<li>bash completion updated with support for all ipython subcommands and flags, including nbconvert</li>
+<li><tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span></tt>: added <tt class="docutils literal"><span class="pre">--keep=&lt;N&gt;</span></tt> as an alias for the more verbose
+<tt class="docutils literal"><span class="pre">--HistoryTrim.keep=&lt;N&gt;</span></tt></li>
+<li>new <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">clear</span></tt> subcommand, which is the same as the newly supported
+<tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span> <span class="pre">--keep=0</span></tt></li>
+<li>You can now run notebooks in an interactive session via <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">notebook.ipynb</span></tt>.</li>
+<li>Print preview is back in the notebook menus, along with options to
+download the open notebook in various formats. This is powered by
+nbconvert.</li>
 </ul>
 </div>
 <div class="section" id="backwards-incompatible-changes">
@@ -198,6 +303,12 @@ versions for the most part will work, but we make no guarantees about it.</li>
 <strong class="command">pygmentize</strong> command from the <a class="reference external" href="http://pygments.org/">Pygments</a> project.
 If you need to keep the exact output of <strong class="command">pycolor</strong>, you can still use
 <tt class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">IPython.utils.PyColorize</span> <span class="pre">foo.py</span></tt>.</li>
+<li><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.irunner</span></tt> and its command-line entry point have been removed.
+It had fallen out of use long ago.</li>
+<li>The <tt class="docutils literal"><span class="pre">input_prefilter</span></tt> hook has been removed, as it was never
+actually used by the code. The input transformer system offers much
+more powerful APIs to work with input code. See
+<a class="reference internal" href="../config/inputtransforms.html"><em>Custom input transformation</em></a> for details.</li>
 </ul>
 </div>
 </div>
@@ -232,8 +343,8 @@ If you need to keep the exact output of <strong class="command">pycolor</strong>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

@@ -6,6 +6,12 @@ InteractiveShellApp.code_to_run : Unicode
 
     Execute the given command string.
 
+InteractiveShellApp.exec_PYTHONSTARTUP : Bool
+    Default: True
+
+    Run the file referenced by the PYTHONSTARTUP environment variable at IPython
+    startup.
+
 InteractiveShellApp.exec_files : List
     Default: []
 
@@ -41,7 +47,7 @@ InteractiveShellApp.hide_initial_ns : Bool
     Should variables loaded at startup (by startup files, exec_lines, etc.) be
     hidden from tools like %who?
 
-InteractiveShellApp.matplotlib : 'auto'|'gtk'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
+InteractiveShellApp.matplotlib : 'auto'|'gtk'|'gtk3'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
     Configure matplotlib for interactive use with the default matplotlib
     backend.
 
@@ -50,7 +56,7 @@ InteractiveShellApp.module_to_run : Unicode
 
     Run the module as a script.
 
-InteractiveShellApp.pylab : 'auto'|'gtk'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
+InteractiveShellApp.pylab : 'auto'|'gtk'|'gtk3'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
     Pre-load matplotlib and numpy for interactive use, selecting a particular
     matplotlib backend and loop integration.
 
@@ -79,6 +85,12 @@ TerminalIPythonApp.display_banner : Bool
     Default: True
 
     Whether to display a banner upon starting IPython.
+
+TerminalIPythonApp.exec_PYTHONSTARTUP : Bool
+    Default: True
+
+    Run the file referenced by the PYTHONSTARTUP environment variable at IPython
+    startup.
 
 TerminalIPythonApp.exec_files : List
     Default: []
@@ -115,7 +127,8 @@ TerminalIPythonApp.file_to_run : Unicode
 TerminalIPythonApp.force_interact : Bool
     Default: False
 
-    If a command or file is given via the command-line, e.g. 'ipython foo.py
+    If a command or file is given via the command-line, e.g. 'ipython foo.py',
+    start an interactive shell after executing the file or command.
 
 TerminalIPythonApp.gui : 'glut'|'gtk'|'gtk3'|'none'|'osx'|'pyglet'|'qt'|'qt4'|'tk'|'wx'
     Enable GUI event loop integration with any of ('glut', 'gtk', 'gtk3',
@@ -155,7 +168,7 @@ TerminalIPythonApp.log_level : 0|10|20|30|40|50|'DEBUG'|'INFO'|'WARN'|'ERROR'|'C
 
     Set the log level by value or name.
 
-TerminalIPythonApp.matplotlib : 'auto'|'gtk'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
+TerminalIPythonApp.matplotlib : 'auto'|'gtk'|'gtk3'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
     Configure matplotlib for interactive use with the default matplotlib
     backend.
 
@@ -174,7 +187,7 @@ TerminalIPythonApp.profile : Unicode
 
     The IPython profile to use.
 
-TerminalIPythonApp.pylab : 'auto'|'gtk'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
+TerminalIPythonApp.pylab : 'auto'|'gtk'|'gtk3'|'inline'|'osx'|'qt'|'qt4'|'tk'|'wx'
     Pre-load matplotlib and numpy for interactive use, selecting a particular
     matplotlib backend and loop integration.
 
@@ -236,7 +249,7 @@ TerminalInteractiveShell.automagic : CBool
     Enable magic commands to be called without the leading %.
 
 TerminalInteractiveShell.banner1 : Unicode
-    Default: 'Python 2.7.5+ (default, Sep 17 2013, 15:31:50) \\nType "copyr...
+    Default: 'Python 2.7.5+ (default, Sep 19 2013, 13:48:49) \\nType "copyr...
 
     The part of the banner to be printed before the profile
 
@@ -468,12 +481,13 @@ HistoryManager.connection_options : Dict
 HistoryManager.db_cache_size : Integer
     Default: 0
 
-    No description
+    Write to database every x commands (higher values save disk access & power).
+    Values of 1 or less effectively disable caching.
 
 HistoryManager.db_log_output : Bool
     Default: False
 
-    No description
+    Should the history database include output? (default: no)
 
 HistoryManager.enabled : Bool
     Default: True

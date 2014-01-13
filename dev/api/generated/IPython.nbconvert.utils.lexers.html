@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -64,7 +62,8 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">nbconvert.utils.lexers</span></tt></a><ul>
-<li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#classes">4 Classes</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
 </ul>
@@ -110,18 +109,186 @@ significant differences from the latest stable release (1.1.0).</p>
 </div></blockquote>
 <div class="section" id="module-IPython.nbconvert.utils.lexers">
 <span id="module-nbconvert-utils-lexers"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">nbconvert.utils.lexers</span></tt><a class="headerlink" href="#module-IPython.nbconvert.utils.lexers" title="Permalink to this headline">¶</a></h1>
-<p>A custom pygments lexer for IPython code cells.</p>
-<p>Informs The pygments highlighting library of the quirks of IPython&#8217;s superset
-of Python &#8211; magic commands, !shell commands, etc.</p>
-<div class="section" id="class">
-<h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<p>Defines a variety of Pygments lexers for highlighting IPython code.</p>
+<p>This includes:</p>
+<blockquote>
+<div><p>IPythonLexer
+IPython3Lexer</p>
+<blockquote>
+<div>Lexers for pure IPython (python + magic/shell commands)</div></blockquote>
+<p>IPythonPartialTracebackLexer
+IPythonTracebackLexer</p>
+<blockquote>
+<div>Supports 2.x and 3.x via keyword <cite>python3</cite>.  The partial traceback
+lexer reads everything but the Python code appearing in a traceback.
+The full lexer combines the partial lexer with an IPython lexer.</div></blockquote>
+<dl class="docutils">
+<dt>IPythonConsoleLexer</dt>
+<dd>A lexer for IPython console sessions, with support for tracebacks.</dd>
+<dt>IPyLexer</dt>
+<dd>A friendly lexer which examines the first line of text and from it,
+decides whether to use an IPython lexer or an IPython console lexer.
+This is probably the only lexer that needs to be explicitly added
+to Pygments.</dd>
+</dl>
+</div></blockquote>
+<div class="section" id="classes">
+<h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="IPython.nbconvert.utils.lexers.IPythonLexer">
-<em class="property">class </em><tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">IPythonLexer</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonLexer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pygments.lexers.agile.PythonLexer</span></tt></p>
-<p>Pygments Lexer for use with IPython code.  Inherits from 
-PythonLexer and adds information about IPython specific
-keywords (i.e. magic commands, shell commands, etc.)</p>
+<dt id="IPython.nbconvert.utils.lexers.IPythonPartialTracebackLexer">
+<em class="property">class </em><tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">IPythonPartialTracebackLexer</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonPartialTracebackLexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pygments.lexer.RegexLexer</span></tt></p>
+<p>Partial lexer for IPython tracebacks.</p>
+<p>Handles all the non-python output. This works for both Python 2.x and 3.x.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.nbconvert.utils.lexers.IPythonTracebackLexer">
+<em class="property">class </em><tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">IPythonTracebackLexer</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonTracebackLexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pygments.lexer.DelegatingLexer</span></tt></p>
+<p>IPython traceback lexer.</p>
+<p>For doctests, the tracebacks can be snipped as much as desired with the
+exception to the lines that designate a traceback. For non-syntax error
+tracebacks, this is the line of hyphens. For syntax error tracebacks,
+this is the line which lists the File and line number.</p>
+<dl class="method">
+<dt id="IPython.nbconvert.utils.lexers.IPythonTracebackLexer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonTracebackLexer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.nbconvert.utils.lexers.IPythonConsoleLexer">
+<em class="property">class </em><tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">IPythonConsoleLexer</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonConsoleLexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pygments.lexer.Lexer</span></tt></p>
+<p>An IPython console lexer for IPython code-blocks and doctests, such as:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipythonconsole
+
+    In [1]: a = &#39;foo&#39;
+
+    In [2]: a
+    Out[2]: &#39;foo&#39;
+
+    In [3]: print a
+    foo
+
+    In [4]: 1 / 0
+</pre></div>
+</div>
+<p>Support is also provided for IPython exceptions:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipythonconsole
+</pre></div>
+</div>
+<dl class="method">
+<dt id="IPython.nbconvert.utils.lexers.IPythonConsoleLexer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonConsoleLexer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the IPython console lexer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>python3</strong> : bool</p>
+<blockquote>
+<div><p>If <cite>True</cite>, then the console inputs are parsed using a Python 3
+lexer. Otherwise, they are parsed using a Python 2 lexer.</p>
+</div></blockquote>
+<p><strong>in1_regex</strong> : RegexObject</p>
+<blockquote>
+<div><p>The compiled regular expression used to detect the start
+of inputs. Although the IPython configuration setting may have a
+trailing whitespace, do not include it in the regex. If <cite>None</cite>,
+then the default input prompt is assumed.</p>
+</div></blockquote>
+<p><strong>in2_regex</strong> : RegexObject</p>
+<blockquote>
+<div><p>The compiled regular expression used to detect the continuation
+of inputs. Although the IPython configuration setting may have a
+trailing whitespace, do not include it in the regex. If <cite>None</cite>,
+then the default input prompt is assumed.</p>
+</div></blockquote>
+<p><strong>out_regex</strong> : RegexObject</p>
+<blockquote class="last">
+<div><p>The compiled regular expression used to detect outputs. If <cite>None</cite>,
+then the default output prompt is assumed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.nbconvert.utils.lexers.IPythonConsoleLexer.buffered_tokens">
+<tt class="descname">buffered_tokens</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonConsoleLexer.buffered_tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator of unprocessed tokens after doing insertions and before
+changing to a new state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.nbconvert.utils.lexers.IPythonConsoleLexer.get_mci">
+<tt class="descname">get_mci</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonConsoleLexer.get_mci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses the line and returns a 3-tuple: (mode, code, insertion).</p>
+<p><cite>mode</cite> is the next mode (or state) of the lexer, and is always equal
+to &#8216;input&#8217;, &#8216;output&#8217;, or &#8216;tb&#8217;.</p>
+<p><cite>code</cite> is a portion of the line that should be added to the buffer
+corresponding to the next mode and eventually lexed by another lexer.
+For example, <cite>code</cite> could be Python code if <cite>mode</cite> were &#8216;input&#8217;.</p>
+<p><cite>insertion</cite> is a 3-tuple (index, token, text) representing an
+unprocessed &#8220;token&#8221; that will be inserted into the stream of tokens
+that are created from the buffer once we change modes. This is usually
+the input or output prompt.</p>
+<p>In general, the next mode depends on current mode and on the contents
+of <cite>line</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.nbconvert.utils.lexers.IPythonConsoleLexer.ipytb_start">
+<tt class="descname">ipytb_start</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x462e330&gt;</em><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPythonConsoleLexer.ipytb_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>The regex to determine when a traceback starts.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.nbconvert.utils.lexers.IPyLexer">
+<em class="property">class </em><tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">IPyLexer</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPyLexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pygments.lexer.Lexer</span></tt></p>
+<p>Primary lexer for all IPython-like code.</p>
+<p>This is a simple helper lexer.  If the first line of the text begins with
+&#8220;In [[0-9]+]:&#8221;, then the entire text is parsed with an IPython console
+lexer. If not, then the entire text is parsed with an IPython lexer.</p>
+<p>The goal is to reduce the number of lexers that are registered
+with Pygments.</p>
+<dl class="method">
+<dt id="IPython.nbconvert.utils.lexers.IPyLexer.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**options</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.IPyLexer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.nbconvert.utils.lexers.build_ipy_lexer">
+<tt class="descclassname">IPython.nbconvert.utils.lexers.</tt><tt class="descname">build_ipy_lexer</tt><big>(</big><em>python3</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.utils.lexers.build_ipy_lexer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds IPython lexers depending on the value of <cite>python3</cite>.</p>
+<p>The lexer inherits from an appropriate Python lexer and then adds
+information about IPython specific keywords (i.e. magic commands,
+shell commands, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>python3</strong> : bool</p>
+<blockquote class="last">
+<div><p>If <cite>True</cite>, then build an IPython lexer from a Python 3 lexer.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -157,8 +324,8 @@ keywords (i.e. magic commands, shell commands, etc.)</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -170,14 +168,14 @@ results.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="gp">In [4]: </span><span class="k">def</span> <span class="nf">setter</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-<span class="gp">   ...:</span>   <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
-<span class="gp">   ...:</span>   <span class="k">return</span> <span class="n">a</span>
+<span class="gp">   ...: </span>  <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="gp">   ...: </span>  <span class="k">return</span> <span class="n">a</span>
 
 <span class="gp">In [5]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">setter</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-<span class="go">---------------------------------------------------------------------------</span>
-<span class="go">RuntimeError                              Traceback (most recent call last)&lt;string&gt; in &lt;module&gt;()</span>
-<span class="go">&lt;ipython-input-12-c3e7afeb3075&gt; in setter(a)</span>
-<span class="go">RuntimeError: array is not writeable</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g-Whitespace">                              </span>Traceback (most recent call last)&lt;string&gt; in &lt;module&gt;()
+<span class="nn">&lt;ipython-input-12-c3e7afeb3075&gt;</span> in <span class="ni">setter</span><span class="nt">(a)</span>
+<span class="ne">RuntimeError</span>: array is not writeable
 </pre></div>
 </div>
 <p>If you do need to edit the array in-place, just remember to copy the array if it&#8217;s read-only.
@@ -185,18 +183,18 @@ The <tt class="xref py py-attr docutils literal"><span class="pre">ndarray.flags
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="n">A</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="gp">In [4]: </span><span class="k">def</span> <span class="nf">setter</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-<span class="gp">   ...:</span>     <span class="sd">&quot;&quot;&quot;only copy read-only arrays&quot;&quot;&quot;</span>
-<span class="gp">   ...:</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span><span class="p">:</span>
-<span class="gp">   ...:</span>         <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="gp">   ...:</span>     <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
-<span class="gp">   ...:</span>     <span class="k">return</span> <span class="n">a</span>
+<span class="gp">   ...: </span>    <span class="sd">&quot;&quot;&quot;only copy read-only arrays&quot;&quot;&quot;</span>
+<span class="gp">   ...: </span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span><span class="p">:</span>
+<span class="gp">   ...: </span>        <span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">   ...: </span>    <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="gp">   ...: </span>    <span class="k">return</span> <span class="n">a</span>
 
 <span class="gp">In [5]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">setter</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
-<span class="gr">Out[5]: </span><span class="n">array</span><span class="p">([</span> <span class="mf">1.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">])</span>
+<span class="gh">Out[5]: </span><span class="go">array([ 1.,  0.])</span>
 
-<span class="c"># note that results will also be read-only:</span>
+<span class="go"># note that results will also be read-only:</span>
 <span class="gp">In [6]: </span><span class="n">_</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span>
-<span class="gr">Out[6]: </span><span class="bp">False</span>
+<span class="gh">Out[6]: </span><span class="go">False</span>
 </pre></div>
 </div>
 <p>If you want to safely edit an array in-place after <em>sending</em> it, you must use the <cite>track=True</cite>
@@ -211,7 +209,7 @@ checking and waiting for 0MQ to finish with a buffer.</p>
 <span class="gp">In [7]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 
 <span class="gp">In [8]: </span><span class="n">ar</span><span class="o">.</span><span class="n">sent</span>
-<span class="gr">Out[8]: </span><span class="bp">False</span>
+<span class="gh">Out[8]: </span><span class="go">False</span>
 
 <span class="gp">In [9]: </span><span class="n">ar</span><span class="o">.</span><span class="n">wait_on_send</span><span class="p">()</span> <span class="c"># blocks until sent is True</span>
 </pre></div>
@@ -272,7 +270,7 @@ provide pull, you could implement it yourself with <cite>apply</cite>, by simply
 of the global namespace:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">view</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
 
-<span class="c"># is equivalent to</span>
+<span class="go"># is equivalent to</span>
 <span class="gp">In [11]: </span><span class="n">view</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -292,7 +290,7 @@ communication API for engines via its low-level <tt class="xref py py-meth docut
 by all higher level methods of its Views.</p>
 <dl class="docutils">
 <dt>f <span class="classifier-delimiter">:</span> <span class="classifier">function</span></dt>
-<dd>The fuction to be called remotely</dd>
+<dd>The function to be called remotely</dd>
 <dt>args <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
 <dd>The positional arguments passed to <cite>f</cite></dd>
 <dt>kwargs <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
@@ -377,31 +375,31 @@ low-level interface to the Hub and Engines. Most real usage will involve creatin
 <tt class="xref py py-meth docutils literal"><span class="pre">view()</span></tt> method.  Index access to a Client works in a few ways.  First, you can create
 DirectViews to single engines simply by accessing the client by engine id:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gr">Out[2]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="mi">0</span><span class="o">&gt;</span>
+<span class="gh">Out[2]: </span><span class="go">&lt;DirectView 0&gt;</span>
 </pre></div>
 </div>
 <p>You can also create a DirectView with a list of engines:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">rc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
-<span class="gr">Out[2]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gh">Out[2]: </span><span class="go">&lt;DirectView [0,1,2]&gt;</span>
 </pre></div>
 </div>
 <p>Other methods for accessing elements, such as slicing and negative indexing, work by passing
 the index directly to the client&#8217;s <tt class="xref py py-attr docutils literal"><span class="pre">ids</span></tt> list, so:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># negative index</span>
-<span class="gp">In [2]: </span><span class="n">rc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="gr">Out[2]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="mi">3</span><span class="o">&gt;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">rc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">DirectView</span> <span class="mi">3</span><span class="o">&gt;</span>
 
 <span class="c"># or slicing:</span>
-<span class="gp">In [3]: </span><span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
-<span class="gr">Out[3]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">DirectView</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>are always the same as:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">rc</span><span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-<span class="gr">Out[2]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="mi">3</span><span class="o">&gt;</span>
+<span class="gh">Out[2]: </span><span class="go">&lt;DirectView 3&gt;</span>
 
 <span class="gp">In [3]: </span><span class="n">rc</span><span class="p">[</span><span class="n">rc</span><span class="o">.</span><span class="n">ids</span><span class="p">[::</span><span class="mi">2</span><span class="p">]]</span>
-<span class="gr">Out[3]: </span><span class="o">&lt;</span><span class="n">DirectView</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span>
+<span class="gh">Out[3]: </span><span class="go">&lt;DirectView [0,2]&gt;</span>
 </pre></div>
 </div>
 <p>Also note that the slice is evaluated at the time of construction of the DirectView, so the
@@ -414,14 +412,14 @@ targets will not change over time if engines are added/removed from the cluster.
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">os</span>
 
 <span class="gp">In [6]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">)</span>
-<span class="gr">Out[6]: </span><span class="p">[</span><span class="mi">1354</span><span class="p">,</span> <span class="mi">1356</span><span class="p">,</span> <span class="mi">1358</span><span class="p">,</span> <span class="mi">1360</span><span class="p">]</span>
+<span class="gh">Out[6]: </span><span class="go">[1354, 1356, 1358, 1360]</span>
 </pre></div>
 </div>
 <p>Or to see the hostname of the machine they are on:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">import</span> <span class="nn">socket</span>
 
 <span class="gp">In [6]: </span><span class="n">dview</span><span class="o">.</span><span class="n">apply_sync</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">)</span>
-<span class="gr">Out[6]: </span><span class="p">[</span><span class="s">&#39;tesla&#39;</span><span class="p">,</span> <span class="s">&#39;tesla&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">,</span> <span class="s">&#39;edison&#39;</span><span class="p">]</span>
+<span class="gh">Out[6]: </span><span class="go">[&#39;tesla&#39;, &#39;tesla&#39;, &#39;edison&#39;, &#39;edison&#39;, &#39;edison&#39;]</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -438,7 +436,7 @@ appear as a local dictionary. Underneath, these methods call <tt class="xref py 
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [51]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="s">&#39;bar&#39;</span><span class="p">]</span>
 
 <span class="gp">In [52]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
-<span class="gr">Out[52]: </span><span class="p">[</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="s">&#39;bar&#39;</span><span class="p">]</span> <span class="p">]</span>
+<span class="gh">Out[52]: </span><span class="go">[ [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;], [&#39;foo&#39;, &#39;bar&#39;] ]</span>
 </pre></div>
 </div>
 </div>
@@ -453,13 +451,13 @@ interactive IPython session to the engines and <tt class="xref py py-meth docuti
 engines back to the interactive IPython session. For scatter/gather operations
 between engines, MPI should be used:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [58]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
-<span class="gr">Out[58]: </span><span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>
+<span class="gh">Out[58]: </span><span class="go">[None,None,None,None]</span>
 
 <span class="gp">In [59]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
-<span class="gr">Out[59]: </span><span class="p">[</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span> <span class="p">]</span>
+<span class="gh">Out[59]: </span><span class="go">[ [0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15] ]</span>
 
 <span class="gp">In [60]: </span><span class="n">dview</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
-<span class="gr">Out[60]: </span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+<span class="gh">Out[60]: </span><span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]</span>
 </pre></div>
 </div>
 </div>
@@ -490,14 +488,14 @@ data movement methods like push/pull and scatter/gather do not make sense, and a
 <div class="section" id="asyncresults">
 <h3>AsyncResults<a class="headerlink" href="#asyncresults" title="Permalink to this headline">¶</a></h3>
 <p>Our primary representation of the results of remote execution is the <a class="reference internal" href="#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a>
-object, based on the object of the same name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a>
+object, based on the object of the same name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#module-multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a>
 module. Our version provides a superset of that interface.</p>
 <p>The basic principle of the AsyncResult is the encapsulation of one or more results not yet completed.  Execution methods (including data movement, such as push/pull) will all return
 AsyncResults when <cite>block=False</cite>.</p>
 </div>
 <div class="section" id="the-mp-pool-asyncresult-interface">
 <h3>The mp.pool.AsyncResult interface<a class="headerlink" href="#the-mp-pool-asyncresult-interface" title="Permalink to this headline">¶</a></h3>
-<p>The basic interface of the AsyncResult is exactly that of the AsyncResult in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a>, and consists of four methods:</p>
+<p>The basic interface of the AsyncResult is exactly that of the AsyncResult in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#module-multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a>, and consists of four methods:</p>
 <dl class="class">
 <dt id="AsyncResult">
 <em class="property">class </em><tt class="descname">AsyncResult</tt><a class="headerlink" href="#AsyncResult" title="Permalink to this definition">¶</a></dt>
@@ -552,7 +550,7 @@ and will raise an exception if there was.</p>
 original exception, a RemoteError will be raised, encapsulating the remote exception with some
 metadata. If the AsyncResult represents multiple calls (e.g. any time <cite>targets</cite> is plural), then
 a CompositeError, a subclass of RemoteError, will be raised.</p>
-<div class="admonition-see-also admonition seealso">
+<div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">For more information on remote exceptions, see <a class="reference internal" href="parallel_multiengine.html#parallel-exceptions"><em>the section in the Direct Interface</em></a>.</p>
 </div>
@@ -752,8 +750,8 @@ and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth d
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Dec 02, 2013.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Last updated on Jan 13, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

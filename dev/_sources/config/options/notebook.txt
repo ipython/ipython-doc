@@ -3,61 +3,6 @@ IPython notebook options
 
 Any of the :doc:`kernel` can also be used.
 
-InlineBackend.close_figures : Bool
-    Default: True
-
-    Close all figures at the end of each cell.
-    
-    When True, ensures that each cell starts with no active figures, but it also
-    means that one must keep track of references in order to edit or redraw
-    figures in subsequent cells. This mode is ideal for the notebook, where
-    residual plots from other cells might be surprising.
-    
-    When False, one must call figure() to create new figures. This means that
-    gcf() and getfigs() can reference figures created in other cells, and the
-    active figure can continue to be edited with pylab/pyplot methods that
-    reference the current active figure. This mode facilitates iterative editing
-    of figures, and behaves most consistently with other matplotlib backends,
-    but figure barriers between cells must be explicit.
-
-InlineBackend.figure_format : 'svg'|'png'|'retina'
-    Default: 'png'
-
-    The image format for figures with the inline backend.
-
-InlineBackend.rc : Dict
-    Default: {'font.size': 10, 'figure.figsize': (6.0, 4.0), 'figure.facec...
-
-    Subset of matplotlib rcParams that should be different for the inline
-    backend.
-
-MappingKernelManager.kernel_manager_class : DottedObjectName
-    Default: 'IPython.kernel.ioloop.IOLoopKernelManager'
-
-    The kernel manager class.  This is configurable to allow subclassing of the
-    KernelManager for customized behavior.
-
-FileNotebookManager.checkpoint_dir : Unicode
-    Default: u''
-
-    The location in which to keep notebook checkpoints
-    
-    By default, it is notebook-dir/.ipynb_checkpoints
-
-FileNotebookManager.notebook_dir : Unicode
-    Default: u'/home/takluyver/Code/ipython/docs'
-
-    The directory to use for notebooks.
-
-FileNotebookManager.save_script : Bool
-    Default: False
-
-    Automatically create a Python script when saving the notebook.
-    
-    For easier use of import, %run and %load across notebooks, a <notebook-
-    name>.py script will be created next to any <notebook-name>.ipynb on each
-    save.  This can also be set with the short `--script` flag.
-
 NotebookApp.base_kernel_url : Unicode
     Default: '/'
 
@@ -259,10 +204,11 @@ NotebookApp.websocket_url : Unicode
     
     Should be in the form of an HTTP origin: ws[s]://hostname[:port]
 
-NotebookManager.notebook_dir : Unicode
-    Default: u'/home/takluyver/Code/ipython/docs'
+MappingKernelManager.kernel_manager_class : DottedObjectName
+    Default: 'IPython.kernel.ioloop.IOLoopKernelManager'
 
-    The directory to use for notebooks.
+    The kernel manager class.  This is configurable to allow subclassing of the
+    KernelManager for customized behavior.
 
 KernelManager.autorestart : Bool
     Default: False
@@ -285,3 +231,57 @@ KernelManager.transport : 'tcp'|'ipc'
     Default: 'tcp'
 
     No description
+
+InlineBackend.close_figures : Bool
+    Default: True
+
+    Close all figures at the end of each cell.
+    
+    When True, ensures that each cell starts with no active figures, but it also
+    means that one must keep track of references in order to edit or redraw
+    figures in subsequent cells. This mode is ideal for the notebook, where
+    residual plots from other cells might be surprising.
+    
+    When False, one must call figure() to create new figures. This means that
+    gcf() and getfigs() can reference figures created in other cells, and the
+    active figure can continue to be edited with pylab/pyplot methods that
+    reference the current active figure. This mode facilitates iterative editing
+    of figures, and behaves most consistently with other matplotlib backends,
+    but figure barriers between cells must be explicit.
+
+InlineBackend.figure_format : 'svg'|'png'|'retina'
+    Default: 'png'
+
+    The image format for figures with the inline backend.
+
+InlineBackend.rc : Dict
+    Default: {'font.size': 10, 'figure.figsize': (6.0, 4.0), 'figure.facec...
+
+    Subset of matplotlib rcParams that should be different for the inline
+    backend.
+
+NotebookManager.notebook_dir : Unicode
+    Default: u'/home/takluyver/Code/ipython/docs'
+
+    The directory to use for notebooks.
+
+FileNotebookManager.checkpoint_dir : Unicode
+    Default: u''
+
+    The location in which to keep notebook checkpoints
+    
+    By default, it is notebook-dir/.ipynb_checkpoints
+
+FileNotebookManager.notebook_dir : Unicode
+    Default: u'/home/takluyver/Code/ipython/docs'
+
+    The directory to use for notebooks.
+
+FileNotebookManager.save_script : Bool
+    Default: False
+
+    Automatically create a Python script when saving the notebook.
+    
+    For easier use of import, %run and %load across notebooks, a <notebook-
+    name>.py script will be created next to any <notebook-name>.ipynb on each
+    save.  This can also be set with the short `--script` flag.
