@@ -1,0 +1,776 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: parallel.apps.launcher &mdash; IPython 1.2.0-rc1: An Afternoon Hack documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.2.0-rc1: An Afternoon Hack',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 1.2.0-rc1: An Afternoon Hack documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: parallel.apps.logwatcher" href="IPython.parallel.apps.logwatcher.html" />
+    <link rel="prev" title="Module: parallel.apps.iploggerapp" href="IPython.parallel.apps.iploggerapp.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.parallel.apps.logwatcher.html" title="Module: parallel.apps.logwatcher"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.parallel.apps.iploggerapp.html" title="Module: parallel.apps.iploggerapp"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">parallel.apps.launcher</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">42 Classes</a></li>
+<li><a class="reference internal" href="#functions">2 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.parallel.apps.iploggerapp.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.apps.iploggerapp</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.parallel.apps.logwatcher.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.apps.logwatcher</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.parallel.apps.launcher.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release (1.1.0).</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.parallel.apps.launcher">
+<span id="module-parallel-apps-launcher"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">parallel.apps.launcher</span></tt><a class="headerlink" href="#module-IPython.parallel.apps.launcher" title="Permalink to this headline">¶</a></h1>
+<p>Facilities for launching IPython processes asynchronously.</p>
+<p>Authors:</p>
+<ul class="simple">
+<li>Brian Granger</li>
+<li>MinRK</li>
+</ul>
+<div class="section" id="classes">
+<h2>42 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LauncherError">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LauncherError</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LauncherError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.ProcessStateError">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">ProcessStateError</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.ProcessStateError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LauncherError" title="IPython.parallel.apps.launcher.LauncherError"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LauncherError</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.UnknownStatus">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">UnknownStatus</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.UnknownStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LauncherError" title="IPython.parallel.apps.launcher.LauncherError"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LauncherError</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">BaseLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a></p>
+<p>An asbtraction for starting, stopping and signaling a process.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.arg_str">
+<tt class="descname">arg_str</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.arg_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The string form of the program arguments.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.args">
+<tt class="descname">args</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.args" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of cmd and args that will be used to start the process.</p>
+<p>This is what is passed to <tt class="xref py py-func docutils literal"><span class="pre">spawnProcess()</span></tt> and the first element
+will be the process name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.find_args">
+<tt class="descname">find_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.find_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <tt class="docutils literal"><span class="pre">.args</span></tt> property calls this to find the args list.</p>
+<p>Subcommand should implement this to construct the cmd and args.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.notify_start">
+<tt class="descname">notify_start</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.notify_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this to trigger startup actions.</p>
+<p>This logs the process startup and sets the state to &#8216;running&#8217;.  It is
+a pass-through so it can be used as a callback.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.notify_stop">
+<tt class="descname">notify_stop</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.notify_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this to trigger process stop actions.</p>
+<p>This logs the process stopping and sets the state to &#8216;after&#8217;. Call
+this to trigger callbacks registered via <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher.on_stop" title="IPython.parallel.apps.launcher.BaseLauncher.on_stop"><tt class="xref py py-meth docutils literal"><span class="pre">on_stop()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.on_stop">
+<tt class="descname">on_stop</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.on_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback to be called with this Launcher&#8217;s stop_data
+when the process actually finishes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.running">
+<tt class="descname">running</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Am I running.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.signal">
+<tt class="descname">signal</tt><big>(</big><em>sig</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal the process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>sig</strong> : str or int</p>
+<blockquote class="last">
+<div><p>&#8216;KILL&#8217;, &#8216;INT&#8217;, etc., or any signal number</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the process.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BaseLauncher.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BaseLauncher.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the process and notify observers of stopping.</p>
+<p>This method will return None immediately.
+To observe the actual process stopping, see <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher.on_stop" title="IPython.parallel.apps.launcher.BaseLauncher.on_stop"><tt class="xref py py-meth docutils literal"><span class="pre">on_stop()</span></tt></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.ClusterAppMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">ClusterAppMixin</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a></p>
+<p>MixIn for cluster args as traits</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.ControllerMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">ControllerMixin</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.ControllerMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.EngineMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">EngineMixin</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.EngineMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LocalProcessLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalProcessLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher" title="IPython.parallel.apps.launcher.BaseLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BaseLauncher</span></tt></a></p>
+<p>Start and stop an external process in an asynchronous manner.</p>
+<p>This will launch the external process with a working directory of
+<tt class="docutils literal"><span class="pre">self.work_dir</span></tt>.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalProcessLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalProcessLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalProcessLauncher.interrupt_then_kill">
+<tt class="descname">interrupt_then_kill</tt><big>(</big><em>delay=2.0</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalProcessLauncher.interrupt_then_kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send INT, wait a delay and then send KILL.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LocalControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
+<p>Launch a controller as a regular external process.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LocalEngineLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalEngineLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
+<p>Launch a single engine as a regular externall process.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LocalEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalEngineLauncher" title="IPython.parallel.apps.launcher.LocalEngineLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalEngineLauncher</span></tt></a></p>
+<p>Launch a set of engines as regular external processes.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.launcher_class">
+<tt class="descname">launcher_class</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.launcher_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalEngineLauncher" title="IPython.parallel.apps.launcher.LocalEngineLauncher"><tt class="xref py py-class docutils literal"><span class="pre">LocalEngineLauncher</span></tt></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LocalEngineSetLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n engines by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPILauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPILauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPILauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a></p>
+<p>Launch an external process using mpiexec.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPILauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPILauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPILauncher.find_args">
+<tt class="descname">find_args</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPILauncher.find_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build self.args using all the fields.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPILauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPILauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n instances of the program using mpiexec.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPIControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIControllerLauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPILauncher" title="IPython.parallel.apps.launcher.MPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPILauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
+<p>Launch a controller using mpiexec.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPIControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPIEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIEngineSetLauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPILauncher" title="IPython.parallel.apps.launcher.MPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPILauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
+<p>Launch engines using mpiexec</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPIEngineSetLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n engines by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.DeprecatedMPILauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">DeprecatedMPILauncher</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.DeprecatedMPILauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPIExecLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIExecLauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPILauncher" title="IPython.parallel.apps.launcher.MPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPILauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.DeprecatedMPILauncher" title="IPython.parallel.apps.launcher.DeprecatedMPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.DeprecatedMPILauncher</span></tt></a></p>
+<p>Deprecated, use MPILauncher</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPIExecLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIExecControllerLauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIControllerLauncher" title="IPython.parallel.apps.launcher.MPIControllerLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIControllerLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.DeprecatedMPILauncher" title="IPython.parallel.apps.launcher.DeprecatedMPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.DeprecatedMPILauncher</span></tt></a></p>
+<p>Deprecated, use MPIControllerLauncher</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPIExecControllerLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecControllerLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">MPIExecEngineSetLauncher</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.MPIEngineSetLauncher" title="IPython.parallel.apps.launcher.MPIEngineSetLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.MPIEngineSetLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.DeprecatedMPILauncher" title="IPython.parallel.apps.launcher.DeprecatedMPILauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.DeprecatedMPILauncher</span></tt></a></p>
+<p>Deprecated, use MPIEngineSetLauncher</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.MPIExecEngineSetLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a></p>
+<p>A minimal launcher for ssh.</p>
+<p>To be useful this will probably have to be extended to use the <tt class="docutils literal"><span class="pre">sshx</span></tt>
+idea for environment variables.  There could be other things this needs
+as well.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHLauncher.fetch_files">
+<tt class="descname">fetch_files</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHLauncher.fetch_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>fetch remote files (called after start)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHLauncher.send_files">
+<tt class="descname">send_files</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHLauncher.send_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>send our files (called before start)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHClusterLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHClusterLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHClusterLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHLauncher" title="IPython.parallel.apps.launcher.SSHLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHClusterLauncher" title="IPython.parallel.apps.launcher.SSHClusterLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHClusterLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ControllerMixin" title="IPython.parallel.apps.launcher.ControllerMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ControllerMixin</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHEngineLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHEngineLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHClusterLauncher" title="IPython.parallel.apps.launcher.SSHClusterLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHClusterLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.EngineMixin" title="IPython.parallel.apps.launcher.EngineMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.EngineMixin</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalEngineSetLauncher" title="IPython.parallel.apps.launcher.LocalEngineSetLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalEngineSetLauncher</span></tt></a></p>
+<dl class="attribute">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.engine_count">
+<tt class="descname">engine_count</tt><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.engine_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>determine engine count from <cite>engines</cite> dict</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SSHEngineSetLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start engines by profile or profile_dir.
+<cite>n</cite> is ignored, and the <cite>engines</cite> config property is used instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SSHProxyEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SSHProxyEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SSHProxyEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SSHClusterLauncher" title="IPython.parallel.apps.launcher.SSHClusterLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SSHClusterLauncher</span></tt></a></p>
+<p>Launcher for calling
+<cite>ipcluster engines</cite> on a remote machine.</p>
+<p>Requires that remote profile is already configured.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">WindowsHPCLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher" title="IPython.parallel.apps.launcher.BaseLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BaseLauncher</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCLauncher.parse_job_id">
+<tt class="descname">parse_job_id</tt><big>(</big><em>output</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher.parse_job_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the output of the submit command and return the job id.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n copies of the process using the Win HPC job scheduler.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">WindowsHPCControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">WindowsHPCEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.WindowsHPCLauncher" title="IPython.parallel.apps.launcher.WindowsHPCLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.WindowsHPCLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.WindowsHPCEngineSetLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.BatchClusterAppMixin">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">BatchClusterAppMixin</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.ClusterAppMixin" title="IPython.parallel.apps.launcher.ClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.ClusterAppMixin</span></tt></a></p>
+<p>ClusterApp mixin that updates the self.context dict, rather than cl-args.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">BatchSystemLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BaseLauncher" title="IPython.parallel.apps.launcher.BaseLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BaseLauncher</span></tt></a></p>
+<p>Launch an external process using a batch system.</p>
+<p>This class is designed to work with UNIX batch systems like PBS, LSF,
+GridEngine, etc.  The overall model is that there are different commands
+like qsub, qdel, etc. that handle the starting and stopping of the process.</p>
+<p>This class also has the notion of a batch script. The <tt class="docutils literal"><span class="pre">batch_template</span></tt>
+attribute can be set to a string that is a template for the batch script.
+This template is instantiated using string formatting. Thus the template can
+use {n} fot the number of instances. Subclasses can add additional variables
+to the template dict.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.parse_job_id">
+<tt class="descname">parse_job_id</tt><big>(</big><em>output</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.parse_job_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take the output of the submit command and return the job id.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n copies of the process using a batch system.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.BatchSystemLauncher.write_batch_script">
+<tt class="descname">write_batch_script</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.BatchSystemLauncher.write_batch_script" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate and write the batch script to the work_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.PBSLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">PBSLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchSystemLauncher" title="IPython.parallel.apps.launcher.BatchSystemLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchSystemLauncher</span></tt></a></p>
+<p>A BatchSystemLauncher subclass for PBS.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">PBSControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch a controller using PBS.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.PBSControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.PBSEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">PBSEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.PBSEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch Engines using PBS</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SGELauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SGELauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGELauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.PBSLauncher" title="IPython.parallel.apps.launcher.PBSLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.PBSLauncher</span></tt></a></p>
+<p>Sun GridEngine is a PBS clone with slightly different syntax</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SGEControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch a controller using SGE.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.SGEControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.SGEEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">SGEEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.SGEEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.SGELauncher" title="IPython.parallel.apps.launcher.SGELauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.SGELauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch Engines with SGE</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LSFLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LSFLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchSystemLauncher" title="IPython.parallel.apps.launcher.BatchSystemLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchSystemLauncher</span></tt></a></p>
+<p>A BatchSystemLauncher subclass for LSF.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LSFLauncher.start">
+<tt class="descname">start</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start n copies of the process using LSF batch system.
+This cant inherit from the base class because bsub expects
+to be piped a shell script in order to honor the #BSUB directives :
+bsub &lt; script</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LSFControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch a controller using LSF.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.LSFControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.LSFEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">LSFEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.LSFEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LSFLauncher" title="IPython.parallel.apps.launcher.LSFLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LSFLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch Engines using LSF</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.HTCondorLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">HTCondorLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.HTCondorLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchSystemLauncher" title="IPython.parallel.apps.launcher.BatchSystemLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchSystemLauncher</span></tt></a></p>
+<p>A BatchSystemLauncher subclass for HTCondor.</p>
+<p>HTCondor requires that we launch the ipengine/ipcontroller scripts rather
+that the python instance but otherwise is very similar to PBS.  This is because 
+HTCondor destroys sys.executable when launching remote processes - a launched 
+python process depends on sys.executable to effectively evaluate its
+module search paths. Without it, regardless of which python interpreter you launch
+you will get the to built in module search paths.</p>
+<p>We use the ip{cluster, engine, controller} scripts as our executable to circumvent 
+this - the mechanism of shebanged scripts means that the python binary will be 
+launched with argv[0] set to the <em>location of the ip{cluster, engine, controller} 
+scripts on the remote node</em>. This means you need to take care that:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li>Your remote nodes have their paths configured correctly, with the ipengine and ipcontroller
+of the python environment you wish to execute code in having top precedence.</li>
+<li>This functionality is untested on Windows.</li>
+</ol>
+</div></blockquote>
+<p>If you need different behavior, consider making you own template.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.HTCondorControllerLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">HTCondorControllerLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.HTCondorControllerLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.HTCondorLauncher" title="IPython.parallel.apps.launcher.HTCondorLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.HTCondorLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch a controller using HTCondor.</p>
+<dl class="method">
+<dt id="IPython.parallel.apps.launcher.HTCondorControllerLauncher.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.HTCondorControllerLauncher.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the controller by profile or profile_dir.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.HTCondorEngineSetLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">HTCondorEngineSetLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.HTCondorEngineSetLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.HTCondorLauncher" title="IPython.parallel.apps.launcher.HTCondorLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.HTCondorLauncher</span></tt></a>, <a class="reference internal" href="#IPython.parallel.apps.launcher.BatchClusterAppMixin" title="IPython.parallel.apps.launcher.BatchClusterAppMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.BatchClusterAppMixin</span></tt></a></p>
+<p>Launch Engines using HTCondor</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.parallel.apps.launcher.IPClusterLauncher">
+<em class="property">class </em><tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">IPClusterLauncher</tt><big>(</big><em>work_dir=u'.'</em>, <em>config=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.IPClusterLauncher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.parallel.apps.launcher.LocalProcessLauncher" title="IPython.parallel.apps.launcher.LocalProcessLauncher"><tt class="xref py py-class docutils literal"><span class="pre">IPython.parallel.apps.launcher.LocalProcessLauncher</span></tt></a></p>
+<p>Launch the ipcluster program in an external process.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.parallel.apps.launcher.check_output">
+<tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">check_output</tt><big>(</big><em>*popenargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.check_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run command with arguments and return its output as a byte string.</p>
+<p>If the exit code was non-zero it raises a CalledProcessError.  The
+CalledProcessError object will have the return code in the returncode
+attribute and output in the output attribute.</p>
+<p>The arguments are the same as for the Popen constructor.  Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">check_output</span><span class="p">([</span><span class="s">&quot;ls&quot;</span><span class="p">,</span> <span class="s">&quot;-l&quot;</span><span class="p">,</span> <span class="s">&quot;/dev/null&quot;</span><span class="p">])</span>
+<span class="go">&#39;crw-rw-rw- 1 root root 1, 3 Oct 18  2007 /dev/null\n&#39;</span>
+</pre></div>
+</div>
+<p>The stdout argument is not allowed as it is used internally.
+To capture standard error in the result, use stderr=STDOUT.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">check_output</span><span class="p">([</span><span class="s">&quot;/bin/sh&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span>
+<span class="gp">... </span>              <span class="s">&quot;ls -l non_existent_file ; exit 0&quot;</span><span class="p">],</span>
+<span class="gp">... </span>             <span class="n">stderr</span><span class="o">=</span><span class="n">STDOUT</span><span class="p">)</span>
+<span class="go">&#39;ls: non_existent_file: No such file or directory\n&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.parallel.apps.launcher.find_job_cmd">
+<tt class="descclassname">IPython.parallel.apps.launcher.</tt><tt class="descname">find_job_cmd</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.apps.launcher.find_job_cmd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.parallel.apps.logwatcher.html" title="Module: parallel.apps.logwatcher"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.parallel.apps.iploggerapp.html" title="Module: parallel.apps.iploggerapp"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Feb 04, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>
