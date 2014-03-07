@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Qt Console for IPython &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>A Qt Console for IPython &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="The IPython Notebook" href="notebook.html" />
     <link rel="prev" title="IPython as a system shell" href="shell.html" /> 
@@ -81,7 +81,10 @@
 <li><a class="reference internal" href="#stopping-kernels-and-consoles">Stopping Kernels and Consoles</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#qt-and-the-qtconsole">Qt and the QtConsole</a></li>
+<li><a class="reference internal" href="#qt-and-the-qtconsole">Qt and the QtConsole</a><ul>
+<li><a class="reference internal" href="#embedding-the-qtconsole-in-a-qt-application">Embedding the QtConsole in a Qt application</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#regressions">Regressions</a></li>
 </ul>
 </li>
@@ -123,7 +126,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="a-qt-console-for-ipython">
@@ -342,7 +345,8 @@ stylesheet:</p>
 <p>The QtConsole has configurable via the ConsoleWidget. To change these, set the
 <tt class="docutils literal"><span class="pre">font_family</span></tt> or <tt class="docutils literal"><span class="pre">font_size</span></tt> traits of the ConsoleWidget. For instance, to
 use 9pt Anonymous Pro:</p>
-<div class="highlight-python"><pre>$&gt; ipython qtconsole --ConsoleWidget.font_family="Anonymous Pro" --ConsoleWidget.font_size=9</pre>
+<div class="highlight-python"><div class="highlight"><pre>$&gt; ipython qtconsole --ConsoleWidget.font_family=&quot;Anonymous Pro&quot; --ConsoleWidget.font_size=9
+</pre></div>
 </div>
 </div>
 <div class="section" id="process-management">
@@ -360,8 +364,9 @@ kernel.</p>
 These do not have to all be qt frontends - any IPython frontend can connect and
 run code.  When you start ipython qtconsole, there will be an output line,
 like:</p>
-<div class="highlight-python"><pre>[IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing kernel-12345.json</pre>
+<div class="highlight-python"><div class="highlight"><pre>[IPKernelApp] To connect another client to this kernel, use:
+[IPKernelApp] --existing kernel-12345.json
+</pre></div>
 </div>
 <p>Other frontends can connect to your kernel, and share in the execution. This is
 great for collaboration.  The <tt class="docutils literal"><span class="pre">--existing</span></tt> flag means connect to a kernel
@@ -412,9 +417,10 @@ necessary to connect another frontend to the kernel.</p>
 from various machines.  This lets you keep the same running IPython session
 on your work machine (with matplotlib plots and everything), logging in from home,
 cafés, etc.:</p>
-<div class="highlight-python"><pre>$&gt; ipython kernel
+<div class="highlight-python"><div class="highlight"><pre>$&gt; ipython kernel
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing kernel-12345.json</pre>
+[IPKernelApp] --existing kernel-12345.json
+</pre></div>
 </div>
 <p>This is actually exactly the same as the subprocess launched by the qtconsole, so
 all the information about connecting to a standalone kernel is identical to that
@@ -433,7 +439,8 @@ or running an IPython kernel on a shared machine.</p>
 can only connect multiple frontends to the kernel from your local machine. You
 can specify to listen on an external interface by specifying the <tt class="docutils literal"><span class="pre">ip</span></tt>
 argument:</p>
-<div class="highlight-python"><pre>$&gt; ipython qtconsole --ip=192.168.1.123</pre>
+<div class="highlight-python"><div class="highlight"><pre>$&gt; ipython qtconsole --ip=192.168.1.123
+</pre></div>
 </div>
 <p>If you specify the ip as 0.0.0.0 or &#8216;*&#8217;, that means all interfaces, so any
 computer that can see yours on the network can connect to the kernel.</p>
@@ -453,17 +460,19 @@ based on its content. When IPython receives a message, it will check that the di
 matches, and discard the message. You can use any file that only you have access to to
 generate this key, but the default is just to generate a new UUID. You can generate a random
 private key with:</p>
-<div class="highlight-python"><pre># generate 1024b of random data, and store in a file only you can read:
+<div class="highlight-python"><div class="highlight"><pre># generate 1024b of random data, and store in a file only you can read:
 # (assumes IPYTHONDIR is defined, otherwise use your IPython directory)
-$&gt; python -c "import os; print os.urandom(128).encode('base64')" &gt; $IPYTHONDIR/sessionkey
-$&gt; chmod 600 $IPYTHONDIR/sessionkey</pre>
+$&gt; python -c &quot;import os; print os.urandom(128).encode(&#39;base64&#39;)&quot; &gt; $IPYTHONDIR/sessionkey
+$&gt; chmod 600 $IPYTHONDIR/sessionkey
+</pre></div>
 </div>
 <p>The <em>contents</em> of this file will be stored in the JSON connection file, so that file
 contains everything you need to connect to and use a kernel.</p>
 <p>To use this generated key, simply specify the <tt class="docutils literal"><span class="pre">Session.keyfile</span></tt> configurable
 in <tt class="file docutils literal"><span class="pre">ipython_config.py</span></tt> or at the command-line, as in:</p>
-<div class="highlight-python"><pre># instruct IPython to sign messages with that key, instead of a new UUID
-$&gt; ipython qtconsole --Session.keyfile=$IPYTHONDIR/sessionkey</pre>
+<div class="highlight-python"><div class="highlight"><pre># instruct IPython to sign messages with that key, instead of a new UUID
+$&gt; ipython qtconsole --Session.keyfile=$IPYTHONDIR/sessionkey
+</pre></div>
 </div>
 </div>
 <div class="section" id="ssh-tunnels">
@@ -488,18 +497,21 @@ is to have the Kernel listen only on localhost, and connect to it from
 another machine on the same LAN.</p>
 <p>First, let&#8217;s start a kernel on machine <strong>worker</strong>, listening only
 on loopback:</p>
-<div class="highlight-python"><pre>user@worker $&gt; ipython kernel
+<div class="highlight-python"><div class="highlight"><pre>user@worker $&gt; ipython kernel
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing kernel-12345.json</pre>
+[IPKernelApp] --existing kernel-12345.json
+</pre></div>
 </div>
 <p>In this case, the IP that you would connect
 to would still be 127.0.0.1, but you want to specify the additional <tt class="docutils literal"><span class="pre">--ssh</span></tt> argument
 with the hostname of the kernel (in this example, it&#8217;s &#8216;worker&#8217;):</p>
-<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole  --ssh=worker --existing /path/to/kernel-12345.json</pre>
+<div class="highlight-python"><div class="highlight"><pre>user@client $&gt; ipython qtconsole  --ssh=worker --existing /path/to/kernel-12345.json
+</pre></div>
 </div>
 <p>Which will write a new connection file with the forwarded ports, so you can reuse them:</p>
-<div class="highlight-python"><pre>[IPythonQtConsoleApp] To connect another client via this tunnel, use:
-[IPythonQtConsoleApp] --existing kernel-12345-ssh.json</pre>
+<div class="highlight-python"><div class="highlight"><pre>[IPythonQtConsoleApp] To connect another client via this tunnel, use:
+[IPythonQtConsoleApp] --existing kernel-12345-ssh.json
+</pre></div>
 </div>
 <p>Note again that this opens ports on the <em>client</em> machine that point to your kernel.</p>
 <div class="admonition note">
@@ -513,12 +525,14 @@ to, which can see <strong>kernel</strong>, but <strong>client</strong> is on ano
 now is that <strong>client</strong> can see <strong>login</strong>, but <em>not</em> <strong>worker</strong>. So we need to forward ports from
 client to worker <em>via</em> login. This means that the kernel must be started listening
 on external interfaces, so that its ports are visible to <cite>login</cite>:</p>
-<div class="highlight-python"><pre>user@worker $&gt; ipython kernel --ip=0.0.0.0
+<div class="highlight-python"><div class="highlight"><pre>user@worker $&gt; ipython kernel --ip=0.0.0.0
 [IPKernelApp] To connect another client to this kernel, use:
-[IPKernelApp] --existing kernel-12345.json</pre>
+[IPKernelApp] --existing kernel-12345.json
+</pre></div>
 </div>
 <p>Which we can connect to from the client with:</p>
-<div class="highlight-python"><pre>user@client $&gt; ipython qtconsole --ssh=login --ip=192.168.1.123 --existing /path/to/kernel-12345.json</pre>
+<div class="highlight-python"><div class="highlight"><pre>user@client $&gt; ipython qtconsole --ssh=login --ip=192.168.1.123 --existing /path/to/kernel-12345.json
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -532,7 +546,8 @@ the kernel used the ambiguous 0.0.0.0 (all interfaces) address. If it had used
 <p>It&#8217;s possible that IPython&#8217;s ssh helper functions won&#8217;t work for you, for various
 reasons.  You can still connect to remote machines, as long as you set up the tunnels
 yourself.  The basic format of forwarding a local port to a remote one is:</p>
-<div class="highlight-python"><pre>[client] $&gt; ssh &lt;server&gt; &lt;localport&gt;:&lt;remoteip&gt;:&lt;remoteport&gt; -f -N</pre>
+<div class="highlight-python"><div class="highlight"><pre>[client] $&gt; ssh &lt;server&gt; &lt;localport&gt;:&lt;remoteip&gt;:&lt;remoteport&gt; -f -N
+</pre></div>
 </div>
 <p>This will forward local connections to <strong>localport</strong> on client to <strong>remoteip:remoteport</strong>
 <em>via</em> <strong>server</strong>. Note that remoteip is interpreted relative to <em>server</em>, not the client.
@@ -540,11 +555,13 @@ So if you have direct ssh access to the machine to which you want to forward con
 then the server <em>is</em> the remote machine, and remoteip should be server&#8217;s IP as seen from the
 server itself, i.e. 127.0.0.1.  Thus, to forward local port 12345 to remote port 54321 on
 a machine you can see, do:</p>
-<div class="highlight-python"><pre>[client] $&gt; ssh machine 12345:127.0.0.1:54321 -f -N</pre>
+<div class="highlight-python"><div class="highlight"><pre>[client] $&gt; ssh machine 12345:127.0.0.1:54321 -f -N
+</pre></div>
 </div>
 <p>But if your target is actually on a LAN at 192.168.1.123, behind another machine called <strong>login</strong>,
 then you would do:</p>
-<div class="highlight-python"><pre>[client] $&gt; ssh login 12345:192.168.1.16:54321 -f -N</pre>
+<div class="highlight-python"><div class="highlight"><pre>[client] $&gt; ssh login 12345:192.168.1.16:54321 -f -N
+</pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">-f</span> <span class="pre">-N</span></tt> on the end are flags that tell ssh to run in the background,
 and don&#8217;t actually run any commands beyond creating the tunnel.</p>
@@ -616,6 +633,32 @@ can attach them to the QApplication instance itself:</p>
 </div>
 <p>Now the QApplication itself holds a reference to <tt class="docutils literal"><span class="pre">win</span></tt>, so it will never be
 garbage collected until the application itself is destroyed.</p>
+<div class="section" id="embedding-the-qtconsole-in-a-qt-application">
+<h3>Embedding the QtConsole in a Qt application<a class="headerlink" href="#embedding-the-qtconsole-in-a-qt-application" title="Permalink to this headline">¶</a></h3>
+<p>In order to make the QtConsole available to an external Qt GUI application (just as
+<tt class="xref py py-func docutils literal"><span class="pre">IPython.embed()</span></tt> enables one to embed a terminal session of IPython in a
+command-line application), there are a few options:</p>
+<ul class="simple">
+<li>First start IPython, and then start the external Qt application from IPython,
+as described above.  Effectively, this embeds your application in IPython
+rather than the other way round.</li>
+<li>Use <a class="reference internal" href="../api/generated/IPython.qt.console.rich_ipython_widget.html#IPython.qt.console.rich_ipython_widget.RichIPythonWidget" title="IPython.qt.console.rich_ipython_widget.RichIPythonWidget"><tt class="xref py py-class docutils literal"><span class="pre">IPython.qt.console.rich_ipython_widget.RichIPythonWidget</span></tt></a> in your
+Qt application. This will embed the console widget in your GUI and start the
+kernel in a separate process, so code typed into the console cannot access
+objects in your application.</li>
+<li>Start a standard IPython kernel in the process of the external Qt
+application.  See <tt class="file docutils literal"><span class="pre">examples/lib/ipkernel_qtapp.py</span></tt> for an example.  Due
+to IPython&#8217;s two-process model, the QtConsole itself will live in another
+process with its own QApplication, and thus cannot be embedded in the main
+GUI.</li>
+<li>Start a special IPython kernel, the
+<a class="reference internal" href="../api/generated/IPython.kernel.inprocess.ipkernel.html#IPython.kernel.inprocess.ipkernel.InProcessKernel" title="IPython.kernel.inprocess.ipkernel.InProcessKernel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.inprocess.ipkernel.InProcessKernel</span></tt></a>, that allows a
+QtConsole in the same process. See <tt class="file docutils literal"><span class="pre">examples/inprocess/embedded_qtconsole.py</span></tt>
+for an example. While the QtConsole can now be embedded in the main GUI, one
+cannot connect to the kernel from other consoles as there are no real ZMQ
+sockets anymore.</li>
+</ul>
+</div>
 </div>
 <div class="section" id="regressions">
 <h2>Regressions<a class="headerlink" href="#regressions" title="Permalink to this headline">¶</a></h2>
@@ -661,8 +704,8 @@ console experience.</li>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

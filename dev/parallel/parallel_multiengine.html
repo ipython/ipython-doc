@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Direct interface &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>IPython’s Direct interface &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Parallel Magic Commands" href="magics.html" />
     <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" /> 
@@ -128,7 +128,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="ipython-s-direct-interface">
@@ -145,7 +145,8 @@ new users of IPython to begin.</p>
 <p>To follow along with this tutorial, you will need to start the IPython
 controller and four IPython engines. The simplest way of doing this is to use
 the <strong class="command">ipcluster</strong> command:</p>
-<div class="highlight-python"><pre>$ ipcluster start -n 4</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipcluster start -n 4
+</pre></div>
 </div>
 <p>For more detailed information about starting the controller and engines, see
 our <a class="reference internal" href="parallel_intro.html#parallel-overview"><em>introduction</em></a> to using IPython for parallel computing.</p>
@@ -472,7 +473,7 @@ the duration of a single call.</li>
 <span class="gp">In [19]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 <span class="gh">Out[19]: </span><span class="go">[10, 10]</span>
 
-<span class="gp">In [20]: </span><span class="n">dview</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ids</span> <span class="c"># all engines (4)</span>
+<span class="gp">In [20]: </span><span class="n">dview</span><span class="o">.</span><span class="n">targets</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">ids</span> <span class="c"># all engines (4)</span>
 
 <span class="gp">In [21]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
@@ -598,13 +599,13 @@ execute and will fail with an UnmetDependencyError. Failures of single Engines w
 be collected and raise a CompositeError, as demonstrated in the next section.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [69]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">require</span>
 
-<span class="gp">In [70]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;re&#39;</span><span class="p">):</span>
+<span class="gp">In [70]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;re&#39;</span><span class="p">)</span>
 <span class="gp">   ....: </span><span class="k">def</span> <span class="nf">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="c"># re is guaranteed to be available</span>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
 <span class="go"># you can also pass modules themselves, that you already have locally:</span>
-<span class="gp">In [71]: </span><span class="nd">@require</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+<span class="gp">In [71]: </span><span class="nd">@require</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
 <span class="gp">   ....: </span><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
 <span class="gp">   ....: </span>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">t</span>
@@ -657,9 +658,11 @@ more other types of exceptions. Here is how it works:</p>
 <p>Notice how the error message printed when <tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> is raised has
 information about the individual exceptions that were raised on each engine.
 If you want, you can even raise one of these original exceptions:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [80]: </span><span class="k">try</span><span class="p">:</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [79]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
+
+<span class="gp">In [80]: </span><span class="k">try</span><span class="p">:</span>
 <span class="gp">   ....: </span>    <span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="gp">   ....: </span><span class="k">except</span> <span class="n">parallel</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">   ....: </span><span class="k">except</span> <span class="n">CompositeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
 <span class="gp">   ....: </span>    <span class="n">e</span><span class="o">.</span><span class="n">raise_exception</span><span class="p">()</span>
 <span class="gp">   ....:</span>
 <span class="gp">   ....:</span>
@@ -733,12 +736,12 @@ to <tt class="xref py py-attr docutils literal"><span class="pre">CompositeError
 You can change this limit to suit your needs with:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
 <span class="gp">In [21]: </span><span class="n">CompositeError</span><span class="o">.</span><span class="n">tb_limit</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">In [22]: </span><span class="o">%</span><span class="k">px</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
+<span class="gp">In [22]: </span><span class="o">%</span><span class="k">px</span> <span class="n">x</span><span class="o">=</span><span class="n">z</span>
 <span class="go">[0:execute]:</span>
 <span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
-<span class="ne">NameError</span>: name &#39;b&#39; is not defined
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span><span class="o">=</span><span class="n">z</span>
+<span class="ne">NameError</span>: name &#39;z&#39; is not defined
 
 <span class="o">...</span> <span class="mi">3</span> <span class="n">more</span> <span class="n">exceptions</span> <span class="o">...</span>
 </pre></div>
@@ -792,8 +795,8 @@ You can change this limit to suit your needs with:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

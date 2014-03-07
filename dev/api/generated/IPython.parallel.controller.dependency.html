@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.controller.dependency &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: parallel.controller.dependency &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: parallel.controller.dictdb" href="IPython.parallel.controller.dictdb.html" />
     <link rel="prev" title="Module: parallel.client.view" href="IPython.parallel.client.view.html" /> 
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.parallel.controller.dependency">
@@ -124,10 +124,11 @@ significant differences from the latest stable release (1.1.0).</p>
 <p><cite>&#64;depend</cite> lets you define a function for engine dependencies
 just like you use <cite>apply</cite> for tasks.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>@depend(df, a,b, c=5)
+<div class="highlight-python"><div class="highlight"><pre>@depend(df, a,b, c=5)
 def f(m,n,p)
 
-view.apply(f, 1,2,3)</pre>
+view.apply(f, 1,2,3)
+</pre></div>
 </div>
 <p>will call df(a,b,c=5) on the engine, and if it returns False or
 raises an UnmetDependency error, then the task will not be run
@@ -155,7 +156,7 @@ in traditional decorators, which are not picklable.</p>
 
 <dl class="class">
 <dt id="IPython.parallel.controller.dependency.Dependency">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">Dependency</tt><big>(</big><em>dependencies=</em><span class="optional">[</span><span class="optional">]</span>, <em>all=True</em>, <em>success=True</em>, <em>failure=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.Dependency" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">Dependency</tt><big>(</big><em>dependencies=</em>, <span class="optional">[</span><span class="optional">]</span><em>all=True</em>, <em>success=True</em>, <em>failure=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.Dependency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a></p>
 <p>An object for representing a set of msg_id dependencies.</p>
 <p>Subclassed from set().</p>
@@ -163,7 +164,7 @@ in traditional decorators, which are not picklable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dependencies: list/set of msg_ids or AsyncResult objects or output of Dependency.as_dict()</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dependencies: list/set of msg_ids or AsyncResult objects or output of Dependency.as_dict()</strong></p>
 <blockquote>
 <div><p>The msg_ids to depend on</p>
 </div></blockquote>
@@ -180,7 +181,7 @@ or only when <em>any</em> have been completed.</p>
 <blockquote>
 <div><p>Whether to consider failures as fulfilling dependencies.</p>
 </div></blockquote>
-<p><strong>If `all=success=True` and `failure=False`, then the task will fail with an ImpossibleDependency</strong> :</p>
+<p><strong>If `all=success=True` and `failure=False`, then the task will fail with an ImpossibleDependency</strong></p>
 <blockquote class="last">
 <div><p>as soon as the first depended-upon task fails.</p>
 </div></blockquote>
@@ -190,7 +191,7 @@ or only when <em>any</em> have been completed.</p>
 </table>
 <dl class="method">
 <dt id="IPython.parallel.controller.dependency.Dependency.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dependencies=</em><span class="optional">[</span><span class="optional">]</span>, <em>all=True</em>, <em>success=True</em>, <em>failure=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.Dependency.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>dependencies=</em>, <span class="optional">[</span><span class="optional">]</span><em>all=True</em>, <em>success=True</em>, <em>failure=False</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.Dependency.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -228,14 +229,15 @@ Functions can be passed positionally,
 and will be pushed to the engine with their __name__.
 Other objects can be passed by keyword arg.</p>
 <p>Examples:</p>
-<div class="highlight-python"><pre>In [1]: @require('numpy')
+<div class="highlight-python"><div class="highlight"><pre>In [1]: @require(&#39;numpy&#39;)
    ...: def norm(a):
    ...:     return numpy.linalg.norm(a,2)
 
 In [2]: foo = lambda x: x*x
 In [3]: @require(foo)
    ...: def bar(a):
-   ...:     return foo(1-a)</pre>
+   ...:     return foo(1-a)
+</pre></div>
 </div>
 </dd></dl>
 
@@ -272,8 +274,8 @@ In [3]: @require(foo)
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

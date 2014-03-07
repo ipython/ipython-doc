@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Quickstart &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Quickstart &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Installation" href="index.html" />
     <link rel="next" title="Using IPython for interactive work" href="../interactive/index.html" />
     <link rel="prev" title="Installation" href="index.html" /> 
@@ -73,7 +73,6 @@
 <li><a class="reference internal" href="#basic-optional-dependencies">Basic optional dependencies</a><ul>
 <li><a class="reference internal" href="#readline">readline</a></li>
 <li><a class="reference internal" href="#nose">nose</a></li>
-<li><a class="reference internal" href="#pexpect">pexpect</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#dependencies-for-ipython-parallel-parallel-computing">Dependencies for IPython.parallel (parallel computing)</a></li>
@@ -137,7 +136,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <p>IPython requires Python 2.7 or ≥ 3.3.</p>
@@ -295,10 +294,12 @@ get.  These are:</p>
 <ul class="simple">
 <li>readline (for command line editing, tab completion, etc.)</li>
 <li>nose (to run the IPython test suite)</li>
-<li>pexpect (to use things like irunner)</li>
 </ul>
 <p>If you are comfortable installing these things yourself, have at it, otherwise
 read on for more details.</p>
+<p>IPython uses several other modules, such as <a class="reference external" href="http://pexpect.readthedocs.org/en/latest/">pexpect</a> and path.py, if they are
+installed on your system, but it can also use bundled versions from
+<tt class="xref py py-mod docutils literal"><span class="pre">IPython.external</span></tt>, so there&#8217;s no need to install them separately.</p>
 <div class="section" id="readline">
 <h2>readline<a class="headerlink" href="#readline" title="Permalink to this headline">¶</a></h2>
 <p>As indicated above, on Windows, to get full functionality in the console
@@ -349,22 +350,6 @@ iptest command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>iptest
 </pre></div>
 </div>
-</div>
-<div class="section" id="pexpect">
-<h2>pexpect<a class="headerlink" href="#pexpect" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference external" href="http://www.noah.org/wiki/Pexpect">pexpect</a> package is used in IPython&#8217;s <strong class="command">irunner</strong> script, as well as
-for managing subprocesses. IPython now includes a version of pexpect in
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.external</span></tt>, but if you have installed pexpect, IPython will use
-that instead. On Unix platforms (including OS X), just do:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install pexpect
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">On Python 3, you should actually install <tt class="xref py py-mod docutils literal"><span class="pre">pexpect-u</span></tt>,
-a unicode-safe fork of pexpect.</p>
-</div>
-<p>Windows users are out of luck as pexpect does not run there.</p>
 </div>
 </div>
 <div class="section" id="dependencies-for-ipython-parallel-parallel-computing">
@@ -446,10 +431,12 @@ you can install MathJax locally.</p>
 <p>If you need tighter configuration control, you can download your own copy
 of MathJax from <a class="reference external" href="http://www.mathjax.org/download/">http://www.mathjax.org/download/</a> - use the MathJax-2.0 link.
 When you have the file stored locally, install it with:</p>
-<div class="highlight-python"><pre>python -m IPython.external.mathjax /path/to/source/mathjax-MathJax-v2.0-20-g07669ac.zip</pre>
+<div class="highlight-python"><div class="highlight"><pre>python -m IPython.external.mathjax /path/to/source/mathjax-MathJax-v2.0-20-g07669ac.zip
+</pre></div>
 </div>
 <p>For unusual needs, IPython can tell you what directory it wants to find MathJax in:</p>
-<div class="highlight-python"><pre>python -m IPython.external.mathjax -d /some/other/mathjax</pre>
+<div class="highlight-python"><div class="highlight"><pre>python -m IPython.external.mathjax -d /some/other/mathjax
+</pre></div>
 </div>
 <p>By default Mathjax will be installed in your ipython profile directory, but you
 can make system wide install, please refer to the documentation and helper function
@@ -476,7 +463,7 @@ of <tt class="xref py py-mod docutils literal"><span class="pre">IPython.externa
 <ul class="simple">
 <li>Safari, IPython 0.12, tornado ≥ 2.2.0</li>
 <li>Safari with HTTPS connection to notebook and an untrusted certificate (websockets will fail)</li>
-<li>The [diigo Chrome extension](<a class="reference external" href="http://help.diigo.com/tools/chrome-extension">http://help.diigo.com/tools/chrome-extension</a>) seems to interfere with scrolling</li>
+<li>The <a class="reference external" href="http://help.diigo.com/tools/chrome-extension">diigo Chrome extension</a> seems to interfere with scrolling</li>
 </ul>
 <p>There are some early reports that the Notebook works on Internet Explorer 10, but we
 expect there will be some CSS issues related to the flexible box model.</p>
@@ -489,7 +476,8 @@ expect there will be some CSS issues related to the flexible box model.</p>
 <p>The most important dependency of nbconvert is <a class="reference external" href="http://johnmacfarlane.net/pandoc">Pandoc</a> 1.10 or later, a document format translation program.
 This is not a Python package, so it cannot be expressed as a regular IPython dependency with setuptools.</p>
 <p>To install pandoc on Linux, you can generally use your package manager:</p>
-<div class="highlight-python"><pre>sudo apt-get install pandoc</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install pandoc
+</pre></div>
 </div>
 <p>On other platforms, you can get pandoc from <a class="reference external" href="http://johnmacfarlane.net/pandoc/installing.html">their website</a>.</p>
 </div>
@@ -525,8 +513,8 @@ This is not a Python package, so it cannot be expressed as a regular IPython dep
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

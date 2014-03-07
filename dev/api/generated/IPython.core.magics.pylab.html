@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.pylab &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.magics.pylab &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.script" href="IPython.core.magics.script.html" />
     <link rel="prev" title="Module: core.magics.osm" href="IPython.core.magics.osm.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.magics.pylab">
@@ -119,29 +119,36 @@ significant differences from the latest stable release (1.1.0).</p>
 <dl class="method">
 <dt id="IPython.core.magics.pylab.PylabMagics.matplotlib">
 <tt class="descname">matplotlib</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.pylab.PylabMagics.matplotlib" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><pre>%matplotlib [gui]</pre>
+<dd><div class="highlight-python"><div class="highlight"><pre>%matplotlib [gui]
+</pre></div>
 </div>
 <p>Set up matplotlib to work interactively.</p>
 <p>This function lets you activate matplotlib interactive support
-at any point during an IPython session.
-It does not import anything into the interactive namespace.</p>
-<p>If you are using the inline matplotlib backend for embedded figures,
-you can adjust its behavior via the %config magic:</p>
-<div class="highlight-python"><pre># enable SVG figures, necessary for SVG+XHTML export in the qtconsole
-In [1]: %config InlineBackend.figure_format = 'svg'
+at any point during an IPython session. It does not import anything
+into the interactive namespace.</p>
+<p>If you are using the inline matplotlib backend in the IPython Notebook
+you can set which figure formats are enabled using the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: from IPython.display import set_matplotlib_formats
 
-# change the behavior of closing all figures at the end of each
-# execution (cell), or allowing reuse of active figures across
-# cells:
-In [2]: %config InlineBackend.close_figures = False</pre>
+In [2]: set_matplotlib_formats(&#39;pdf&#39;, &#39;svg&#39;)
+</pre></div>
 </div>
+<p>See the docstring of <cite>IPython.display.set_matplotlib_formats</cite> and
+<cite>IPython.display.set_matplotlib_close</cite> for more information on
+changing the behavior of the inline backend.</p>
 <p class="rubric">Examples</p>
-<p>In this case, where the MPL default is TkAgg:</p>
-<div class="highlight-python"><pre>In [2]: %matplotlib
-Using matplotlib backend: TkAgg</pre>
+<p>To enable the inline backend for usage with the IPython Notebook:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %matplotlib inline
+</pre></div>
 </div>
-<p>But you can explicitly request a different backend:</p>
-<div class="highlight-python"><pre>In [3]: %matplotlib qt</pre>
+<p>In this case, where the matplotlib default is TkAgg:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: %matplotlib
+Using matplotlib backend: TkAgg
+</pre></div>
+</div>
+<p>But you can explicitly request a different GUI backend:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: %matplotlib qt
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>positional arguments:</dt>
@@ -158,7 +165,8 @@ can set in your matplotlib config file).</dd>
 <dl class="method">
 <dt id="IPython.core.magics.pylab.PylabMagics.pylab">
 <tt class="descname">pylab</tt><big>(</big><em>line=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.pylab.PylabMagics.pylab" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><pre>%pylab [--no-import-all] [gui]</pre>
+<dd><div class="highlight-python"><div class="highlight"><pre>%pylab [--no-import-all] [gui]
+</pre></div>
 </div>
 <p>Load numpy and matplotlib to work interactively.</p>
 <p>This function lets you activate pylab (matplotlib, numpy and
@@ -243,8 +251,8 @@ configurable.</td></tr>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

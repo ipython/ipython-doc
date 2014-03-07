@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.osm &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.magics.osm &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.pylab" href="IPython.core.magics.pylab.html" />
     <link rel="prev" title="Module: core.magics.namespace" href="IPython.core.magics.namespace.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.magics.osm">
@@ -130,18 +130,20 @@ variables, so if &#8216;foo&#8217; is both a Python variable and an alias, the
 alias can not be executed until &#8216;del foo&#8217; removes the Python variable.</p>
 <p>You can use the %l specifier in an alias definition to represent the
 whole line when the alias is called.  For example:</p>
-<div class="highlight-python"><pre>In [2]: alias bracket echo "Input in brackets: &lt;%l&gt;"
+<div class="highlight-python"><div class="highlight"><pre>In [2]: alias bracket echo &quot;Input in brackets: &lt;%l&gt;&quot;
 In [3]: bracket hello world
-Input in brackets: &lt;hello world&gt;</pre>
+Input in brackets: &lt;hello world&gt;
+</pre></div>
 </div>
 <p>You can also define aliases with parameters using %s specifiers (one
 per parameter):</p>
-<div class="highlight-python"><pre>In [1]: alias parts echo first %s second %s
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alias parts echo first %s second %s
 In [2]: %parts A B
 first A second B
 In [3]: %parts A
 Incorrect number of arguments: 2 expected.
-parts is an alias to: 'echo first %s second %s'</pre>
+parts is an alias to: &#39;echo first %s second %s&#39;
+</pre></div>
 </div>
 <p>Note that %l and %s are mutually exclusive.  You can only use one or
 the other in your aliases.</p>
@@ -152,12 +154,13 @@ the semantic rules, see PEP-215:
 IPython for variable expansion.  If you want to access a true shell
 variable, an extra $ is necessary to prevent its expansion by
 IPython:</p>
-<div class="highlight-python"><pre>In [6]: alias show echo
-In [7]: PATH='A Python string'
+<div class="highlight-python"><div class="highlight"><pre>In [6]: alias show echo
+In [7]: PATH=&#39;A Python string&#39;
 In [8]: show $PATH
 A Python string
 In [9]: show $$PATH
-/usr/local/lf9560/bin:/usr/local/intel/compiler70/ia32/bin:...</pre>
+/usr/local/lf9560/bin:/usr/local/intel/compiler70/ia32/bin:...
+</pre></div>
 </div>
 <p>You can use the alias facility to acess all of $PATH.  See the %rehash
 and %rehashx functions, which automatically create aliases for the
@@ -177,13 +180,16 @@ cache Out[N] and in the &#8216;_N&#8217; automatic variables.</p>
 <p>Notes:</p>
 <p>1) If an input line begins with &#8216;!!&#8217;, then %sx is automatically
 invoked.  That is, while:</p>
-<div class="highlight-python"><pre>!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!ls
+</pre></div>
 </div>
 <p>causes ipython to simply issue system(&#8216;ls&#8217;), typing:</p>
-<div class="highlight-python"><pre>!!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!!ls
+</pre></div>
 </div>
 <p>is a shorthand equivalent to:</p>
-<div class="highlight-python"><pre>%sx ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>%sx ls
+</pre></div>
 </div>
 <p>2) %sx differs from %sc in that %sx automatically splits into a list,
 like &#8216;%sc -l&#8217;.  The reason for this is to make it as easy as possible
@@ -191,9 +197,10 @@ to process line-oriented shell output via further python commands.
 %sc is meant to provide much finer control, but requires more
 typing.</p>
 <p>3) Just like %sc -l, this is a list with special attributes:</p>
-<div class="highlight-python"><pre>.l (or .list) : value as list.
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
 .n (or .nlstr): value as newline-separated string.
-.s (or .spstr): value as whitespace-separated string.</pre>
+.s (or .spstr): value as whitespace-separated string.
+</pre></div>
 </div>
 <p>This is very useful when trying to use such lists as arguments to
 system commands.</p>
@@ -209,7 +216,8 @@ system commands.</p>
 %bookmark -d &lt;name&gt;    - remove bookmark
 %bookmark -r           - remove all bookmarks</p>
 <p>You can later on access a bookmarked folder with:</p>
-<div class="highlight-python"><pre>%cd -b &lt;name&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>%cd -b &lt;name&gt;
+</pre></div>
 </div>
 <p>or simply &#8216;%cd &lt;name&gt;&#8217; if there is no directory called &lt;name&gt; AND
 there is such a bookmark defined.</p>
@@ -248,8 +256,9 @@ since the default prompts do not display path information.</p>
 <p>Note that !cd doesn&#8217;t work for this purpose because the shell where
 !command runs is immediately discarded after executing &#8216;command&#8217;.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [10]: cd parent/child
-/home/tsuser/parent/child</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [10]: cd parent/child
+/home/tsuser/parent/child
+</pre></div>
 </div>
 </dd></dl>
 
@@ -298,8 +307,9 @@ cd -&lt;TAB&gt;.</p>
 <tt class="descname">pwd</tt><big>(</big><em>parameter_s=''</em><big>)</big><a class="headerlink" href="#IPython.core.magics.osm.OSMagics.pwd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the current working directory path.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [9]: pwd
-Out[9]: '/home/tsuser/sprint/ipython'</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [9]: pwd
+Out[9]: &#39;/home/tsuser/sprint/ipython&#39;
+</pre></div>
 </div>
 </dd></dl>
 
@@ -311,10 +321,11 @@ Out[9]: '/home/tsuser/sprint/ipython'</pre>
 to be Python source and will show it with syntax highlighting.</p>
 <p>This magic command can either take a local filename, an url,
 an history range (see %history) or a macro as argument</p>
-<div class="highlight-python"><pre>%pycat myscript.py
+<div class="highlight-python"><div class="highlight"><pre>%pycat myscript.py
 %pycat 7-27
 %pycat myMacro
-%pycat http://www.example.com/myscript.py</pre>
+%pycat http://www.example.com/myscript.py
+</pre></div>
 </div>
 </dd></dl>
 
@@ -365,20 +376,20 @@ provide its contents either as a list (split on newlines) or as a
 space-separated string.  These are convenient, respectively, either
 for sequential processing or to be passed to a shell command.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre># Capture into variable a
+<div class="highlight-python"><div class="highlight"><pre># Capture into variable a
 In [1]: sc a=ls *py
 
 # a is a string with embedded newlines
 In [2]: a
-Out[2]: 'setup.py\nwin32_manual_post_install.py'
+Out[2]: &#39;setup.py\nwin32_manual_post_install.py&#39;
 
 # which can be seen as a list:
 In [3]: a.l
-Out[3]: ['setup.py', 'win32_manual_post_install.py']
+Out[3]: [&#39;setup.py&#39;, &#39;win32_manual_post_install.py&#39;]
 
 # or as a whitespace-separated string:
 In [4]: a.s
-Out[4]: 'setup.py win32_manual_post_install.py'
+Out[4]: &#39;setup.py win32_manual_post_install.py&#39;
 
 # a.s is useful to pass as a single command line:
 In [5]: !wc -l $a.s
@@ -391,24 +402,27 @@ In [6]: for f in a.l:
   ...:      !wc -l $f
   ...:
 146 setup.py
-130 win32_manual_post_install.py</pre>
+130 win32_manual_post_install.py
+</pre></div>
 </div>
 <p>Similarly, the lists returned by the -l option are also special, in
 the sense that you can equally invoke the .s attribute on them to
 automatically get a whitespace-separated string from their contents:</p>
-<div class="highlight-python"><pre>In [7]: sc -l b=ls *py
+<div class="highlight-python"><div class="highlight"><pre>In [7]: sc -l b=ls *py
 
 In [8]: b
-Out[8]: ['setup.py', 'win32_manual_post_install.py']
+Out[8]: [&#39;setup.py&#39;, &#39;win32_manual_post_install.py&#39;]
 
 In [9]: b.s
-Out[9]: 'setup.py win32_manual_post_install.py'</pre>
+Out[9]: &#39;setup.py win32_manual_post_install.py&#39;
+</pre></div>
 </div>
 <p>In summary, both the lists and strings used for output capture have
 the following special attributes:</p>
-<div class="highlight-python"><pre>.l (or .list) : value as list.
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
 .n (or .nlstr): value as newline-separated string.
-.s (or .spstr): value as space-separated string.</pre>
+.s (or .spstr): value as space-separated string.
+</pre></div>
 </div>
 </dd></dl>
 
@@ -424,13 +438,16 @@ cache Out[N] and in the &#8216;_N&#8217; automatic variables.</p>
 <p>Notes:</p>
 <p>1) If an input line begins with &#8216;!!&#8217;, then %sx is automatically
 invoked.  That is, while:</p>
-<div class="highlight-python"><pre>!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!ls
+</pre></div>
 </div>
 <p>causes ipython to simply issue system(&#8216;ls&#8217;), typing:</p>
-<div class="highlight-python"><pre>!!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!!ls
+</pre></div>
 </div>
 <p>is a shorthand equivalent to:</p>
-<div class="highlight-python"><pre>%sx ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>%sx ls
+</pre></div>
 </div>
 <p>2) %sx differs from %sc in that %sx automatically splits into a list,
 like &#8216;%sc -l&#8217;.  The reason for this is to make it as easy as possible
@@ -438,9 +455,10 @@ to process line-oriented shell output via further python commands.
 %sc is meant to provide much finer control, but requires more
 typing.</p>
 <p>3) Just like %sc -l, this is a list with special attributes:</p>
-<div class="highlight-python"><pre>.l (or .list) : value as list.
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
 .n (or .nlstr): value as newline-separated string.
-.s (or .spstr): value as whitespace-separated string.</pre>
+.s (or .spstr): value as whitespace-separated string.
+</pre></div>
 </div>
 <p>This is very useful when trying to use such lists as arguments to
 system commands.</p>
@@ -458,13 +476,16 @@ cache Out[N] and in the &#8216;_N&#8217; automatic variables.</p>
 <p>Notes:</p>
 <p>1) If an input line begins with &#8216;!!&#8217;, then %sx is automatically
 invoked.  That is, while:</p>
-<div class="highlight-python"><pre>!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!ls
+</pre></div>
 </div>
 <p>causes ipython to simply issue system(&#8216;ls&#8217;), typing:</p>
-<div class="highlight-python"><pre>!!ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>!!ls
+</pre></div>
 </div>
 <p>is a shorthand equivalent to:</p>
-<div class="highlight-python"><pre>%sx ls</pre>
+<div class="highlight-python"><div class="highlight"><pre>%sx ls
+</pre></div>
 </div>
 <p>2) %sx differs from %sc in that %sx automatically splits into a list,
 like &#8216;%sc -l&#8217;.  The reason for this is to make it as easy as possible
@@ -472,9 +493,10 @@ to process line-oriented shell output via further python commands.
 %sc is meant to provide much finer control, but requires more
 typing.</p>
 <p>3) Just like %sc -l, this is a list with special attributes:</p>
-<div class="highlight-python"><pre>.l (or .list) : value as list.
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
 .n (or .nlstr): value as newline-separated string.
-.s (or .spstr): value as whitespace-separated string.</pre>
+.s (or .spstr): value as whitespace-separated string.
+</pre></div>
 </div>
 <p>This is very useful when trying to use such lists as arguments to
 system commands.</p>
@@ -489,7 +511,8 @@ system commands.</p>
 <dl class="method">
 <dt id="IPython.core.magics.osm.OSMagics.writefile">
 <tt class="descname">writefile</tt><big>(</big><em>line</em>, <em>cell</em><big>)</big><a class="headerlink" href="#IPython.core.magics.osm.OSMagics.writefile" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><pre>%writefile [-a] filename</pre>
+<dd><div class="highlight-python"><div class="highlight"><pre>%writefile [-a] filename
+</pre></div>
 </div>
 <p>Write the contents of the cell to a file.</p>
 <p>The file will be overwritten unless the -a (&#8211;append) flag is specified.</p>
@@ -546,8 +569,8 @@ be created if it does not exist.</td></tr>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

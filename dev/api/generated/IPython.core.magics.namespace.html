@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.namespace &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.magics.namespace &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.osm" href="IPython.core.magics.osm.html" />
     <link rel="prev" title="Module: core.magics.logging" href="IPython.core.magics.logging.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.magics.namespace">
@@ -123,8 +123,9 @@ significant differences from the latest stable release (1.1.0).</p>
 <dd><p>Print the call signature for any callable object.</p>
 <p>If the object is a class, print the constructor information.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [3]: %pdef urllib.urlopen
-urllib.urlopen(url, data=None, proxies=None)</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: %pdef urllib.urlopen
+urllib.urlopen(url, data=None, proxies=None)
+</pre></div>
 </div>
 </dd></dl>
 
@@ -216,18 +217,21 @@ search with -s or exclude them with -e (these options can be given
 more than once).</p>
 </div></blockquote>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>%psearch a*            -&gt; objects beginning with an a
+<div class="highlight-python"><div class="highlight"><pre>%psearch a*            -&gt; objects beginning with an a
 %psearch -e builtin a* -&gt; objects NOT in the builtin space starting in a
 %psearch a* function   -&gt; all functions beginning with an a
 %psearch re.e*         -&gt; objects beginning with an e in module re
 %psearch r*.e*         -&gt; objects that start with e in modules starting in r
-%psearch r*.* string   -&gt; all strings in modules beginning with r</pre>
+%psearch r*.* string   -&gt; all strings in modules beginning with r
+</pre></div>
 </div>
 <p>Case sensitive search:</p>
-<div class="highlight-python"><pre>%psearch -c a*         list all object beginning with lower case a</pre>
+<div class="highlight-python"><div class="highlight"><pre>%psearch -c a*         list all object beginning with lower case a
+</pre></div>
 </div>
 <p>Show objects beginning with a single _:</p>
-<div class="highlight-python"><pre>%psearch -a _*         list objects beginning with a single underscore</pre>
+<div class="highlight-python"><div class="highlight"><pre>%psearch -a _*         list objects beginning with a single underscore
+</pre></div>
 </div>
 </dd></dl>
 
@@ -275,17 +279,17 @@ references to objects from the current session.</p>
 such as the ipython notebook interface, will reset the namespace
 without confirmation.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [6]: a = 1
+<div class="highlight-python"><div class="highlight"><pre>In [6]: a = 1
 
 In [7]: a
 Out[7]: 1
 
-In [8]: 'a' in _ip.user_ns
+In [8]: &#39;a&#39; in _ip.user_ns
 Out[8]: True
 
 In [9]: %reset -f
 
-In [1]: 'a' in _ip.user_ns
+In [1]: &#39;a&#39; in _ip.user_ns
 Out[1]: False
 
 In [2]: %reset -f in
@@ -293,7 +297,8 @@ Flushing input history
 
 In [3]: %reset -f dhist in
 Flushing directory history
-Flushing input history</pre>
+Flushing input history
+</pre></div>
 </div>
 </dd></dl>
 
@@ -323,34 +328,36 @@ without confirmation.</p>
 <p>We first fully reset the namespace so your output looks identical to
 this example for pedagogical reasons; in practice you do not need a
 full reset:</p>
-<div class="highlight-python"><pre>In [1]: %reset -f</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %reset -f
+</pre></div>
 </div>
 <p>Now, with a clean namespace we can make a few variables and use
 <tt class="docutils literal"><span class="pre">%reset_selective</span></tt> to only delete names that match our regexp:</p>
-<div class="highlight-python"><pre>In [2]: a=1; b=2; c=3; b1m=4; b2m=5; b3m=6; b4m=7; b2s=8
+<div class="highlight-python"><div class="highlight"><pre>In [2]: a=1; b=2; c=3; b1m=4; b2m=5; b3m=6; b4m=7; b2s=8
 
 In [3]: who_ls
-Out[3]: ['a', 'b', 'b1m', 'b2m', 'b2s', 'b3m', 'b4m', 'c']
+Out[3]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2m&#39;, &#39;b2s&#39;, &#39;b3m&#39;, &#39;b4m&#39;, &#39;c&#39;]
 
 In [4]: %reset_selective -f b[2-3]m
 
 In [5]: who_ls
-Out[5]: ['a', 'b', 'b1m', 'b2s', 'b4m', 'c']
+Out[5]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;, &#39;c&#39;]
 
 In [6]: %reset_selective -f d
 
 In [7]: who_ls
-Out[7]: ['a', 'b', 'b1m', 'b2s', 'b4m', 'c']
+Out[7]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;, &#39;c&#39;]
 
 In [8]: %reset_selective -f c
 
 In [9]: who_ls
-Out[9]: ['a', 'b', 'b1m', 'b2s', 'b4m']
+Out[9]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;]
 
 In [10]: %reset_selective -f b
 
 In [11]: who_ls
-Out[11]: ['a']</pre>
+Out[11]: [&#39;a&#39;]
+</pre></div>
 </div>
 </dd></dl>
 
@@ -360,13 +367,15 @@ Out[11]: ['a']</pre>
 <dd><p>Print all interactive variables, with some minimal formatting.</p>
 <p>If any arguments are given, only variables whose type matches one of
 these are printed.  For example:</p>
-<div class="highlight-python"><pre>%who function str</pre>
+<div class="highlight-python"><div class="highlight"><pre>%who function str
+</pre></div>
 </div>
 <p>will only list functions and strings, excluding all other types of
 variables.  To find the proper type names, simply use type(var) at a
 command line to see how python prints type names.  For example:</p>
-<div class="highlight-python"><pre>In [1]: type('hello')\
-Out[1]: &lt;type 'str'&gt;</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: type(&#39;hello&#39;)\
+Out[1]: &lt;type &#39;str&#39;&gt;
+</pre></div>
 </div>
 <p>indicates that the type name for strings is &#8216;str&#8217;.</p>
 <p><tt class="docutils literal"><span class="pre">%who</span></tt> always excludes executed names loaded through your configuration
@@ -375,9 +384,9 @@ file and things which are internal to IPython.</p>
 purpose of %who is to show you only what you&#8217;ve manually defined.</p>
 <p class="rubric">Examples</p>
 <p>Define two variables and list them with who:</p>
-<div class="highlight-python"><pre>In [1]: alpha = 123
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
 
-In [2]: beta = 'test'
+In [2]: beta = &#39;test&#39;
 
 In [3]: %who
 alpha   beta
@@ -386,7 +395,8 @@ In [4]: %who int
 alpha
 
 In [5]: %who str
-beta</pre>
+beta
+</pre></div>
 </div>
 </dd></dl>
 
@@ -398,18 +408,19 @@ beta</pre>
 arguments are returned.</p>
 <p class="rubric">Examples</p>
 <p>Define two variables and list them with who_ls:</p>
-<div class="highlight-python"><pre>In [1]: alpha = 123
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
 
-In [2]: beta = 'test'
+In [2]: beta = &#39;test&#39;
 
 In [3]: %who_ls
-Out[3]: ['alpha', 'beta']
+Out[3]: [&#39;alpha&#39;, &#39;beta&#39;]
 
 In [4]: %who_ls int
-Out[4]: ['alpha']
+Out[4]: [&#39;alpha&#39;]
 
 In [5]: %who_ls str
-Out[5]: ['beta']</pre>
+Out[5]: [&#39;beta&#39;]
+</pre></div>
 </div>
 </dd></dl>
 
@@ -430,15 +441,16 @@ too long.</li>
 </div></blockquote>
 <p class="rubric">Examples</p>
 <p>Define two variables and list them with whos:</p>
-<div class="highlight-python"><pre>In [1]: alpha = 123
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
 
-In [2]: beta = 'test'
+In [2]: beta = &#39;test&#39;
 
 In [3]: %whos
 Variable   Type        Data/Info
 --------------------------------
 alpha      int         123
-beta       str         test</pre>
+beta       str         test
+</pre></div>
 </div>
 </dd></dl>
 
@@ -492,8 +504,8 @@ checking their identity.</dd>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

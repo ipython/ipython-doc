@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.code &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.magics.code &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.config" href="IPython.core.magics.config.html" />
     <link rel="prev" title="Module: core.magics.basic" href="IPython.core.magics.basic.html" /> 
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.magics.code">
@@ -115,13 +115,13 @@ significant differences from the latest stable release (1.1.0).</p>
 <dl class="class">
 <dt id="IPython.core.magics.code.MacroToEdit">
 <em class="property">class </em><tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">MacroToEdit</tt><a class="headerlink" href="#IPython.core.magics.code.MacroToEdit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></p>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.magics.code.InteractivelyDefined">
 <em class="property">class </em><tt class="descclassname">IPython.core.magics.code.</tt><tt class="descname">InteractivelyDefined</tt><big>(</big><em>index</em><big>)</big><a class="headerlink" href="#IPython.core.magics.code.InteractivelyDefined" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
 <p>Exception for interactively defined variable in magic_edit</p>
 <dl class="method">
 <dt id="IPython.core.magics.code.InteractivelyDefined.__init__">
@@ -208,42 +208,49 @@ the output.</p>
 <p>Note that %edit is also available through the alias %ed.</p>
 <p>This is an example of creating a simple function inside the editor and
 then modifying it. First, start up the editor:</p>
-<div class="highlight-python"><pre>In [1]: edit
+<div class="highlight-python"><div class="highlight"><pre>In [1]: edit
 Editing... done. Executing edited code...
-Out[1]: 'def foo():\n    print "foo() was defined in an editing
-session"\n'</pre>
+Out[1]: &#39;def foo():\n    print &quot;foo() was defined in an editing
+session&quot;\n&#39;
+</pre></div>
 </div>
 <p>We can then call the function foo():</p>
-<div class="highlight-python"><pre>In [2]: foo()
-foo() was defined in an editing session</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: foo()
+foo() was defined in an editing session
+</pre></div>
 </div>
 <p>Now we edit foo.  IPython automatically loads the editor with the
 (temporary) file where foo() was previously defined:</p>
-<div class="highlight-python"><pre>In [3]: edit foo
-Editing... done. Executing edited code...</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: edit foo
+Editing... done. Executing edited code...
+</pre></div>
 </div>
 <p>And if we call foo() again we get the modified version:</p>
-<div class="highlight-python"><pre>In [4]: foo()
-foo() has now been changed!</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [4]: foo()
+foo() has now been changed!
+</pre></div>
 </div>
 <p>Here is an example of how to edit a code snippet successive
 times. First we call the editor:</p>
-<div class="highlight-python"><pre>In [5]: edit
+<div class="highlight-python"><div class="highlight"><pre>In [5]: edit
 Editing... done. Executing edited code...
 hello
-Out[5]: "print 'hello'\n"</pre>
+Out[5]: &quot;print &#39;hello&#39;\n&quot;
+</pre></div>
 </div>
 <p>Now we call it again with the previous output (stored in _):</p>
-<div class="highlight-python"><pre>In [6]: edit _
+<div class="highlight-python"><div class="highlight"><pre>In [6]: edit _
 Editing... done. Executing edited code...
 hello world
-Out[6]: "print 'hello world'\n"</pre>
+Out[6]: &quot;print &#39;hello world&#39;\n&quot;
+</pre></div>
 </div>
 <p>Now we call it with the output #8 (stored in _8, also as Out[8]):</p>
-<div class="highlight-python"><pre>In [7]: edit _8
+<div class="highlight-python"><div class="highlight"><pre>In [7]: edit _8
 Editing... done. Executing edited code...
 hello again
-Out[7]: "print 'hello again'\n"</pre>
+Out[7]: &quot;print &#39;hello again&#39;\n&quot;
+</pre></div>
 </div>
 <p>Changing the default editor hook:</p>
 <p>If you wish to write your own editor hook, you can put it in a
@@ -277,13 +284,14 @@ beginning and end of the file, respectively).</p>
 range (see %history) or a macro as argument, it will prompt for
 confirmation before loading source with more than 200 000 characters, unless
 -y flag is passed or if the frontend does not support raw_input:</p>
-<div class="highlight-python"><pre>%load myscript.py
+<div class="highlight-python"><div class="highlight"><pre>%load myscript.py
 %load 7-27
 %load myMacro
 %load http://www.example.com/myscript.py
 %load -r 5-10 myscript.py
 %load -r 10-20,30,40: foo.py
-%load -s MyClass,wonder_function myscript.py</pre>
+%load -s MyClass,wonder_function myscript.py
+</pre></div>
 </div>
 </dd></dl>
 
@@ -408,8 +416,8 @@ symbols not found in the code.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

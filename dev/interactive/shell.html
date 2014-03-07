@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython as a system shell &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>IPython as a system shell &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="A Qt Console for IPython" href="qtconsole.html" />
     <link rel="prev" title="IPython reference" href="reference.html" /> 
@@ -111,7 +111,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="ipython-as-a-system-shell">
@@ -156,9 +156,10 @@ switching to any of them. Type <tt class="docutils literal"><span class="pre">cd
 <h2>Prompt customization<a class="headerlink" href="#prompt-customization" title="Permalink to this headline">¶</a></h2>
 <p>Here are some prompt configurations you can try out interactively by using the
 <tt class="docutils literal"><span class="pre">%config</span></tt> magic:</p>
-<div class="highlight-python"><pre>%config PromptManager.in_template = r'{color.LightGreen}\u@\h{color.LightBlue}[{color.LightCyan}\Y1{color.LightBlue}]{color.Green}|\#&gt; '
-%config PromptManager.in2_template = r'{color.Green}|{color.LightGreen}\D{color.Green}&gt; '
-%config PromptManager.out_template = r'&lt;\#&gt; '</pre>
+<div class="highlight-python"><div class="highlight"><pre>%config PromptManager.in_template = r&#39;{color.LightGreen}\u@\h{color.LightBlue}[{color.LightCyan}\Y1{color.LightBlue}]{color.Green}|\#&gt; &#39;
+%config PromptManager.in2_template = r&#39;{color.Green}|{color.LightGreen}\D{color.Green}&gt; &#39;
+%config PromptManager.out_template = r&#39;&lt;\#&gt; &#39;
+</pre></div>
 </div>
 <p>You can change the prompt configuration to your liking permanently by editing
 <tt class="docutils literal"><span class="pre">ipython_config.py</span></tt>:</p>
@@ -175,20 +176,21 @@ on how to find <tt class="docutils literal"><span class="pre">ipython_config.py<
 <p>String lists (IPython.utils.text.SList) are handy way to process output
 from system commands. They are produced by <tt class="docutils literal"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">!cmd</span></tt> syntax.</p>
 <p>First, we acquire the output of &#8216;ls -l&#8217;:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|2&gt; lines = !ls -l
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|2&gt; lines = !ls -l
  ==
-['total 23',
- '-rw-rw-rw- 1 ville None 1163 Sep 30  2006 example-demo.py',
- '-rw-rw-rw- 1 ville None 1927 Sep 30  2006 example-embed-short.py',
- '-rwxrwxrwx 1 ville None 4606 Sep  1 17:15 example-embed.py',
- '-rwxrwxrwx 1 ville None 1017 Sep 30  2006 example-gnuplot.py',
- '-rwxrwxrwx 1 ville None  339 Jun 11 18:01 extension.py',
- '-rwxrwxrwx 1 ville None  113 Dec 20  2006 seteditor.py',
- '-rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc']</pre>
+[&#39;total 23&#39;,
+ &#39;-rw-rw-rw- 1 ville None 1163 Sep 30  2006 example-demo.py&#39;,
+ &#39;-rw-rw-rw- 1 ville None 1927 Sep 30  2006 example-embed-short.py&#39;,
+ &#39;-rwxrwxrwx 1 ville None 4606 Sep  1 17:15 example-embed.py&#39;,
+ &#39;-rwxrwxrwx 1 ville None 1017 Sep 30  2006 example-gnuplot.py&#39;,
+ &#39;-rwxrwxrwx 1 ville None  339 Jun 11 18:01 extension.py&#39;,
+ &#39;-rwxrwxrwx 1 ville None  113 Dec 20  2006 seteditor.py&#39;,
+ &#39;-rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc&#39;]
+</pre></div>
 </div>
 <p>Now, let&#8217;s take a look at the contents of &#8216;lines&#8217; (the first number is
 the list element number):</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|3&gt; lines
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|3&gt; lines
                 &lt;3&gt; SList (.p, .n, .l, .s, .grep(), .fields() available). Value:
 
 0: total 23
@@ -198,10 +200,11 @@ the list element number):</p>
 4: -rwxrwxrwx 1 ville None 1017 Sep 30  2006 example-gnuplot.py
 5: -rwxrwxrwx 1 ville None  339 Jun 11 18:01 extension.py
 6: -rwxrwxrwx 1 ville None  113 Dec 20  2006 seteditor.py
-7: -rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc</pre>
+7: -rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc
+</pre></div>
 </div>
 <p>Now, let&#8217;s filter out the &#8216;embed&#8217; lines:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|4&gt; l2 = lines.grep('embed',prune=1)
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|4&gt; l2 = lines.grep(&#39;embed&#39;,prune=1)
 [Q:doc/examples]|5&gt; l2
                 &lt;5&gt; SList (.p, .n, .l, .s, .grep(), .fields() available). Value:
 
@@ -210,10 +213,11 @@ the list element number):</p>
 2: -rwxrwxrwx 1 ville None 1017 Sep 30  2006 example-gnuplot.py
 3: -rwxrwxrwx 1 ville None  339 Jun 11 18:01 extension.py
 4: -rwxrwxrwx 1 ville None  113 Dec 20  2006 seteditor.py
-5: -rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc</pre>
+5: -rwxrwxrwx 1 ville None  245 Dec 12  2006 seteditor.pyc
+</pre></div>
 </div>
 <p>Now, we want strings having just file names and permissions:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|6&gt; l2.fields(8,0)
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|6&gt; l2.fields(8,0)
                 &lt;6&gt; SList (.p, .n, .l, .s, .grep(), .fields() available). Value:
 
 0: total
@@ -221,53 +225,59 @@ the list element number):</p>
 2: example-gnuplot.py -rwxrwxrwx
 3: extension.py -rwxrwxrwx
 4: seteditor.py -rwxrwxrwx
-5: seteditor.pyc -rwxrwxrwx</pre>
+5: seteditor.pyc -rwxrwxrwx
+</pre></div>
 </div>
 <p>Note how the line with &#8216;total&#8217; does not raise IndexError.</p>
 <p>If you want to split these (yielding lists), call fields() without
 arguments:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|7&gt; _.fields()
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|7&gt; _.fields()
                 &lt;7&gt;
-[['total'],
- ['example-demo.py', '-rw-rw-rw-'],
- ['example-gnuplot.py', '-rwxrwxrwx'],
- ['extension.py', '-rwxrwxrwx'],
- ['seteditor.py', '-rwxrwxrwx'],
- ['seteditor.pyc', '-rwxrwxrwx']]</pre>
+[[&#39;total&#39;],
+ [&#39;example-demo.py&#39;, &#39;-rw-rw-rw-&#39;],
+ [&#39;example-gnuplot.py&#39;, &#39;-rwxrwxrwx&#39;],
+ [&#39;extension.py&#39;, &#39;-rwxrwxrwx&#39;],
+ [&#39;seteditor.py&#39;, &#39;-rwxrwxrwx&#39;],
+ [&#39;seteditor.pyc&#39;, &#39;-rwxrwxrwx&#39;]]
+</pre></div>
 </div>
 <p>If you want to pass these separated with spaces to a command (typical
 for lists if files), use the .s property:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|13&gt; files = l2.fields(8).s
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|13&gt; files = l2.fields(8).s
 [Q:doc/examples]|14&gt; files
-                &lt;14&gt; 'example-demo.py example-gnuplot.py extension.py seteditor.py seteditor.pyc'
+                &lt;14&gt; &#39;example-demo.py example-gnuplot.py extension.py seteditor.py seteditor.pyc&#39;
 [Q:doc/examples]|15&gt; ls $files
-example-demo.py  example-gnuplot.py  extension.py  seteditor.py  seteditor.pyc</pre>
+example-demo.py  example-gnuplot.py  extension.py  seteditor.py  seteditor.pyc
+</pre></div>
 </div>
 <p>SLists are inherited from normal python lists, so every list method is
 available:</p>
-<div class="highlight-python"><pre>[Q:doc/examples]|21&gt; lines.append('hey')</pre>
+<div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|21&gt; lines.append(&#39;hey&#39;)
+</pre></div>
 </div>
 <div class="section" id="real-world-example-remove-all-files-outside-version-control">
 <h3>Real world example: remove all files outside version control<a class="headerlink" href="#real-world-example-remove-all-files-outside-version-control" title="Permalink to this headline">¶</a></h3>
 <p>First, capture output of &#8220;hg status&#8221;:</p>
-<div class="highlight-python"><pre>[Q:/ipython]|28&gt; out = !hg status
+<div class="highlight-python"><div class="highlight"><pre>[Q:/ipython]|28&gt; out = !hg status
  ==
-['M IPython\\extensions\\ipy_kitcfg.py',
- 'M IPython\\extensions\\ipy_rehashdir.py',
+[&#39;M IPython\\extensions\\ipy_kitcfg.py&#39;,
+ &#39;M IPython\\extensions\\ipy_rehashdir.py&#39;,
 ...
- '? build\\lib\\IPython\\Debugger.py',
- '? build\\lib\\IPython\\extensions\\InterpreterExec.py',
- '? build\\lib\\IPython\\extensions\\InterpreterPasteInput.py',
-...</pre>
+ &#39;? build\\lib\\IPython\\Debugger.py&#39;,
+ &#39;? build\\lib\\IPython\\extensions\\InterpreterExec.py&#39;,
+ &#39;? build\\lib\\IPython\\extensions\\InterpreterPasteInput.py&#39;,
+...
+</pre></div>
 </div>
 <p>(lines starting with ? are not under version control).</p>
-<div class="highlight-python"><pre>[Q:/ipython]|35&gt; junk = out.grep(r'^\?').fields(1)
+<div class="highlight-python"><div class="highlight"><pre>[Q:/ipython]|35&gt; junk = out.grep(r&#39;^\?&#39;).fields(1)
 [Q:/ipython]|36&gt; junk
             &lt;36&gt; SList (.p, .n, .l, .s, .grep(), .fields() availab
 ...
 10: build\bdist.win32\winexe\temp\_ctypes.py
 11: build\bdist.win32\winexe\temp\_hashlib.py
-12: build\bdist.win32\winexe\temp\_socket.py</pre>
+12: build\bdist.win32\winexe\temp\_socket.py
+</pre></div>
 </div>
 <p>Now we can just remove these files by doing &#8216;rm $junk.s&#8217;.</p>
 </div>
@@ -313,8 +323,8 @@ for convenient file manipulation.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

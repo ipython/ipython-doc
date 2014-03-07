@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: lib.display &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: lib.display &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: lib.editorhooks" href="IPython.lib.editorhooks.html" />
     <link rel="prev" title="Module: lib.demo" href="IPython.lib.demo.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.lib.display">
@@ -167,21 +167,22 @@ Default is <cite>False</cite>.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre># Generate a sound
+<div class="highlight-python"><div class="highlight"><pre># Generate a sound
 import numpy as np
 framerate = 44100
 t = np.linspace(0,5,framerate*5)
 data = np.sin(2*np.pi*220*t) + np.sin(2*np.pi*224*t))
 Audio(data,rate=framerate)
 
-Audio("http://www.nch.com.au/acm/8k16bitpcm.wav")  # From URL
-Audio(url="http://www.w3schools.com/html/horse.ogg")
+Audio(&quot;http://www.nch.com.au/acm/8k16bitpcm.wav&quot;)  # From URL
+Audio(url=&quot;http://www.w3schools.com/html/horse.ogg&quot;)
 
-Audio('/path/to/sound.wav')  # From file
-Audio(filename='/path/to/sound.ogg')
+Audio(&#39;/path/to/sound.wav&#39;)  # From file
+Audio(filename=&#39;/path/to/sound.ogg&#39;)
 
-Audio(b'RAW_WAV_DATA..)  # From bytes
-Audio(data=b'RAW_WAV_DATA..)</pre>
+Audio(b&#39;RAW_WAV_DATA..)  # From bytes
+Audio(data=b&#39;RAW_WAV_DATA..)
+</pre></div>
 </div>
 <dl class="method">
 <dt id="IPython.lib.display.Audio.__init__">
@@ -213,7 +214,7 @@ Audio(data=b'RAW_WAV_DATA..)</pre>
 <em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">YouTubeVideo</tt><big>(</big><em>id</em>, <em>width=400</em>, <em>height=300</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.lib.display.YouTubeVideo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.display.IFrame" title="IPython.lib.display.IFrame"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.display.IFrame</span></tt></a></p>
 <p>Class for embedding a YouTube Video in an IPython session, based on its video id.</p>
-<p>e.g. to embed the video from <a class="reference external" href="http://www.youtube.com/watch?v=foo">http://www.youtube.com/watch?v=foo</a> , you would
+<p>e.g. to embed the video from <a class="reference external" href="https://www.youtube.com/watch?v=foo">https://www.youtube.com/watch?v=foo</a> , you would
 do:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">vid</span> <span class="o">=</span> <span class="n">YouTubeVideo</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">vid</span><span class="p">)</span>
@@ -268,7 +269,7 @@ Use the view_mode params to specify display type one off scroll | slideshow | bo
 
 <dl class="class">
 <dt id="IPython.lib.display.FileLink">
-<em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">FileLink</tt><big>(</big><em>path</em>, <em>url_prefix='files/'</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLink" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">FileLink</tt><big>(</big><em>path</em>, <em>url_prefix=''</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLink" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Class for embedding a local file link in an IPython session, based on path</p>
 <p>e.g. to embed a link that was generated in the IPython notebook as my/data.txt</p>
@@ -283,7 +284,7 @@ Use the view_mode params to specify display type one off scroll | slideshow | bo
 </div>
 <dl class="method">
 <dt id="IPython.lib.display.FileLink.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>path</em>, <em>url_prefix='files/'</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLink.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>path</em>, <em>url_prefix=''</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLink.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -315,7 +316,7 @@ Use the view_mode params to specify display type one off scroll | slideshow | bo
 
 <dl class="class">
 <dt id="IPython.lib.display.FileLinks">
-<em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">FileLinks</tt><big>(</big><em>path</em>, <em>url_prefix='files/'</em>, <em>included_suffixes=None</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em>, <em>notebook_display_formatter=None</em>, <em>terminal_display_formatter=None</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLinks" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.lib.display.</tt><tt class="descname">FileLinks</tt><big>(</big><em>path</em>, <em>url_prefix=''</em>, <em>included_suffixes=None</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em>, <em>notebook_display_formatter=None</em>, <em>terminal_display_formatter=None</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLinks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.lib.display.FileLink" title="IPython.lib.display.FileLink"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.display.FileLink</span></tt></a></p>
 <p>Class for embedding local file links in an IPython session, based on path</p>
 <p>e.g. to embed links to files that were generated in the IPython notebook
@@ -330,7 +331,7 @@ under <tt class="docutils literal"><span class="pre">my/data</span></tt>, you wo
 </div>
 <dl class="method">
 <dt id="IPython.lib.display.FileLinks.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>path</em>, <em>url_prefix='files/'</em>, <em>included_suffixes=None</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em>, <em>notebook_display_formatter=None</em>, <em>terminal_display_formatter=None</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLinks.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>path</em>, <em>url_prefix=''</em>, <em>included_suffixes=None</em>, <em>result_html_prefix=''</em>, <em>result_html_suffix='&lt;br&gt;'</em>, <em>notebook_display_formatter=None</em>, <em>terminal_display_formatter=None</em><big>)</big><a class="headerlink" href="#IPython.lib.display.FileLinks.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>See <a class="reference internal" href="#IPython.lib.display.FileLink" title="IPython.lib.display.FileLink"><tt class="xref py py-class docutils literal"><span class="pre">FileLink</span></tt></a> for the <tt class="docutils literal"><span class="pre">path</span></tt>, <tt class="docutils literal"><span class="pre">url_prefix</span></tt>,
 <tt class="docutils literal"><span class="pre">result_html_prefix</span></tt> and <tt class="docutils literal"><span class="pre">result_html_suffix</span></tt> parameters.</p>
 <dl class="docutils">
@@ -399,8 +400,8 @@ passed here to support alternative formatting.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

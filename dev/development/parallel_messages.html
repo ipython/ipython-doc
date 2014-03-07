@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging for Parallel Computing &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Messaging for Parallel Computing &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Connection Diagrams of The IPython ZMQ Cluster" href="parallel_connections.html" />
     <link rel="prev" title="Messaging in IPython" href="messaging.html" /> 
@@ -119,7 +119,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="messaging-for-parallel-computing">
@@ -212,10 +212,11 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 </pre></div>
 </div>
 <p>Message type : <tt class="docutils literal"><span class="pre">unregistration_notification</span></tt>:</p>
-<div class="highlight-python"><pre>content = {
-    'id' : 0 # engine ID that has been unregistered
-    'uuid' : 'engine_id' # the IDENT for the engine's sockets
-}</pre>
+<div class="highlight-python"><div class="highlight"><pre>content = {
+    &#39;id&#39; : 0 # engine ID that has been unregistered
+    &#39;uuid&#39; : &#39;engine_id&#39; # the IDENT for the engine&#39;s sockets
+}
+</pre></div>
 </div>
 </div>
 <div class="section" id="client-queries-router">
@@ -237,11 +238,12 @@ of <cite>msg_ids</cite> in the queue or simply the length of each list.</p>
 <p>The content of a reply to a <tt class="xref py py-func docutils literal"><span class="pre">queue_request()</span></tt> request is a dict, keyed by the engine
 IDs. Note that they will be the string representation of the integer keys, since JSON
 cannot handle number keys.  The three keys of each dict are:</p>
-<div class="highlight-python"><pre>'completed' :  messages submitted via any queue that ran on the engine
-'queue' : jobs submitted via MUX queue, whose results have not been received
-'tasks' : tasks that are known to have been submitted to the engine, but
+<div class="highlight-python"><div class="highlight"><pre>&#39;completed&#39; :  messages submitted via any queue that ran on the engine
+&#39;queue&#39; : jobs submitted via MUX queue, whose results have not been received
+&#39;tasks&#39; : tasks that are known to have been submitted to the engine, but
             have not completed.  Note that with the pure zmq scheduler, this will
-            always be 0/[].</pre>
+            always be 0/[].
+</pre></div>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">queue_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
@@ -482,8 +484,8 @@ present the buffer interface.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

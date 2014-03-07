@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: sphinxext.ipython_directive &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: sphinxext.ipython_directive &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: terminal.console.app" href="IPython.terminal.console.app.html" />
     <link rel="prev" title="Module: sphinxext.ipython_console_highlighting" href="IPython.sphinxext.ipython_console_highlighting.html" /> 
@@ -62,8 +62,11 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">sphinxext.ipython_directive</span></tt></a><ul>
+<li><a class="reference internal" href="#pseudo-decorators">Pseudo-Decorators</a><ul>
 <li><a class="reference internal" href="#todo">ToDo</a></li>
 <li><a class="reference internal" href="#authors">Authors</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#classes">2 Classes</a></li>
 <li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
@@ -106,7 +109,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.sphinxext.ipython_directive">
@@ -189,8 +192,23 @@ one sets the backend to <cite>None</cite>:</p>
 </div>
 <p>See <a class="reference external" href="http://matplotlib.org/sampledoc/ipython_directive.html">http://matplotlib.org/sampledoc/ipython_directive.html</a> for additional
 documentation.</p>
+<div class="section" id="pseudo-decorators">
+<h2>Pseudo-Decorators<a class="headerlink" href="#pseudo-decorators" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the Pseudo-Decorators/options described at the above link,
+several enhancements have been made.
+The directive will emit a message to the console at build-time if
+code-execution resulted in an exception or warning. You can suppress these on
+a per-block basis by specifying the :okexcept: or :okwarning: options:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+    <span class="nc">:okexcept:</span>
+    <span class="nc">:okwarning:</span>
+
+    In [1]: 1/0
+    In [2]: # raise warning.
+</pre></div>
+</div>
 <div class="section" id="todo">
-<h2>ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<h3>ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Turn the ad-hoc test() function into a real test suite.</li>
 <li>Break up ipython-specific functionality from matplotlib stuff into better
@@ -198,13 +216,14 @@ separated code.</li>
 </ul>
 </div>
 <div class="section" id="authors">
-<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>John D Hunter: orignal author.</li>
 <li>Fernando Perez: refactoring, documentation, cleanups, port to 0.11.</li>
 <li>VáclavŠmilauer &lt;eudoxos-AT-arcig.cz&gt;: Prompt generalizations.</li>
 <li>Skipper Seabold, refactoring, cleanups, pure python addition</li>
 </ul>
+</div>
 </div>
 <div class="section" id="classes">
 <h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
@@ -309,14 +328,15 @@ parses the text into a list of:</p>
 </div>
 <p>where TOKEN is one of [COMMENT | INPUT | OUTPUT ] and
 data is, depending on the type of token:</p>
-<div class="highlight-python"><pre>COMMENT : the comment string
+<div class="highlight-python"><div class="highlight"><pre>COMMENT : the comment string
 
 INPUT: the (DECORATOR, INPUT_LINE, REST) where
    DECORATOR: the input decorator (or None)
    INPUT_LINE: the input as string (possibly multi-line)
    REST : any stdout generated by the input line (not OUTPUT)
 
-OUTPUT: the output string, possibly multi-line</pre>
+OUTPUT: the output string, possibly multi-line
+</pre></div>
 </div>
 </dd></dl>
 
@@ -363,8 +383,8 @@ OUTPUT: the output string, possibly multi-line</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

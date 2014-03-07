@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.interactiveshell &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.interactiveshell &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.logger" href="IPython.core.logger.html" />
     <link rel="prev" title="Module: core.inputtransformer" href="IPython.core.inputtransformer.html" /> 
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.interactiveshell">
@@ -115,12 +115,12 @@ significant differences from the latest stable release (1.1.0).</p>
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SpaceInInput">
 <em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SpaceInInput</tt><a class="headerlink" href="#IPython.core.interactiveshell.SpaceInInput" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateUnicode">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x4926550&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x2ace98612590&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
 <p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <p>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and <tt class="docutils literal"><span class="pre">'\\n'-&gt;'\n'</span></tt>.</p>
@@ -182,10 +182,12 @@ clutter</p>
 <dd><p>Print to the screen the rewritten form of the user&#8217;s command.</p>
 <p>This shows visual feedback by rewriting input lines that cause
 automatic calling to kick in, like:</p>
-<div class="highlight-python"><pre>/f x</pre>
+<div class="highlight-python"><div class="highlight"><pre>/f x
+</pre></div>
 </div>
 <p>into:</p>
-<div class="highlight-python"><pre>------&gt; f(x)</pre>
+<div class="highlight-python"><div class="highlight"><pre>------&gt; f(x)
+</pre></div>
 </div>
 <p>after the user&#8217;s input prompt.  This helps the user understand that the
 input line was transformed automatically by IPython.</p>
@@ -249,16 +251,16 @@ completer itself will split the line like readline does.</p>
 </dd>
 </dl>
 </div></blockquote>
-<p><strong>The optional arguments allow the completion to take more context into</strong> :</p>
-<p><strong>account, and are part of the low-level completion API.</strong> :</p>
-<p><strong>This is a wrapper around the completion mechanism, similar to what</strong> :</p>
-<p><strong>readline does at the command line when the TAB key is hit.  By</strong> :</p>
-<p><strong>exposing it as a method, it can be used by other non-readline</strong> :</p>
-<p><strong>environments (such as GUIs) for text completion.</strong> :</p>
-<p><strong>Simple usage example:</strong> :</p>
-<p><strong>In [1]: x = &#8216;hello&#8217;</strong> :</p>
-<p><strong>In [2]: _ip.complete(&#8216;x.l&#8217;)</strong> :</p>
-<p class="last"><strong>Out[2]: (&#8216;x.l&#8217;, [&#8216;x.ljust&#8217;, &#8216;x.lower&#8217;, &#8216;x.lstrip&#8217;])</strong> :</p>
+<p>The optional arguments allow the completion to take more context into</p>
+<p>account, and are part of the low-level completion API.</p>
+<p>This is a wrapper around the completion mechanism, similar to what</p>
+<p>readline does at the command line when the TAB key is hit.  By</p>
+<p>exposing it as a method, it can be used by other non-readline</p>
+<p>environments (such as GUIs) for text completion.</p>
+<p>Simple usage example:</p>
+<p>In [1]: x = &#8216;hello&#8217;</p>
+<p>In [2]: _ip.complete(&#8216;x.l&#8217;)</p>
+<p class="last">Out[2]: (&#8216;x.l&#8217;, [&#8216;x.ljust&#8217;, &#8216;x.lower&#8217;, &#8216;x.lstrip&#8217;])</p>
 </td>
 </tr>
 </tbody>
@@ -535,10 +537,10 @@ if unicode fails.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A string of code.</strong> :</p>
-<p><strong>ValueError is raised if nothing is found, and TypeError if it evaluates</strong> :</p>
-<p><strong>to an object of another type. In each case, .args[0] is a printable</strong> :</p>
-<p class="last"><strong>message.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A string of code.</p>
+<p>ValueError is raised if nothing is found, and TypeError if it evaluates</p>
+<p>to an object of another type. In each case, .args[0] is a printable</p>
+<p class="last">message.</p>
 </td>
 </tr>
 </tbody>
@@ -668,8 +670,9 @@ compound statements.</p>
 <dt id="IPython.core.interactiveshell.InteractiveShell.mktempfile">
 <tt class="descname">mktempfile</tt><big>(</big><em>data=None</em>, <em>prefix='ipython_edit_'</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.mktempfile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a new tempfile and return its filename.</p>
-<p>This makes a call to tempfile.mktemp, but it registers the created
-filename internally so ipython cleans it up at exit time.</p>
+<p>This makes a call to tempfile.mkstemp (created in a tempfile.mkdtemp),
+but it registers the created filename internally so ipython cleans it up
+at exit time.</p>
 <p>Optional inputs:</p>
 <blockquote>
 <div><ul class="simple">
@@ -731,7 +734,7 @@ a clean module will be created.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>A tuple of user_module and user_ns, each properly initialised.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple of user_module and user_ns, each properly initialised.</p>
 </td>
 </tr>
 </tbody>
@@ -806,7 +809,8 @@ default, the name of the function itself is used.</p>
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.register_post_execute">
 <tt class="descname">register_post_execute</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.register_post_execute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a function for calling after code execution.</p>
+<dd><p>DEPRECATED: Use ip.events.register(&#8216;post_run_cell&#8217;, func)</p>
+<p>Register a function for calling after code execution.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1157,9 +1161,9 @@ internal basic one is used, which just prints basic info.</p>
 exception or returns an invalid result, it will be immediately
 disabled.</p>
 </div></blockquote>
-<p><strong>WARNING: by putting in your own exception handler into IPython&#8217;s main</strong> :</p>
-<p><strong>execution loop, you run a very good chance of nasty crashes.  This</strong> :</p>
-<p class="last"><strong>facility should only be used if you really know what you are doing.</strong> :</p>
+<p><strong>WARNING: by putting in your own exception handler into IPython&#8217;s main</strong></p>
+<p><strong>execution loop, you run a very good chance of nasty crashes.  This</strong></p>
+<p class="last"><strong>facility should only be used if you really know what you are doing.</strong></p>
 </td>
 </tr>
 </tbody>
@@ -1180,8 +1184,9 @@ behavior to call at runtime your own routines.</p>
 <dd><p>Sets the &#8216;default&#8217; input string for the next command line.</p>
 <p>Requires readline.</p>
 <p>Example:</p>
-<div class="highlight-python"><pre>In [1]: _ip.set_next_input("Hello Word")
-In [2]: Hello Word_  # cursor is here</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: _ip.set_next_input(&quot;Hello Word&quot;)
+In [2]: Hello Word_  # cursor is here
+</pre></div>
 </div>
 </dd></dl>
 
@@ -1310,9 +1315,9 @@ produced by parsing user input.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>An ast.Node corresponding to the node it was called with. Note that it</strong> :</p>
-<p><strong>may also modify the passed object, so don&#8217;t rely on references to the</strong> :</p>
-<p class="last"><strong>original AST.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An ast.Node corresponding to the node it was called with. Note that it</p>
+<p>may also modify the passed object, so don&#8217;t rely on references to the</p>
+<p class="last">original AST.</p>
 </td>
 </tr>
 </tbody>
@@ -1335,8 +1340,8 @@ in the user namespace.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A dict, keyed like the input expressions dict, with the rich mime-typed</strong> :</p>
-<p class="last"><strong>display_data of each value.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dict, keyed like the input expressions dict, with the rich mime-typed</p>
+<p class="last">display_data of each value.</p>
 </td>
 </tr>
 </tbody>
@@ -1357,8 +1362,8 @@ in the user namespace.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A dict, keyed by the input names and with the rich mime-type repr(s) of each value.</strong> :</p>
-<p class="last"><strong>Each element will be a sub-dict of the same form as a display_data message.</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dict, keyed by the input names and with the rich mime-type repr(s) of each value.</p>
+<p class="last">Each element will be a sub-dict of the same form as a display_data message.</p>
 </td>
 </tr>
 </tbody>
@@ -1367,7 +1372,7 @@ in the user namespace.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
-<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x4bd9d10&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x2ace987f18d0&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand python variables in a string.</p>
 <p>The depth argument indicates how many frames above the caller should
 be walked to look for the local namespace where to expand variables.</p>
@@ -1437,8 +1442,8 @@ namespace.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

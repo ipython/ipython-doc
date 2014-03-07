@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.magics.execution &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.magics.execution &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.magics.extension" href="IPython.core.magics.extension.html" />
     <link rel="prev" title="Module: core.magics.display" href="IPython.core.magics.display.html" /> 
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.magics.execution">
@@ -169,7 +169,8 @@ compile_time: (float) time of statement compilation (s)</p>
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.capture">
 <tt class="descname">capture</tt><big>(</big><em>line</em>, <em>cell</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.capture" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><pre>%capture [--no-stderr] [--no-stdout] [--no-display] [output]</pre>
+<dd><div class="highlight-python"><div class="highlight"><pre>%capture [--no-stderr] [--no-stdout] [--no-display] [output]
+</pre></div>
 </div>
 <p>run the cell, capturing stdout, stderr, and IPython&#8217;s rich display() calls.</p>
 <dl class="docutils">
@@ -206,7 +207,8 @@ captured output is discarded.</dd>
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.debug">
 <tt class="descname">debug</tt><big>(</big><em>line=''</em>, <em>cell=None</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.debug" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><pre>%debug [--breakpoint FILE:LINE] [statement [statement ...]]</pre>
+<dd><div class="highlight-python"><div class="highlight"><pre>%debug [--breakpoint FILE:LINE] [statement [statement ...]]
+</pre></div>
 </div>
 <p>Activate the interactive debugger.</p>
 <p>This magic command support two ways of activating debugger.
@@ -275,16 +277,18 @@ executes.</p>
 <p>Note: as a &#8216;hidden&#8217; feature, you can also use traditional python slice
 notation, where N:M means numbers N through M-1.</p>
 <p>For example, if your history contains (print using %hist -n ):</p>
-<div class="highlight-python"><pre>44: x=1
+<div class="highlight-python"><div class="highlight"><pre>44: x=1
 45: y=3
 46: z=x+y
 47: print x
 48: a=5
-49: print 'x',x,'y',y</pre>
+49: print &#39;x&#39;,x,&#39;y&#39;,y
+</pre></div>
 </div>
 <p>you can create a macro with lines 44 through 47 (included) and line 49
 called my_macro with:</p>
-<div class="highlight-python"><pre>In [55]: %macro my_macro 44-47 49</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [55]: %macro my_macro 44-47 49
+</pre></div>
 </div>
 <p>Now, typing <cite>my_macro</cite> (without quotes) will re-execute all this code
 in one pass.</p>
@@ -450,18 +454,20 @@ objects. The profile is still shown on screen.</td></tr>
 <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-p</span> <span class="pre">[prof_opts]</span> <span class="pre">filename.py</span> <span class="pre">[args</span> <span class="pre">to</span> <span class="pre">program]</span></tt> where prof_opts
 contains profiler specific options as described here.</p>
 <p>You can read the complete documentation for the profile module with:</p>
-<div class="highlight-python"><pre>In [1]: import profile; profile.help()</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: import profile; profile.help()
+</pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.core.magics.execution.ExecutionMagics.run">
-<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x48ddb90&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">run</tt><big>(</big><em>parameter_s=''</em>, <em>runner=None</em>, <em>file_finder=&lt;function get_py_filename at 0x2ace98600578&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.magics.execution.ExecutionMagics.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the named file inside IPython as a program.</p>
 <p>Usage:</p>
-<div class="highlight-python"><pre>%run [-n -i -e -G]
+<div class="highlight-python"><div class="highlight"><pre>%run [-n -i -e -G]
      [( -t [-N&lt;N&gt;] | -d [-b&lt;N&gt;] | -p [profile options] )]
-     ( -m mod | file ) [args]</pre>
+     ( -m mod | file ) [args]
+</pre></div>
 </div>
 <p>Parameters after the filename are passed as command-line arguments to
 the program (put in sys.argv). Then, control returns to IPython&#8217;s
@@ -520,7 +526,7 @@ is also given (for Windows platforms this is reported as 0.0).</td></tr>
 must be an integer indicating how many times you want the script to
 run.  The final timing report will include total and per run results.</p>
 <p>For example (testing the script uniq_stable.py):</p>
-<div class="highlight-python"><pre>In [1]: run -t uniq_stable
+<div class="highlight-python"><div class="highlight"><pre>In [1]: run -t uniq_stable
 
 IPython CPU timings (estimated):
   User  :    0.19597 s.
@@ -532,7 +538,8 @@ IPython CPU timings (estimated):
 Total runs performed: 5
   Times :      Total       Per run
   User  :   0.910862 s,  0.1821724 s.
-  System:        0.0 s,        0.0 s.</pre>
+  System:        0.0 s,        0.0 s.
+</pre></div>
 </div>
 <table class="docutils option-list" frame="void" rules="none">
 <col class="option" />
@@ -549,13 +556,15 @@ etc.  Internally, what IPython does is similar to calling:</p>
 <p>with a breakpoint set on line 1 of your file.  You can change the line
 number for this automatic breakpoint to be &lt;N&gt; by using the -bN option
 (where N must be an integer). For example:</p>
-<div class="highlight-python"><pre>%run -d -b40 myscript</pre>
+<div class="highlight-python"><div class="highlight"><pre>%run -d -b40 myscript
+</pre></div>
 </div>
 <p>will set the first breakpoint at line 40 in myscript.py.  Note that
 the first breakpoint must be set on a line which actually does
 something (not a comment or docstring) for it to stop execution.</p>
 <p>Or you can specify a breakpoint in a different file:</p>
-<div class="highlight-python"><pre>%run -d -b myotherfile.py:20 myscript</pre>
+<div class="highlight-python"><div class="highlight"><pre>%run -d -b myotherfile.py:20 myscript
+</pre></div>
 </div>
 <p>When the pdb debugger starts, you will see a (Pdb) prompt.  You must
 first enter &#8216;c&#8217; (without quotes) to start execution up to the first
@@ -592,7 +601,8 @@ the -m option for the python interpreter. Use this option last if you
 want to combine with other %run options. Unlike the python interpreter
 only source modules are allowed no .pyc or .pyo files.
 For example:</p>
-<div class="highlight-python"><pre>%run -m example</pre>
+<div class="highlight-python"><div class="highlight"><pre>%run -m example
+</pre></div>
 </div>
 <p class="last">will run the example module.</p>
 </td></tr>
@@ -627,7 +637,7 @@ following statement raises an error).</li>
 <p>This function provides very basic timing functionality.  Use the timeit 
 magic for more controll over the measurement.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [1]: %time 2**128
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %time 2**128
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00
 Out[1]: 340282366920938463463374607431768211456L
@@ -639,7 +649,7 @@ CPU times: user 1.20 s, sys: 0.05 s, total: 1.25 s
 Wall time: 1.37
 Out[3]: 499999500000L
 
-In [4]: %time print 'hello world'
+In [4]: %time print &#39;hello world&#39;
 hello world
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00
@@ -657,7 +667,8 @@ Wall time: 0.00 s
 In [6]: %time 3**999999;
 CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
 Wall time: 0.00 s
-Compiler : 0.78 s</pre>
+Compiler : 0.78 s
+</pre></div>
 </div>
 </dd></dl>
 
@@ -700,7 +711,7 @@ Default: 3</p>
 <dd>the result in more details.</dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><pre>In [1]: %timeit pass
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %timeit pass
 10000000 loops, best of 3: 53.3 ns per loop
 
 In [2]: u = None
@@ -714,7 +725,8 @@ In [4]: %timeit -r 4 u == None
 In [5]: import time
 
 In [6]: %timeit -n1 time.sleep(2)
-1 loops, best of 3: 2 s per loop</pre>
+1 loops, best of 3: 2 s per loop
+</pre></div>
 </div>
 <p>The times reported by %timeit will be slightly higher than those
 reported by the timeit.py script when variables are accessed. This is
@@ -769,8 +781,8 @@ those from %timeit.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

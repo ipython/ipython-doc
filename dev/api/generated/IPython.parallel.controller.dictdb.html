@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.controller.dictdb &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: parallel.controller.dictdb &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: parallel.controller.heartmonitor" href="IPython.parallel.controller.heartmonitor.html" />
     <link rel="prev" title="Module: parallel.controller.dependency" href="IPython.parallel.controller.dependency.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.parallel.controller.dictdb">
@@ -122,10 +122,11 @@ but exists entirely in memory and implemented with dicts.</p>
     <span class="s">&#39;header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">header</span><span class="p">),</span>
     <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">content</span><span class="p">),</span>
     <span class="s">&#39;buffers&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">buffers</span><span class="p">),</span>
-    <span class="s">&#39;submitted&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">,</span>
+    <span class="s">&#39;submitted&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;started&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;completed&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
-    <span class="s">&#39;resubmitted&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;received&#39;</span><span class="p">:</span> <span class="n">datetime</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="s">&#39;resubmitted&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;result_header&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;result_content&#39;</span> <span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
     <span class="s">&#39;result_buffers&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">buffers</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">None</span><span class="p">,</span>
@@ -139,16 +140,9 @@ e.g.:</p>
 <li>client&#8217;s outstanding: client_uuid = uuid &amp;&amp; completed is None</li>
 <li>MIA: arrived is None (and completed is None)</li>
 </ul>
-<p>EngineRecords are dicts of the form:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-    <span class="s">&#39;eid&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">),</span>
-    <span class="s">&#39;uuid&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">)</span>
-<span class="p">}</span>
+<p>DictDB supports a subset of mongodb operators:</p>
+<div class="highlight-python"><div class="highlight"><pre>$lt,$gt,$lte,$gte,$ne,$in,$nin,$all,$mod,$exists
 </pre></div>
-</div>
-<p>This may be extended, but is currently.</p>
-<p>We support a subset of mongodb operators:</p>
-<div class="highlight-python"><pre>$lt,$gt,$lte,$gte,$ne,$in,$nin,$all,$mod,$exists</pre>
 </div>
 <div class="section" id="classes">
 <h2>4 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
@@ -207,11 +201,11 @@ backend should be straightforward.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>check: dict</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>check: dict</strong></p>
 <blockquote>
 <div><p>mongodb-style query argument</p>
 </div></blockquote>
-<p><strong>keys: list of strs [optional]</strong> :</p>
+<p><strong>keys: list of strs [optional]</strong></p>
 <blockquote class="last">
 <div><p>if specified, the subset of keys to extract.  msg_id will <em>always</em> be
 included.</p>
@@ -286,8 +280,8 @@ functionality is not required.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

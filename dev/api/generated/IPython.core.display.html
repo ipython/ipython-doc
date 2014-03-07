@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.display &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.display &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.display_trap" href="IPython.core.display_trap.html" />
     <link rel="prev" title="Module: core.debugger" href="IPython.core.debugger.html" /> 
@@ -62,8 +62,8 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.display</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">9 Classes</a></li>
-<li><a class="reference internal" href="#functions">10 Functions</a></li>
+<li><a class="reference internal" href="#classes">10 Classes</a></li>
+<li><a class="reference internal" href="#functions">13 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.core.display">
@@ -115,7 +115,7 @@ significant differences from the latest stable release (1.1.0).</p>
 <li>Brian Granger</li>
 </ul>
 <div class="section" id="classes">
-<h2>9 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h2>10 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.display.DisplayObject">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">DisplayObject</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.DisplayObject" title="Permalink to this definition">¶</a></dt>
@@ -162,27 +162,34 @@ and then displayed. If</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="IPython.core.display.TextDisplayObject">
+<em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">TextDisplayObject</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.TextDisplayObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<p>Validate that display data is text</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="IPython.core.display.Pretty">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Pretty</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Pretty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.display.HTML">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">HTML</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.HTML" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.display.Math">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Math</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Math" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.display.Latex">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Latex</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Latex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
@@ -194,13 +201,13 @@ and then displayed. If</p>
 <dl class="class">
 <dt id="IPython.core.display.JSON">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">JSON</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.JSON" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.core.display.Javascript">
 <em class="property">class </em><tt class="descclassname">IPython.core.display.</tt><tt class="descname">Javascript</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>lib=None</em>, <em>css=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Javascript" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.DisplayObject" title="IPython.core.display.DisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.DisplayObject</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.core.display.TextDisplayObject" title="IPython.core.display.TextDisplayObject"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.display.TextDisplayObject</span></tt></a></p>
 <dl class="method">
 <dt id="IPython.core.display.Javascript.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>data=None</em>, <em>url=None</em>, <em>filename=None</em>, <em>lib=None</em>, <em>css=None</em><big>)</big><a class="headerlink" href="#IPython.core.display.Javascript.__init__" title="Permalink to this definition">¶</a></dt>
@@ -339,7 +346,7 @@ Image(url=&#8217;<a class="reference external" href="http://www.google.fr/images
 
 </div>
 <div class="section" id="functions">
-<h2>10 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>13 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.core.display.display">
 <tt class="descclassname">IPython.core.display.</tt><tt class="descname">display</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display" title="Permalink to this definition">¶</a></dt>
@@ -609,6 +616,34 @@ formatted before display? [default: False]</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="IPython.core.display.display_pdf">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">display_pdf</tt><big>(</big><em>*objs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.display_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the PDF representation of an object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>objs</strong> : tuple of objects</p>
+<blockquote>
+<div><p>The Python objects to display, or if raw=True raw javascript data to
+display.</p>
+</div></blockquote>
+<p><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>Are the data objects raw data or Python objects that need to be
+formatted before display? [default: False]</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict (optional)</p>
+<blockquote class="last">
+<div><p>Metadata to be associated with the specific mimetype output.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.core.display.clear_output">
 <tt class="descclassname">IPython.core.display.</tt><tt class="descname">clear_output</tt><big>(</big><em>wait=False</em><big>)</big><a class="headerlink" href="#IPython.core.display.clear_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the output of the current cell receiving output.</p>
@@ -619,6 +654,68 @@ formatted before display? [default: False]</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>wait</strong> : bool [default: false]</p>
 <blockquote class="last">
 <div><p>Wait to clear the output until new output is available to replace it.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.set_matplotlib_formats">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">set_matplotlib_formats</tt><big>(</big><em>*formats</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.core.display.set_matplotlib_formats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select figure formats for the inline backend. Optionally pass quality for JPEG.</p>
+<p>For example, this enables PNG and JPEG output with a JPEG quality of 90%:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: set_matplotlib_formats(&#39;png&#39;, &#39;jpeg&#39;, quality=90)
+</pre></div>
+</div>
+<p>To set this in your config files use the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_formats</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;png&#39;</span><span class="p">,</span> <span class="s">&#39;jpeg&#39;</span><span class="p">}</span>
+<span class="n">c</span><span class="o">.</span><span class="n">InlineBackend</span><span class="o">.</span><span class="n">print_figure_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">&#39;quality&#39;</span> <span class="p">:</span> <span class="mi">90</span><span class="p">})</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*formats</strong> : strs</p>
+<blockquote>
+<div><p>One or more figure formats to enable: &#8216;png&#8217;, &#8216;retina&#8217;, &#8216;jpeg&#8217;, &#8216;svg&#8217;, &#8216;pdf&#8217;.</p>
+</div></blockquote>
+<p><strong>**kwargs :</strong></p>
+<blockquote class="last">
+<div><p>Keyword args will be relayed to <tt class="docutils literal"><span class="pre">figure.canvas.print_figure</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.display.set_matplotlib_close">
+<tt class="descclassname">IPython.core.display.</tt><tt class="descname">set_matplotlib_close</tt><big>(</big><em>close=True</em><big>)</big><a class="headerlink" href="#IPython.core.display.set_matplotlib_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether the inline backend closes all figures automatically or not.</p>
+<p>By default, the inline backend used in the IPython Notebook will close all
+matplotlib figures automatically after each cell is run. This means that
+plots in different cells won&#8217;t interfere. Sometimes, you may want to make
+a plot in one cell and then refine it in later cells. This can be accomplished
+by:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: set_matplotlib_close(False)
+</pre></div>
+</div>
+<p>To set this in your config files use the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">InlineBackend</span><span class="o">.</span><span class="n">close_figures</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>close</strong> : bool</p>
+<blockquote class="last">
+<div><p>Should all matplotlib figures be automatically closed after each cell is
+run?</p>
 </div></blockquote>
 </td>
 </tr>
@@ -659,8 +756,8 @@ formatted before display? [default: False]</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

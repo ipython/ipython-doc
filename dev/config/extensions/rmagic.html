@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>rmagic &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>rmagic &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="IPython extensions" href="index.html" />
     <link rel="next" title="storemagic" href="storemagic.html" />
     <link rel="prev" title="octavemagic" href="octavemagic.html" /> 
@@ -107,7 +107,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.extensions.rmagic">
@@ -123,23 +123,25 @@ can be obtained using <tt class="docutils literal"><span class="pre">easy_instal
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>To enable the magics below, execute <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">rmagic</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">%R</span></tt></p>
-<div class="highlight-python"><pre>%R [-i INPUT] [-o OUTPUT] [-w WIDTH] [-h HEIGHT] [-d DATAFRAME]
+<div class="highlight-python"><div class="highlight"><pre>%R [-i INPUT] [-o OUTPUT] [-w WIDTH] [-h HEIGHT] [-d DATAFRAME]
        [-u {px,in,cm,mm}] [-r RES] [-p POINTSIZE] [-b BG] [-n]
-       [code [code ...]]</pre>
+       [code [code ...]]
+</pre></div>
 </div>
 <p>Execute code in R, and pull some of the results back into the Python namespace.</p>
 <p>In line mode, this will evaluate an expression and convert the returned value to a Python object.
 The return value is determined by rpy2&#8217;s behaviour of returning the result of evaluating the
 final line.</p>
 <p>Multiple R lines can be executed by joining them with semicolons:</p>
-<div class="highlight-python"><pre>In [9]: %R X=c(1,4,5,7); sd(X); mean(X)
-Out[9]: array([ 4.25])</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [9]: %R X=c(1,4,5,7); sd(X); mean(X)
+Out[9]: array([ 4.25])
+</pre></div>
 </div>
 <p>In cell mode, this will run a block of R code. The resulting value
 is printed if it would printed be when evaluating the same code 
 within a standard R REPL.</p>
 <p>Nothing is returned to python by default in cell mode:</p>
-<div class="highlight-python"><pre>In [10]: %%R
+<div class="highlight-python"><div class="highlight"><pre>In [10]: %%R
    ....: Y = c(2,4,3,9)
    ....: summary(lm(Y~X))
 
@@ -157,16 +159,18 @@ X             1.0400     0.4822   2.157    0.164
 
 Residual standard error: 2.088 on 2 degrees of freedom
 Multiple R-squared: 0.6993,Adjusted R-squared: 0.549
-F-statistic: 4.651 on 1 and 2 DF,  p-value: 0.1638</pre>
+F-statistic: 4.651 on 1 and 2 DF,  p-value: 0.1638
+</pre></div>
 </div>
 <p>In the notebook, plots are published as the output of the cell:</p>
-<div class="highlight-python"><pre>%R plot(X, Y)</pre>
+<div class="highlight-python"><div class="highlight"><pre>%R plot(X, Y)
+</pre></div>
 </div>
 <p>will create a scatter plot of X bs Y.</p>
 <p>If cell is not None and line has some R code, it is prepended to
 the R code in cell.</p>
 <p>Objects can be passed back and forth between rpy2 and python via the -i -o flags in line:</p>
-<div class="highlight-python"><pre>In [14]: Z = np.array([1,4,5,10])
+<div class="highlight-python"><div class="highlight"><pre>In [14]: Z = np.array([1,4,5,10])
 
 In [15]: %R -i Z mean(Z)
 Out[15]: array([ 5.])
@@ -175,7 +179,8 @@ In [16]: %R -o W W=Z*mean(Z)
 Out[16]: array([  5.,  20.,  25.,  50.])
 
 In [17]: W
-Out[17]: array([  5.,  20.,  25.,  50.])</pre>
+Out[17]: array([  5.,  20.,  25.,  50.])
+</pre></div>
 </div>
 <p>The return value is determined by these rules:</p>
 <ul class="simple">
@@ -195,9 +200,9 @@ value in the line is an empty string.</li>
 This is useful for dataframes with
 mixed data types. Note also that for a data.frame, 
 if it is returned as an ndarray, it is transposed:</p>
-<div class="highlight-python"><pre>In [18]: dtype=[('x', '&lt;i4'), ('y', '&lt;f8'), ('z', '|S1')]
+<div class="highlight-python"><div class="highlight"><pre>In [18]: dtype=[(&#39;x&#39;, &#39;&lt;i4&#39;), (&#39;y&#39;, &#39;&lt;f8&#39;), (&#39;z&#39;, &#39;|S1&#39;)]
 
-In [19]: datapy = np.array([(1, 2.9, 'a'), (2, 3.5, 'b'), (3, 2.1, 'c'), (4, 5, 'e')], dtype=dtype)
+In [19]: datapy = np.array([(1, 2.9, &#39;a&#39;), (2, 3.5, &#39;b&#39;), (3, 2.1, &#39;c&#39;), (4, 5, &#39;e&#39;)], dtype=dtype)
 
 In [20]: %%R -o datar
 datar = datapy
@@ -205,10 +210,10 @@ datar = datapy
 
 In [21]: datar
 Out[21]: 
-array([['1', '2', '3', '4'],
-       ['2', '3', '2', '5'],
-       ['a', 'b', 'c', 'e']], 
-      dtype='|S1')
+array([[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;],
+       [&#39;2&#39;, &#39;3&#39;, &#39;2&#39;, &#39;5&#39;],
+       [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;e&#39;]], 
+      dtype=&#39;|S1&#39;)
 
 In [22]: %%R -d datar
 datar = datapy
@@ -216,31 +221,33 @@ datar = datapy
 
 In [23]: datar
 Out[23]: 
-array([(1, 2.9, 'a'), (2, 3.5, 'b'), (3, 2.1, 'c'), (4, 5.0, 'e')], 
-      dtype=[('x', '&lt;i4'), ('y', '&lt;f8'), ('z', '|S1')])</pre>
+array([(1, 2.9, &#39;a&#39;), (2, 3.5, &#39;b&#39;), (3, 2.1, &#39;c&#39;), (4, 5.0, &#39;e&#39;)], 
+      dtype=[(&#39;x&#39;, &#39;&lt;i4&#39;), (&#39;y&#39;, &#39;&lt;f8&#39;), (&#39;z&#39;, &#39;|S1&#39;)])
+</pre></div>
 </div>
 <p>The &#8211;dataframe argument first tries colnames, then names.
 If both are NULL, it returns an ndarray (i.e. unstructured):</p>
-<div class="highlight-python"><pre>In [1]: %R mydata=c(4,6,8.3); NULL
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %R mydata=c(4,6,8.3); NULL
 
 In [2]: %R -d mydata
 
 In [3]: mydata
 Out[3]: array([ 4. ,  6. ,  8.3])
 
-In [4]: %R names(mydata) = c('a','b','c'); NULL
+In [4]: %R names(mydata) = c(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;); NULL
 
 In [5]: %R -d mydata
 
 In [6]: mydata
 Out[6]: 
 array((4.0, 6.0, 8.3), 
-      dtype=[('a', '&lt;f8'), ('b', '&lt;f8'), ('c', '&lt;f8')])
+      dtype=[(&#39;a&#39;, &#39;&lt;f8&#39;), (&#39;b&#39;, &#39;&lt;f8&#39;), (&#39;c&#39;, &#39;&lt;f8&#39;)])
 
 In [7]: %R -o mydata
 
 In [8]: mydata
-Out[8]: array([ 4. ,  6. ,  8.3])</pre>
+Out[8]: array([ 4. ,  6. ,  8.3])
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>positional arguments:</dt>
@@ -311,7 +318,7 @@ to <em>png</em> in R.</td></tr>
 variables from python to rpy2. The line should be made up
 of whitespace separated variable names in the IPython
 namespace:</p>
-<div class="highlight-python"><pre>In [7]: import numpy as np
+<div class="highlight-python"><div class="highlight"><pre>In [7]: import numpy as np
 
 In [8]: X = np.array([4.5,6.3,7.9])
 
@@ -321,14 +328,16 @@ Out[9]: 6.2333333333333343
 In [10]: %Rpush X
 
 In [11]: %R mean(X)
-Out[11]: array([ 6.23333333])</pre>
+Out[11]: array([ 6.23333333])
+</pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">%Rpull</span></tt></p>
-<div class="highlight-python"><pre>%Rpull [-d] [outputs [outputs ...]]</pre>
+<div class="highlight-python"><div class="highlight"><pre>%Rpull [-d] [outputs [outputs ...]]
+</pre></div>
 </div>
 <p>A line-level magic for R that pulls
 variables from python to rpy2:</p>
-<div class="highlight-python"><pre>In [18]: _ = %R x = c(3,4,6.7); y = c(4,6,7); z = c('a',3,4)
+<div class="highlight-python"><div class="highlight"><pre>In [18]: _ = %R x = c(3,4,6.7); y = c(4,6,7); z = c(&#39;a&#39;,3,4)
 
 In [19]: %Rpull x  y z
 
@@ -340,8 +349,9 @@ Out[21]: array([ 4.,  6.,  7.])
 
 In [22]: z
 Out[22]:
-array(['a', '3', '4'],
-      dtype='|S1')</pre>
+array([&#39;a&#39;, &#39;3&#39;, &#39;4&#39;],
+      dtype=&#39;|S1&#39;)
+</pre></div>
 </div>
 <p>If &#8211;as_dataframe, then each object is returned as a structured array
 after first passed through &#8220;as.data.frame&#8221; in R before
@@ -371,28 +381,30 @@ ipython.</td></tr>
 </dd>
 </dl>
 <p><tt class="docutils literal"><span class="pre">%Rget</span></tt></p>
-<div class="highlight-python"><pre>%Rget [-d] output</pre>
+<div class="highlight-python"><div class="highlight"><pre>%Rget [-d] output
+</pre></div>
 </div>
 <p>Return an object from rpy2, possibly as a structured array (if possible).
 Similar to Rpull except only one argument is accepted and the value is 
 returned rather than pushed to self.shell.user_ns:</p>
-<div class="highlight-python"><pre>In [3]: dtype=[('x', '&lt;i4'), ('y', '&lt;f8'), ('z', '|S1')]
+<div class="highlight-python"><div class="highlight"><pre>In [3]: dtype=[(&#39;x&#39;, &#39;&lt;i4&#39;), (&#39;y&#39;, &#39;&lt;f8&#39;), (&#39;z&#39;, &#39;|S1&#39;)]
 
-In [4]: datapy = np.array([(1, 2.9, 'a'), (2, 3.5, 'b'), (3, 2.1, 'c'), (4, 5, 'e')], dtype=dtype)
+In [4]: datapy = np.array([(1, 2.9, &#39;a&#39;), (2, 3.5, &#39;b&#39;), (3, 2.1, &#39;c&#39;), (4, 5, &#39;e&#39;)], dtype=dtype)
 
 In [5]: %R -i datapy
 
 In [6]: %Rget datapy
 Out[6]: 
-array([['1', '2', '3', '4'],
-       ['2', '3', '2', '5'],
-       ['a', 'b', 'c', 'e']], 
-      dtype='|S1')
+array([[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;],
+       [&#39;2&#39;, &#39;3&#39;, &#39;2&#39;, &#39;5&#39;],
+       [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;e&#39;]], 
+      dtype=&#39;|S1&#39;)
 
 In [7]: %Rget -d datapy
 Out[7]: 
-array([(1, 2.9, 'a'), (2, 3.5, 'b'), (3, 2.1, 'c'), (4, 5.0, 'e')], 
-      dtype=[('x', '&lt;i4'), ('y', '&lt;f8'), ('z', '|S1')])</pre>
+array([(1, 2.9, &#39;a&#39;), (2, 3.5, &#39;b&#39;), (3, 2.1, &#39;c&#39;), (4, 5.0, &#39;e&#39;)], 
+      dtype=[(&#39;x&#39;, &#39;&lt;i4&#39;), (&#39;y&#39;, &#39;&lt;f8&#39;), (&#39;z&#39;, &#39;|S1&#39;)])
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>positional arguments:</dt>
@@ -446,8 +458,8 @@ ipython.</td></tr>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

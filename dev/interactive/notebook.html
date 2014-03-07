@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The IPython Notebook &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>The IPython Notebook &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Some additional Codemirror keyboard shortcuts" href="cm_keyboard.html" />
     <link rel="prev" title="A Qt Console for IPython" href="qtconsole.html" /> 
@@ -86,6 +86,7 @@
 </li>
 <li><a class="reference internal" href="#plotting">Plotting</a></li>
 <li><a class="reference internal" href="#configuring-the-ipython-notebook">Configuring the IPython Notebook</a></li>
+<li><a class="reference internal" href="#signing-notebooks">Signing Notebooks</a></li>
 <li><a class="reference internal" href="#importing-py-files">Importing <tt class="docutils literal"><span class="pre">.py</span></tt> files</a></li>
 </ul>
 </li>
@@ -127,7 +128,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="the-ipython-notebook">
@@ -197,7 +198,8 @@ nbviewer.</p>
 <h2>Starting the notebook server<a class="headerlink" href="#starting-the-notebook-server" title="Permalink to this headline">¶</a></h2>
 <p>You can start running a notebook server from the command line using the
 following command:</p>
-<div class="highlight-python"><pre>ipython notebook</pre>
+<div class="highlight-python"><div class="highlight"><pre>ipython notebook
+</pre></div>
 </div>
 <p>This will print some information about the notebook server in your console,
 and open a web browser to the URL of the web application (by default,
@@ -243,7 +245,8 @@ notebooks without an active kernel have a <tt class="docutils literal"><span cla
 <p>Other clients may connect to the same underlying IPython kernel.
 The notebook server always prints to the terminal the full details of
 how to connect to each kernel, with messages such as the following:</p>
-<div class="highlight-python"><pre>[NotebookApp] Kernel started: 87f7d2c0-13e3-43df-8bb8-1bd37aaf3373</pre>
+<div class="highlight-python"><div class="highlight"><pre>[NotebookApp] Kernel started: 87f7d2c0-13e3-43df-8bb8-1bd37aaf3373
+</pre></div>
 </div>
 <p>This long string is the kernel&#8217;s ID which is sufficient for getting the
 information necessary to connect to the kernel.  You can also request this
@@ -251,7 +254,8 @@ connection data by running the <tt class="docutils literal"><span class="pre">%c
 content of the JSON data structure it contains.</p>
 <p>You can then, for example, manually start a Qt console connected to the <em>same</em>
 kernel from the command line, by passing a portion of the ID:</p>
-<div class="highlight-python"><pre>$ ipython qtconsole --existing 87f7d2c0</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython qtconsole --existing 87f7d2c0
+</pre></div>
 </div>
 <p>Without an ID, <tt class="docutils literal"><span class="pre">--existing</span></tt> will  connect to the most recently
 started kernel. This can also be done by running the <tt class="docutils literal"><span class="pre">%qtconsole</span></tt>
@@ -540,12 +544,14 @@ with <tt class="docutils literal"><span class="pre">matplotlib</span></tt>; it d
 output of a plotting command is displayed using the default <tt class="docutils literal"><span class="pre">matplotlib</span></tt>
 backend in a separate window. Alternatively, the backend can be explicitly
 requested using, for example:</p>
-<div class="highlight-python"><pre>%matplotlib gtk</pre>
+<div class="highlight-python"><div class="highlight"><pre>%matplotlib gtk
+</pre></div>
 </div>
 <p>A particularly interesting backend, provided by IPython, is the <tt class="docutils literal"><span class="pre">inline</span></tt>
 backend.  This is available only for the IPython Notebook and the
 <a class="reference internal" href="qtconsole.html#qtconsole"><em>IPython QtConsole</em></a>.  It can be invoked as follows:</p>
-<div class="highlight-python"><pre>%matplotlib inline</pre>
+<div class="highlight-python"><div class="highlight"><pre>%matplotlib inline
+</pre></div>
 </div>
 <p>With this backend, the output of plotting commands is displayed <em>inline</em>
 within the notebook, directly below the code cell that produced it. The
@@ -559,23 +565,49 @@ resulting plots will then also be stored in the notebook document.</p>
 <h2>Configuring the IPython Notebook<a class="headerlink" href="#configuring-the-ipython-notebook" title="Permalink to this headline">¶</a></h2>
 <p>The notebook server can be run with a variety of command line arguments.
 To see a list of available options enter:</p>
-<div class="highlight-python"><pre>$ ipython notebook --help</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython notebook --help
+</pre></div>
 </div>
 <p>Defaults for these options can also be set by creating a file named
 <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt> in your IPython <em>profile folder</em>. The profile
 folder is a subfolder of your IPython directory; to find out where it is
 located, run:</p>
-<div class="highlight-python"><pre>$ ipython locate</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython locate
+</pre></div>
 </div>
 <p>To create a new set of default configuration files, with lots of information
 on available options, use:</p>
-<div class="highlight-python"><pre>$ ipython profile create</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython profile create
+</pre></div>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p><a class="reference internal" href="../development/config.html#config-overview"><em>Overview of the IPython configuration system</em></a>, in particular <a class="reference internal" href="../config/intro.html#profiles"><em>Profiles</em></a>.</p>
 <p><a class="reference internal" href="public_server.html#notebook-security"><em>Notebook security</em></a></p>
 <p class="last"><a class="reference internal" href="public_server.html#notebook-public-server"><em>Running a public notebook server</em></a></p>
+</div>
+</div>
+<div class="section" id="signing-notebooks">
+<span id="id2"></span><h2>Signing Notebooks<a class="headerlink" href="#signing-notebooks" title="Permalink to this headline">¶</a></h2>
+<p>To prevent untrusted code from executing on users&#8217; behalf when notebooks open,
+we have added a signature to the notebook, stored in metadata.
+The notebook server verifies this signature when a notebook is opened.
+If the signature stored in the notebook metadata does not match,
+javascript and HTML output will not be displayed on load,
+and must be regenerated by re-executing the cells.</p>
+<p>Any notebook that you have executed yourself <em>in its entirety</em> will be considered trusted,
+and its HTML and javascript output will be displayed on load.</p>
+<p>If you need to see HTML or Javascript output without re-executing,
+you can explicitly trust notebooks, such as those shared with you,
+or those that you have written yourself prior to IPython 2.0,
+at the command-line with:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython trust mynotebook.ipynb [other notebooks.ipynb]
+</pre></div>
+</div>
+<p>This just generates a new signature stored in each notebook.</p>
+<p>You can generate a new notebook signing key with:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython trust --reset
+</pre></div>
 </div>
 </div>
 <div class="section" id="importing-py-files">
@@ -639,8 +671,8 @@ format.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

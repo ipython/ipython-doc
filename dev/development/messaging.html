@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Messaging in IPython &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
     <link rel="prev" title="git resources" href="gitwash/git_resources.html" /> 
@@ -62,6 +62,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Messaging in IPython</a><ul>
+<li><a class="reference internal" href="#versioning">Versioning</a></li>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#general-message-format">General Message Format</a></li>
 <li><a class="reference internal" href="#the-wire-protocol">The Wire Protocol</a></li>
@@ -142,11 +143,16 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="messaging-in-ipython">
 <span id="messaging"></span><h1>Messaging in IPython<a class="headerlink" href="#messaging-in-ipython" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<p>The IPython message specification is versioned independently of IPython.
+The current version of the specification is 4.1.</p>
+</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>This document explains the basic communications design and messaging
@@ -481,7 +487,8 @@ unit.</li>
 <p>Any error in retrieving the <tt class="docutils literal"><span class="pre">user_variables</span></tt> or evaluating the
 <tt class="docutils literal"><span class="pre">user_expressions</span></tt> will result in a simple error message in the return fields
 of the form:</p>
-<div class="highlight-python"><pre>[ERROR] ExceptionType: Exception message</pre>
+<div class="highlight-python"><div class="highlight"><pre>[ERROR] ExceptionType: Exception message
+</pre></div>
 </div>
 <p>The user can simply send the same variable name or expression for evaluation to
 see a regular traceback.</p>
@@ -494,13 +501,13 @@ the outcome.  See <a class="reference internal" href="#execution-results"><em>be
 codes and associated data.</p>
 </div>
 <div class="section" id="execution-counter-old-prompt-number">
-<h4>Execution counter (old prompt number)<a class="headerlink" href="#execution-counter-old-prompt-number" title="Permalink to this headline">¶</a></h4>
+<span id="execution-counter"></span><h4>Execution counter (old prompt number)<a class="headerlink" href="#execution-counter-old-prompt-number" title="Permalink to this headline">¶</a></h4>
 <p>The kernel has a single, monotonically increasing counter of all execution
 requests that are made with <tt class="docutils literal"><span class="pre">store_history=True</span></tt>.  This counter is used to populate
 the <tt class="docutils literal"><span class="pre">In[n]</span></tt>, <tt class="docutils literal"><span class="pre">Out[n]</span></tt> and <tt class="docutils literal"><span class="pre">_n</span></tt> variables, so clients will likely want to
 display it in some form to the user, which will typically (but not necessarily)
 be done in the prompts.  The value of this counter will be returned as the
-<tt class="docutils literal"><span class="pre">execution_count</span></tt> field of all <tt class="docutils literal"><span class="pre">execute_reply</span></tt> messages.</p>
+<tt class="docutils literal"><span class="pre">execution_count</span></tt> field of all <tt class="docutils literal"><span class="pre">execute_reply</span></tt> and <tt class="docutils literal"><span class="pre">pyin</span></tt> messages.</p>
 </div>
 <div class="section" id="execution-results">
 <span id="id2"></span><h4>Execution results<a class="headerlink" href="#execution-results" title="Permalink to this headline">¶</a></h4>
@@ -901,12 +908,6 @@ Each message can have multiple representations of the data; it is up to the
 frontend to decide which to use and how. A single message should contain all
 possible representations of the same information. Each representation should
 be a JSON&#8217;able data structure, and should be a valid MIME type.</p>
-<p>Some questions remain about this design:</p>
-<ul class="simple">
-<li>Do we use this message type for pyout/displayhook? Probably not, because
-the displayhook also has to handle the Out prompt display. On the other hand
-we could put that information into the metadata section.</li>
-</ul>
 <p>Message type: <tt class="docutils literal"><span class="pre">display_data</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 
@@ -931,12 +932,13 @@ Third parties should put any data they write into a single dict
 with a reasonably unique name to avoid conflicts.</p>
 <p>The only metadata keys currently defined in IPython are the width and height
 of images:</p>
-<div class="highlight-python"><pre>'metadata' : {
-  'image/png' : {
-    'width': 640,
-    'height': 480
+<div class="highlight-python"><div class="highlight"><pre>&#39;metadata&#39; : {
+  &#39;image/png&#39; : {
+    &#39;width&#39;: 640,
+    &#39;height&#39;: 480
   }
-}</pre>
+}
+</pre></div>
 </div>
 </div>
 <div class="section" id="raw-data-publication">
@@ -950,13 +952,14 @@ This <tt class="docutils literal"><span class="pre">data_pub</span></tt> message
 </pre></div>
 </div>
 <p>Message type: <tt class="docutils literal"><span class="pre">data_pub</span></tt>:</p>
-<div class="highlight-python"><pre>content = {
+<div class="highlight-python"><div class="highlight"><pre>content = {
     # the keys of the data dict, after it has been unserialized
-    keys = ['a', 'b']
+    keys = [&#39;a&#39;, &#39;b&#39;]
 }
 # the namespace dict will be serialized in the message buffers,
 # which will have a length of at least one
-buffers = ['pdict', ...]</pre>
+buffers = [&#39;pdict&#39;, ...]
+</pre></div>
 </div>
 <p>The interpretation of a sequence of data_pub messages for a given parent request should be
 to update a single namespace with subsequent results.</p>
@@ -971,7 +974,9 @@ to various frontends.</p>
 </div>
 <div class="section" id="python-inputs">
 <h3>Python inputs<a class="headerlink" href="#python-inputs" title="Permalink to this headline">¶</a></h3>
-<p>These messages are the re-broadcast of the <tt class="docutils literal"><span class="pre">execute_request</span></tt>.</p>
+<p>To let all frontends know what code is being executed at any given time, these
+messages contain a re-broadcast of the <tt class="docutils literal"><span class="pre">code</span></tt> portion of an
+<a class="reference internal" href="#execute"><em>execute_request</em></a>, along with the <a class="reference internal" href="#execution-counter"><em>execution_count</em></a>.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">pyin</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c"># Source code to be executed, one or more lines</span>
@@ -1060,6 +1065,12 @@ any JSON object and depends on the format. It is often, but not always a string.
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 4.1: </span>&#8216;stdout&#8217;, &#8216;stderr&#8217;, and &#8216;display&#8217; boolean keys for selective clearing are removed,
+and &#8216;wait&#8217; is added.
+The selective clearing keys are ignored in v4 and the default behavior remains the same,
+so v4 clear_output messages will be safely handled by a v4.1 frontend.</p>
+</div>
 </div>
 </div>
 <div class="section" id="messages-on-the-stdin-router-dealer-sockets">
@@ -1126,7 +1137,10 @@ access to the message between the monitor&#8217;s send, and the monitor&#8217;s 
 </div>
 <div class="section" id="custom-messages">
 <h2>Custom Messages<a class="headerlink" href="#custom-messages" title="Permalink to this headline">¶</a></h2>
-<p>IPython 2.0 adds a messaging system for developers to add their own objects with Frontend
+<div class="versionadded">
+<p><span class="versionmodified">New in version 4.1.</span></p>
+</div>
+<p>IPython 2.0 (msgspec v4.1) adds a messaging system for developers to add their own objects with Frontend
 and Kernel-side components, and allow them to communicate with each other.
 To do this, IPython adds a notion of a <tt class="docutils literal"><span class="pre">Comm</span></tt>, which exists on both sides,
 and can communicate in either direction.</p>
@@ -1134,9 +1148,6 @@ and can communicate in either direction.</p>
 and no messages expect a reply.
 The Kernel listens for these messages on the Shell channel,
 and the Frontend listens for them on the IOPub channel.</p>
-<div class="versionadded">
-<p><span class="versionmodified">New in version 2.0.</span></p>
-</div>
 <div class="section" id="opening-a-comm">
 <h3>Opening a Comm<a class="headerlink" href="#opening-a-comm" title="Permalink to this headline">¶</a></h3>
 <p>Opening a Comm produces a <tt class="docutils literal"><span class="pre">comm_open</span></tt> message, to be sent to the other side:</p>
@@ -1231,8 +1242,8 @@ likely that with the payload concept we can build a full solution, but not
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Running a notebook server &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Running a notebook server &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Using IPython for parallel computing" href="../parallel/index.html" />
     <link rel="prev" title="Converting notebooks to other formats" href="nbconvert.html" /> 
@@ -107,7 +107,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="running-a-notebook-server">
@@ -138,23 +138,26 @@ argument. <strong>Do not</strong> pass it as an argument inside an IPython sessi
 will be saved in your input history.</p>
 </div>
 <p>You can then add this to your <tt class="file docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>, e.g.:</p>
-<div class="highlight-python"><pre># Password to use for web authentication
+<div class="highlight-python"><div class="highlight"><pre># Password to use for web authentication
 c = get_config()
 c.NotebookApp.password =
-u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'</pre>
+u&#39;sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed&#39;
+</pre></div>
 </div>
 <p>When using a password, it is a good idea to also use SSL, so that your
 password is not sent unencrypted by your browser. You can start the notebook
 to communicate via a secure protocol mode using a self-signed certificate with
 the command:</p>
-<div class="highlight-python"><pre>$ ipython notebook --certfile=mycert.pem</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython notebook --certfile=mycert.pem
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>A self-signed certificate can be generated with <tt class="docutils literal"><span class="pre">openssl</span></tt>.  For example,
 the following command will create a certificate valid for 365 days with
 both the key and certificate data written to the same file:</p>
-<div class="last highlight-python"><pre>$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem</pre>
+<div class="last highlight-python"><div class="highlight"><pre>$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
+</pre></div>
 </div>
 </div>
 <p>Your browser will warn you of a dangerous certificate because it is
@@ -173,7 +176,8 @@ you can do the following.</p>
 <p>Start by creating a certificate file and a hashed password, as explained
 above.  Then create a custom profile for the notebook, with the following
 command line, type:</p>
-<div class="highlight-python"><pre>$ ipython profile create nbserver</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython profile create nbserver
+</pre></div>
 </div>
 <p>In the profile directory just created, edit the file
 <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>.  By default, the file has all fields
@@ -205,8 +209,7 @@ rest of the notebook, under a sub-directory,
 e.g. <tt class="docutils literal"><span class="pre">http://localhost:8888/ipython/</span></tt>, you can do so with
 configuration options like the following (see above for instructions about
 modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_project_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
-<span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_kernel_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">webapp_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;static_url_prefix&#39;</span><span class="p">:</span><span class="s">&#39;/ipython/static/&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -219,18 +222,12 @@ files in the working directory of the notebook server, also known as the
 <tt class="xref py py-class docutils literal"><span class="pre">FileNotebookManager</span></tt> class. However, the server can be configured to
 use a different notebook manager class, which can
 store the notebooks in a different format.</p>
-<p>Currently, we ship a <tt class="xref py py-class docutils literal"><span class="pre">AzureNotebookManager</span></tt> class that stores notebooks
-in Azure blob storage. This can be used by adding the following lines to your
-<tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt> file:</p>
-<div class="highlight-python"><pre>c.NotebookApp.notebook_manager_class =
-'IPython.html.services.notebooks.azurenbmanager.AzureNotebookManager'
-c.AzureNotebookManager.account_name = u'paste_your_account_name_here'
-c.AzureNotebookManager.account_key = u'paste_your_account_key_here'
-c.AzureNotebookManager.container = u'notebooks'</pre>
-</div>
-<p>In addition to providing your Azure Blob Storage account name and key, you
-will have to provide a container name; you can use multiple containers to
-organize your notebooks.</p>
+<p>The <a class="reference external" href="https://github.com/rgbkrk/bookstore">bookstore</a> package currently allows users to store notebooks on Rackspace
+CloudFiles or OpenStack Swift based object stores.</p>
+<p>Writing a notebook manager is as simple as extending the base class
+<tt class="xref py py-class docutils literal"><span class="pre">NotebookManager</span></tt>. The <a class="reference external" href="https://github.com/khinsen/simple_notebook_manager">simple_notebook_manager</a> provides a great example
+of an in memory notebook manager, created solely for the purpose of
+illustrating the notebook manager API.</p>
 </div>
 <div class="section" id="known-issues">
 <h2>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
@@ -274,8 +271,8 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>octavemagic &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>octavemagic &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="IPython extensions" href="index.html" />
     <link rel="next" title="rmagic" href="rmagic.html" />
     <link rel="prev" title="cythonmagic" href="cythonmagic.html" /> 
@@ -104,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.extensions.octavemagic">
@@ -120,28 +120,32 @@ can be obtained using <tt class="docutils literal"><span class="pre">easy_instal
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>To enable the magics below, execute <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">octavemagic</span></tt>.</p>
 <p><tt class="docutils literal"><span class="pre">%octave</span></tt></p>
-<div class="highlight-python"><pre>%octave [-i INPUT] [-o OUTPUT] [-s SIZE] [-f FORMAT] [code [code ...]]</pre>
+<div class="highlight-python"><div class="highlight"><pre>%octave [-i INPUT] [-o OUTPUT] [-s SIZE] [-f FORMAT] [code [code ...]]
+</pre></div>
 </div>
 <p>Execute code in Octave, and pull some of the results back into the
 Python namespace:</p>
-<div class="highlight-python"><pre>In [9]: %octave X = [1 2; 3 4]; mean(X)
-Out[9]: array([[ 2., 3.]])</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [9]: %octave X = [1 2; 3 4]; mean(X)
+Out[9]: array([[ 2., 3.]])
+</pre></div>
 </div>
 <p>As a cell, this will run a block of Octave code, without returning any
 value:</p>
-<div class="highlight-python"><pre>In [10]: %%octave
+<div class="highlight-python"><div class="highlight"><pre>In [10]: %%octave
    ....: p = [-2, -1, 0, 1, 2]
-   ....: polyout(p, 'x')
+   ....: polyout(p, &#39;x&#39;)
 
--2*x^4 - 1*x^3 + 0*x^2 + 1*x^1 + 2</pre>
+-2*x^4 - 1*x^3 + 0*x^2 + 1*x^1 + 2
+</pre></div>
 </div>
 <p>In the notebook, plots are published as the output of the cell, e.g.:</p>
-<div class="highlight-python"><pre>%octave plot([1 2 3], [4 5 6])</pre>
+<div class="highlight-python"><div class="highlight"><pre>%octave plot([1 2 3], [4 5 6])
+</pre></div>
 </div>
 <p>will create a line plot.</p>
 <p>Objects can be passed back and forth between Octave and IPython via the
 -i and -o flags in line:</p>
-<div class="highlight-python"><pre>In [14]: Z = np.array([1, 4, 5, 10])
+<div class="highlight-python"><div class="highlight"><pre>In [14]: Z = np.array([1, 4, 5, 10])
 
 In [15]: %octave -i Z mean(Z)
 Out[15]: array([ 5.])
@@ -150,11 +154,13 @@ In [16]: %octave -o W W = Z * mean(Z)
 Out[16]: array([  5.,  20.,  25.,  50.])
 
 In [17]: W
-Out[17]: array([  5.,  20.,  25.,  50.])</pre>
+Out[17]: array([  5.,  20.,  25.,  50.])
+</pre></div>
 </div>
 <p>The size and format of output plots can be specified:</p>
-<div class="highlight-python"><pre>In [18]: %%octave -s 600,800 -f svg
-    ...: plot([1, 2, 3]);</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [18]: %%octave -s 600,800 -f svg
+    ...: plot([1, 2, 3]);
+</pre></div>
 </div>
 <dl class="docutils">
 <dt>positional arguments:</dt>
@@ -193,7 +199,7 @@ separated by commas with no whitespace.</td></tr>
 <p>Line-level magic that pushes a variable to Octave.</p>
 <p><cite>line</cite> should be made up of whitespace separated variable names in the
 IPython namespace:</p>
-<div class="highlight-python"><pre>In [7]: import numpy as np
+<div class="highlight-python"><div class="highlight"><pre>In [7]: import numpy as np
 
 In [8]: X = np.arange(5)
 
@@ -203,11 +209,12 @@ Out[9]: 2.0
 In [10]: %octave_push X
 
 In [11]: %octave mean(X)
-Out[11]: 2.0</pre>
+Out[11]: 2.0
+</pre></div>
 </div>
 <p><tt class="docutils literal"><span class="pre">%octave_pull</span></tt></p>
 <p>Line-level magic that pulls a variable from Octave.</p>
-<div class="highlight-python"><pre>In [18]: _ = %octave x = [1 2; 3 4]; y = 'hello'
+<div class="highlight-python"><div class="highlight"><pre>In [18]: _ = %octave x = [1 2; 3 4]; y = &#39;hello&#39;
 
 In [19]: %octave_pull x y
 
@@ -217,7 +224,8 @@ array([[ 1.,  2.],
        [ 3.,  4.]])
 
 In [21]: y
-Out[21]: 'hello'</pre>
+Out[21]: &#39;hello&#39;
+</pre></div>
 </div>
 </div>
 </div>
@@ -253,8 +261,8 @@ Out[21]: 'hello'</pre>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

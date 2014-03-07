@@ -5,6 +5,13 @@
 ======================
 
 
+Versioning
+==========
+
+The IPython message specification is versioned independently of IPython.
+The current version of the specification is 4.1.
+
+
 Introduction
 ============
 
@@ -395,6 +402,8 @@ the outcome.  See :ref:`below <execution_results>` for the possible return
 codes and associated data.
 
 
+.. _execution_counter:
+
 Execution counter (old prompt number)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -403,7 +412,7 @@ requests that are made with ``store_history=True``.  This counter is used to pop
 the ``In[n]``, ``Out[n]`` and ``_n`` variables, so clients will likely want to
 display it in some form to the user, which will typically (but not necessarily)
 be done in the prompts.  The value of this counter will be returned as the
-``execution_count`` field of all ``execute_reply`` messages.
+``execution_count`` field of all ``execute_reply`` and ``pyin`` messages.
 
 .. _execution_results:
 
@@ -825,12 +834,6 @@ frontend to decide which to use and how. A single message should contain all
 possible representations of the same information. Each representation should
 be a JSON'able data structure, and should be a valid MIME type.
 
-Some questions remain about this design:
-
-* Do we use this message type for pyout/displayhook? Probably not, because
-  the displayhook also has to handle the Out prompt display. On the other hand
-  we could put that information into the metadata section.
-
 Message type: ``display_data``::
 
     content = {
@@ -906,7 +909,10 @@ to update a single namespace with subsequent results.
 Python inputs
 -------------
 
-These messages are the re-broadcast of the ``execute_request``.
+To let all frontends know what code is being executed at any given time, these
+messages contain a re-broadcast of the ``code`` portion of an
+:ref:`execute_request <execute>`, along with the :ref:`execution_count
+<execution_counter>`.
 
 Message type: ``pyin``::
 
@@ -1001,6 +1007,14 @@ Message type: ``clear_output``::
         'wait' : bool,
     }
 
+.. versionchanged:: 4.1
+
+    'stdout', 'stderr', and 'display' boolean keys for selective clearing are removed,
+    and 'wait' is added.
+    The selective clearing keys are ignored in v4 and the default behavior remains the same,
+    so v4 clear_output messages will be safely handled by a v4.1 frontend.
+
+
 Messages on the stdin ROUTER/DEALER sockets
 ===========================================
 
@@ -1071,7 +1085,9 @@ access to the message between the monitor's send, and the monitor's recv.
 Custom Messages
 ===============
 
-IPython 2.0 adds a messaging system for developers to add their own objects with Frontend
+.. versionadded:: 4.1
+
+IPython 2.0 (msgspec v4.1) adds a messaging system for developers to add their own objects with Frontend
 and Kernel-side components, and allow them to communicate with each other.
 To do this, IPython adds a notion of a ``Comm``, which exists on both sides,
 and can communicate in either direction.
@@ -1080,8 +1096,6 @@ These messages are fully symmetrical - both the Kernel and the Frontend can send
 and no messages expect a reply.
 The Kernel listens for these messages on the Shell channel,
 and the Frontend listens for them on the IOPub channel.
-
-.. versionadded:: 2.0
 
 Opening a Comm
 --------------

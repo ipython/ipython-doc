@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.services.kernels.kernelmanager &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: html.services.kernels.kernelmanager &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.services.nbconvert.handlers" href="IPython.html.services.nbconvert.handlers.html" />
     <link rel="prev" title="Module: html.services.kernels.handlers" href="IPython.html.services.kernels.handlers.html" /> 
@@ -103,7 +103,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.html.services.kernels.kernelmanager">
@@ -121,15 +121,21 @@ significant differences from the latest stable release (1.1.0).</p>
 <dd><p>Bases: <a class="reference internal" href="IPython.kernel.multikernelmanager.html#IPython.kernel.multikernelmanager.MultiKernelManager" title="IPython.kernel.multikernelmanager.MultiKernelManager"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.multikernelmanager.MultiKernelManager</span></tt></a></p>
 <p>A KernelManager that handles notebook mapping and HTTP error handling</p>
 <dl class="method">
+<dt id="IPython.html.services.kernels.kernelmanager.MappingKernelManager.cwd_for_path">
+<tt class="descname">cwd_for_path</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.cwd_for_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn API path into absolute OS path.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.services.kernels.kernelmanager.MappingKernelManager.kernel_model">
-<tt class="descname">kernel_model</tt><big>(</big><em>kernel_id</em>, <em>ws_url</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.kernel_model" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">kernel_model</tt><big>(</big><em>kernel_id</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.kernel_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a dictionary of kernel information described in the
 JSON standard model.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.kernels.kernelmanager.MappingKernelManager.list_kernels">
-<tt class="descname">list_kernels</tt><big>(</big><em>ws_url</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.list_kernels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">list_kernels</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.list_kernels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of kernel_id&#8217;s of kernels running.</p>
 </dd></dl>
 
@@ -141,17 +147,22 @@ JSON standard model.</p>
 
 <dl class="method">
 <dt id="IPython.html.services.kernels.kernelmanager.MappingKernelManager.start_kernel">
-<tt class="descname">start_kernel</tt><big>(</big><em>kernel_id=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.start_kernel" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">start_kernel</tt><big>(</big><em>kernel_id=None</em>, <em>path=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.kernels.kernelmanager.MappingKernelManager.start_kernel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start a kernel for a session an return its kernel_id.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>kernel_id</strong> : uuid</p>
-<blockquote class="last">
+<blockquote>
 <div><p>The uuid to associate the new kernel with. If this
 is not None, this kernel will be persistent whenever it is 
 requested.</p>
+</div></blockquote>
+<p><strong>path</strong> : API path</p>
+<blockquote class="last">
+<div><p>The API path (unicode, &#8216;/&#8217; delimited) for the cwd.
+Will be transformed to an OS path relative to root_dir.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -194,8 +205,8 @@ requested.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Custom input transformation &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Custom input transformation &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
-    <link rel="next" title="IPython developer’s guide" href="../development/index.html" />
+    <link rel="next" title="Registering callbacks" href="callbacks.html" />
     <link rel="prev" title="Integrating your objects with IPython" href="integrating.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../development/index.html" title="IPython developer’s guide"
+          <a href="callbacks.html" title="Registering callbacks"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="integrating.html" title="Integrating your objects with IPython"
@@ -77,8 +77,8 @@
   <p class="topless"><a href="integrating.html"
                         title="previous chapter">Integrating your objects with IPython</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="../development/index.html"
-                        title="next chapter">IPython developer&#8217;s guide</a></p>
+  <p class="topless"><a href="callbacks.html"
+                        title="next chapter">Registering callbacks</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/config/inputtransforms.txt"
@@ -109,7 +109,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="custom-input-transformation">
@@ -149,6 +149,12 @@ it gets added to both, e.g.:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span><span class="o">.</span><span class="n">input_splitter</span><span class="o">.</span><span class="n">logical_line_transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_transformer</span><span class="p">())</span>
 <span class="n">ip</span><span class="o">.</span><span class="n">input_transformer_manager</span><span class="o">.</span><span class="n">logical_line_transforms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_transformer</span><span class="p">())</span>
 </pre></div>
+</div>
+<p>These transformers may raise <tt class="xref py py-exc docutils literal"><span class="pre">SyntaxError</span></tt> if the input code is invalid, but
+in most cases it is clearer to pass unrecognised code through unmodified and let
+Python&#8217;s own parser decide whether it is valid.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 2.0: </span>Added the option to raise <tt class="xref py py-exc docutils literal"><span class="pre">SyntaxError</span></tt>.</p>
 </div>
 <div class="section" id="stateless-transformations">
 <h3>Stateless transformations<a class="headerlink" href="#stateless-transformations" title="Permalink to this headline">¶</a></h3>
@@ -249,7 +255,7 @@ mathematical frameworks that want to handle e.g. <tt class="docutils literal"><s
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../development/index.html" title="IPython developer’s guide"
+          <a href="callbacks.html" title="Registering callbacks"
              >next</a> |</li>
         <li class="right" >
           <a href="integrating.html" title="Integrating your objects with IPython"
@@ -263,8 +269,8 @@ mathematical frameworks that want to handle e.g. <tt class="docutils literal"><s
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

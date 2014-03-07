@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython Qt console options &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>IPython Qt console options &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
     <link rel="next" title="Specific config details" href="../details.html" />
     <link rel="prev" title="IPython notebook options" href="notebook.html" /> 
@@ -96,13 +96,68 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="ipython-qt-console-options">
 <h1>IPython Qt console options<a class="headerlink" href="#ipython-qt-console-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
+<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p>Close all figures at the end of each cell.</p>
+<p>When True, ensures that each cell starts with no active figures, but it also
+means that one must keep track of references in order to edit or redraw
+figures in subsequent cells. This mode is ideal for the notebook, where
+residual plots from other cells might be surprising.</p>
+<p class="last">When False, one must call figure() to create new figures. This means that
+gcf() and getfigs() can reference figures created in other cells, and the
+active figure can continue to be edited with pylab/pyplot methods that
+reference the current active figure. This mode facilitates iterative editing
+of figures, and behaves most consistently with other matplotlib backends,
+but figure barriers between cells must be explicit.</p>
+</dd>
+<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The figure format to enable (deprecated use <cite>figure_formats</cite> instead)</p>
+</dd>
+<dt>InlineBackend.figure_formats <span class="classifier-delimiter">:</span> <span class="classifier">Set</span></dt>
+<dd><p class="first">Default: set([&#8216;png&#8217;])</p>
+<p class="last">A set of figure formats to enable: &#8216;png&#8217;,  &#8216;retina&#8217;, &#8216;jpeg&#8217;, &#8216;svg&#8217;, &#8216;pdf&#8217;.</p>
+</dd>
+<dt>InlineBackend.print_figure_kwargs <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;bbox_inches&#8217;: &#8216;tight&#8217;}</p>
+<p>Extra kwargs to be passed to fig.canvas.print_figure.</p>
+<p class="last">Logical examples include: bbox_inches, quality (for jpeg figures), etc.</p>
+</dd>
+<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
+<p class="last">Subset of matplotlib rcParams that should be different for the inline
+backend.</p>
+</dd>
+<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">Should we autorestart the kernel if it dies.</p>
+</dd>
+<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!</p>
+</dd>
+<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: []</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
+</dd>
+<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;tcp&#8217;</p>
+<p class="last">No description</p>
+</dd>
 <dt>IPythonQtConsoleApp.auto_create <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Whether to create profile dir if it doesn&#8217;t exist</p>
@@ -218,47 +273,6 @@ environment variable IPYTHONDIR.</p>
 internal error.  The default is to append a short message to the usual
 traceback</p>
 </dd>
-<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p>Close all figures at the end of each cell.</p>
-<p>When True, ensures that each cell starts with no active figures, but it also
-means that one must keep track of references in order to edit or redraw
-figures in subsequent cells. This mode is ideal for the notebook, where
-residual plots from other cells might be surprising.</p>
-<p class="last">When False, one must call figure() to create new figures. This means that
-gcf() and getfigs() can reference figures created in other cells, and the
-active figure can continue to be edited with pylab/pyplot methods that
-reference the current active figure. This mode facilitates iterative editing
-of figures, and behaves most consistently with other matplotlib backends,
-but figure barriers between cells must be explicit.</p>
-</dd>
-<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;svg&#8217;|&#8217;png&#8217;|&#8217;retina&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;png&#8217;</p>
-<p class="last">The image format for figures with the inline backend.</p>
-</dd>
-<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
-<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
-<p class="last">Subset of matplotlib rcParams that should be different for the inline
-backend.</p>
-</dd>
-<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">Should we autorestart the kernel if it dies.</p>
-</dd>
-<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
-something other than localhost, then Consoles on other machines will be able
-to connect to the Kernel, so be careful!</p>
-</dd>
-<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: []</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom</p>
-</dd>
-<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;tcp&#8217;</p>
-<p class="last">No description</p>
-</dd>
 <dt>IPythonWidget.ansi_codes <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
 <p class="last">Whether to process ANSI escape codes.</p>
@@ -351,7 +365,7 @@ with <cite>vsplit</cite> paging)</p>
 specifies a QPlainTextEdit, and &#8216;rich&#8217;, which specifies a QTextEdit.</p>
 </dd>
 <dt>IPythonWidget.lexer_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &lt;IPython.utils.traitlets.Undefined object at 0x17209d0&gt;</p>
+<dd><p class="first">Default: &lt;IPython.utils.traitlets.Undefined object at 0x2b0e412da3d0&gt;</p>
 <p class="last">The pygments lexer class to use.</p>
 </dd>
 <dt>IPythonWidget.out_prompt <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
@@ -440,8 +454,8 @@ with <cite>hsplit</cite> paging)</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

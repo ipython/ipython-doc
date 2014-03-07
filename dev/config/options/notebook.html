@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython notebook options &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>IPython notebook options &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
     <link rel="next" title="IPython Qt console options" href="qtconsole.html" />
     <link rel="prev" title="IPython kernel options" href="kernel.html" /> 
@@ -96,20 +96,51 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="ipython-notebook-options">
 <h1>IPython notebook options<a class="headerlink" href="#ipython-notebook-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
-<dt>NotebookApp.base_kernel_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;/&#8217;</p>
-<p>The base URL for the kernel server</p>
-<p class="last">Leading and trailing slashes can be omitted, and will automatically be
-added.</p>
+<dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<p class="last">Glob patterns to hide in file and directory listings.</p>
+</dd>
+<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p>The location in which to keep notebook checkpoints</p>
+<p class="last">By default, it is notebook-dir/.ipynb_checkpoints</p>
+</dd>
+<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<p class="last">Glob patterns to hide in file and directory listings.</p>
+</dd>
+<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p>Automatically create a Python script when saving the notebook.</p>
+<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
+name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
+save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
+</dd>
+<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
+<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
+KernelManager for customized behavior.</p>
+</dd>
+<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">No description</p>
 </dd>
 <dt>NotebookApp.base_project_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;/&#8217;</p>
+<p class="last">DEPRECATED use base_url</p>
+</dd>
+<dt>NotebookApp.base_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: &#8216;/&#8217;</p>
 <p>The base URL for the notebook server.</p>
 <p class="last">Leading and trailing slashes can be omitted, and will automatically be
@@ -160,6 +191,10 @@ connection, or for offline use of the notebook.</p>
 <p class="last">This allows adding javascript/css to be available from the notebook server
 machine, or overriding individual files in the IPython</p>
 </dd>
+<dt>NotebookApp.file_to_run <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">No description</p>
+</dd>
 <dt>NotebookApp.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;&#8216;</p>
 <p class="last">The IP address the notebook server will listen on.</p>
@@ -170,6 +205,10 @@ machine, or overriding individual files in the IPython</p>
 configuration (through profiles), history storage, etc. The default is
 usually $HOME/.ipython. This options can also be specified through the
 environment variable IPYTHONDIR.</p>
+</dd>
+<dt>NotebookApp.jinja_environment_options <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {}</p>
+<p class="last">Supply extra arguments that will be passed to Jinja environment.</p>
 </dd>
 <dt>NotebookApp.keyfile <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;&#8216;</p>
@@ -195,6 +234,10 @@ environment variable IPYTHONDIR.</p>
 <dd><p class="first">Default: []</p>
 <p class="last">paths for Javascript extensions. By default, this is just
 IPYTHONDIR/nbextensions</p>
+</dd>
+<dt>NotebookApp.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">The directory to use for notebooks and kernels.</p>
 </dd>
 <dt>NotebookApp.notebook_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
 <dd><p class="first">Default: &#8216;IPython.html.services.notebooks.filenbmanager.FileNotebookMa...</p>
@@ -235,17 +278,8 @@ available.</p>
 <dt>NotebookApp.trust_xheaders <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Whether to trust or not X-Scheme/X-Forwarded-Proto and X-Real-Ip/X
--Forwarded-For headerssent by the upstream reverse proxy. Neccesary if the
+-Forwarded-For headerssent by the upstream reverse proxy. Necessary if the
 proxy handles SSL</p>
-</dd>
-<dt>NotebookApp.use_less <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p>Wether to use Browser Side less-css parsing instead of compiled css version
-in templates that allows it. This is mainly convenient when working on the
-less file to avoid a build step, or if user want to overwrite some of the
-less variables without having to recompile everything.</p>
-<p class="last">You will need to install the less.js component in the static directory
-either in the source tree or in your profile folder.</p>
 </dd>
 <dt>NotebookApp.verbose_crash <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
@@ -257,17 +291,6 @@ traceback</p>
 <dd><p class="first">Default: {}</p>
 <p class="last">Supply overrides for the tornado.web.Application that the IPython notebook
 uses.</p>
-</dd>
-<dt>NotebookApp.websocket_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p>The base URL for the websocket server, if it differs from the HTTP server
-(hint: it almost certainly doesn&#8217;t).</p>
-<p class="last">Should be in the form of an HTTP origin: ws[s]://hostname[:port]</p>
-</dd>
-<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
-<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
-KernelManager for customized behavior.</p>
 </dd>
 <dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
@@ -281,7 +304,12 @@ to connect to the Kernel, so be careful!</p>
 </dd>
 <dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
 <dd><p class="first">Default: []</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
 </dd>
 <dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
 <dd><p class="first">Default: &#8216;tcp&#8217;</p>
@@ -301,34 +329,23 @@ reference the current active figure. This mode facilitates iterative editing
 of figures, and behaves most consistently with other matplotlib backends,
 but figure barriers between cells must be explicit.</p>
 </dd>
-<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;svg&#8217;|&#8217;png&#8217;|&#8217;retina&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;png&#8217;</p>
-<p class="last">The image format for figures with the inline backend.</p>
+<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The figure format to enable (deprecated use <cite>figure_formats</cite> instead)</p>
+</dd>
+<dt>InlineBackend.figure_formats <span class="classifier-delimiter">:</span> <span class="classifier">Set</span></dt>
+<dd><p class="first">Default: set([&#8216;png&#8217;])</p>
+<p class="last">A set of figure formats to enable: &#8216;png&#8217;,  &#8216;retina&#8217;, &#8216;jpeg&#8217;, &#8216;svg&#8217;, &#8216;pdf&#8217;.</p>
+</dd>
+<dt>InlineBackend.print_figure_kwargs <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;bbox_inches&#8217;: &#8216;tight&#8217;}</p>
+<p>Extra kwargs to be passed to fig.canvas.print_figure.</p>
+<p class="last">Logical examples include: bbox_inches, quality (for jpeg figures), etc.</p>
 </dd>
 <dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
 <dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
 <p class="last">Subset of matplotlib rcParams that should be different for the inline
 backend.</p>
-</dd>
-<dt>NotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
-<p class="last">The directory to use for notebooks.</p>
-</dd>
-<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p>The location in which to keep notebook checkpoints</p>
-<p class="last">By default, it is notebook-dir/.ipynb_checkpoints</p>
-</dd>
-<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
-<p class="last">The directory to use for notebooks.</p>
-</dd>
-<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p>Automatically create a Python script when saving the notebook.</p>
-<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
-name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
-save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
 </dd>
 </dl>
 </div>
@@ -364,8 +381,8 @@ save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>

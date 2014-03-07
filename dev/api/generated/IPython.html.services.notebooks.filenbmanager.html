@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.services.notebooks.filenbmanager &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: html.services.notebooks.filenbmanager &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0-b1: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.services.notebooks.handlers" href="IPython.html.services.notebooks.handlers.html" />
     <link rel="prev" title="Module: html.services.nbconvert.handlers" href="IPython.html.services.nbconvert.handlers.html" /> 
@@ -63,6 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">html.services.notebooks.filenbmanager</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
 </ul>
@@ -103,7 +104,7 @@
 <div><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.1.0).</p>
+significant differences from the latest stable release (1.2.1).</p>
 </div>
 </div></blockquote>
 <div class="section" id="module-IPython.html.services.notebooks.filenbmanager">
@@ -133,8 +134,8 @@ significant differences from the latest stable release (1.1.0).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.delete_notebook_model">
-<tt class="descname">delete_notebook_model</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.delete_notebook_model" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.delete_notebook">
+<tt class="descname">delete_notebook</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.delete_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete notebook by name and path.</p>
 </dd></dl>
 
@@ -151,8 +152,14 @@ significant differences from the latest stable release (1.1.0).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_notebook_model">
-<tt class="descname">get_notebook_model</tt><big>(</big><em>name</em>, <em>path=''</em>, <em>content=True</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_notebook_model" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_dir_model">
+<tt class="descname">get_dir_model</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_dir_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the directory model given a directory name and its API style path</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_notebook">
+<tt class="descname">get_notebook</tt><big>(</big><em>name</em>, <em>path=''</em>, <em>content=True</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Takes a path and name for a notebook and returns its model</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -187,30 +194,23 @@ dict in the model as well.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_os_path">
-<tt class="descname">get_os_path</tt><big>(</big><em>name=None</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.get_os_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a notebook name and a URL path, return its file system
-path.</p>
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.is_hidden">
+<tt class="descname">is_hidden</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.is_hidden" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the API style path correspond to a hidden directory or file?</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
 <blockquote>
-<div><p>The name of a notebook file with the .ipynb extension</p>
-</div></blockquote>
-<p><strong>path</strong> : string</p>
-<blockquote>
-<div><p>The relative URL path (with &#8216;/&#8217; as separator) to the named
-notebook.</p>
+<div><p>The path to check. This is an API path (<cite>/</cite> separated,
+relative to base notebook-dir).</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>exists</strong> : bool</p>
 <blockquote class="last">
-<div><p>A file system path that combines notebook_dir (location where
-server started), the relative path, and the filename with the
-current operating system&#8217;s url.</p>
+<div><p>Whether the path is hidden.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -219,16 +219,16 @@ current operating system&#8217;s url.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.increment_filename">
-<tt class="descname">increment_filename</tt><big>(</big><em>basename</em>, <em>path=''</em>, <em>ext='.ipynb'</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.increment_filename" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a non-used filename of the form basename&lt;int&gt;.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.list_checkpoints">
 <tt class="descname">list_checkpoints</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.list_checkpoints" title="Permalink to this definition">¶</a></dt>
 <dd><p>list the checkpoints for a given notebook</p>
 <p>This notebook manager currently only supports one checkpoint per notebook.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.list_dirs">
+<tt class="descname">list_dirs</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.list_dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the directories for a given API style path.</p>
 </dd></dl>
 
 <dl class="method">
@@ -275,7 +275,7 @@ listed notebooks</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>bool</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool</p>
 </td>
 </tr>
 </tbody>
@@ -320,17 +320,26 @@ relative to base notebook-dir).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.save_notebook_model">
-<tt class="descname">save_notebook_model</tt><big>(</big><em>model</em>, <em>name=''</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.save_notebook_model" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.save_notebook">
+<tt class="descname">save_notebook</tt><big>(</big><em>model</em>, <em>name=''</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.save_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the notebook model and return the model with no content.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.update_notebook_model">
-<tt class="descname">update_notebook_model</tt><big>(</big><em>model</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.update_notebook_model" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.html.services.notebooks.filenbmanager.FileNotebookManager.update_notebook">
+<tt class="descname">update_notebook</tt><big>(</big><em>model</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.FileNotebookManager.update_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the notebook&#8217;s path and/or name</p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.html.services.notebooks.filenbmanager.sort_key">
+<tt class="descclassname">IPython.html.services.notebooks.filenbmanager.</tt><tt class="descname">sort_key</tt><big>(</big><em>item</em><big>)</big><a class="headerlink" href="#IPython.html.services.notebooks.filenbmanager.sort_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Case-insensitive sorting.</p>
 </dd></dl>
 
 </div>
@@ -366,8 +375,8 @@ relative to base notebook-dir).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Jan 13, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Last updated on Mar 07, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
     </div>
   </body>
 </html>
