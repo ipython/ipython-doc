@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
+    <title>IPython reference &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-b1: Work in Progress',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="IPython as a system shell" href="shell.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -63,7 +63,6 @@
   <ul>
 <li><a class="reference internal" href="#">IPython reference</a><ul>
 <li><a class="reference internal" href="#command-line-usage">Command-line usage</a><ul>
-<li><a class="reference internal" href="#eventloop-integration">Eventloop integration</a></li>
 <li><a class="reference internal" href="#id1">Command-line Options</a></li>
 </ul>
 </li>
@@ -78,7 +77,6 @@
 <li><a class="reference internal" href="#readline-based-features">Readline-based features</a><ul>
 <li><a class="reference internal" href="#command-line-completion">Command line completion</a></li>
 <li><a class="reference internal" href="#search-command-history">Search command history</a></li>
-<li><a class="reference internal" href="#persistent-command-history-across-sessions">Persistent command history across sessions</a></li>
 <li><a class="reference internal" href="#autoindent">Autoindent</a></li>
 <li><a class="reference internal" href="#customizing-readline-behavior">Customizing readline behavior</a></li>
 </ul>
@@ -92,24 +90,17 @@
 <li><a class="reference internal" href="#input-caching-system">Input caching system</a></li>
 <li><a class="reference internal" href="#output-caching-system">Output caching system</a></li>
 <li><a class="reference internal" href="#directory-history">Directory history</a></li>
-<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a><ul>
-<li><a class="reference internal" href="#automatic-parentheses">Automatic parentheses</a></li>
-<li><a class="reference internal" href="#automatic-quoting">Automatic quoting</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#automatic-parentheses-and-quotes">Automatic parentheses and quotes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#ipython-as-your-default-python-environment">IPython as your default Python environment</a></li>
 <li><a class="reference internal" href="#embedding-ipython">Embedding IPython</a></li>
 <li><a class="reference internal" href="#using-the-python-debugger-pdb">Using the Python debugger (pdb)</a><ul>
 <li><a class="reference internal" href="#running-entire-programs-via-pdb">Running entire programs via pdb</a></li>
-<li><a class="reference internal" href="#automatic-invocation-of-pdb-on-exceptions">Automatic invocation of pdb on exceptions</a></li>
+<li><a class="reference internal" href="#post-mortem-debugging">Post-mortem debugging</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#extensions-for-syntax-processing">Extensions for syntax processing</a><ul>
 <li><a class="reference internal" href="#pasting-of-code-starting-with-python-or-ipython-prompts">Pasting of code starting with Python or IPython prompts</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#gui-event-loop-support">GUI event loop support</a><ul>
 <li><a class="reference internal" href="#pyqt-and-pyside">PyQt and PySide</a></li>
 </ul>
@@ -180,17 +171,6 @@ files for each profile, and the files look like <tt class="file docutils literal
 <tt class="file docutils literal"><span class="pre">profile_</span><em><span class="pre">profilename</span></em></tt> and are typically installed in the <span class="target" id="index-0"></span><a class="reference internal" href="../config/intro.html#envvar-IPYTHONDIR"><tt class="xref std std-envvar docutils literal"><span class="pre">IPYTHONDIR</span></tt></a> directory,
 which defaults to <tt class="file docutils literal"><span class="pre">$HOME/.ipython</span></tt>. For Windows users, <span class="target" id="index-1"></span><tt class="xref std std-envvar docutils literal"><span class="pre">HOME</span></tt>
 resolves to <tt class="file docutils literal"><span class="pre">C:\Users\</span><em><span class="pre">YourUserName</span></em></tt> in most instances.</p>
-<div class="section" id="eventloop-integration">
-<h3>Eventloop integration<a class="headerlink" href="#eventloop-integration" title="Permalink to this headline">¶</a></h3>
-<p>Previously IPython had command line options for controlling GUI event loop
-integration (-gthread, -qthread, -q4thread, -wthread, -pylab). As of IPython
-version 0.11, these have been removed. Please see the new <tt class="docutils literal"><span class="pre">%gui</span></tt>
-magic command or <a class="reference internal" href="#gui-support"><em>this section</em></a> for details on the new
-interface, or specify the gui at the commandline:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=qt
-</pre></div>
-</div>
-</div>
 <div class="section" id="id1">
 <h3>Command-line Options<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>To see the options IPython accepts, use <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--help</span></tt> (and you probably
@@ -271,10 +251,9 @@ then just type <tt class="docutils literal"><span class="pre">cd</span> <span cl
 <p>Note that cell magics <em>always</em> require an explicit <tt class="docutils literal"><span class="pre">%%</span></tt> prefix, automagic
 calling only works for line magics.</p>
 <p>The automagic system has the lowest possible precedence in name searches, so
-defining an identifier with the same name as an existing magic function will
-shadow it for automagic use. You can still access the shadowed magic function
-by explicitly using the <tt class="docutils literal"><span class="pre">%</span></tt> character at the beginning of the line.</p>
-<p>An example (with automagic on) should clarify all this:</p>
+you can freely use variables with the same names as magic commands. If a magic
+command is &#8216;shadowed&#8217; by a variable, you will need the explicit <tt class="docutils literal"><span class="pre">%</span></tt> prefix to
+use it:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">cd</span> <span class="n">ipython</span>     <span class="c"># %cd is called by automagic</span>
 <span class="go">/home/fperez/ipython</span>
 
@@ -488,31 +467,24 @@ current directory if no python names match what you&#8217;ve typed so far.</p>
 reduce the need for repetitive typing:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>Start typing, and then use Ctrl-p (previous,up) and Ctrl-n
-(next,down) to search through only the history items that match
-what you&#8217;ve typed so far. If you use Ctrl-p/Ctrl-n at a blank
-prompt, they just behave like normal arrow keys.</li>
-<li>Hit Ctrl-r: opens a search prompt. Begin typing and the system
+<li>Start typing, and then use the up and down arrow keys (or <tt class="kbd docutils literal"><span class="pre">Ctrl-p</span></tt>
+and <tt class="kbd docutils literal"><span class="pre">Ctrl-n</span></tt>) to search through only the history items that match
+what you&#8217;ve typed so far.</li>
+<li>Hit <tt class="kbd docutils literal"><span class="pre">Ctrl-r</span></tt>: to open a search prompt. Begin typing and the system
 searches your history for lines that contain what you&#8217;ve typed so
 far, completing as much as it can.</li>
 </ol>
 </div></blockquote>
-</div>
-<div class="section" id="persistent-command-history-across-sessions">
-<h4>Persistent command history across sessions<a class="headerlink" href="#persistent-command-history-across-sessions" title="Permalink to this headline">¶</a></h4>
 <p>IPython will save your input history when it leaves and reload it next
 time you restart it. By default, the history file is named
-$IPYTHONDIR/profile_&lt;name&gt;/history.sqlite. This allows you to keep
-separate histories related to various tasks: commands related to
-numerical work will not be clobbered by a system shell history, for
-example.</p>
+<tt class="file docutils literal"><span class="pre">.ipython/profile_</span><em><span class="pre">name</span></em><span class="pre">/history.sqlite</span></tt>.</p>
 </div>
 <div class="section" id="autoindent">
 <h4>Autoindent<a class="headerlink" href="#autoindent" title="Permalink to this headline">¶</a></h4>
 <p>IPython can recognize lines ending in &#8216;:&#8217; and indent the next line,
 while also un-indenting automatically after &#8216;raise&#8217; or &#8216;return&#8217;.</p>
 <p>This feature uses the readline library, so it will honor your
-<tt class="file docutils literal"><span class="pre">~/.inputrc</span></tt> configuration (or whatever file your INPUTRC variable points
+<tt class="file docutils literal"><span class="pre">~/.inputrc</span></tt> configuration (or whatever file your <span class="target" id="index-2"></span><tt class="xref std std-envvar docutils literal"><span class="pre">INPUTRC</span></tt> environment variable points
 to). Adding the following lines to your <tt class="file docutils literal"><span class="pre">.inputrc</span></tt> file can make
 indenting/unindenting more convenient (M-i indents, M-u unindents):</p>
 <div class="highlight-python"><div class="highlight"><pre># if you don&#39;t already have a ~/.inputrc file, you need this include:
@@ -545,21 +517,16 @@ you use <tt class="docutils literal"><span class="pre">%paste</span></tt>.</p>
 <h4>Customizing readline behavior<a class="headerlink" href="#customizing-readline-behavior" title="Permalink to this headline">¶</a></h4>
 <p>All these features are based on the GNU readline library, which has an
 extremely customizable interface. Normally, readline is configured via a
-file which defines the behavior of the library; the details of the
-syntax for this can be found in the readline documentation available
-with your system or on the Internet. IPython doesn&#8217;t read this file (if
-it exists) directly, but it does support passing to readline valid
-options via a simple interface. In brief, you can customize readline by
-setting the following options in your configuration file (note
-that these options can not be specified at the command line):</p>
+<tt class="file docutils literal"><span class="pre">.inputrc</span></tt> file. IPython respects this, and you can also customise readline
+by setting the following <a class="reference internal" href="../config/intro.html"><em>configuration</em></a> options:</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>readline_parse_and_bind</strong>: this holds a list of strings to be executed
+<li><tt class="docutils literal"><span class="pre">InteractiveShell.readline_parse_and_bind</span></tt>: this holds a list of strings to be executed
 via a readline.parse_and_bind() command. The syntax for valid commands
 of this kind can be found by reading the documentation for the GNU
 readline library, as these commands are of the kind which readline
 accepts in its configuration file.</li>
-<li><strong>readline_remove_delims</strong>: a string of characters to be removed
+<li><tt class="docutils literal"><span class="pre">InteractiveShell.readline_remove_delims</span></tt>: a string of characters to be removed
 from the default word-delimiters list used by readline, so that
 completions may be performed on strings which contain them. Do not
 change the default value unless you know what you&#8217;re doing.</li>
@@ -681,7 +648,7 @@ run any Python file with the %run function to benefit from these
 detailed tracebacks. Furthermore, both normal and verbose tracebacks can
 be colored (if your terminal supports it) which makes them much easier
 to parse visually.</p>
-<p>See the magic xmode and colors functions for details (just type %magic).</p>
+<p>See the magic xmode and colors functions for details.</p>
 <p>These features are basically a terminal version of Ka-Ping Yee&#8217;s cgitb
 module, now part of the standard Python library.</p>
 </div>
@@ -692,7 +659,7 @@ module, now part of the standard Python library.</p>
 retrieved as variables (besides the usual arrow key recall), in
 addition to the %rep magic command that brings a history entry
 up for editing on the next  command line.</p>
-<p>The following GLOBAL variables always exist (so don&#8217;t overwrite them!):</p>
+<p>The following variables always exist:</p>
 <ul class="simple">
 <li>_i, _ii, _iii: store previous, next previous and next-next previous inputs.</li>
 <li>In, _ih : a list of all inputs; _ih[n] is the input from line n. If you
@@ -701,13 +668,12 @@ internal list with a simple <tt class="docutils literal"><span class="pre">In=_i
 </ul>
 <p>Additionally, global variables named _i&lt;n&gt; are dynamically created (&lt;n&gt;
 being the prompt counter), so <tt class="docutils literal"><span class="pre">_i&lt;n&gt;</span> <span class="pre">==</span> <span class="pre">_ih[&lt;n&gt;]</span> <span class="pre">==</span> <span class="pre">In[&lt;n&gt;]</span></tt>.</p>
-<p>For example, what you typed at prompt 14 is available as _i14, _ih[14]
-and In[14].</p>
+<p>For example, what you typed at prompt 14 is available as <tt class="docutils literal"><span class="pre">_i14</span></tt>, <tt class="docutils literal"><span class="pre">_ih[14]</span></tt>
+and <tt class="docutils literal"><span class="pre">In[14]</span></tt>.</p>
 <p>This allows you to easily cut and paste multi line interactive prompts
 by printing them out: they print like a clean string, without prompt
 characters. You can also manipulate them like regular variables (they
-are strings), modify or exec them (typing <tt class="docutils literal"><span class="pre">exec</span> <span class="pre">_i9</span></tt> will re-execute the
-contents of input prompt 9.</p>
+are strings), modify or exec them.</p>
 <p>You can also re-execute multiple lines of input easily by using the
 magic %rerun or %macro functions. The macro system also allows you to re-execute
 previous lines which include magic function calls (which require special
@@ -726,10 +692,10 @@ cache exists but using _ instead of _i. Only actions that produce a
 result (NOT assignments, for example) are cached. If you are familiar
 with Mathematica, IPython&#8217;s _ variables behave exactly like
 Mathematica&#8217;s % variables.</p>
-<p>The following GLOBAL variables always exist (so don&#8217;t overwrite them!):</p>
+<p>The following variables always exist:</p>
 <blockquote>
 <div><ul class="simple">
-<li>[_] (a single underscore) : stores previous output, like Python&#8217;s
+<li>[_] (a single underscore): stores previous output, like Python&#8217;s
 default interpreter.</li>
 <li>[__] (two underscores): next previous.</li>
 <li>[___] (three underscores): next-next previous.</li>
@@ -738,19 +704,19 @@ default interpreter.</li>
 <p>Additionally, global variables named _&lt;n&gt; are dynamically created (&lt;n&gt;
 being the prompt counter), such that the result of output &lt;n&gt; is always
 available as _&lt;n&gt; (don&#8217;t use the angle brackets, just the number, e.g.
-_21).</p>
+<tt class="docutils literal"><span class="pre">_21</span></tt>).</p>
 <p>These variables are also stored in a global dictionary (not a
 list, since it only has entries for lines which returned a result)
 available under the names _oh and Out (similar to _ih and In). So the
-output from line 12 can be obtained as _12, Out[12] or _oh[12]. If you
+output from line 12 can be obtained as <tt class="docutils literal"><span class="pre">_12</span></tt>, <tt class="docutils literal"><span class="pre">Out[12]</span></tt> or <tt class="docutils literal"><span class="pre">_oh[12]</span></tt>. If you
 accidentally overwrite the Out variable you can recover it by typing
-&#8216;Out=_oh&#8217; at the prompt.</p>
+<tt class="docutils literal"><span class="pre">Out=_oh</span></tt> at the prompt.</p>
 <p>This system obviously can potentially put heavy memory demands on your
 system, since it prevents Python&#8217;s garbage collector from removing any
 previously computed results. You can control how many results are kept
-in memory with the option (at the command line or in your configuration
-file) cache_size. If you set it to 0, the whole system is completely
-disabled and the prompts revert to the classic &#8216;&gt;&gt;&gt;&#8217; of normal Python.</p>
+in memory with the configuration option <tt class="docutils literal"><span class="pre">InteractiveShell.cache_size</span></tt>.
+If you set it to 0, output caching is disabled. You can also use the <tt class="docutils literal"><span class="pre">%reset</span></tt>
+and <tt class="docutils literal"><span class="pre">%xdel</span></tt> magics to clear large items from memory.</p>
 </div>
 <div class="section" id="directory-history">
 <h3>Directory history<a class="headerlink" href="#directory-history" title="Permalink to this headline">¶</a></h3>
@@ -763,13 +729,17 @@ conveniently view the directory history.</p>
 <h3>Automatic parentheses and quotes<a class="headerlink" href="#automatic-parentheses-and-quotes" title="Permalink to this headline">¶</a></h3>
 <p>These features were adapted from Nathan Gray&#8217;s LazyPython. They are
 meant to allow less typing for common situations.</p>
-<div class="section" id="automatic-parentheses">
-<h4>Automatic parentheses<a class="headerlink" href="#automatic-parentheses" title="Permalink to this headline">¶</a></h4>
 <p>Callable objects (i.e. functions, methods, etc) can be invoked like this
 (notice the commas between the arguments):</p>
 <div class="highlight-python"><div class="highlight"><pre>In [1]: callable_ob arg1, arg2, arg3
 ------&gt; callable_ob(arg1, arg2, arg3)
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature is disabled by default. To enable it, use the <tt class="docutils literal"><span class="pre">%autocall</span></tt>
+magic command. The commands below with special prefixes will always work,
+however.</p>
 </div>
 <p>You can force automatic parentheses by using &#8216;/&#8217; as the first character
 of a line. For example:</p>
@@ -794,16 +764,9 @@ Out[5]: [(1, 4), (2, 5), (3, 6)]
 </pre></div>
 </div>
 <p>IPython tells you that it has altered your command line by displaying
-the new command line preceded by -&gt;. e.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>In [6]: callable list
-------&gt; callable(list)
-</pre></div>
-</div>
-</div>
-<div class="section" id="automatic-quoting">
-<h4>Automatic quoting<a class="headerlink" href="#automatic-quoting" title="Permalink to this headline">¶</a></h4>
-<p>You can force automatic quoting of a function&#8217;s arguments by using &#8216;,&#8217;
-or &#8216;;&#8217; as the first character of a line. For example:</p>
+the new command line preceded by <tt class="docutils literal"><span class="pre">---&gt;</span></tt>.</p>
+<p>You can force automatic quoting of a function&#8217;s arguments by using <tt class="docutils literal"><span class="pre">,</span></tt>
+or <tt class="docutils literal"><span class="pre">;</span></tt> as the first character of a line. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>In [1]: ,my_function /home/me  # becomes my_function(&quot;/home/me&quot;)
 </pre></div>
 </div>
@@ -821,10 +784,9 @@ won&#8217;t work:</p>
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="ipython-as-your-default-python-environment">
 <h2>IPython as your default Python environment<a class="headerlink" href="#ipython-as-your-default-python-environment" title="Permalink to this headline">¶</a></h2>
-<p>Python honors the environment variable <span class="target" id="index-2"></span><a class="reference external" href="http://docs.python.org/2/using/cmdline.html#envvar-PYTHONSTARTUP" title="(in Python v2.7)"><tt class="xref std std-envvar docutils literal"><span class="pre">PYTHONSTARTUP</span></tt></a> and will
+<p>Python honors the environment variable <span class="target" id="index-3"></span><a class="reference external" href="http://docs.python.org/2/using/cmdline.html#envvar-PYTHONSTARTUP" title="(in Python v2.7)"><tt class="xref std std-envvar docutils literal"><span class="pre">PYTHONSTARTUP</span></tt></a> and will
 execute at startup the file referenced by this variable. If you put the
 following code at the end of that file, then IPython will be your working
 environment anytime you start Python:</p>
@@ -835,7 +797,7 @@ environment anytime you start Python:</p>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">raise</span> <span class="pre">SystemExit</span></tt> is needed to exit Python when
-it finishes, otherwise you&#8217;ll be back at the normal Python &#8216;&gt;&gt;&gt;&#8217;
+it finishes, otherwise you&#8217;ll be back at the normal Python <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt>
 prompt.</p>
 <p>This is probably useful to developers who manage multiple Python
 versions and don&#8217;t want to have correspondingly multiple IPython
@@ -846,13 +808,12 @@ command-line options, as those are trapped first by Python itself.</p>
 <span id="embedding"></span><h2>Embedding IPython<a class="headerlink" href="#embedding-ipython" title="Permalink to this headline">¶</a></h2>
 <p>You can start a regular IPython session with</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">IPython</span>
-<span class="n">IPython</span><span class="o">.</span><span class="n">start_ipython</span><span class="p">()</span>
+<span class="n">IPython</span><span class="o">.</span><span class="n">start_ipython</span><span class="p">(</span><span class="n">argv</span><span class="o">=</span><span class="p">[])</span>
 </pre></div>
 </div>
 <p>at any point in your program.  This will load IPython configuration,
-startup files, and everything, just as if it were a normal IPython session.
-In addition to this,
-it is possible to embed an IPython instance inside your own Python programs.
+startup files, and everything, just as if it were a normal IPython session.</p>
+<p>It is also possible to embed an IPython shell in a namespace in your Python code.
 This allows you to evaluate dynamically the state of your code,
 operate with your variables, analyze them, etc. Note however that
 any changes you make to values while in the shell do not propagate back
@@ -882,14 +843,10 @@ your Python programs for this to work (detailed examples follow later):</p>
 <span class="n">embed</span><span class="p">()</span> <span class="c"># this call anywhere in your program will start IPython</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">As of 0.13, you can embed an IPython <em>kernel</em>, for use with qtconsole,
-etc. via <tt class="docutils literal"><span class="pre">IPython.embed_kernel()</span></tt> instead of <tt class="docutils literal"><span class="pre">IPython.embed()</span></tt>.
-It should function just the same as regular embed, but you connect
-an external frontend rather than IPython starting up in the local
-terminal.</p>
-</div>
+<p>You can also embed an IPython <em>kernel</em>, for use with qtconsole, etc. via
+<tt class="docutils literal"><span class="pre">IPython.embed_kernel()</span></tt>. This should function work the same way, but you can
+connect an external frontend (<tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">qtconsole</span></tt> or <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">console</span></tt>),
+rather than interacting with it in the terminal.</p>
 <p>You can run embedded instances even in code which is itself being run at
 the IPython interactive prompt with &#8216;%run &lt;filename&gt;&#8217;. Since it&#8217;s easy
 to get lost as to where you are (in your top-level IPython or in your
@@ -906,7 +863,6 @@ module for more details on the use of this system.</p>
 functionality is provided in the examples directory as example-embed.py.
 It should be fairly self-explanatory:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
-
 <span class="sd">&quot;&quot;&quot;An example of how to embed an IPython shell into a running program.</span>
 
 <span class="sd">Please see the documentation in the IPython.Shell module for more details.</span>
@@ -920,7 +876,7 @@ It should be fairly self-explanatory:</p>
 
 <span class="c"># The basics to get you going:</span>
 
-<span class="c"># IPython sets the __IPYTHON__ variable so you can know if you have nested</span>
+<span class="c"># IPython injects get_ipython into builtins, so you can know if you have nested</span>
 <span class="c"># copies running.</span>
 
 <span class="c"># Try running this code both at the command line and from inside IPython (with</span>
@@ -1105,40 +1061,26 @@ code fragments in your programs which are ready for cut and paste:</p>
 allows you to step through code, set breakpoints, watch variables,
 etc.  IPython makes it very easy to start any script under the control
 of pdb, regardless of whether you have wrapped it into a &#8216;main()&#8217;
-function or not. For this, simply type &#8216;%run -d myscript&#8217; at an
-IPython prompt. See the %run command&#8217;s documentation (via &#8216;%run?&#8217; or
-in Sec. <a class="reference internal" href="#magic">magic</a> for more details, including how to control where pdb
-will stop execution first.</p>
-<p>For more information on the use of the pdb debugger, read the included
-pdb.doc file (part of the standard Python distribution). On a stock
-Linux system it is located at /usr/lib/python2.3/pdb.doc, but the
-easiest way to read it is by using the help() function of the pdb module
-as follows (in an IPython prompt):</p>
-<div class="highlight-python"><div class="highlight"><pre>In [1]: import pdb
-In [2]: pdb.help()
-</pre></div>
+function or not. For this, simply type <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-d</span> <span class="pre">myscript</span></tt> at an
+IPython prompt. See the %run command&#8217;s documentation for more details, including
+how to control where pdb will stop execution first.</p>
+<p>For more information on the use of the pdb debugger, see <a class="reference external" href="http://docs.python.org/2/library/pdb.html#debugger-commands" title="(in Python v2.7)"><em>Debugger Commands</em></a>
+in the Python documentation.</p>
 </div>
-<p>This will load the pdb.doc document in a file viewer for you automatically.</p>
-</div>
-<div class="section" id="automatic-invocation-of-pdb-on-exceptions">
-<h3>Automatic invocation of pdb on exceptions<a class="headerlink" href="#automatic-invocation-of-pdb-on-exceptions" title="Permalink to this headline">¶</a></h3>
-<p>IPython, if started with the <tt class="docutils literal"><span class="pre">--pdb</span></tt> option (or if the option is set in
-your config file) can call the Python pdb debugger every time your code
-triggers an uncaught exception. This feature
-can also be toggled at any time with the %pdb magic command. This can be
+<div class="section" id="post-mortem-debugging">
+<h3>Post-mortem debugging<a class="headerlink" href="#post-mortem-debugging" title="Permalink to this headline">¶</a></h3>
+<p>Going into a debugger when an exception occurs can be
 extremely useful in order to find the origin of subtle bugs, because pdb
 opens up at the point in your code which triggered the exception, and
 while your program is at this point &#8216;dead&#8217;, all the data is still
 available and you can walk up and down the stack frame and understand
 the origin of the problem.</p>
-<p>Furthermore, you can use these debugging facilities both with the
-embedded IPython mode and without IPython at all. For an embedded shell
-(see sec. <a class="reference internal" href="#embedding">Embedding</a>), simply call the constructor with
-<tt class="docutils literal"><span class="pre">--pdb</span></tt> in the argument string and pdb will automatically be called if an
-uncaught exception is triggered by your code.</p>
-<p>For stand-alone use of the feature in your programs which do not use
-IPython at all, put the following lines toward the top of your &#8216;main&#8217;
-routine:</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">%debug</span></tt> magic after an exception has occurred to start
+post-mortem debugging. IPython can also call debugger every time your code
+triggers an uncaught exception. This feature can be toggled with the %pdb magic
+command, or you can start IPython with the <tt class="docutils literal"><span class="pre">--pdb</span></tt> option.</p>
+<p>For a post-mortem debugger in your programs outside IPython,
+put the following lines toward the top of your &#8216;main&#8217; routine:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">IPython.core</span> <span class="kn">import</span> <span class="n">ultratb</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">ultratb</span><span class="o">.</span><span class="n">FormattedTB</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s">&#39;Verbose&#39;</span><span class="p">,</span>
@@ -1153,19 +1095,8 @@ options which can be set in IPython with <tt class="docutils literal"><span clas
 automatic invocation of pdb.</p>
 </div>
 </div>
-<div class="section" id="extensions-for-syntax-processing">
-<h2>Extensions for syntax processing<a class="headerlink" href="#extensions-for-syntax-processing" title="Permalink to this headline">¶</a></h2>
-<p>This isn&#8217;t for the faint of heart, because the potential for breaking
-things is quite high. But it can be a very powerful and useful feature.
-In a nutshell, you can redefine the way IPython processes the user input
-line to accept new, special extensions to the syntax without needing to
-change any of IPython&#8217;s own code.</p>
-<p>In the IPython/extensions directory you will find some examples
-supplied, which we will briefly describe now. These can be used &#8216;as is&#8217;
-(and both provide very useful functionality), or you can use them as a
-starting point for writing your own extensions.</p>
 <div class="section" id="pasting-of-code-starting-with-python-or-ipython-prompts">
-<span id="pasting-with-prompts"></span><h3>Pasting of code starting with Python or IPython prompts<a class="headerlink" href="#pasting-of-code-starting-with-python-or-ipython-prompts" title="Permalink to this headline">¶</a></h3>
+<span id="pasting-with-prompts"></span><h2>Pasting of code starting with Python or IPython prompts<a class="headerlink" href="#pasting-of-code-starting-with-python-or-ipython-prompts" title="Permalink to this headline">¶</a></h2>
 <p>IPython is smart enough to filter out input prompts, be they plain Python ones
 (<tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> and <tt class="docutils literal"><span class="pre">...</span></tt>) or IPython ones (<tt class="docutils literal"><span class="pre">In</span> <span class="pre">[N]:</span></tt> and <tt class="docutils literal"><span class="pre">...:</span></tt>).  You can
 therefore copy and paste from existing interactive sessions without worry.</p>
@@ -1200,7 +1131,6 @@ Out[2]: 9
 </pre></div>
 </div>
 </div>
-</div>
 <div class="section" id="gui-event-loop-support">
 <span id="gui-support"></span><h2>GUI event loop support<a class="headerlink" href="#gui-event-loop-support" title="Permalink to this headline">¶</a></h2>
 <div class="versionadded">
@@ -1228,6 +1158,11 @@ arguments are <tt class="docutils literal"><span class="pre">wx</span></tt>, <tt
 <p>Thus, to use wxPython interactively and create a running <tt class="xref py py-class docutils literal"><span class="pre">wx.App</span></tt>
 object, do:</p>
 <div class="highlight-python"><div class="highlight"><pre>%gui wx
+</pre></div>
+</div>
+<p>You can also start IPython with an event loop set up using the <em class="xref std std-option">--gui</em>
+flag:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=qt
 </pre></div>
 </div>
 <p>For information on IPython&#8217;s <a class="reference external" href="http://matplotlib.org">matplotlib</a> integration (and the <tt class="docutils literal"><span class="pre">matplotlib</span></tt>
@@ -1337,7 +1272,6 @@ sections for execution as a demo:</p>
 
 <span class="c"># The mark below defines a block boundary, which is a point where IPython will</span>
 <span class="c"># stop execution and return to the interactive prompt.</span>
-<span class="c"># Note that in actual interactive execution, </span>
 <span class="c"># &lt;demo&gt; --- stop ---</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1374,30 +1308,23 @@ demo:</p>
 </pre></div>
 </div>
 <p>This creates the mydemo object, whose blocks you run one at a time by
-simply calling the object with no arguments. If you have autocall active
-in IPython (the default), all you need to do is type:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mydemo</span>
+simply calling the object with no arguments. Then call it to run each step
+of the demo:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mydemo</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>and IPython will call it, executing each block. Demo objects can be
+<p>Demo objects can be
 restarted, you can move forward or back skipping blocks, re-execute the
-last block, etc. Simply use the Tab key on a demo object to see its
-methods, and call &#8216;?&#8217; on them to see their docstrings for more usage
-details. In addition, the demo module itself contains a comprehensive
-docstring, which you can access via:</p>
-<div class="highlight-python"><div class="highlight"><pre>from IPython.lib import demo
-
-demo?
-</pre></div>
-</div>
-<p>Limitations: It is important to note that these demos are limited to
+last block, etc. See the <a class="reference internal" href="../api/generated/IPython.lib.demo.html#module-IPython.lib.demo" title="IPython.lib.demo"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.demo</span></tt></a> module and the
+<a class="reference internal" href="../api/generated/IPython.lib.demo.html#IPython.lib.demo.Demo" title="IPython.lib.demo.Demo"><tt class="xref py py-class docutils literal"><span class="pre">Demo</span></tt></a> class for details.</p>
+<p>Limitations: These demos are limited to
 fairly simple uses. In particular, you cannot break up sections within
 indented code (loops, if statements, function definitions, etc.)
 Supporting something like this would basically require tracking the
 internal execution state of the Python interpreter, so only top-level
 divisions are allowed. If you want to be able to open an IPython
 instance at an arbitrary point in a program, you can use IPython&#8217;s
-embedding facilities, see <tt class="xref py py-func docutils literal"><span class="pre">IPython.embed()</span></tt> for details.</p>
+<a class="reference internal" href="#embedding"><em>embedding facilities</em></a>.</p>
 </div>
 </div>
 
@@ -1431,8 +1358,8 @@ embedding facilities, see <tt class="xref py py-func docutils literal"><span cla
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 07, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Last updated on Mar 25, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: lib.deepreload &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
+    <title>Module: lib.deepreload &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-b1: Work in Progress',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: lib.demo" href="IPython.lib.demo.html" />
     <link rel="prev" title="Module: lib.clipboard" href="IPython.lib.clipboard.html" /> 
@@ -108,20 +108,25 @@ significant differences from the latest stable release (1.2.1).</p>
 </div></blockquote>
 <div class="section" id="module-IPython.lib.deepreload">
 <span id="module-lib-deepreload"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">lib.deepreload</span></tt><a class="headerlink" href="#module-IPython.lib.deepreload" title="Permalink to this headline">¶</a></h1>
-<p>A module to change reload() so that it acts recursively.
-To enable it type:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">__builtin__</span><span class="o">,</span> <span class="nn">deepreload</span>
+<p>Provides a reload() function that acts recursively.</p>
+<p>Python&#8217;s normal <a class="reference external" href="http://docs.python.org/2/library/functions.html#reload" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">reload()</span></tt></a> function only reloads the module that it&#8217;s
+passed. The <a class="reference internal" href="#IPython.lib.deepreload.reload" title="IPython.lib.deepreload.reload"><tt class="xref py py-func docutils literal"><span class="pre">reload()</span></tt></a> function in this module also reloads everything
+imported from that module, which is useful when you&#8217;re changing files deep
+inside a package.</p>
+<p>To use this as your default reload function, type this for Python 2:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">__builtin__</span>
+<span class="kn">from</span> <span class="nn">IPython.lib</span> <span class="kn">import</span> <span class="n">deepreload</span>
 <span class="n">__builtin__</span><span class="o">.</span><span class="n">reload</span> <span class="o">=</span> <span class="n">deepreload</span><span class="o">.</span><span class="n">reload</span>
 </pre></div>
 </div>
-<p>You can then disable it with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">__builtin__</span><span class="o">.</span><span class="n">reload</span> <span class="o">=</span> <span class="n">deepreload</span><span class="o">.</span><span class="n">original_reload</span>
+<p>Or this for Python 3:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">builtins</span>
+<span class="kn">from</span> <span class="nn">IPython.lib</span> <span class="kn">import</span> <span class="n">deepreload</span>
+<span class="n">builtins</span><span class="o">.</span><span class="n">reload</span> <span class="o">=</span> <span class="n">deepreload</span><span class="o">.</span><span class="n">reload</span>
 </pre></div>
 </div>
-<p>Alternatively, you can add a dreload builtin alongside normal reload with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">__builtin__</span><span class="o">.</span><span class="n">dreload</span> <span class="o">=</span> <span class="n">deepreload</span><span class="o">.</span><span class="n">reload</span>
-</pre></div>
-</div>
+<p>A reference to the original <a class="reference external" href="http://docs.python.org/2/library/functions.html#reload" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">reload()</span></tt></a> is stored in this module as
+<tt class="xref py py-data docutils literal"><span class="pre">original_reload</span></tt>, so you can restore it later.</p>
 <p>This code is almost entirely based on knee.py, which is a Python
 re-implementation of hierarchical module import.</p>
 <div class="section" id="functions">
@@ -219,8 +224,8 @@ display, exception, and io hooks.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 07, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Last updated on Mar 25, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

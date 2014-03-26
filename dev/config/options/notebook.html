@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython notebook options &mdash; IPython 2.0.0-b1: Work in Progress documentation</title>
+    <title>IPython notebook options &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-b1: Work in Progress',
+        VERSION:     '2.0.0-dev: Work in Progress',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-b1: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
     <link rel="next" title="IPython Qt console options" href="qtconsole.html" />
     <link rel="prev" title="IPython kernel options" href="kernel.html" /> 
@@ -107,25 +107,49 @@ significant differences from the latest stable release (1.2.1).</p>
 <dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
-<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;sha256&#8217;</p>
+<p class="last">The hashing algorithm used to sign notebooks.</p>
+</dd>
+<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">The secret key with which notebooks are signed.</p>
+</dd>
+<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;&#8216;</p>
-<p>The location in which to keep notebook checkpoints</p>
-<p class="last">By default, it is notebook-dir/.ipynb_checkpoints</p>
+<p class="last">The file where the secret key is stored.</p>
 </dd>
-<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
-<p class="last">Glob patterns to hide in file and directory listings.</p>
+<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p>Close all figures at the end of each cell.</p>
+<p>When True, ensures that each cell starts with no active figures, but it also
+means that one must keep track of references in order to edit or redraw
+figures in subsequent cells. This mode is ideal for the notebook, where
+residual plots from other cells might be surprising.</p>
+<p class="last">When False, one must call figure() to create new figures. This means that
+gcf() and getfigs() can reference figures created in other cells, and the
+active figure can continue to be edited with pylab/pyplot methods that
+reference the current active figure. This mode facilitates iterative editing
+of figures, and behaves most consistently with other matplotlib backends,
+but figure barriers between cells must be explicit.</p>
 </dd>
-<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
-<p class="last">No description</p>
+<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The figure format to enable (deprecated use <cite>figure_formats</cite> instead)</p>
 </dd>
-<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p>Automatically create a Python script when saving the notebook.</p>
-<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
-name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
-save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
+<dt>InlineBackend.figure_formats <span class="classifier-delimiter">:</span> <span class="classifier">Set</span></dt>
+<dd><p class="first">Default: set([&#8216;png&#8217;])</p>
+<p class="last">A set of figure formats to enable: &#8216;png&#8217;,  &#8216;retina&#8217;, &#8216;jpeg&#8217;, &#8216;svg&#8217;, &#8216;pdf&#8217;.</p>
+</dd>
+<dt>InlineBackend.print_figure_kwargs <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;bbox_inches&#8217;: &#8216;tight&#8217;}</p>
+<p>Extra kwargs to be passed to fig.canvas.print_figure.</p>
+<p class="last">Logical examples include: bbox_inches, quality (for jpeg figures), etc.</p>
+</dd>
+<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
+<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
+<p class="last">Subset of matplotlib rcParams that should be different for the inline
+backend.</p>
 </dd>
 <dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
 <dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
@@ -134,6 +158,29 @@ KernelManager for customized behavior.</p>
 </dd>
 <dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">Should we autorestart the kernel if it dies.</p>
+</dd>
+<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!</p>
+</dd>
+<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: []</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
+</dd>
+<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;tcp&#8217;</p>
 <p class="last">No description</p>
 </dd>
 <dt>NotebookApp.base_project_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
@@ -292,60 +339,25 @@ traceback</p>
 <p class="last">Supply overrides for the tornado.web.Application that the IPython notebook
 uses.</p>
 </dd>
-<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">Should we autorestart the kernel if it dies.</p>
-</dd>
-<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
-something other than localhost, then Consoles on other machines will be able
-to connect to the Kernel, so be careful!</p>
+<p>The location in which to keep notebook checkpoints</p>
+<p class="last">By default, it is notebook-dir/.ipynb_checkpoints</p>
 </dd>
-<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: []</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
-kernel. If kernel_cmd is specified in a configuration file, IPython does not
-pass any arguments to the kernel, because it cannot make any assumptions
-about the  arguments that the kernel understands. In particular, this means
-that the kernel does not receive the option &#8211;debug if it given on the
-IPython command line.</p>
+<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
-<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;tcp&#8217;</p>
+<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
 <p class="last">No description</p>
 </dd>
-<dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p>Close all figures at the end of each cell.</p>
-<p>When True, ensures that each cell starts with no active figures, but it also
-means that one must keep track of references in order to edit or redraw
-figures in subsequent cells. This mode is ideal for the notebook, where
-residual plots from other cells might be surprising.</p>
-<p class="last">When False, one must call figure() to create new figures. This means that
-gcf() and getfigs() can reference figures created in other cells, and the
-active figure can continue to be edited with pylab/pyplot methods that
-reference the current active figure. This mode facilitates iterative editing
-of figures, and behaves most consistently with other matplotlib backends,
-but figure barriers between cells must be explicit.</p>
-</dd>
-<dt>InlineBackend.figure_format <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The figure format to enable (deprecated use <cite>figure_formats</cite> instead)</p>
-</dd>
-<dt>InlineBackend.figure_formats <span class="classifier-delimiter">:</span> <span class="classifier">Set</span></dt>
-<dd><p class="first">Default: set([&#8216;png&#8217;])</p>
-<p class="last">A set of figure formats to enable: &#8216;png&#8217;,  &#8216;retina&#8217;, &#8216;jpeg&#8217;, &#8216;svg&#8217;, &#8216;pdf&#8217;.</p>
-</dd>
-<dt>InlineBackend.print_figure_kwargs <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
-<dd><p class="first">Default: {&#8216;bbox_inches&#8217;: &#8216;tight&#8217;}</p>
-<p>Extra kwargs to be passed to fig.canvas.print_figure.</p>
-<p class="last">Logical examples include: bbox_inches, quality (for jpeg figures), etc.</p>
-</dd>
-<dt>InlineBackend.rc <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
-<dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
-<p class="last">Subset of matplotlib rcParams that should be different for the inline
-backend.</p>
+<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p>Automatically create a Python script when saving the notebook.</p>
+<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
+name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
+save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
 </dd>
 </dl>
 </div>
@@ -381,8 +393,8 @@ backend.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 07, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Last updated on Mar 25, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
