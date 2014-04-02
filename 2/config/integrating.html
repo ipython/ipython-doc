@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integrating your objects with IPython &mdash; IPython 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Configuration and customization" href="index.html" />
+    <link rel="next" title="Custom input transformation" href="inputtransforms.html" />
+    <link rel="prev" title="sympyprinting" href="extensions/sympyprinting.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inputtransforms.html" title="Custom input transformation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="extensions/sympyprinting.html" title="sympyprinting"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Configuration and customization</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integrating your objects with IPython</a><ul>
+<li><a class="reference internal" href="#tab-completion">Tab completion</a></li>
+<li><a class="reference internal" href="#rich-display">Rich display</a></li>
+<li><a class="reference internal" href="#custom-exception-tracebacks">Custom exception tracebacks</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="extensions/sympyprinting.html"
+                        title="previous chapter">sympyprinting</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="inputtransforms.html"
+                        title="next chapter">Custom input transformation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/config/integrating.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="integrating-your-objects-with-ipython">
+<span id="integrating"></span><h1>Integrating your objects with IPython<a class="headerlink" href="#integrating-your-objects-with-ipython" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="tab-completion">
+<h2>Tab completion<a class="headerlink" href="#tab-completion" title="Permalink to this headline">¶</a></h2>
+<p>To change the attributes displayed by tab-completing your object, define a
+<tt class="docutils literal"><span class="pre">__dir__(self)</span></tt> method for it. For more details, see the documentation of the
+built-in <a class="reference external" href="http://docs.python.org/library/functions.html#dir">dir() function</a>.</p>
+</div>
+<div class="section" id="rich-display">
+<h2>Rich display<a class="headerlink" href="#rich-display" title="Permalink to this headline">¶</a></h2>
+<p>The notebook and the Qt console can display richer representations of objects.
+To use this, you can define any of a number of <tt class="docutils literal"><span class="pre">_repr_*_()</span></tt> methods. Note that
+these are surrounded by single, not double underscores.</p>
+<p>Both the notebook and the Qt console can display <tt class="docutils literal"><span class="pre">svg</span></tt>, <tt class="docutils literal"><span class="pre">png</span></tt> and <tt class="docutils literal"><span class="pre">jpeg</span></tt>
+representations. The notebook can also display <tt class="docutils literal"><span class="pre">html</span></tt>, <tt class="docutils literal"><span class="pre">javascript</span></tt>,
+and <tt class="docutils literal"><span class="pre">latex</span></tt>. If the methods don&#8217;t exist, or return <tt class="docutils literal"><span class="pre">None</span></tt>, it falls
+back to a standard <tt class="docutils literal"><span class="pre">repr()</span></tt>.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Shout</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;&lt;h1&gt;&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">+</span> <span class="s">&quot;&lt;/h1&gt;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-exception-tracebacks">
+<h2>Custom exception tracebacks<a class="headerlink" href="#custom-exception-tracebacks" title="Permalink to this headline">¶</a></h2>
+<p>Rarely, you might want to display a different traceback with an exception -
+IPython&#8217;s own parallel computing framework does this to display errors from the
+engines. To do this, define a <tt class="docutils literal"><span class="pre">_render_traceback_(self)</span></tt> method which returns
+a list of strings, each containing one line of the traceback.</p>
+<p>Please be conservative in using this feature; by replacing the default traceback
+you may hide important information from the user.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inputtransforms.html" title="Custom input transformation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="extensions/sympyprinting.html" title="sympyprinting"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Configuration and customization</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 02, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

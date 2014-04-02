@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: utils.localinterfaces &mdash; IPython 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: utils.module_paths" href="IPython.utils.module_paths.html" />
+    <link rel="prev" title="Module: utils.jsonutil" href="IPython.utils.jsonutil.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.module_paths.html" title="Module: utils.module_paths"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.jsonutil.html" title="Module: utils.jsonutil"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.localinterfaces</span></tt></a><ul>
+<li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#functions">5 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.utils.jsonutil.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">utils.jsonutil</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.utils.module_paths.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.module_paths</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.utils.localinterfaces.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.utils.localinterfaces">
+<span id="module-utils-localinterfaces"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.localinterfaces</span></tt><a class="headerlink" href="#module-IPython.utils.localinterfaces" title="Permalink to this headline">¶</a></h1>
+<p>Simple utility for building a list of local IPs using the socket module.
+This module defines two constants:</p>
+<dl class="docutils">
+<dt>LOCALHOST <span class="classifier-delimiter">:</span> <span class="classifier">The loopback interface, or the first interface that points to this</span></dt>
+<dd>machine.  It will <em>almost</em> always be &#8216;127.0.0.1&#8217;</dd>
+<dt>LOCAL_IPS <span class="classifier-delimiter">:</span> <span class="classifier">A list of IP addresses, loopback first, that point to this machine.</span></dt>
+<dd>This will include LOCALHOST, PUBLIC_IPS, and aliases for all hosts,
+such as &#8216;0.0.0.0&#8217;.</dd>
+<dt>PUBLIC_IPS <span class="classifier-delimiter">:</span> <span class="classifier">A list of public IP addresses that point to this machine.</span></dt>
+<dd>Use these to tell remote clients where to find you.</dd>
+</dl>
+<div class="section" id="class">
+<h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.utils.localinterfaces.NoIPAddresses">
+<em class="property">class </em><tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">NoIPAddresses</tt><a class="headerlink" href="#IPython.utils.localinterfaces.NoIPAddresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>5 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.utils.localinterfaces.local_ips">
+<tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">local_ips</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.localinterfaces.local_ips" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.localinterfaces.public_ips">
+<tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">public_ips</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.localinterfaces.public_ips" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.localinterfaces.localhost">
+<tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">localhost</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.localinterfaces.localhost" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.localinterfaces.is_local_ip">
+<tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">is_local_ip</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.localinterfaces.is_local_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.localinterfaces.is_public_ip">
+<tt class="descclassname">IPython.utils.localinterfaces.</tt><tt class="descname">is_public_ip</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.localinterfaces.is_public_ip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.module_paths.html" title="Module: utils.module_paths"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.jsonutil.html" title="Module: utils.jsonutil"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 02, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

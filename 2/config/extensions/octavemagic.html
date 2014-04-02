@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>octavemagic &mdash; IPython 2.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="IPython extensions" href="index.html" />
+    <link rel="next" title="rmagic" href="rmagic.html" />
+    <link rel="prev" title="cythonmagic" href="cythonmagic.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rmagic.html" title="rmagic"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cythonmagic.html" title="cythonmagic"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">octavemagic</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cythonmagic.html"
+                        title="previous chapter">cythonmagic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rmagic.html"
+                        title="next chapter">rmagic</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/config/extensions/octavemagic.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="octavemagic">
+<span id="extensions-octavemagic"></span><h1>octavemagic<a class="headerlink" href="#octavemagic" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The octavemagic extension has been moved to <a class="reference external" href="http://blink1073.github.io/oct2py/docs/">oct2py</a>
+as <tt class="xref py py-mod docutils literal"><span class="pre">oct2py.ipython</span></tt>.</p>
+</div>
+<span class="target" id="module-IPython.extensions.octavemagic"></span><p>Magics for interacting with Octave via oct2py.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The <tt class="docutils literal"><span class="pre">oct2py</span></tt> module needs to be installed separately and
+can be obtained using <tt class="docutils literal"><span class="pre">easy_install</span></tt> or <tt class="docutils literal"><span class="pre">pip</span></tt>.</p>
+<p class="last">You will also need a working copy of GNU Octave.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To enable the magics below, execute <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">octavemagic</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">%octave</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre>%octave [-i INPUT] [-o OUTPUT] [-s SIZE] [-f FORMAT] [code [code ...]]
+</pre></div>
+</div>
+<p>Execute code in Octave, and pull some of the results back into the
+Python namespace:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [9]: %octave X = [1 2; 3 4]; mean(X)
+Out[9]: array([[ 2., 3.]])
+</pre></div>
+</div>
+<p>As a cell, this will run a block of Octave code, without returning any
+value:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [10]: %%octave
+   ....: p = [-2, -1, 0, 1, 2]
+   ....: polyout(p, &#39;x&#39;)
+
+-2*x^4 - 1*x^3 + 0*x^2 + 1*x^1 + 2
+</pre></div>
+</div>
+<p>In the notebook, plots are published as the output of the cell, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>%octave plot([1 2 3], [4 5 6])
+</pre></div>
+</div>
+<p>will create a line plot.</p>
+<p>Objects can be passed back and forth between Octave and IPython via the
+-i and -o flags in line:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [14]: Z = np.array([1, 4, 5, 10])
+
+In [15]: %octave -i Z mean(Z)
+Out[15]: array([ 5.])
+
+In [16]: %octave -o W W = Z * mean(Z)
+Out[16]: array([  5.,  20.,  25.,  50.])
+
+In [17]: W
+Out[17]: array([  5.,  20.,  25.,  50.])
+</pre></div>
+</div>
+<p>The size and format of output plots can be specified:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [18]: %%octave -s 600,800 -f svg
+    ...: plot([1, 2, 3]);
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>code</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i <var>INPUT</var></span>, <span class="option">--input <var>INPUT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Names of input variables to be pushed to Octave.
+Multiple names can be passed, separated by commas with
+no whitespace.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Names of variables to be pulled from Octave after
+executing cell body. Multiple names can be passed,
+separated by commas with no whitespace.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>SIZE</var></span>, <span class="option">--size <var>SIZE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Pixel size of plots, &#8220;width,height&#8221;. Default is &#8220;-s
+400,250&#8221;.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-f <var>FORMAT</var></span>, <span class="option">--format <var>FORMAT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Plot format (png, svg or jpg).</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">%octave_push</span></tt></p>
+<p>Line-level magic that pushes a variable to Octave.</p>
+<p><cite>line</cite> should be made up of whitespace separated variable names in the
+IPython namespace:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [7]: import numpy as np
+
+In [8]: X = np.arange(5)
+
+In [9]: X.mean()
+Out[9]: 2.0
+
+In [10]: %octave_push X
+
+In [11]: %octave mean(X)
+Out[11]: 2.0
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">%octave_pull</span></tt></p>
+<p>Line-level magic that pulls a variable from Octave.</p>
+<div class="highlight-python"><div class="highlight"><pre>In [18]: _ = %octave x = [1 2; 3 4]; y = &#39;hello&#39;
+
+In [19]: %octave_pull x y
+
+In [20]: x
+Out[20]:
+array([[ 1.,  2.],
+       [ 3.,  4.]])
+
+In [21]: y
+Out[21]: &#39;hello&#39;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rmagic.html" title="rmagic"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cythonmagic.html" title="cythonmagic"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >Configuration and customization</a> &raquo;</li>
+          <li><a href="index.html" >IPython extensions</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, The IPython Development Team.
+      Last updated on Apr 02, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
