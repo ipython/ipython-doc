@@ -19,11 +19,10 @@ on the IPython GitHub wiki.
 .. toctree::
    :maxdepth: 1
 
- 
-   gitwash/index
    messaging
    parallel_messages
    parallel_connections
+   lexer
    pycompat
    config
    inputhook_app

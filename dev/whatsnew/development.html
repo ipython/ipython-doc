@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development version &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Development version &mdash; IPython 2.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
-    <link rel="next" title="1.0 Series" href="version1.0.html" />
+    <link rel="next" title="2.0 Series" href="version2.0.html" />
     <link rel="prev" title="What’s new in IPython" href="index.html" /> 
   </head>
   <body>
@@ -44,7 +44,10 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version1.0.html" title="1.0 Series"
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="version2.0.html" title="2.0 Series"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -62,22 +65,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Development version</a><ul>
-<li><a class="reference internal" href="#select-notebook-name-when-renaming-a-notebook">Select Notebook Name When Renaming a Notebook</a></li>
-<li><a class="reference internal" href="#clear-output-changes">clear_output changes</a></li>
-<li><a class="reference internal" href="#extending-configurable-containers">Extending Configurable Containers</a></li>
-<li><a class="reference internal" href="#single-codebase-python-3-support">Single codebase Python 3 support</a></li>
-<li><a class="reference internal" href="#changes-to-hidden-namespace-on-startup">changes to hidden namespace on startup</a></li>
-<li><a class="reference internal" href="#using-dill-to-expand-serialization-support">Using dill to expand serialization support</a></li>
-<li><a class="reference internal" href="#new-ipython-console-lexer">New IPython Console Lexer</a></li>
-<li><a class="reference internal" href="#displayformatter-changes">DisplayFormatter changes</a></li>
-<li><a class="reference internal" href="#notebook-widgets">Notebook Widgets</a></li>
-<li><a class="reference internal" href="#signing-notebooks">Signing Notebooks</a></li>
-<li><a class="reference internal" href="#dashboard-running-tab">Dashboard &#8220;Running&#8221; Tab</a></li>
-<li><a class="reference internal" href="#other-changes">Other changes</a></li>
-<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a><ul>
-<li><a class="reference internal" href="#simplifying-configurable-urls">Simplifying configurable URLs</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
 </li>
 </ul>
@@ -86,8 +74,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">What&#8217;s new in IPython</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="version1.0.html"
-                        title="next chapter">1.0 Series</a></p>
+  <p class="topless"><a href="version2.0.html"
+                        title="next chapter">2.0 Series</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/whatsnew/development.txt"
@@ -114,14 +102,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.2.1).</p>
-</div>
-</div></blockquote>
-<div class="section" id="development-version">
+  <div class="section" id="development-version">
 <h1>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h1>
 <p>This document describes in-flight development work.</p>
 <div class="admonition warning">
@@ -130,271 +111,8 @@ significant differences from the latest stable release (1.2.1).</p>
 conflicts for other Pull Requests). Instead, create a new file in the
 <cite>docs/source/whatsnew/pr</cite> folder</p>
 </div>
-<div class="section" id="select-notebook-name-when-renaming-a-notebook">
-<h2>Select Notebook Name When Renaming a Notebook<a class="headerlink" href="#select-notebook-name-when-renaming-a-notebook" title="Permalink to this headline">¶</a></h2>
-<p>The default notebook name is Untitled. It&#8217;s unlikely you want to keep this name
-or part of it when naming your notebook. Instead, IPython will select the text
-in the input field so the user can easily type over the name and change it.</p>
-</div>
-<div class="section" id="clear-output-changes">
-<h2>clear_output changes<a class="headerlink" href="#clear-output-changes" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>There is no longer a 500ms delay when calling <tt class="docutils literal"><span class="pre">clear_output</span></tt>.</li>
-<li>The ability to clear stderr and stdout individually was removed.</li>
-<li>A new <tt class="docutils literal"><span class="pre">wait</span></tt> flag that prevents <tt class="docutils literal"><span class="pre">clear_output</span></tt> from being executed until new
-output is available.  This eliminates animation flickering by allowing the
-user to double buffer the output.</li>
-<li>The output div height is remembered when the <tt class="docutils literal"><span class="pre">wait=True</span></tt> flag is used.</li>
-</ul>
-</div>
-<div class="section" id="extending-configurable-containers">
-<h2>Extending Configurable Containers<a class="headerlink" href="#extending-configurable-containers" title="Permalink to this headline">¶</a></h2>
-<p>Some configurable traits are containers (list, dict, set)
-Config objects now support calling <tt class="docutils literal"><span class="pre">extend</span></tt>, <tt class="docutils literal"><span class="pre">update</span></tt>, <tt class="docutils literal"><span class="pre">insert</span></tt>, etc.
-on traits in config files, which will ultimately result in calling
-those methods on the original object.</p>
-<p>The effect being that you can now add to containers without having to copy/paste
-the initial value:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
-<span class="n">c</span><span class="o">.</span><span class="n">InlineBackend</span><span class="o">.</span><span class="n">rc</span><span class="o">.</span><span class="n">update</span><span class="p">({</span> <span class="s">&#39;figure.figsize&#39;</span> <span class="p">:</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">})</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="single-codebase-python-3-support">
-<h2>Single codebase Python 3 support<a class="headerlink" href="#single-codebase-python-3-support" title="Permalink to this headline">¶</a></h2>
-<p>IPython previously supported Python 3 by running 2to3 during setup. We
-have now switched to a single codebase which runs natively on Python 2.7
-and 3.3.</p>
-<p>For notes on how to maintain this, see <a class="reference internal" href="../development/pycompat.html"><em>Writing code for Python 2 and 3</em></a>.</p>
-</div>
-<div class="section" id="changes-to-hidden-namespace-on-startup">
-<h2>changes to hidden namespace on startup<a class="headerlink" href="#changes-to-hidden-namespace-on-startup" title="Permalink to this headline">¶</a></h2>
-<p>Previously, all names declared in code run at startup
-(startup files, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-i</span> <span class="pre">script.py</span></tt>, etc.)
-were added to the hidden namespace, which hides the names from tools like <tt class="docutils literal"><span class="pre">%whos</span></tt>.
-There are two changes to this behavior:</p>
-<ol class="arabic simple">
-<li>Scripts run on the command-line <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-i</span> <span class="pre">script.py``now</span> <span class="pre">behave</span> <span class="pre">the</span> <span class="pre">same</span> <span class="pre">as</span> <span class="pre">if</span> <span class="pre">they</span> <span class="pre">were</span>
-<span class="pre">passed</span> <span class="pre">to</span> <span class="pre">``%run</span></tt>, so their variables are never hidden.</li>
-<li>A boolean config flag <tt class="docutils literal"><span class="pre">InteractiveShellApp.hide_initial_ns</span></tt> has been added to optionally
-disable the hidden behavior altogether. The default behavior is unchanged.</li>
-</ol>
-</div>
-<div class="section" id="using-dill-to-expand-serialization-support">
-<h2>Using dill to expand serialization support<a class="headerlink" href="#using-dill-to-expand-serialization-support" title="Permalink to this headline">¶</a></h2>
-<p>adds <a class="reference internal" href="../api/generated/IPython.utils.pickleutil.html#IPython.utils.pickleutil.use_dill" title="IPython.utils.pickleutil.use_dill"><tt class="xref py py-func docutils literal"><span class="pre">use_dill()</span></tt></a> for allowing
-dill to extend serialization support in <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a> (closures, etc.).
-Also adds <tt class="xref py py-meth docutils literal"><span class="pre">DirectView.use_dill()</span></tt> convenience method for enabling dill
-locally and on all engines with one call.</p>
-</div>
-<div class="section" id="new-ipython-console-lexer">
-<h2>New IPython Console Lexer<a class="headerlink" href="#new-ipython-console-lexer" title="Permalink to this headline">¶</a></h2>
-<p>The IPython console lexer has been rewritten and now supports tracebacks
-and customized input/output prompts. An entire suite of lexers is now
-available at <a class="reference internal" href="../api/generated/IPython.nbconvert.utils.lexers.html#module-IPython.nbconvert.utils.lexers" title="IPython.nbconvert.utils.lexers"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.nbconvert.utils.lexers</span></tt></a>. These include:</p>
-<dl class="docutils">
-<dt>IPythonLexer &amp; IPython3Lexer</dt>
-<dd>Lexers for pure IPython (python + magic/shell commands)</dd>
-<dt>IPythonPartialTracebackLexer &amp; IPythonTracebackLexer</dt>
-<dd>Supports 2.x and 3.x via the keyword <cite>python3</cite>. The partial traceback
-lexer reads everything but the Python code appearing in a traceback.
-The full lexer combines the partial lexer with an IPython lexer.</dd>
-<dt>IPythonConsoleLexer</dt>
-<dd>A lexer for IPython console sessions, with support for tracebacks.
-Supports 2.x and 3.x via the keyword <cite>python3</cite>.</dd>
-<dt>IPyLexer</dt>
-<dd>A friendly lexer which examines the first line of text and from it,
-decides whether to use an IPython lexer or an IPython console lexer.
-Supports 2.x and 3.x via the keyword <cite>python3</cite>.</dd>
-</dl>
-<p>Previously, the <tt class="xref py py-class docutils literal"><span class="pre">IPythonConsoleLexer</span></tt> class was available at
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.sphinxext.ipython_console_hightlight</span></tt>.  It was inserted
-into Pygments&#8217; list of available lexers under the name <cite>ipython</cite>.  It should
-be mentioned that this name is inaccurate, since an IPython console session
-is not the same as IPython code (which itself is a superset of the Python
-language).</p>
-<p>Now, the Sphinx extension inserts two console lexers into Pygments&#8217; list of
-available lexers. Both are IPyLexer instances under the names: <cite>ipython</cite> and
-<cite>ipython3</cite>. Although the names can be confusing (as mentioned above), their
-continued use is, in part, to maintain backwards compatibility and to
-aid typical usage. If a project needs to make Pygments aware of more than just
-the IPyLexer class, then one should not make the IPyLexer class available under
-the name <cite>ipython</cite> and use <cite>ipy</cite> or some other non-conflicting value.</p>
-<p>Code blocks such as:</p>
-<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
-
-    In [1]: 2**2
-    Out[1]: 4
-</pre></div>
-</div>
-<p>will continue to work as before, but now, they will also properly highlight
-tracebacks.  For pure IPython code, the same lexer will also work:</p>
-<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
-
-    x = &#39;&#39;.join(map(str, range(10)))
-    !echo $x
-</pre></div>
-</div>
-<p>Since the first line of the block did not begin with a standard IPython console
-prompt, the entire block is assumed to consist of IPython code instead.</p>
-</div>
-<div class="section" id="displayformatter-changes">
-<h2>DisplayFormatter changes<a class="headerlink" href="#displayformatter-changes" title="Permalink to this headline">¶</a></h2>
-<p>There was no official way to query or remove callbacks in the Formatter API.
-To remedy this, the following methods are added to <tt class="xref py py-class docutils literal"><span class="pre">BaseFormatter</span></tt>:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">lookup(instance)</span></tt> - return appropriate callback or a given object</li>
-<li><tt class="docutils literal"><span class="pre">lookup_by_type(type_or_str)</span></tt> - return appropriate callback for a given type or <tt class="docutils literal"><span class="pre">'mod.name'</span></tt> type string</li>
-<li><tt class="docutils literal"><span class="pre">pop(type_or_str)</span></tt> - remove a type (by type or string).
-Pass a second argument to avoid KeyError (like dict).</li>
-</ul>
-<p>All of the above methods raise a KeyError if no match is found.</p>
-<p>And the following methods are changed:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">for_type(type_or_str)</span></tt> - behaves the same as before, only adding support for <tt class="docutils literal"><span class="pre">'mod.name'</span></tt>
-type strings in addition to plain types. This removes the need for <tt class="docutils literal"><span class="pre">for_type_by_name()</span></tt>,
-but it remains for backward compatibility.</li>
-</ul>
-</div>
-<div class="section" id="notebook-widgets">
-<h2>Notebook Widgets<a class="headerlink" href="#notebook-widgets" title="Permalink to this headline">¶</a></h2>
-<p>Available in the new <cite>IPython.html.widgets</cite> namespace, widgets provide an easy
-way for IPython notebook users to display GUI controls in the IPython notebook.
-IPython comes with bundle of built-in widgets and also the ability for users
-to define their own widgets.  A widget is displayed in the front-end using
-using a view.  For example, a FloatRangeWidget can be displayed using a
-FloatSliderView (which is the default if no view is specified when displaying
-the widget).  IPython also comes with a bundle of views and the ability for the
-user to define custom views.  One widget can be displayed multiple times, in on
-or more cells, using one or more views.  All views will automatically remain in
-sync with the widget which is accessible in the back-end.</p>
-<p>The widget layer provides an MVC-like architecture on top of the comm layer.
-It&#8217;s useful for widgets that can be expressed via a list of properties.
-Widgets work by synchronizing IPython traitlet models in the back-end with
-backbone models in the front-end. The widget layer automatically handles</p>
-<ul class="simple">
-<li>delta compression (only sending the state information that has changed)</li>
-<li>wiring the message callbacks to the correct cells automatically</li>
-<li>inter-view synchronization (handled by backbone)</li>
-<li>message throttling (to avoid flooding the kernel)</li>
-<li>parent/child relationships between views (which one can override to specify custom parent/child relationships)</li>
-<li>ability to manipulate the widget view&#8217;s DOM from python using CSS, $().addClass, and $().removeClass methods</li>
-</ul>
-</div>
-<div class="section" id="signing-notebooks">
-<h2>Signing Notebooks<a class="headerlink" href="#signing-notebooks" title="Permalink to this headline">¶</a></h2>
-<p>To prevent untrusted code from executing on users&#8217; behalf when notebooks open,
-we have added a signature to the notebook, stored in metadata.</p>
-<p>For more information, see <a class="reference internal" href="../notebook/notebook.html#signing-notebooks"><em>Signing Notebooks</em></a>.</p>
-</div>
-<div class="section" id="dashboard-running-tab">
-<h2>Dashboard &#8220;Running&#8221; Tab<a class="headerlink" href="#dashboard-running-tab" title="Permalink to this headline">¶</a></h2>
-<p>The dashboard now has a &#8220;Running&#8221; tab which shows all of the running
-notebooks.</p>
-</div>
-<div class="section" id="other-changes">
-<h2>Other changes<a class="headerlink" href="#other-changes" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><cite>%%capture</cite> cell magic now captures the rich display output, not just
-stdout/stderr</li>
-<li>In notebook, Showing tooltip on tab has been disables to avoid conflict with
-completion, Shift-Tab could still be used to invoke tooltip when inside
-function signature and/or on selection.</li>
-<li><tt class="docutils literal"><span class="pre">object_info_request</span></tt> as been replaced by <tt class="docutils literal"><span class="pre">object_info</span></tt> for consistency in the javascript API.
-<tt class="docutils literal"><span class="pre">object_info</span></tt> as a simpler interface to register callback that is incompatible with <tt class="docutils literal"><span class="pre">object_info_request</span></tt>.</li>
-<li>Previous versions of IPython on Linux would use the XDG config directory,
-creating <tt class="file docutils literal"><span class="pre">~/.config/ipython</span></tt> by default. We have decided to go
-back to <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> for consistency among systems. IPython will
-issue a warning if it finds the XDG location, and will move it to the new
-location if there isn&#8217;t already a directory there.</li>
-<li>Equations, images and tables are now centered in Markdown cells.</li>
-<li>Multiline equations are now centered in output areas; single line equations
-remain left justified.</li>
-<li>IPython config objects can be loaded from and serialized to JSON.
-JSON config file have the same base name as their <tt class="docutils literal"><span class="pre">.py</span></tt> counterpart,
-and will be loaded with higher priority if found.</li>
-<li>bash completion updated with support for all ipython subcommands and flags, including nbconvert</li>
-<li><tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span></tt>: added <tt class="docutils literal"><span class="pre">--keep=&lt;N&gt;</span></tt> as an alias for the more verbose
-<tt class="docutils literal"><span class="pre">--HistoryTrim.keep=&lt;N&gt;</span></tt></li>
-<li>new <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">clear</span></tt> subcommand, which is the same as the newly supported
-<tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span> <span class="pre">--keep=0</span></tt></li>
-<li>You can now run notebooks in an interactive session via <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">notebook.ipynb</span></tt>.</li>
-<li>Print preview is back in the notebook menus, along with options to
-download the open notebook in various formats. This is powered by
-nbconvert.</li>
-<li><a class="reference internal" href="../api/generated/IPython.nbconvert.utils.pandoc.html#IPython.nbconvert.utils.pandoc.PandocMissing" title="IPython.nbconvert.utils.pandoc.PandocMissing"><tt class="xref py py-exc docutils literal"><span class="pre">PandocMissing</span></tt></a> exceptions will be
-raised if Pandoc is unavailable, and warnings will be printed if the version
-found is too old. The recommended Pandoc version for use with nbconvert is
-1.12.1.</li>
-<li>The InlineBackend.figure_format flag now supports JPEG output if PIL/Pillow is available.</li>
-<li>Input transformers (see <a class="reference internal" href="../config/inputtransforms.html"><em>Custom input transformation</em></a>) may now raise
-<tt class="xref py py-exc docutils literal"><span class="pre">SyntaxError</span></tt> if they determine that input is invalid. The input
-transformation machinery in IPython will handle displaying the exception to
-the user and resetting state.</li>
-<li>Calling <tt class="docutils literal"><span class="pre">container.show()</span></tt> on javascript display is deprecated and will
-trigger errors on future IPython notebook versions. <tt class="docutils literal"><span class="pre">container</span></tt> now show
-itself as soon as non-empty</li>
-<li>Added <tt class="docutils literal"><span class="pre">InlineBackend.print_figure_kwargs</span></tt> to allow passing keyword arguments
-to matplotlib&#8217;s <tt class="docutils literal"><span class="pre">Canvas.print_figure</span></tt>. This can be used to change the value of
-<tt class="docutils literal"><span class="pre">bbox_inches</span></tt>, which is &#8216;tight&#8217; by default, or set the quality of JPEG figures.</li>
-<li>A new callback system has been introduced. For details, see <a class="reference internal" href="../config/callbacks.html"><em>Registering callbacks</em></a>.</li>
-</ul>
-</div>
 <div class="section" id="backwards-incompatible-changes">
 <h2>Backwards incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first">Python 2.6 and 3.2 are no longer supported: the minimum required
-Python versions are now 2.7 and 3.3.</p>
-</li>
-<li><p class="first">The Transformer classes have been renamed to Preprocessor in nbconvert and
-their <cite>call</cite> methods for them have been renamed to <cite>preprocess</cite>.</p>
-</li>
-<li><p class="first">The <cite>call</cite> methods of nbconvert post-processsors have been renamed to
-<cite>postprocess</cite>.</p>
-</li>
-<li><p class="first">The module <tt class="docutils literal"><span class="pre">IPython.core.fakemodule</span></tt> has been removed.</p>
-</li>
-<li><p class="first">The alias system has been reimplemented to use magic functions. There should be little
-visible difference while automagics are enabled, as they are by default, but parts of the
-<a class="reference internal" href="../api/generated/IPython.core.alias.html#IPython.core.alias.AliasManager" title="IPython.core.alias.AliasManager"><tt class="xref py py-class docutils literal"><span class="pre">AliasManager</span></tt></a> API have been removed.</p>
-</li>
-<li><p class="first">We fixed an issue with switching between matplotlib inline and GUI backends,
-but the fix requires matplotlib 1.1 or newer.  So from now on, we consider
-matplotlib 1.1 to be the minimally supported version for IPython. Older
-versions for the most part will work, but we make no guarantees about it.</p>
-</li>
-<li><p class="first">The <strong class="command">pycolor</strong> command has been removed. We recommend the much more capable
-<strong class="command">pygmentize</strong> command from the <a class="reference external" href="http://pygments.org/">Pygments</a> project.
-If you need to keep the exact output of <strong class="command">pycolor</strong>, you can still use
-<tt class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">IPython.utils.PyColorize</span> <span class="pre">foo.py</span></tt>.</p>
-</li>
-<li><p class="first"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.irunner</span></tt> and its command-line entry point have been removed.
-It had fallen out of use long ago.</p>
-</li>
-<li><p class="first">The <tt class="docutils literal"><span class="pre">input_prefilter</span></tt> hook has been removed, as it was never
-actually used by the code. The input transformer system offers much
-more powerful APIs to work with input code. See
-<a class="reference internal" href="../config/inputtransforms.html"><em>Custom input transformation</em></a> for details.</p>
-</li>
-<li><p class="first"><a class="reference internal" href="../api/generated/IPython.core.inputsplitter.html#IPython.core.inputsplitter.IPythonInputSplitter" title="IPython.core.inputsplitter.IPythonInputSplitter"><tt class="xref py py-class docutils literal"><span class="pre">IPython.core.inputsplitter.IPythonInputSplitter</span></tt></a> no longer has a method
-<tt class="docutils literal"><span class="pre">source_raw_reset()</span></tt>, but gains <a class="reference internal" href="../api/generated/IPython.core.inputsplitter.html#IPython.core.inputsplitter.IPythonInputSplitter.raw_reset" title="IPython.core.inputsplitter.IPythonInputSplitter.raw_reset"><tt class="xref py py-meth docutils literal"><span class="pre">raw_reset()</span></tt></a>
-instead. Use of <tt class="docutils literal"><span class="pre">source_raw_reset</span></tt> can be replaced with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">raw</span> <span class="o">=</span> <span class="n">isp</span><span class="o">.</span><span class="n">source_raw</span>
-<span class="n">transformed</span> <span class="o">=</span> <span class="n">isp</span><span class="o">.</span><span class="n">source_reset</span><span class="p">()</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">The Azure notebook manager was removed as it was no longer compatible with the notebook storage scheme</p>
-</li>
-</ul>
-<div class="section" id="simplifying-configurable-urls">
-<h3>Simplifying configurable URLs<a class="headerlink" href="#simplifying-configurable-urls" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>base_kernel_url configurable is removed</li>
-<li>websocket_url configurable is removed</li>
-<li>base_project_url is renamed to base_url (base_project_url is kept as a deprecated alias, for now)</li>
-</ul>
-</div>
 </div>
 </div>
 
@@ -414,7 +132,10 @@ instead. Use of <tt class="docutils literal"><span class="pre">source_raw_reset<
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version1.0.html" title="1.0 Series"
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="version2.0.html" title="2.0 Series"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -428,7 +149,7 @@ instead. Use of <tt class="docutils literal"><span class="pre">source_raw_reset<
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 25, 2014.
+      Last updated on Apr 01, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

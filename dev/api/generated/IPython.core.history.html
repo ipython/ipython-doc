@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.history &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>Module: core.history &mdash; IPython 2.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.historyapp" href="IPython.core.historyapp.html" />
     <link rel="prev" title="Module: core.getipython" href="IPython.core.getipython.html" /> 
@@ -44,6 +44,9 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="IPython.core.historyapp.html" title="Module: core.historyapp"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -62,7 +65,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.history</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">5 Classes</a></li>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
 <li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
@@ -100,32 +103,11 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.2.1).</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.core.history">
+  <div class="section" id="module-IPython.core.history">
 <span id="module-core-history"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.history</span></tt><a class="headerlink" href="#module-IPython.core.history" title="Permalink to this headline">¶</a></h1>
 <p>History related magics and functionality</p>
 <div class="section" id="classes">
-<h2>5 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="IPython.core.history.DummyDB">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">DummyDB</tt><a class="headerlink" href="#IPython.core.history.DummyDB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>Dummy DB that will act as a black hole for history.</p>
-<p>Only used in the absence of sqlite</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="IPython.core.history.DatabaseError">
-<em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">DatabaseError</tt><a class="headerlink" href="#IPython.core.history.DatabaseError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">sqlite3.Error</span></tt></p>
-</dd></dl>
-
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.core.history.HistoryAccessor">
 <em class="property">class </em><tt class="descclassname">IPython.core.history.</tt><tt class="descname">HistoryAccessor</tt><big>(</big><em>profile='default'</em>, <em>hist_file=u''</em>, <em>**traits</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor" title="Permalink to this definition">¶</a></dt>
@@ -150,7 +132,7 @@ HistoryManager, below, which is a subclass of this.</p>
 <div><p>Path to an SQLite history database stored by IPython. If specified,
 hist_file overrides profile.</p>
 </div></blockquote>
-<p><strong>config :</strong></p>
+<p><strong>config</strong> : <a class="reference internal" href="IPython.config.loader.html#IPython.config.loader.Config" title="IPython.config.loader.Config"><tt class="xref py py-class docutils literal"><span class="pre">Config</span></tt></a></p>
 <blockquote class="last">
 <div><p>Config object. hist_file can also be set through this.</p>
 </div></blockquote>
@@ -202,9 +184,12 @@ is found, None is used.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An iterator over the desired lines. Each line is a 3-tuple, either</p>
-<p>(session, line, input) if output is False, or</p>
-<p class="last">(session, line, (input, output)) if output is True.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>entries</strong> :</p>
+<blockquote class="last">
+<div><p>An iterator over the desired lines. Each line is a 3-tuple, either
+(session, line, input) if output is False, or
+(session, line, (input, output)) if output is True.</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -231,7 +216,7 @@ commands %hist, %save, %macro, etc.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuples as <a class="reference internal" href="#IPython.core.history.HistoryAccessor.get_range" title="IPython.core.history.HistoryAccessor.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -240,8 +225,8 @@ commands %hist, %save, %macro, etc.</p>
 
 <dl class="method">
 <dt id="IPython.core.history.HistoryAccessor.get_session_info">
-<tt class="descname">get_session_info</tt><big>(</big><em>session=0</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.get_session_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>get info about a session</p>
+<tt class="descname">get_session_info</tt><big>(</big><em>session</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryAccessor.get_session_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get info about a session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -253,24 +238,24 @@ commands %hist, %save, %macro, etc.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>session_id</strong> : int</p>
-<blockquote class="last">
-<div><blockquote>
+<blockquote>
 <div><p>Session ID number</p>
 </div></blockquote>
-<dl class="docutils">
-<dt>start <span class="classifier-delimiter">:</span> <span class="classifier">datetime</span></dt>
-<dd><p class="first last">Timestamp for the start of the session.</p>
-</dd>
-<dt>end <span class="classifier-delimiter">:</span> <span class="classifier">datetime</span></dt>
-<dd><p class="first last">Timestamp for the end of the session, or None if IPython crashed.</p>
-</dd>
-<dt>num_cmds <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of commands run, or None if IPython crashed.</p>
-</dd>
-<dt>remark <span class="classifier-delimiter">:</span> <span class="classifier">unicode</span></dt>
-<dd><p class="first last">A manually set description.</p>
-</dd>
-</dl>
+<p><strong>start</strong> : datetime</p>
+<blockquote>
+<div><p>Timestamp for the start of the session.</p>
+</div></blockquote>
+<p><strong>end</strong> : datetime</p>
+<blockquote>
+<div><p>Timestamp for the end of the session, or None if IPython crashed.</p>
+</div></blockquote>
+<p><strong>num_cmds</strong> : int</p>
+<blockquote>
+<div><p>Number of commands run, or None if IPython crashed.</p>
+</div></blockquote>
+<p><strong>remark</strong> : unicode</p>
+<blockquote class="last">
+<div><p>A manually set description.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -302,7 +287,7 @@ is called by a user command, which it should not return.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuples as <a class="reference internal" href="#IPython.core.history.HistoryAccessor.get_range" title="IPython.core.history.HistoryAccessor.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -347,7 +332,7 @@ returned entries.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuples as <a class="reference internal" href="#IPython.core.history.HistoryAccessor.get_range" title="IPython.core.history.HistoryAccessor.get_range"><tt class="xref py py-meth docutils literal"><span class="pre">get_range()</span></tt></a></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Tuples as :meth:`get_range`</strong> :</p>
 </td>
 </tr>
 </tbody>
@@ -415,9 +400,12 @@ is found, None is used.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">An iterator over the desired lines. Each line is a 3-tuple, either</p>
-<p>(session, line, input) if output is False, or</p>
-<p class="last">(session, line, (input, output)) if output is True.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>entries</strong> :</p>
+<blockquote class="last">
+<div><p>An iterator over the desired lines. Each line is a 3-tuple, either
+(session, line, input) if output is False, or
+(session, line, (input, output)) if output is True.</p>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -427,7 +415,7 @@ is found, None is used.</p>
 <dl class="method">
 <dt id="IPython.core.history.HistoryManager.get_session_info">
 <tt class="descname">get_session_info</tt><big>(</big><em>session=0</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.get_session_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>get info about a session</p>
+<dd><p>Get info about a session.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -435,29 +423,29 @@ is found, None is used.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>session</strong> : int</p>
 <blockquote>
 <div><p>Session number to retrieve. The current session is 0, and negative
-numbers count back from current session, so -1 is previous session.</p>
+numbers count back from current session, so -1 is the previous session.</p>
 </div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>session_id</strong> : int</p>
-<blockquote class="last">
-<div><blockquote>
+<blockquote>
 <div><p>Session ID number</p>
 </div></blockquote>
-<dl class="docutils">
-<dt>start <span class="classifier-delimiter">:</span> <span class="classifier">datetime</span></dt>
-<dd><p class="first last">Timestamp for the start of the session.</p>
-</dd>
-<dt>end <span class="classifier-delimiter">:</span> <span class="classifier">datetime</span></dt>
-<dd><p class="first last">Timestamp for the end of the session, or None if IPython crashed.</p>
-</dd>
-<dt>num_cmds <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">Number of commands run, or None if IPython crashed.</p>
-</dd>
-<dt>remark <span class="classifier-delimiter">:</span> <span class="classifier">unicode</span></dt>
-<dd><p class="first last">A manually set description.</p>
-</dd>
-</dl>
+<p><strong>start</strong> : datetime</p>
+<blockquote>
+<div><p>Timestamp for the start of the session.</p>
+</div></blockquote>
+<p><strong>end</strong> : datetime</p>
+<blockquote>
+<div><p>Timestamp for the end of the session, or None if IPython crashed.</p>
+</div></blockquote>
+<p><strong>num_cmds</strong> : int</p>
+<blockquote>
+<div><p>Number of commands run, or None if IPython crashed.</p>
+</div></blockquote>
+<p><strong>remark</strong> : unicode</p>
+<blockquote class="last">
+<div><p>A manually set description.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -488,7 +476,7 @@ optionally open a new session.</p>
 <dt id="IPython.core.history.HistoryManager.store_inputs">
 <tt class="descname">store_inputs</tt><big>(</big><em>line_num</em>, <em>source</em>, <em>source_raw=None</em><big>)</big><a class="headerlink" href="#IPython.core.history.HistoryManager.store_inputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Store source and raw input in history and create input cache
-variables _i*.</p>
+variables <tt class="docutils literal"><span class="pre">_i*</span></tt>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -571,7 +559,7 @@ end_session method.</p>
 <dl class="function">
 <dt id="IPython.core.history.needs_sqlite">
 <tt class="descclassname">IPython.core.history.</tt><tt class="descname">needs_sqlite</tt><big>(</big><em>f</em><big>)</big><a class="headerlink" href="#IPython.core.history.needs_sqlite" title="Permalink to this definition">¶</a></dt>
-<dd><p>return an empty list in the absence of sqlite</p>
+<dd><p>Decorator: return an empty list in the absence of sqlite.</p>
 </dd></dl>
 
 <dl class="function">
@@ -587,8 +575,10 @@ a new one.</p>
 <tt class="descclassname">IPython.core.history.</tt><tt class="descname">extract_hist_ranges</tt><big>(</big><em>ranges_str</em><big>)</big><a class="headerlink" href="#IPython.core.history.extract_hist_ranges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn a string of history ranges into 3-tuples of (session, start, stop).</p>
 <p class="rubric">Examples</p>
-<p>list(extract_input_ranges(&#8220;~8/5-~7/4 2&#8221;))
-[(-8, 5, None), (-7, 1, 4), (0, 2, 3)]</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">extract_hist_ranges</span><span class="p">(</span><span class="s">&quot;~8/5-~7/4 2&quot;</span><span class="p">))</span>
+<span class="go">[(-8, 5, None), (-7, 1, 5), (0, 2, 3)]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -610,6 +600,9 @@ a new one.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="IPython.core.historyapp.html" title="Module: core.historyapp"
              >next</a> |</li>
         <li class="right" >
@@ -624,7 +617,7 @@ a new one.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 25, 2014.
+      Last updated on Apr 01, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

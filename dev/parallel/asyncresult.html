@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The AsyncResult object &mdash; IPython 2.0.0-dev: Work in Progress documentation</title>
+    <title>The AsyncResult object &mdash; IPython 2.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0-dev: Work in Progress',
+        VERSION:     '2.0.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0-dev: Work in Progress documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Using MPI with IPython" href="parallel_mpi.html" />
     <link rel="prev" title="The IPython task interface" href="parallel_task.html" /> 
@@ -42,6 +42,9 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="parallel_mpi.html" title="Using MPI with IPython"
@@ -107,14 +110,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release (1.2.1).</p>
-</div>
-</div></blockquote>
-<div class="section" id="the-asyncresult-object">
+  <div class="section" id="the-asyncresult-object">
 <span id="parallel-asyncresult"></span><h1>The AsyncResult object<a class="headerlink" href="#the-asyncresult-object" title="Permalink to this headline">¶</a></h1>
 <p>In non-blocking mode, <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> submits the command to be executed and
 then returns a <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object immediately. The
@@ -200,56 +196,6 @@ relative to the serial computation, and this can be given simply with</p>
 <h2>Map results are iterable!<a class="headerlink" href="#map-results-are-iterable" title="Permalink to this headline">¶</a></h2>
 <p>When an AsyncResult object has multiple results (e.g. the <tt class="xref py py-class docutils literal"><span class="pre">AsyncMapResult</span></tt>
 object), you can actually iterate through results themselves, and act on them as they arrive:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">parallel</span>
-
-<span class="c"># create client &amp; view</span>
-<span class="n">rc</span> <span class="o">=</span> <span class="n">parallel</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
-<span class="n">dv</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span>
-
-<span class="c"># scatter &#39;id&#39;, so id=0,1,2 on engines 0,1,2</span>
-<span class="n">dv</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="n">rc</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;Engine IDs: &quot;</span><span class="p">,</span> <span class="n">dv</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">])</span>
-
-<span class="c"># create a Reference to `id`. This will be a different value on each engine</span>
-<span class="n">ref</span> <span class="o">=</span> <span class="n">parallel</span><span class="o">.</span><span class="n">Reference</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;sleeping for `id` seconds on each engine&quot;</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">ar</span> <span class="o">=</span> <span class="n">dv</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ar</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%i</span><span class="s">: </span><span class="si">%.3f</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
-
-<span class="k">def</span> <span class="nf">sleep_here</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">time</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">id</span><span class="p">,</span><span class="n">t</span>
-
-<span class="c"># one call per task</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;running with one call per task&quot;</span><span class="p">)</span>
-<span class="n">amr</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sleep_here</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mo">01</span><span class="o">*</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">amr</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;task </span><span class="si">%i</span><span class="s"> on engine </span><span class="si">%i</span><span class="s">: </span><span class="si">%.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
-
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;running with four calls per task&quot;</span><span class="p">)</span>
-<span class="c"># with chunksize, we can have four calls per task</span>
-<span class="n">amr</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sleep_here</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mo">01</span><span class="o">*</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)],</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">amr</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;task </span><span class="si">%i</span><span class="s"> on engine </span><span class="si">%i</span><span class="s">: </span><span class="si">%.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
-
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;running with two calls per task, with unordered results&quot;</span><span class="p">)</span>
-<span class="c"># We can even iterate through faster results first, with ordered=False</span>
-<span class="n">amr</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">sleep_here</span><span class="p">,</span> <span class="p">[</span><span class="o">.</span><span class="mo">01</span><span class="o">*</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="n">ordered</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">r</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">amr</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;slept </span><span class="si">%.2f</span><span class="s">s on engine </span><span class="si">%i</span><span class="s">: </span><span class="si">%.3f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
-</pre></div>
-</div>
 <p>That is to say, if you treat an AsyncMapResult as if it were a list of your actual
 results, it should behave as you would expect, with the only difference being
 that you can start iterating through the results before they have even been computed.</p>
@@ -305,6 +251,9 @@ just split the original result&#8217;s <tt class="docutils literal"><span class=
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="parallel_mpi.html" title="Using MPI with IPython"
              >next</a> |</li>
         <li class="right" >
@@ -319,7 +268,7 @@ just split the original result&#8217;s <tt class="docutils literal"><span class=
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Mar 25, 2014.
+      Last updated on Apr 01, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
