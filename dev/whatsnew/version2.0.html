@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>2.0 Series &mdash; IPython 2.0.0 documentation</title>
+    <title>2.0 Series &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
     <link rel="next" title="Issues closed in the 2.0 development cycle" href="github-stats-2.0.html" />
     <link rel="prev" title="Development version" href="development.html" /> 
@@ -125,13 +125,20 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="series">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="series">
 <h1>2.0 Series<a class="headerlink" href="#series" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="release-2-0-0">
 <h2>Release 2.0.0<a class="headerlink" href="#release-2-0-0" title="Permalink to this headline">¶</a></h2>
 <p>April, 2014</p>
-<p>IPython 2.0 requires Python ≥ 2.7.2 or ≥ 3.2.1.
-It does not support Python 3.0, 3.1, 2.5, or 2.6.</p>
+<p>IPython 2.0 requires Python ≥ 2.7.2 or ≥ 3.3.0.
+It does not support Python 3.0, 3.1, 3.2, 2.5, or 2.6.</p>
 <p>The principal milestones of 2.0 are:</p>
 <ul class="simple">
 <li>interactive widgets for the notebook</li>
@@ -252,9 +259,9 @@ disable the hidden behavior altogether. The default behavior is unchanged.</li>
 </div>
 <div class="section" id="using-dill-to-expand-serialization-support">
 <h3>Using dill to expand serialization support<a class="headerlink" href="#using-dill-to-expand-serialization-support" title="Permalink to this headline">¶</a></h3>
-<p>adds <a class="reference internal" href="../api/generated/IPython.utils.pickleutil.html#IPython.utils.pickleutil.use_dill" title="IPython.utils.pickleutil.use_dill"><tt class="xref py py-func docutils literal"><span class="pre">use_dill()</span></tt></a> for allowing
+<p>The new function <a class="reference internal" href="../api/generated/IPython.utils.pickleutil.html#IPython.utils.pickleutil.use_dill" title="IPython.utils.pickleutil.use_dill"><tt class="xref py py-func docutils literal"><span class="pre">use_dill()</span></tt></a> allows
 dill to extend serialization support in <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a> (closures, etc.).
-Also adds <tt class="xref py py-meth docutils literal"><span class="pre">DirectView.use_dill()</span></tt> convenience method for enabling dill
+A <tt class="xref py py-meth docutils literal"><span class="pre">DirectView.use_dill()</span></tt> convenience method was also added, to enable dill
 locally and on all engines with one call.</p>
 </div>
 <div class="section" id="new-ipython-console-lexer">
@@ -285,7 +292,7 @@ to indicate that they cannot format a given object.</p>
 <div class="section" id="exceptions-and-warnings">
 <h4>Exceptions and Warnings<a class="headerlink" href="#exceptions-and-warnings" title="Permalink to this headline">¶</a></h4>
 <p>Exceptions are no longer silenced when formatters fail.
-Instead, these are turned into FormatterWarnings.
+Instead, these are turned into a <a class="reference internal" href="../api/generated/IPython.core.formatters.html#IPython.core.formatters.FormatterWarning" title="IPython.core.formatters.FormatterWarning"><tt class="xref py py-class docutils literal"><span class="pre">FormatterWarning</span></tt></a>.
 A FormatterWarning will also be issued if a formatter returns data of an invalid type
 (e.g. an integer for &#8216;image/png&#8217;).</p>
 </div>
@@ -298,8 +305,8 @@ stdout/stderr</li>
 <li>In notebook, Showing tooltip on tab has been disables to avoid conflict with
 completion, Shift-Tab could still be used to invoke tooltip when inside
 function signature and/or on selection.</li>
-<li><tt class="docutils literal"><span class="pre">object_info_request</span></tt> as been replaced by <tt class="docutils literal"><span class="pre">object_info</span></tt> for consistency in the javascript API.
-<tt class="docutils literal"><span class="pre">object_info</span></tt> as a simpler interface to register callback that is incompatible with <tt class="docutils literal"><span class="pre">object_info_request</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">object_info_request</span></tt> has been replaced by <tt class="docutils literal"><span class="pre">object_info</span></tt> for consistency in the javascript API.
+<tt class="docutils literal"><span class="pre">object_info</span></tt> is a simpler interface to register callback that is incompatible with <tt class="docutils literal"><span class="pre">object_info_request</span></tt>.</li>
 <li>Previous versions of IPython on Linux would use the XDG config directory,
 creating <tt class="file docutils literal"><span class="pre">~/.config/ipython</span></tt> by default. We have decided to go
 back to <tt class="file docutils literal"><span class="pre">~/.ipython</span></tt> for consistency among systems. IPython will
@@ -314,7 +321,7 @@ and will be loaded with higher priority if found.</li>
 <li>bash completion updated with support for all ipython subcommands and flags, including nbconvert</li>
 <li><tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span></tt>: added <tt class="docutils literal"><span class="pre">--keep=&lt;N&gt;</span></tt> as an alias for the more verbose
 <tt class="docutils literal"><span class="pre">--HistoryTrim.keep=&lt;N&gt;</span></tt></li>
-<li>new <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">clear</span></tt> subcommand, which is the same as the newly supported
+<li>New <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">clear</span></tt> subcommand, which is the same as the newly supported
 <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">history</span> <span class="pre">trim</span> <span class="pre">--keep=0</span></tt></li>
 <li>You can now run notebooks in an interactive session via <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">notebook.ipynb</span></tt>.</li>
 <li>Print preview is back in the notebook menus, along with options to
@@ -347,10 +354,10 @@ so javascript is available in static HTML export (e.g. nbviewer).</li>
 Python versions are now 2.7 and 3.3.</p>
 </li>
 <li><p class="first">The Transformer classes have been renamed to Preprocessor in nbconvert and
-their <cite>call</cite> methods for them have been renamed to <cite>preprocess</cite>.</p>
+their <tt class="docutils literal"><span class="pre">call</span></tt> methods have been renamed to <tt class="docutils literal"><span class="pre">preprocess</span></tt>.</p>
 </li>
-<li><p class="first">The <cite>call</cite> methods of nbconvert post-processsors have been renamed to
-<cite>postprocess</cite>.</p>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">call</span></tt> methods of nbconvert post-processsors have been renamed to
+<tt class="docutils literal"><span class="pre">postprocess</span></tt>.</p>
 </li>
 <li><p class="first">The module <tt class="docutils literal"><span class="pre">IPython.core.fakemodule</span></tt> has been removed.</p>
 </li>
@@ -384,7 +391,7 @@ instead. Use of <tt class="docutils literal"><span class="pre">source_raw_reset<
 </pre></div>
 </div>
 </li>
-<li><p class="first">The Azure notebook manager was removed as it was no longer compatible with the notebook storage scheme</p>
+<li><p class="first">The Azure notebook manager was removed as it was no longer compatible with the notebook storage scheme.</p>
 </li>
 <li><p class="first">Simplifying configurable URLs</p>
 <ul class="simple">
@@ -430,8 +437,8 @@ instead. Use of <tt class="docutils literal"><span class="pre">source_raw_reset<
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

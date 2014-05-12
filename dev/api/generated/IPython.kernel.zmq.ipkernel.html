@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: kernel.zmq.ipkernel &mdash; IPython 2.0.0 documentation</title>
+    <title>Module: kernel.zmq.ipkernel &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: kernel.zmq.kernelapp" href="IPython.kernel.zmq.kernelapp.html" />
     <link rel="prev" title="Module: kernel.zmq.iostream" href="IPython.kernel.zmq.iostream.html" /> 
@@ -102,7 +102,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.kernel.zmq.ipkernel">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.kernel.zmq.ipkernel">
 <span id="module-kernel-zmq-ipkernel"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.zmq.ipkernel</span></tt><a class="headerlink" href="#module-IPython.kernel.zmq.ipkernel" title="Permalink to this headline">¶</a></h1>
 <p>An interactive kernel that talks to frontends over 0MQ.</p>
 <div class="section" id="class">
@@ -159,11 +166,49 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.kernel.zmq.ipkernel.Kernel.getpass">
+<tt class="descname">getpass</tt><big>(</big><em>prompt=''</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.ipkernel.Kernel.getpass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward getpass to frontends</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>StdinNotImplentedError if active frontend doesn&#8217;t support stdin.</strong> :</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.ipkernel.Kernel.raw_input">
+<tt class="descname">raw_input</tt><big>(</big><em>prompt=''</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.ipkernel.Kernel.raw_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward raw_input to frontends</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><strong>StdinNotImplentedError if active frontend doesn&#8217;t support stdin.</strong> :</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.kernel.zmq.ipkernel.Kernel.record_ports">
 <tt class="descname">record_ports</tt><big>(</big><em>ports</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.ipkernel.Kernel.record_ports" title="Permalink to this definition">¶</a></dt>
 <dd><p>Record the ports that this kernel is using.</p>
 <p>The creator of the Kernel instance must call this methods if they
 want the <tt class="xref py py-meth docutils literal"><span class="pre">connect_request()</span></tt> method to return the port numbers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.ipkernel.Kernel.set_parent">
+<tt class="descname">set_parent</tt><big>(</big><em>ident</em>, <em>parent</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.ipkernel.Kernel.set_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the current parent_header</p>
+<p>Side effects (IOPub messages) and replies are associated with
+the request that caused them via the parent_header.</p>
+<p>The parent identity is used to route input_request messages
+on the stdin channel.</p>
 </dd></dl>
 
 <dl class="method">
@@ -209,8 +254,8 @@ want the <tt class="xref py py-meth docutils literal"><span class="pre">connect_
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

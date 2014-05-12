@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: parallel.controller.dependency &mdash; IPython 2.0.0 documentation</title>
+    <title>Module: parallel.controller.dependency &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: parallel.controller.dictdb" href="IPython.parallel.controller.dictdb.html" /> 
   </head>
@@ -96,7 +96,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.parallel.controller.dependency">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.parallel.controller.dependency">
 <span id="module-parallel-controller-dependency"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">parallel.controller.dependency</span></tt><a class="headerlink" href="#module-IPython.parallel.controller.dependency" title="Permalink to this headline">¶</a></h1>
 <p>Dependency utilities</p>
 <p>Authors:</p>
@@ -107,7 +114,7 @@
 <h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.parallel.controller.dependency.depend">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">depend</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.depend" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">depend</tt><big>(</big><em>_wrapped_f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.depend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Dependency decorator, for use with tasks.</p>
 <p><cite>&#64;depend</cite> lets you define a function for engine dependencies
@@ -124,21 +131,21 @@ raises an UnmetDependency error, then the task will not be run
 and another engine will be tried.</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.dependency.depend.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.depend.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>_wrapped_f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.depend.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="IPython.parallel.controller.dependency.dependent">
-<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">dependent</tt><big>(</big><em>f</em>, <em>df</em>, <em>*dargs</em>, <em>**dkwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.dependent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.parallel.controller.dependency.</tt><tt class="descname">dependent</tt><big>(</big><em>_wrapped_f</em>, <em>_wrapped_df</em>, <em>*dargs</em>, <em>**dkwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.dependent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>A function that depends on another function.
 This is an object to prevent the closure used
 in traditional decorators, which are not picklable.</p>
 <dl class="method">
 <dt id="IPython.parallel.controller.dependency.dependent.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>f</em>, <em>df</em>, <em>*dargs</em>, <em>**dkwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.dependent.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>_wrapped_f</em>, <em>_wrapped_df</em>, <em>*dargs</em>, <em>**dkwargs</em><big>)</big><a class="headerlink" href="#IPython.parallel.controller.dependency.dependent.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -262,8 +269,8 @@ In [3]: @require(foo)
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

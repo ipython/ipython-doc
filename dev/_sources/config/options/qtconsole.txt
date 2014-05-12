@@ -43,148 +43,6 @@ InlineBackend.rc : Dict
     Subset of matplotlib rcParams that should be different for the inline
     backend.
 
-IPythonQtConsoleApp.auto_create : Bool
-    Default: False
-
-    Whether to create profile dir if it doesn't exist
-
-IPythonQtConsoleApp.confirm_exit : CBool
-    Default: True
-
-    Set to display confirmation dialog on exit. You can always use 'exit' or
-    'quit', to force a direct exit without any confirmation.
-
-IPythonQtConsoleApp.connection_file : Unicode
-    Default: ''
-
-    JSON file in which to store connection info [default: kernel-<pid>.json]
-    
-    This file will contain the IP, ports, and authentication key needed to
-    connect clients to this kernel. By default, this file will be created in the
-    security-dir of the current profile, but can be specified by absolute path.
-
-IPythonQtConsoleApp.copy_config_files : Bool
-    Default: False
-
-    Whether to install the default config files into the profile dir. If a new
-    profile is being created, and IPython contains config files for that
-    profile, then they will be staged into the new directory.  Otherwise,
-    default config files will be automatically generated.
-
-IPythonQtConsoleApp.existing : CUnicode
-    Default: ''
-
-    Connect to an already running kernel
-
-IPythonQtConsoleApp.extra_config_file : Unicode
-    Default: u''
-
-    Path to an extra config file to load.
-    
-    If specified, load this config file in addition to any other IPython config.
-
-IPythonQtConsoleApp.hb_port : Int
-    Default: 0
-
-    set the heartbeat port [default: random]
-
-IPythonQtConsoleApp.hide_menubar : CBool
-    Default: False
-
-    Start the console window with the menu bar hidden.
-
-IPythonQtConsoleApp.iopub_port : Int
-    Default: 0
-
-    set the iopub (PUB) port [default: random]
-
-IPythonQtConsoleApp.ip : Unicode
-    Default: u''
-
-    Set the kernel's IP address [default localhost]. If the IP address is
-    something other than localhost, then Consoles on other machines will be able
-    to connect to the Kernel, so be careful!
-
-IPythonQtConsoleApp.ipython_dir : Unicode
-    Default: u''
-
-    The name of the IPython directory. This directory is used for logging
-    configuration (through profiles), history storage, etc. The default is
-    usually $HOME/.ipython. This options can also be specified through the
-    environment variable IPYTHONDIR.
-
-IPythonQtConsoleApp.log_datefmt : Unicode
-    Default: '%Y-%m-%d %H:%M:%S'
-
-    The date format used by logging formatters for %(asctime)s
-
-IPythonQtConsoleApp.log_format : Unicode
-    Default: '[%(name)s]%(highlevel)s %(message)s'
-
-    The Logging format template
-
-IPythonQtConsoleApp.log_level : 0|10|20|30|40|50|'DEBUG'|'INFO'|'WARN'|'ERROR'|'CRITICAL'
-    Default: 30
-
-    Set the log level by value or name.
-
-IPythonQtConsoleApp.maximize : CBool
-    Default: False
-
-    Start the console window maximized.
-
-IPythonQtConsoleApp.overwrite : Bool
-    Default: False
-
-    Whether to overwrite existing config files when copying
-
-IPythonQtConsoleApp.plain : CBool
-    Default: False
-
-    Use a plaintext widget instead of rich text (plain can't print/save).
-
-IPythonQtConsoleApp.profile : Unicode
-    Default: u'default'
-
-    The IPython profile to use.
-
-IPythonQtConsoleApp.shell_port : Int
-    Default: 0
-
-    set the shell (ROUTER) port [default: random]
-
-IPythonQtConsoleApp.sshkey : Unicode
-    Default: ''
-
-    Path to the ssh key to use for logging in to the ssh server.
-
-IPythonQtConsoleApp.sshserver : Unicode
-    Default: ''
-
-    The SSH server to use to connect to the kernel.
-
-IPythonQtConsoleApp.stdin_port : Int
-    Default: 0
-
-    set the stdin (DEALER) port [default: random]
-
-IPythonQtConsoleApp.stylesheet : Unicode
-    Default: ''
-
-    path to a custom CSS stylesheet
-
-IPythonQtConsoleApp.transport : 'tcp'|'ipc'
-    Default: 'tcp'
-
-    No description
-
-IPythonQtConsoleApp.verbose_crash : Bool
-    Default: False
-
-    Create a massive crash report when IPython encounters what may be an
-    internal error.  The default is to append a short message to the usual
-    traceback
-
 IPythonWidget.ansi_codes : Bool
     Default: True
 
@@ -294,7 +152,7 @@ IPythonWidget.kind : 'plain'|'rich'
     specifies a QPlainTextEdit, and 'rich', which specifies a QTextEdit.
 
 IPythonWidget.lexer_class : DottedObjectName
-    Default: <IPython.utils.traitlets.Undefined object at 0x101425b50>
+    Default: <IPython.utils.traitlets.Undefined object at 0x100984b10>
 
     The pygments lexer class to use.
 
@@ -356,6 +214,30 @@ KernelManager.autorestart : Bool
 
     Should we autorestart the kernel if it dies.
 
+KernelManager.connection_file : Unicode
+    Default: ''
+
+    JSON file in which to store connection info [default: kernel-<pid>.json]
+    
+    This file will contain the IP, ports, and authentication key needed to
+    connect clients to this kernel. By default, this file will be created in the
+    security dir of the current profile, but can be specified by absolute path.
+
+KernelManager.control_port : Integer
+    Default: 0
+
+    set the control (ROUTER) port [default: random]
+
+KernelManager.hb_port : Integer
+    Default: 0
+
+    set the heartbeat port [default: random]
+
+KernelManager.iopub_port : Integer
+    Default: 0
+
+    set the iopub (PUB) port [default: random]
+
 KernelManager.ip : Unicode
     Default: u''
 
@@ -366,6 +248,8 @@ KernelManager.ip : Unicode
 KernelManager.kernel_cmd : List
     Default: []
 
+    DEPRECATED: Use kernel_name instead.
+    
     The Popen Command to launch the kernel. Override this if you have a custom
     kernel. If kernel_cmd is specified in a configuration file, IPython does not
     pass any arguments to the kernel, because it cannot make any assumptions
@@ -373,7 +257,169 @@ KernelManager.kernel_cmd : List
     that the kernel does not receive the option --debug if it given on the
     IPython command line.
 
+KernelManager.shell_port : Integer
+    Default: 0
+
+    set the shell (ROUTER) port [default: random]
+
+KernelManager.stdin_port : Integer
+    Default: 0
+
+    set the stdin (ROUTER) port [default: random]
+
 KernelManager.transport : 'tcp'|'ipc'
     Default: 'tcp'
 
     No description
+
+IPythonQtConsoleApp.auto_create : Bool
+    Default: False
+
+    Whether to create profile dir if it doesn't exist
+
+IPythonQtConsoleApp.confirm_exit : CBool
+    Default: True
+
+    Set to display confirmation dialog on exit. You can always use 'exit' or
+    'quit', to force a direct exit without any confirmation.
+
+IPythonQtConsoleApp.connection_file : Unicode
+    Default: ''
+
+    JSON file in which to store connection info [default: kernel-<pid>.json]
+    
+    This file will contain the IP, ports, and authentication key needed to
+    connect clients to this kernel. By default, this file will be created in the
+    security dir of the current profile, but can be specified by absolute path.
+
+IPythonQtConsoleApp.control_port : Integer
+    Default: 0
+
+    set the control (ROUTER) port [default: random]
+
+IPythonQtConsoleApp.copy_config_files : Bool
+    Default: False
+
+    Whether to install the default config files into the profile dir. If a new
+    profile is being created, and IPython contains config files for that
+    profile, then they will be staged into the new directory.  Otherwise,
+    default config files will be automatically generated.
+
+IPythonQtConsoleApp.existing : CUnicode
+    Default: ''
+
+    Connect to an already running kernel
+
+IPythonQtConsoleApp.extra_config_file : Unicode
+    Default: u''
+
+    Path to an extra config file to load.
+    
+    If specified, load this config file in addition to any other IPython config.
+
+IPythonQtConsoleApp.hb_port : Integer
+    Default: 0
+
+    set the heartbeat port [default: random]
+
+IPythonQtConsoleApp.hide_menubar : CBool
+    Default: False
+
+    Start the console window with the menu bar hidden.
+
+IPythonQtConsoleApp.iopub_port : Integer
+    Default: 0
+
+    set the iopub (PUB) port [default: random]
+
+IPythonQtConsoleApp.ip : Unicode
+    Default: u''
+
+    Set the kernel's IP address [default localhost]. If the IP address is
+    something other than localhost, then Consoles on other machines will be able
+    to connect to the Kernel, so be careful!
+
+IPythonQtConsoleApp.ipython_dir : Unicode
+    Default: u''
+
+    The name of the IPython directory. This directory is used for logging
+    configuration (through profiles), history storage, etc. The default is
+    usually $HOME/.ipython. This options can also be specified through the
+    environment variable IPYTHONDIR.
+
+IPythonQtConsoleApp.kernel_name : Unicode
+    Default: 'python'
+
+    The name of the default kernel to start.
+
+IPythonQtConsoleApp.log_datefmt : Unicode
+    Default: '%Y-%m-%d %H:%M:%S'
+
+    The date format used by logging formatters for %(asctime)s
+
+IPythonQtConsoleApp.log_format : Unicode
+    Default: '[%(name)s]%(highlevel)s %(message)s'
+
+    The Logging format template
+
+IPythonQtConsoleApp.log_level : 0|10|20|30|40|50|'DEBUG'|'INFO'|'WARN'|'ERROR'|'CRITICAL'
+    Default: 30
+
+    Set the log level by value or name.
+
+IPythonQtConsoleApp.maximize : CBool
+    Default: False
+
+    Start the console window maximized.
+
+IPythonQtConsoleApp.overwrite : Bool
+    Default: False
+
+    Whether to overwrite existing config files when copying
+
+IPythonQtConsoleApp.plain : CBool
+    Default: False
+
+    Use a plaintext widget instead of rich text (plain can't print/save).
+
+IPythonQtConsoleApp.profile : Unicode
+    Default: u'default'
+
+    The IPython profile to use.
+
+IPythonQtConsoleApp.shell_port : Integer
+    Default: 0
+
+    set the shell (ROUTER) port [default: random]
+
+IPythonQtConsoleApp.sshkey : Unicode
+    Default: ''
+
+    Path to the ssh key to use for logging in to the ssh server.
+
+IPythonQtConsoleApp.sshserver : Unicode
+    Default: ''
+
+    The SSH server to use to connect to the kernel.
+
+IPythonQtConsoleApp.stdin_port : Integer
+    Default: 0
+
+    set the stdin (ROUTER) port [default: random]
+
+IPythonQtConsoleApp.stylesheet : Unicode
+    Default: ''
+
+    path to a custom CSS stylesheet
+
+IPythonQtConsoleApp.transport : 'tcp'|'ipc'
+    Default: 'tcp'
+
+    No description
+
+IPythonQtConsoleApp.verbose_crash : Bool
+    Default: False
+
+    Create a massive crash report when IPython encounters what may be an
+    internal error.  The default is to append a short message to the usual
+    traceback

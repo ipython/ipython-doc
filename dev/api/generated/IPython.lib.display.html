@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: lib.display &mdash; IPython 2.0.0 documentation</title>
+    <title>Module: lib.display &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: lib.editorhooks" href="IPython.lib.editorhooks.html" />
     <link rel="prev" title="Module: lib.demo" href="IPython.lib.demo.html" /> 
@@ -102,7 +102,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.lib.display">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.lib.display">
 <span id="module-lib-display"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">lib.display</span></tt><a class="headerlink" href="#module-IPython.lib.display" title="Permalink to this headline">¶</a></h1>
 <p>Various display related classes.</p>
 <p>Authors : MinRK, gregcaporaso, dannystaple</p>
@@ -122,14 +129,21 @@ in the frontend (only works in the notebook).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>data</strong> : numpy array, list, unicode, str or bytes</p>
 <blockquote>
-<div><p>Can be a
-* Numpy 1d array containing the desired waveform (mono)
-* List of float or integer representing the waveform (mono)
-* String containing the filename
-* Bytestring containing raw PCM data or
-* URL pointing to a file on the web.</p>
+<div><p>Can be one of</p>
+<blockquote>
+<div><ul class="simple">
+<li>Numpy 1d array containing the desired waveform (mono)</li>
+<li>Numpy 2d array containing waveforms for each channel.
+Shape=(NCHAN, NSAMPLES). For the standard channel order, see
+<a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/hardware/dn653308(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/windows/hardware/dn653308(v=vs.85).aspx</a></li>
+<li>List of float or integer representing the waveform (mono)</li>
+<li>String containing the filename</li>
+<li>Bytestring containing raw PCM data or</li>
+<li>URL pointing to a file on the web.</li>
+</ul>
+</div></blockquote>
 <p>If the array option is used the waveform will be normalized.</p>
-<p>If a filename or url is used the format support will be browser 
+<p>If a filename or url is used the format support will be browser
 dependent.</p>
 </div></blockquote>
 <p><strong>url</strong> : unicode</p>
@@ -143,7 +157,7 @@ dependent.</p>
 <p><strong>embed</strong> : boolean</p>
 <blockquote>
 <div><p>Should the image data be embedded using a data URI (True) or should
-the original source be referenced. Set this to True if you want the 
+the original source be referenced. Set this to True if you want the
 audio to playable later with no internet connection in the notebook.</p>
 <p>Default is <cite>True</cite>, unless the keyword argument <cite>url</cite> is set, then
 default value is <cite>False</cite>.</p>
@@ -169,6 +183,11 @@ framerate = 44100
 t = np.linspace(0,5,framerate*5)
 data = np.sin(2*np.pi*220*t) + np.sin(2*np.pi*224*t))
 Audio(data,rate=framerate)
+
+# Can also do stereo or more channels
+dataleft = np.sin(2*np.pi*220*t)
+dataright = np.sin(2*np.pi*224*t)
+Audio([dataleft, dataright],rate=framerate)
 
 Audio(&quot;http://www.nch.com.au/acm/8k16bitpcm.wav&quot;)  # From URL
 Audio(url=&quot;http://www.w3schools.com/html/horse.ogg&quot;)
@@ -398,8 +417,8 @@ passed here to support alternative formatting.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

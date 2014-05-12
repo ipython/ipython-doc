@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel examples &mdash; IPython 2.0.0 documentation</title>
+    <title>Parallel examples &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="DAG Dependencies" href="dag_dependencies.html" />
     <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" /> 
@@ -107,7 +107,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="parallel-examples">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="parallel-examples">
 <span id="id1"></span><h1>Parallel examples<a class="headerlink" href="#parallel-examples" title="Permalink to this headline">¶</a></h1>
 <p>In this section we describe two more involved examples of using an IPython
 cluster to perform a parallel computation. We will be doing some plotting,
@@ -190,6 +197,24 @@ the result using a 2D matrix in Matplotlib.</p>
 compute the two digit counts for the digits in a single file. Then in a final
 step the counts from each engine will be added up. To perform this
 calculation, we will need two top-level functions from <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    d = txt_file_to_digits(filename)</span>
+<span class="sd">    freqs = one_digit_freqs(d)</span>
+<span class="sd">    return freqs</span>
+
+<span class="sd">def compute_two_digit_freqs(filename):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Read</span> <span class="n">digits</span> <span class="n">of</span> <span class="n">pi</span> <span class="kn">from</span> <span class="nn">a</span> <span class="nn">file</span> <span class="nn">and</span> <span class="nn">compute</span> <span class="nn">the</span> <span class="mi">2</span> <span class="n">digit</span> <span class="n">frequencies</span><span class="o">.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    d = txt_file_to_digits(filename)</span>
+<span class="sd">    freqs = two_digit_freqs(d)</span>
+<span class="sd">    return freqs</span>
+
+<span class="sd">def reduce_freqs(freqlist):</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Add</span> <span class="n">up</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">freq</span> <span class="n">counts</span> <span class="n">to</span> <span class="n">get</span> <span class="n">the</span> <span class="n">total</span> <span class="n">counts</span><span class="o">.</span>
+</pre></div>
+</div>
 <p>We will also use the <tt class="xref py py-func docutils literal"><span class="pre">plot_two_digit_freqs()</span></tt> function to plot the
 results. The code to run this calculation in parallel is contained in
 <tt class="file docutils literal"><span class="pre">examples/parallel/parallelpi.py</span></tt>. This code can be run in parallel
@@ -321,8 +346,8 @@ to get started with IPython&#8217;s parallel capabilities.</li>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

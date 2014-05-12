@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: kernel.channels &mdash; IPython 2.0.0 documentation</title>
+    <title>Module: kernel.channels &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: kernel.channelsabc" href="IPython.kernel.channelsabc.html" />
     <link rel="prev" title="Module: kernel.blocking.client" href="IPython.kernel.blocking.client.html" /> 
@@ -103,7 +103,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.kernel.channels">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.kernel.channels">
 <span id="module-kernel-channels"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.channels</span></tt><a class="headerlink" href="#module-IPython.kernel.channels" title="Permalink to this headline">¶</a></h1>
 <p>Base classes to manage a Client&#8217;s interaction with a running kernel</p>
 <div class="section" id="classes">
@@ -185,29 +192,21 @@ handlers are called in the application thread.</p>
 
 <dl class="method">
 <dt id="IPython.kernel.channels.ShellChannel.complete">
-<tt class="descname">complete</tt><big>(</big><em>text</em>, <em>line</em>, <em>cursor_pos</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.complete" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">complete</tt><big>(</big><em>code</em>, <em>cursor_pos=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.complete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tab complete text in the kernel&#8217;s namespace.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>text</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
 <blockquote>
-<div><p>The text to complete.</p>
+<div><p>The context in which completion is requested.
+Can be anything between a variable name and an entire cell.</p>
 </div></blockquote>
-<p><strong>line</strong> : str</p>
+<p><strong>cursor_pos</strong> : int, optional</p>
 <blockquote>
-<div><p>The full line of text that is the surrounding context for the
-text to complete.</p>
-</div></blockquote>
-<p><strong>cursor_pos</strong> : int</p>
-<blockquote>
-<div><p>The position of the cursor in the line where the completion was
-requested.</p>
-</div></blockquote>
-<p><strong>block</strong> : str, optional</p>
-<blockquote>
-<div><p>The full block of code in which the completion is being requested.</p>
+<div><p>The position of the cursor in the block of code where the completion was requested.
+Default: <tt class="docutils literal"><span class="pre">len(code)</span></tt></p>
 </div></blockquote>
 </td>
 </tr>
@@ -220,7 +219,7 @@ requested.</p>
 
 <dl class="method">
 <dt id="IPython.kernel.channels.ShellChannel.execute">
-<tt class="descname">execute</tt><big>(</big><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_variables=None</em>, <em>user_expressions=None</em>, <em>allow_stdin=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.execute" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">execute</tt><big>(</big><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute code in the kernel.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -239,12 +238,6 @@ will force store_history to be False.</p>
 <blockquote>
 <div><p>If set, the kernel will store command history.  This is forced
 to be False if silent is True.</p>
-</div></blockquote>
-<p><strong>user_variables</strong> : list, optional</p>
-<blockquote>
-<div><p>A list of variable names to pull from the user&#8217;s namespace.  They
-will come back as a dict with these names as keys and their
-<tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt> as values.</p>
 </div></blockquote>
 <p><strong>user_expressions</strong> : dict, optional</p>
 <blockquote>
@@ -324,22 +317,23 @@ current session.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.kernel.channels.ShellChannel.kernel_info">
-<tt class="descname">kernel_info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.kernel_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Request kernel info.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.kernel.channels.ShellChannel.object_info">
-<tt class="descname">object_info</tt><big>(</big><em>oname</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.object_info" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.kernel.channels.ShellChannel.inspect">
+<tt class="descname">inspect</tt><big>(</big><em>code</em>, <em>cursor_pos=None</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get metadata information about an object in the kernel&#8217;s namespace.</p>
+<p>It is up to the kernel to determine the appropriate object to inspect.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>oname</strong> : str</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
 <blockquote>
-<div><p>A string specifying the object name.</p>
+<div><p>The context in which info is requested.
+Can be anything between a variable name and an entire cell.</p>
+</div></blockquote>
+<p><strong>cursor_pos</strong> : int, optional</p>
+<blockquote>
+<div><p>The position of the cursor in the block of code where the info was requested.
+Default: <tt class="docutils literal"><span class="pre">len(code)</span></tt></p>
 </div></blockquote>
 <p><strong>detail_level</strong> : int, optional</p>
 <blockquote>
@@ -352,6 +346,12 @@ current session.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.channels.ShellChannel.kernel_info">
+<tt class="descname">kernel_info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.channels.ShellChannel.kernel_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request kernel info.</p>
 </dd></dl>
 
 <dl class="method">
@@ -567,8 +567,8 @@ handlers are called in the application thread.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

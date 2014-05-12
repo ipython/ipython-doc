@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>DAG Dependencies &mdash; IPython 2.0.0 documentation</title>
+    <title>DAG Dependencies &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Details of Parallel Computing with IPython" href="parallel_details.html" />
     <link rel="prev" title="Parallel examples" href="parallel_demos.html" /> 
@@ -103,7 +103,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="dag-dependencies">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="dag-dependencies">
 <span id="id1"></span><h1>DAG Dependencies<a class="headerlink" href="#dag-dependencies" title="Permalink to this headline">¶</a></h1>
 <p>Often, parallel workflow is described in terms of a <a class="reference external" href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a> or DAG.  A popular library
 for working with Graphs is <a class="reference external" href="http://networkx.lanl.gov/">NetworkX</a>.  Here, we will walk through a demo mapping
@@ -170,6 +177,25 @@ depends on nothing, and can run immediately. 1 and 2 depend on 0; 3 depends on
 </div>
 <p>For demonstration purposes, we have a function that generates a random DAG with a given
 number of nodes and edges.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">random_dag</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Generate a random Directed Acyclic Graph (DAG) with a given number of nodes and edges.&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">edges</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nodes</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">b</span><span class="o">=</span><span class="n">a</span>
+        <span class="k">while</span> <span class="n">b</span><span class="o">==</span><span class="n">a</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nodes</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_directed_acyclic_graph</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+            <span class="n">edges</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># we closed a loop!</span>
+            <span class="n">G</span><span class="o">.</span><span class="n">remove_edge</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
 <p>So first, we start with a graph of 32 nodes, with 128 edges:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">G</span> <span class="o">=</span> <span class="n">random_dag</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
@@ -214,6 +240,15 @@ respected.  For this, we can use the <tt class="xref py py-attr docutils literal
 <p>These objects store a variety of metadata about each task, including various timestamps.
 We can validate that the dependencies were respected by checking that each task was
 started after all of its predecessors were completed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">validate_tree</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Validate that jobs executed after their dependencies.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="p">:</span>
+        <span class="n">started</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">started</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">finished</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">completed</span>
+            <span class="k">assert</span> <span class="n">started</span> <span class="o">&gt;</span> <span class="n">finished</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> should have happened after </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>We can also validate the graph visually. By drawing the graph with each node&#8217;s x-position
 as its start time, all arrows must be pointing to the right if dependencies were respected.
 For spreading, the y-position will be the runtime of the task, so long tasks
@@ -275,8 +310,8 @@ were four engines). Edges denote dependencies.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

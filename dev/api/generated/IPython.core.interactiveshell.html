@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.interactiveshell &mdash; IPython 2.0.0 documentation</title>
+    <title>Module: core.interactiveshell &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.logger" href="IPython.core.logger.html" />
     <link rel="prev" title="Module: core.inputtransformer" href="IPython.core.inputtransformer.html" /> 
@@ -103,7 +103,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-IPython.core.interactiveshell">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.core.interactiveshell">
 <span id="module-core-interactiveshell"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.interactiveshell</span></tt><a class="headerlink" href="#module-IPython.core.interactiveshell" title="Permalink to this headline">¶</a></h1>
 <p>Main IPython class.</p>
 <div class="section" id="classes">
@@ -116,7 +123,7 @@
 
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateUnicode">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x10656e050&gt;</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x1136b90d0&gt;</em>, <em>allow_none=None</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
 <p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <p>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and <tt class="docutils literal"><span class="pre">'\\n'-&gt;'\n'</span></tt>.</p>
@@ -507,7 +514,7 @@ input history is used instead.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.find_user_code">
-<tt class="descname">find_user_code</tt><big>(</big><em>target</em>, <em>raw=True</em>, <em>py_only=False</em>, <em>skip_encoding_cookie=True</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_user_code" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">find_user_code</tt><big>(</big><em>target</em>, <em>raw=True</em>, <em>py_only=False</em>, <em>skip_encoding_cookie=True</em>, <em>search_ns=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.find_user_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a code string from history, file, url, or a string or macro.</p>
 <p>This is mainly used by magic functions.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -695,6 +702,18 @@ absolute path of the script. This way, for multiple executions of the
 same script we only keep one copy of the namespace (the last one),
 thus preventing memory leaks from old references while allowing the
 objects from the last execution to be accessible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.object_inspect">
+<tt class="descname">object_inspect</tt><big>(</big><em>oname</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.object_inspect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get object info about oname</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.core.interactiveshell.InteractiveShell.object_inspect_text">
+<tt class="descname">object_inspect_text</tt><big>(</big><em>oname</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.object_inspect_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get object info as formatted text</p>
 </dd></dl>
 
 <dl class="method">
@@ -1345,30 +1364,8 @@ in the user namespace.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.core.interactiveshell.InteractiveShell.user_variables">
-<tt class="descname">user_variables</tt><big>(</big><em>names</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.user_variables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of variable names from the user&#8217;s namespace.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>names</strong> : list of strings</p>
-<blockquote>
-<div><p>A list of names of variables to be read from the user namespace.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>A dict, keyed by the input names and with the rich mime-type repr(s) of each value.</strong> :</p>
-<p class="last"><strong>Each element will be a sub-dict of the same form as a display_data message.</strong> :</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
-<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x1066e78d0&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x113821850&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand python variables in a string.</p>
 <p>The depth argument indicates how many frames above the caller should
 be walked to look for the local namespace where to expand variables.</p>
@@ -1440,8 +1437,8 @@ namespace.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

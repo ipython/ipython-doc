@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel Magic Commands &mdash; IPython 2.0.0 documentation</title>
+    <title>Parallel Magic Commands &mdash; IPython 3.0.0-dev documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0',
+        VERSION:     '3.0.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="The IPython task interface" href="parallel_task.html" />
     <link rel="prev" title="IPython’s Direct interface" href="parallel_multiengine.html" /> 
@@ -115,7 +115,14 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="parallel-magic-commands">
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="parallel-magic-commands">
 <span id="parallel-magics"></span><h1>Parallel Magic Commands<a class="headerlink" href="#parallel-magic-commands" title="Permalink to this headline">¶</a></h1>
 <p>We provide a few IPython magic commands
 that make it a bit more pleasant to execute Python commands on the engines interactively.
@@ -134,27 +141,27 @@ which is a blocking view of all engines, evaluated at request time
 <h3>%px<a class="headerlink" href="#px" title="Permalink to this headline">¶</a></h3>
 <p>The %px magic executes a single Python command on the engines
 specified by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># import numpy here and everywhere</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">]:</span> <span class="k">with</span> <span class="n">rc</span><span class="p">[:]</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
-   <span class="o">....</span><span class="p">:</span>    <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="n">importing</span> <span class="n">numpy</span> <span class="n">on</span> <span class="n">engine</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># import numpy here and everywhere</span>
+<span class="gp">In [25]: </span><span class="k">with</span> <span class="n">rc</span><span class="p">[:]</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
+<span class="gp">   ....: </span>   <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="go">importing numpy on engine(s)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">27</span><span class="p">]:</span> <span class="o">%</span><span class="k">px</span> <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">Parallel</span> <span class="n">execution</span> <span class="n">on</span> <span class="n">engines</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">In [27]: </span><span class="o">%</span><span class="k">px</span> <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="o">%</span><span class="k">px</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="n">Parallel</span> <span class="n">execution</span> <span class="n">on</span> <span class="n">engines</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="n">Out</span> <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">68</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.77120707</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.19448286</span><span class="p">])</span>
-<span class="n">Out</span> <span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">68</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">1.10815921</span><span class="p">,</span>  <span class="mf">0.05110369</span><span class="p">])</span>
-<span class="n">Out</span> <span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">68</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.74625527</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.37475081</span><span class="p">])</span>
-<span class="n">Out</span> <span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">68</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.72931905</span><span class="p">,</span>  <span class="mf">0.07159743</span><span class="p">])</span>
+<span class="gp">In [28]: </span><span class="o">%</span><span class="k">px</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
+<span class="go">Out [0:68]: array([ 0.77120707, -0.19448286])</span>
+<span class="go">Out [1:68]: array([ 1.10815921,  0.05110369])</span>
+<span class="go">Out [2:68]: array([ 0.74625527, -0.37475081])</span>
+<span class="go">Out [3:68]: array([ 0.72931905,  0.07159743])</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">29</span><span class="p">]:</span> <span class="o">%</span><span class="k">px</span> <span class="k">print</span> <span class="s">&#39;hi&#39;</span>
-<span class="n">Parallel</span> <span class="n">execution</span> <span class="n">on</span> <span class="n">engine</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">all</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">hi</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="n">hi</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="n">hi</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="n">hi</span>
+<span class="gp">In [29]: </span><span class="o">%</span><span class="k">px</span> <span class="k">print</span> <span class="s">&#39;hi&#39;</span>
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
 </pre></div>
 </div>
 <p>Since engines are IPython as well, you can even run magics remotely:</p>
@@ -374,23 +381,23 @@ on any view.</p>
 </div>
 <p>When activating a View, you can also specify a <em>suffix</em>, so that a whole different
 set of magics are associated with that view, without replacing the existing ones.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># restore the original DirecView to the base %px magics</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">rc</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">DirectView</span> <span class="nb">all</span><span class="o">&gt;</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># restore the original DirecView to the base %px magics</span>
+<span class="gp">In [16]: </span><span class="n">rc</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+<span class="gh">Out[16]: </span><span class="go">&lt;DirectView all&gt;</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">even</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&#39;_even&#39;</span><span class="p">)</span>
+<span class="gp">In [17]: </span><span class="n">even</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&#39;_even&#39;</span><span class="p">)</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="o">%</span><span class="k">px</span> <span class="k">print</span> <span class="s">&#39;hi all&#39;</span>
-<span class="n">Parallel</span> <span class="n">execution</span> <span class="n">on</span> <span class="n">engine</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">all</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">hi</span> <span class="nb">all</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="n">hi</span> <span class="nb">all</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="n">hi</span> <span class="nb">all</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="n">hi</span> <span class="nb">all</span>
+<span class="gp">In [18]: </span><span class="o">%</span><span class="k">px</span> <span class="k">print</span> <span class="s">&#39;hi all&#39;</span>
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] hi all</span>
+<span class="go">[stdout:1] hi all</span>
+<span class="go">[stdout:2] hi all</span>
+<span class="go">[stdout:3] hi all</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="o">%</span><span class="k">px_even</span> <span class="k">print</span> <span class="s">&quot;We aren&#39;t odd!&quot;</span>
-<span class="n">Parallel</span> <span class="n">execution</span> <span class="n">on</span> <span class="n">engine</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="n">We</span> <span class="n">aren</span><span class="s">&#39;t odd!</span>
-<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="n">We</span> <span class="n">aren</span><span class="s">&#39;t odd!</span>
+<span class="gp">In [19]: </span><span class="o">%</span><span class="k">px_even</span> <span class="k">print</span> <span class="s">&quot;We aren&#39;t odd!&quot;</span>
+<span class="go">Parallel execution on engine(s): [0, 2]</span>
+<span class="go">[stdout:0] We aren&#39;t odd!</span>
+<span class="go">[stdout:2] We aren&#39;t odd!</span>
 </pre></div>
 </div>
 <p>This suffix is applied to the end of all magics, e.g. %autopx_even, %pxresult_even, etc.</p>
@@ -482,8 +489,8 @@ so you can often skip that first step.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 01, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
