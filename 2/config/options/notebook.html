@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython notebook options &mdash; IPython 2.0.0 documentation</title>
+    <title>IPython notebook options &mdash; IPython 2.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.0.0',
+        VERSION:     '2.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.1.0 documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
-    <link rel="next" title="IPython Qt console options" href="qtconsole.html" />
+    <link rel="next" title="Specific config details" href="../details.html" />
     <link rel="prev" title="IPython kernel options" href="kernel.html" /> 
   </head>
   <body>
@@ -44,7 +44,10 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="qtconsole.html" title="IPython Qt console options"
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../details.html" title="Specific config details"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="kernel.html" title="IPython kernel options"
@@ -64,8 +67,8 @@
   <p class="topless"><a href="kernel.html"
                         title="previous chapter">IPython kernel options</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="qtconsole.html"
-                        title="next chapter">IPython Qt console options</a></p>
+  <p class="topless"><a href="../details.html"
+                        title="next chapter">Specific config details</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/config/options/notebook.txt"
@@ -96,6 +99,27 @@
 <h1>IPython notebook options<a class="headerlink" href="#ipython-notebook-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
+<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;sha256&#8217;</p>
+<p class="last">The hashing algorithm used to sign notebooks.</p>
+</dd>
+<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">The secret key with which notebooks are signed.</p>
+</dd>
+<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The file where the secret key is stored.</p>
+</dd>
+<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
+<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
+KernelManager for customized behavior.</p>
+</dd>
+<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/private/tmp/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
 <dt>NotebookApp.base_project_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: &#8216;/&#8217;</p>
 <p class="last">DEPRECATED use base_url</p>
@@ -156,7 +180,7 @@ machine, or overriding individual files in the IPython</p>
 <p class="last">No description</p>
 </dd>
 <dt>NotebookApp.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
+<dd><p class="first">Default: &#8216;localhost&#8217;</p>
 <p class="last">The IP address the notebook server will listen on.</p>
 </dd>
 <dt>NotebookApp.ipython_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
@@ -196,7 +220,7 @@ environment variable IPYTHONDIR.</p>
 IPYTHONDIR/nbextensions</p>
 </dd>
 <dt>NotebookApp.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<dd><p class="first">Default: u&#8217;/private/tmp/ipython/docs&#8217;</p>
 <p class="last">The directory to use for notebooks and kernels.</p>
 </dd>
 <dt>NotebookApp.notebook_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
@@ -252,15 +276,6 @@ traceback</p>
 <p class="last">Supply overrides for the tornado.web.Application that the IPython notebook
 uses.</p>
 </dd>
-<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
-<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
-KernelManager for customized behavior.</p>
-</dd>
-<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
-<p class="last">No description</p>
-</dd>
 <dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Should we autorestart the kernel if it dies.</p>
@@ -285,16 +300,17 @@ IPython command line.</p>
 <p class="last">No description</p>
 </dd>
 <dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p>The location in which to keep notebook checkpoints</p>
-<p class="last">By default, it is notebook-dir/.ipynb_checkpoints</p>
+<dd><p class="first">Default: &#8216;.ipynb_checkpoints&#8217;</p>
+<p>The directory name in which to keep notebook checkpoints</p>
+<p>This is a path relative to the notebook&#8217;s own directory.</p>
+<p class="last">By default, it is .ipynb_checkpoints</p>
 </dd>
 <dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
 <dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
 <dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<dd><p class="first">Default: u&#8217;/private/tmp/ipython/docs&#8217;</p>
 <p class="last">No description</p>
 </dd>
 <dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
@@ -303,6 +319,10 @@ IPython command line.</p>
 <p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
 name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
 save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
+</dd>
+<dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
 <dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
@@ -336,22 +356,6 @@ but figure barriers between cells must be explicit.</p>
 <p class="last">Subset of matplotlib rcParams that should be different for the inline
 backend.</p>
 </dd>
-<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;sha256&#8217;</p>
-<p class="last">The hashing algorithm used to sign notebooks.</p>
-</dd>
-<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">The secret key with which notebooks are signed.</p>
-</dd>
-<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The file where the secret key is stored.</p>
-</dd>
-<dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
-<p class="last">Glob patterns to hide in file and directory listings.</p>
-</dd>
 </dl>
 </div>
 
@@ -371,7 +375,10 @@ backend.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="qtconsole.html" title="IPython Qt console options"
+          <a href="../../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../details.html" title="Specific config details"
              >next</a> |</li>
         <li class="right" >
           <a href="kernel.html" title="IPython kernel options"
@@ -385,8 +392,8 @@ backend.</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 02, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 21, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

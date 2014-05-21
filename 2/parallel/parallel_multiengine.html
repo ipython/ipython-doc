@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Direct interface &mdash; IPython 2.0.0 documentation</title>
+    <title>IPython’s Direct interface &mdash; IPython 2.1.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.0.0',
+        VERSION:     '2.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.0.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.1.0 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Parallel Magic Commands" href="magics.html" />
     <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" /> 
@@ -42,6 +42,9 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="magics.html" title="Parallel Magic Commands"
@@ -157,10 +160,10 @@ module and then create a <a class="reference internal" href="../api/generated/IP
 <tt class="file docutils literal"><span class="pre">ipcontroller-client.json</span></tt> found in <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></tt>) is
 accurate. If the controller was started on a remote machine, you must copy that connection
 file to the client machine, or enter its contents as arguments to the Client constructor:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># If you have copied the json connector file from the controller:</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s">&#39;/path/to/ipcontroller-client.json&#39;</span><span class="p">)</span>
-<span class="c"># or to connect with a specific profile you have set up:</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># If you have copied the json connector file from the controller:</span>
+<span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="s">&#39;/path/to/ipcontroller-client.json&#39;</span><span class="p">)</span>
+<span class="go"># or to connect with a specific profile you have set up:</span>
+<span class="gp">In [3]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To make sure there are engines connected to the controller, users can get a list
@@ -381,42 +384,42 @@ time through its <tt class="xref py py-meth docutils literal"><span class="pre">
 </div>
 <p>This allows you to quickly submit long running commands without blocking your
 local Python/IPython session:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># define our function</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-  <span class="o">....</span><span class="p">:</span>     <span class="kn">import</span> <span class="nn">time</span>
-  <span class="o">....</span><span class="p">:</span>     <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-  <span class="o">....</span><span class="p">:</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-  <span class="o">....</span><span class="p">:</span>     <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">tic</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># define our function</span>
+<span class="gp">In [6]: </span><span class="k">def</span> <span class="nf">wait</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+<span class="go">  ....:     import time</span>
+<span class="go">  ....:     tic = time.time()</span>
+<span class="go">  ....:     time.sleep(t)</span>
+<span class="go">  ....:     return time.time()-tic</span>
 
-<span class="c"># In non-blocking mode</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go"># In non-blocking mode</span>
+<span class="gp">In [7]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
-<span class="c"># Now block for the result</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="mf">2.0006198883056641</span><span class="p">,</span> <span class="mf">1.9997570514678955</span><span class="p">,</span> <span class="mf">1.9996809959411621</span><span class="p">,</span> <span class="mf">2.0003249645233154</span><span class="p">]</span>
+<span class="go"># Now block for the result</span>
+<span class="gp">In [8]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="gh">Out[8]: </span><span class="go">[2.0006198883056641, 1.9997570514678955, 1.9996809959411621, 2.0003249645233154]</span>
 
-<span class="c"># Again in non-blocking mode</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go"># Again in non-blocking mode</span>
+<span class="gp">In [9]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">apply_async</span><span class="p">(</span><span class="n">wait</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
-<span class="c"># Poll to see if the result is ready</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">ready</span><span class="p">()</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="bp">False</span>
+<span class="go"># Poll to see if the result is ready</span>
+<span class="gp">In [10]: </span><span class="n">ar</span><span class="o">.</span><span class="n">ready</span><span class="p">()</span>
+<span class="gh">Out[10]: </span><span class="go">False</span>
 
-<span class="c"># ask for the result, but wait a maximum of 1 second:</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">45</span><span class="p">]:</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="o">---------------------------------------------------------------------------</span>
-<span class="n">TimeoutError</span>                              <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
-<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">you</span><span class="o">/&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">45</span><span class="o">-</span><span class="mi">7</span><span class="n">cd858bbb8e0</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
-<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go"># ask for the result, but wait a maximum of 1 second:</span>
+<span class="gp">In [45]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TimeoutError</span><span class="g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">/home/you/&lt;ipython-input-45-7cd858bbb8e0&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">IPython</span><span class="o">/</span><span class="n">parallel</span><span class="o">/</span><span class="n">asyncresult</span><span class="o">.</span><span class="n">pyc</span> <span class="ow">in</span> <span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
-     <span class="mi">62</span>                 <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span>
-     <span class="mi">63</span>         <span class="k">else</span><span class="p">:</span>
-<span class="o">---&gt;</span> <span class="mi">64</span>             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(</span><span class="s">&quot;Result not ready.&quot;</span><span class="p">)</span>
-     <span class="mi">65</span>
-     <span class="mi">66</span>     <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="nn">/path/to/site-packages/IPython/parallel/asyncresult.pyc</span> in <span class="ni">get</span><span class="nt">(self, timeout)</span>
+<span class="g-Whitespace">     </span><span class="mi">62</span>                 <span class="k">raise</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exception</span>
+<span class="g-Whitespace">     </span><span class="mi">63</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">64</span>             <span class="k">raise</span> <span class="n">error</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">(</span><span class="s">&quot;Result not ready.&quot;</span><span class="p">)</span>
+<span class="g-Whitespace">     </span><span class="mi">65</span>
+<span class="g-Whitespace">     </span><span class="mi">66</span>     <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-<span class="n">TimeoutError</span><span class="p">:</span> <span class="n">Result</span> <span class="ow">not</span> <span class="n">ready</span><span class="o">.</span>
+<span class="ne">TimeoutError</span>: Result not ready.
 </pre></div>
 </div>
 <div class="admonition note">
@@ -774,6 +777,9 @@ You can change this limit to suit your needs with:</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="magics.html" title="Parallel Magic Commands"
              >next</a> |</li>
         <li class="right" >
@@ -787,8 +793,8 @@ You can change this limit to suit your needs with:</p>
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Apr 02, 2014.
+        &copy; Copyright The IPython Development Team.
+      Last updated on May 21, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
