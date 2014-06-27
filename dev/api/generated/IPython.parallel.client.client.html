@@ -25,6 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: parallel.client.magics" href="IPython.parallel.client.magics.html" />
     <link rel="prev" title="Module: parallel.client.asyncresult" href="IPython.parallel.client.asyncresult.html" /> 
   </head>
   <body>
@@ -43,8 +44,8 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+          <a href="IPython.parallel.client.magics.html" title="Module: parallel.client.magics"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="Module: parallel.client.asyncresult"
              accesskey="P">previous</a> |</li>
@@ -61,9 +62,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">parallel.client.client</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">3 Classes</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
 <li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
@@ -72,6 +71,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="IPython.parallel.client.asyncresult.html"
                         title="previous chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.asyncresult</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.parallel.client.magics.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">parallel.client.magics</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.parallel.client.client.txt"
@@ -182,7 +184,7 @@ should generally work)</p>
 <div><p>time (in seconds) to wait for connection replies from the Hub
 [Default: 10]</p>
 </div></blockquote>
-<p><strong>#&#8212;&#8212;&#8212;&#8212;&#8211; session related args &#8212;&#8212;&#8212;&#8212;&#8212;-</strong> :</p>
+<p><strong>#&#8212;&#8212;&#8212;&#8212;&#8211; session related args &#8212;&#8212;&#8212;&#8212;&#8212;-</strong></p>
 <p><strong>config</strong> : Config object</p>
 <blockquote>
 <div><p>If specified, this will be relayed to the Session for configuration</p>
@@ -191,14 +193,14 @@ should generally work)</p>
 <blockquote>
 <div><p>set username for the session object</p>
 </div></blockquote>
-<p><strong>#&#8212;&#8212;&#8212;&#8212;&#8211; ssh related args &#8212;&#8212;&#8212;&#8212;&#8212;-</strong> :</p>
-<p><strong># These are args for configuring the ssh tunnel to be used</strong> :</p>
-<p><strong># credentials are used to forward connections over ssh to the Controller</strong> :</p>
-<p><strong># Note that the ip given in `addr` needs to be relative to sshserver</strong> :</p>
-<p><strong># The most basic case is to leave addr as pointing to localhost (127.0.0.1),</strong> :</p>
-<p><strong># and set sshserver as the same machine the Controller is on. However,</strong> :</p>
-<p><strong># the only requirement is that sshserver is able to see the Controller</strong> :</p>
-<p><strong># (i.e. is within the same trusted network).</strong> :</p>
+<p><strong>#&#8212;&#8212;&#8212;&#8212;&#8211; ssh related args &#8212;&#8212;&#8212;&#8212;&#8212;-</strong></p>
+<p><strong># These are args for configuring the ssh tunnel to be used</strong></p>
+<p><strong># credentials are used to forward connections over ssh to the Controller</strong></p>
+<p><strong># Note that the ip given in `addr` needs to be relative to sshserver</strong></p>
+<p><strong># The most basic case is to leave addr as pointing to localhost (127.0.0.1),</strong></p>
+<p><strong># and set sshserver as the same machine the Controller is on. However,</strong></p>
+<p><strong># the only requirement is that sshserver is able to see the Controller</strong></p>
+<p><strong># (i.e. is within the same trusted network).</strong></p>
 <p><strong>sshserver</strong> : str</p>
 <blockquote>
 <div><p>A string of the form passed to ssh, i.e. &#8216;server.tld&#8217; or <a class="reference external" href="mailto:'user&#37;&#52;&#48;server&#46;tld">'user<span>&#64;</span>server<span>&#46;</span>tld</a>:port&#8217;
@@ -234,17 +236,25 @@ you will be prompted for it if passwordless key based login is unavailable.</p>
 <tr class="row-odd"><td><a class="reference internal" href="#IPython.parallel.client.client.Client.ids" title="IPython.parallel.client.client.Client.ids"><tt class="xref py py-obj docutils literal"><span class="pre">ids</span></tt></a></td>
 <td>Always up-to-date ids property.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">history</span></tt></td>
-<td>An instance of a Python list.</td>
+</tbody>
+</table>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>history</td>
+<td>(list of msg_ids) a list of msg_ids, keeping track of all the execution messages you have submitted in order.</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">outstanding</span></tt></td>
-<td>An instance of a Python set.</td>
+<tr class="row-even"><td>outstanding</td>
+<td>(set of msg_ids) a set of msg_ids that have been submitted, but whose results have not yet been received.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">results</span></tt></td>
-<td>A trait whose value must be an instance of a specified class.</td>
+<tr class="row-odd"><td>results</td>
+<td>(dict) a dict of all our results, keyed by msg_id</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">block</span></tt></td>
-<td>A boolean (True, False) trait.</td>
+<tr class="row-even"><td>block</td>
+<td>(bool) determines default behavior when block not specified in execution methods</td>
 </tr>
 </tbody>
 </table>
@@ -270,8 +280,7 @@ you will be prompted for it if passwordless key based login is unavailable.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td>execution methods</td>
-<td>apply
-legacy: execute, run</td>
+<td>apply legacy: execute, run</td>
 </tr>
 <tr class="row-even"><td>data movement</td>
 <td>push, pull, scatter, gather</td>
@@ -319,11 +328,11 @@ from executing.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: int, list of ints, or &#8216;all&#8217;</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: int, list of ints, or &#8216;all&#8217;</strong></p>
 <blockquote>
 <div><p>The engines on which the view&#8217;s magics will run</p>
 </div></blockquote>
-<p><strong>suffix: str [default: &#8216;&#8217;]</strong> :</p>
+<p><strong>suffix: str [default: &#8216;&#8217;]</strong></p>
 <blockquote class="last">
 <div><p>The suffix, if any, for the magics.  This allows you to have
 multiple views associated with parallel magics at the same time.</p>
@@ -389,7 +398,7 @@ engines added after the DirectView is constructed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list,slice,int,etc. [default: use all engines]</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list,slice,int,etc. [default: use all engines]</strong></p>
 <blockquote class="last">
 <div><p>The engines to use for the View</p>
 </div></blockquote>
@@ -401,7 +410,7 @@ engines added after the DirectView is constructed.</p>
 
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.get_result">
-<tt class="descname">get_result</tt><big>(</big><em>indices_or_msg_ids=None</em>, <em>block=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.get_result" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_result</tt><big>(</big><em>indices_or_msg_ids=None</em>, <em>block=None</em>, <em>owner=True</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.get_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve a result by msg_id or history index, wrapped in an AsyncResult object.</p>
 <p>If the client already has the results, no request to the Hub will be made.</p>
 <p>This is a convenient way to construct AsyncResult objects, which are wrappers
@@ -421,13 +430,20 @@ blocking execution, since it always retrieves</p>
 <blockquote>
 <div><p>Whether to wait for the result to be done</p>
 </div></blockquote>
+<p><strong>owner</strong> : bool [default: True]</p>
+<blockquote>
+<div><p>Whether this AsyncResult should own the result.
+If so, calling <cite>ar.get()</cite> will remove data from the
+client&#8217;s result and metadata cache.
+There should only be one owner of any given msg_id.</p>
+</div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>AsyncResult</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">AsyncResult</p>
 <blockquote>
 <div><p>A single AsyncResult object will always be returned.</p>
 </div></blockquote>
-<p><strong>AsyncHubResult</strong> :</p>
+<p>AsyncHubResult</p>
 <blockquote class="last">
 <div><p>A subclass of AsyncResult that retrieves results from the Hub</p>
 </div></blockquote>
@@ -479,7 +495,7 @@ using all engines.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list,slice,int,etc. [default: use all engines]</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list,slice,int,etc. [default: use all engines]</strong></p>
 <blockquote class="last">
 <div><p>The subset of engines across which to load-balance</p>
 </div></blockquote>
@@ -628,7 +644,7 @@ default : all</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>AsyncHubResult</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">AsyncHubResult</p>
 <blockquote class="last">
 <div><p>A subclass of AsyncResult that retrieves results from the Hub</p>
 </div></blockquote>
@@ -699,19 +715,19 @@ is False, then completed results will be keyed by their <cite>msg_id</cite>.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list of ints or &#8216;all&#8217; [default: all]</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>targets: list of ints or &#8216;all&#8217; [default: all]</strong></p>
 <blockquote>
 <div><p>Which engines to shutdown.</p>
 </div></blockquote>
-<p><strong>hub: bool [default: False]</strong> :</p>
+<p><strong>hub: bool [default: False]</strong></p>
 <blockquote>
 <div><p>Whether to include the Hub.  hub=True implies targets=&#8217;all&#8217;.</p>
 </div></blockquote>
-<p><strong>block: bool [default: self.block]</strong> :</p>
+<p><strong>block: bool [default: self.block]</strong></p>
 <blockquote>
 <div><p>Whether to wait for clean shutdown replies or not.</p>
 </div></blockquote>
-<p><strong>restart: bool [default: False]</strong> :</p>
+<p><strong>restart: bool [default: False]</strong></p>
 <blockquote class="last">
 <div><p>NOT IMPLEMENTED
 whether to restart engines after shutting them down.</p>
@@ -821,8 +837,8 @@ default is -1, which means no timeout</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+          <a href="IPython.parallel.client.magics.html" title="Module: parallel.client.magics"
+             >next</a> |</li>
         <li class="right" >
           <a href="IPython.parallel.client.asyncresult.html" title="Module: parallel.client.asyncresult"
              >previous</a> |</li>
@@ -835,7 +851,7 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 12, 2014.
+      Last updated on Jun 26, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

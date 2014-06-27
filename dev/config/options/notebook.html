@@ -44,9 +44,6 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="qtconsole.html" title="IPython Qt console options"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -106,6 +103,18 @@ significant differences from the latest stable release.</p>
 <h1>IPython notebook options<a class="headerlink" href="#ipython-notebook-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
+<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;sha256&#8217;</p>
+<p class="last">The hashing algorithm used to sign notebooks.</p>
+</dd>
+<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">The secret key with which notebooks are signed.</p>
+</dd>
+<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The file where the secret key is stored.</p>
+</dd>
 <dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
 <dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
@@ -121,7 +130,7 @@ significant differences from the latest stable release.</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
 <dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/Users/minrk/dev/ip/mine/docs&#8217;</p>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
 <p class="last">No description</p>
 </dd>
 <dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
@@ -130,6 +139,66 @@ significant differences from the latest stable release.</p>
 <p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
 name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
 save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
+</dd>
+<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
+<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
+KernelManager for customized behavior.</p>
+</dd>
+<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">Should we autorestart the kernel if it dies.</p>
+</dd>
+<dt>KernelManager.connection_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p>JSON file in which to store connection info [default: kernel-&lt;pid&gt;.json]</p>
+<p class="last">This file will contain the IP, ports, and authentication key needed to
+connect clients to this kernel. By default, this file will be created in the
+security dir of the current profile, but can be specified by absolute path.</p>
+</dd>
+<dt>KernelManager.control_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the control (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.hb_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the heartbeat port [default: random]</p>
+</dd>
+<dt>KernelManager.iopub_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the iopub (PUB) port [default: random]</p>
+</dd>
+<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!</p>
+</dd>
+<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: []</p>
+<p>DEPRECATED: Use kernel_name instead.</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
+</dd>
+<dt>KernelManager.shell_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the shell (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.stdin_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the stdin (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;tcp&#8217;</p>
+<p class="last">No description</p>
 </dd>
 <dt>NotebookApp.base_project_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: &#8216;/&#8217;</p>
@@ -202,7 +271,7 @@ machine, or overriding individual files in the IPython</p>
 <dd><p class="first">Default: u&#8217;&#8216;</p>
 <p class="last">The name of the IPython directory. This directory is used for logging
 configuration (through profiles), history storage, etc. The default is
-usually $HOME/.ipython. This options can also be specified through the
+usually $HOME/.ipython. This option can also be specified through the
 environment variable IPYTHONDIR.</p>
 </dd>
 <dt>NotebookApp.jinja_environment_options <span class="classifier-delimiter">:</span> <span class="classifier">Dict</span></dt>
@@ -239,7 +308,7 @@ environment variable IPYTHONDIR.</p>
 IPYTHONDIR/nbextensions</p>
 </dd>
 <dt>NotebookApp.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/Users/minrk/dev/ip/mine/docs&#8217;</p>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
 <p class="last">The directory to use for notebooks and kernels.</p>
 </dd>
 <dt>NotebookApp.notebook_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
@@ -303,78 +372,6 @@ traceback</p>
 <p class="last">Supply overrides for the tornado.web.Application that the IPython notebook
 uses.</p>
 </dd>
-<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
-<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
-KernelManager for customized behavior.</p>
-</dd>
-<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/Users/minrk/dev/ip/mine/docs&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;sha256&#8217;</p>
-<p class="last">The hashing algorithm used to sign notebooks.</p>
-</dd>
-<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">The secret key with which notebooks are signed.</p>
-</dd>
-<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The file where the secret key is stored.</p>
-</dd>
-<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">Should we autorestart the kernel if it dies.</p>
-</dd>
-<dt>KernelManager.connection_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p>JSON file in which to store connection info [default: kernel-&lt;pid&gt;.json]</p>
-<p class="last">This file will contain the IP, ports, and authentication key needed to
-connect clients to this kernel. By default, this file will be created in the
-security dir of the current profile, but can be specified by absolute path.</p>
-</dd>
-<dt>KernelManager.control_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the control (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.hb_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the heartbeat port [default: random]</p>
-</dd>
-<dt>KernelManager.iopub_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the iopub (PUB) port [default: random]</p>
-</dd>
-<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
-something other than localhost, then Consoles on other machines will be able
-to connect to the Kernel, so be careful!</p>
-</dd>
-<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: []</p>
-<p>DEPRECATED: Use kernel_name instead.</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
-kernel. If kernel_cmd is specified in a configuration file, IPython does not
-pass any arguments to the kernel, because it cannot make any assumptions
-about the  arguments that the kernel understands. In particular, this means
-that the kernel does not receive the option &#8211;debug if it given on the
-IPython command line.</p>
-</dd>
-<dt>KernelManager.shell_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the shell (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.stdin_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the stdin (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;tcp&#8217;</p>
-<p class="last">No description</p>
-</dd>
 </dl>
 </div>
 
@@ -394,9 +391,6 @@ IPython command line.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="qtconsole.html" title="IPython Qt console options"
              >next</a> |</li>
         <li class="right" >
@@ -412,7 +406,7 @@ IPython command line.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 12, 2014.
+      Last updated on Jun 26, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

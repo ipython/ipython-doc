@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: kernel.launcher" href="IPython.kernel.launcher.html" />
+    <link rel="next" title="Module: kernel.kernelspecapp" href="IPython.kernel.kernelspecapp.html" />
     <link rel="prev" title="Module: kernel.ioloop.restarter" href="IPython.kernel.ioloop.restarter.html" /> 
   </head>
   <body>
@@ -44,10 +44,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="IPython.kernel.launcher.html" title="Module: kernel.launcher"
+          <a href="IPython.kernel.kernelspecapp.html" title="Module: kernel.kernelspecapp"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.kernel.ioloop.restarter.html" title="Module: kernel.ioloop.restarter"
@@ -66,7 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.kernelspec</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">3 Classes</a></li>
-<li><a class="reference internal" href="#functions">2 Functions</a></li>
+<li><a class="reference internal" href="#functions">3 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -75,8 +72,8 @@
   <p class="topless"><a href="IPython.kernel.ioloop.restarter.html"
                         title="previous chapter">Module: <tt class="docutils literal"><span class="pre">kernel.ioloop.restarter</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.kernel.launcher.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">kernel.launcher</span></tt></a></p>
+  <p class="topless"><a href="IPython.kernel.kernelspecapp.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">kernel.kernelspecapp</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.kernel.kernelspec.txt"
@@ -160,11 +157,25 @@ significant differences from the latest stable release.</p>
 <p>Raises <a class="reference internal" href="#IPython.kernel.kernelspec.NoSuchKernel" title="IPython.kernel.kernelspec.NoSuchKernel"><tt class="xref py py-exc docutils literal"><span class="pre">NoSuchKernel</span></tt></a> if the given kernel name is not found.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.kernel.kernelspec.KernelSpecManager.install_kernel_spec">
+<tt class="descname">install_kernel_spec</tt><big>(</big><em>source_dir</em>, <em>kernel_name=None</em>, <em>system=False</em>, <em>replace=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpecManager.install_kernel_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install a kernel spec by copying its directory.</p>
+<p>If <tt class="docutils literal"><span class="pre">kernel_name</span></tt> is not given, the basename of <tt class="docutils literal"><span class="pre">source_dir</span></tt> will
+be used.</p>
+<p>If <tt class="docutils literal"><span class="pre">system</span></tt> is True, it will attempt to install into the systemwide
+kernel registry. If the process does not have appropriate permissions,
+an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt> will be raised.</p>
+<p>If <tt class="docutils literal"><span class="pre">replace</span></tt> is True, this will replace an existing kernel of the same
+name. Otherwise, if the destination already exists, an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt>
+will be raised.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="functions">
-<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.kernel.kernelspec.find_kernel_specs">
 <tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">find_kernel_specs</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.find_kernel_specs" title="Permalink to this definition">¶</a></dt>
@@ -176,6 +187,20 @@ significant differences from the latest stable release.</p>
 <tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">get_kernel_spec</tt><big>(</big><em>kernel_name</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.get_kernel_spec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#IPython.kernel.kernelspec.KernelSpec" title="IPython.kernel.kernelspec.KernelSpec"><tt class="xref py py-class docutils literal"><span class="pre">KernelSpec</span></tt></a> instance for the given kernel_name.</p>
 <p>Raises KeyError if the given kernel name is not found.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.kernelspec.install_kernel_spec">
+<tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">install_kernel_spec</tt><big>(</big><em>source_dir</em>, <em>kernel_name=None</em>, <em>system=False</em>, <em>replace=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.install_kernel_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install a kernel spec by copying its directory.</p>
+<p>If <tt class="docutils literal"><span class="pre">kernel_name</span></tt> is not given, the basename of <tt class="docutils literal"><span class="pre">source_dir</span></tt> will
+be used.</p>
+<p>If <tt class="docutils literal"><span class="pre">system</span></tt> is True, it will attempt to install into the systemwide
+kernel registry. If the process does not have appropriate permissions,
+an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt> will be raised.</p>
+<p>If <tt class="docutils literal"><span class="pre">replace</span></tt> is True, this will replace an existing kernel of the same
+name. Otherwise, if the destination already exists, an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt>
+will be raised.</p>
 </dd></dl>
 
 </div>
@@ -197,10 +222,7 @@ significant differences from the latest stable release.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="IPython.kernel.launcher.html" title="Module: kernel.launcher"
+          <a href="IPython.kernel.kernelspecapp.html" title="Module: kernel.kernelspecapp"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.kernel.ioloop.restarter.html" title="Module: kernel.ioloop.restarter"
@@ -214,7 +236,7 @@ significant differences from the latest stable release.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 12, 2014.
+      Last updated on Jun 26, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

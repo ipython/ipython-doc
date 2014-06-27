@@ -44,9 +44,6 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="IPython.kernel.managerabc.html" title="Module: kernel.managerabc"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -117,7 +114,7 @@ significant differences from the latest stable release.</p>
 <dl class="class">
 <dt id="IPython.kernel.manager.KernelManager">
 <em class="property">class </em><tt class="descclassname">IPython.kernel.manager.</tt><tt class="descname">KernelManager</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a>, <a class="reference internal" href="IPython.kernel.connect.html#IPython.kernel.connect.ConnectionFileMixin" title="IPython.kernel.connect.ConnectionFileMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.connect.ConnectionFileMixin</span></tt></a></p>
+<dd><p>Bases: <a class="reference internal" href="IPython.kernel.connect.html#IPython.kernel.connect.ConnectionFileMixin" title="IPython.kernel.connect.ConnectionFileMixin"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.connect.ConnectionFileMixin</span></tt></a></p>
 <p>Manages a single kernel in a subprocess on this host.</p>
 <p>This version starts kernels with Popen.</p>
 <dl class="method">
@@ -127,9 +124,23 @@ significant differences from the latest stable release.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.kernel.manager.KernelManager.cleanup">
+<tt class="descname">cleanup</tt><big>(</big><em>connection_file=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean up resources when the kernel is shut down</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.kernel.manager.KernelManager.client">
 <tt class="descname">client</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager.client" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a client configured to connect to our kernel</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.manager.KernelManager.finish_shutdown">
+<tt class="descname">finish_shutdown</tt><big>(</big><em>waittime=1</em>, <em>pollinterval=0.1</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager.finish_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for kernel shutdown, then kill process if it doesn&#8217;t shutdown.</p>
+<p>This does not send shutdown requests - use <a class="reference internal" href="#IPython.kernel.manager.KernelManager.request_shutdown" title="IPython.kernel.manager.KernelManager.request_shutdown"><tt class="xref py py-meth docutils literal"><span class="pre">request_shutdown()</span></tt></a>
+first.</p>
 </dd></dl>
 
 <dl class="method">
@@ -162,6 +173,14 @@ platforms.</p>
 <dt id="IPython.kernel.manager.KernelManager.remove_restart_callback">
 <tt class="descname">remove_restart_callback</tt><big>(</big><em>callback</em>, <em>event='restart'</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager.remove_restart_callback" title="Permalink to this definition">¶</a></dt>
 <dd><p>unregister a callback to be called when a kernel is restarted</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.manager.KernelManager.request_shutdown">
+<tt class="descname">request_shutdown</tt><big>(</big><em>restart=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.manager.KernelManager.request_shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a shutdown request via control channel</p>
+<p>On Windows, this just kills kernels instead, because the shutdown
+messages don&#8217;t work.</p>
 </dd></dl>
 
 <dl class="method">
@@ -212,7 +231,7 @@ a signal.</li>
 <div><p>Should the kernel be forcible killed <em>now</em>. This skips the
 first, nice shutdown attempt.</p>
 </div></blockquote>
-<p><strong>restart: bool</strong> :</p>
+<p><strong>restart: bool</strong></p>
 <blockquote class="last">
 <div><p>Will this kernel be restarted after it is shutdown. When this
 is True, connection files will not be cleaned up.</p>
@@ -273,9 +292,6 @@ and launching the kernel (e.g. Popen kwargs).</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="IPython.kernel.managerabc.html" title="Module: kernel.managerabc"
              >next</a> |</li>
         <li class="right" >
@@ -290,7 +306,7 @@ and launching the kernel (e.g. Popen kwargs).</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 12, 2014.
+      Last updated on Jun 26, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
