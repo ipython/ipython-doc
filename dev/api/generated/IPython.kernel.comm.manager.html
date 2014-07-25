@@ -63,7 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.comm.manager</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
-<li><a class="reference internal" href="#functions">2 Functions</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
 </ul>
@@ -118,6 +118,24 @@ significant differences from the latest stable release.</p>
 <dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a></p>
 <p>Manager for Comms in the Kernel</p>
 <dl class="method">
+<dt id="IPython.kernel.comm.manager.CommManager.comm_close">
+<tt class="descname">comm_close</tt><big>(</big><em>stream</em>, <em>ident</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.CommManager.comm_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for comm_close messages</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.comm.manager.CommManager.comm_msg">
+<tt class="descname">comm_msg</tt><big>(</big><em>stream</em>, <em>ident</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.CommManager.comm_msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for comm_msg messages</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.comm.manager.CommManager.comm_open">
+<tt class="descname">comm_open</tt><big>(</big><em>stream</em>, <em>ident</em>, <em>msg</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.CommManager.comm_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handler for comm_open messages</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.kernel.comm.manager.CommManager.get_comm">
 <tt class="descname">get_comm</tt><big>(</big><em>comm_id</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.CommManager.get_comm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a comm with a particular id</p>
@@ -136,10 +154,10 @@ it will log messages if the comm cannot be found.</p>
 <dt id="IPython.kernel.comm.manager.CommManager.register_target">
 <tt class="descname">register_target</tt><big>(</big><em>target_name</em>, <em>f</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.CommManager.register_target" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a callable f for a given target name</p>
-<p>f will be called with two arguments when a comm_open message is received with <cite>target</cite>:</p>
+<p>f will be called with two arguments when a comm_open message is received with <tt class="docutils literal"><span class="pre">target</span></tt>:</p>
 <ul class="simple">
 <li>the Comm instance</li>
-<li>the <cite>comm_open</cite> message itself.</li>
+<li>the <tt class="docutils literal"><span class="pre">comm_open</span></tt> message itself.</li>
 </ul>
 <p>f can be a Python callable or an import string for one.</p>
 </dd></dl>
@@ -159,25 +177,14 @@ it will log messages if the comm cannot be found.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="functions">
-<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.kernel.comm.manager.lazy_keys">
 <tt class="descclassname">IPython.kernel.comm.manager.</tt><tt class="descname">lazy_keys</tt><big>(</big><em>dikt</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.lazy_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return lazy-evaluated string representation of a dictionary&#8217;s keys</p>
 <p>Key list is only constructed if it will actually be used.
 Used for debug-logging.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.kernel.comm.manager.with_output">
-<tt class="descclassname">IPython.kernel.comm.manager.</tt><tt class="descname">with_output</tt><big>(</big><em>method</em><big>)</big><a class="headerlink" href="#IPython.kernel.comm.manager.with_output" title="Permalink to this definition">¶</a></dt>
-<dd><p>method decorator for ensuring output is handled properly in a message handler</p>
-<ul class="simple">
-<li>sets parent header before entering the method</li>
-<li>publishes busy/idle</li>
-<li>flushes stdout/stderr after</li>
-</ul>
 </dd></dl>
 
 </div>
@@ -213,7 +220,7 @@ Used for debug-logging.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

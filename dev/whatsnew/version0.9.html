@@ -163,36 +163,36 @@ working hard on continuing to improve it, as this was probably IPython&#8217;s
 major Achilles heel (the lack of proper test coverage made it effectively
 impossible to do large-scale refactoring).  The full test suite can now
 be run using the <strong class="command">iptest</strong> command line program.</li>
-<li>The notion of a task has been completely reworked.  An <cite>ITask</cite> interface has
+<li>The notion of a task has been completely reworked.  An <tt class="docutils literal"><span class="pre">ITask</span></tt> interface has
 been created.  This interface defines the methods that tasks need to
 implement.  These methods are now responsible for things like submitting
 tasks and processing results.  There are two basic task types:
-<tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.task.StringTask</span></tt> (this is the old <cite>Task</cite> object, but
+<tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.task.StringTask</span></tt> (this is the old <tt class="docutils literal"><span class="pre">Task</span></tt> object, but
 renamed) and the new <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.task.MapTask</span></tt>, which is based on
 a function.</li>
 <li>A new interface, <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.mapper.IMapper</span></tt> has been defined to
-standardize the idea of a <cite>map</cite> method.  This interface has a single <cite>map</cite>
-method that has the same syntax as the built-in <cite>map</cite>.  We have also defined
-a <cite>mapper</cite> factory interface that creates objects that implement
+standardize the idea of a <tt class="docutils literal"><span class="pre">map</span></tt> method.  This interface has a single <tt class="docutils literal"><span class="pre">map</span></tt>
+method that has the same syntax as the built-in <tt class="docutils literal"><span class="pre">map</span></tt>.  We have also defined
+a <tt class="docutils literal"><span class="pre">mapper</span></tt> factory interface that creates objects that implement
 <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.mapper.IMapper</span></tt> for different controllers.  Both the
 multiengine and task controller now have mapping capabilties.</li>
 <li>The parallel function capabilities have been reworks.  The major changes are
-that i) there is now an <cite>&#64;parallel</cite> magic that creates parallel functions,
-ii) the syntax for multiple variable follows that of <cite>map</cite>, iii) both the
+that i) there is now an <tt class="docutils literal"><span class="pre">&#64;parallel</span></tt> magic that creates parallel functions,
+ii) the syntax for multiple variable follows that of <tt class="docutils literal"><span class="pre">map</span></tt>, iii) both the
 multiengine and task controller now have a parallel function implementation.</li>
-<li>All of the parallel computing capabilities from <cite>ipython1-dev</cite> have been
+<li>All of the parallel computing capabilities from <tt class="docutils literal"><span class="pre">ipython1-dev</span></tt> have been
 merged into IPython proper.  This resulted in the following new subpackages:
 <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.core</span></tt>, <tt class="xref py py-mod docutils literal"><span class="pre">IPython.config</span></tt>,
 <tt class="xref py py-mod docutils literal"><span class="pre">IPython.tools</span></tt> and <a class="reference internal" href="../api/generated/IPython.testing.html#module-IPython.testing" title="IPython.testing"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.testing</span></tt></a>.</li>
-<li>As part of merging in the <cite>ipython1-dev</cite> stuff, the <cite>setup.py</cite> script and
+<li>As part of merging in the <tt class="docutils literal"><span class="pre">ipython1-dev</span></tt> stuff, the <tt class="docutils literal"><span class="pre">setup.py</span></tt> script and
 friends have been completely refactored.  Now we are checking for
 dependencies using the approach that matplotlib uses.</li>
 <li>The documentation has been completely reorganized to accept the
-documentation from <cite>ipython1-dev</cite>.</li>
+documentation from <tt class="docutils literal"><span class="pre">ipython1-dev</span></tt>.</li>
 <li>We have switched to using Foolscap for all of our network protocols in
 <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel</span></tt>.  This gives us secure connections that are both
 encrypted and authenticated.</li>
-<li>We have a brand new <cite>COPYING.txt</cite> files that describes the IPython license
+<li>We have a brand new <tt class="docutils literal"><span class="pre">COPYING.txt</span></tt> files that describes the IPython license
 and copyright. The biggest change is that we are putting &#8220;The IPython
 Development Team&#8221; as the copyright holder. We give more details about
 exactly what this means in this file. All developer should read this and use
@@ -240,12 +240,12 @@ IPython directory.</li>
 creation.</li>
 <li><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.client.Task</span></tt> has been renamed
 <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.client.StringTask</span></tt> to make way for new task types.</li>
-<li>The keyword argument <cite>style</cite> has been renamed <cite>dist</cite> in <cite>scatter</cite>, <cite>gather</cite>
-and <cite>map</cite>.</li>
-<li>Renamed the values that the rename <cite>dist</cite> keyword argument can have from
-<cite>&#8216;basic&#8217;</cite> to <cite>&#8216;b&#8217;</cite>.</li>
+<li>The keyword argument <tt class="docutils literal"><span class="pre">style</span></tt> has been renamed <tt class="docutils literal"><span class="pre">dist</span></tt> in <tt class="docutils literal"><span class="pre">scatter</span></tt>, <tt class="docutils literal"><span class="pre">gather</span></tt>
+and <tt class="docutils literal"><span class="pre">map</span></tt>.</li>
+<li>Renamed the values that the rename <tt class="docutils literal"><span class="pre">dist</span></tt> keyword argument can have from
+<tt class="docutils literal"><span class="pre">'basic'</span></tt> to <tt class="docutils literal"><span class="pre">'b'</span></tt>.</li>
 <li>IPython has a larger set of dependencies if you want all of its capabilities.
-See the <cite>setup.py</cite> script for details.</li>
+See the <tt class="docutils literal"><span class="pre">setup.py</span></tt> script for details.</li>
 <li>The constructors for <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.client.MultiEngineClient</span></tt> and
 <tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.client.TaskClient</span></tt> no longer take the (ip,port) tuple.
 Instead they take the filename of a file that contains the FURL for that
@@ -253,8 +253,8 @@ client.  If the FURL file is in your IPYTHONDIR, it will be found automatically
 and the constructor can be left empty.</li>
 <li>The asynchronous clients in <tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.asyncclient</span></tt> are now created
 using the factory functions <tt class="xref py py-func docutils literal"><span class="pre">get_multiengine_client()</span></tt> and
-<tt class="xref py py-func docutils literal"><span class="pre">get_task_client()</span></tt>.  These return a <cite>Deferred</cite> to the actual client.</li>
-<li>The command line options to <cite>ipcontroller</cite> and <cite>ipengine</cite> have changed to
+<tt class="xref py py-func docutils literal"><span class="pre">get_task_client()</span></tt>.  These return a <tt class="docutils literal"><span class="pre">Deferred</span></tt> to the actual client.</li>
+<li>The command line options to <tt class="docutils literal"><span class="pre">ipcontroller</span></tt> and <tt class="docutils literal"><span class="pre">ipengine</span></tt> have changed to
 reflect the new Foolscap network protocol and the FURL files.  Please see the
 help for these scripts for details.</li>
 <li>The configuration files for the kernel have changed because of the Foolscap
@@ -273,7 +273,7 @@ in our setupegg.py script.</li>
 <li>IPython is now compatible with Twisted 2.5.0 and 8.x.</li>
 <li>Added a new example of how to use <tt class="xref py py-mod docutils literal"><span class="pre">ipython1.kernel.asynclient</span></tt>.</li>
 <li>Initial draft of a process daemon in <tt class="xref py py-mod docutils literal"><span class="pre">ipython1.daemon</span></tt>.  This has not
-been merged into IPython and is still in <cite>ipython1-dev</cite>.</li>
+been merged into IPython and is still in <tt class="docutils literal"><span class="pre">ipython1-dev</span></tt>.</li>
 <li>The <tt class="docutils literal"><span class="pre">TaskController</span></tt> now has methods for getting the queue status.</li>
 <li>The <tt class="docutils literal"><span class="pre">TaskResult</span></tt> objects not have information about how long the task
 took to run.</li>
@@ -377,7 +377,7 @@ and <tt class="docutils literal"><span class="pre">pull</span></tt>.</li>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

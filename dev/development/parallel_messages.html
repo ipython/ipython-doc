@@ -185,7 +185,7 @@ from clients need no information:</p>
 </div>
 <p>The reply to a Client registration request contains the connection information for the
 multiplexer and load balanced queues, as well as the address for direct hub
-queries. If any of these addresses is <cite>None</cite>, that functionality is not available.</p>
+queries. If any of these addresses is <tt class="docutils literal"><span class="pre">None</span></tt>, that functionality is not available.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">connection_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
@@ -225,9 +225,9 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 results or monitor pending tasks. This information may reside in-memory on the Hub, or
 on disk in a database (SQLite and MongoDB are currently supported).  These requests are
 handled by the same socket as registration.</p>
-<p><tt class="xref py py-func docutils literal"><span class="pre">queue_request()</span></tt> requests can specify multiple engines to query via the <cite>targets</cite>
+<p><tt class="xref py py-func docutils literal"><span class="pre">queue_request()</span></tt> requests can specify multiple engines to query via the <tt class="docutils literal"><span class="pre">targets</span></tt>
 element. A verbose flag can be passed, to determine whether the result should be the list
-of <cite>msg_ids</cite> in the queue or simply the length of each list.</p>
+of <tt class="docutils literal"><span class="pre">msg_ids</span></tt> in the queue or simply the length of each list.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">queue_request</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;verbose&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="c"># whether return should be lists themselves or just lens</span>
@@ -269,7 +269,7 @@ results, but simply poll the status of the jobs.</p>
 </pre></div>
 </div>
 <p>The <tt class="xref py py-func docutils literal"><span class="pre">result_request()</span></tt> reply contains the content objects of the actual execution
-reply messages. If <cite>statusonly=True</cite>, then there will be only the &#8216;pending&#8217; and
+reply messages. If <tt class="docutils literal"><span class="pre">statusonly=True</span></tt>, then there will be only the &#8216;pending&#8217; and
 &#8216;completed&#8217; lists.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">result_reply</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
@@ -349,11 +349,11 @@ use the model:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ns</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>which takes <cite>f</cite>, a function in the user&#8217;s namespace, and executes <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt>
+<p>which takes <tt class="docutils literal"><span class="pre">f</span></tt>, a function in the user&#8217;s namespace, and executes <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt>
 on a remote engine, returning the result (or, for non-blocking, information facilitating
 later retrieval of the result). This model, unlike the execute message which just uses a
 code string, must be able to send arbitrary (pickleable) Python objects. And ideally, copy
-as little data as we can. The <cite>buffers</cite> property of a Message was introduced for this
+as little data as we can. The <tt class="docutils literal"><span class="pre">buffers</span></tt> property of a Message was introduced for this
 purpose.</p>
 <p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <a class="reference internal" href="../api/generated/IPython.kernel.zmq.serialize.html#module-IPython.kernel.zmq.serialize" title="IPython.kernel.zmq.serialize"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq.serialize</span></tt></a> wraps a
 function signature and builds a sendable buffer format for minimal data copying (exactly
@@ -434,9 +434,9 @@ shutdown request, then it aborts all queued messages, replies to the request, an
 </div>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<p>There are a few differences in implementation between the <cite>StreamSession</cite> object used in
-the newparallel branch and the <cite>Session</cite> object, the main one being that messages are
-sent in parts, rather than as a single serialized object. <cite>StreamSession</cite> objects also
+<p>There are a few differences in implementation between the <tt class="docutils literal"><span class="pre">StreamSession</span></tt> object used in
+the newparallel branch and the <tt class="docutils literal"><span class="pre">Session</span></tt> object, the main one being that messages are
+sent in parts, rather than as a single serialized object. <tt class="docutils literal"><span class="pre">StreamSession</span></tt> objects also
 take pack/unpack functions, which are to be used when serializing/deserializing objects.
 These can be any functions that translate to/from formats that ZMQ sockets can send
 (buffers,bytes, etc.).</p>
@@ -484,7 +484,7 @@ present the buffer interface.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

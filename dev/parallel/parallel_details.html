@@ -197,7 +197,7 @@ The <tt class="xref py py-attr docutils literal"><span class="pre">ndarray.flags
 <span class="gh">Out[6]: </span><span class="go">False</span>
 </pre></div>
 </div>
-<p>If you want to safely edit an array in-place after <em>sending</em> it, you must use the <cite>track=True</cite>
+<p>If you want to safely edit an array in-place after <em>sending</em> it, you must use the <tt class="docutils literal"><span class="pre">track=True</span></tt>
 flag. IPython always performs non-copying sends of arrays, which return immediately. You must
 instruct IPython track those messages <em>at send time</em> in order to know for sure that the send has
 completed. AsyncResults have a <tt class="xref py py-attr docutils literal"><span class="pre">sent</span></tt> property, and <tt class="xref py py-meth docutils literal"><span class="pre">wait_on_send()</span></tt> method for
@@ -244,9 +244,9 @@ functions that refer to variables in their parent scope have closures.</p>
 <span class="n">f2</span><span class="p">()</span> <span class="c"># returns 2</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">f1</span></tt> and <tt class="docutils literal"><span class="pre">f2</span></tt> will have closures referring to the scope in which <cite>inner</cite> was defined,
+<p><tt class="docutils literal"><span class="pre">f1</span></tt> and <tt class="docutils literal"><span class="pre">f2</span></tt> will have closures referring to the scope in which <tt class="docutils literal"><span class="pre">inner</span></tt> was defined,
 because they use the variable &#8216;a&#8217;. As a result, you would not be able to send <tt class="docutils literal"><span class="pre">f1</span></tt> or <tt class="docutils literal"><span class="pre">f2</span></tt>
-with IPython. Note that you <em>would</em> be able to send <cite>f</cite>. This is only true for interactively
+with IPython. Note that you <em>would</em> be able to send <tt class="docutils literal"><span class="pre">f</span></tt>. This is only true for interactively
 defined functions (as are often used in decorators), and only when there are variables used
 inside the inner function, that are defined in the outer function. If the names are <em>not</em> in the
 outer function, then there will not be a closure, and the generated function will look in
@@ -264,9 +264,9 @@ outer function, then there will not be a closure, and the generated function wil
 <span class="n">g2</span><span class="p">()</span> <span class="c"># returns 5</span>
 </pre></div>
 </div>
-<p><cite>g1</cite> and <cite>g2</cite> <em>will</em> be sendable with IPython, and will treat the engine&#8217;s namespace as
+<p><tt class="docutils literal"><span class="pre">g1</span></tt> and <tt class="docutils literal"><span class="pre">g2</span></tt> <em>will</em> be sendable with IPython, and will treat the engine&#8217;s namespace as
 globals().  The <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> method is implemented based on this principle.  If we did not
-provide pull, you could implement it yourself with <cite>apply</cite>, by simply returning objects out
+provide pull, you could implement it yourself with <tt class="docutils literal"><span class="pre">apply</span></tt>, by simply returning objects out
 of the global namespace:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">view</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="n">a</span><span class="p">)</span>
 
@@ -281,7 +281,7 @@ of the global namespace:</p>
 <h2>Running Code<a class="headerlink" href="#running-code" title="Permalink to this headline">¶</a></h2>
 <p>There are two principal units of execution in Python: strings of Python code (e.g. &#8216;a=5&#8217;),
 and Python functions.  IPython is designed around the use of functions via the core
-Client method, called <cite>apply</cite>.</p>
+Client method, called <tt class="docutils literal"><span class="pre">apply</span></tt>.</p>
 <div class="section" id="apply">
 <h3>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>The principal method of remote execution is <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, of
@@ -292,9 +292,9 @@ by all higher level methods of its Views.</p>
 <dt>f <span class="classifier-delimiter">:</span> <span class="classifier">function</span></dt>
 <dd>The function to be called remotely</dd>
 <dt>args <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
-<dd>The positional arguments passed to <cite>f</cite></dd>
+<dd>The positional arguments passed to <tt class="docutils literal"><span class="pre">f</span></tt></dd>
 <dt>kwargs <span class="classifier-delimiter">:</span> <span class="classifier">dict</span></dt>
-<dd>The keyword arguments passed to <cite>f</cite></dd>
+<dd>The keyword arguments passed to <tt class="docutils literal"><span class="pre">f</span></tt></dd>
 </dl>
 <p>flags for all views:</p>
 <dl class="docutils">
@@ -307,7 +307,7 @@ by all higher level methods of its Views.</p>
 <dd><p class="first">returns actual result(s) of <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt></p>
 <dl class="last docutils">
 <dt>if multiple targets:</dt>
-<dd>list of results, matching <cite>targets</cite></dd>
+<dd>list of results, matching <tt class="docutils literal"><span class="pre">targets</span></tt></dd>
 </dl>
 </dd>
 </dl>
@@ -351,8 +351,8 @@ DependencyTimeout.</dd>
 <h3>execute and run<a class="headerlink" href="#execute-and-run" title="Permalink to this headline">¶</a></h3>
 <p>For executing strings of Python code, <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> &#8216;s also provide an <tt class="xref py py-meth docutils literal"><span class="pre">execute()</span></tt> and
 a <tt class="xref py py-meth docutils literal"><span class="pre">run()</span></tt> method, which rather than take functions and arguments, take simple strings.
-<cite>execute</cite> simply takes a string of Python code to execute, and sends it to the Engine(s). <cite>run</cite>
-is the same as <cite>execute</cite>, but for a <em>file</em>, rather than a string. It is simply a wrapper that
+<tt class="docutils literal"><span class="pre">execute</span></tt> simply takes a string of Python code to execute, and sends it to the Engine(s). <tt class="docutils literal"><span class="pre">run</span></tt>
+is the same as <tt class="docutils literal"><span class="pre">execute</span></tt>, but for a <em>file</em>, rather than a string. It is simply a wrapper that
 does something very similar to <tt class="docutils literal"><span class="pre">execute(open(f).read())</span></tt>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -491,7 +491,7 @@ data movement methods like push/pull and scatter/gather do not make sense, and a
 object, based on the object of the same name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#module-multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a>
 module. Our version provides a superset of that interface.</p>
 <p>The basic principle of the AsyncResult is the encapsulation of one or more results not yet completed.  Execution methods (including data movement, such as push/pull) will all return
-AsyncResults when <cite>block=False</cite>.</p>
+AsyncResults when <tt class="docutils literal"><span class="pre">block=False</span></tt>.</p>
 </div>
 <div class="section" id="the-mp-pool-asyncresult-interface">
 <h3>The mp.pool.AsyncResult interface<a class="headerlink" href="#the-mp-pool-asyncresult-interface" title="Permalink to this headline">¶</a></h3>
@@ -548,7 +548,7 @@ timeout is reached, then <tt class="xref py py-meth docutils literal"><span clas
 and will raise an exception if there was.</p>
 <p>Here is where we start to expand on the multiprocessing interface. Rather than raising the
 original exception, a RemoteError will be raised, encapsulating the remote exception with some
-metadata. If the AsyncResult represents multiple calls (e.g. any time <cite>targets</cite> is plural), then
+metadata. If the AsyncResult represents multiple calls (e.g. any time <tt class="docutils literal"><span class="pre">targets</span></tt> is plural), then
 a CompositeError, a subclass of RemoteError, will be raised.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
@@ -652,7 +652,7 @@ run the jobs if they arrive. The jobs will then fail with an AbortedTask error.<
 <p>clear</p>
 <blockquote>
 <div>You may want to purge the Engine(s) namespace of any data you have left in it.  After
-running <cite>clear</cite>, there will be no names in the Engine&#8217;s namespace</div></blockquote>
+running <tt class="docutils literal"><span class="pre">clear</span></tt>, there will be no names in the Engine&#8217;s namespace</div></blockquote>
 <p>shutdown</p>
 <blockquote>
 <div>You can also instruct engines (and the Controller) to terminate from a Client.  This
@@ -663,7 +663,7 @@ single command.</div></blockquote>
 <h2>Synchronization<a class="headerlink" href="#synchronization" title="Permalink to this headline">¶</a></h2>
 <p>Since the Client is a synchronous object, events do not automatically trigger in your
 interactive session - you must poll the 0MQ sockets for incoming messages.  Note that
-this polling <em>does not</em> actually make any network requests.  It simply performs a <cite>select</cite>
+this polling <em>does not</em> actually make any network requests.  It simply performs a <tt class="docutils literal"><span class="pre">select</span></tt>
 operation, to check if messages are already in local memory, waiting to be handled.</p>
 <p>The method that handles incoming messages is <tt class="xref py py-meth docutils literal"><span class="pre">spin()</span></tt>. This method flushes any waiting
 messages on the various incoming sockets, and updates the state of the Client.</p>
@@ -686,10 +686,10 @@ outstanding messages.</p>
 <p>Many parallel computing problems can be expressed as a <tt class="docutils literal"><span class="pre">map</span></tt>, or running a single program with
 a variety of different inputs. Python has a built-in <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a>, which does exactly this,
 and many parallel execution tools in Python, such as the built-in
-<tt class="xref py py-class docutils literal"><span class="pre">multiprocessing.Pool</span></tt> object provide implementations of <cite>map</cite>. All View objects
+<tt class="xref py py-class docutils literal"><span class="pre">multiprocessing.Pool</span></tt> object provide implementations of <tt class="docutils literal"><span class="pre">map</span></tt>. All View objects
 provide a <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> method as well, but the load-balanced and direct implementations differ.</p>
-<p>Views&#8217; map methods can be called on any number of sequences, but they can also take the <cite>block</cite>
-and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, but <em>only as keywords</em>.</p>
+<p>Views&#8217; map methods can be called on any number of sequences, but they can also take the <tt class="docutils literal"><span class="pre">block</span></tt>
+and <tt class="docutils literal"><span class="pre">bound</span></tt> keyword arguments, just like <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>, but <em>only as keywords</em>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">dview</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">*</span><span class="n">sequences</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -750,7 +750,7 @@ and <cite>bound</cite> keyword arguments, just like <tt class="xref py py-meth d
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
-    <link rel="next" title="Making simple Python wrapper kernels" href="wrapperkernels.html" />
+    <link rel="next" title="Making kernels for IPython" href="kernels.html" />
     <link rel="prev" title="IPython developer’s guide" href="index.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="wrapperkernels.html" title="Making simple Python wrapper kernels"
+          <a href="kernels.html" title="Making kernels for IPython"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="IPython developer’s guide"
@@ -110,8 +110,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">IPython developer&#8217;s guide</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="wrapperkernels.html"
-                        title="next chapter">Making simple Python wrapper kernels</a></p>
+  <p class="topless"><a href="kernels.html"
+                        title="next chapter">Making kernels for IPython</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/development/messaging.txt"
@@ -258,7 +258,7 @@ kernel and frontend files for actual implementation details.</p>
 </div>
 </div>
 <div class="section" id="the-wire-protocol">
-<h2>The Wire Protocol<a class="headerlink" href="#the-wire-protocol" title="Permalink to this headline">¶</a></h2>
+<span id="wire-protocol"></span><h2>The Wire Protocol<a class="headerlink" href="#the-wire-protocol" title="Permalink to this headline">¶</a></h2>
 <p>This message format exists at a high level,
 but does not describe the actual <em>implementation</em> at the wire level in zeromq.
 The canonical implementation of the message spec is our <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt></a> class.</p>
@@ -300,7 +300,7 @@ By default, the hashing function used for computing these signatures is sha256.<
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">To disable authentication and signature checking,
-set the <cite>key</cite> field of a connection file to an empty string.</p>
+set the <tt class="docutils literal"><span class="pre">key</span></tt> field of a connection file to an empty string.</p>
 </div>
 <p>The signature is the HMAC hex digest of the concatenation of:</p>
 <ul class="simple">
@@ -832,7 +832,7 @@ of images:</p>
 </pre></div>
 </div>
 <div class="versionchanged">
-<p><span class="versionmodified">Changed in version 5.0: </span><cite>application/json</cite> data should be unpacked JSON data,
+<p><span class="versionmodified">Changed in version 5.0: </span><tt class="docutils literal"><span class="pre">application/json</span></tt> data should be unpacked JSON data,
 not double-serialized as a JSON string.</p>
 </div>
 </div>
@@ -933,12 +933,16 @@ any JSON object and depends on the format. It is often, but not always a string.
 <p>This message type is used by frontends to monitor the status of the kernel.</p>
 <p>Message type: <tt class="docutils literal"><span class="pre">status</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># When the kernel starts to execute code, it will enter the &#39;busy&#39;</span>
+    <span class="c"># When the kernel starts to handle a message, it will enter the &#39;busy&#39;</span>
     <span class="c"># state and when it finishes, it will enter the &#39;idle&#39; state.</span>
     <span class="c"># The kernel will publish state &#39;starting&#39; exactly once at process startup.</span>
     <span class="n">execution_state</span> <span class="p">:</span> <span class="p">(</span><span class="s">&#39;busy&#39;</span><span class="p">,</span> <span class="s">&#39;idle&#39;</span><span class="p">,</span> <span class="s">&#39;starting&#39;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 5.0: </span>Busy and idle messages should be sent before/after handling every message,
+not just execution.</p>
 </div>
 </div>
 <div class="section" id="clear-output">
@@ -1010,7 +1014,7 @@ available.</p>
 </div>
 </div>
 <div class="section" id="heartbeat-for-kernels">
-<h2>Heartbeat for kernels<a class="headerlink" href="#heartbeat-for-kernels" title="Permalink to this headline">¶</a></h2>
+<span id="kernel-heartbeat"></span><h2>Heartbeat for kernels<a class="headerlink" href="#heartbeat-for-kernels" title="Permalink to this headline">¶</a></h2>
 <p>Clients send ping messages on a REQ socket, which are echoed right back
 from the Kernel&#8217;s REP socket. These are simple bytestrings, not full JSON messages described above.</p>
 </div>
@@ -1104,7 +1108,7 @@ just like an execute request.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="wrapperkernels.html" title="Making simple Python wrapper kernels"
+          <a href="kernels.html" title="Making kernels for IPython"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="IPython developer’s guide"
@@ -1118,7 +1122,7 @@ just like an execute request.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

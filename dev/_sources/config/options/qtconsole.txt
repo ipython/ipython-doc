@@ -3,171 +3,68 @@ IPython Qt console options
 
 Any of the :doc:`kernel` can also be used.
 
-IPythonWidget.ansi_codes : Bool
-    Default: True
-
-    Whether to process ANSI escape codes.
-
-IPythonWidget.banner : Unicode
-    Default: u''
-
-    No description
-
-IPythonWidget.buffer_size : Integer
-    Default: 500
-
-    The maximum number of lines of text before truncation. Specifying a non-
-    positive number disables text truncation (not recommended).
-
-IPythonWidget.clear_on_kernel_restart : Bool
-    Default: True
-
-    Whether to clear the console when the kernel is restarted
-
-IPythonWidget.confirm_restart : Bool
-    Default: True
-
-    Whether to ask for user confirmation when restarting kernel
-
-IPythonWidget.editor : Unicode
-    Default: ''
-
-    A command for invoking a system text editor. If the string contains a
-    {filename} format specifier, it will be used. Otherwise, the filename will
-    be appended to the end the command.
-
-IPythonWidget.editor_line : Unicode
-    Default: u''
-
-    The editor command to use when a specific line number is requested. The
-    string should contain two format specifiers: {line} and {filename}. If this
-    parameter is not specified, the line number option to the %edit magic will
-    be ignored.
-
-IPythonWidget.enable_calltips : Bool
-    Default: True
-
-    Whether to draw information calltips on open-parentheses.
-
-IPythonWidget.execute_on_complete_input : Bool
-    Default: True
-
-    Whether to automatically execute on syntactically complete input.
-    
-    If False, Shift-Enter is required to submit each execution. Disabling this
-    is mainly useful for non-Python kernels, where the completion check would be
-    wrong.
-
-IPythonWidget.font_family : Unicode
-    Default: u''
-
-    The font family to use for the console. On OSX this defaults to Monaco, on
-    Windows the default is Consolas with fallback of Courier, and on other
-    platforms the default is Monospace.
-
-IPythonWidget.font_size : Integer
-    Default: 0
-
-    The font size. If unconfigured, Qt will be entrusted with the size of the
-    font.
-
-IPythonWidget.gui_completion : 'plain'|'droplist'|'ncurses'
-    Default: 'ncurses'
-
-    The type of completer to use. Valid values are:
-    
-    'plain'   : Show the available completion as a text list
-                Below the editing area.
-    'droplist': Show the completion in a drop down list navigable
-                by the arrow keys, and from which you can select
-                completion by pressing Return.
-    'ncurses' : Show the completion as a text list which is navigable by
-                `tab` and arrow keys.
-
-IPythonWidget.height : Integer
-    Default: 25
-
-    The height of the console at start time in number of characters (will double
-    with `vsplit` paging)
-
-IPythonWidget.history_lock : Bool
+KernelManager.autorestart : Bool
     Default: False
 
-    No description
+    Should we autorestart the kernel if it dies.
 
-IPythonWidget.in_prompt : Unicode
-    Default: 'In [<span class="in-prompt-number">%i</span>]: '
-
-    No description
-
-IPythonWidget.input_sep : Unicode
-    Default: '\\n'
-
-    No description
-
-IPythonWidget.kind : 'plain'|'rich'
-    Default: 'plain'
-
-    The type of underlying text widget to use. Valid values are 'plain', which
-    specifies a QPlainTextEdit, and 'rich', which specifies a QTextEdit.
-
-IPythonWidget.lexer_class : DottedObjectName
-    Default: <IPython.utils.traitlets.Undefined object at 0x7f51c9d9a6d0>
-
-    The pygments lexer class to use.
-
-IPythonWidget.out_prompt : Unicode
-    Default: 'Out[<span class="out-prompt-number">%i</span>]: '
-
-    No description
-
-IPythonWidget.output_sep : Unicode
+KernelManager.connection_file : Unicode
     Default: ''
 
-    No description
-
-IPythonWidget.output_sep2 : Unicode
-    Default: ''
-
-    No description
-
-IPythonWidget.paging : 'inside'|'hsplit'|'vsplit'|'custom'|'none'
-    Default: 'inside'
-
-    The type of paging to use. Valid values are:
+    JSON file in which to store connection info [default: kernel-<pid>.json]
     
-    'inside'
-       The widget pages like a traditional terminal.
-    'hsplit'
-       When paging is requested, the widget is split horizontally. The top
-       pane contains the console, and the bottom pane contains the paged text.
-    'vsplit'
-       Similar to 'hsplit', except that a vertical splitter is used.
-    'custom'
-       No action is taken by the widget beyond emitting a
-       'custom_page_requested(str)' signal.
-    'none'
-       The text is written directly to the console.
+    This file will contain the IP, ports, and authentication key needed to
+    connect clients to this kernel. By default, this file will be created in the
+    security dir of the current profile, but can be specified by absolute path.
 
-IPythonWidget.style_sheet : Unicode
+KernelManager.control_port : Integer
+    Default: 0
+
+    set the control (ROUTER) port [default: random]
+
+KernelManager.hb_port : Integer
+    Default: 0
+
+    set the heartbeat port [default: random]
+
+KernelManager.iopub_port : Integer
+    Default: 0
+
+    set the iopub (PUB) port [default: random]
+
+KernelManager.ip : Unicode
     Default: u''
 
-    A CSS stylesheet. The stylesheet can contain classes for:
-        1. Qt: QPlainTextEdit, QFrame, QWidget, etc
-        2. Pygments: .c, .k, .o, etc. (see PygmentsHighlighter)
-        3. IPython: .error, .in-prompt, .out-prompt, etc
+    Set the kernel's IP address [default localhost]. If the IP address is
+    something other than localhost, then Consoles on other machines will be able
+    to connect to the Kernel, so be careful!
 
-IPythonWidget.syntax_style : Unicode
-    Default: u''
+KernelManager.kernel_cmd : List
+    Default: []
 
-    If not empty, use this Pygments style for syntax highlighting. Otherwise,
-    the style sheet is queried for Pygments style information.
+    DEPRECATED: Use kernel_name instead.
+    
+    The Popen Command to launch the kernel. Override this if you have a custom
+    kernel. If kernel_cmd is specified in a configuration file, IPython does not
+    pass any arguments to the kernel, because it cannot make any assumptions
+    about the  arguments that the kernel understands. In particular, this means
+    that the kernel does not receive the option --debug if it given on the
+    IPython command line.
 
-IPythonWidget.width : Integer
-    Default: 81
+KernelManager.shell_port : Integer
+    Default: 0
 
-    The width of the console at start time in number of characters (will double
-    with `hsplit` paging)
+    set the shell (ROUTER) port [default: random]
+
+KernelManager.stdin_port : Integer
+    Default: 0
+
+    set the stdin (ROUTER) port [default: random]
+
+KernelManager.transport : 'tcp'|'ipc'
+    Default: 'tcp'
+
+    No description
 
 InlineBackend.close_figures : Bool
     Default: True
@@ -204,7 +101,7 @@ InlineBackend.print_figure_kwargs : Dict
     Logical examples include: bbox_inches, quality (for jpeg figures), etc.
 
 InlineBackend.rc : Dict
-    Default: {'font.size': 10, 'figure.figsize': (6.0, 4.0), 'figure.facec...
+    Default: {'font.size': 10, 'axes.facecolor': (1, 1, 1, 0), 'figure.fig...
 
     Subset of matplotlib rcParams that should be different for the inline
     backend.
@@ -361,65 +258,168 @@ IPythonQtConsoleApp.verbose_crash : Bool
     internal error.  The default is to append a short message to the usual
     traceback
 
-KernelManager.autorestart : Bool
-    Default: False
+IPythonWidget.ansi_codes : Bool
+    Default: True
 
-    Should we autorestart the kernel if it dies.
+    Whether to process ANSI escape codes.
 
-KernelManager.connection_file : Unicode
-    Default: ''
-
-    JSON file in which to store connection info [default: kernel-<pid>.json]
-    
-    This file will contain the IP, ports, and authentication key needed to
-    connect clients to this kernel. By default, this file will be created in the
-    security dir of the current profile, but can be specified by absolute path.
-
-KernelManager.control_port : Integer
-    Default: 0
-
-    set the control (ROUTER) port [default: random]
-
-KernelManager.hb_port : Integer
-    Default: 0
-
-    set the heartbeat port [default: random]
-
-KernelManager.iopub_port : Integer
-    Default: 0
-
-    set the iopub (PUB) port [default: random]
-
-KernelManager.ip : Unicode
+IPythonWidget.banner : Unicode
     Default: u''
 
-    Set the kernel's IP address [default localhost]. If the IP address is
-    something other than localhost, then Consoles on other machines will be able
-    to connect to the Kernel, so be careful!
+    No description
 
-KernelManager.kernel_cmd : List
-    Default: []
+IPythonWidget.buffer_size : Integer
+    Default: 500
 
-    DEPRECATED: Use kernel_name instead.
+    The maximum number of lines of text before truncation. Specifying a non-
+    positive number disables text truncation (not recommended).
+
+IPythonWidget.clear_on_kernel_restart : Bool
+    Default: True
+
+    Whether to clear the console when the kernel is restarted
+
+IPythonWidget.confirm_restart : Bool
+    Default: True
+
+    Whether to ask for user confirmation when restarting kernel
+
+IPythonWidget.editor : Unicode
+    Default: ''
+
+    A command for invoking a system text editor. If the string contains a
+    {filename} format specifier, it will be used. Otherwise, the filename will
+    be appended to the end the command.
+
+IPythonWidget.editor_line : Unicode
+    Default: u''
+
+    The editor command to use when a specific line number is requested. The
+    string should contain two format specifiers: {line} and {filename}. If this
+    parameter is not specified, the line number option to the %edit magic will
+    be ignored.
+
+IPythonWidget.enable_calltips : Bool
+    Default: True
+
+    Whether to draw information calltips on open-parentheses.
+
+IPythonWidget.execute_on_complete_input : Bool
+    Default: True
+
+    Whether to automatically execute on syntactically complete input.
     
-    The Popen Command to launch the kernel. Override this if you have a custom
-    kernel. If kernel_cmd is specified in a configuration file, IPython does not
-    pass any arguments to the kernel, because it cannot make any assumptions
-    about the  arguments that the kernel understands. In particular, this means
-    that the kernel does not receive the option --debug if it given on the
-    IPython command line.
+    If False, Shift-Enter is required to submit each execution. Disabling this
+    is mainly useful for non-Python kernels, where the completion check would be
+    wrong.
 
-KernelManager.shell_port : Integer
+IPythonWidget.font_family : Unicode
+    Default: u''
+
+    The font family to use for the console. On OSX this defaults to Monaco, on
+    Windows the default is Consolas with fallback of Courier, and on other
+    platforms the default is Monospace.
+
+IPythonWidget.font_size : Integer
     Default: 0
 
-    set the shell (ROUTER) port [default: random]
+    The font size. If unconfigured, Qt will be entrusted with the size of the
+    font.
 
-KernelManager.stdin_port : Integer
-    Default: 0
+IPythonWidget.gui_completion : 'plain'|'droplist'|'ncurses'
+    Default: 'ncurses'
 
-    set the stdin (ROUTER) port [default: random]
+    The type of completer to use. Valid values are:
+    
+    'plain'   : Show the available completion as a text list
+                Below the editing area.
+    'droplist': Show the completion in a drop down list navigable
+                by the arrow keys, and from which you can select
+                completion by pressing Return.
+    'ncurses' : Show the completion as a text list which is navigable by
+                `tab` and arrow keys.
 
-KernelManager.transport : 'tcp'|'ipc'
-    Default: 'tcp'
+IPythonWidget.height : Integer
+    Default: 25
+
+    The height of the console at start time in number of characters (will double
+    with `vsplit` paging)
+
+IPythonWidget.history_lock : Bool
+    Default: False
 
     No description
+
+IPythonWidget.in_prompt : Unicode
+    Default: 'In [<span class="in-prompt-number">%i</span>]: '
+
+    No description
+
+IPythonWidget.input_sep : Unicode
+    Default: '\\n'
+
+    No description
+
+IPythonWidget.kind : 'plain'|'rich'
+    Default: 'plain'
+
+    The type of underlying text widget to use. Valid values are 'plain', which
+    specifies a QPlainTextEdit, and 'rich', which specifies a QTextEdit.
+
+IPythonWidget.lexer_class : DottedObjectName
+    Default: <IPython.utils.traitlets.Undefined object at 0x7fa4c430c490>
+
+    The pygments lexer class to use.
+
+IPythonWidget.out_prompt : Unicode
+    Default: 'Out[<span class="out-prompt-number">%i</span>]: '
+
+    No description
+
+IPythonWidget.output_sep : Unicode
+    Default: ''
+
+    No description
+
+IPythonWidget.output_sep2 : Unicode
+    Default: ''
+
+    No description
+
+IPythonWidget.paging : 'inside'|'hsplit'|'vsplit'|'custom'|'none'
+    Default: 'inside'
+
+    The type of paging to use. Valid values are:
+    
+    'inside'
+       The widget pages like a traditional terminal.
+    'hsplit'
+       When paging is requested, the widget is split horizontally. The top
+       pane contains the console, and the bottom pane contains the paged text.
+    'vsplit'
+       Similar to 'hsplit', except that a vertical splitter is used.
+    'custom'
+       No action is taken by the widget beyond emitting a
+       'custom_page_requested(str)' signal.
+    'none'
+       The text is written directly to the console.
+
+IPythonWidget.style_sheet : Unicode
+    Default: u''
+
+    A CSS stylesheet. The stylesheet can contain classes for:
+        1. Qt: QPlainTextEdit, QFrame, QWidget, etc
+        2. Pygments: .c, .k, .o, etc. (see PygmentsHighlighter)
+        3. IPython: .error, .in-prompt, .out-prompt, etc
+
+IPythonWidget.syntax_style : Unicode
+    Default: u''
+
+    If not empty, use this Pygments style for syntax highlighting. Otherwise,
+    the style sheet is queried for Pygments style information.
+
+IPythonWidget.width : Integer
+    Default: 81
+
+    The width of the console at start time in number of characters (will double
+    with `hsplit` paging)

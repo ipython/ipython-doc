@@ -84,12 +84,12 @@
 <li><a class="reference internal" href="#an-example-using-ipcontroller-engine-with-ssh">An example using ipcontroller/engine with ssh</a></li>
 <li><a class="reference internal" href="#make-json-files-persistent">Make JSON files persistent</a></li>
 <li><a class="reference internal" href="#log-files">Log files</a></li>
-<li><a class="reference internal" href="#configuring-ipcontroller">Configuring <cite>ipcontroller</cite></a><ul>
+<li><a class="reference internal" href="#configuring-ipcontroller">Configuring <tt class="docutils literal"><span class="pre">ipcontroller</span></tt></a><ul>
 <li><a class="reference internal" href="#ports-and-addresses">Ports and addresses</a></li>
 <li><a class="reference internal" href="#database-backend">Database Backend</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuring-ipengine">Configuring <cite>ipengine</cite></a></li>
+<li><a class="reference internal" href="#configuring-ipengine">Configuring <tt class="docutils literal"><span class="pre">ipengine</span></tt></a></li>
 </ul>
 </li>
 </ul>
@@ -224,7 +224,7 @@ for testing or running on a multicore computer.</li>
 <li>When engines are started using the <strong class="command">mpiexec</strong> command that comes
 with most MPI <a class="reference internal" href="parallel_mpi.html#mpi" id="id1">[MPI]</a> implementations</li>
 <li>When engines are started using the PBS <a class="reference internal" href="#pbs" id="id2">[PBS]</a> batch system
-(or other <cite>qsub</cite> systems, such as SGE).</li>
+(or other <tt class="docutils literal"><span class="pre">qsub</span></tt> systems, such as SGE).</li>
 <li>When the controller is started on localhost and the engines are started on
 remote nodes using <strong class="command">ssh</strong>.</li>
 <li>When engines are started using the Windows HPC Server batch system.</li>
@@ -252,7 +252,7 @@ to start one controller and 4 engines on localhost, just do:</p>
 </div>
 <div class="section" id="configuring-an-ipython-cluster">
 <h2>Configuring an IPython cluster<a class="headerlink" href="#configuring-an-ipython-cluster" title="Permalink to this headline">¶</a></h2>
-<p>Cluster configurations are stored as <cite>profiles</cite>.  You can create a new profile with:</p>
+<p>Cluster configurations are stored as <tt class="docutils literal"><span class="pre">profiles</span></tt>.  You can create a new profile with:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ipython profile create --parallel --profile=myprofile
 </pre></div>
 </div>
@@ -494,7 +494,7 @@ on that host.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li>The <cite>engines</cite> dict, where the keys are the host we want to run engines on and
+<li>The <tt class="docutils literal"><span class="pre">engines</span></tt> dict, where the keys are the host we want to run engines on and
 the value is the number of engines to run on that host.</li>
 <li>on host3, the value is a tuple, where the number of engines is first, and the arguments
 to be passed to <strong class="command">ipengine</strong> are the second element.</li>
@@ -642,7 +642,7 @@ loopback, and ssh tunnels will be used to connect engines to the controller:</p>
 [node3] $&gt; ipcluster engines --n=4
 </pre></div>
 </div>
-<p>Or if you want to start many engines on each node, the command <cite>ipcluster engines &#8211;n=4</cite>
+<p>Or if you want to start many engines on each node, the command <tt class="docutils literal"><span class="pre">ipcluster</span> <span class="pre">engines</span> <span class="pre">--n=4</span></tt>
 without any configuration is equivalent to running ipengine 4 times.</p>
 </div>
 </div>
@@ -716,7 +716,7 @@ each time you start the controller is like having to make a new key every time
 you want to unlock the door and enter your house. As with your house, you want
 to be able to create the key (or JSON file) once, and then simply use it at
 any point in the future.</p>
-<p>To do this, the only thing you have to do is specify the <cite>&#8211;reuse</cite> flag, so that
+<p>To do this, the only thing you have to do is specify the <tt class="docutils literal"><span class="pre">--reuse</span></tt> flag, so that
 the connection information in the JSON files remains accurate:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ipcontroller --reuse
 </pre></div>
@@ -741,7 +741,7 @@ IPython and can be found in the directory <tt class="file docutils literal"><spa
 Sending the log files to us will often help us to debug any problems.</p>
 </div>
 <div class="section" id="configuring-ipcontroller">
-<h3>Configuring <cite>ipcontroller</cite><a class="headerlink" href="#configuring-ipcontroller" title="Permalink to this headline">¶</a></h3>
+<h3>Configuring <tt class="docutils literal"><span class="pre">ipcontroller</span></tt><a class="headerlink" href="#configuring-ipcontroller" title="Permalink to this headline">¶</a></h3>
 <p>The IPython Controller takes its configuration from the file <tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt>
 in the active profile directory.</p>
 <div class="section" id="ports-and-addresses">
@@ -861,7 +861,7 @@ in your <tt class="file docutils literal"><span class="pre">ipcontroller_config.
 </div>
 </div>
 <div class="section" id="configuring-ipengine">
-<h3>Configuring <cite>ipengine</cite><a class="headerlink" href="#configuring-ipengine" title="Permalink to this headline">¶</a></h3>
+<h3>Configuring <tt class="docutils literal"><span class="pre">ipengine</span></tt><a class="headerlink" href="#configuring-ipengine" title="Permalink to this headline">¶</a></h3>
 <p>The IPython Engine takes its configuration from the file <tt class="file docutils literal"><span class="pre">ipengine_config.py</span></tt></p>
 <p>The Engine itself also has some amount of configuration. Most of this
 has to do with initializing MPI or connecting to the controller.</p>
@@ -873,7 +873,7 @@ mpi4py, add:</p>
 <p>In this case, the Engine will use our default mpi4py init script to set up
 the MPI environment prior to execution.  We have default init scripts for
 mpi4py and pytrilinos.  If you want to specify your own code to be run
-at the beginning, specify <cite>c.MPI.init_script</cite>.</p>
+at the beginning, specify <tt class="docutils literal"><span class="pre">c.MPI.init_script</span></tt>.</p>
 <p>You can also specify a file or python command to be run at startup of the
 Engine:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">IPEngineApp</span><span class="o">.</span><span class="n">startup_script</span> <span class="o">=</span> <span class="s">u&#39;/path/to/my/startup.py&#39;</span>
@@ -939,7 +939,7 @@ in some scratch directory.  This can be set with:</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

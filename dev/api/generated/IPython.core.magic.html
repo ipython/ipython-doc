@@ -164,7 +164,7 @@ two types of magics we support.  Each value is a list of names.</p>
 <p>The return dict has the keys &#8216;line&#8217; and &#8216;cell&#8217;, corresponding to the
 two types of magics we support. Each value is a dict keyed by magic
 name whose value is the function docstring. If a docstring is
-unavailable, the value of <cite>missing</cite> is used instead.</p>
+unavailable, the value of <tt class="docutils literal"><span class="pre">missing</span></tt> is used instead.</p>
 <p>If brief is True, only the first line of each docstring will be returned.</p>
 </dd></dl>
 
@@ -173,10 +173,10 @@ unavailable, the value of <cite>missing</cite> is used instead.</p>
 <tt class="descname">register</tt><big>(</big><em>*magic_objects</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicsManager.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register one or more instances of Magics.</p>
 <p>Take one or more classes or instances of classes that subclass the main 
-<cite>core.Magic</cite> class, and register them with IPython to use the magic
+<tt class="docutils literal"><span class="pre">core.Magic</span></tt> class, and register them with IPython to use the magic
 functions they provide.  The registration process will then ensure that
 any methods that have decorated to provide line and/or cell magics will
-be recognized with the <cite>%x</cite>/<cite>%%x</cite> syntax as a line/cell magic
+be recognized with the <tt class="docutils literal"><span class="pre">%x</span></tt>/<tt class="docutils literal"><span class="pre">%%x</span></tt> syntax as a line/cell magic
 respectively.</p>
 <p>If classes are given, they will be instantiated with the default
 constructor.  If your classes need a custom constructor, you should
@@ -230,12 +230,12 @@ will call the new function.</p>
 standalone function.  The functions should have the following
 signatures:</p>
 <ul class="simple">
-<li>For line magics: <cite>def f(line)</cite></li>
-<li>For cell magics: <cite>def f(line, cell)</cite></li>
-<li>For a function that does both: <cite>def f(line, cell=None)</cite></li>
+<li>For line magics: <tt class="docutils literal"><span class="pre">def</span> <span class="pre">f(line)</span></tt></li>
+<li>For cell magics: <tt class="docutils literal"><span class="pre">def</span> <span class="pre">f(line,</span> <span class="pre">cell)</span></tt></li>
+<li>For a function that does both: <tt class="docutils literal"><span class="pre">def</span> <span class="pre">f(line,</span> <span class="pre">cell=None)</span></tt></li>
 </ul>
-<p>In the latter case, the function will be called with <cite>cell==None</cite> when
-invoked as <cite>%f</cite>, and with cell as a string when invoked as <cite>%%f</cite>.</p>
+<p>In the latter case, the function will be called with <tt class="docutils literal"><span class="pre">cell==None</span></tt> when
+invoked as <tt class="docutils literal"><span class="pre">%f</span></tt>, and with cell as a string when invoked as <tt class="docutils literal"><span class="pre">%%f</span></tt>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -268,14 +268,14 @@ default, the name of the function itself is used.</p>
 <p>Base class for implementing magic functions.</p>
 <p>Shell functions which can be reached as %function_name. All magic
 functions should accept a string, which they can parse for their own
-needs. This can make some functions easier to type, eg <cite>%cd ../</cite>
-vs. <cite>%cd(&#8221;../&#8221;)</cite></p>
+needs. This can make some functions easier to type, eg <tt class="docutils literal"><span class="pre">%cd</span> <span class="pre">../</span></tt>
+vs. <tt class="docutils literal"><span class="pre">%cd(&quot;../&quot;)</span></tt></p>
 <p>Classes providing magic functions need to subclass this class, and they
 MUST:</p>
 <ul class="simple">
-<li>Use the method decorators <cite>&#64;line_magic</cite> and <cite>&#64;cell_magic</cite> to decorate
+<li>Use the method decorators <tt class="docutils literal"><span class="pre">&#64;line_magic</span></tt> and <tt class="docutils literal"><span class="pre">&#64;cell_magic</span></tt> to decorate
 individual methods as magic functions, AND</li>
-<li>Use the class decorator <cite>&#64;magics_class</cite> to ensure that the magic
+<li>Use the class decorator <tt class="docutils literal"><span class="pre">&#64;magics_class</span></tt> to ensure that the magic
 methods are properly registered at the instance level upon instance
 initialization.</li>
 </ul>
@@ -358,7 +358,7 @@ library.</p>
 is done at call time, so if the underlying magic changes the alias
 will call the new function.</p>
 <p>Use the <a class="reference internal" href="#IPython.core.magic.MagicsManager.register_alias" title="IPython.core.magic.MagicsManager.register_alias"><tt class="xref py py-meth docutils literal"><span class="pre">MagicsManager.register_alias()</span></tt></a> method or the
-<cite>%alias_magic</cite> magic function to create and register a new alias.</p>
+<tt class="docutils literal"><span class="pre">%alias_magic</span></tt> magic function to create and register a new alias.</p>
 <dl class="method">
 <dt id="IPython.core.magic.MagicAlias.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>shell</em>, <em>magic_name</em>, <em>magic_kind</em><big>)</big><a class="headerlink" href="#IPython.core.magic.MagicAlias.__init__" title="Permalink to this definition">¶</a></dt>
@@ -443,7 +443,7 @@ problems.</p>
 <tt class="descclassname">IPython.core.magic.</tt><tt class="descname">validate_type</tt><big>(</big><em>magic_kind</em><big>)</big><a class="headerlink" href="#IPython.core.magic.validate_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ensure that the given magic_kind is valid.</p>
 <p>Check that the given magic_kind is one of the accepted spec types (stored
-in the global <cite>magic_spec</cite>), raise ValueError otherwise.</p>
+in the global <tt class="docutils literal"><span class="pre">magic_spec</span></tt>), raise ValueError otherwise.</p>
 </dd></dl>
 
 </div>
@@ -479,7 +479,7 @@ in the global <cite>magic_spec</cite>), raise ValueError otherwise.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

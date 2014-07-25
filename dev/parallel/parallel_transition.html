@@ -164,24 +164,24 @@ execution.</p>
 <div class="section" id="apply">
 <h2>Apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h2>
 <p>The main change to the API is the addition of the <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> to the View objects. This is a
-method that takes <cite>view.apply(f,*args,**kwargs)</cite>, and calls <cite>f(*args, **kwargs)</cite> remotely on one
+method that takes <tt class="docutils literal"><span class="pre">view.apply(f,*args,**kwargs)</span></tt>, and calls <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt> remotely on one
 or more engines, returning the result. This means that the natural unit of remote execution
 is no longer a string of Python code, but rather a Python function.</p>
 <ul class="simple">
 <li>non-copying sends (track)</li>
 <li>remote References</li>
 </ul>
-<p>The flags for execution have also changed.  Previously, there was only <cite>block</cite> denoting whether
+<p>The flags for execution have also changed.  Previously, there was only <tt class="docutils literal"><span class="pre">block</span></tt> denoting whether
 to wait for results.  This remains, but due to the addition of fully non-copying sends of
-arrays and buffers, there is also a <cite>track</cite> flag, which instructs PyZMQ to produce a <tt class="xref py py-class docutils literal"><span class="pre">MessageTracker</span></tt> that will let you know when it is safe again to edit arrays in-place.</p>
-<p>The result of a non-blocking call to <cite>apply</cite> is now an <a class="reference internal" href="asyncresult.html"><em>AsyncResult object</em></a>.</p>
+arrays and buffers, there is also a <tt class="docutils literal"><span class="pre">track</span></tt> flag, which instructs PyZMQ to produce a <tt class="xref py py-class docutils literal"><span class="pre">MessageTracker</span></tt> that will let you know when it is safe again to edit arrays in-place.</p>
+<p>The result of a non-blocking call to <tt class="docutils literal"><span class="pre">apply</span></tt> is now an <a class="reference internal" href="asyncresult.html"><em>AsyncResult object</em></a>.</p>
 </div>
 <div class="section" id="multiengine-to-directview">
 <h2>MultiEngine to DirectView<a class="headerlink" href="#multiengine-to-directview" title="Permalink to this headline">¶</a></h2>
 <p>The multiplexing interface previously provided by the MultiEngineClient is now provided by the
 DirectView. Once you have a Client connected, you can create a DirectView with index-access
 to the client (<tt class="docutils literal"><span class="pre">view</span> <span class="pre">=</span> <span class="pre">client[1:5]</span></tt>). The core methods for
-communicating with engines remain: <cite>execute</cite>, <cite>run</cite>, <cite>push</cite>, <cite>pull</cite>, <cite>scatter</cite>, <cite>gather</cite>. These
+communicating with engines remain: <tt class="docutils literal"><span class="pre">execute</span></tt>, <tt class="docutils literal"><span class="pre">run</span></tt>, <tt class="docutils literal"><span class="pre">push</span></tt>, <tt class="docutils literal"><span class="pre">pull</span></tt>, <tt class="docutils literal"><span class="pre">scatter</span></tt>, <tt class="docutils literal"><span class="pre">gather</span></tt>. These
 methods all behave in much the same way as they did on a MultiEngineClient.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># old</span>
 <span class="gp">In [2]: </span><span class="n">mec</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;a=5&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
@@ -193,7 +193,7 @@ methods all behave in much the same way as they did on a MultiEngineClient.</p>
 </pre></div>
 </div>
 <p>This extends to any method that communicates with the engines.</p>
-<p>Requests of the Hub (queue status, etc.) are no-longer asynchronous, and do not take a <cite>block</cite>
+<p>Requests of the Hub (queue status, etc.) are no-longer asynchronous, and do not take a <tt class="docutils literal"><span class="pre">block</span></tt>
 argument.</p>
 <ul>
 <li><p class="first"><tt class="xref py py-meth docutils literal"><span class="pre">get_ids()</span></tt> is now the property <tt class="xref py py-attr docutils literal"><span class="pre">ids</span></tt>, which is passively updated by the Hub (no
@@ -268,9 +268,9 @@ engine, and another resides on the client.  You might construct a task that look
 <p>Note the use of <tt class="docutils literal"><span class="pre">Reference</span></tt> This is a convenient representation of an object that exists
 in the engine&#8217;s namespace, so you can pass remote objects as arguments to your task functions.</p>
 <p>Also note that in the kernel model, after the task is run, &#8216;A&#8217;, &#8216;B&#8217;, and &#8216;C&#8217; are all defined on
-the engine. In order to deal with this, there is also a <cite>clear_after</cite> flag for Tasks to prevent
+the engine. In order to deal with this, there is also a <tt class="docutils literal"><span class="pre">clear_after</span></tt> flag for Tasks to prevent
 pollution of the namespace, and bloating of engine memory. This is not necessary with the new
-code, because only those objects explicitly pushed (or set via <cite>globals()</cite>) will be resident on
+code, because only those objects explicitly pushed (or set via <tt class="docutils literal"><span class="pre">globals()</span></tt>) will be resident on
 the engine beyond the duration of the task.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
@@ -288,7 +288,7 @@ unfinished results. For this, we have an AsyncResult object, based on the object
 name in the built-in <a class="reference external" href="http://docs.python.org/2/library/multiprocessing.html#module-multiprocessing.pool" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">multiprocessing.pool</span></tt></a> module. Our version provides a superset of that
 interface.</p>
 <p>However, unlike in IPython.kernel, we do not have PendingDeferred, PendingResult, or TaskResult
-objects. Simply this one object, the AsyncResult. Every asynchronous (<cite>block=False</cite>) call
+objects. Simply this one object, the AsyncResult. Every asynchronous (<tt class="docutils literal"><span class="pre">block=False</span></tt>) call
 returns one.</p>
 <p>The basic methods of an AsyncResult are:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">AsyncResult</span><span class="o">.</span><span class="n">wait</span><span class="p">([</span><span class="n">timeout</span><span class="p">]):</span> <span class="c"># wait for the result to arrive</span>
@@ -348,7 +348,7 @@ result.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

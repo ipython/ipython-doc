@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: html.fabfile" href="IPython.html.fabfile.html" />
+    <link rel="next" title="Module: html.kernelspecs.handlers" href="IPython.html.kernelspecs.handlers.html" />
     <link rel="prev" title="Module: html.base.handlers" href="IPython.html.base.handlers.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.html.fabfile.html" title="Module: html.fabfile"
+          <a href="IPython.html.kernelspecs.handlers.html" title="Module: html.kernelspecs.handlers"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.html.base.handlers.html" title="Module: html.base.handlers"
@@ -71,8 +71,8 @@
   <p class="topless"><a href="IPython.html.base.handlers.html"
                         title="previous chapter">Module: <tt class="docutils literal"><span class="pre">html.base.handlers</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.html.fabfile.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">html.fabfile</span></tt></a></p>
+  <p class="topless"><a href="IPython.html.kernelspecs.handlers.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">html.kernelspecs.handlers</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.html.base.zmqhandlers.txt"
@@ -124,15 +124,17 @@ support will be removed in later versions.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.base.zmqhandlers.ZMQStreamHandler.clear_cookie">
-<tt class="descname">clear_cookie</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.ZMQStreamHandler.clear_cookie" title="Permalink to this definition">¶</a></dt>
-<dd><p>meaningless for websockets</p>
+<dt id="IPython.html.base.zmqhandlers.ZMQStreamHandler.check_origin">
+<tt class="descname">check_origin</tt><big>(</big><em>origin</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.ZMQStreamHandler.check_origin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check Origin == Host or Access-Control-Allow-Origin.</p>
+<p>Tornado &gt;= 4 calls this method automatically, raising 403 if it returns False.
+We call it explicitly in <tt class="docutils literal"><span class="pre">open</span></tt> on Tornado &lt; 4.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.base.zmqhandlers.ZMQStreamHandler.same_origin">
-<tt class="descname">same_origin</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.ZMQStreamHandler.same_origin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check to see that origin and host match in the headers.</p>
+<dt id="IPython.html.base.zmqhandlers.ZMQStreamHandler.clear_cookie">
+<tt class="descname">clear_cookie</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.ZMQStreamHandler.clear_cookie" title="Permalink to this definition">¶</a></dt>
+<dd><p>meaningless for websockets</p>
 </dd></dl>
 
 </dd></dl>
@@ -141,6 +143,19 @@ support will be removed in later versions.</p>
 <dt id="IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler">
 <em class="property">class </em><tt class="descclassname">IPython.html.base.zmqhandlers.</tt><tt class="descname">AuthenticatedZMQStreamHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.html.base.zmqhandlers.ZMQStreamHandler" title="IPython.html.base.zmqhandlers.ZMQStreamHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.zmqhandlers.ZMQStreamHandler</span></tt></a>, <a class="reference internal" href="IPython.html.base.handlers.html#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a></p>
+<dl class="method">
+<dt id="IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.send_ping">
+<tt class="descname">send_ping</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.send_ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>send a ping to keep the websocket alive</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.set_default_headers">
+<tt class="descname">set_default_headers</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.set_default_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undo the set_default_headers in IPythonHandler</p>
+<p>which doesn&#8217;t make sense for websockets</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -162,7 +177,7 @@ support will be removed in later versions.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.html.fabfile.html" title="Module: html.fabfile"
+          <a href="IPython.html.kernelspecs.handlers.html" title="Module: html.kernelspecs.handlers"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.html.base.handlers.html" title="Module: html.base.handlers"
@@ -176,7 +191,7 @@ support will be removed in later versions.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

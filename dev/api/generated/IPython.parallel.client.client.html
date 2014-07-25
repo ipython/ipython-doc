@@ -269,7 +269,7 @@ you will be prompted for it if passwordless key based login is unavailable.</p>
 <td>Flush any registration notifications and execution results waiting in the ZMQ queue.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#IPython.parallel.client.client.Client.wait" title="IPython.parallel.client.client.Client.wait"><tt class="xref py py-obj docutils literal"><span class="pre">wait</span></tt></a>([jobs,&nbsp;timeout])</td>
-<td>waits on one or more <cite>jobs</cite>, for up to <cite>timeout</cite> seconds.</td>
+<td>waits on one or more <tt class="docutils literal"><span class="pre">jobs</span></tt>, for up to <tt class="docutils literal"><span class="pre">timeout</span></tt> seconds.</td>
 </tr>
 </tbody>
 </table>
@@ -323,7 +323,7 @@ from executing.</p>
 <dt id="IPython.parallel.client.client.Client.activate">
 <tt class="descname">activate</tt><big>(</big><em>targets='all'</em>, <em>suffix=''</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.activate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a DirectView and register it with IPython magics</p>
-<p>Defines the magics <cite>%px, %autopx, %pxresult, %%px</cite></p>
+<p>Defines the magics <tt class="docutils literal"><span class="pre">%px,</span> <span class="pre">%autopx,</span> <span class="pre">%pxresult,</span> <span class="pre">%%px</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -356,7 +356,7 @@ on engine 0.</p>
 <dt id="IPython.parallel.client.client.Client.close">
 <tt class="descname">close</tt><big>(</big><em>linger=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Close my zmq Sockets</p>
-<p>If <cite>linger</cite>, set the zmq LINGER socket option,
+<p>If <tt class="docutils literal"><span class="pre">linger</span></tt>, set the zmq LINGER socket option,
 which allows discarding of messages.</p>
 </dd></dl>
 
@@ -364,7 +364,7 @@ which allows discarding of messages.</p>
 <dt id="IPython.parallel.client.client.Client.db_query">
 <tt class="descname">db_query</tt><big>(</big><em>query</em>, <em>keys=None</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.db_query" title="Permalink to this definition">¶</a></dt>
 <dd><p>Query the Hub&#8217;s TaskRecord database</p>
-<p>This will return a list of task record dicts that match <cite>query</cite></p>
+<p>This will return a list of task record dicts that match <tt class="docutils literal"><span class="pre">query</span></tt></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -433,7 +433,7 @@ blocking execution, since it always retrieves</p>
 <p><strong>owner</strong> : bool [default: True]</p>
 <blockquote>
 <div><p>Whether this AsyncResult should own the result.
-If so, calling <cite>ar.get()</cite> will remove data from the
+If so, calling <tt class="docutils literal"><span class="pre">ar.get()</span></tt> will remove data from the
 client&#8217;s result and metadata cache.
 There should only be one owner of any given msg_id.</p>
 </div></blockquote>
@@ -464,7 +464,7 @@ There should only be one owner of any given msg_id.</p>
 <p>Just like the Client, the Hub has a history, which is a list of msg_ids.
 This will contain the history of all clients, and, depending on configuration,
 may contain history across multiple cluster sessions.</p>
-<p>Any msg_id returned here is a valid argument to <cite>get_result</cite>.</p>
+<p>Any msg_id returned here is a valid argument to <tt class="docutils literal"><span class="pre">get_result</span></tt>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -509,7 +509,7 @@ using all engines.</p>
 <dt id="IPython.parallel.client.client.Client.purge_everything">
 <tt class="descname">purge_everything</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.purge_everything" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clears all content from previous Tasks from both the hub and the local client</p>
-<p>In addition to calling <cite>purge_results(&#8220;all&#8221;)</cite> it also deletes the history and 
+<p>In addition to calling <tt class="docutils literal"><span class="pre">purge_results(&quot;all&quot;)</span></tt> it also deletes the history and 
 other bookkeeping lists.</p>
 </dd></dl>
 
@@ -519,7 +519,7 @@ other bookkeeping lists.</p>
 <dd><p>Tell the Hub to forget results.</p>
 <p>Individual results can be purged by msg_id, or the entire
 history of specific targets can be purged.</p>
-<p>Use <cite>purge_results(&#8216;all&#8217;)</cite> to scrub everything from the Hub&#8217;s db.</p>
+<p>Use <tt class="docutils literal"><span class="pre">purge_results('all')</span></tt> to scrub everything from the Hub&#8217;s db.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -545,13 +545,13 @@ history of specific targets can be purged.</p>
 <dd><p>Clears the client caches of results and their metadata.</p>
 <p>Individual results can be purged by msg_id, or the entire
 history of specific targets can be purged.</p>
-<p>Use <cite>purge_local_results(&#8216;all&#8217;)</cite> to scrub everything from the Clients&#8217;s
+<p>Use <tt class="docutils literal"><span class="pre">purge_local_results('all')</span></tt> to scrub everything from the Clients&#8217;s
 results and metadata caches.</p>
-<p>After this call all <cite>AsyncResults</cite> are invalid and should be discarded.</p>
+<p>After this call all <tt class="docutils literal"><span class="pre">AsyncResults</span></tt> are invalid and should be discarded.</p>
 <p>If you must &#8220;reget&#8221; the results, you can still do so by using
-<cite>client.get_result(msg_id)</cite> or <cite>client.get_result(asyncresult)</cite>. This will
+<tt class="docutils literal"><span class="pre">client.get_result(msg_id)</span></tt> or <tt class="docutils literal"><span class="pre">client.get_result(asyncresult)</span></tt>. This will
 redownload the results from the hub if they are still available
-(i.e <cite>client.purge_hub_results(...)</cite> has not been called.</p>
+(i.e <tt class="docutils literal"><span class="pre">client.purge_hub_results(...)</span></tt> has not been called.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -579,9 +579,9 @@ redownload the results from the hub if they are still available
 <dd><p>Clears the cached results from both the hub and the local client</p>
 <p>Individual results can be purged by msg_id, or the entire
 history of specific targets can be purged.</p>
-<p>Use <cite>purge_results(&#8216;all&#8217;)</cite> to scrub every cached result from both the Hub&#8217;s and 
+<p>Use <tt class="docutils literal"><span class="pre">purge_results('all')</span></tt> to scrub every cached result from both the Hub&#8217;s and 
 the Client&#8217;s db.</p>
-<p>Equivalent to calling both <cite>purge_hub_results()</cite> and <cite>purge_client_results()</cite> with 
+<p>Equivalent to calling both <tt class="docutils literal"><span class="pre">purge_hub_results()</span></tt> and <tt class="docutils literal"><span class="pre">purge_client_results()</span></tt> with 
 the same arguments.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -657,7 +657,7 @@ default : all</p>
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.result_status">
 <tt class="descname">result_status</tt><big>(</big><em>msg_ids</em>, <em>status_only=True</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.result_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check on the status of the result(s) of the apply request with <cite>msg_ids</cite>.</p>
+<dd><p>Check on the status of the result(s) of the apply request with <tt class="docutils literal"><span class="pre">msg_ids</span></tt>.</p>
 <p>If status_only is False, then the actual results will be retrieved, else
 only the status of the results will be checked.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -685,8 +685,8 @@ only the status of the results will be checked.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> : dict</p>
 <blockquote class="last">
 <div><p>There will always be the keys &#8216;pending&#8217; and &#8216;completed&#8217;, which will
-be lists of msg_ids that are incomplete or complete. If <cite>status_only</cite>
-is False, then completed results will be keyed by their <cite>msg_id</cite>.</p>
+be lists of msg_ids that are incomplete or complete. If <tt class="docutils literal"><span class="pre">status_only</span></tt>
+is False, then completed results will be keyed by their <tt class="docutils literal"><span class="pre">msg_id</span></tt>.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -751,7 +751,7 @@ waiting in the ZMQ queue.</p>
 <dd><p>call Client.spin() in a background thread on some regular interval</p>
 <p>This helps ensure that messages don&#8217;t pile up too much in the zmq queue
 while you are working on other things, or just leaving an idle terminal.</p>
-<p>It also helps limit potential padding of the <cite>received</cite> timestamp
+<p>It also helps limit potential padding of the <tt class="docutils literal"><span class="pre">received</span></tt> timestamp
 on AsyncResult objects, used for timings.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -768,7 +768,7 @@ on AsyncResult objects, used for timings.</p>
 </table>
 <p class="rubric">Notes</p>
 <p>For precision timing, you may want to use this method to put a bound
-on the jitter (in seconds) in <cite>received</cite> timestamps used
+on the jitter (in seconds) in <tt class="docutils literal"><span class="pre">received</span></tt> timestamps used
 in AsyncResult.wall_time.</p>
 </dd></dl>
 
@@ -781,7 +781,7 @@ in AsyncResult.wall_time.</p>
 <dl class="method">
 <dt id="IPython.parallel.client.client.Client.wait">
 <tt class="descname">wait</tt><big>(</big><em>jobs=None</em>, <em>timeout=-1</em><big>)</big><a class="headerlink" href="#IPython.parallel.client.client.Client.wait" title="Permalink to this definition">¶</a></dt>
-<dd><p>waits on one or more <cite>jobs</cite>, for up to <cite>timeout</cite> seconds.</p>
+<dd><p>waits on one or more <tt class="docutils literal"><span class="pre">jobs</span></tt>, for up to <tt class="docutils literal"><span class="pre">timeout</span></tt> seconds.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -851,7 +851,7 @@ default is -1, which means no timeout</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jun 26, 2014.
+      Last updated on Jul 25, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
