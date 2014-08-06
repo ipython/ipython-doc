@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Transitioning from IPython.kernel to IPython.parallel &mdash; IPython 2.1.0 documentation</title>
+    <title>Transitioning from IPython.kernel to IPython.parallel &mdash; IPython 2.2.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.1.0',
+        VERSION:     '2.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.1.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.2.0 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Configuration and customization" href="../config/index.html" />
     <link rel="prev" title="Details of Parallel Computing with IPython" href="parallel_details.html" /> 
@@ -42,9 +42,6 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="../config/index.html" title="Configuration and customization"
@@ -244,21 +241,21 @@ engine, and another resides on the client.  You might construct a task that look
 <span class="go">            pull=&#39;C&#39;</span>
 <span class="go">            )</span>
 
-<span class="gp">In [11]: </span><span class="n">tid</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="s">tid = tc.run(st)</span>
 
-<span class="gp">In [12]: </span><span class="n">tr</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">get_task_result</span><span class="p">(</span><span class="n">tid</span><span class="p">)</span>
+<span class="gp">In [12]: </span><span class="s">tr = tc.get_task_result(tid)</span>
 
-<span class="gp">In [13]: </span><span class="n">C</span> <span class="o">=</span> <span class="n">tc</span><span class="p">[</span><span class="s">&#39;C&#39;</span><span class="p">]</span>
+<span class="gp">In [13]: </span><span class="s">C = tc[&#39;C&#39;]</span>
 </pre></div>
 </div>
 <p>In the new code, this is simpler:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="kn">import</span> <span class="nn">numpy</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="s">import numpy</span>
 
-<span class="gp">In [11]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Reference</span>
+<span class="gp">In [11]: </span><span class="s">from IPython.parallel import Reference</span>
 
-<span class="gp">In [12]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">lbview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">,</span> <span class="n">Reference</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">),</span> <span class="n">B</span><span class="p">)</span>
+<span class="gp">In [12]: </span><span class="s">ar = lbview.apply(numpy.dot, Reference(&#39;A&#39;), B)</span>
 
-<span class="gp">In [13]: </span><span class="n">C</span> <span class="o">=</span> <span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="gp">In [13]: </span><span class="s">C = ar.get()</span>
 </pre></div>
 </div>
 <p>Note the use of <tt class="docutils literal"><span class="pre">Reference</span></tt> This is a convenient representation of an object that exists
@@ -294,13 +291,13 @@ returns one.</p>
 </div>
 <p>There are still some things that behave the same as IPython.kernel:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># old</span>
-<span class="gp">In [5]: </span><span class="n">pr</span> <span class="o">=</span> <span class="n">mec</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">In [6]: </span><span class="n">pr</span><span class="o">.</span><span class="n">r</span>
+<span class="gp">In [5]: </span><span class="s">pr = mec.pull(&#39;a&#39;, targets=[0,1], block=False)</span>
+<span class="gp">In [6]: </span><span class="s">pr.r</span>
 <span class="gh">Out[6]: </span><span class="go">[5, 5]</span>
 
 <span class="go"># new</span>
-<span class="gp">In [5]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="gp">In [6]: </span><span class="n">ar</span><span class="o">.</span><span class="n">r</span>
+<span class="gp">In [5]: </span><span class="s">ar = dview.pull(&#39;a&#39;, targets=[0,1], block=False)</span>
+<span class="gp">In [6]: </span><span class="s">ar.r</span>
 <span class="gh">Out[6]: </span><span class="go">[5, 5]</span>
 </pre></div>
 </div>
@@ -330,9 +327,6 @@ result.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="../config/index.html" title="Configuration and customization"
              >next</a> |</li>
         <li class="right" >
@@ -347,7 +341,7 @@ result.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 21, 2014.
+      Last updated on Aug 06, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

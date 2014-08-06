@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: kernel.zmq.session &mdash; IPython 2.1.0 documentation</title>
+    <title>Module: kernel.zmq.session &mdash; IPython 2.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.1.0',
+        VERSION:     '2.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.1.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.2.0 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: kernel.zmq.zmqshell" href="IPython.kernel.zmq.zmqshell.html" />
     <link rel="prev" title="Module: kernel.zmq.serialize" href="IPython.kernel.zmq.serialize.html" /> 
@@ -42,9 +42,6 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="IPython.kernel.zmq.zmqshell.html" title="Module: kernel.zmq.zmqshell"
@@ -66,7 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.session</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">3 Classes</a></li>
-<li><a class="reference internal" href="#functions">5 Functions</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -157,7 +154,7 @@ with ZMQ sockets or ZMQStream objects.  Objects can communicate with each
 other over the network via Session objects, and only need to work with the
 dict-based IPython message spec. The Session will handle
 serialization/deserialization, security, and metadata.</p>
-<p>Sessions support configurable serialiization via packer/unpacker traits,
+<p>Sessions support configurable serialization via packer/unpacker traits,
 and signing with HMAC digests via the key/keyfile traits.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -329,7 +326,7 @@ format, which is a list of message parts.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>[idents], msg</strong> :</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">[idents], msg</p>
 <blockquote class="last">
 <div><p>[idents] is a list of idents and msg is a nested message dict of
 same format as self.msg returns.</p>
@@ -449,7 +446,7 @@ the individual message parts in the message list.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>msg</strong> : dict or Message</p>
 <blockquote>
-<div><p>The nexted message dict as returned by the self.msg method.</p>
+<div><p>The next message dict as returned by the self.msg method.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -530,7 +527,19 @@ content, buffers].</p>
 
 </div>
 <div class="section" id="functions">
-<h2>5 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.compare_digest">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">compare_digest</tt><big>(</big><em>a</em>, <em>b</em><big>)</big> &rarr; bool<a class="headerlink" href="#IPython.kernel.zmq.session.compare_digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return &#8216;a == b&#8217;.  This function uses an approach designed to prevent
+timing analysis, making it appropriate for cryptography.
+a and b must both be of the same type: either str (ASCII only),
+or any type that supports the buffer protocol (e.g. bytes).</p>
+<p>Note: If a and b are of different lengths, or if an error occurs,
+a timing attack could theoretically reveal information about the
+types and lengths of a and b&#8211;but not their values.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="IPython.kernel.zmq.session.squash_unicode">
 <tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">squash_unicode</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.squash_unicode" title="Permalink to this definition">¶</a></dt>
@@ -580,9 +589,6 @@ a new random UUID.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../../np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="IPython.kernel.zmq.zmqshell.html" title="Module: kernel.zmq.zmqshell"
              >next</a> |</li>
         <li class="right" >
@@ -597,7 +603,7 @@ a new random UUID.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on May 21, 2014.
+      Last updated on Aug 06, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
