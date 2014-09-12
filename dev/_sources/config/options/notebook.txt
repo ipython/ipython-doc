@@ -3,21 +3,6 @@ IPython notebook options
 
 Any of the :doc:`kernel` can also be used.
 
-NotebookNotary.algorithm : 'md5'|'sha1'|'sha224'|'sha256'|'sha384'|'sha512'
-    Default: 'sha256'
-
-    The hashing algorithm used to sign notebooks.
-
-NotebookNotary.secret : Bytes
-    Default: ''
-
-    The secret key with which notebooks are signed.
-
-NotebookNotary.secret_file : Unicode
-    Default: u''
-
-    The file where the secret key is stored.
-
 NotebookApp.allow_credentials : Bool
     Default: False
 
@@ -76,6 +61,11 @@ NotebookApp.cluster_manager_class : DottedObjectName
 
     The cluster manager class to use.
 
+NotebookApp.contents_manager_class : DottedObjectName
+    Default: 'IPython.html.services.contents.filemanager.FileContentsManager'
+
+    The notebook manager class to use.
+
 NotebookApp.cookie_secret : Bytes
     Default: ''
 
@@ -98,6 +88,11 @@ NotebookApp.copy_config_files : Bool
     profile is being created, and IPython contains config files for that
     profile, then they will be staged into the new directory.  Otherwise,
     default config files will be automatically generated.
+
+NotebookApp.default_url : Unicode
+    Default: '/tree'
+
+    The default URL to redirect to from `/`
 
 NotebookApp.enable_mathjax : Bool
     Default: True
@@ -189,11 +184,6 @@ NotebookApp.notebook_dir : Unicode
 
     The directory to use for notebooks and kernels.
 
-NotebookApp.notebook_manager_class : DottedObjectName
-    Default: 'IPython.html.services.notebooks.filenbmanager.FileNotebookMa...
-
-    The notebook manager class to use.
-
 NotebookApp.open_browser : Bool
     Default: True
 
@@ -272,6 +262,17 @@ NotebookApp.websocket_url : Unicode
     
     Should be in the form of an HTTP origin: ws[s]://hostname[:port]
 
+MappingKernelManager.kernel_manager_class : DottedObjectName
+    Default: 'IPython.kernel.ioloop.IOLoopKernelManager'
+
+    The kernel manager class.  This is configurable to allow subclassing of the
+    KernelManager for customized behavior.
+
+MappingKernelManager.root_dir : Unicode
+    Default: u'/home/takluyver/Code/ipython/docs'
+
+    No description
+
 KernelManager.autorestart : Bool
     Default: False
 
@@ -335,46 +336,76 @@ KernelManager.transport : 'tcp'|'ipc'
 
     No description
 
-MappingKernelManager.kernel_manager_class : DottedObjectName
-    Default: 'IPython.kernel.ioloop.IOLoopKernelManager'
-
-    The kernel manager class.  This is configurable to allow subclassing of the
-    KernelManager for customized behavior.
-
-MappingKernelManager.root_dir : Unicode
-    Default: u'/home/takluyver/Code/ipython/docs'
-
-    No description
-
-FileNotebookManager.checkpoint_dir : Unicode
+FileContentsManager.checkpoint_dir : Unicode
     Default: '.ipynb_checkpoints'
 
-    The directory name in which to keep notebook checkpoints
+    The directory name in which to keep file checkpoints
     
-    This is a path relative to the notebook's own directory.
+    This is a path relative to the file's own directory.
     
     By default, it is .ipynb_checkpoints
 
-FileNotebookManager.hide_globs : List
-    Default: [u'__pycache__']
+FileContentsManager.hide_globs : List
+    Default: [u'__pycache__', '*.pyc', '*.pyo', '.DS_Store', '*.so', '*.dy...
 
     Glob patterns to hide in file and directory listings.
 
-FileNotebookManager.notebook_dir : Unicode
+FileContentsManager.root_dir : Unicode
     Default: u'/home/takluyver/Code/ipython/docs'
 
     No description
 
-FileNotebookManager.save_script : Bool
+FileContentsManager.save_script : Bool
     Default: False
 
-    Automatically create a Python script when saving the notebook.
-    
-    For easier use of import, %run and %load across notebooks, a <notebook-
-    name>.py script will be created next to any <notebook-name>.ipynb on each
-    save.  This can also be set with the short `--script` flag.
+    DEPRECATED, IGNORED
 
-NotebookManager.hide_globs : List
-    Default: [u'__pycache__']
+FileContentsManager.untitled_directory : Unicode
+    Default: 'Untitled Folder'
+
+    The base name used when creating untitled directories.
+
+FileContentsManager.untitled_file : Unicode
+    Default: 'untitled'
+
+    The base name used when creating untitled files.
+
+FileContentsManager.untitled_notebook : Unicode
+    Default: 'Untitled'
+
+    The base name used when creating untitled notebooks.
+
+NotebookNotary.algorithm : 'md5'|'sha1'|'sha224'|'sha256'|'sha384'|'sha512'
+    Default: 'sha256'
+
+    The hashing algorithm used to sign notebooks.
+
+NotebookNotary.secret : Bytes
+    Default: ''
+
+    The secret key with which notebooks are signed.
+
+NotebookNotary.secret_file : Unicode
+    Default: u''
+
+    The file where the secret key is stored.
+
+ContentsManager.hide_globs : List
+    Default: [u'__pycache__', '*.pyc', '*.pyo', '.DS_Store', '*.so', '*.dy...
 
     Glob patterns to hide in file and directory listings.
+
+ContentsManager.untitled_directory : Unicode
+    Default: 'Untitled Folder'
+
+    The base name used when creating untitled directories.
+
+ContentsManager.untitled_file : Unicode
+    Default: 'untitled'
+
+    The base name used when creating untitled files.
+
+ContentsManager.untitled_notebook : Unicode
+    Default: 'Untitled'
+
+    The base name used when creating untitled notebooks.

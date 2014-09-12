@@ -63,7 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.kernelspec</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">3 Classes</a></li>
-<li><a class="reference internal" href="#functions">3 Functions</a></li>
+<li><a class="reference internal" href="#functions">4 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -113,13 +113,8 @@ significant differences from the latest stable release.</p>
 <h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.kernel.kernelspec.KernelSpec">
-<em class="property">class </em><tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">KernelSpec</tt><big>(</big><em>resource_dir</em>, <em>argv</em>, <em>display_name</em>, <em>language</em>, <em>codemirror_mode=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpec" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">KernelSpec</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.HasTraits</span></tt></a></p>
-<dl class="method">
-<dt id="IPython.kernel.kernelspec.KernelSpec.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>resource_dir</em>, <em>argv</em>, <em>display_name</em>, <em>language</em>, <em>codemirror_mode=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpec.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="classmethod">
 <dt id="IPython.kernel.kernelspec.KernelSpec.from_resource_dir">
 <em class="property">classmethod </em><tt class="descname">from_resource_dir</tt><big>(</big><em>resource_dir</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpec.from_resource_dir" title="Permalink to this definition">¶</a></dt>
@@ -171,11 +166,23 @@ name. Otherwise, if the destination already exists, an <tt class="xref py py-exc
 will be raised.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.kernel.kernelspec.KernelSpecManager.install_native_kernel_spec">
+<tt class="descname">install_native_kernel_spec</tt><big>(</big><em>system=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.KernelSpecManager.install_native_kernel_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the native kernel spec to the filesystem</p>
+<p>This allows a Python 3 frontend to use a Python 2 kernel, or vice versa.
+The kernelspec will be written pointing to the Python executable on
+which this is run.</p>
+<p>If <tt class="docutils literal"><span class="pre">system</span></tt> is True, it will attempt to install into the systemwide
+kernel registry. If the process does not have appropriate permissions, 
+an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt> will be raised.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 <div class="section" id="functions">
-<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>4 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="IPython.kernel.kernelspec.find_kernel_specs">
 <tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">find_kernel_specs</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.find_kernel_specs" title="Permalink to this definition">¶</a></dt>
@@ -201,6 +208,18 @@ an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span><
 <p>If <tt class="docutils literal"><span class="pre">replace</span></tt> is True, this will replace an existing kernel of the same
 name. Otherwise, if the destination already exists, an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt>
 will be raised.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.kernelspec.install_native_kernel_spec">
+<tt class="descclassname">IPython.kernel.kernelspec.</tt><tt class="descname">install_native_kernel_spec</tt><big>(</big><em>self</em>, <em>system=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.kernelspec.install_native_kernel_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install the native kernel spec to the filesystem</p>
+<p>This allows a Python 3 frontend to use a Python 2 kernel, or vice versa.
+The kernelspec will be written pointing to the Python executable on
+which this is run.</p>
+<p>If <tt class="docutils literal"><span class="pre">system</span></tt> is True, it will attempt to install into the systemwide
+kernel registry. If the process does not have appropriate permissions, 
+an <tt class="xref py py-exc docutils literal"><span class="pre">OSError</span></tt> will be raised.</p>
 </dd></dl>
 
 </div>
@@ -236,7 +255,7 @@ will be raised.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jul 25, 2014.
+      Last updated on Sep 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

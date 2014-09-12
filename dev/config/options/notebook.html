@@ -103,18 +103,6 @@ significant differences from the latest stable release.</p>
 <h1>IPython notebook options<a class="headerlink" href="#ipython-notebook-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
-<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;sha256&#8217;</p>
-<p class="last">The hashing algorithm used to sign notebooks.</p>
-</dd>
-<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">The secret key with which notebooks are signed.</p>
-</dd>
-<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The file where the secret key is stored.</p>
-</dd>
 <dt>NotebookApp.allow_credentials <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Set the Access-Control-Allow-Credentials: true header</p>
@@ -159,6 +147,10 @@ environment variable to override it.</p>
 <dd><p class="first">Default: &#8216;IPython.html.services.clusters.clustermanager.ClusterManager&#8217;</p>
 <p class="last">The cluster manager class to use.</p>
 </dd>
+<dt>NotebookApp.contents_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &#8216;IPython.html.services.contents.filemanager.FileContentsManager&#8217;</p>
+<p class="last">The notebook manager class to use.</p>
+</dd>
 <dt>NotebookApp.cookie_secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
 <dd><p class="first">Default: &#8216;&#8217;</p>
 <p>The random bytes used to secure cookies. By default this is a new random
@@ -177,6 +169,10 @@ cookie_secret stored in plaintext (you can read the value from a file).</p>
 profile is being created, and IPython contains config files for that
 profile, then they will be staged into the new directory.  Otherwise,
 default config files will be automatically generated.</p>
+</dd>
+<dt>NotebookApp.default_url <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;/tree&#8217;</p>
+<p class="last">The default URL to redirect to from <tt class="docutils literal"><span class="pre">/</span></tt></p>
 </dd>
 <dt>NotebookApp.enable_mathjax <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
@@ -249,10 +245,6 @@ IPYTHONDIR/nbextensions</p>
 <dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
 <p class="last">The directory to use for notebooks and kernels.</p>
 </dd>
-<dt>NotebookApp.notebook_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &#8216;IPython.html.services.notebooks.filenbmanager.FileNotebookMa...</p>
-<p class="last">The notebook manager class to use.</p>
-</dd>
 <dt>NotebookApp.open_browser <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
 <p class="last">Whether to open in a browser after starting. The specific browser used is
@@ -316,6 +308,15 @@ uses.</p>
 almost certainly doesn&#8217;t).</p>
 <p class="last">Should be in the form of an HTTP origin: ws[s]://hostname[:port]</p>
 </dd>
+<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
+<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
+KernelManager for customized behavior.</p>
+</dd>
+<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
 <dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Should we autorestart the kernel if it dies.</p>
@@ -367,39 +368,63 @@ IPython command line.</p>
 <dd><p class="first">Default: &#8216;tcp&#8217;</p>
 <p class="last">No description</p>
 </dd>
-<dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
-<p class="last">The kernel manager class.  This is configurable to allow subclassing of the
-KernelManager for customized behavior.</p>
-</dd>
-<dt>MappingKernelManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dt>FileContentsManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: &#8216;.ipynb_checkpoints&#8217;</p>
-<p>The directory name in which to keep notebook checkpoints</p>
-<p>This is a path relative to the notebook&#8217;s own directory.</p>
+<p>The directory name in which to keep file checkpoints</p>
+<p>This is a path relative to the file&#8217;s own directory.</p>
 <p class="last">By default, it is .ipynb_checkpoints</p>
 </dd>
-<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<dt>FileContentsManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;, &#8216;<em>.pyc&#8217;, &#8216;</em>.pyo&#8217;, &#8216;.DS_Store&#8217;, &#8216;<em>.so&#8217;, &#8216;</em>.dy...</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
 </dd>
-<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dt>FileContentsManager.root_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: u&#8217;/home/takluyver/Code/ipython/docs&#8217;</p>
 <p class="last">No description</p>
 </dd>
-<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dt>FileContentsManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
-<p>Automatically create a Python script when saving the notebook.</p>
-<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
-name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
-save.  This can also be set with the short <tt class="docutils literal"><span class="pre">--script</span></tt> flag.</p>
+<p class="last">DEPRECATED, IGNORED</p>
 </dd>
-<dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<dt>FileContentsManager.untitled_directory <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;Untitled Folder&#8217;</p>
+<p class="last">The base name used when creating untitled directories.</p>
+</dd>
+<dt>FileContentsManager.untitled_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;untitled&#8217;</p>
+<p class="last">The base name used when creating untitled files.</p>
+</dd>
+<dt>FileContentsManager.untitled_notebook <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;Untitled&#8217;</p>
+<p class="last">The base name used when creating untitled notebooks.</p>
+</dd>
+<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;sha256&#8217;</p>
+<p class="last">The hashing algorithm used to sign notebooks.</p>
+</dd>
+<dt>NotebookNotary.secret <span class="classifier-delimiter">:</span> <span class="classifier">Bytes</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">The secret key with which notebooks are signed.</p>
+</dd>
+<dt>NotebookNotary.secret_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The file where the secret key is stored.</p>
+</dd>
+<dt>ContentsManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;, &#8216;<em>.pyc&#8217;, &#8216;</em>.pyo&#8217;, &#8216;.DS_Store&#8217;, &#8216;<em>.so&#8217;, &#8216;</em>.dy...</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
+</dd>
+<dt>ContentsManager.untitled_directory <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;Untitled Folder&#8217;</p>
+<p class="last">The base name used when creating untitled directories.</p>
+</dd>
+<dt>ContentsManager.untitled_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;untitled&#8217;</p>
+<p class="last">The base name used when creating untitled files.</p>
+</dd>
+<dt>ContentsManager.untitled_notebook <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;Untitled&#8217;</p>
+<p class="last">The base name used when creating untitled notebooks.</p>
 </dd>
 </dl>
 </div>
@@ -435,7 +460,7 @@ save.  This can also be set with the short <tt class="docutils literal"><span cl
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Jul 25, 2014.
+      Last updated on Sep 12, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
