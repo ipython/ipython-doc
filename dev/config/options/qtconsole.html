@@ -103,6 +103,204 @@ significant differences from the latest stable release.</p>
 <h1>IPython Qt console options<a class="headerlink" href="#ipython-qt-console-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
+<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">Should we autorestart the kernel if it dies.</p>
+</dd>
+<dt>KernelManager.connection_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p>JSON file in which to store connection info [default: kernel-&lt;pid&gt;.json]</p>
+<p class="last">This file will contain the IP, ports, and authentication key needed to
+connect clients to this kernel. By default, this file will be created in the
+security dir of the current profile, but can be specified by absolute path.</p>
+</dd>
+<dt>KernelManager.control_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the control (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.hb_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the heartbeat port [default: random]</p>
+</dd>
+<dt>KernelManager.iopub_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the iopub (PUB) port [default: random]</p>
+</dd>
+<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!</p>
+</dd>
+<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: []</p>
+<p>DEPRECATED: Use kernel_name instead.</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
+</dd>
+<dt>KernelManager.shell_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the shell (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.stdin_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">set the stdin (ROUTER) port [default: random]</p>
+</dd>
+<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;tcp&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.ansi_codes <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p class="last">Whether to process ANSI escape codes.</p>
+</dd>
+<dt>IPythonWidget.banner <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.buffer_size <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 500</p>
+<p class="last">The maximum number of lines of text before truncation. Specifying a non-
+positive number disables text truncation (not recommended).</p>
+</dd>
+<dt>IPythonWidget.clear_on_kernel_restart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p class="last">Whether to clear the console when the kernel is restarted</p>
+</dd>
+<dt>IPythonWidget.confirm_restart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p class="last">Whether to ask for user confirmation when restarting kernel</p>
+</dd>
+<dt>IPythonWidget.editor <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">A command for invoking a system text editor. If the string contains a
+{filename} format specifier, it will be used. Otherwise, the filename will
+be appended to the end the command.</p>
+</dd>
+<dt>IPythonWidget.editor_line <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The editor command to use when a specific line number is requested. The
+string should contain two format specifiers: {line} and {filename}. If this
+parameter is not specified, the line number option to the %edit magic will
+be ignored.</p>
+</dd>
+<dt>IPythonWidget.enable_calltips <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p class="last">Whether to draw information calltips on open-parentheses.</p>
+</dd>
+<dt>IPythonWidget.execute_on_complete_input <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: True</p>
+<p>Whether to automatically execute on syntactically complete input.</p>
+<p class="last">If False, Shift-Enter is required to submit each execution. Disabling this
+is mainly useful for non-Python kernels, where the completion check would be
+wrong.</p>
+</dd>
+<dt>IPythonWidget.font_family <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">The font family to use for the console. On OSX this defaults to Monaco, on
+Windows the default is Consolas with fallback of Courier, and on other
+platforms the default is Monospace.</p>
+</dd>
+<dt>IPythonWidget.font_size <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 0</p>
+<p class="last">The font size. If unconfigured, Qt will be entrusted with the size of the
+font.</p>
+</dd>
+<dt>IPythonWidget.gui_completion <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;plain&#8217;|&#8217;droplist&#8217;|&#8217;ncurses&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;ncurses&#8217;</p>
+<p>The type of completer to use. Valid values are:</p>
+<dl class="last docutils">
+<dt>&#8216;plain&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">Show the available completion as a text list</span></dt>
+<dd>Below the editing area.</dd>
+<dt>&#8216;droplist&#8217;: Show the completion in a drop down list navigable</dt>
+<dd>by the arrow keys, and from which you can select
+completion by pressing Return.</dd>
+<dt>&#8216;ncurses&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">Show the completion as a text list which is navigable by</span></dt>
+<dd><tt class="docutils literal"><span class="pre">tab</span></tt> and arrow keys.</dd>
+</dl>
+</dd>
+<dt>IPythonWidget.height <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 25</p>
+<p class="last">The height of the console at start time in number of characters (will double
+with <tt class="docutils literal"><span class="pre">vsplit</span></tt> paging)</p>
+</dd>
+<dt>IPythonWidget.history_lock <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.in_prompt <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;In [&lt;span class=&#8221;in-prompt-number&#8221;&gt;%i&lt;/span&gt;]: &#8216;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.input_sep <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;\n&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.kind <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;plain&#8217;|&#8217;rich&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;plain&#8217;</p>
+<p class="last">The type of underlying text widget to use. Valid values are &#8216;plain&#8217;, which
+specifies a QPlainTextEdit, and &#8216;rich&#8217;, which specifies a QTextEdit.</p>
+</dd>
+<dt>IPythonWidget.lexer_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
+<dd><p class="first">Default: &lt;IPython.utils.traitlets.Undefined object at 0x7fcc123e6290&gt;</p>
+<p class="last">The pygments lexer class to use.</p>
+</dd>
+<dt>IPythonWidget.out_prompt <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;Out[&lt;span class=&#8221;out-prompt-number&#8221;&gt;%i&lt;/span&gt;]: &#8216;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.output_sep <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.output_sep2 <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>IPythonWidget.paging <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;inside&#8217;|&#8217;hsplit&#8217;|&#8217;vsplit&#8217;|&#8217;custom&#8217;|&#8217;none&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;inside&#8217;</p>
+<p>The type of paging to use. Valid values are:</p>
+<dl class="last docutils">
+<dt>&#8216;inside&#8217;</dt>
+<dd>The widget pages like a traditional terminal.</dd>
+<dt>&#8216;hsplit&#8217;</dt>
+<dd>When paging is requested, the widget is split horizontally. The top
+pane contains the console, and the bottom pane contains the paged text.</dd>
+<dt>&#8216;vsplit&#8217;</dt>
+<dd>Similar to &#8216;hsplit&#8217;, except that a vertical splitter is used.</dd>
+<dt>&#8216;custom&#8217;</dt>
+<dd>No action is taken by the widget beyond emitting a
+&#8216;custom_page_requested(str)&#8217; signal.</dd>
+<dt>&#8216;none&#8217;</dt>
+<dd>The text is written directly to the console.</dd>
+</dl>
+</dd>
+<dt>IPythonWidget.style_sheet <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<dl class="last docutils">
+<dt>A CSS stylesheet. The stylesheet can contain classes for:</dt>
+<dd><ol class="first last arabic simple">
+<li>Qt: QPlainTextEdit, QFrame, QWidget, etc</li>
+<li>Pygments: .c, .k, .o, etc. (see PygmentsHighlighter)</li>
+<li>IPython: .error, .in-prompt, .out-prompt, etc</li>
+</ol>
+</dd>
+</dl>
+</dd>
+<dt>IPythonWidget.syntax_style <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">If not empty, use this Pygments style for syntax highlighting. Otherwise,
+the style sheet is queried for Pygments style information.</p>
+</dd>
+<dt>IPythonWidget.width <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
+<dd><p class="first">Default: 81</p>
+<p class="last">The width of the console at start time in number of characters (will double
+with <tt class="docutils literal"><span class="pre">hsplit</span></tt> paging)</p>
+</dd>
 <dt>IPythonQtConsoleApp.auto_create <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
 <p class="last">Whether to create profile dir if it doesn&#8217;t exist</p>
@@ -226,57 +424,6 @@ environment variable IPYTHONDIR.</p>
 internal error.  The default is to append a short message to the usual
 traceback</p>
 </dd>
-<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">Should we autorestart the kernel if it dies.</p>
-</dd>
-<dt>KernelManager.connection_file <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p>JSON file in which to store connection info [default: kernel-&lt;pid&gt;.json]</p>
-<p class="last">This file will contain the IP, ports, and authentication key needed to
-connect clients to this kernel. By default, this file will be created in the
-security dir of the current profile, but can be specified by absolute path.</p>
-</dd>
-<dt>KernelManager.control_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the control (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.hb_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the heartbeat port [default: random]</p>
-</dd>
-<dt>KernelManager.iopub_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the iopub (PUB) port [default: random]</p>
-</dd>
-<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
-something other than localhost, then Consoles on other machines will be able
-to connect to the Kernel, so be careful!</p>
-</dd>
-<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: []</p>
-<p>DEPRECATED: Use kernel_name instead.</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
-kernel. If kernel_cmd is specified in a configuration file, IPython does not
-pass any arguments to the kernel, because it cannot make any assumptions
-about the  arguments that the kernel understands. In particular, this means
-that the kernel does not receive the option &#8211;debug if it given on the
-IPython command line.</p>
-</dd>
-<dt>KernelManager.shell_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the shell (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.stdin_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">set the stdin (ROUTER) port [default: random]</p>
-</dd>
-<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;tcp&#8217;</p>
-<p class="last">No description</p>
-</dd>
 <dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
 <p>Close all figures at the end of each cell.</p>
@@ -308,153 +455,6 @@ but figure barriers between cells must be explicit.</p>
 <dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;axes.facecolor&#8217;: (1, 1, 1, 0), &#8216;figure.fig...</p>
 <p class="last">Subset of matplotlib rcParams that should be different for the inline
 backend.</p>
-</dd>
-<dt>IPythonWidget.ansi_codes <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p class="last">Whether to process ANSI escape codes.</p>
-</dd>
-<dt>IPythonWidget.banner <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.buffer_size <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 500</p>
-<p class="last">The maximum number of lines of text before truncation. Specifying a non-
-positive number disables text truncation (not recommended).</p>
-</dd>
-<dt>IPythonWidget.clear_on_kernel_restart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p class="last">Whether to clear the console when the kernel is restarted</p>
-</dd>
-<dt>IPythonWidget.confirm_restart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p class="last">Whether to ask for user confirmation when restarting kernel</p>
-</dd>
-<dt>IPythonWidget.editor <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">A command for invoking a system text editor. If the string contains a
-{filename} format specifier, it will be used. Otherwise, the filename will
-be appended to the end the command.</p>
-</dd>
-<dt>IPythonWidget.editor_line <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The editor command to use when a specific line number is requested. The
-string should contain two format specifiers: {line} and {filename}. If this
-parameter is not specified, the line number option to the %edit magic will
-be ignored.</p>
-</dd>
-<dt>IPythonWidget.enable_calltips <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p class="last">Whether to draw information calltips on open-parentheses.</p>
-</dd>
-<dt>IPythonWidget.execute_on_complete_input <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: True</p>
-<p>Whether to automatically execute on syntactically complete input.</p>
-<p class="last">If False, Shift-Enter is required to submit each execution. Disabling this
-is mainly useful for non-Python kernels, where the completion check would be
-wrong.</p>
-</dd>
-<dt>IPythonWidget.font_family <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">The font family to use for the console. On OSX this defaults to Monaco, on
-Windows the default is Consolas with fallback of Courier, and on other
-platforms the default is Monospace.</p>
-</dd>
-<dt>IPythonWidget.font_size <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 0</p>
-<p class="last">The font size. If unconfigured, Qt will be entrusted with the size of the
-font.</p>
-</dd>
-<dt>IPythonWidget.gui_completion <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;plain&#8217;|&#8217;droplist&#8217;|&#8217;ncurses&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;ncurses&#8217;</p>
-<p>The type of completer to use. Valid values are:</p>
-<dl class="last docutils">
-<dt>&#8216;plain&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">Show the available completion as a text list</span></dt>
-<dd>Below the editing area.</dd>
-<dt>&#8216;droplist&#8217;: Show the completion in a drop down list navigable</dt>
-<dd>by the arrow keys, and from which you can select
-completion by pressing Return.</dd>
-<dt>&#8216;ncurses&#8217; <span class="classifier-delimiter">:</span> <span class="classifier">Show the completion as a text list which is navigable by</span></dt>
-<dd><tt class="docutils literal"><span class="pre">tab</span></tt> and arrow keys.</dd>
-</dl>
-</dd>
-<dt>IPythonWidget.height <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 25</p>
-<p class="last">The height of the console at start time in number of characters (will double
-with <tt class="docutils literal"><span class="pre">vsplit</span></tt> paging)</p>
-</dd>
-<dt>IPythonWidget.history_lock <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.in_prompt <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;In [&lt;span class=&#8221;in-prompt-number&#8221;&gt;%i&lt;/span&gt;]: &#8216;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.input_sep <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;\n&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.kind <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;plain&#8217;|&#8217;rich&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;plain&#8217;</p>
-<p class="last">The type of underlying text widget to use. Valid values are &#8216;plain&#8217;, which
-specifies a QPlainTextEdit, and &#8216;rich&#8217;, which specifies a QTextEdit.</p>
-</dd>
-<dt>IPythonWidget.lexer_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
-<dd><p class="first">Default: &lt;IPython.utils.traitlets.Undefined object at 0x7f0324a37110&gt;</p>
-<p class="last">The pygments lexer class to use.</p>
-</dd>
-<dt>IPythonWidget.out_prompt <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;Out[&lt;span class=&#8221;out-prompt-number&#8221;&gt;%i&lt;/span&gt;]: &#8216;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.output_sep <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.output_sep2 <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>IPythonWidget.paging <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;inside&#8217;|&#8217;hsplit&#8217;|&#8217;vsplit&#8217;|&#8217;custom&#8217;|&#8217;none&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;inside&#8217;</p>
-<p>The type of paging to use. Valid values are:</p>
-<dl class="last docutils">
-<dt>&#8216;inside&#8217;</dt>
-<dd>The widget pages like a traditional terminal.</dd>
-<dt>&#8216;hsplit&#8217;</dt>
-<dd>When paging is requested, the widget is split horizontally. The top
-pane contains the console, and the bottom pane contains the paged text.</dd>
-<dt>&#8216;vsplit&#8217;</dt>
-<dd>Similar to &#8216;hsplit&#8217;, except that a vertical splitter is used.</dd>
-<dt>&#8216;custom&#8217;</dt>
-<dd>No action is taken by the widget beyond emitting a
-&#8216;custom_page_requested(str)&#8217; signal.</dd>
-<dt>&#8216;none&#8217;</dt>
-<dd>The text is written directly to the console.</dd>
-</dl>
-</dd>
-<dt>IPythonWidget.style_sheet <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<dl class="last docutils">
-<dt>A CSS stylesheet. The stylesheet can contain classes for:</dt>
-<dd><ol class="first last arabic simple">
-<li>Qt: QPlainTextEdit, QFrame, QWidget, etc</li>
-<li>Pygments: .c, .k, .o, etc. (see PygmentsHighlighter)</li>
-<li>IPython: .error, .in-prompt, .out-prompt, etc</li>
-</ol>
-</dd>
-</dl>
-</dd>
-<dt>IPythonWidget.syntax_style <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">If not empty, use this Pygments style for syntax highlighting. Otherwise,
-the style sheet is queried for Pygments style information.</p>
-</dd>
-<dt>IPythonWidget.width <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
-<dd><p class="first">Default: 81</p>
-<p class="last">The width of the console at start time in number of characters (will double
-with <tt class="docutils literal"><span class="pre">hsplit</span></tt> paging)</p>
 </dd>
 </dl>
 </div>
@@ -490,8 +490,8 @@ with <tt class="docutils literal"><span class="pre">hsplit</span></tt> paging)</
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Sep 12, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Sep 25, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
