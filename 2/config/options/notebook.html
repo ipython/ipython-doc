@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython notebook options &mdash; IPython 2.2.0 documentation</title>
+    <title>IPython notebook options &mdash; IPython 2.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '2.2.0',
+        VERSION:     '2.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.2.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 2.3.0 documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
     <link rel="next" title="IPython Qt console options" href="qtconsole.html" />
     <link rel="prev" title="IPython kernel options" href="kernel.html" /> 
@@ -96,7 +96,7 @@
 <h1>IPython notebook options<a class="headerlink" href="#ipython-notebook-options" title="Permalink to this headline">¶</a></h1>
 <p>Any of the <a class="reference internal" href="kernel.html"><em>IPython kernel options</em></a> can also be used.</p>
 <dl class="docutils">
-<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;md5&#8217;|&#8217;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha256&#8217;|&#8217;sha384&#8217;|&#8217;sha512&#8217;</span></dt>
+<dt>NotebookNotary.algorithm <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;sha1&#8217;|&#8217;sha224&#8217;|&#8217;sha384&#8217;|&#8217;sha256&#8217;|&#8217;sha512&#8217;|&#8217;md5&#8217;</span></dt>
 <dd><p class="first">Default: &#8216;sha256&#8217;</p>
 <p class="last">The hashing algorithm used to sign notebooks.</p>
 </dd>
@@ -108,53 +108,9 @@
 <dd><p class="first">Default: u&#8217;&#8216;</p>
 <p class="last">The file where the secret key is stored.</p>
 </dd>
-<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: &#8216;.ipynb_checkpoints&#8217;</p>
-<p>The directory name in which to keep notebook checkpoints</p>
-<p>This is a path relative to the notebook&#8217;s own directory.</p>
-<p class="last">By default, it is .ipynb_checkpoints</p>
-</dd>
-<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
-<p class="last">Glob patterns to hide in file and directory listings.</p>
-</dd>
-<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;/tmp/ipython/docs&#8217;</p>
-<p class="last">No description</p>
-</dd>
-<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p>Automatically create a Python script when saving the notebook.</p>
-<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
-name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
-save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
-</dd>
 <dt>NotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
 <dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
 <p class="last">Glob patterns to hide in file and directory listings.</p>
-</dd>
-<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
-<dd><p class="first">Default: False</p>
-<p class="last">Should we autorestart the kernel if it dies.</p>
-</dd>
-<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: u&#8217;&#8216;</p>
-<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
-something other than localhost, then Consoles on other machines will be able
-to connect to the Kernel, so be careful!</p>
-</dd>
-<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
-<dd><p class="first">Default: []</p>
-<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
-kernel. If kernel_cmd is specified in a configuration file, IPython does not
-pass any arguments to the kernel, because it cannot make any assumptions
-about the  arguments that the kernel understands. In particular, this means
-that the kernel does not receive the option &#8211;debug if it given on the
-IPython command line.</p>
-</dd>
-<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
-<dd><p class="first">Default: &#8216;tcp&#8217;</p>
-<p class="last">No description</p>
 </dd>
 <dt>NotebookApp.allow_credentials <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: False</p>
@@ -331,6 +287,29 @@ traceback</p>
 <p class="last">Supply overrides for the tornado.web.Application that the IPython notebook
 uses.</p>
 </dd>
+<dt>KernelManager.autorestart <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p class="last">Should we autorestart the kernel if it dies.</p>
+</dd>
+<dt>KernelManager.ip <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;&#8216;</p>
+<p class="last">Set the kernel&#8217;s IP address [default localhost]. If the IP address is
+something other than localhost, then Consoles on other machines will be able
+to connect to the Kernel, so be careful!</p>
+</dd>
+<dt>KernelManager.kernel_cmd <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: []</p>
+<p class="last">The Popen Command to launch the kernel. Override this if you have a custom
+kernel. If kernel_cmd is specified in a configuration file, IPython does not
+pass any arguments to the kernel, because it cannot make any assumptions
+about the  arguments that the kernel understands. In particular, this means
+that the kernel does not receive the option &#8211;debug if it given on the
+IPython command line.</p>
+</dd>
+<dt>KernelManager.transport <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;tcp&#8217;|&#8217;ipc&#8217;</span></dt>
+<dd><p class="first">Default: &#8216;tcp&#8217;</p>
+<p class="last">No description</p>
+</dd>
 <dt>InlineBackend.close_figures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
 <dd><p class="first">Default: True</p>
 <p>Close all figures at the end of each cell.</p>
@@ -362,6 +341,27 @@ but figure barriers between cells must be explicit.</p>
 <dd><p class="first">Default: {&#8216;font.size&#8217;: 10, &#8216;figure.figsize&#8217;: (6.0, 4.0), &#8216;figure.facec...</p>
 <p class="last">Subset of matplotlib rcParams that should be different for the inline
 backend.</p>
+</dd>
+<dt>FileNotebookManager.checkpoint_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: &#8216;.ipynb_checkpoints&#8217;</p>
+<p>The directory name in which to keep notebook checkpoints</p>
+<p>This is a path relative to the notebook&#8217;s own directory.</p>
+<p class="last">By default, it is .ipynb_checkpoints</p>
+</dd>
+<dt>FileNotebookManager.hide_globs <span class="classifier-delimiter">:</span> <span class="classifier">List</span></dt>
+<dd><p class="first">Default: [u&#8217;__pycache__&#8217;]</p>
+<p class="last">Glob patterns to hide in file and directory listings.</p>
+</dd>
+<dt>FileNotebookManager.notebook_dir <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
+<dd><p class="first">Default: u&#8217;/tmp/ipython/docs&#8217;</p>
+<p class="last">No description</p>
+</dd>
+<dt>FileNotebookManager.save_script <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: False</p>
+<p>Automatically create a Python script when saving the notebook.</p>
+<p class="last">For easier use of import, %run and %load across notebooks, a &lt;notebook-
+name&gt;.py script will be created next to any &lt;notebook-name&gt;.ipynb on each
+save.  This can also be set with the short <cite>&#8211;script</cite> flag.</p>
 </dd>
 <dt>MappingKernelManager.kernel_manager_class <span class="classifier-delimiter">:</span> <span class="classifier">DottedObjectName</span></dt>
 <dd><p class="first">Default: &#8216;IPython.kernel.ioloop.IOLoopKernelManager&#8217;</p>
@@ -406,7 +406,7 @@ KernelManager for customized behavior.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Aug 06, 2014.
+      Last updated on Oct 01, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
