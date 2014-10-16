@@ -165,7 +165,7 @@ a downgrade.</p>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.new_heading_cell">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">new_heading_cell</tt><big>(</big><em>source=None</em>, <em>rendered=None</em>, <em>level=1</em>, <em>metadata=None</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.new_heading_cell" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">new_heading_cell</tt><big>(</big><em>source=None</em>, <em>level=1</em>, <em>rendered=None</em>, <em>metadata=None</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.new_heading_cell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new section cell with a given integer level.</p>
 </dd></dl>
 
@@ -242,7 +242,7 @@ be assumed.</p>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.read">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">read</tt><big>(</big><em>fp</em>, <em>format</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.read" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">read</tt><big>(</big><em>fp</em>, <em>format='DEPRECATED'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a notebook from a file and return the NotebookNode object.</p>
 <p>This function properly handles notebooks of any version. The notebook
 returned will always be in the current version&#8217;s format.</p>
@@ -253,10 +253,6 @@ returned will always be in the current version&#8217;s format.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fp</strong> : file</p>
 <blockquote>
 <div><p>Any file-like object with a read method.</p>
-</div></blockquote>
-<p><strong>format</strong> : (u&#8217;json&#8217;, u&#8217;ipynb&#8217;, u&#8217;py&#8217;)</p>
-<blockquote>
-<div><p>The format that the string is in.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -272,7 +268,7 @@ returned will always be in the current version&#8217;s format.</p>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.reads">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">reads</tt><big>(</big><em>s</em>, <em>format</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.reads" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">reads</tt><big>(</big><em>s</em>, <em>format='DEPRECATED'</em>, <em>version=3</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.reads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a notebook from a string and return the NotebookNode object.</p>
 <p>This function properly handles notebooks of any version. The notebook
 returned will always be in the current version&#8217;s format.</p>
@@ -283,10 +279,6 @@ returned will always be in the current version&#8217;s format.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>s</strong> : unicode</p>
 <blockquote>
 <div><p>The raw unicode string to read the notebook from.</p>
-</div></blockquote>
-<p><strong>format</strong> : (u&#8217;json&#8217;, u&#8217;ipynb&#8217;, u&#8217;py&#8217;)</p>
-<blockquote>
-<div><p>The format that the string is in.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -303,26 +295,26 @@ returned will always be in the current version&#8217;s format.</p>
 <dl class="function">
 <dt id="IPython.nbformat.current.reads_json">
 <tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">reads_json</tt><big>(</big><em>nbjson</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.reads_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a JSON notebook from a string and return the NotebookNode
-object. Report if any JSON format errors are detected.</p>
+<dd><p>DEPRECATED, use reads</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.reads_py">
 <tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">reads_py</tt><big>(</big><em>s</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.reads_py" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a .py notebook from a string and return the NotebookNode object.</p>
+<dd><p>DEPRECATED: use nbconvert</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.validate">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">validate</tt><big>(</big><em>nbjson</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.validate" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">validate</tt><big>(</big><em>nbjson</em>, <em>ref=None</em>, <em>version=None</em>, <em>version_minor=None</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.validate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Checks whether the given notebook JSON conforms to the current
-notebook format schema, and returns the list of errors.</p>
+notebook format schema.</p>
+<p>Raises ValidationError if not valid.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.write">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">write</tt><big>(</big><em>nb</em>, <em>fp</em>, <em>format</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.write" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">write</tt><big>(</big><em>nb</em>, <em>fp</em>, <em>format='DEPRECATED'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a notebook to a file in a given format in the current nbformat version.</p>
 <p>This function always writes the notebook in the current nbformat version.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -334,18 +326,8 @@ notebook format schema, and returns the list of errors.</p>
 <div><p>The notebook to write.</p>
 </div></blockquote>
 <p><strong>fp</strong> : file</p>
-<blockquote>
-<div><p>Any file-like object with a write method.</p>
-</div></blockquote>
-<p><strong>format</strong> : (u&#8217;json&#8217;, u&#8217;ipynb&#8217;, u&#8217;py&#8217;)</p>
-<blockquote>
-<div><p>The format to write the notebook in.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>s</strong> : unicode</p>
 <blockquote class="last">
-<div><p>The notebook string.</p>
+<div><p>Any file-like object with a write method.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -355,7 +337,7 @@ notebook format schema, and returns the list of errors.</p>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.writes">
-<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">writes</tt><big>(</big><em>nb</em>, <em>format</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.writes" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">writes</tt><big>(</big><em>nb</em>, <em>format='DEPRECATED'</em>, <em>version=3</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.writes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a notebook to a string in a given format in the current nbformat version.</p>
 <p>This function always writes the notebook in the current nbformat version.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -366,9 +348,10 @@ notebook format schema, and returns the list of errors.</p>
 <blockquote>
 <div><p>The notebook to write.</p>
 </div></blockquote>
-<p><strong>format</strong> : (u&#8217;json&#8217;, u&#8217;ipynb&#8217;, u&#8217;py&#8217;)</p>
+<p><strong>version</strong> : int</p>
 <blockquote>
-<div><p>The format to write the notebook in.</p>
+<div><p>The nbformat version to write.
+Used for downgrading notebooks.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -385,14 +368,14 @@ notebook format schema, and returns the list of errors.</p>
 <dl class="function">
 <dt id="IPython.nbformat.current.writes_json">
 <tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">writes_json</tt><big>(</big><em>nb</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.writes_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take a NotebookNode object and write out a JSON string. Report if
-any JSON format errors are detected.</p>
+<dd><p>DEPRECATED, use writes</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="IPython.nbformat.current.writes_py">
 <tt class="descclassname">IPython.nbformat.current.</tt><tt class="descname">writes_py</tt><big>(</big><em>nb</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.current.writes_py" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>DEPRECATED: use nbconvert</p>
+</dd></dl>
 
 </div>
 </div>
@@ -427,8 +410,8 @@ any JSON format errors are detected.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Sep 25, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Oct 16, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
     </div>
   </body>
 </html>

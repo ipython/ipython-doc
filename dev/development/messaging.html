@@ -76,6 +76,7 @@
 <li><a class="reference internal" href="#introspection">Introspection</a></li>
 <li><a class="reference internal" href="#completion">Completion</a></li>
 <li><a class="reference internal" href="#history">History</a></li>
+<li><a class="reference internal" href="#code-completeness">Code completeness</a></li>
 <li><a class="reference internal" href="#connect">Connect</a></li>
 <li><a class="reference internal" href="#kernel-info">Kernel info</a></li>
 <li><a class="reference internal" href="#kernel-shutdown">Kernel shutdown</a></li>
@@ -656,6 +657,49 @@ request it from the kernel when needed.</p>
 </pre></div>
 </div>
 </div>
+<div class="section" id="code-completeness">
+<span id="msging-is-complete"></span><h3>Code completeness<a class="headerlink" href="#code-completeness" title="Permalink to this headline">¶</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 5.0.</span></p>
+</div>
+<p>When the user enters a line in a console style interface, the console must
+decide whether to immediately execute the current code, or whether to show a
+continuation prompt for further input. For instance, in Python <tt class="docutils literal"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">5</span></tt> would
+be executed immediately, while <tt class="docutils literal"><span class="pre">for</span> <span class="pre">i</span> <span class="pre">in</span> <span class="pre">range(5):</span></tt> would expect further input.</p>
+<p>There are four possible replies:</p>
+<ul class="simple">
+<li><em>complete</em> code is ready to be executed</li>
+<li><em>incomplete</em> code should prompt for another line</li>
+<li><em>invalid</em> code will typically be sent for execution, so that the user sees the
+error soonest.</li>
+<li><em>unknown</em> - if the kernel is not able to determine this. The frontend should
+also handle the kernel not replying promptly. It may default to sending the
+code for execution, or it may implement simple fallback heuristics for whether
+to execute the code (e.g. execute after a blank line).</li>
+</ul>
+<p>Frontends may have ways to override this, forcing the code to be sent for
+execution or forcing a continuation prompt.</p>
+<p>Message type: <tt class="docutils literal"><span class="pre">is_complete_request</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c"># The code entered so far as a multiline string</span>
+    <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Message type: <tt class="docutils literal"><span class="pre">is_complete_reply</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c"># One of &#39;complete&#39;, &#39;incomplete&#39;, &#39;invalid&#39;, &#39;unknown&#39;</span>
+    <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+    <span class="c"># If status is &#39;incomplete&#39;, indent should contain the characters to use</span>
+    <span class="c"># to indent the next line. This is only a hint: frontends may ignore it</span>
+    <span class="c"># and use their own autoindentation rules. For other statuses, this</span>
+    <span class="c"># field does not exist.</span>
+    <span class="s">&#39;indent&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="connect">
 <h3>Connect<a class="headerlink" href="#connect" title="Permalink to this headline">¶</a></h3>
 <p>When a client connects to the request/reply socket of the kernel, it can issue
@@ -779,10 +823,13 @@ process is unlikely to respond in any useful way to messages.</p>
     <span class="c"># The name of the stream is one of &#39;stdout&#39;, &#39;stderr&#39;</span>
     <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
-    <span class="c"># The data is an arbitrary string to be written to that stream</span>
-    <span class="s">&#39;data&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="c"># The text is an arbitrary string to be written to that stream</span>
+    <span class="s">&#39;text&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 5.0: </span>&#8216;data&#8217; key renamed to &#8216;text&#8217; for conistency with the notebook format.</p>
 </div>
 </div>
 <div class="section" id="display-data">
@@ -1122,8 +1169,8 @@ just like an execute request.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Sep 25, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Oct 16, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
     </div>
   </body>
 </html>

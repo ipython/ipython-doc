@@ -1,0 +1,2567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Built-in magic commands &mdash; IPython 3.0.0-dev documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0-dev',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="up" title="Using IPython for interactive work" href="index.html" />
+    <link rel="next" title="IPython as a system shell" href="shell.html" />
+    <link rel="prev" title="IPython reference" href="reference.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="shell.html" title="IPython as a system shell"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="IPython reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Using IPython for interactive work</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Built-in magic commands</a><ul>
+<li><a class="reference internal" href="#line-magics">Line magics</a></li>
+<li><a class="reference internal" href="#cell-magics">Cell magics</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reference.html"
+                        title="previous chapter">IPython reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="shell.html"
+                        title="next chapter">IPython as a system shell</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/interactive/magics.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for a development version of IPython. There may be
+significant differences from the latest stable release.</p>
+</div>
+</div></blockquote>
+<div class="section" id="built-in-magic-commands">
+<h1>Built-in magic commands<a class="headerlink" href="#built-in-magic-commands" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="line-magics">
+<h2>Line magics<a class="headerlink" href="#line-magics" title="Permalink to this headline">¶</a></h2>
+<dl class="magic">
+<dt id="magic-alias">
+<tt class="descname">%alias</tt><a class="headerlink" href="#magic-alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define an alias for a system command.</p>
+<p>&#8216;%alias alias_name cmd&#8217; defines &#8216;alias_name&#8217; as an alias for &#8216;cmd&#8217;</p>
+<p>Then, typing &#8216;alias_name params&#8217; will execute the system command &#8216;cmd
+params&#8217; (from your underlying operating system).</p>
+<p>Aliases have lower precedence than magic functions and Python normal
+variables, so if &#8216;foo&#8217; is both a Python variable and an alias, the
+alias can not be executed until &#8216;del foo&#8217; removes the Python variable.</p>
+<p>You can use the %l specifier in an alias definition to represent the
+whole line when the alias is called.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: alias bracket echo &quot;Input in brackets: &lt;%l&gt;&quot;
+In [3]: bracket hello world
+Input in brackets: &lt;hello world&gt;
+</pre></div>
+</div>
+<p>You can also define aliases with parameters using %s specifiers (one
+per parameter):</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alias parts echo first %s second %s
+In [2]: %parts A B
+first A second B
+In [3]: %parts A
+Incorrect number of arguments: 2 expected.
+parts is an alias to: &#39;echo first %s second %s&#39;
+</pre></div>
+</div>
+<p>Note that %l and %s are mutually exclusive.  You can only use one or
+the other in your aliases.</p>
+<p>Aliases expand Python variables just like system calls using ! or !!
+do: all expressions prefixed with &#8216;$&#8217; get expanded.  For details of
+the semantic rules, see PEP-215:
+<a class="reference external" href="http://www.python.org/peps/pep-0215.html">http://www.python.org/peps/pep-0215.html</a>.  This is the library used by
+IPython for variable expansion.  If you want to access a true shell
+variable, an extra $ is necessary to prevent its expansion by
+IPython:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [6]: alias show echo
+In [7]: PATH=&#39;A Python string&#39;
+In [8]: show $PATH
+A Python string
+In [9]: show $$PATH
+/usr/local/lf9560/bin:/usr/local/intel/compiler70/ia32/bin:...
+</pre></div>
+</div>
+<p>You can use the alias facility to acess all of $PATH.  See the %rehash
+and %rehashx functions, which automatically create aliases for the
+contents of your $PATH.</p>
+<p>If called with no parameters, %alias prints the current alias table.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-alias_magic">
+<tt class="descname">%alias_magic</tt><a class="headerlink" href="#magic-alias_magic" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%alias_magic [-l] [-c] name target
+</pre></div>
+</div>
+<p>Create an alias for an existing line or cell magic.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %alias_magic t timeit
+Created `%t` as an alias for `%timeit`.
+Created `%%t` as an alias for `%%timeit`.
+
+In [2]: %t -n1 pass
+1 loops, best of 3: 954 ns per loop
+
+In [3]: %%t -n1
+   ...: pass
+   ...:
+1 loops, best of 3: 954 ns per loop
+
+In [4]: %alias_magic --cell whereami pwd
+UsageError: Cell magic function `%%pwd` not found.
+In [5]: %alias_magic --line whereami pwd
+Created `%whereami` as an alias for `%pwd`.
+
+In [6]: %whereami
+Out[6]: u&#39;/home/testuser&#39;
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>name        Name of the magic to be created.
+target      Name of the existing line or cell magic.</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l</span>, <span class="option">--line</span></kbd></td>
+<td>Create a line magic alias.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-c</span>, <span class="option">--cell</span></kbd></td>
+<td>Create a cell magic alias.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-autocall">
+<tt class="descname">%autocall</tt><a class="headerlink" href="#magic-autocall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make functions callable without having to type parentheses.</p>
+<p>Usage:</p>
+<blockquote>
+<div>%autocall [mode]</div></blockquote>
+<p>The mode can be one of: 0-&gt;Off, 1-&gt;Smart, 2-&gt;Full.  If not given, the
+value is toggled on and off (remembering the previous state).</p>
+<p>In more detail, these values mean:</p>
+<p>0 -&gt; fully disabled</p>
+<p>1 -&gt; active, but do not apply if there are no arguments on the line.</p>
+<p>In this mode, you get:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: callable
+Out[1]: &lt;built-in function callable&gt;
+
+In [2]: callable &#39;hello&#39;
+------&gt; callable(&#39;hello&#39;)
+Out[2]: False
+</pre></div>
+</div>
+<p>2 -&gt; Active always.  Even if no arguments are present, the callable
+object is called:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: float
+------&gt; float()
+Out[2]: 0.0
+</pre></div>
+</div>
+<p>Note that even with autocall off, you can still use &#8216;/&#8217; at the start of
+a line to treat the first argument on the command line as a function
+and add parentheses to it:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [8]: /str 43
+------&gt; str(43)
+Out[8]: &#39;43&#39;
+</pre></div>
+</div>
+<p># all-random (note for auto-testing)</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-automagic">
+<tt class="descname">%automagic</tt><a class="headerlink" href="#magic-automagic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make magic functions callable without having to type the initial %.</p>
+<p>Without argumentsl toggles on/off (when off, you must call it as
+%automagic, of course).  With arguments it sets the value, and you can
+use any of (case insensitive):</p>
+<blockquote>
+<div><ul class="simple">
+<li>on, 1, True: to activate</li>
+<li>off, 0, False: to deactivate.</li>
+</ul>
+</div></blockquote>
+<p>Note that magic functions have lowest priority, so if there&#8217;s a
+variable whose name collides with that of a magic fn, automagic won&#8217;t
+work for that function (you get the variable instead). However, if you
+delete the variable (del var), the previously shadowed magic function
+becomes visible to automagic again.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-bookmark">
+<tt class="descname">%bookmark</tt><a class="headerlink" href="#magic-bookmark" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage IPython&#8217;s bookmark system.</p>
+<p>%bookmark &lt;name&gt;       - set bookmark to current dir
+%bookmark &lt;name&gt; &lt;dir&gt; - set bookmark to &lt;dir&gt;
+%bookmark -l           - list all bookmarks
+%bookmark -d &lt;name&gt;    - remove bookmark
+%bookmark -r           - remove all bookmarks</p>
+<p>You can later on access a bookmarked folder with:</p>
+<div class="highlight-python"><div class="highlight"><pre>%cd -b &lt;name&gt;
+</pre></div>
+</div>
+<p>or simply &#8216;%cd &lt;name&gt;&#8217; if there is no directory called &lt;name&gt; AND
+there is such a bookmark defined.</p>
+<p>Your bookmarks persist through IPython sessions, but they are
+associated with each profile.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-cd">
+<tt class="descname">%cd</tt><a class="headerlink" href="#magic-cd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the current working directory.</p>
+<p>This command automatically maintains an internal list of directories
+you visit during your IPython session, in the variable _dh. The
+command %dhist shows this history nicely formatted. You can also
+do &#8216;cd -&lt;tab&gt;&#8217; to see directory history conveniently.</p>
+<p>Usage:</p>
+<blockquote>
+<div><p>cd &#8216;dir&#8217;: changes to directory &#8216;dir&#8217;.</p>
+<p>cd -: changes to the last visited directory.</p>
+<p>cd -&lt;n&gt;: changes to the n-th directory in the directory history.</p>
+<p>cd &#8211;foo: change to directory that matches &#8216;foo&#8217; in history</p>
+<dl class="docutils">
+<dt>cd -b &lt;bookmark_name&gt;: jump to a bookmark set by %bookmark</dt>
+<dd><dl class="first last docutils">
+<dt>(note: cd &lt;bookmark_name&gt; is enough if there is no</dt>
+<dd>directory &lt;bookmark_name&gt;, but a bookmark with the name exists.)
+&#8216;cd -b &lt;tab&gt;&#8217; allows you to tab-complete bookmark names.</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>Options:</p>
+<p>-q: quiet.  Do not print the working directory after the cd command is
+executed.  By default IPython&#8217;s cd command does print this directory,
+since the default prompts do not display path information.</p>
+<p>Note that !cd doesn&#8217;t work for this purpose because the shell where
+!command runs is immediately discarded after executing &#8216;command&#8217;.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [10]: cd parent/child
+/home/tsuser/parent/child
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-colors">
+<tt class="descname">%colors</tt><a class="headerlink" href="#magic-colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch color scheme for prompts, info system and exception handlers.</p>
+<p>Currently implemented schemes: NoColor, Linux, LightBG.</p>
+<p>Color scheme names are not case-sensitive.</p>
+<p>Examples</p>
+<p>To get a plain black and white terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>%colors nocolor
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-config">
+<tt class="descname">%config</tt><a class="headerlink" href="#magic-config" title="Permalink to this definition">¶</a></dt>
+<dd><p>configure IPython</p>
+<blockquote>
+<div>%config Class[.trait=value]</div></blockquote>
+<p>This magic exposes most of the IPython config system. Any
+Configurable class should be able to be configured with the simple
+line:</p>
+<div class="highlight-python"><div class="highlight"><pre>%config Class.trait=value
+</pre></div>
+</div>
+<p>Where <tt class="docutils literal"><span class="pre">value</span></tt> will be resolved in the user&#8217;s namespace, if it is an
+expression or variable name.</p>
+<p>Examples</p>
+<p>To see what classes are available for config, pass no arguments:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %config
+Available objects for config:
+    TerminalInteractiveShell
+    HistoryManager
+    PrefilterManager
+    AliasManager
+    IPCompleter
+    PromptManager
+    DisplayFormatter
+</pre></div>
+</div>
+<p>To view what is configurable on a given class, just pass the class
+name:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: %config IPCompleter
+IPCompleter options
+
+IPCompleter.omit__names=&lt;Enum&gt;
+    Current: 2
+    Choices: (0, 1, 2)
+    Instruct the completer to omit private method names
+    Specifically, when completing on ``object.&lt;tab&gt;``.
+    When 2 [default]: all names that start with &#39;_&#39; will be excluded.
+    When 1: all &#39;magic&#39; names (``__foo__``) will be excluded.
+    When 0: nothing will be excluded.
+IPCompleter.merge_completions=&lt;CBool&gt;
+    Current: True
+    Whether to merge completion results into a single list
+    If False, only the completion results from the first non-empty
+    completer will be returned.
+IPCompleter.limit_to__all__=&lt;CBool&gt;
+    Current: False
+    Instruct the completer to use __all__ for the completion
+    Specifically, when completing on ``object.&lt;tab&gt;``.
+    When True: only those names in obj.__all__ will be included.
+    When False [default]: the __all__ attribute is ignored
+IPCompleter.greedy=&lt;CBool&gt;
+    Current: False
+    Activate greedy completion
+    This will enable completion on elements of lists, results of
+    function calls, etc., but can be unsafe because the code is
+    actually evaluated on TAB.
+</pre></div>
+</div>
+<p>but the real use is in setting values:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: %config IPCompleter.greedy = True
+</pre></div>
+</div>
+<p>and these values are read from the user_ns if they are variables:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [4]: feeling_greedy=False
+
+In [5]: %config IPCompleter.greedy = feeling_greedy
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-debug">
+<tt class="descname">%debug</tt><a class="headerlink" href="#magic-debug" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%debug [--breakpoint FILE:LINE] [statement [statement ...]]
+</pre></div>
+</div>
+<p>Activate the interactive debugger.</p>
+<p>This magic command support two ways of activating debugger.
+One is to activate debugger before executing code.  This way, you
+can set a break point, to step through the code from the point.
+You can use this mode by giving statements to execute and optionally
+a breakpoint.</p>
+<p>The other one is to activate debugger in post-mortem mode.  You can
+activate this mode simply running %debug without any argument.
+If an exception has just occurred, this lets you inspect its stack
+frames interactively.  Note that this will always work only on the last
+traceback that occurred, so you must call this quickly after an
+exception that you wish to inspect has fired, because if another one
+occurs, it clobbers the previous one.</p>
+<p>If you want IPython to automatically do this on every exception, see
+the %pdb magic for more details.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>statement             Code to run in debugger. You can omit this in cell</dt>
+<dd>magic mode.</dd>
+</dl>
+</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--breakpoint <var>&lt;FILE:LINE&gt;</var></span>, <span class="option">-b <var>&lt;FILE:LINE&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Set break point at LINE in FILE.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-dhist">
+<tt class="descname">%dhist</tt><a class="headerlink" href="#magic-dhist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print your history of visited directories.</p>
+<p>%dhist       -&gt; print full history%dhist n     -&gt; print last n entries only%dhist n1 n2 -&gt; print entries between n1 and n2 (n2 not included)</p>
+<p>This history is automatically maintained by the %cd command, and
+always available as the global list variable _dh. You can use %cd -&lt;n&gt;
+to go to directory number &lt;n&gt;.</p>
+<p>Note that most of time, you should view directory history by entering
+cd -&lt;TAB&gt;.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-dirs">
+<tt class="descname">%dirs</tt><a class="headerlink" href="#magic-dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current directory stack.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-doctest_mode">
+<tt class="descname">%doctest_mode</tt><a class="headerlink" href="#magic-doctest_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle doctest mode on and off.</p>
+<p>This mode is intended to make IPython behave as much as possible like a
+plain Python shell, from the perspective of how its prompts, exceptions
+and output look.  This makes it easy to copy and paste parts of a
+session into doctests.  It does so by:</p>
+<ul class="simple">
+<li>Changing the prompts to the classic <tt class="docutils literal"><span class="pre">&gt;&gt;&gt;</span></tt> ones.</li>
+<li>Changing the exception reporting mode to &#8216;Plain&#8217;.</li>
+<li>Disabling pretty-printing of output.</li>
+</ul>
+<p>Note that IPython also supports the pasting of code snippets that have
+leading &#8216;&gt;&gt;&gt;&#8217; and &#8216;...&#8217; prompts in them.  This means that you can paste
+doctests from files or docstrings (even if they have leading
+whitespace), and the code will execute correctly.  You can then use
+&#8216;%history -t&#8217; to see the translated history; this will give you the
+input after removal of all the leading prompts and whitespace, which
+can be pasted back into an editor.</p>
+<p>With these features, you can switch into this mode easily whenever you
+need to do testing and changes to doctests, without having to leave
+your existing IPython session.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-edit">
+<tt class="descname">%edit</tt><a class="headerlink" href="#magic-edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bring up an editor and execute the resulting code.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%edit [options] [args]</dd>
+</dl>
+<p>%edit runs IPython&#8217;s editor hook. The default version of this hook is
+set to call the editor specified by your $EDITOR environment variable.
+If this isn&#8217;t found, it will default to vi under Linux/Unix and to
+notepad under Windows. See the end of this docstring for how to change
+the editor hook.</p>
+<p>You can also set the value of this editor via the
+<tt class="docutils literal"><span class="pre">TerminalInteractiveShell.editor</span></tt> option in your configuration file.
+This is useful if you wish to use a different editor from your typical
+default with IPython (and for Windows users who typically don&#8217;t set
+environment variables).</p>
+<p>This command allows you to conveniently edit multi-line code right in
+your IPython session.</p>
+<p>If called without arguments, %edit opens up an empty editor with a
+temporary file and will execute the contents of this file when you
+close it (don&#8217;t forget to save it!).</p>
+<p>Options:</p>
+<p>-n &lt;number&gt;: open the editor at a specified line number.  By default,
+the IPython editor hook uses the unix syntax &#8216;editor +N filename&#8217;, but
+you can configure this by providing your own modified hook if your
+favorite editor supports line-number specifications with a different
+syntax.</p>
+<p>-p: this will call the editor with the same data as the previous time
+it was used, regardless of how long ago (in your current session) it
+was.</p>
+<p>-r: use &#8216;raw&#8217; input.  This option only applies to input taken from the
+user&#8217;s history.  By default, the &#8216;processed&#8217; history is used, so that
+magics are loaded in their transformed version to valid Python.  If
+this option is given, the raw input as typed as the command line is
+used instead.  When you exit the editor, it will be executed by
+IPython&#8217;s own processor.</p>
+<p>-x: do not execute the edited code immediately upon exit. This is
+mainly useful if you are editing programs which need to be called with
+command line arguments, which you can then do using %run.</p>
+<p>Arguments:</p>
+<p>If arguments are given, the following possibilities exist:</p>
+<ul class="simple">
+<li>If the argument is a filename, IPython will load that into the
+editor. It will execute its contents with execfile() when you exit,
+loading any code in the file into your interactive namespace.</li>
+<li>The arguments are ranges of input history,  e.g. &#8220;7 ~1/4-6&#8221;.
+The syntax is the same as in the %history magic.</li>
+<li>If the argument is a string variable, its contents are loaded
+into the editor. You can thus edit any string which contains
+python code (including the result of previous edits).</li>
+<li>If the argument is the name of an object (other than a string),
+IPython will try to locate the file where it was defined and open the
+editor at the point where it is defined. You can use <tt class="docutils literal"><span class="pre">%edit</span> <span class="pre">function</span></tt>
+to load an editor exactly at the point where &#8216;function&#8217; is defined,
+edit it and have the file be executed automatically.</li>
+<li>If the object is a macro (see %macro for details), this opens up your
+specified editor with a temporary file containing the macro&#8217;s data.
+Upon exit, the macro is reloaded with the contents of the file.</li>
+</ul>
+<p>Note: opening at an exact line is only supported under Unix, and some
+editors (like kedit and gedit up to Gnome 2.8) do not understand the
+&#8216;+NUMBER&#8217; parameter necessary for this feature. Good editors like
+(X)Emacs, vi, jed, pico and joe all do.</p>
+<p>After executing your code, %edit will return as output the code you
+typed in the editor (except when it was an existing file). This way
+you can reload the code in further invocations of %edit as a variable,
+via _&lt;NUMBER&gt; or Out[&lt;NUMBER&gt;], where &lt;NUMBER&gt; is the prompt number of
+the output.</p>
+<p>Note that %edit is also available through the alias %ed.</p>
+<p>This is an example of creating a simple function inside the editor and
+then modifying it. First, start up the editor:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: edit
+Editing... done. Executing edited code...
+Out[1]: &#39;def foo():\n    print &quot;foo() was defined in an editing
+session&quot;\n&#39;
+</pre></div>
+</div>
+<p>We can then call the function foo():</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: foo()
+foo() was defined in an editing session
+</pre></div>
+</div>
+<p>Now we edit foo.  IPython automatically loads the editor with the
+(temporary) file where foo() was previously defined:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: edit foo
+Editing... done. Executing edited code...
+</pre></div>
+</div>
+<p>And if we call foo() again we get the modified version:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [4]: foo()
+foo() has now been changed!
+</pre></div>
+</div>
+<p>Here is an example of how to edit a code snippet successive
+times. First we call the editor:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [5]: edit
+Editing... done. Executing edited code...
+hello
+Out[5]: &quot;print &#39;hello&#39;\n&quot;
+</pre></div>
+</div>
+<p>Now we call it again with the previous output (stored in _):</p>
+<div class="highlight-python"><div class="highlight"><pre>In [6]: edit _
+Editing... done. Executing edited code...
+hello world
+Out[6]: &quot;print &#39;hello world&#39;\n&quot;
+</pre></div>
+</div>
+<p>Now we call it with the output #8 (stored in _8, also as Out[8]):</p>
+<div class="highlight-python"><div class="highlight"><pre>In [7]: edit _8
+Editing... done. Executing edited code...
+hello again
+Out[7]: &quot;print &#39;hello again&#39;\n&quot;
+</pre></div>
+</div>
+<p>Changing the default editor hook:</p>
+<p>If you wish to write your own editor hook, you can put it in a
+configuration file which you load at startup time.  The default hook
+is defined in the IPython.core.hooks module, and you can use that as a
+starting example for further modifications.  That file also has
+general instructions on how to set a new hook for use once you&#8217;ve
+defined it.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-env">
+<tt class="descname">%env</tt><a class="headerlink" href="#magic-env" title="Permalink to this definition">¶</a></dt>
+<dd><p>List environment variables.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-gui">
+<tt class="descname">%gui</tt><a class="headerlink" href="#magic-gui" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable or disable IPython GUI event loop integration.</p>
+<p>%gui [GUINAME]</p>
+<p>This magic replaces IPython&#8217;s threaded shells that were activated
+using the (pylab/wthread/etc.) command line flags.  GUI toolkits
+can now be enabled at runtime and keyboard
+interrupts should work without any problems.  The following toolkits
+are supported:  wxPython, PyQt4, PyGTK, Tk and Cocoa (OSX):</p>
+<div class="highlight-python"><div class="highlight"><pre>%gui wx      # enable wxPython event loop integration
+%gui qt4|qt  # enable PyQt4 event loop integration
+%gui qt5     # enable PyQt5 event loop integration
+%gui gtk     # enable PyGTK event loop integration
+%gui gtk3    # enable Gtk3 event loop integration
+%gui tk      # enable Tk event loop integration
+%gui osx     # enable Cocoa event loop integration
+             # (requires %matplotlib 1.1)
+%gui         # disable all event loop integration
+</pre></div>
+</div>
+<p>WARNING:  after any of these has been called you can simply create
+an application object, but DO NOT start the event loop yourself, as
+we have already handled that.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-history">
+<tt class="descname">%history</tt><a class="headerlink" href="#magic-history" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%history [-n] [-o] [-p] [-t] [-f FILENAME] [-g [PATTERN [PATTERN ...]]]
+             [-l [LIMIT]] [-u]
+             [range [range ...]]
+</pre></div>
+</div>
+<p>Print input history (_i&lt;n&gt; variables), with most recent last.</p>
+<p>By default, input history is printed without line numbers so it can be
+directly pasted into an editor. Use -n to show them.</p>
+<p>By default, all input history from the current session is displayed.
+Ranges of history can be indicated using the syntax:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">4</span></tt></dt>
+<dd>Line 4, current session</dd>
+<dt><tt class="docutils literal"><span class="pre">4-6</span></tt></dt>
+<dd>Lines 4-6, current session</dd>
+<dt><tt class="docutils literal"><span class="pre">243/1-5</span></tt></dt>
+<dd>Lines 1-5, session 243</dd>
+<dt><tt class="docutils literal"><span class="pre">~2/7</span></tt></dt>
+<dd>Line 7, session 2 before current</dd>
+<dt><tt class="docutils literal"><span class="pre">~8/1-~6/5</span></tt></dt>
+<dd>From the first line of 8 sessions ago, to the fifth line of 6
+sessions ago.</dd>
+</dl>
+<p>Multiple ranges can be entered, separated by spaces</p>
+<p>The same syntax is used by %macro, %save, %edit, %rerun</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [6]: %history -n 4-6
+4:a = 12
+5:print a**2
+6:%history -n 4-6
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>range</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td>print line numbers for each input. This feature is
+only available if numbered prompts are in use.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td>also print outputs for each input.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>print classic &#8216;&gt;&gt;&gt;&#8217; python prompts before each input.
+This is useful for making documentation, and in
+conjunction with -o, for producing doctest-ready
+output.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td>print the &#8216;translated&#8217; history, as IPython understands
+it. IPython filters your input and converts it all
+into valid Python source before executing it (things
+like magics or aliases are turned into function calls,
+for example). With this option, you&#8217;ll see the native
+history instead of the user-entered version: &#8216;%cd /&#8217;
+will be seen as &#8216;get_ipython().magic(&#8220;%cd /&#8221;)&#8217; instead
+of &#8216;%cd /&#8217;.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f <var>FILENAME</var></span></kbd></td>
+<td>FILENAME: instead of printing the output to the
+screen, redirect it to the given file. The file is
+always overwritten, though <em>when it can</em>, IPython asks
+for confirmation first. In particular, running the
+command &#8216;history -f FILENAME&#8217; from the IPython
+Notebook interface will replace FILENAME even if it
+already exists <em>without</em> confirmation.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-g <var>&lt;[PATTERN [PATTERN ...]]&gt;</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>treat the arg as a glob pattern to search for in
+(full) history. This includes the saved history
+(almost all commands ever written). The pattern may
+contain &#8216;?&#8217; to match one unknown character and &#8216;*&#8217; to
+match any number of unknown characters. Use &#8216;%hist -g&#8217;
+to show full saved history (may be very long).</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-l <var>&lt;[LIMIT]&gt;</var></span></kbd></td>
+<td>get the last n lines from all sessions. Specify n as a
+single arg, or the default is the last 10 lines.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-u</span></kbd></td>
+<td>when searching history using <tt class="docutils literal"><span class="pre">-g</span></tt>, show only unique
+history.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-install_default_config">
+<tt class="descname">%install_default_config</tt><a class="headerlink" href="#magic-install_default_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>%install_default_config has been deprecated.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-install_ext">
+<tt class="descname">%install_ext</tt><a class="headerlink" href="#magic-install_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download and install an extension from a URL, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>%install_ext https://bitbucket.org/birkenfeld/ipython-physics/raw/d1310a2ab15d/physics.py
+</pre></div>
+</div>
+<p>The URL should point to an importable Python module - either a .py file
+or a .zip file.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>-n filename <span class="classifier-delimiter">:</span> <span class="classifier">Specify a name for the file, rather than taking it from</span></dt>
+<dd>the URL.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-install_profiles">
+<tt class="descname">%install_profiles</tt><a class="headerlink" href="#magic-install_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>%install_profiles has been deprecated.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-killbgscripts">
+<tt class="descname">%killbgscripts</tt><a class="headerlink" href="#magic-killbgscripts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill all BG processes started by %%script and its family.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-load">
+<tt class="descname">%load</tt><a class="headerlink" href="#magic-load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load code into the current frontend.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd><p class="first">%load [options] source</p>
+<p class="last">where source can be a filename, URL, input history range, macro, or
+element in the user namespace</p>
+</dd>
+</dl>
+<p>Options:</p>
+<blockquote>
+<div><p>-r &lt;lines&gt;: Specify lines or ranges of lines to load from the source.
+Ranges could be specified as x-y (x..y) or in python-style x:y
+(x..(y-1)). Both limits x and y can be left blank (meaning the
+beginning and end of the file, respectively).</p>
+<p>-s &lt;symbols&gt;: Specify function or classes to load from python source.</p>
+<p>-y : Don&#8217;t ask confirmation for loading source above 200 000 characters.</p>
+<p>-n : Include the user&#8217;s namespace when searching for source code.</p>
+</div></blockquote>
+<p>This magic command can either take a local filename, a URL, an history
+range (see %history) or a macro as argument, it will prompt for
+confirmation before loading source with more than 200 000 characters, unless
+-y flag is passed or if the frontend does not support raw_input:</p>
+<div class="highlight-python"><div class="highlight"><pre>%load myscript.py
+%load 7-27
+%load myMacro
+%load http://www.example.com/myscript.py
+%load -r 5-10 myscript.py
+%load -r 10-20,30,40: foo.py
+%load -s MyClass,wonder_function myscript.py
+%load -n MyClass
+%load -n my_module.wonder_function
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-load_ext">
+<tt class="descname">%load_ext</tt><a class="headerlink" href="#magic-load_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an IPython extension by its module name.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-loadpy">
+<tt class="descname">%loadpy</tt><a class="headerlink" href="#magic-loadpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias of <tt class="docutils literal"><span class="pre">%load</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">%loadpy</span></tt> has gained some flexibility and dropped the requirement of a <tt class="docutils literal"><span class="pre">.py</span></tt>
+extension. So it has been renamed simply into %load. You can look at
+<tt class="docutils literal"><span class="pre">%load</span></tt>&#8216;s docstring for more info.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-logoff">
+<tt class="descname">%logoff</tt><a class="headerlink" href="#magic-logoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily stop logging.</p>
+<p>You must have previously started logging.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-logon">
+<tt class="descname">%logon</tt><a class="headerlink" href="#magic-logon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart logging.</p>
+<p>This function is for restarting logging which you&#8217;ve temporarily
+stopped with %logoff. For starting logging for the first time, you
+must use the %logstart function, which allows you to specify an
+optional log filename.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-logstart">
+<tt class="descname">%logstart</tt><a class="headerlink" href="#magic-logstart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start logging anywhere in a session.</p>
+<p>%logstart [-o|-r|-t] [log_name [log_mode]]</p>
+<p>If no name is given, it defaults to a file named &#8216;ipython_log.py&#8217; in your
+current directory, in &#8216;rotate&#8217; mode (see below).</p>
+<p>&#8216;%logstart name&#8217; saves to file &#8216;name&#8217; in &#8216;backup&#8217; mode.  It saves your
+history up to that point and then continues logging.</p>
+<p>%logstart takes a second optional parameter: logging mode. This can be one
+of (note that the modes are given unquoted):</p>
+<dl class="docutils">
+<dt>append</dt>
+<dd>Keep logging at the end of any existing file.</dd>
+<dt>backup</dt>
+<dd>Rename any existing file to name~ and start name.</dd>
+<dt>global</dt>
+<dd>Append to  a single logfile in your home directory.</dd>
+<dt>over</dt>
+<dd>Overwrite any existing log.</dd>
+<dt>rotate</dt>
+<dd>Create rotating logs: name.1~, name.2~, etc.</dd>
+</dl>
+<p>Options:</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td>log also IPython&#8217;s output. In this mode, all commands which
+generate an Out[NN] prompt are recorded to the logfile, right after
+their corresponding input line. The output lines are always
+prepended with a &#8216;#[Out]# &#8216; marker, so that the log remains valid
+Python code.</td></tr>
+</tbody>
+</table>
+<p>Since this marker is always the same, filtering only the output from
+a log is very easy, using for example a simple awk call:</p>
+<div class="highlight-python"><div class="highlight"><pre>awk -F&#39;#\[Out\]# &#39; &#39;{if($2) {print $2}}&#39; ipython_log.py
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td>log &#8216;raw&#8217; input.  Normally, IPython&#8217;s logs contain the processed
+input, so that user lines are logged in their final form, converted
+into valid Python.  For example, %Exit is logged as
+_ip.magic(&#8220;Exit&#8221;).  If the -r flag is given, all input is logged
+exactly as typed, with no transformations applied.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td>put timestamps before each input line logged (these are put in
+comments).</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-logstate">
+<tt class="descname">%logstate</tt><a class="headerlink" href="#magic-logstate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the status of the logging system.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-logstop">
+<tt class="descname">%logstop</tt><a class="headerlink" href="#magic-logstop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fully stop logging and close log file.</p>
+<p>In order to start logging again, a new %logstart call needs to be made,
+possibly (though not necessarily) with a new filename, mode and other
+options.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-lsmagic">
+<tt class="descname">%lsmagic</tt><a class="headerlink" href="#magic-lsmagic" title="Permalink to this definition">¶</a></dt>
+<dd><p>List currently available magic functions.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-macro">
+<tt class="descname">%macro</tt><a class="headerlink" href="#magic-macro" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a macro for future re-execution. It accepts ranges of history,
+filenames or string objects.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%macro [options] name n1-n2 n3-n4 ... n5 .. n6 ...</dd>
+</dl>
+<p>Options:</p>
+<blockquote>
+<div><p>-r: use &#8216;raw&#8217; input.  By default, the &#8216;processed&#8217; history is used,
+so that magics are loaded in their transformed version to valid
+Python.  If this option is given, the raw input as typed at the
+command line is used instead.</p>
+<p>-q: quiet macro definition.  By default, a tag line is printed
+to indicate the macro has been created, and then the contents of
+the macro are printed.  If this option is given, then no printout
+is produced once the macro is created.</p>
+</div></blockquote>
+<p>This will define a global variable called <tt class="docutils literal"><span class="pre">name</span></tt> which is a string
+made of joining the slices and lines you specify (n1,n2,... numbers
+above) from your input history into a single string. This variable
+acts like an automatic function which re-executes those lines as if
+you had typed them. You just type &#8216;name&#8217; at the prompt and the code
+executes.</p>
+<p>The syntax for indicating input ranges is described in %history.</p>
+<p>Note: as a &#8216;hidden&#8217; feature, you can also use traditional python slice
+notation, where N:M means numbers N through M-1.</p>
+<p>For example, if your history contains (print using %hist -n ):</p>
+<div class="highlight-python"><div class="highlight"><pre>44: x=1
+45: y=3
+46: z=x+y
+47: print x
+48: a=5
+49: print &#39;x&#39;,x,&#39;y&#39;,y
+</pre></div>
+</div>
+<p>you can create a macro with lines 44 through 47 (included) and line 49
+called my_macro with:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [55]: %macro my_macro 44-47 49
+</pre></div>
+</div>
+<p>Now, typing <tt class="docutils literal"><span class="pre">my_macro</span></tt> (without quotes) will re-execute all this code
+in one pass.</p>
+<p>You don&#8217;t need to give the line-numbers in order, and any given line
+number can appear multiple times. You can assemble macros with any
+lines from your input history in any order.</p>
+<p>The macro is a simple object which holds its value in an attribute,
+but IPython&#8217;s display system checks for macros and executes them as
+code instead of printing them when you type their name.</p>
+<p>You can view a macro&#8217;s contents by explicitly printing it with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">macro_name</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-magic">
+<tt class="descname">%magic</tt><a class="headerlink" href="#magic-magic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print information about the magic function system.</p>
+<p>Supported formats: -latex, -brief, -rest</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-matplotlib">
+<tt class="descname">%matplotlib</tt><a class="headerlink" href="#magic-matplotlib" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%matplotlib [gui]
+</pre></div>
+</div>
+<p>Set up matplotlib to work interactively.</p>
+<p>This function lets you activate matplotlib interactive support
+at any point during an IPython session. It does not import anything
+into the interactive namespace.</p>
+<p>If you are using the inline matplotlib backend in the IPython Notebook
+you can set which figure formats are enabled using the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: from IPython.display import set_matplotlib_formats
+
+In [2]: set_matplotlib_formats(&#39;pdf&#39;, &#39;svg&#39;)
+</pre></div>
+</div>
+<p>See the docstring of <tt class="docutils literal"><span class="pre">IPython.display.set_matplotlib_formats</span></tt> and
+<tt class="docutils literal"><span class="pre">IPython.display.set_matplotlib_close</span></tt> for more information on
+changing the behavior of the inline backend.</p>
+<p>Examples</p>
+<p>To enable the inline backend for usage with the IPython Notebook:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %matplotlib inline
+</pre></div>
+</div>
+<p>In this case, where the matplotlib default is TkAgg:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: %matplotlib
+Using matplotlib backend: TkAgg
+</pre></div>
+</div>
+<p>But you can explicitly request a different GUI backend:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: %matplotlib qt
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>gui  Name of the matplotlib backend to use (&#8216;gtk&#8217;, &#8216;gtk3&#8217;, &#8216;inline&#8217;,</dt>
+<dd>&#8216;nbagg&#8217;, &#8216;osx&#8217;, &#8216;qt&#8217;, &#8216;qt4&#8217;, &#8216;qt5&#8217;, &#8216;tk&#8217;, &#8216;wx&#8217;). If given, the
+corresponding matplotlib backend is used, otherwise it will be
+matplotlib&#8217;s default (which you can set in your matplotlib config
+file).</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-notebook">
+<tt class="descname">%notebook</tt><a class="headerlink" href="#magic-notebook" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%notebook [-e] [-f FORMAT] filename
+</pre></div>
+</div>
+<p>Export and convert IPython notebooks.</p>
+<p>This function can export the current IPython history to a notebook file
+or can convert an existing notebook file into a different format. For
+example, to export the history to &#8220;foo.ipynb&#8221; do &#8220;%notebook -e foo.ipynb&#8221;.
+To export the history to &#8220;foo.py&#8221; do &#8220;%notebook -e foo.py&#8221;. To convert
+&#8220;foo.ipynb&#8221; to &#8220;foo.json&#8221; do &#8220;%notebook -f json foo.ipynb&#8221;. Possible
+formats include (json/ipynb, py).</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>filename              Notebook name or filename</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-e</span>, <span class="option">--export</span></kbd></td>
+<td>Export IPython history as a notebook. The filename
+argument is used to specify the notebook name and
+format. For example a filename of notebook.ipynb will
+result in a notebook name of &#8220;notebook&#8221; and a format
+of &#8220;json&#8221;. Likewise using a &#8221;.py&#8221; file extension will
+write the notebook as a Python script</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-f <var>FORMAT</var></span>, <span class="option">--format <var>FORMAT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Convert an existing IPython notebook to a new format.
+This option specifies the new format and can have the
+values: json, py. The target filename is chosen
+automatically based on the new format. The filename
+argument gives the name of the source file.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-page">
+<tt class="descname">%page</tt><a class="headerlink" href="#magic-page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretty print the object and display it through a pager.</p>
+<p>%page [options] OBJECT</p>
+<p>If no object is given, use _ (last output).</p>
+<p>Options:</p>
+<blockquote>
+<div>-r: page str(object), don&#8217;t pretty-print it.</div></blockquote>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pastebin">
+<tt class="descname">%pastebin</tt><a class="headerlink" href="#magic-pastebin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upload code to Github&#8217;s Gist paste bin, returning the URL.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%pastebin [-d &#8220;Custom description&#8221;] 1-7</dd>
+</dl>
+<p>The argument can be an input history range, a filename, or the name of a
+string or macro.</p>
+<p>Options:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>-d: Pass a custom description for the gist. The default will say</dt>
+<dd>&#8220;Pasted from IPython&#8221;.</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pdb">
+<tt class="descname">%pdb</tt><a class="headerlink" href="#magic-pdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control the automatic calling of the pdb interactive debugger.</p>
+<p>Call as &#8216;%pdb on&#8217;, &#8216;%pdb 1&#8217;, &#8216;%pdb off&#8217; or &#8216;%pdb 0&#8217;. If called without
+argument it works as a toggle.</p>
+<p>When an exception is triggered, IPython can optionally call the
+interactive pdb debugger after the traceback printout. %pdb toggles
+this feature on and off.</p>
+<p>The initial state of this feature is set in your configuration
+file (the option is <tt class="docutils literal"><span class="pre">InteractiveShell.pdb</span></tt>).</p>
+<p>If you want to just activate the debugger AFTER an exception has fired,
+without having to type &#8216;%pdb on&#8217; and rerunning your code, you can use
+the %debug magic.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pdef">
+<tt class="descname">%pdef</tt><a class="headerlink" href="#magic-pdef" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the call signature for any callable object.</p>
+<p>If the object is a class, print the constructor information.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [3]: %pdef urllib.urlopen
+urllib.urlopen(url, data=None, proxies=None)
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pdoc">
+<tt class="descname">%pdoc</tt><a class="headerlink" href="#magic-pdoc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the docstring for an object.</p>
+<p>If the given object is a class, it will print both the class and the
+constructor docstrings.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pfile">
+<tt class="descname">%pfile</tt><a class="headerlink" href="#magic-pfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print (or run through pager) the file where an object is defined.</p>
+<p>The file opens at the line where the object definition begins. IPython
+will honor the environment variable PAGER if set, and otherwise will
+do its best to print the file in a convenient form.</p>
+<p>If the given argument is not an object currently defined, IPython will
+try to interpret it as a filename (automatically adding a .py extension
+if needed). You can thus use %pfile as a syntax highlighting code
+viewer.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pinfo">
+<tt class="descname">%pinfo</tt><a class="headerlink" href="#magic-pinfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide detailed information about an object.</p>
+<p>&#8216;%pinfo object&#8217; is just a synonym for object? or ?object.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pinfo2">
+<tt class="descname">%pinfo2</tt><a class="headerlink" href="#magic-pinfo2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide extra detailed information about an object.</p>
+<p>&#8216;%pinfo2 object&#8217; is just a synonym for object?? or ??object.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-popd">
+<tt class="descname">%popd</tt><a class="headerlink" href="#magic-popd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change to directory popped off the top of the stack.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pprint">
+<tt class="descname">%pprint</tt><a class="headerlink" href="#magic-pprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle pretty printing on/off.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-precision">
+<tt class="descname">%precision</tt><a class="headerlink" href="#magic-precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set floating point precision for pretty printing.</p>
+<p>Can set either integer precision or a format string.</p>
+<p>If numpy has been imported and precision is an int,
+numpy display precision will also be set, via <tt class="docutils literal"><span class="pre">numpy.set_printoptions</span></tt>.</p>
+<p>If no argument is given, defaults will be restored.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: from math import pi
+
+In [2]: %precision 3
+Out[2]: u&#39;%.3f&#39;
+
+In [3]: pi
+Out[3]: 3.142
+
+In [4]: %precision %i
+Out[4]: u&#39;%i&#39;
+
+In [5]: pi
+Out[5]: 3
+
+In [6]: %precision %e
+Out[6]: u&#39;%e&#39;
+
+In [7]: pi**10
+Out[7]: 9.364805e+04
+
+In [8]: %precision
+Out[8]: u&#39;%r&#39;
+
+In [9]: pi**10
+Out[9]: 93648.047476082982
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-profile">
+<tt class="descname">%profile</tt><a class="headerlink" href="#magic-profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print your currently active IPython profile.</p>
+<p>See Also</p>
+<dl class="docutils">
+<dt>prun <span class="classifier-delimiter">:</span> <span class="classifier">run code using the Python profiler</span></dt>
+<dd>(<tt class="xref py py-meth docutils literal"><span class="pre">prun()</span></tt>)</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-prun">
+<tt class="descname">%prun</tt><a class="headerlink" href="#magic-prun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a statement through the python code profiler.</p>
+<dl class="docutils">
+<dt>Usage, in line mode:</dt>
+<dd>%prun [options] statement</dd>
+<dt>Usage, in cell mode:</dt>
+<dd>%%prun [options] [statement]
+code...
+code...</dd>
+</dl>
+<p>In cell mode, the additional code lines are appended to the (possibly
+empty) statement in the first line.  Cell mode allows you to easily
+profile multiline blocks without having to put them in a separate
+function.</p>
+<p>The given statement (which doesn&#8217;t require quote marks) is run via the
+python profiler in a manner similar to the profile.run() function.
+Namespaces are internally managed to work correctly; profile.run
+cannot be used in IPython because it makes certain assumptions about
+namespaces which do not hold under IPython.</p>
+<p>Options:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l <var>&lt;limit&gt;</var></span></kbd></td>
+<td><p class="first">you can place restrictions on what or how much of the
+profile gets printed. The limit value can be:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A string: only information for function names containing this string
+is printed.</li>
+<li>An integer: only these many lines are printed.</li>
+<li>A float (between 0 and 1): this fraction of the report is printed
+(for example, use a limit of 0.4 to see the topmost 40% only).</li>
+</ul>
+</div></blockquote>
+<p class="last">You can combine several limits with repeated use of the option. For
+example, <tt class="docutils literal"><span class="pre">-l</span> <span class="pre">__init__</span> <span class="pre">-l</span> <span class="pre">5</span></tt> will print only the topmost 5 lines of
+information about class constructors.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span></kbd></td>
+<td>return the pstats.Stats object generated by the profiling. This
+object has all the information about the profile in it, and you can
+later use it for further analysis or in other functions.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-s <var>&lt;key&gt;</var></span></kbd></td>
+<td><p class="first">sort profile by given key. You can provide more than one key
+by using the option several times: &#8216;-s key1 -s key2 -s key3...&#8217;. The
+default sorting key is &#8216;time&#8217;.</p>
+<p>The following is copied verbatim from the profile documentation
+referenced below:</p>
+<p>When more than one key is provided, additional keys are used as
+secondary criteria when the there is equality in all keys selected
+before them.</p>
+<p>Abbreviations can be used for any key names, as long as the
+abbreviation is unambiguous.  The following are the keys currently
+defined:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Valid Arg</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#8220;calls&#8221;</td>
+<td>call count</td>
+</tr>
+<tr class="row-odd"><td>&#8220;cumulative&#8221;</td>
+<td>cumulative time</td>
+</tr>
+<tr class="row-even"><td>&#8220;file&#8221;</td>
+<td>file name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;module&#8221;</td>
+<td>file name</td>
+</tr>
+<tr class="row-even"><td>&#8220;pcalls&#8221;</td>
+<td>primitive call count</td>
+</tr>
+<tr class="row-odd"><td>&#8220;line&#8221;</td>
+<td>line number</td>
+</tr>
+<tr class="row-even"><td>&#8220;name&#8221;</td>
+<td>function name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;nfl&#8221;</td>
+<td>name/file/line</td>
+</tr>
+<tr class="row-even"><td>&#8220;stdname&#8221;</td>
+<td>standard name</td>
+</tr>
+<tr class="row-odd"><td>&#8220;time&#8221;</td>
+<td>internal time</td>
+</tr>
+</tbody>
+</table>
+<p class="last">Note that all sorts on statistics are in descending order (placing
+most time consuming items first), where as name, file, and line number
+searches are in ascending order (i.e., alphabetical). The subtle
+distinction between &#8220;nfl&#8221; and &#8220;stdname&#8221; is that the standard name is a
+sort of the name as printed, which means that the embedded line
+numbers get compared in an odd way.  For example, lines 3, 20, and 40
+would (if the file names were the same) appear in the string order
+&#8220;20&#8221; &#8220;3&#8221; and &#8220;40&#8221;.  In contrast, &#8220;nfl&#8221; does a numeric compare of the
+line numbers.  In fact, sort_stats(&#8220;nfl&#8221;) is the same as
+sort_stats(&#8220;name&#8221;, &#8220;file&#8221;, &#8220;line&#8221;).</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-T <var>&lt;filename&gt;</var></span></kbd></td>
+<td>save profile results as shown on screen to a text
+file. The profile is still shown on screen.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-D <var>&lt;filename&gt;</var></span></kbd></td>
+<td>save (via dump_stats) profile statistics to given
+filename. This data is in a format understood by the pstats module, and
+is generated by a call to the dump_stats() method of profile
+objects. The profile is still shown on screen.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-q</span></kbd></td>
+<td>suppress output to the pager.  Best used with -T and/or -D above.</td></tr>
+</tbody>
+</table>
+<p>If you want to run complete programs under the profiler&#8217;s control, use
+<tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-p</span> <span class="pre">[prof_opts]</span> <span class="pre">filename.py</span> <span class="pre">[args</span> <span class="pre">to</span> <span class="pre">program]</span></tt> where prof_opts
+contains profiler specific options as described here.</p>
+<p>You can read the complete documentation for the profile module with:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: import profile; profile.help()
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-psearch">
+<tt class="descname">%psearch</tt><a class="headerlink" href="#magic-psearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for object in namespaces by wildcard.</p>
+<p>%psearch [options] PATTERN [OBJECT TYPE]</p>
+<p>Note: ? can be used as a synonym for %psearch, at the beginning or at
+the end: both a*? and ?a* are equivalent to &#8216;%psearch a*&#8217;.  Still, the
+rest of the command line must be unchanged (options come first), so
+for example the following forms are equivalent</p>
+<p>%psearch -i a* function
+-i a* function?
+?-i a* function</p>
+<p>Arguments:</p>
+<blockquote>
+<div><p>PATTERN</p>
+<p>where PATTERN is a string containing * as a wildcard similar to its
+use in a shell.  The pattern is matched in all namespaces on the
+search path. By default objects starting with a single _ are not
+matched, many IPython generated objects have a single
+underscore. The default is case insensitive matching. Matching is
+also done on the attributes of objects and not only on the objects
+in a module.</p>
+<p>[OBJECT TYPE]</p>
+<p>Is the name of a python type from the types module. The name is
+given in lowercase without the ending type, ex. StringType is
+written string. By adding a type here only objects matching the
+given type are matched. Using all here makes the pattern match all
+types (this is the default).</p>
+</div></blockquote>
+<p>Options:</p>
+<blockquote>
+<div><p>-a: makes the pattern match even objects whose names start with a
+single underscore.  These names are normally omitted from the
+search.</p>
+<p>-i/-c: make the pattern case insensitive/sensitive.  If neither of
+these options are given, the default is read from your configuration
+file, with the option <tt class="docutils literal"><span class="pre">InteractiveShell.wildcards_case_sensitive</span></tt>.
+If this option is not specified in your configuration file, IPython&#8217;s
+internal default is to do a case sensitive search.</p>
+<p>-e/-s NAMESPACE: exclude/search a given namespace.  The pattern you
+specify can be searched in any of the following namespaces:
+&#8216;builtin&#8217;, &#8216;user&#8217;, &#8216;user_global&#8217;,&#8217;internal&#8217;, &#8216;alias&#8217;, where
+&#8216;builtin&#8217; and &#8216;user&#8217; are the search defaults.  Note that you should
+not use quotes when specifying namespaces.</p>
+<p>&#8216;Builtin&#8217; contains the python module builtin, &#8216;user&#8217; contains all
+user data, &#8216;alias&#8217; only contain the shell aliases and no python
+objects, &#8216;internal&#8217; contains objects used by IPython.  The
+&#8216;user_global&#8217; namespace is only used by embedded IPython instances,
+and it contains module-level globals.  You can add namespaces to the
+search with -s or exclude them with -e (these options can be given
+more than once).</p>
+</div></blockquote>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>%psearch a*            -&gt; objects beginning with an a
+%psearch -e builtin a* -&gt; objects NOT in the builtin space starting in a
+%psearch a* function   -&gt; all functions beginning with an a
+%psearch re.e*         -&gt; objects beginning with an e in module re
+%psearch r*.e*         -&gt; objects that start with e in modules starting in r
+%psearch r*.* string   -&gt; all strings in modules beginning with r
+</pre></div>
+</div>
+<p>Case sensitive search:</p>
+<div class="highlight-python"><div class="highlight"><pre>%psearch -c a*         list all object beginning with lower case a
+</pre></div>
+</div>
+<p>Show objects beginning with a single _:</p>
+<div class="highlight-python"><div class="highlight"><pre>%psearch -a _*         list objects beginning with a single underscore
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-psource">
+<tt class="descname">%psource</tt><a class="headerlink" href="#magic-psource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print (or run through pager) the source code for an object.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pushd">
+<tt class="descname">%pushd</tt><a class="headerlink" href="#magic-pushd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place the current dir on stack and change directory.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%pushd [&#8216;dirname&#8217;]</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pwd">
+<tt class="descname">%pwd</tt><a class="headerlink" href="#magic-pwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current working directory path.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [9]: pwd
+Out[9]: &#39;/home/tsuser/sprint/ipython&#39;
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pycat">
+<tt class="descname">%pycat</tt><a class="headerlink" href="#magic-pycat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a syntax-highlighted file through a pager.</p>
+<p>This magic is similar to the cat utility, but it will assume the file
+to be Python source and will show it with syntax highlighting.</p>
+<p>This magic command can either take a local filename, an url,
+an history range (see %history) or a macro as argument</p>
+<div class="highlight-python"><div class="highlight"><pre>%pycat myscript.py
+%pycat 7-27
+%pycat myMacro
+%pycat http://www.example.com/myscript.py
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-pylab">
+<tt class="descname">%pylab</tt><a class="headerlink" href="#magic-pylab" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%pylab [--no-import-all] [gui]
+</pre></div>
+</div>
+<p>Load numpy and matplotlib to work interactively.</p>
+<p>This function lets you activate pylab (matplotlib, numpy and
+interactive support) at any point during an IPython session.</p>
+<p>%pylab makes the following imports:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pylab</span><span class="p">,</span> <span class="n">mlab</span><span class="p">,</span> <span class="n">pyplot</span>
+<span class="n">np</span> <span class="o">=</span> <span class="n">numpy</span>
+<span class="n">plt</span> <span class="o">=</span> <span class="n">pyplot</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span><span class="p">,</span> <span class="n">getfigs</span>
+
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>If you pass <tt class="docutils literal"><span class="pre">--no-import-all</span></tt>, the last two <tt class="docutils literal"><span class="pre">*</span></tt> imports will be excluded.</p>
+<p>See the %matplotlib magic for more details about activating matplotlib
+without affecting the interactive namespace.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>gui              Name of the matplotlib backend to use (&#8216;gtk&#8217;, &#8216;gtk3&#8217;,</dt>
+<dd>&#8216;inline&#8217;, &#8216;nbagg&#8217;, &#8216;osx&#8217;, &#8216;qt&#8217;, &#8216;qt4&#8217;, &#8216;qt5&#8217;, &#8216;tk&#8217;, &#8216;wx&#8217;).
+If given, the corresponding matplotlib backend is used,
+otherwise it will be matplotlib&#8217;s default (which you can
+set in your matplotlib config file).</dd>
+</dl>
+</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--no-import-all</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Prevent IPython from performing <tt class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></tt> into the
+interactive namespace. You can govern the default behavior
+of this flag with the InteractiveShellApp.pylab_import_all
+configurable.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-quickref">
+<tt class="descname">%quickref</tt><a class="headerlink" href="#magic-quickref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a quick reference sheet</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-recall">
+<tt class="descname">%recall</tt><a class="headerlink" href="#magic-recall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Repeat a command, or get command to input line for editing.</p>
+<p>%recall and %rep are equivalent.</p>
+<ul class="simple">
+<li>%recall (no arguments):</li>
+</ul>
+<p>Place a string version of last computation result (stored in the
+special &#8216;_&#8217; variable) to the next input prompt. Allows you to create
+elaborate command lines without using copy-paste:</p>
+<div class="highlight-python"><div class="highlight"><pre> In[1]: l = [&quot;hei&quot;, &quot;vaan&quot;]
+ In[2]: &quot;&quot;.join(l)
+Out[2]: heivaan
+ In[3]: %recall
+ In[4]: heivaan_ &lt;== cursor blinking
+</pre></div>
+</div>
+<p>%recall 45</p>
+<p>Place history line 45 on the next input prompt. Use %hist to find
+out the number.</p>
+<p>%recall 1-4</p>
+<p>Combine the specified lines into one cell, and place it on the next
+input prompt. See %history for the slice syntax.</p>
+<p>%recall foo+bar</p>
+<p>If foo+bar can be evaluated in the user namespace, the result is
+placed at the next input prompt. Otherwise, the history is searched
+for lines which contain that substring, and the most recent one is
+placed at the next input prompt.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-rehashx">
+<tt class="descname">%rehashx</tt><a class="headerlink" href="#magic-rehashx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the alias table with all executable files in $PATH.</p>
+<p>This version explicitly checks that every entry in $PATH is a file
+with execute access (os.X_OK), so it is much slower than %rehash.</p>
+<p>Under Windows, it checks executability as a match against a
+&#8216;|&#8217;-separated string of extensions, stored in the IPython config
+variable win_exec_ext.  This defaults to &#8216;exe|com|bat&#8217;.</p>
+<p>This function also resets the root module cache of module completer,
+used on slow filesystems.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-reload_ext">
+<tt class="descname">%reload_ext</tt><a class="headerlink" href="#magic-reload_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload an IPython extension by its module name.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-rerun">
+<tt class="descname">%rerun</tt><a class="headerlink" href="#magic-rerun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-run previous input</p>
+<p>By default, you can specify ranges of input history to be repeated
+(as with %history). With no arguments, it will repeat the last line.</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-l &lt;n&gt; : Repeat the last n lines of input, not including the
+current command.</p>
+<p>-g foo : Repeat the most recent line which contains foo</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-reset">
+<tt class="descname">%reset</tt><a class="headerlink" href="#magic-reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the namespace by removing all names defined by the user, if
+called without arguments, or by removing some types of objects, such
+as everything currently in IPython&#8217;s In[] and Out[] containers (see
+the parameters for details).</p>
+<p>Parameters</p>
+<p>-f : force reset without asking for confirmation.</p>
+<dl class="docutils">
+<dt>-s <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;Soft&#8217; reset: Only clears your namespace, leaving history intact.</span></dt>
+<dd>References to objects may be kept. By default (without this option),
+we do a &#8216;hard&#8217; reset, giving you a new session and removing all
+references to objects from the current session.</dd>
+</dl>
+<p>in : reset input history</p>
+<p>out : reset output history</p>
+<p>dhist : reset directory history</p>
+<p>array : reset only variables that are NumPy arrays</p>
+<p>See Also</p>
+<p>reset_selective : invoked as <tt class="docutils literal"><span class="pre">%reset_selective</span></tt></p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [6]: a = 1
+
+In [7]: a
+Out[7]: 1
+
+In [8]: &#39;a&#39; in _ip.user_ns
+Out[8]: True
+
+In [9]: %reset -f
+
+In [1]: &#39;a&#39; in _ip.user_ns
+Out[1]: False
+
+In [2]: %reset -f in
+Flushing input history
+
+In [3]: %reset -f dhist in
+Flushing directory history
+Flushing input history
+</pre></div>
+</div>
+<p>Notes</p>
+<p>Calling this magic from clients that do not implement standard input,
+such as the ipython notebook interface, will reset the namespace
+without confirmation.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-reset_selective">
+<tt class="descname">%reset_selective</tt><a class="headerlink" href="#magic-reset_selective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the namespace by removing names defined by the user.</p>
+<p>Input/Output history are left around in case you need them.</p>
+<p>%reset_selective [-f] regex</p>
+<p>No action is taken if regex is not included</p>
+<dl class="docutils">
+<dt>Options</dt>
+<dd>-f : force reset without asking for confirmation.</dd>
+</dl>
+<p>See Also</p>
+<p>reset : invoked as <tt class="docutils literal"><span class="pre">%reset</span></tt></p>
+<p>Examples</p>
+<p>We first fully reset the namespace so your output looks identical to
+this example for pedagogical reasons; in practice you do not need a
+full reset:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %reset -f
+</pre></div>
+</div>
+<p>Now, with a clean namespace we can make a few variables and use
+<tt class="docutils literal"><span class="pre">%reset_selective</span></tt> to only delete names that match our regexp:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [2]: a=1; b=2; c=3; b1m=4; b2m=5; b3m=6; b4m=7; b2s=8
+
+In [3]: who_ls
+Out[3]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2m&#39;, &#39;b2s&#39;, &#39;b3m&#39;, &#39;b4m&#39;, &#39;c&#39;]
+
+In [4]: %reset_selective -f b[2-3]m
+
+In [5]: who_ls
+Out[5]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;, &#39;c&#39;]
+
+In [6]: %reset_selective -f d
+
+In [7]: who_ls
+Out[7]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;, &#39;c&#39;]
+
+In [8]: %reset_selective -f c
+
+In [9]: who_ls
+Out[9]: [&#39;a&#39;, &#39;b&#39;, &#39;b1m&#39;, &#39;b2s&#39;, &#39;b4m&#39;]
+
+In [10]: %reset_selective -f b
+
+In [11]: who_ls
+Out[11]: [&#39;a&#39;]
+</pre></div>
+</div>
+<p>Notes</p>
+<p>Calling this magic from clients that do not implement standard input,
+such as the ipython notebook interface, will reset the namespace
+without confirmation.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-run">
+<tt class="descname">%run</tt><a class="headerlink" href="#magic-run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the named file inside IPython as a program.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>%run [-n -i -e -G]
+     [( -t [-N&lt;N&gt;] | -d [-b&lt;N&gt;] | -p [profile options] )]
+     ( -m mod | file ) [args]
+</pre></div>
+</div>
+<p>Parameters after the filename are passed as command-line arguments to
+the program (put in sys.argv). Then, control returns to IPython&#8217;s
+prompt.</p>
+<p>This is similar to running at a system prompt <tt class="docutils literal"><span class="pre">python</span> <span class="pre">file</span> <span class="pre">args</span></tt>,
+but with the advantage of giving you IPython&#8217;s tracebacks, and of
+loading all variables into your interactive namespace for further use
+(unless -p is used, see below).</p>
+<p>The file is executed in a namespace initially consisting only of
+<tt class="docutils literal"><span class="pre">__name__=='__main__'</span></tt> and sys.argv constructed as indicated. It thus
+sees its environment as if it were being run as a stand-alone program
+(except for sharing global objects such as previously imported
+modules). But after execution, the IPython interactive namespace gets
+updated with all variables defined in the program (except for __name__
+and sys.argv). This allows for very convenient loading of code for
+interactive work, while giving each program a &#8216;clean sheet&#8217; to run in.</p>
+<p>Arguments are expanded using shell-like glob match.  Patterns
+&#8216;*&#8217;, &#8216;?&#8217;, &#8216;[seq]&#8217; and &#8216;[!seq]&#8217; can be used.  Additionally,
+tilde &#8216;~&#8217; will be expanded into user&#8217;s home directory.  Unlike
+real shells, quotation does not suppress expansions.  Use
+<em>two</em> back slashes (e.g. <tt class="docutils literal"><span class="pre">\\*</span></tt>) to suppress expansions.
+To completely disable these expansions, you can use -G flag.</p>
+<p>Options:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td>__name__ is NOT set to &#8216;__main__&#8217;, but to the running file&#8217;s name
+without extension (as python does under import).  This allows running
+scripts and reloading the definitions in them without calling code
+protected by an <tt class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></tt> clause.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>run the file in IPython&#8217;s namespace instead of an empty one. This
+is useful if you are experimenting with code written in a text editor
+which depends on variables defined interactively.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-e</span></kbd></td>
+<td>ignore sys.exit() calls or SystemExit exceptions in the script
+being run.  This is particularly useful if IPython is being used to
+run unittests, which always exit with a sys.exit() call.  In such
+cases you are interested in the output of the test results, not in
+seeing a traceback of the unittest module.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td>print timing information at the end of the run.  IPython will give
+you an estimated CPU time consumption for your script, which under
+Unix uses the resource module to avoid the wraparound problems of
+time.clock().  Under Unix, an estimate of time spent on system tasks
+is also given (for Windows platforms this is reported as 0.0).</td></tr>
+</tbody>
+</table>
+<p>If -t is given, an additional <tt class="docutils literal"><span class="pre">-N&lt;N&gt;</span></tt> option can be given, where &lt;N&gt;
+must be an integer indicating how many times you want the script to
+run.  The final timing report will include total and per run results.</p>
+<p>For example (testing the script uniq_stable.py):</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: run -t uniq_stable
+
+IPython CPU timings (estimated):
+  User  :    0.19597 s.
+  System:        0.0 s.
+
+In [2]: run -t -N5 uniq_stable
+
+IPython CPU timings (estimated):
+Total runs performed: 5
+  Times :      Total       Per run
+  User  :   0.910862 s,  0.1821724 s.
+  System:        0.0 s,        0.0 s.
+</pre></div>
+</div>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-d</span></kbd></td>
+<td><p class="first">run your program under the control of pdb, the Python debugger.
+This allows you to execute your program step by step, watch variables,
+etc.  Internally, what IPython does is similar to calling:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pdb</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;execfile(&quot;YOURFILENAME&quot;)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>with a breakpoint set on line 1 of your file.  You can change the line
+number for this automatic breakpoint to be &lt;N&gt; by using the -bN option
+(where N must be an integer). For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>%run -d -b40 myscript
+</pre></div>
+</div>
+<p>will set the first breakpoint at line 40 in myscript.py.  Note that
+the first breakpoint must be set on a line which actually does
+something (not a comment or docstring) for it to stop execution.</p>
+<p>Or you can specify a breakpoint in a different file:</p>
+<div class="highlight-python"><div class="highlight"><pre>%run -d -b myotherfile.py:20 myscript
+</pre></div>
+</div>
+<p>When the pdb debugger starts, you will see a (Pdb) prompt.  You must
+first enter &#8216;c&#8217; (without quotes) to start execution up to the first
+breakpoint.</p>
+<p class="last">Entering &#8216;help&#8217; gives information about the use of the debugger.  You
+can easily see pdb&#8217;s full documentation with &#8220;import pdb;pdb.help()&#8221;
+at a prompt.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td><p class="first">run program under the control of the Python profiler module (which
+prints a detailed report of execution times, function calls, etc).</p>
+<p>You can pass other options after -p which affect the behavior of the
+profiler itself. See the docs for %prun for details.</p>
+<p>In this mode, the program&#8217;s variables do NOT propagate back to the
+IPython interactive namespace (because they remain in the namespace
+where the profiler executes them).</p>
+<p class="last">Internally this triggers a call to %prun, see its documentation for
+details on the options available specifically for profiling.</p>
+</td></tr>
+</tbody>
+</table>
+<p>There is one special usage for which the text above doesn&#8217;t apply:
+if the filename ends with .ipy[nb], the file is run as ipython script,
+just as if the commands were written on IPython prompt.</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-m</span></kbd></td>
+<td><p class="first">specify module name to load instead of script path. Similar to
+the -m option for the python interpreter. Use this option last if you
+want to combine with other %run options. Unlike the python interpreter
+only source modules are allowed no .pyc or .pyo files.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>%run -m example
+</pre></div>
+</div>
+<p class="last">will run the example module.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-G</span></kbd></td>
+<td>disable shell-like glob expansion of arguments.</td></tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-save">
+<tt class="descname">%save</tt><a class="headerlink" href="#magic-save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a set of lines or a macro to a given filename.</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>%save [options] filename n1-n2 n3-n4 ... n5 .. n6 ...</dd>
+</dl>
+<p>Options:</p>
+<blockquote>
+<div><p>-r: use &#8216;raw&#8217; input.  By default, the &#8216;processed&#8217; history is used,
+so that magics are loaded in their transformed version to valid
+Python.  If this option is given, the raw input as typed as the
+command line is used instead.</p>
+<p>-f: force overwrite.  If file exists, %save will prompt for overwrite
+unless -f is given.</p>
+<p>-a: append to the file instead of overwriting it.</p>
+</div></blockquote>
+<p>This function uses the same syntax as %history for input ranges,
+then saves the lines to the filename you specify.</p>
+<p>It adds a &#8216;.py&#8217; extension to the file if you don&#8217;t do so yourself, and
+it asks for confirmation before overwriting existing files.</p>
+<p>If <tt class="docutils literal"><span class="pre">-r</span></tt> option is used, the default extension is <tt class="docutils literal"><span class="pre">.ipy</span></tt>.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-sc">
+<tt class="descname">%sc</tt><a class="headerlink" href="#magic-sc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shell capture - run shell command and capture output (DEPRECATED use !).</p>
+<p>DEPRECATED. Suboptimal, retained for backwards compatibility.</p>
+<p>You should use the form &#8216;var = !command&#8217; instead. Example:</p>
+<blockquote>
+<div><p>&#8220;%sc -l myfiles = ls ~&#8221; should now be written as</p>
+<p>&#8220;myfiles = !ls ~&#8221;</p>
+</div></blockquote>
+<p>myfiles.s, myfiles.l and myfiles.n still apply as documented
+below.</p>
+<p>%sc [options] varname=command</p>
+<p>IPython will run the given command using commands.getoutput(), and
+will then update the user&#8217;s interactive namespace with a variable
+called varname, containing the value of the call.  Your command can
+contain shell wildcards, pipes, etc.</p>
+<p>The &#8216;=&#8217; sign in the syntax is mandatory, and the variable name you
+supply must follow Python&#8217;s standard conventions for valid names.</p>
+<p>(A special format without variable name exists for internal use)</p>
+<p>Options:</p>
+<blockquote>
+<div><p>-l: list output.  Split the output on newlines into a list before
+assigning it to the given variable.  By default the output is stored
+as a single string.</p>
+<p>-v: verbose.  Print the contents of the variable.</p>
+</div></blockquote>
+<p>In most cases you should not need to split as a list, because the
+returned value is a special type of string which can automatically
+provide its contents either as a list (split on newlines) or as a
+space-separated string.  These are convenient, respectively, either
+for sequential processing or to be passed to a shell command.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre># Capture into variable a
+In [1]: sc a=ls *py
+
+# a is a string with embedded newlines
+In [2]: a
+Out[2]: &#39;setup.py\nwin32_manual_post_install.py&#39;
+
+# which can be seen as a list:
+In [3]: a.l
+Out[3]: [&#39;setup.py&#39;, &#39;win32_manual_post_install.py&#39;]
+
+# or as a whitespace-separated string:
+In [4]: a.s
+Out[4]: &#39;setup.py win32_manual_post_install.py&#39;
+
+# a.s is useful to pass as a single command line:
+In [5]: !wc -l $a.s
+  146 setup.py
+  130 win32_manual_post_install.py
+  276 total
+
+# while the list form is useful to loop over:
+In [6]: for f in a.l:
+  ...:      !wc -l $f
+  ...:
+146 setup.py
+130 win32_manual_post_install.py
+</pre></div>
+</div>
+<p>Similarly, the lists returned by the -l option are also special, in
+the sense that you can equally invoke the .s attribute on them to
+automatically get a whitespace-separated string from their contents:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [7]: sc -l b=ls *py
+
+In [8]: b
+Out[8]: [&#39;setup.py&#39;, &#39;win32_manual_post_install.py&#39;]
+
+In [9]: b.s
+Out[9]: &#39;setup.py win32_manual_post_install.py&#39;
+</pre></div>
+</div>
+<p>In summary, both the lists and strings used for output capture have
+the following special attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
+.n (or .nlstr): value as newline-separated string.
+.s (or .spstr): value as space-separated string.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-sx">
+<tt class="descname">%sx</tt><a class="headerlink" href="#magic-sx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shell execute - run shell command and capture output (!! is short-hand).</p>
+<p>%sx command</p>
+<p>IPython will run the given command using commands.getoutput(), and
+return the result formatted as a list (split on &#8216;n&#8217;).  Since the
+output is _returned_, it will be stored in ipython&#8217;s regular output
+cache Out[N] and in the &#8216;_N&#8217; automatic variables.</p>
+<p>Notes:</p>
+<p>1) If an input line begins with &#8216;!!&#8217;, then %sx is automatically
+invoked.  That is, while:</p>
+<div class="highlight-python"><div class="highlight"><pre>!ls
+</pre></div>
+</div>
+<p>causes ipython to simply issue system(&#8216;ls&#8217;), typing:</p>
+<div class="highlight-python"><div class="highlight"><pre>!!ls
+</pre></div>
+</div>
+<p>is a shorthand equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre>%sx ls
+</pre></div>
+</div>
+<p>2) %sx differs from %sc in that %sx automatically splits into a list,
+like &#8216;%sc -l&#8217;.  The reason for this is to make it as easy as possible
+to process line-oriented shell output via further python commands.
+%sc is meant to provide much finer control, but requires more
+typing.</p>
+<p>3) Just like %sc -l, this is a list with special attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
+.n (or .nlstr): value as newline-separated string.
+.s (or .spstr): value as whitespace-separated string.
+</pre></div>
+</div>
+<p>This is very useful when trying to use such lists as arguments to
+system commands.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-system">
+<tt class="descname">%system</tt><a class="headerlink" href="#magic-system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shell execute - run shell command and capture output (!! is short-hand).</p>
+<p>%sx command</p>
+<p>IPython will run the given command using commands.getoutput(), and
+return the result formatted as a list (split on &#8216;n&#8217;).  Since the
+output is _returned_, it will be stored in ipython&#8217;s regular output
+cache Out[N] and in the &#8216;_N&#8217; automatic variables.</p>
+<p>Notes:</p>
+<p>1) If an input line begins with &#8216;!!&#8217;, then %sx is automatically
+invoked.  That is, while:</p>
+<div class="highlight-python"><div class="highlight"><pre>!ls
+</pre></div>
+</div>
+<p>causes ipython to simply issue system(&#8216;ls&#8217;), typing:</p>
+<div class="highlight-python"><div class="highlight"><pre>!!ls
+</pre></div>
+</div>
+<p>is a shorthand equivalent to:</p>
+<div class="highlight-python"><div class="highlight"><pre>%sx ls
+</pre></div>
+</div>
+<p>2) %sx differs from %sc in that %sx automatically splits into a list,
+like &#8216;%sc -l&#8217;.  The reason for this is to make it as easy as possible
+to process line-oriented shell output via further python commands.
+%sc is meant to provide much finer control, but requires more
+typing.</p>
+<p>3) Just like %sc -l, this is a list with special attributes:</p>
+<div class="highlight-python"><div class="highlight"><pre>.l (or .list) : value as list.
+.n (or .nlstr): value as newline-separated string.
+.s (or .spstr): value as whitespace-separated string.
+</pre></div>
+</div>
+<p>This is very useful when trying to use such lists as arguments to
+system commands.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-tb">
+<tt class="descname">%tb</tt><a class="headerlink" href="#magic-tb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the last traceback with the currently active exception mode.</p>
+<p>See %xmode for changing exception reporting modes.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-time">
+<tt class="descname">%time</tt><a class="headerlink" href="#magic-time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time execution of a Python statement or expression.</p>
+<p>The CPU and wall clock times are printed, and the value of the
+expression (if any) is returned.  Note that under Win32, system time
+is always reported as 0, since it can not be measured.</p>
+<p>This function can be used both as a line and cell magic:</p>
+<ul class="simple">
+<li>In line mode you can time a single-line statement (though multiple
+ones can be chained with using semicolons).</li>
+<li>In cell mode, you can time the cell body (a directly
+following statement raises an error).</li>
+</ul>
+<p>This function provides very basic timing functionality.  Use the timeit
+magic for more controll over the measurement.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %time 2**128
+CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
+Wall time: 0.00
+Out[1]: 340282366920938463463374607431768211456L
+
+In [2]: n = 1000000
+
+In [3]: %time sum(range(n))
+CPU times: user 1.20 s, sys: 0.05 s, total: 1.25 s
+Wall time: 1.37
+Out[3]: 499999500000L
+
+In [4]: %time print &#39;hello world&#39;
+hello world
+CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
+Wall time: 0.00
+
+Note that the time needed by Python to compile the given expression
+will be reported if it is more than 0.1s.  In this example, the
+actual exponentiation is done by Python at compilation time, so while
+the expression can take a noticeable amount of time to compute, that
+time is purely due to the compilation:
+
+In [5]: %time 3**9999;
+CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
+Wall time: 0.00 s
+
+In [6]: %time 3**999999;
+CPU times: user 0.00 s, sys: 0.00 s, total: 0.00 s
+Wall time: 0.00 s
+Compiler : 0.78 s
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-timeit">
+<tt class="descname">%timeit</tt><a class="headerlink" href="#magic-timeit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time execution of a Python statement or expression</p>
+<dl class="docutils">
+<dt>Usage, in line mode:</dt>
+<dd>%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c] -q -p&lt;P&gt; -o] statement</dd>
+<dt>or in cell mode:</dt>
+<dd>%%timeit [-n&lt;N&gt; -r&lt;R&gt; [-t|-c] -q -p&lt;P&gt; -o] setup_code
+code
+code...</dd>
+</dl>
+<p>Time execution of a Python statement or expression using the timeit
+module.  This function can be used both as a line and cell magic:</p>
+<ul class="simple">
+<li>In line mode you can time a single-line statement (though multiple
+ones can be chained with using semicolons).</li>
+<li>In cell mode, the statement in the first line is used as setup code
+(executed but not timed) and the body of the cell is timed.  The cell
+body has access to any variables created in the setup code.</li>
+</ul>
+<p>Options:
+-n&lt;N&gt;: execute the given statement &lt;N&gt; times in a loop. If this value
+is not given, a fitting value is chosen.</p>
+<p>-r&lt;R&gt;: repeat the loop iteration &lt;R&gt; times and take the best result.
+Default: 3</p>
+<p>-t: use time.time to measure the time, which is the default on Unix.
+This function measures wall time.</p>
+<p>-c: use time.clock to measure the time, which is the default on
+Windows and measures wall time. On Unix, resource.getrusage is used
+instead and returns the CPU user time.</p>
+<p>-p&lt;P&gt;: use a precision of &lt;P&gt; digits to display the timing result.
+Default: 3</p>
+<p>-q: Quiet, do not print result.</p>
+<dl class="docutils">
+<dt>-o: return a TimeitResult that can be stored in a variable to inspect</dt>
+<dd>the result in more details.</dd>
+</dl>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %timeit pass
+10000000 loops, best of 3: 53.3 ns per loop
+
+In [2]: u = None
+
+In [3]: %timeit u is None
+10000000 loops, best of 3: 184 ns per loop
+
+In [4]: %timeit -r 4 u == None
+1000000 loops, best of 4: 242 ns per loop
+
+In [5]: import time
+
+In [6]: %timeit -n1 time.sleep(2)
+1 loops, best of 3: 2 s per loop
+</pre></div>
+</div>
+<p>The times reported by %timeit will be slightly higher than those
+reported by the timeit.py script when variables are accessed. This is
+due to the fact that %timeit executes the statement in the namespace
+of the shell, compared with timeit.py, which uses a single setup
+statement to import function or create variables. Generally, the bias
+does not matter as long as results from timeit.py are not mixed with
+those from %timeit.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-unalias">
+<tt class="descname">%unalias</tt><a class="headerlink" href="#magic-unalias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an alias</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-unload_ext">
+<tt class="descname">%unload_ext</tt><a class="headerlink" href="#magic-unload_ext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unload an IPython extension by its module name.</p>
+<p>Not all extensions can be unloaded, only those which define an
+<tt class="docutils literal"><span class="pre">unload_ipython_extension</span></tt> function.</p>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-who">
+<tt class="descname">%who</tt><a class="headerlink" href="#magic-who" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print all interactive variables, with some minimal formatting.</p>
+<p>If any arguments are given, only variables whose type matches one of
+these are printed.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>%who function str
+</pre></div>
+</div>
+<p>will only list functions and strings, excluding all other types of
+variables.  To find the proper type names, simply use type(var) at a
+command line to see how python prints type names.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: type(&#39;hello&#39;)\
+Out[1]: &lt;type &#39;str&#39;&gt;
+</pre></div>
+</div>
+<p>indicates that the type name for strings is &#8216;str&#8217;.</p>
+<p><tt class="docutils literal"><span class="pre">%who</span></tt> always excludes executed names loaded through your configuration
+file and things which are internal to IPython.</p>
+<p>This is deliberate, as typically you may load many modules and the
+purpose of %who is to show you only what you&#8217;ve manually defined.</p>
+<p>Examples</p>
+<p>Define two variables and list them with who:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
+
+In [2]: beta = &#39;test&#39;
+
+In [3]: %who
+alpha   beta
+
+In [4]: %who int
+alpha
+
+In [5]: %who str
+beta
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-who_ls">
+<tt class="descname">%who_ls</tt><a class="headerlink" href="#magic-who_ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a sorted list of all interactive variables.</p>
+<p>If arguments are given, only variables of types matching these
+arguments are returned.</p>
+<p>Examples</p>
+<p>Define two variables and list them with who_ls:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
+
+In [2]: beta = &#39;test&#39;
+
+In [3]: %who_ls
+Out[3]: [&#39;alpha&#39;, &#39;beta&#39;]
+
+In [4]: %who_ls int
+Out[4]: [&#39;alpha&#39;]
+
+In [5]: %who_ls str
+Out[5]: [&#39;beta&#39;]
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-whos">
+<tt class="descname">%whos</tt><a class="headerlink" href="#magic-whos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like %who, but gives some extra information about each variable.</p>
+<p>The same type filtering of %who can be applied here.</p>
+<p>For all variables, the type is printed. Additionally it prints:</p>
+<blockquote>
+<div><ul class="simple">
+<li>For {},[],(): their length.</li>
+<li>For numpy arrays, a summary with shape, number of
+elements, typecode and size in memory.</li>
+<li>Everything else: a string representation, snipping their middle if
+too long.</li>
+</ul>
+</div></blockquote>
+<p>Examples</p>
+<p>Define two variables and list them with whos:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: alpha = 123
+
+In [2]: beta = &#39;test&#39;
+
+In [3]: %whos
+Variable   Type        Data/Info
+
+alpha      int         123
+beta       str         test
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-xdel">
+<tt class="descname">%xdel</tt><a class="headerlink" href="#magic-xdel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a variable, trying to clear it from anywhere that
+IPython&#8217;s machinery has references to it. By default, this uses
+the identity of the named object in the user namespace to remove
+references held under other names. The object is also removed
+from the output history.</p>
+<dl class="docutils">
+<dt>Options</dt>
+<dd>-n : Delete the specified name from all namespaces, without
+checking their identity.</dd>
+</dl>
+</dd></dl>
+
+<dl class="magic">
+<dt id="magic-xmode">
+<tt class="descname">%xmode</tt><a class="headerlink" href="#magic-xmode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Switch modes for the exception handlers.</p>
+<p>Valid modes: Plain, Context and Verbose.</p>
+<p>If called without arguments, acts as a toggle.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="cell-magics">
+<h2>Cell magics<a class="headerlink" href="#cell-magics" title="Permalink to this headline">¶</a></h2>
+<dl class="cellmagic">
+<dt id="cellmagic-bash">
+<tt class="descname">%%bash</tt><a class="headerlink" href="#cellmagic-bash" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%bash script magic</p>
+<p>Run cells with bash in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">bash</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-capture">
+<tt class="descname">%%capture</tt><a class="headerlink" href="#cellmagic-capture" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%capture [--no-stderr] [--no-stdout] [--no-display] [output]
+</pre></div>
+</div>
+<p>run the cell, capturing stdout, stderr, and IPython&#8217;s rich display() calls.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd><dl class="first last docutils">
+<dt>output        The name of the variable in which to store output. This is a</dt>
+<dd>utils.io.CapturedIO object with stdout/err attributes for the
+text of the captured output. CapturedOutput also has a show()
+method for displaying the output, and __call__ as well, so you
+can use that to quickly display the output. If unspecified,
+captured output is discarded.</dd>
+</dl>
+</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--no-stderr</span></kbd></td>
+<td>Don&#8217;t capture stderr.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--no-stdout</span></kbd></td>
+<td>Don&#8217;t capture stdout.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--no-display</span></kbd></td>
+<td>Don&#8217;t capture IPython&#8217;s rich display.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-html">
+<tt class="descname">%%html</tt><a class="headerlink" href="#cellmagic-html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the cell as a block of HTML</p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-javascript">
+<tt class="descname">%%javascript</tt><a class="headerlink" href="#cellmagic-javascript" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the cell block of Javascript code</p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-latex">
+<tt class="descname">%%latex</tt><a class="headerlink" href="#cellmagic-latex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the cell as a block of latex</p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-perl">
+<tt class="descname">%%perl</tt><a class="headerlink" href="#cellmagic-perl" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%perl script magic</p>
+<p>Run cells with perl in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">perl</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-pypy">
+<tt class="descname">%%pypy</tt><a class="headerlink" href="#cellmagic-pypy" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%pypy script magic</p>
+<p>Run cells with pypy in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">pypy</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-python">
+<tt class="descname">%%python</tt><a class="headerlink" href="#cellmagic-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%python script magic</p>
+<p>Run cells with python in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">python</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-python2">
+<tt class="descname">%%python2</tt><a class="headerlink" href="#cellmagic-python2" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%python2 script magic</p>
+<p>Run cells with python2 in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">python2</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-python3">
+<tt class="descname">%%python3</tt><a class="headerlink" href="#cellmagic-python3" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%python3 script magic</p>
+<p>Run cells with python3 in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">python3</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-ruby">
+<tt class="descname">%%ruby</tt><a class="headerlink" href="#cellmagic-ruby" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%ruby script magic</p>
+<p>Run cells with ruby in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">ruby</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-script">
+<tt class="descname">%%script</tt><a class="headerlink" href="#cellmagic-script" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%shebang [--proc PROC] [--bg] [--err ERR] [--out OUT]
+</pre></div>
+</div>
+<p>Run a cell via a shell command</p>
+<p>The <tt class="docutils literal"><span class="pre">%%script</span></tt> line is like the #! line of script,
+specifying a program (bash, perl, ruby, etc.) with which to run.</p>
+<p>The rest of the cell is run by that program.</p>
+<p>Examples</p>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %%script bash
+   ...: for i in 1 2 3; do
+   ...:   echo $i
+   ...: done
+1
+2
+3
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--proc <var>PROC</var></span></kbd></td>
+<td>The variable in which to store Popen instance. This is used
+only when &#8211;bg option is given.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--bg</span></kbd></td>
+<td>Whether to run the script in the background. If given, the only
+way to see the output of the command is with &#8211;out/err.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--err <var>ERR</var></span></kbd></td>
+<td>The variable in which to store stderr from the script. If the
+script is backgrounded, this will be the stderr <em>pipe</em>, instead
+of the stderr text itself.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--out <var>OUT</var></span></kbd></td>
+<td>The variable in which to store stdout from the script. If the
+script is backgrounded, this will be the stdout <em>pipe</em>, instead
+of the stderr text itself.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-sh">
+<tt class="descname">%%sh</tt><a class="headerlink" href="#cellmagic-sh" title="Permalink to this definition">¶</a></dt>
+<dd><p>%%sh script magic</p>
+<p>Run cells with sh in a subprocess.</p>
+<p>This is a shortcut for <tt class="docutils literal"><span class="pre">%%script</span> <span class="pre">sh</span></tt></p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-svg">
+<tt class="descname">%%svg</tt><a class="headerlink" href="#cellmagic-svg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the cell as an SVG literal</p>
+</dd></dl>
+
+<dl class="cellmagic">
+<dt id="cellmagic-writefile">
+<tt class="descname">%%writefile</tt><a class="headerlink" href="#cellmagic-writefile" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>%writefile [-a] filename
+</pre></div>
+</div>
+<p>Write the contents of the cell to a file.</p>
+<p>The file will be overwritten unless the -a (&#8211;append) flag is specified.</p>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>filename      file to write</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-a</span>, <span class="option">--append</span></kbd></td>
+<td>Append contents of the cell to an existing file. The file will
+be created if it does not exist.</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="shell.html" title="IPython as a system shell"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="IPython reference"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Using IPython for interactive work</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Oct 16, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
+    </div>
+  </body>
+</html>

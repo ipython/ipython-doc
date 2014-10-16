@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
-    <link rel="next" title="IPython as a system shell" href="shell.html" />
+    <link rel="next" title="Built-in magic commands" href="magics.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shell.html" title="IPython as a system shell"
+          <a href="magics.html" title="Built-in magic commands"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="tips.html" title="IPython Tips &amp; Tricks"
@@ -112,8 +112,8 @@
   <p class="topless"><a href="tips.html"
                         title="previous chapter">IPython Tips &amp; Tricks</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="shell.html"
-                        title="next chapter">IPython as a system shell</a></p>
+  <p class="topless"><a href="magics.html"
+                        title="next chapter">Built-in magic commands</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/interactive/reference.txt"
@@ -220,13 +220,13 @@ only the rest of the current line, but all lines below them as well, in the
 current execution block.  Cell magics can in fact make arbitrary modifications
 to the input they receive, which need not even be valid Python code at all.
 They receive the whole block as a single string.</p>
-<p>As a line magic example, the <tt class="docutils literal"><span class="pre">%cd</span></tt> magic works just like the OS command of
+<p>As a line magic example, the <a class="reference internal" href="magics.html#magic-cd"><tt class="xref std std-magic docutils literal"><span class="pre">%cd</span></tt></a> magic works just like the OS command of
 the same name:</p>
 <div class="highlight-python"><div class="highlight"><pre>In [8]: %cd
 /home/fperez
 </pre></div>
 </div>
-<p>The following uses the builtin <tt class="docutils literal"><span class="pre">timeit</span></tt> in cell mode:</p>
+<p>The following uses the builtin <a class="reference internal" href="magics.html#magic-timeit"><tt class="xref std std-magic docutils literal"><span class="pre">%timeit</span></tt></a> in cell mode:</p>
 <div class="highlight-python"><div class="highlight"><pre>In [10]: %%timeit x = range(10000)
     ...: min(x)
     ...: max(x)
@@ -236,7 +236,7 @@ the same name:</p>
 </div>
 <p>In this case, <tt class="docutils literal"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">range(10000)</span></tt> is called as the line argument, and the
 block with <tt class="docutils literal"><span class="pre">min(x)</span></tt> and <tt class="docutils literal"><span class="pre">max(x)</span></tt> is called as the cell body.  The
-<tt class="docutils literal"><span class="pre">timeit</span></tt> magic receives both.</p>
+<a class="reference internal" href="magics.html#magic-timeit"><tt class="xref std std-magic docutils literal"><span class="pre">%timeit</span></tt></a> magic receives both.</p>
 <p>If you have &#8216;automagic&#8217; enabled (as it by default), you don&#8217;t need to type in
 the single <tt class="docutils literal"><span class="pre">%</span></tt> explicitly for line magics; IPython will scan its internal
 list of magic functions and call one if it exists. With automagic on you can
@@ -283,6 +283,8 @@ docstrings of all currently available magic commands.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
+<dt><a class="reference internal" href="magics.html"><em>Built-in magic commands</em></a></dt>
+<dd>A list of the line and cell magics available in IPython by default</dd>
 <dt><a class="reference internal" href="../config/custommagics.html#defining-magics"><em>Defining custom magics</em></a></dt>
 <dd>How to define and register additional magic functions</dd>
 </dl>
@@ -306,22 +308,20 @@ values, docstrings, function prototypes and other useful information.</p>
 <p>Typing <tt class="docutils literal"><span class="pre">??word</span></tt> or <tt class="docutils literal"><span class="pre">word??</span></tt> gives access to the full information, including
 the source code where possible. Long strings are not snipped.</p>
 <p>The following magic functions are particularly useful for gathering
-information about your working environment. You can get more details by
-typing <tt class="docutils literal"><span class="pre">%magic</span></tt> or querying them individually (<tt class="docutils literal"><span class="pre">%function_name?</span></tt>);
-this is just a summary:</p>
+information about your working environment:</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>%pdoc &lt;object&gt;</strong>: Print (or run through a pager if too long) the
+<li><a class="reference internal" href="magics.html#magic-pdoc"><tt class="xref std std-magic docutils literal"><span class="pre">%pdoc</span></tt></a> <strong>&lt;object&gt;</strong>: Print (or run through a pager if too long) the
 docstring for an object. If the given object is a class, it will
 print both the class and the constructor docstrings.</li>
-<li><strong>%pdef &lt;object&gt;</strong>: Print the call signature for any callable
+<li><a class="reference internal" href="magics.html#magic-pdef"><tt class="xref std std-magic docutils literal"><span class="pre">%pdef</span></tt></a> <strong>&lt;object&gt;</strong>: Print the call signature for any callable
 object. If the object is a class, print the constructor information.</li>
-<li><strong>%psource &lt;object&gt;</strong>: Print (or run through a pager if too long)
+<li><a class="reference internal" href="magics.html#magic-psource"><tt class="xref std std-magic docutils literal"><span class="pre">%psource</span></tt></a> <strong>&lt;object&gt;</strong>: Print (or run through a pager if too long)
 the source code for an object.</li>
-<li><strong>%pfile &lt;object&gt;</strong>: Show the entire source file where an object was
+<li><a class="reference internal" href="magics.html#magic-pfile"><tt class="xref std std-magic docutils literal"><span class="pre">%pfile</span></tt></a> <strong>&lt;object&gt;</strong>: Show the entire source file where an object was
 defined via a pager, opening it at the line where the object
 definition begins.</li>
-<li><strong>%who/%whos</strong>: These functions give information about identifiers
+<li><a class="reference internal" href="magics.html#magic-who"><tt class="xref std std-magic docutils literal"><span class="pre">%who</span></tt></a>/<a class="reference internal" href="magics.html#magic-whos"><tt class="xref std std-magic docutils literal"><span class="pre">%whos</span></tt></a>: These functions give information about identifiers
 you have defined interactively (not things you loaded or defined
 in your configuration files). %who just prints a list of
 identifiers and %whos prints a table with some basic details about
@@ -423,7 +423,7 @@ change the default value unless you know what you&#8217;re doing.</li>
 <h3>Session logging and restoring<a class="headerlink" href="#session-logging-and-restoring" title="Permalink to this headline">¶</a></h3>
 <p>You can log all input from a session either by starting IPython with the
 command line switch <tt class="docutils literal"><span class="pre">--logfile=foo.py</span></tt> (see <a class="reference internal" href="#command-line-options"><em>here</em></a>)
-or by activating the logging at any moment with the magic function %logstart.</p>
+or by activating the logging at any moment with the magic function <a class="reference internal" href="magics.html#magic-logstart"><tt class="xref std std-magic docutils literal"><span class="pre">%logstart</span></tt></a>.</p>
 <p>Log files can later be reloaded by running them as scripts and IPython
 will attempt to &#8216;replay&#8217; the log by executing all the lines in it, thus
 restoring the state of a previous session. This feature is not quite
@@ -432,7 +432,7 @@ perfect, but can still be useful in many cases.</p>
 any code you wrote while experimenting. Log files are regular text files
 which you can later open in your favorite text editor to extract code or
 to &#8216;clean them up&#8217; before using them to replay a session.</p>
-<p>The <tt class="docutils literal"><span class="pre">%logstart</span></tt> function for activating logging in mid-session is used as
+<p>The <a class="reference internal" href="magics.html#magic-logstart"><tt class="xref std std-magic docutils literal"><span class="pre">%logstart</span></tt></a> function for activating logging in mid-session is used as
 follows:</p>
 <div class="highlight-python"><div class="highlight"><pre>%logstart [log_name [log_mode]]
 </pre></div>
@@ -451,7 +451,7 @@ one of (note that the modes are given unquoted):</p>
 <li>[rotate:] create rotating logs log_name.1~, log_name.2~, etc.</li>
 </ul>
 </div></blockquote>
-<p>The %logoff and %logon functions allow you to temporarily stop and
+<p>The <a class="reference internal" href="magics.html#magic-logoff"><tt class="xref std std-magic docutils literal"><span class="pre">%logoff</span></tt></a> and <a class="reference internal" href="magics.html#magic-logon"><tt class="xref std std-magic docutils literal"><span class="pre">%logon</span></tt></a> functions allow you to temporarily stop and
 resume logging to a file which had previously been started with
 %logstart. They will fail (with an explanation) if you try to use them
 before logging has been started.</p>
@@ -468,7 +468,7 @@ typing <tt class="docutils literal"><span class="pre">!ls</span></tt> will run &
 syntax <tt class="docutils literal"><span class="pre">myfiles</span> <span class="pre">=</span> <span class="pre">!ls</span></tt>. This gets machine readable output from stdout
 (e.g. without colours), and splits on newlines. To explicitly get this sort of
 output without assigning to a variable, use two exclamation marks (<tt class="docutils literal"><span class="pre">!!ls</span></tt>) or
-the <tt class="docutils literal"><span class="pre">%sx</span></tt> magic command.</p>
+the <a class="reference internal" href="magics.html#magic-sx"><tt class="xref std std-magic docutils literal"><span class="pre">%sx</span></tt></a> magic command.</p>
 <p>The captured list has some convenience features. <tt class="docutils literal"><span class="pre">myfiles.n</span></tt> or <tt class="docutils literal"><span class="pre">myfiles.s</span></tt>
 returns a string delimited by newlines or spaces, respectively. <tt class="docutils literal"><span class="pre">myfiles.p</span></tt>
 produces <a class="reference external" href="http://pypi.python.org/pypi/path.py">path objects</a> from the list items.
@@ -491,10 +491,11 @@ In [7]: !echo &quot;A system variable: $$HOME&quot;  # Use $$ for literal $
 A system variable: /home/fperez
 </pre></div>
 </div>
+<p>Note that <tt class="docutils literal"><span class="pre">$$</span></tt> is used to represent a literal <tt class="docutils literal"><span class="pre">$</span></tt>.</p>
 </div>
 <div class="section" id="system-command-aliases">
 <h3>System command aliases<a class="headerlink" href="#system-command-aliases" title="Permalink to this headline">¶</a></h3>
-<p>The %alias magic function allows you to define magic functions which are in fact
+<p>The <a class="reference internal" href="magics.html#magic-alias"><tt class="xref std std-magic docutils literal"><span class="pre">%alias</span></tt></a> magic function allows you to define magic functions which are in fact
 system shell commands. These aliases can have parameters.</p>
 <p><tt class="docutils literal"><span class="pre">%alias</span> <span class="pre">alias_name</span> <span class="pre">cmd</span></tt> defines &#8216;alias_name&#8217; as an alias for &#8216;cmd&#8217;</p>
 <p>Then, typing <tt class="docutils literal"><span class="pre">alias_name</span> <span class="pre">params</span></tt> will execute the system command &#8216;cmd
@@ -510,9 +511,9 @@ In [3]: parts A
 ERROR: Alias &lt;parts&gt; requires 2 arguments, 1 given.
 </pre></div>
 </div>
-<p>If called with no parameters, %alias prints the table of currently
+<p>If called with no parameters, <a class="reference internal" href="magics.html#magic-alias"><tt class="xref std std-magic docutils literal"><span class="pre">%alias</span></tt></a> prints the table of currently
 defined aliases.</p>
-<p>The %rehashx magic allows you to load your entire $PATH as
+<p>The <a class="reference internal" href="magics.html#magic-rehashx"><tt class="xref std std-magic docutils literal"><span class="pre">%rehashx</span></tt></a> magic allows you to load your entire $PATH as
 ipython aliases. See its docstring for further details.</p>
 </div>
 <div class="section" id="recursive-reload">
@@ -532,7 +533,7 @@ run any Python file with the %run function to benefit from these
 detailed tracebacks. Furthermore, both normal and verbose tracebacks can
 be colored (if your terminal supports it) which makes them much easier
 to parse visually.</p>
-<p>See the magic xmode and colors functions for details.</p>
+<p>See the magic <a class="reference internal" href="magics.html#magic-xmode"><tt class="xref std std-magic docutils literal"><span class="pre">%xmode</span></tt></a> and <a class="reference internal" href="magics.html#magic-colors"><tt class="xref std std-magic docutils literal"><span class="pre">%colors</span></tt></a> functions for details.</p>
 <p>These features are basically a terminal version of Ka-Ping Yee&#8217;s cgitb
 module, now part of the standard Python library.</p>
 </div>
@@ -541,8 +542,8 @@ module, now part of the standard Python library.</p>
 <p>IPython offers numbered prompts (In/Out) with input and output caching
 (also referred to as &#8216;input history&#8217;). All input is saved and can be
 retrieved as variables (besides the usual arrow key recall), in
-addition to the %rep magic command that brings a history entry
-up for editing on the next  command line.</p>
+addition to the <tt class="xref std std-magic docutils literal"><span class="pre">%rep</span></tt> magic command that brings a history entry
+up for editing on the next command line.</p>
 <p>The following variables always exist:</p>
 <ul class="simple">
 <li>_i, _ii, _iii: store previous, next previous and next-next previous inputs.</li>
@@ -559,15 +560,15 @@ by printing them out: they print like a clean string, without prompt
 characters. You can also manipulate them like regular variables (they
 are strings), modify or exec them.</p>
 <p>You can also re-execute multiple lines of input easily by using the
-magic %rerun or %macro functions. The macro system also allows you to re-execute
+magic <a class="reference internal" href="magics.html#magic-rerun"><tt class="xref std std-magic docutils literal"><span class="pre">%rerun</span></tt></a> or <a class="reference internal" href="magics.html#magic-macro"><tt class="xref std std-magic docutils literal"><span class="pre">%macro</span></tt></a> functions. The macro system also allows you to re-execute
 previous lines which include magic function calls (which require special
 processing). Type %macro? for more details on the macro system.</p>
-<p>A history function %hist allows you to see any part of your input
+<p>A history function <a class="reference internal" href="magics.html#magic-history"><tt class="xref std std-magic docutils literal"><span class="pre">%history</span></tt></a> allows you to see any part of your input
 history by printing a range of the _i variables.</p>
 <p>You can also search (&#8216;grep&#8217;) through your history by typing
 <tt class="docutils literal"><span class="pre">%hist</span> <span class="pre">-g</span> <span class="pre">somestring</span></tt>. This is handy for searching for URLs, IP addresses,
 etc. You can bring history entries listed by &#8216;%hist -g&#8217; up for editing
-with the %recall command, or run them immediately with %rerun.</p>
+with the %recall command, or run them immediately with <a class="reference internal" href="magics.html#magic-rerun"><tt class="xref std std-magic docutils literal"><span class="pre">%rerun</span></tt></a>.</p>
 </div>
 <div class="section" id="output-caching-system">
 <span id="output-caching"></span><h3>Output caching system<a class="headerlink" href="#output-caching-system" title="Permalink to this headline">¶</a></h3>
@@ -599,14 +600,14 @@ accidentally overwrite the Out variable you can recover it by typing
 system, since it prevents Python&#8217;s garbage collector from removing any
 previously computed results. You can control how many results are kept
 in memory with the configuration option <tt class="docutils literal"><span class="pre">InteractiveShell.cache_size</span></tt>.
-If you set it to 0, output caching is disabled. You can also use the <tt class="docutils literal"><span class="pre">%reset</span></tt>
-and <tt class="docutils literal"><span class="pre">%xdel</span></tt> magics to clear large items from memory.</p>
+If you set it to 0, output caching is disabled. You can also use the <a class="reference internal" href="magics.html#magic-reset"><tt class="xref std std-magic docutils literal"><span class="pre">%reset</span></tt></a>
+and <a class="reference internal" href="magics.html#magic-xdel"><tt class="xref std std-magic docutils literal"><span class="pre">%xdel</span></tt></a> magics to clear large items from memory.</p>
 </div>
 <div class="section" id="directory-history">
 <h3>Directory history<a class="headerlink" href="#directory-history" title="Permalink to this headline">¶</a></h3>
 <p>Your history of visited directories is kept in the global list _dh, and
-the magic %cd command can be used to go to any entry in that list. The
-%dhist command allows you to view this history. Do <tt class="docutils literal"><span class="pre">cd</span> <span class="pre">-&lt;TAB&gt;</span></tt> to
+the magic <a class="reference internal" href="magics.html#magic-cd"><tt class="xref std std-magic docutils literal"><span class="pre">%cd</span></tt></a> command can be used to go to any entry in that list. The
+<a class="reference internal" href="magics.html#magic-dhist"><tt class="xref std std-magic docutils literal"><span class="pre">%dhist</span></tt></a> command allows you to view this history. Do <tt class="docutils literal"><span class="pre">cd</span> <span class="pre">-&lt;TAB&gt;</span></tt> to
 conveniently view the directory history.</p>
 </div>
 <div class="section" id="automatic-parentheses-and-quotes">
@@ -942,7 +943,7 @@ allows you to step through code, set breakpoints, watch variables,
 etc.  IPython makes it very easy to start any script under the control
 of pdb, regardless of whether you have wrapped it into a &#8216;main()&#8217;
 function or not. For this, simply type <tt class="docutils literal"><span class="pre">%run</span> <span class="pre">-d</span> <span class="pre">myscript</span></tt> at an
-IPython prompt. See the %run command&#8217;s documentation for more details, including
+IPython prompt. See the <a class="reference internal" href="magics.html#magic-run"><tt class="xref std std-magic docutils literal"><span class="pre">%run</span></tt></a> command&#8217;s documentation for more details, including
 how to control where pdb will stop execution first.</p>
 <p>For more information on the use of the pdb debugger, see <a class="reference external" href="http://docs.python.org/2/library/pdb.html#debugger-commands" title="(in Python v2.7)"><em>Debugger Commands</em></a>
 in the Python documentation.</p>
@@ -955,9 +956,9 @@ opens up at the point in your code which triggered the exception, and
 while your program is at this point &#8216;dead&#8217;, all the data is still
 available and you can walk up and down the stack frame and understand
 the origin of the problem.</p>
-<p>You can use the <tt class="docutils literal"><span class="pre">%debug</span></tt> magic after an exception has occurred to start
+<p>You can use the <a class="reference internal" href="magics.html#magic-debug"><tt class="xref std std-magic docutils literal"><span class="pre">%debug</span></tt></a> magic after an exception has occurred to start
 post-mortem debugging. IPython can also call debugger every time your code
-triggers an uncaught exception. This feature can be toggled with the %pdb magic
+triggers an uncaught exception. This feature can be toggled with the <a class="reference internal" href="magics.html#magic-pdb"><tt class="xref std std-magic docutils literal"><span class="pre">%pdb</span></tt></a> magic
 command, or you can start IPython with the <tt class="docutils literal"><span class="pre">--pdb</span></tt> option.</p>
 <p>For a post-mortem debugger in your programs outside IPython,
 put the following lines toward the top of your &#8216;main&#8217; routine:</p>
@@ -1029,7 +1030,7 @@ advantages of this are:</p>
 all of these things.</li>
 </ul>
 <p>For users, enabling GUI event loop integration is simple.  You simple use the
-<tt class="docutils literal"><span class="pre">%gui</span></tt> magic as follows:</p>
+<a class="reference internal" href="magics.html#magic-gui"><tt class="xref std std-magic docutils literal"><span class="pre">%gui</span></tt></a> magic as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre>%gui [GUINAME]
 </pre></div>
 </div>
@@ -1110,7 +1111,7 @@ PyGTK, PyQt4 and wxPython. It also provides a number of commands useful for
 scientific computing, all with a syntax compatible with that of the popular
 Matlab program.</p>
 <p>To start IPython with matplotlib support, use the <tt class="docutils literal"><span class="pre">--matplotlib</span></tt> switch. If
-IPython is already running, you can run the <tt class="docutils literal"><span class="pre">%matplotlib</span></tt> magic.  If no
+IPython is already running, you can run the <a class="reference internal" href="magics.html#magic-matplotlib"><tt class="xref std std-magic docutils literal"><span class="pre">%matplotlib</span></tt></a> magic.  If no
 arguments are given, IPython will automatically detect your choice of
 matplotlib backend.  You can also request a specific backend with
 <tt class="docutils literal"><span class="pre">%matplotlib</span> <span class="pre">backend</span></tt>, where <tt class="docutils literal"><span class="pre">backend</span></tt> must be one of: &#8216;tk&#8217;, &#8216;qt&#8217;, &#8216;wx&#8217;,
@@ -1224,7 +1225,7 @@ instance at an arbitrary point in a program, you can use IPython&#8217;s
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="shell.html" title="IPython as a system shell"
+          <a href="magics.html" title="Built-in magic commands"
              >next</a> |</li>
         <li class="right" >
           <a href="tips.html" title="IPython Tips &amp; Tricks"
@@ -1238,8 +1239,8 @@ instance at an arbitrary point in a program, you can use IPython&#8217;s
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Sep 25, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Last updated on Oct 16, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
     </div>
   </body>
 </html>

@@ -1,7 +1,7 @@
 IPython Qt console options
 ==========================
 
-Any of the :doc:`kernel` can also be used.
+To configure the IPython kernel, see :doc:`kernel`.
 
 KernelManager.autorestart : Bool
     Default: False
@@ -175,7 +175,7 @@ IPythonWidget.kind : 'plain'|'rich'
     specifies a QPlainTextEdit, and 'rich', which specifies a QTextEdit.
 
 IPythonWidget.lexer_class : DottedObjectName
-    Default: <IPython.utils.traitlets.Undefined object at 0x7fcc123e6290>
+    Default: <IPython.utils.traitlets.Undefined object at 0x7f9ef75772d0>
 
     The pygments lexer class to use.
 
@@ -383,43 +383,3 @@ IPythonQtConsoleApp.verbose_crash : Bool
     Create a massive crash report when IPython encounters what may be an
     internal error.  The default is to append a short message to the usual
     traceback
-
-InlineBackend.close_figures : Bool
-    Default: True
-
-    Close all figures at the end of each cell.
-    
-    When True, ensures that each cell starts with no active figures, but it also
-    means that one must keep track of references in order to edit or redraw
-    figures in subsequent cells. This mode is ideal for the notebook, where
-    residual plots from other cells might be surprising.
-    
-    When False, one must call figure() to create new figures. This means that
-    gcf() and getfigs() can reference figures created in other cells, and the
-    active figure can continue to be edited with pylab/pyplot methods that
-    reference the current active figure. This mode facilitates iterative editing
-    of figures, and behaves most consistently with other matplotlib backends,
-    but figure barriers between cells must be explicit.
-
-InlineBackend.figure_format : Unicode
-    Default: u''
-
-    The figure format to enable (deprecated use `figure_formats` instead)
-
-InlineBackend.figure_formats : Set
-    Default: set(['png'])
-
-    A set of figure formats to enable: 'png',  'retina', 'jpeg', 'svg', 'pdf'.
-
-InlineBackend.print_figure_kwargs : Dict
-    Default: {'bbox_inches': 'tight'}
-
-    Extra kwargs to be passed to fig.canvas.print_figure.
-    
-    Logical examples include: bbox_inches, quality (for jpeg figures), etc.
-
-InlineBackend.rc : Dict
-    Default: {'font.size': 10, 'axes.facecolor': (1, 1, 1, 0), 'figure.fig...
-
-    Subset of matplotlib rcParams that should be different for the inline
-    backend.
