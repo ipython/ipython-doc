@@ -156,7 +156,7 @@ style short name, such as <tt class="docutils literal"><span class="pre">\alpha<
 <tt class="docutils literal"><span class="pre">placeholder</span></tt> attribute, for displaying placeholder text before the
 user has typed anything.</p>
 </li>
-<li><p class="first">The %load magic can now find the source for objects in the user namespace.
+<li><p class="first">The <a class="reference internal" href="../interactive/magics.html#magic-load"><tt class="xref std std-magic docutils literal"><span class="pre">%load</span></tt></a> magic can now find the source for objects in the user namespace.
 To enable searching the namespace, use the <tt class="docutils literal"><span class="pre">-n</span></tt> option.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="si">%lo</span><span class="s">ad -n my_module.some_function</span>
 </pre></div>
@@ -184,6 +184,43 @@ in the notebook document.
 Previously, all output messages were preserved as separate output fields in the JSON.
 Now, the same merge is applied to the stored output as the displayed output,
 improving document load time for notebooks with many small outputs.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">NotebookApp.webapp_settings</span></tt> is deprecated and replaced with
+the more informatively named <tt class="docutils literal"><span class="pre">NotebookApp.tornado_settings</span></tt>.</p>
+</li>
+<li><p class="first">Using <a class="reference internal" href="../interactive/magics.html#magic-timeit"><tt class="xref std std-magic docutils literal"><span class="pre">%timeit</span></tt></a> prints warnings if there is atleast a 4x difference in timings
+between the slowest and fastest runs, since this might meant that the multiple
+runs are not independent of one another.</p>
+</li>
+<li><p class="first">It&#8217;s now possible to provide mechanisms to integrate IPython with other event
+loops, in addition to the ones we already support. This lets you run GUI code
+in IPython with an interactive prompt, and to embed the IPython
+kernel in GUI applications. See <a class="reference internal" href="../config/eventloops.html"><em>Integrating with GUI event loops</em></a> for details. As part
+of this, the direct <tt class="docutils literal"><span class="pre">enable_*</span></tt> and <tt class="docutils literal"><span class="pre">disable_*</span></tt> functions for various GUIs
+in <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> have been deprecated in favour of
+<a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookManager.enable_gui" title="IPython.lib.inputhook.InputHookManager.enable_gui"><tt class="xref py py-meth docutils literal"><span class="pre">enable_gui()</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookManager.disable_gui" title="IPython.lib.inputhook.InputHookManager.disable_gui"><tt class="xref py py-meth docutils literal"><span class="pre">disable_gui()</span></tt></a>.</p>
+</li>
+<li><p class="first">A <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> was added to the notebook.  The <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> controls how the notebook document is scrolled using keyboard.  Users can inherit from the <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> or <tt class="docutils literal"><span class="pre">TargetScrollManager</span></tt> to customize how their notebook scrolls.  The default <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> is the <tt class="docutils literal"><span class="pre">SlideScrollManager</span></tt>, which tries to scroll to the nearest slide or sub-slide cell.</p>
+</li>
+<li><p class="first">The function <a class="reference internal" href="../api/generated/IPython.html.widgets.interaction.html#IPython.html.widgets.interaction.interact_manual" title="IPython.html.widgets.interaction.interact_manual"><tt class="xref py py-func docutils literal"><span class="pre">interact_manual()</span></tt></a> has been
+added which behaves similarly to <a class="reference internal" href="../api/generated/IPython.html.widgets.interaction.html#IPython.html.widgets.interaction.interact" title="IPython.html.widgets.interaction.interact"><tt class="xref py py-func docutils literal"><span class="pre">interact()</span></tt></a>,
+but adds a button to explicitly run the interacted-with function, rather than
+doing it automatically for every change of the parameter widgets. This should
+be useful for long-running functions.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">%cython</span></tt> magic is now part of the Cython module. Use <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">Cython</span></tt> with a version of Cython &gt;= 0.21 to have access to the magic now.</p>
+</li>
+<li><p class="first">The Notebook application now offers integrated terminals on Unix platforms,
+intended for when it is used on a remote server. To enable these, install
+the <tt class="docutils literal"><span class="pre">terminado</span></tt> Python package.</p>
+</li>
+<li><p class="first">Setting the default highlighting language for nbconvert with the config option
+<tt class="docutils literal"><span class="pre">NbConvertBase.default_language</span></tt> is deprecated. Nbconvert now respects
+metadata stored in the <a class="reference internal" href="../development/kernels.html#kernelspecs"><em>kernel spec</em></a>.</p>
+</li>
+<li><p class="first">IPython can now be configured systemwide, with files in <tt class="file docutils literal"><span class="pre">/etc/ipython</span></tt>
+or <tt class="file docutils literal"><span class="pre">/usr/local/etc/ipython</span></tt> on Unix systems,
+or <tt class="file docutils literal"><em><span class="pre">%PROGRAMDATA%</span></em><span class="pre">\ipython</span></tt> on Windows.</p>
 </li>
 </ul>
 </div>
@@ -291,8 +328,8 @@ embedded in an iframe on the same origin.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 16, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
+      Last updated on Oct 30, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

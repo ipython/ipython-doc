@@ -63,6 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">html.base.zmqhandlers</span></tt></a><ul>
 <li><a class="reference internal" href="#classes">2 Classes</a></li>
+<li><a class="reference internal" href="#functions">2 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -159,6 +160,14 @@ Default is max of 3 pings or 30 seconds.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.pre_get">
+<tt class="descname">pre_get</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.pre_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run before finishing the GET request</p>
+<p>Extend this method to add logic that should fire before
+the websocket finishes completing.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.send_ping">
 <tt class="descname">send_ping</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.AuthenticatedZMQStreamHandler.send_ping" title="Permalink to this definition">¶</a></dt>
 <dd><p>send a ping to keep the websocket alive</p>
@@ -171,6 +180,45 @@ Default is max of 3 pings or 30 seconds.</p>
 <p>which doesn&#8217;t make sense for websockets</p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.html.base.zmqhandlers.serialize_binary_message">
+<tt class="descclassname">IPython.html.base.zmqhandlers.</tt><tt class="descname">serialize_binary_message</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.serialize_binary_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>serialize a message as a binary blob</p>
+<p>Header:</p>
+<p>4 bytes: number of msg parts (nbufs) as 32b int
+4 * nbufs bytes: offset for each buffer as integer as 32b int</p>
+<p>Offsets are from the start of the buffer, including the header.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The message serialized to bytes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.html.base.zmqhandlers.deserialize_binary_message">
+<tt class="descclassname">IPython.html.base.zmqhandlers.</tt><tt class="descname">deserialize_binary_message</tt><big>(</big><em>bmsg</em><big>)</big><a class="headerlink" href="#IPython.html.base.zmqhandlers.deserialize_binary_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>deserialize a message from a binary blog</p>
+<p>Header:</p>
+<p>4 bytes: number of msg parts (nbufs) as 32b int
+4 * nbufs bytes: offset for each buffer as integer as 32b int</p>
+<p>Offsets are from the start of the buffer, including the header.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">message dictionary</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -206,8 +254,8 @@ Default is max of 3 pings or 30 seconds.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 16, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3+.
+      Last updated on Oct 30, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
