@@ -132,19 +132,15 @@ of the files and directories it contains.</p>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.handlers.ContentsHandler.location_url">
-<tt class="descname">location_url</tt><big>(</big><em>name</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.handlers.ContentsHandler.location_url" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">location_url</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.handlers.ContentsHandler.location_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the full URL location of a file.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : unicode</p>
-<blockquote>
-<div><p>The base name of the file, such as &#8220;foo.ipynb&#8221;.</p>
-</div></blockquote>
-<p><strong>path</strong> : unicode</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : unicode</p>
 <blockquote class="last">
-<div><p>The API path of the file, such as &#8220;foo/bar&#8221;.</p>
+<div><p>The API path of the file, such as &#8220;foo/bar.txt&#8221;.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -155,20 +151,19 @@ of the files and directories it contains.</p>
 <dl class="method">
 <dt id="IPython.html.services.contents.handlers.ContentsHandler.patch">
 <tt class="descname">patch</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.handlers.ContentsHandler.patch" title="Permalink to this definition">¶</a></dt>
-<dd><p>PATCH renames a notebook without re-uploading content.</p>
+<dd><p>PATCH renames a file or directory without re-uploading content.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.handlers.ContentsHandler.post">
 <tt class="descname">post</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.handlers.ContentsHandler.post" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new file or directory in the specified path.</p>
-<p>POST creates new files or directories. The server always decides on the name.</p>
+<dd><p>Create a new file in the specified path.</p>
+<p>POST creates new files. The server always decides on the name.</p>
 <dl class="docutils">
 <dt>POST /api/contents/path</dt>
-<dd>New untitled notebook in path. If content specified, upload a
-notebook, otherwise start empty.</dd>
+<dd>New untitled, empty file or directory.</dd>
 <dt>POST /api/contents/path</dt>
-<dd>with body {&#8220;copy_from&#8221; : &#8220;OtherNotebook.ipynb&#8221;}
+<dd>with body {&#8220;copy_from&#8221; : &#8220;/path/to/OtherNotebook.ipynb&#8221;}
 New copy of OtherNotebook in path</dd>
 </dl>
 </dd></dl>
@@ -184,15 +179,6 @@ whereas with POST, the server picks the name.</p>
 <dd>Save notebook at <tt class="docutils literal"><span class="pre">path/Name.ipynb</span></tt>. Notebook structure is specified
 in <tt class="docutils literal"><span class="pre">content</span></tt> key of JSON request body. If content is not specified,
 create a new empty notebook.</dd>
-<dt>PUT /api/contents/path/Name.ipynb</dt>
-<dd><p class="first">with JSON body:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="s">&quot;copy_from&quot;</span> <span class="p">:</span> <span class="s">&quot;[path/to/]OtherNotebook.ipynb&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p class="last">Copy OtherNotebook to Name</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -283,7 +269,7 @@ create a new empty notebook.</dd>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

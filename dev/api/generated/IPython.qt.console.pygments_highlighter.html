@@ -166,6 +166,10 @@ other, i.e. they cannot be used in conjunction.</p>
 <tt class="descclassname">IPython.qt.console.pygments_highlighter.</tt><tt class="descname">get_tokens_unprocessed</tt><big>(</big><em>self</em>, <em>text</em>, <em>stack=('root'</em>, <em>)</em><big>)</big><a class="headerlink" href="#IPython.qt.console.pygments_highlighter.get_tokens_unprocessed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split <tt class="docutils literal"><span class="pre">text</span></tt> into (tokentype, text) pairs.</p>
 <p>Monkeypatched to store the final stack on the object itself.</p>
+<p>The <tt class="docutils literal"><span class="pre">text</span></tt> parameter this gets passed is only the current line, so to
+highlight things like multiline strings correctly, we need to retrieve
+the state from the previous line (this is done in PygmentsHighlighter,
+below), and use it to continue processing the current line.</p>
 </dd></dl>
 
 </div>
@@ -201,7 +205,7 @@ other, i.e. they cannot be used in conjunction.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

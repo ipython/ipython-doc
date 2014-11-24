@@ -129,17 +129,9 @@ and always refers to a directory.</p>
 <li>if unspecified, path defaults to &#8216;&#8217;,
 indicating the root path.</li>
 </ul>
-<p>name is also unicode, and refers to a specfic target:</p>
-<ul class="simple">
-<li>unicode, not url-escaped</li>
-<li>must not contain &#8216;/&#8217;</li>
-<li>It refers to an individual filename</li>
-<li>It may refer to a directory name,
-in the case of listing or creating directories.</li>
-</ul>
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.check_and_sign">
-<tt class="descname">check_and_sign</tt><big>(</big><em>nb</em>, <em>name=''</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.check_and_sign" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">check_and_sign</tt><big>(</big><em>nb</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.check_and_sign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check for trusted cells, and sign the notebook.</p>
 <p>Called as a part of saving notebooks.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -148,15 +140,11 @@ in the case of listing or creating directories.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nb</strong> : dict</p>
 <blockquote>
-<div><p>The notebook object (in nbformat.current format)</p>
-</div></blockquote>
-<p><strong>name</strong> : string</p>
-<blockquote>
-<div><p>The filename of the notebook (for logging)</p>
+<div><p>The notebook dict</p>
 </div></blockquote>
 <p><strong>path</strong> : string</p>
 <blockquote class="last">
-<div><p>The notebook&#8217;s directory (for logging)</p>
+<div><p>The notebook&#8217;s path (for logging)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -166,52 +154,68 @@ in the case of listing or creating directories.</li>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.copy">
-<tt class="descname">copy</tt><big>(</big><em>from_name</em>, <em>to_name=None</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.copy" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">copy</tt><big>(</big><em>from_path</em>, <em>to_path=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.copy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy an existing file and return its new model.</p>
-<p>If to_name not specified, increment <tt class="docutils literal"><span class="pre">from_name-Copy#.ext</span></tt>.</p>
-<p>copy_from can be a full path to a file,
-or just a base name. If a base name, <tt class="docutils literal"><span class="pre">path</span></tt> is used.</p>
+<p>If to_path not specified, it will be the parent directory of from_path.
+If to_path is a directory, filename will increment <tt class="docutils literal"><span class="pre">from_path-Copy#.ext</span></tt>.</p>
+<p>from_path must be a full path to a file.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.create_checkpoint">
-<tt class="descname">create_checkpoint</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.create_checkpoint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">create_checkpoint</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.create_checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a checkpoint of the current state of a file</p>
 <p>Returns a checkpoint_id for the new checkpoint.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.create_file">
-<tt class="descname">create_file</tt><big>(</big><em>model=None</em>, <em>path=''</em>, <em>ext='.ipynb'</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.create_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new file or directory and return its model with no content.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.delete">
-<tt class="descname">delete</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete file or directory by name and path.</p>
+<tt class="descname">delete</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete file or directory by path.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.delete_checkpoint">
-<tt class="descname">delete_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete_checkpoint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">delete_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete_checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>delete a checkpoint for a file</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.dir_exists">
+<tt class="descname">dir_exists</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.dir_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the API-style path (directory) actually exist?</p>
+<p>Like os.path.isdir</p>
+<p>Override this method in subclasses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
+<blockquote>
+<div><p>The path to check</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>exists</strong> : bool</p>
+<blockquote class="last">
+<div><p>Whether the path does indeed exist.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.exists">
-<tt class="descname">exists</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.exists" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does a file or directory exist at the given name and path?</p>
+<tt class="descname">exists</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does a file or directory exist at the given path?</p>
 <p>Like os.path.exists</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : string</p>
-<blockquote>
-<div><p>The name of the file you are checking.</p>
-</div></blockquote>
-<p><strong>path</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
 <blockquote>
 <div><p>The relative path to the file&#8217;s directory (with &#8216;/&#8217; as separator)</p>
 </div></blockquote>
@@ -229,8 +233,8 @@ or just a base name. If a base name, <tt class="docutils literal"><span class="p
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.file_exists">
-<tt class="descname">file_exists</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.file_exists" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does a file exist at the given name and path?</p>
+<tt class="descname">file_exists</tt><big>(</big><em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does a file exist at the given path?</p>
 <p>Like os.path.isfile</p>
 <p>Override this method in subclasses.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -258,20 +262,22 @@ or just a base name. If a base name, <tt class="docutils literal"><span class="p
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.get_kernel_path">
-<tt class="descname">get_kernel_path</tt><big>(</big><em>name</em>, <em>path=''</em>, <em>model=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get_kernel_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the path to start kernel in</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.get_model">
-<tt class="descname">get_model</tt><big>(</big><em>name</em>, <em>path=''</em>, <em>content=True</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get_model" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.html.services.contents.manager.ContentsManager.get">
+<tt class="descname">get</tt><big>(</big><em>path</em>, <em>content=True</em>, <em>type_=None</em>, <em>format=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the model of a file or directory with or without content.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.get_kernel_path">
+<tt class="descname">get_kernel_path</tt><big>(</big><em>path</em>, <em>model=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get_kernel_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the API path for the kernel</p>
+<p>KernelManagers can turn this value into a filesystem path,
+or ignore it altogether.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.increment_filename">
-<tt class="descname">increment_filename</tt><big>(</big><em>filename</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.increment_filename" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">increment_filename</tt><big>(</big><em>filename</em>, <em>path=''</em>, <em>insert=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.increment_filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Increment a filename until it is unique.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -324,13 +330,13 @@ relative to root dir).</p>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.list_checkpoints">
-<tt class="descname">list_checkpoints</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.list_checkpoints" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">list_checkpoints</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.list_checkpoints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of checkpoints for a given file</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.mark_trusted_cells">
-<tt class="descname">mark_trusted_cells</tt><big>(</big><em>nb</em>, <em>name=''</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.mark_trusted_cells" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">mark_trusted_cells</tt><big>(</big><em>nb</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.mark_trusted_cells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mark cells as trusted if the notebook signature matches.</p>
 <p>Called as a part of loading notebooks.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -339,15 +345,11 @@ relative to root dir).</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nb</strong> : dict</p>
 <blockquote>
-<div><p>The notebook object (in nbformat.current format)</p>
-</div></blockquote>
-<p><strong>name</strong> : string</p>
-<blockquote>
-<div><p>The filename of the notebook (for logging)</p>
+<div><p>The notebook object (in current nbformat)</p>
 </div></blockquote>
 <p><strong>path</strong> : string</p>
 <blockquote class="last">
-<div><p>The notebook&#8217;s directory (for logging)</p>
+<div><p>The notebook&#8217;s path (for logging)</p>
 </div></blockquote>
 </td>
 </tr>
@@ -356,40 +358,30 @@ relative to root dir).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.path_exists">
-<tt class="descname">path_exists</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.path_exists" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does the API-style path (directory) actually exist?</p>
-<p>Like os.path.isdir</p>
-<p>Override this method in subclasses.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
-<blockquote>
-<div><p>The path to check</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>exists</strong> : bool</p>
-<blockquote class="last">
-<div><p>Whether the path does indeed exist.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="IPython.html.services.contents.manager.ContentsManager.new">
+<tt class="descname">new</tt><big>(</big><em>model=None</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.new" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new file or directory and return its model with no content.</p>
+<p>To create a new untitled entity in a directory, use <tt class="docutils literal"><span class="pre">new_untitled</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.new_untitled">
+<tt class="descname">new_untitled</tt><big>(</big><em>path=''</em>, <em>type=''</em>, <em>ext=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.new_untitled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new untitled file or directory in path</p>
+<p>path must be a directory</p>
+<p>File extension can be specified.</p>
+<p>Use <tt class="docutils literal"><span class="pre">new</span></tt> to create files with a fully specified path (including filename).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.restore_checkpoint">
-<tt class="descname">restore_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.restore_checkpoint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">restore_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.restore_checkpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Restore a file from one of its checkpoints</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.save">
-<tt class="descname">save</tt><big>(</big><em>model</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.save" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">save</tt><big>(</big><em>model</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the file or directory and return the model with no content.</p>
 </dd></dl>
 
@@ -401,19 +393,15 @@ relative to root dir).</p>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.trust_notebook">
-<tt class="descname">trust_notebook</tt><big>(</big><em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.trust_notebook" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">trust_notebook</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.trust_notebook" title="Permalink to this definition">¶</a></dt>
 <dd><p>Explicitly trust a notebook</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : string</p>
-<blockquote>
-<div><p>The filename of the notebook</p>
-</div></blockquote>
-<p><strong>path</strong> : string</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path</strong> : string</p>
 <blockquote class="last">
-<div><p>The notebook&#8217;s directory</p>
+<div><p>The path of a notebook</p>
 </div></blockquote>
 </td>
 </tr>
@@ -423,7 +411,7 @@ relative to root dir).</p>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.update">
-<tt class="descname">update</tt><big>(</big><em>model</em>, <em>name</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.update" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">update</tt><big>(</big><em>model</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the file or directory and return the model with no content.</p>
 <p>For use in PATCH requests, to enable renaming a file without
 re-uploading its contents. Only used for renaming at the moment.</p>
@@ -470,7 +458,7 @@ re-uploading its contents. Only used for renaming at the moment.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

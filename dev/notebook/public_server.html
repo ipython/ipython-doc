@@ -63,7 +63,10 @@
   <ul>
 <li><a class="reference internal" href="#">Running a notebook server</a><ul>
 <li><a class="reference internal" href="#securing-a-notebook-server">Securing a notebook server</a></li>
-<li><a class="reference internal" href="#running-a-public-notebook-server">Running a public notebook server</a></li>
+<li><a class="reference internal" href="#running-a-public-notebook-server">Running a public notebook server</a><ul>
+<li><a class="reference internal" href="#firewall-setup">Firewall Setup</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#running-with-a-different-url-prefix">Running with a different URL prefix</a></li>
 <li><a class="reference internal" href="#using-a-different-notebook-store">Using a different notebook store</a></li>
 <li><a class="reference internal" href="#known-issues">Known issues</a></li>
@@ -196,6 +199,16 @@ commented; the minimum set you need to uncomment and edit is the following:</p>
 <p>You can then start the notebook and access it later by pointing your browser
 to <tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt> with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span>
 <span class="pre">--profile=nbserver</span></tt>.</p>
+<div class="section" id="firewall-setup">
+<h3>Firewall Setup<a class="headerlink" href="#firewall-setup" title="Permalink to this headline">¶</a></h3>
+<p>To function correctly, the firewall on the computer running the ipython server must be
+configured to allow connections from client machines on the <tt class="docutils literal"><span class="pre">c.NotebookApp.port</span></tt>
+port to allow connections to the web interface.  The firewall must also allow
+connections from 127.0.0.1 (localhost) on ports from 49152 to 65535.
+These ports are used by the server to communicate with the notebook kernels.
+The kernel communication ports are chosen randomly by ZeroMQ, and may require
+multiple connections per kernel, so a large range of ports must be accessible.</p>
+</div>
 </div>
 <div class="section" id="running-with-a-different-url-prefix">
 <h2>Running with a different URL prefix<a class="headerlink" href="#running-with-a-different-url-prefix" title="Permalink to this headline">¶</a></h2>
@@ -268,7 +281,7 @@ to the &#8216;No proxy for&#8217; field.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

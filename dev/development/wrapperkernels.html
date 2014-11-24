@@ -149,6 +149,17 @@ interprets (e.g. Python). The &#8216;banner&#8217; is displayed to the user in c
 UIs before the first prompt. All of these values are strings.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="MyKernel.language_info">
+<tt class="descname">language_info</tt><a class="headerlink" href="#MyKernel.language_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language information for <a class="reference internal" href="messaging.html#msging-kernel-info"><em>Kernel info</em></a> replies, in a dictionary.
+This should contain the key <tt class="docutils literal"><span class="pre">mimetype</span></tt> with the mimetype of code in the
+target language (e.g. <tt class="docutils literal"><span class="pre">'text/x-python'</span></tt>). It may also contain keys
+<tt class="docutils literal"><span class="pre">codemirror_mode</span></tt> and <tt class="docutils literal"><span class="pre">pygments_lexer</span></tt> if they need to differ from
+<a class="reference internal" href="#MyKernel.language" title="MyKernel.language"><tt class="xref py py-attr docutils literal"><span class="pre">language</span></tt></a>.</p>
+<p>Other keys may be added to this later.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="MyKernel.do_execute">
 <tt class="descname">do_execute</tt><big>(</big><em>code</em>, <em>silent</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=False</em><big>)</big><a class="headerlink" href="#MyKernel.do_execute" title="Permalink to this definition">¶</a></dt>
@@ -197,6 +208,7 @@ See <a class="reference internal" href="messaging.html"><em>Messaging in IPython
     <span class="n">implementation_version</span> <span class="o">=</span> <span class="s">&#39;1.0&#39;</span>
     <span class="n">language</span> <span class="o">=</span> <span class="s">&#39;no-op&#39;</span>
     <span class="n">language_version</span> <span class="o">=</span> <span class="s">&#39;0.1&#39;</span>
+    <span class="n">language_info</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;mimetype&#39;</span><span class="p">:</span> <span class="s">&#39;text/plain&#39;</span><span class="p">}</span>
     <span class="n">banner</span> <span class="o">=</span> <span class="s">&quot;Echo kernel - as useful as a parrot&quot;</span>
 
     <span class="k">def</span> <span class="nf">do_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">silent</span><span class="p">,</span> <span class="n">store_history</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">user_expressions</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -220,7 +232,6 @@ See <a class="reference internal" href="messaging.html"><em>Messaging in IPython
 <p>Here&#8217;s the Kernel spec <tt class="docutils literal"><span class="pre">kernel.json</span></tt> file for this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;argv&quot;</span><span class="p">:[</span><span class="s">&quot;python&quot;</span><span class="p">,</span><span class="s">&quot;-m&quot;</span><span class="p">,</span><span class="s">&quot;echokernel&quot;</span><span class="p">,</span> <span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;{connection_file}&quot;</span><span class="p">],</span>
  <span class="s">&quot;display_name&quot;</span><span class="p">:</span><span class="s">&quot;Echo&quot;</span><span class="p">,</span>
- <span class="s">&quot;language&quot;</span><span class="p">:</span><span class="s">&quot;no-op&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -364,7 +375,7 @@ machinery will take care of cleaning up its own things before stopping.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

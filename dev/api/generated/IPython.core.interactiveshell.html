@@ -120,7 +120,7 @@ significant differences from the latest stable release.</p>
 
 <dl class="class">
 <dt id="IPython.core.interactiveshell.SeparateUnicode">
-<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x7f7069f65c50&gt;</em>, <em>allow_none=None</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.core.interactiveshell.</tt><tt class="descname">SeparateUnicode</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x7ffa6704de50&gt;</em>, <em>allow_none=None</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.SeparateUnicode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.Unicode" title="IPython.utils.traitlets.Unicode"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.Unicode</span></tt></a></p>
 <p>A Unicode subclass to validate separate_in, separate_out, etc.</p>
 <p>This is a Unicode based trait that converts &#8216;0&#8217;-&gt;&#8217;&#8217; and <tt class="docutils literal"><span class="pre">'\\n'-&gt;'\n'</span></tt>.</p>
@@ -1054,8 +1054,15 @@ If only one is given, it is passed as both.</p>
 silenced for zero status, as it is so common).</p>
 </div></blockquote>
 <p><strong>raise_exceptions</strong> : bool (False)</p>
-<blockquote class="last">
+<blockquote>
 <div><p>If True raise exceptions everywhere. Meant for testing.</p>
+</div></blockquote>
+<p><strong>shell_futures</strong> : bool (False)</p>
+<blockquote class="last">
+<div><p>If True, the code will share future statements with the interactive
+shell. It will both be affected by previous __future__ imports, and
+any __future__ imports in the code will affect the shell. If False,
+__future__ imports are not shared in either direction.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1065,16 +1072,23 @@ silenced for zero status, as it is so common).</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.safe_execfile_ipy">
-<tt class="descname">safe_execfile_ipy</tt><big>(</big><em>fname</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.safe_execfile_ipy" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">safe_execfile_ipy</tt><big>(</big><em>fname</em>, <em>shell_futures=False</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.safe_execfile_ipy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Like safe_execfile, but for .ipy or .ipynb files with IPython syntax.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fname</strong> : str</p>
-<blockquote class="last">
+<blockquote>
 <div><p>The name of the file to execute.  The filename must have a
 .ipy or .ipynb extension.</p>
+</div></blockquote>
+<p><strong>shell_futures</strong> : bool (False)</p>
+<blockquote class="last">
+<div><p>If True, the code will share future statements with the interactive
+shell. It will both be affected by previous __future__ imports, and
+any __future__ imports in the code will affect the shell. If False,
+__future__ imports are not shared in either direction.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -1362,7 +1376,7 @@ in the user namespace.</p>
 
 <dl class="method">
 <dt id="IPython.core.interactiveshell.InteractiveShell.var_expand">
-<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x7f7069899250&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">var_expand</tt><big>(</big><em>cmd</em>, <em>depth=0</em>, <em>formatter=&lt;IPython.utils.text.DollarFormatter object at 0x7ffa66e6a950&gt;</em><big>)</big><a class="headerlink" href="#IPython.core.interactiveshell.InteractiveShell.var_expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand python variables in a string.</p>
 <p>The depth argument indicates how many frames above the caller should
 be walked to look for the local namespace where to expand variables.</p>
@@ -1432,7 +1446,7 @@ namespace.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Oct 30, 2014.
+      Last updated on Nov 24, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
