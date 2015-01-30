@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Jupyter Notebook Format &mdash; IPython 3.0.0-dev documentation</title>
+    <title>The Jupyter Notebook Format &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="The IPython notebook" href="index.html" />
     <link rel="next" title="Converting notebooks to other formats" href="nbconvert.html" />
     <link rel="prev" title="The IPython Notebook" href="notebook.html" /> 
@@ -77,6 +77,7 @@
 <li><a class="reference internal" href="#raw-nbconvert-cells">Raw NBConvert cells</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#backward-compatible-changes">Backward-compatible changes</a></li>
 <li><a class="reference internal" href="#metadata">Metadata</a><ul>
 <li><a class="reference internal" href="#notebook-metadata">Notebook metadata</a></li>
 <li><a class="reference internal" href="#cell-metadata">Cell metadata</a></li>
@@ -119,14 +120,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="the-jupyter-notebook-format">
+  <div class="section" id="the-jupyter-notebook-format">
 <span id="nbformat"></span><h1>The Jupyter Notebook Format<a class="headerlink" href="#the-jupyter-notebook-format" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -154,11 +148,15 @@ no metadata values are required to be defined.</p>
   <span class="s">&quot;metadata&quot;</span> <span class="p">:</span> <span class="p">{</span>
     <span class="s">&quot;signature&quot;</span><span class="p">:</span> <span class="s">&quot;hex-digest&quot;</span><span class="p">,</span> <span class="c"># used for authenticating unsafe outputs on load</span>
     <span class="s">&quot;kernel_info&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="c"># if kernel_info is defined, its name and language fields are required.</span>
-        <span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;the name of the kernel&quot;</span><span class="p">,</span>
-        <span class="s">&quot;language&quot;</span> <span class="p">:</span> <span class="s">&quot;the programming language of the kernel&quot;</span><span class="p">,</span>
-        <span class="s">&quot;codemirror_mode&quot;</span><span class="p">:</span> <span class="s">&quot;The name of the codemirror mode to use [optional]&quot;</span>
+        <span class="c"># if kernel_info is defined, its name field is required.</span>
+        <span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;the name of the kernel&quot;</span>
     <span class="p">},</span>
+    <span class="s">&quot;language_info&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c"># if language_info is defined, its name field is required.</span>
+        <span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;the programming language of the kernel&quot;</span><span class="p">,</span>
+        <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="s">&quot;the version of the language&quot;</span><span class="p">,</span>
+        <span class="s">&quot;codemirror_mode&quot;</span><span class="p">:</span> <span class="s">&quot;The name of the codemirror mode to use [optional]&quot;</span>
+    <span class="p">}</span>
   <span class="p">},</span>
   <span class="s">&quot;nbformat&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
   <span class="s">&quot;nbformat_minor&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -245,14 +243,14 @@ which is a string defining what type of output it is.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;output_type&quot;</span> <span class="p">:</span> <span class="s">&quot;stream&quot;</span><span class="p">,</span>
   <span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;stdout&quot;</span><span class="p">,</span> <span class="c"># or stderr</span>
-  <span class="s">&quot;data&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&quot;multiline stream text&quot;</span><span class="p">],</span>
+  <span class="s">&quot;text&quot;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&quot;multiline stream text&quot;</span><span class="p">],</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p>The keys <tt class="docutils literal"><span class="pre">stream</span></tt> and <tt class="docutils literal"><span class="pre">text</span></tt> were changed to <tt class="docutils literal"><span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">data</span></tt> to match
-the stream message specification.</p>
+<p>The keys <tt class="docutils literal"><span class="pre">stream</span></tt> key was changed to <tt class="docutils literal"><span class="pre">name</span></tt> to match
+the stream message.</p>
 </div>
 </div>
 <div class="section" id="display-data">
@@ -370,6 +368,20 @@ regardless of format.</p>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="backward-compatible-changes">
+<h2>Backward-compatible changes<a class="headerlink" href="#backward-compatible-changes" title="Permalink to this headline">¶</a></h2>
+<p>The notebook format is an evolving format. When backward-compatible changes are made,
+the notebook format minor version is incremented. When backward-incompatible changes are made,
+the major version is incremented.</p>
+<p>As of nbformat 4.x, backward-compatible changes include:</p>
+<ul class="simple">
+<li>new fields in any dictionary (notebook, cell, output, metadata, etc.)</li>
+<li>new cell types</li>
+<li>new output types</li>
+</ul>
+<p>New cell or output types will not be rendered in versions that do not recognize them,
+but they will be preserved.</p>
 </div>
 <div class="section" id="metadata">
 <h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
@@ -504,8 +516,8 @@ such as <tt class="docutils literal"><span class="pre">metadata.kaylees_md.foo</
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: nbformat &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: nbformat &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: nbformat.current" href="IPython.nbformat.current.html" />
+    <link rel="next" title="Module: nbformat.reader" href="IPython.nbformat.reader.html" />
     <link rel="prev" title="Module: nbconvert.writers.stdout" href="IPython.nbconvert.writers.stdout.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.nbformat.current.html" title="Module: nbformat.current"
+          <a href="IPython.nbformat.reader.html" title="Module: nbformat.reader"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.nbconvert.writers.stdout.html" title="Module: nbconvert.writers.stdout"
@@ -62,8 +62,8 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">nbformat</span></tt></a><ul>
-<li><a class="reference internal" href="#class">1 Class</a></li>
-<li><a class="reference internal" href="#functions">4 Functions</a></li>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
+<li><a class="reference internal" href="#functions">7 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -72,8 +72,8 @@
   <p class="topless"><a href="IPython.nbconvert.writers.stdout.html"
                         title="previous chapter">Module: <tt class="docutils literal"><span class="pre">nbconvert.writers.stdout</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.nbformat.current.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">nbformat.current</span></tt></a></p>
+  <p class="topless"><a href="IPython.nbformat.reader.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">nbformat.reader</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.nbformat.txt"
@@ -100,28 +100,98 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.nbformat">
+  <div class="section" id="module-IPython.nbformat">
 <span id="module-nbformat"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">nbformat</span></tt><a class="headerlink" href="#module-IPython.nbformat" title="Permalink to this headline">¶</a></h1>
 <p>The IPython notebook format</p>
 <p>Use this module to read or write notebook files as particular nbformat versions.</p>
-<div class="section" id="class">
-<h2>1 Class<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.nbformat.NBFormatError">
 <em class="property">class </em><tt class="descclassname">IPython.nbformat.</tt><tt class="descname">NBFormatError</tt><a class="headerlink" href="#IPython.nbformat.NBFormatError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></a></p>
 </dd></dl>
 
+<dl class="class">
+<dt id="IPython.nbformat.NotebookNode">
+<em class="property">class </em><tt class="descclassname">IPython.nbformat.</tt><tt class="descname">NotebookNode</tt><big>(</big><em>*args</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.nbformat.NotebookNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.utils.ipstruct.html#IPython.utils.ipstruct.Struct" title="IPython.utils.ipstruct.Struct"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.ipstruct.Struct</span></tt></a></p>
+<p>A dict-like node with attribute-access</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.nbformat.ValidationError">
+<em class="property">class </em><tt class="descclassname">IPython.nbformat.</tt><tt class="descname">ValidationError</tt><big>(</big><em>message</em>, <em>validator=&lt;unset&gt;</em>, <em>path=()</em>, <em>cause=None</em>, <em>context=()</em>, <em>validator_value=&lt;unset&gt;</em>, <em>instance=&lt;unset&gt;</em>, <em>schema=&lt;unset&gt;</em>, <em>schema_path=()</em>, <em>parent=None</em><big>)</big><a class="headerlink" href="#IPython.nbformat.ValidationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">jsonschema.exceptions._Error</span></tt></p>
+</dd></dl>
+
 </div>
 <div class="section" id="functions">
-<h2>4 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>7 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.nbformat.convert">
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">convert</tt><big>(</big><em>nb</em>, <em>to_version</em><big>)</big><a class="headerlink" href="#IPython.nbformat.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a notebook node object to a specific version.  Assumes that
+all the versions starting from 1 to the latest major X are implemented.
+In other words, there should never be a case where v1 v2 v3 v5 exist without
+a v4.  Also assumes that all conversions can be made in one step increments
+between major versions and ignores minor revisions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nb</strong> : NotebookNode</p>
+<p><strong>to_version</strong> : int</p>
+<blockquote class="last">
+<div><p>Major revision to convert the notebook to.  Can either be an upgrade or
+a downgrade.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.nbformat.from_dict">
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">from_dict</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#IPython.nbformat.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert dict to dict-like NotebookNode</p>
+<p>Recursively converts any dict in the container to a NotebookNode</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.nbformat.read">
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">read</tt><big>(</big><em>fp</em>, <em>as_version</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a notebook from a file as a NotebookNode of the given version.</p>
+<p>The string can contain a notebook of any version.
+The notebook will be returned <tt class="docutils literal"><span class="pre">as_version</span></tt>, converting, if necessary.</p>
+<p>Notebook format errors will be logged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fp</strong> : file or str</p>
+<blockquote>
+<div><p>Any file-like object with a read method, or a path to a file.</p>
+</div></blockquote>
+<p><strong>as_version: int</strong></p>
+<blockquote>
+<div><p>The version of the notebook format to return.
+The notebook will be converted, if necessary.
+Pass nbformat.NO_CONVERT to prevent conversion.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>nb</strong> : NotebookNode</p>
+<blockquote class="last">
+<div><p>The notebook that was read.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="IPython.nbformat.reads">
 <tt class="descclassname">IPython.nbformat.</tt><tt class="descname">reads</tt><big>(</big><em>s</em>, <em>as_version</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.reads" title="Permalink to this definition">¶</a></dt>
@@ -156,8 +226,47 @@ Pass nbformat.NO_CONVERT to prevent conversion.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="IPython.nbformat.validate">
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">validate</tt><big>(</big><em>nbjson</em>, <em>ref=None</em>, <em>version=None</em>, <em>version_minor=None</em><big>)</big><a class="headerlink" href="#IPython.nbformat.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the given notebook JSON conforms to the current
+notebook format schema.</p>
+<p>Raises ValidationError if not valid.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.nbformat.write">
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">write</tt><big>(</big><em>nb</em>, <em>fp</em>, <em>version=&lt;object object at 0x10a7864b0&gt;</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a notebook to a file in a given nbformat version.</p>
+<p>The file-like object must accept unicode input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nb</strong> : NotebookNode</p>
+<blockquote>
+<div><p>The notebook to write.</p>
+</div></blockquote>
+<p><strong>fp</strong> : file or str</p>
+<blockquote>
+<div><p>Any file-like object with a write method that accepts unicode, or
+a path to write a file.</p>
+</div></blockquote>
+<p><strong>version</strong> : int, optional</p>
+<blockquote class="last">
+<div><p>The nbformat version to write.
+If nb is not this version, it will be converted.
+If unspecified, or specified as nbformat.NO_CONVERT,
+the notebook&#8217;s own version will be used and no conversion performed.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="IPython.nbformat.writes">
-<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">writes</tt><big>(</big><em>nb</em>, <em>version=&lt;object object at 0x7ffa672a84f0&gt;</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.writes" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">writes</tt><big>(</big><em>nb</em>, <em>version=&lt;object object at 0x10a7864b0&gt;</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.writes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write a notebook to a string in a given format in the given nbformat version.</p>
 <p>Any notebook format errors will be logged.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -186,69 +295,6 @@ the notebook&#8217;s own version will be used and no conversion performed.</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="IPython.nbformat.read">
-<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">read</tt><big>(</big><em>fp</em>, <em>as_version</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a notebook from a file as a NotebookNode of the given version.</p>
-<p>The string can contain a notebook of any version.
-The notebook will be returned <tt class="docutils literal"><span class="pre">as_version</span></tt>, converting, if necessary.</p>
-<p>Notebook format errors will be logged.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fp</strong> : file</p>
-<blockquote>
-<div><p>Any file-like object with a read method.</p>
-</div></blockquote>
-<p><strong>as_version: int</strong></p>
-<blockquote>
-<div><p>The version of the notebook format to return.
-The notebook will be converted, if necessary.
-Pass nbformat.NO_CONVERT to prevent conversion.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>nb</strong> : NotebookNode</p>
-<blockquote class="last">
-<div><p>The notebook that was read.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="IPython.nbformat.write">
-<tt class="descclassname">IPython.nbformat.</tt><tt class="descname">write</tt><big>(</big><em>nb</em>, <em>fp</em>, <em>version=&lt;object object at 0x7ffa672a84f0&gt;</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.nbformat.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write a notebook to a file in a given nbformat version.</p>
-<p>The file-like object must accept unicode input.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>nb</strong> : NotebookNode</p>
-<blockquote>
-<div><p>The notebook to write.</p>
-</div></blockquote>
-<p><strong>fp</strong> : file</p>
-<blockquote>
-<div><p>Any file-like object with a write method that accepts unicode.</p>
-</div></blockquote>
-<p><strong>version</strong> : int, optional</p>
-<blockquote class="last">
-<div><p>The nbformat version to write.
-If nb is not this version, it will be converted.
-If unspecified, or specified as nbformat.NO_CONVERT,
-the notebook&#8217;s own version will be used and no conversion performed.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 </div>
 
@@ -268,7 +314,7 @@ the notebook&#8217;s own version will be used and no conversion performed.</p>
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.nbformat.current.html" title="Module: nbformat.current"
+          <a href="IPython.nbformat.reader.html" title="Module: nbformat.reader"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.nbconvert.writers.stdout.html" title="Module: nbconvert.writers.stdout"
@@ -282,8 +328,8 @@ the notebook&#8217;s own version will be used and no conversion performed.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

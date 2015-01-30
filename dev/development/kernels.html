@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Making kernels for IPython &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Making kernels for IPython &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Making simple Python wrapper kernels" href="wrapperkernels.html" />
     <link rel="prev" title="Messaging in IPython" href="messaging.html" /> 
@@ -101,14 +101,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="making-kernels-for-ipython">
+  <div class="section" id="making-kernels-for-ipython">
 <h1>Making kernels for IPython<a class="headerlink" href="#making-kernels-for-ipython" title="Permalink to this headline">¶</a></h1>
 <p>A &#8216;kernel&#8217; is a program that runs and introspects the user&#8217;s code. IPython
 includes a kernel for Python code, and people have written kernels for
@@ -198,10 +191,10 @@ locations:</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>System</td>
-<td><p class="first"><tt class="docutils literal"><span class="pre">/usr/share/ipython/kernels</span></tt></p>
-<p class="last"><tt class="docutils literal"><span class="pre">/usr/local/share/ipython/kernels</span></tt></p>
+<td><p class="first"><tt class="docutils literal"><span class="pre">/usr/share/jupyter/kernels</span></tt></p>
+<p class="last"><tt class="docutils literal"><span class="pre">/usr/local/share/jupyter/kernels</span></tt></p>
 </td>
-<td><tt class="docutils literal"><span class="pre">%PROGRAMDATA%\ipython\kernels</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">%PROGRAMDATA%\jupyter\kernels</span></tt></td>
 </tr>
 <tr class="row-odd"><td>User</td>
 <td colspan="2"><tt class="docutils literal"><span class="pre">~/.ipython/kernels</span></tt></td>
@@ -220,15 +213,21 @@ connection file.</li>
 <li><strong>display_name</strong>: The kernel&#8217;s name as it should be displayed in the UI.
 Unlike the kernel name used in the API, this can contain arbitrary unicode
 characters.</li>
+<li><strong>language</strong>: The name of the language of the kernel.
+When loading notebooks, if no matching kernelspec key (may differ across machines)
+is found, a kernel with a matching <tt class="docutils literal"><span class="pre">language</span></tt> will be used.
+This allows a notebook written on any Python or Julia kernel to be properly associated
+with the user&#8217;s Python or Julia kernel, even if they aren&#8217;t listed under the same name as the author&#8217;s.</li>
 <li><strong>env</strong> (optional): A dictionary of environment variables to set for the kernel.
 These will be added to the current environment variables before the kernel is
 started.</li>
 </ul>
 <p>For example, the kernel.json file for IPython looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
- <span class="s">&quot;argv&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;python3&quot;</span><span class="p">,</span> <span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;from IPython.kernel.zmq.kernelapp import main; main()&quot;</span><span class="p">,</span>
+ <span class="s">&quot;argv&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;python3&quot;</span><span class="p">,</span> <span class="s">&quot;-m&quot;</span><span class="p">,</span> <span class="s">&quot;IPython.kernel&quot;</span><span class="p">,</span>
           <span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;{connection_file}&quot;</span><span class="p">],</span>
- <span class="s">&quot;display_name&quot;</span><span class="p">:</span> <span class="s">&quot;IPython (Python 3)&quot;</span><span class="p">,</span>
+ <span class="s">&quot;display_name&quot;</span><span class="p">:</span> <span class="s">&quot;Python 3&quot;</span><span class="p">,</span>
+ <span class="s">&quot;language&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -276,8 +275,8 @@ dropdown menu in the top-right of the UI.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: core.page &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: core.page &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: core.payload" href="IPython.core.payload.html" />
     <link rel="prev" title="Module: core.oinspect" href="IPython.core.oinspect.html" /> 
@@ -63,7 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">core.page</span></tt></a><ul>
 <li><a class="reference internal" href="#notes">Notes</a></li>
-<li><a class="reference internal" href="#functions">7 Functions</a></li>
+<li><a class="reference internal" href="#functions">10 Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -100,29 +100,30 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.core.page">
+  <div class="section" id="module-IPython.core.page">
 <span id="module-core-page"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">core.page</span></tt><a class="headerlink" href="#module-IPython.core.page" title="Permalink to this headline">¶</a></h1>
 <p>Paging capabilities for IPython.core</p>
-<p>Authors:</p>
-<ul class="simple">
-<li>Brian Granger</li>
-<li>Fernando Perez</li>
-</ul>
 <div class="section" id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
-<p>For now this uses ipapi, so it can&#8217;t be in IPython.utils.  If we can get
+<p>For now this uses IPython hooks, so it can&#8217;t be in IPython.utils.  If we can get
 rid of that dependency, we could move it there.
 &#8212;&#8211;</p>
 </div>
 <div class="section" id="functions">
-<h2>7 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>10 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.core.page.display_page">
+<tt class="descclassname">IPython.core.page.</tt><tt class="descname">display_page</tt><big>(</big><em>strng</em>, <em>start=0</em>, <em>screen_lines=25</em><big>)</big><a class="headerlink" href="#IPython.core.page.display_page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just display, no paging. screen_lines is ignored.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.page.as_hook">
+<tt class="descclassname">IPython.core.page.</tt><tt class="descname">as_hook</tt><big>(</big><em>page_func</em><big>)</big><a class="headerlink" href="#IPython.core.page.as_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap a pager func to strip the <tt class="docutils literal"><span class="pre">self</span></tt> arg</p>
+<p>so it can be called as a hook.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="IPython.core.page.page_dumb">
 <tt class="descclassname">IPython.core.page.</tt><tt class="descname">page_dumb</tt><big>(</big><em>strng</em>, <em>start=0</em>, <em>screen_lines=25</em><big>)</big><a class="headerlink" href="#IPython.core.page.page_dumb" title="Permalink to this definition">¶</a></dt>
@@ -132,8 +133,8 @@ mode.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="IPython.core.page.page">
-<tt class="descclassname">IPython.core.page.</tt><tt class="descname">page</tt><big>(</big><em>strng</em>, <em>start=0</em>, <em>screen_lines=0</em>, <em>pager_cmd=None</em><big>)</big><a class="headerlink" href="#IPython.core.page.page" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.core.page.pager_page">
+<tt class="descclassname">IPython.core.page.</tt><tt class="descname">pager_page</tt><big>(</big><em>strng</em>, <em>start=0</em>, <em>screen_lines=0</em>, <em>pager_cmd=None</em><big>)</big><a class="headerlink" href="#IPython.core.page.pager_page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a string, piping through a pager after a certain length.</p>
 <p>strng can be a mime-bundle dict, supplying multiple representations,
 keyed by mime-type.</p>
@@ -150,6 +151,16 @@ specified pager command. If none given, look for PAGER in the environment,
 and ultimately default to less.</p>
 <p>If no system pager works, the string is sent through a &#8216;dumb pager&#8217;
 written in python, very simplistic.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.core.page.page">
+<tt class="descclassname">IPython.core.page.</tt><tt class="descname">page</tt><big>(</big><em>data</em>, <em>start=0</em>, <em>screen_lines=0</em>, <em>pager_cmd=None</em><big>)</big><a class="headerlink" href="#IPython.core.page.page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display content in a pager, piping through a pager after a certain length.</p>
+<p>data can be a mime-bundle dict, supplying multiple representations,
+keyed by mime-type, or text.</p>
+<p>Pager is dispatched via the <tt class="docutils literal"><span class="pre">show_in_pager</span></tt> IPython hook.
+If no hook is registered, <tt class="docutils literal"><span class="pre">pager_page</span></tt> will be used.</p>
 </dd></dl>
 
 <dl class="function">
@@ -225,8 +236,8 @@ written in python, very simplistic.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.notebookapp &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: html.notebookapp &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.services.clusters.clustermanager" href="IPython.html.services.clusters.clustermanager.html" />
     <link rel="prev" title="Module: html.notebook.handlers" href="IPython.html.notebook.handlers.html" /> 
@@ -100,25 +100,18 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.html.notebookapp">
+  <div class="section" id="module-IPython.html.notebookapp">
 <span id="module-html-notebookapp"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">html.notebookapp</span></tt><a class="headerlink" href="#module-IPython.html.notebookapp" title="Permalink to this headline">¶</a></h1>
 <p>A tornado based IPython notebook server.</p>
 <div class="section" id="classes">
 <h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.html.notebookapp.NotebookWebApplication">
-<em class="property">class </em><tt class="descclassname">IPython.html.notebookapp.</tt><tt class="descname">NotebookWebApplication</tt><big>(</big><em>ipython_app</em>, <em>kernel_manager</em>, <em>contents_manager</em>, <em>cluster_manager</em>, <em>session_manager</em>, <em>kernel_spec_manager</em>, <em>log</em>, <em>base_url</em>, <em>default_url</em>, <em>settings_overrides</em>, <em>jinja_env_options</em><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookWebApplication" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.html.notebookapp.</tt><tt class="descname">NotebookWebApplication</tt><big>(</big><em>ipython_app</em>, <em>kernel_manager</em>, <em>contents_manager</em>, <em>cluster_manager</em>, <em>session_manager</em>, <em>kernel_spec_manager</em>, <em>config_manager</em>, <em>log</em>, <em>base_url</em>, <em>default_url</em>, <em>settings_overrides</em>, <em>jinja_env_options</em><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookWebApplication" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">tornado.web.Application</span></tt></p>
 <dl class="method">
 <dt id="IPython.html.notebookapp.NotebookWebApplication.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>ipython_app</em>, <em>kernel_manager</em>, <em>contents_manager</em>, <em>cluster_manager</em>, <em>session_manager</em>, <em>kernel_spec_manager</em>, <em>log</em>, <em>base_url</em>, <em>default_url</em>, <em>settings_overrides</em>, <em>jinja_env_options</em><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookWebApplication.__init__" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">__init__</tt><big>(</big><em>ipython_app</em>, <em>kernel_manager</em>, <em>contents_manager</em>, <em>cluster_manager</em>, <em>session_manager</em>, <em>kernel_spec_manager</em>, <em>config_manager</em>, <em>log</em>, <em>base_url</em>, <em>default_url</em>, <em>settings_overrides</em>, <em>jinja_env_options</em><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookWebApplication.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -160,9 +153,24 @@ but explicit shutdown allows the KernelManagers to cleanup the connection files.
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.html.notebookapp.NotebookApp.init_server_extensions">
+<tt class="descname">init_server_extensions</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookApp.init_server_extensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load any extensions specified by config.</p>
+<p>Import the module, then call the load_jupyter_server_extension function,
+if one exists.</p>
+<p>The extension API is experimental, and may change in future releases.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.notebookapp.NotebookApp.init_webapp">
 <tt class="descname">init_webapp</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.html.notebookapp.NotebookApp.init_webapp" title="Permalink to this definition">¶</a></dt>
 <dd><p>initialize tornado webapp and httpserver</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.html.notebookapp.NotebookApp.nbextensions_path">
+<tt class="descname">nbextensions_path</tt><a class="headerlink" href="#IPython.html.notebookapp.NotebookApp.nbextensions_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path to look for Javascript notebook extensions</p>
 </dd></dl>
 
 <dl class="method">
@@ -271,8 +279,8 @@ a currently running notebook server instance.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

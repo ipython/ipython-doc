@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Specific config details &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Specific config details &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
     <link rel="next" title="IPython extensions" href="extensions/index.html" />
     <link rel="prev" title="IPython Qt console options" href="options/qtconsole.html" /> 
@@ -108,14 +108,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="specific-config-details">
+  <div class="section" id="specific-config-details">
 <h1>Specific config details<a class="headerlink" href="#specific-config-details" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="prompts">
 <h2>Prompts<a class="headerlink" href="#prompts" title="Permalink to this headline">¶</a></h2>
@@ -330,51 +323,11 @@ used in your <tt class="file docutils literal"><span class="pre">.emacs</span></
 </div>
 <p>Thanks to the work of Alexander Schmolck and Prabhu Ramachandran,
 currently (X)Emacs and IPython get along very well in other ways.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">You will need to use a recent enough version of <tt class="file docutils literal"><span class="pre">python-mode.el</span></tt>,
-along with the file <tt class="file docutils literal"><span class="pre">ipython.el</span></tt>. You can check that the version you
-have of <tt class="file docutils literal"><span class="pre">python-mode.el</span></tt> is new enough by either looking at the
-revision number in the file itself, or asking for it in (X)Emacs via <tt class="docutils literal"><span class="pre">M-x</span>
-<span class="pre">py-version</span></tt>. Versions 4.68 and newer contain the necessary fixes for
-proper IPython support.</p>
-</div>
-<p>The file <tt class="file docutils literal"><span class="pre">ipython.el</span></tt> is included with the IPython distribution, in the
-directory <tt class="file docutils literal"><span class="pre">docs/emacs</span></tt>. Once you put these files in your Emacs path, all
-you need in your <tt class="file docutils literal"><span class="pre">.emacs</span></tt> file is:</p>
-<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;ipython</span><span class="p">)</span>
+<p>With (X)EMacs &gt;= 24, You can enable IPython in python-mode with:</p>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;python</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">python-shell-interpreter</span> <span class="s">&quot;ipython&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This should give you full support for executing code snippets via
-IPython, opening IPython as your Python shell via <tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">!</span></tt>, etc.</p>
-<p>You can customize the arguments passed to the IPython instance at startup by
-setting the <tt class="docutils literal"><span class="pre">py-python-command-args</span></tt> variable.  For example, to start always
-with <tt class="docutils literal"><span class="pre">matplotlib</span></tt> integration and hardcoded light-background colors, you can use:</p>
-<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">py-python-command-args</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;--matplotlib&quot;</span> <span class="s">&quot;--colors&quot;</span> <span class="s">&quot;LightBG&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>If you happen to get garbage instead of colored prompts as described in
-the previous section, you may need to set also in your <tt class="file docutils literal"><span class="pre">.emacs</span></tt> file:</p>
-<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">ansi-color-for-comint-mode</span> <span class="no">t</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Notes on emacs support:</p>
-<ul class="simple">
-<li>There is one caveat you should be aware of: you must start the IPython shell
-before attempting to execute any code regions via <tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">|</span></tt>. Simply type
-<tt class="docutils literal"><span class="pre">C-c</span> <span class="pre">!</span></tt> to start IPython before passing any code regions to the
-interpreter, and you shouldn&#8217;t experience any problems. This is due to a bug
-in Python itself, which has been fixed for Python 2.3, but exists as of
-Python 2.2.2 (reported as SF bug [ 737947 ]).</li>
-<li>The (X)Emacs support is maintained by Alexander Schmolck, so all
-comments/requests should be directed to him through the IPython mailing
-lists.</li>
-<li>This code is still somewhat experimental so it&#8217;s a bit rough around the
-edges (although in practice, it works quite well).</li>
-<li>Be aware that if you customized <tt class="docutils literal"><span class="pre">py-python-command</span></tt> previously, this value
-will override what <tt class="file docutils literal"><span class="pre">ipython.el</span></tt> does (because loading the customization
-variables comes later).</li>
-</ul>
 </div>
 </div>
 </div>
@@ -409,8 +362,8 @@ variables comes later).</li>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

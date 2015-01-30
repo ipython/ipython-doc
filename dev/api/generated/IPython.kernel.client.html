@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: kernel.client &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: kernel.client &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: kernel.clientabc" href="IPython.kernel.clientabc.html" />
     <link rel="prev" title="Module: kernel.channelsabc" href="IPython.kernel.channelsabc.html" /> 
@@ -63,6 +63,7 @@
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.client</span></tt></a><ul>
 <li><a class="reference internal" href="#class">1 Class</a></li>
+<li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
 </ul>
@@ -99,14 +100,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.kernel.client">
+  <div class="section" id="module-IPython.kernel.client">
 <span id="module-kernel-client"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.client</span></tt><a class="headerlink" href="#module-IPython.kernel.client" title="Permalink to this headline">¶</a></h1>
 <p>Base class to manage the interaction with a running kernel</p>
 <div class="section" id="class">
@@ -133,6 +127,81 @@ See the channels themselves for documentation of these methods.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.kernel.client.KernelClient.complete">
+<tt class="descname">complete</tt><big>(</big><em>code</em>, <em>cursor_pos=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tab complete text in the kernel&#8217;s namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
+<blockquote>
+<div><p>The context in which completion is requested.
+Can be anything between a variable name and an entire cell.</p>
+</div></blockquote>
+<p><strong>cursor_pos</strong> : int, optional</p>
+<blockquote>
+<div><p>The position of the cursor in the block of code where the completion was requested.
+Default: <tt class="docutils literal"><span class="pre">len(code)</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The msg_id of the message sent.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.execute">
+<tt class="descname">execute</tt><big>(</big><em>code</em>, <em>silent=False</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=None</em>, <em>stop_on_error=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute code in the kernel.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
+<blockquote>
+<div><p>A string of Python code.</p>
+</div></blockquote>
+<p><strong>silent</strong> : bool, optional (default False)</p>
+<blockquote>
+<div><p>If set, the kernel will execute the code as quietly possible, and
+will force store_history to be False.</p>
+</div></blockquote>
+<p><strong>store_history</strong> : bool, optional (default True)</p>
+<blockquote>
+<div><p>If set, the kernel will store command history.  This is forced
+to be False if silent is True.</p>
+</div></blockquote>
+<p><strong>user_expressions</strong> : dict, optional</p>
+<blockquote>
+<div><p>A dict mapping names to expressions to be evaluated in the user&#8217;s
+dict. The expression values are returned as strings formatted using
+<a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>allow_stdin</strong> : bool, optional (default self.allow_stdin)</p>
+<blockquote>
+<div><p>Flag for whether the kernel can send stdin requests to frontends.</p>
+<p>Some frontends (e.g. the Notebook) do not support stdin requests.
+If raw_input is called from code executed from such a frontend, a
+StdinNotImplementedError will be raised.</p>
+</div></blockquote>
+<p><strong>stop_on_error: bool, optional (default True)</strong></p>
+<blockquote>
+<div><p>Flag whether to abort the execution queue, if an exception is encountered.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The msg_id of the message sent.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.kernel.client.KernelClient.get_iopub_msg">
 <tt class="descname">get_iopub_msg</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.get_iopub_msg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a message from the iopub channel</p>
@@ -156,6 +225,99 @@ See the channels themselves for documentation of these methods.</p>
 <dd><p>Get the hb channel object for this kernel.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.history">
+<tt class="descname">history</tt><big>(</big><em>raw=True</em>, <em>output=False</em>, <em>hist_access_type='range'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.history" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get entries from the kernel&#8217;s history list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>raw</strong> : bool</p>
+<blockquote>
+<div><p>If True, return the raw input.</p>
+</div></blockquote>
+<p><strong>output</strong> : bool</p>
+<blockquote>
+<div><p>If True, then return the output as well.</p>
+</div></blockquote>
+<p><strong>hist_access_type</strong> : str</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&#8216;range&#8217; (fill in session, start and stop params), &#8216;tail&#8217; (fill in n)</dt>
+<dd><p class="first last">or &#8216;search&#8217; (fill in pattern param).</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>session</strong> : int</p>
+<blockquote>
+<div><p>For a range request, the session from which to get lines. Session
+numbers are positive integers; negative ones count back from the
+current session.</p>
+</div></blockquote>
+<p><strong>start</strong> : int</p>
+<blockquote>
+<div><p>The first line number of a history range.</p>
+</div></blockquote>
+<p><strong>stop</strong> : int</p>
+<blockquote>
+<div><p>The final (excluded) line number of a history range.</p>
+</div></blockquote>
+<p><strong>n</strong> : int</p>
+<blockquote>
+<div><p>The number of lines of history to get for a tail request.</p>
+</div></blockquote>
+<p><strong>pattern</strong> : str</p>
+<blockquote>
+<div><p>The glob-syntax pattern for a search request.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The msg_id of the message sent.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.input">
+<tt class="descname">input</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a string of raw input to the kernel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.inspect">
+<tt class="descname">inspect</tt><big>(</big><em>code</em>, <em>cursor_pos=None</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.inspect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get metadata information about an object in the kernel&#8217;s namespace.</p>
+<p>It is up to the kernel to determine the appropriate object to inspect.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>code</strong> : str</p>
+<blockquote>
+<div><p>The context in which info is requested.
+Can be anything between a variable name and an entire cell.</p>
+</div></blockquote>
+<p><strong>cursor_pos</strong> : int, optional</p>
+<blockquote>
+<div><p>The position of the cursor in the block of code where the info was requested.
+Default: <tt class="docutils literal"><span class="pre">len(code)</span></tt></p>
+</div></blockquote>
+<p><strong>detail_level</strong> : int, optional</p>
+<blockquote>
+<div><p>The level of detail for the introspection (0-2)</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The msg_id of the message sent.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.kernel.client.KernelClient.iopub_channel">
 <tt class="descname">iopub_channel</tt><a class="headerlink" href="#IPython.kernel.client.KernelClient.iopub_channel" title="Permalink to this definition">¶</a></dt>
@@ -168,10 +330,28 @@ See the channels themselves for documentation of these methods.</p>
 <dd><p>Is the kernel process still running?</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.kernel_info">
+<tt class="descname">kernel_info</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.kernel_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request kernel info.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.kernel.client.KernelClient.shell_channel">
 <tt class="descname">shell_channel</tt><a class="headerlink" href="#IPython.kernel.client.KernelClient.shell_channel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the shell channel object for this kernel.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.client.KernelClient.shutdown">
+<tt class="descname">shutdown</tt><big>(</big><em>restart=False</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.KernelClient.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request an immediate kernel shutdown.</p>
+<p>Upon receipt of the (empty) reply, client code can safely assume that
+the kernel has shut down and it&#8217;s safe to forcefully terminate it if
+it&#8217;s still alive.</p>
+<p>The kernel will send the reply via a function registered with Python&#8217;s
+atexit module, ensuring it&#8217;s truly done as the kernel is done with all
+normal operation.</p>
 </dd></dl>
 
 <dl class="method">
@@ -198,6 +378,16 @@ call this, <tt class="xref py py-class docutils literal"><span class="pre">Runti
 <p>This stops their event loops and joins their threads.</p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="function">
+<h2>1 Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.kernel.client.validate_string_dict">
+<tt class="descclassname">IPython.kernel.client.</tt><tt class="descname">validate_string_dict</tt><big>(</big><em>dct</em><big>)</big><a class="headerlink" href="#IPython.kernel.client.validate_string_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validate that the input is a dict with string keys and values.</p>
+<p>Raises ValueError if not.</p>
 </dd></dl>
 
 </div>
@@ -233,8 +423,8 @@ call this, <tt class="xref py py-class docutils literal"><span class="pre">Runti
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

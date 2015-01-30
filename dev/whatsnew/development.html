@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development version &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Development version &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
-    <link rel="next" title="2.0 Series" href="version2.0.html" />
+    <link rel="next" title="3.x Series" href="version3.html" />
     <link rel="prev" title="What’s new in IPython" href="index.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version2.0.html" title="2.0 Series"
+          <a href="version3.html" title="3.x Series"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -62,13 +62,7 @@
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Development version</a><ul>
-<li><a class="reference internal" href="#using-different-kernels">Using different kernels</a></li>
-<li><a class="reference internal" href="#typing-unicode-identifiers">Typing unicode identifiers</a></li>
-<li><a class="reference internal" href="#other-new-features">Other new features</a></li>
-<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a><ul>
-<li><a class="reference internal" href="#iframe-embedding">IFrame embedding</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards incompatible changes</a></li>
 </ul>
 </li>
 </ul>
@@ -77,8 +71,8 @@
   <p class="topless"><a href="index.html"
                         title="previous chapter">What&#8217;s new in IPython</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="version2.0.html"
-                        title="next chapter">2.0 Series</a></p>
+  <p class="topless"><a href="version3.html"
+                        title="next chapter">3.x Series</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/whatsnew/development.txt"
@@ -105,14 +99,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="development-version">
+  <div class="section" id="development-version">
 <h1>Development version<a class="headerlink" href="#development-version" title="Permalink to this headline">¶</a></h1>
 <p>This document describes in-flight development work.</p>
 <div class="admonition warning">
@@ -121,180 +108,8 @@ significant differences from the latest stable release.</p>
 conflicts for other Pull Requests). Instead, create a new file in the
 <tt class="docutils literal"><span class="pre">docs/source/whatsnew/pr</span></tt> folder</p>
 </div>
-<div class="section" id="using-different-kernels">
-<h2>Using different kernels<a class="headerlink" href="#using-different-kernels" title="Permalink to this headline">¶</a></h2>
-<img alt="Screenshot of notebook kernel selection dropdown menu" class="align-center" src="../_images/kernel_selector_screenshot.png" />
-<p>You can now choose a kernel for a notebook within the user interface, rather
-than starting up a separate notebook server for each kernel you want to use. The
-syntax highlighting adapts to match the language you&#8217;re working in.</p>
-<p>Information about the kernel is stored in the notebook file, so when you open a
-notebook, it will automatically start the correct kernel.</p>
-<p>It is also easier to use the Qt console and the terminal console with other
-kernels, using the &#8211;kernel flag:</p>
-<div class="highlight-python"><div class="highlight"><pre>ipython qtconsole --kernel bash
-ipython console --kernel bash
-
-# To list available kernels
-ipython kernelspec list
-</pre></div>
-</div>
-<p>Kernel authors should see <a class="reference internal" href="../development/kernels.html#kernelspecs"><em>Kernel specs</em></a> for how to register their kernels
-with IPython so that these mechanisms work.</p>
-</div>
-<div class="section" id="typing-unicode-identifiers">
-<h2>Typing unicode identifiers<a class="headerlink" href="#typing-unicode-identifiers" title="Permalink to this headline">¶</a></h2>
-<img alt="../_images/unicode_completion.png" src="../_images/unicode_completion.png" />
-<p>Complex expressions can be much cleaner when written with a wider choice of
-characters. Python 3 allows unicode identifiers, and IPython 3 makes it easier
-to type those, using a feature from Julia. Type a backslash followed by a LaTeX
-style short name, such as <tt class="docutils literal"><span class="pre">\alpha</span></tt>. Press tab, and it will turn into α.</p>
-</div>
-<div class="section" id="other-new-features">
-<h2>Other new features<a class="headerlink" href="#other-new-features" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first"><tt class="xref py py-class docutils literal"><span class="pre">TextWidget</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">TextareaWidget</span></tt> objects now include a
-<tt class="docutils literal"><span class="pre">placeholder</span></tt> attribute, for displaying placeholder text before the
-user has typed anything.</p>
-</li>
-<li><p class="first">The <a class="reference internal" href="../interactive/magics.html#magic-load"><tt class="xref std std-magic docutils literal"><span class="pre">%load</span></tt></a> magic can now find the source for objects in the user namespace.
-To enable searching the namespace, use the <tt class="docutils literal"><span class="pre">-n</span></tt> option.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="si">%lo</span><span class="s">ad -n my_module.some_function</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first"><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> objects have a new <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.use_cloudpickle" title="IPython.parallel.client.view.DirectView.use_cloudpickle"><tt class="xref py py-meth docutils literal"><span class="pre">use_cloudpickle()</span></tt></a>
-method, which works like <tt class="docutils literal"><span class="pre">view.use_dill()</span></tt>, but causes the <tt class="docutils literal"><span class="pre">cloudpickle</span></tt>
-module from PiCloud&#8217;s <a class="reference external" href="https://pypi.python.org/pypi/cloud">cloud</a> library to be used rather than dill or the
-builtin pickle module.</p>
-</li>
-<li><p class="first">Added a .ipynb exporter to nbconvert.  It can be used by passing <tt class="docutils literal"><span class="pre">--to</span> <span class="pre">notebook</span></tt>
-as a commandline argument to nbconvert.</p>
-</li>
-<li><p class="first">New nbconvert preprocessor called <a class="reference internal" href="../api/generated/IPython.nbconvert.preprocessors.clearoutput.html#IPython.nbconvert.preprocessors.clearoutput.ClearOutputPreprocessor" title="IPython.nbconvert.preprocessors.clearoutput.ClearOutputPreprocessor"><tt class="xref py py-class docutils literal"><span class="pre">ClearOutputPreprocessor</span></tt></a>. This
-clears the output from IPython notebooks.</p>
-</li>
-<li><p class="first">New preprocessor for nbconvert that executes all the code cells in a notebook.
-To run a notebook and save its output in a new notebook:</p>
-<div class="highlight-python"><div class="highlight"><pre>ipython nbconvert InputNotebook --ExecutePreprocessor.enabled=True --to notebook --output Executed
-</pre></div>
-</div>
-</li>
-<li><p class="first">Consecutive stream (stdout/stderr) output is merged into a single output
-in the notebook document.
-Previously, all output messages were preserved as separate output fields in the JSON.
-Now, the same merge is applied to the stored output as the displayed output,
-improving document load time for notebooks with many small outputs.</p>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">NotebookApp.webapp_settings</span></tt> is deprecated and replaced with
-the more informatively named <tt class="docutils literal"><span class="pre">NotebookApp.tornado_settings</span></tt>.</p>
-</li>
-<li><p class="first">Using <a class="reference internal" href="../interactive/magics.html#magic-timeit"><tt class="xref std std-magic docutils literal"><span class="pre">%timeit</span></tt></a> prints warnings if there is atleast a 4x difference in timings
-between the slowest and fastest runs, since this might meant that the multiple
-runs are not independent of one another.</p>
-</li>
-<li><p class="first">It&#8217;s now possible to provide mechanisms to integrate IPython with other event
-loops, in addition to the ones we already support. This lets you run GUI code
-in IPython with an interactive prompt, and to embed the IPython
-kernel in GUI applications. See <a class="reference internal" href="../config/eventloops.html"><em>Integrating with GUI event loops</em></a> for details. As part
-of this, the direct <tt class="docutils literal"><span class="pre">enable_*</span></tt> and <tt class="docutils literal"><span class="pre">disable_*</span></tt> functions for various GUIs
-in <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#module-IPython.lib.inputhook" title="IPython.lib.inputhook"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.inputhook</span></tt></a> have been deprecated in favour of
-<a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookManager.enable_gui" title="IPython.lib.inputhook.InputHookManager.enable_gui"><tt class="xref py py-meth docutils literal"><span class="pre">enable_gui()</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookManager.disable_gui" title="IPython.lib.inputhook.InputHookManager.disable_gui"><tt class="xref py py-meth docutils literal"><span class="pre">disable_gui()</span></tt></a>.</p>
-</li>
-<li><p class="first">A <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> was added to the notebook.  The <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> controls how the notebook document is scrolled using keyboard.  Users can inherit from the <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> or <tt class="docutils literal"><span class="pre">TargetScrollManager</span></tt> to customize how their notebook scrolls.  The default <tt class="docutils literal"><span class="pre">ScrollManager</span></tt> is the <tt class="docutils literal"><span class="pre">SlideScrollManager</span></tt>, which tries to scroll to the nearest slide or sub-slide cell.</p>
-</li>
-<li><p class="first">The function <a class="reference internal" href="../api/generated/IPython.html.widgets.interaction.html#IPython.html.widgets.interaction.interact_manual" title="IPython.html.widgets.interaction.interact_manual"><tt class="xref py py-func docutils literal"><span class="pre">interact_manual()</span></tt></a> has been
-added which behaves similarly to <a class="reference internal" href="../api/generated/IPython.html.widgets.interaction.html#IPython.html.widgets.interaction.interact" title="IPython.html.widgets.interaction.interact"><tt class="xref py py-func docutils literal"><span class="pre">interact()</span></tt></a>,
-but adds a button to explicitly run the interacted-with function, rather than
-doing it automatically for every change of the parameter widgets. This should
-be useful for long-running functions.</p>
-</li>
-<li><p class="first">The <tt class="docutils literal"><span class="pre">%cython</span></tt> magic is now part of the Cython module. Use <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">Cython</span></tt> with a version of Cython &gt;= 0.21 to have access to the magic now.</p>
-</li>
-<li><p class="first">The Notebook application now offers integrated terminals on Unix platforms,
-intended for when it is used on a remote server. To enable these, install
-the <tt class="docutils literal"><span class="pre">terminado</span></tt> Python package.</p>
-</li>
-<li><p class="first">Setting the default highlighting language for nbconvert with the config option
-<tt class="docutils literal"><span class="pre">NbConvertBase.default_language</span></tt> is deprecated. Nbconvert now respects
-metadata stored in the <a class="reference internal" href="../development/kernels.html#kernelspecs"><em>kernel spec</em></a>.</p>
-</li>
-<li><p class="first">IPython can now be configured systemwide, with files in <tt class="file docutils literal"><span class="pre">/etc/ipython</span></tt>
-or <tt class="file docutils literal"><span class="pre">/usr/local/etc/ipython</span></tt> on Unix systems,
-or <tt class="file docutils literal"><em><span class="pre">%PROGRAMDATA%</span></em><span class="pre">\ipython</span></tt> on Windows.</p>
-</li>
-</ul>
-</div>
 <div class="section" id="backwards-incompatible-changes">
 <h2>Backwards incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p class="first"><a class="reference internal" href="../api/generated/IPython.core.oinspect.html#IPython.core.oinspect.getsource" title="IPython.core.oinspect.getsource"><tt class="xref py py-func docutils literal"><span class="pre">IPython.core.oinspect.getsource()</span></tt></a> call specification has changed:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">oname</span></tt> keyword argument has been added for property source formatting</li>
-<li><tt class="docutils literal"><span class="pre">is_binary</span></tt> keyword argument has been dropped, passing <tt class="docutils literal"><span class="pre">True</span></tt> had
-previously short-circuited the function to return <tt class="docutils literal"><span class="pre">None</span></tt> unconditionally</li>
-</ul>
-</li>
-<li><p class="first">Removed the octavemagic extension: it is now available as <tt class="docutils literal"><span class="pre">oct2py.ipython</span></tt>.</p>
-</li>
-<li><p class="first">Creating PDFs with LaTeX no longer uses a post processor.
-Use <tt class="docutils literal"><span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">pdf</span></tt> instead of <tt class="docutils literal"><span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">latex</span> <span class="pre">--post</span> <span class="pre">pdf</span></tt>.</p>
-</li>
-<li><p class="first">Used <a class="reference external" href="https://github.com/jdfreder/bootstrap2to3">https://github.com/jdfreder/bootstrap2to3</a> to migrate the Notebook to Bootstrap 3.</p>
-<p>Additional changes:</p>
-<ul class="simple">
-<li>Set <tt class="docutils literal"><span class="pre">.tab-content</span> <span class="pre">.row</span></tt> <tt class="docutils literal"><span class="pre">0px;</span></tt> left and right margin (bootstrap default is <tt class="docutils literal"><span class="pre">-15px;</span></tt>)</li>
-<li>Removed <tt class="docutils literal"><span class="pre">height:</span> <span class="pre">&#64;btn_mini_height;</span></tt> from <tt class="docutils literal"><span class="pre">.list_header&gt;div,</span> <span class="pre">.list_item&gt;div</span></tt> in <tt class="docutils literal"><span class="pre">tree.less</span></tt></li>
-<li>Set <tt class="docutils literal"><span class="pre">#header</span></tt> div <tt class="docutils literal"><span class="pre">margin-bottom:</span> <span class="pre">0px;</span></tt></li>
-<li>Set <tt class="docutils literal"><span class="pre">#menus</span></tt> to <tt class="docutils literal"><span class="pre">float:</span> <span class="pre">left;</span></tt></li>
-<li>Set <tt class="docutils literal"><span class="pre">#maintoolbar</span> <span class="pre">.navbar-text</span></tt> to <tt class="docutils literal"><span class="pre">float:</span> <span class="pre">none;</span></tt></li>
-<li>Added no-padding convienence class.</li>
-<li>Set border of #maintoolbar to 0px</li>
-</ul>
-</li>
-<li><p class="first">Accessing the <tt class="docutils literal"><span class="pre">container</span></tt> DOM object when displaying javascript has been
-deprecated in IPython 2.0 in favor of accessing <tt class="docutils literal"><span class="pre">element</span></tt>. Starting with
-IPython 3.0 trying to access <tt class="docutils literal"><span class="pre">container</span></tt> will raise an error in browser
-javascript console.</p>
-</li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">IPython.utils.py3compat.open</span></tt> was removed: <a class="reference external" href="http://docs.python.org/2/library/io.html#io.open" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">io.open()</span></tt></a> provides all
-the same functionality.</p>
-</li>
-<li><p class="first">The NotebookManager and <tt class="docutils literal"><span class="pre">/api/notebooks</span></tt> service has been replaced by
-a more generic ContentsManager and <tt class="docutils literal"><span class="pre">/api/contents</span></tt> service,
-which supports all kinds of files.</p>
-</li>
-<li><p class="first">The Dashboard now lists all files, not just notebooks and directories.</p>
-</li>
-<li><p class="first">The <tt class="docutils literal"><span class="pre">--script</span></tt> hook for saving notebooks to Python scripts is removed,
-use <tt class="samp docutils literal"><span class="pre">ipython</span> <span class="pre">nbconvert</span> <span class="pre">--to</span> <span class="pre">python</span> <em><span class="pre">notebook</span></em></tt> instead.</p>
-</li>
-<li><p class="first">The <tt class="docutils literal"><span class="pre">rmagic</span></tt> extension is deprecated, as it is now part of rpy2. See
-<a class="reference external" href="http://rpy.sourceforge.net/rpy2/doc-2.4/html/interactive.html#module-rpy2.ipython.rmagic" title="(in rpy2 v2.4)"><tt class="xref py py-mod docutils literal"><span class="pre">rpy2.ipython.rmagic</span></tt></a>.</p>
-</li>
-<li><p class="first"><a class="reference internal" href="../api/generated/IPython.kernel.manager.html#IPython.kernel.manager.KernelManager.start_kernel" title="IPython.kernel.manager.KernelManager.start_kernel"><tt class="xref py py-meth docutils literal"><span class="pre">start_kernel()</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.kernel.manager.html#IPython.kernel.manager.KernelManager.format_kernel_cmd" title="IPython.kernel.manager.KernelManager.format_kernel_cmd"><tt class="xref py py-meth docutils literal"><span class="pre">format_kernel_cmd()</span></tt></a>
-no longer accept a <tt class="docutils literal"><span class="pre">executable</span></tt> parameter. Use the kernelspec machinery instead.</p>
-</li>
-<li><p class="first">The widget classes have been renamed from <tt class="docutils literal"><span class="pre">*Widget</span></tt> to <tt class="docutils literal"><span class="pre">*</span></tt>.  The old names are
-still functional, but are deprecated.  i.e. <tt class="docutils literal"><span class="pre">IntSliderWidget</span></tt> has been renamed
-to <tt class="docutils literal"><span class="pre">IntSlider</span></tt>.</p>
-</li>
-<li><p class="first">The ContainerWidget was renamed to Box and no longer defaults as a flexible
-box in the web browser.  A new FlexBox widget was added, which allows you to
-use the flexible box model.</p>
-</li>
-</ul>
-<div class="section" id="iframe-embedding">
-<h3>IFrame embedding<a class="headerlink" href="#iframe-embedding" title="Permalink to this headline">¶</a></h3>
-<p>The IPython Notebook and its APIs by default will only be allowed to be
-embedded in an iframe on the same origin.</p>
-<p>To override this, set <tt class="docutils literal"><span class="pre">headers[X-Frame-Options]</span></tt> to one of</p>
-<ul class="simple">
-<li>DENY</li>
-<li>SAMEORIGIN</li>
-<li>ALLOW-FROM uri</li>
-</ul>
-<p>See <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/X-Frame-Options">Mozilla&#8217;s guide to X-Frame-Options</a> for more examples.</p>
-</div>
 </div>
 </div>
 
@@ -314,7 +129,7 @@ embedded in an iframe on the same origin.</p>
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="version2.0.html" title="2.0 Series"
+          <a href="version3.html" title="3.x Series"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="What’s new in IPython"
@@ -328,8 +143,8 @@ embedded in an iframe on the same origin.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

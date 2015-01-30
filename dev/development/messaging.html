@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Messaging in IPython &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Making kernels for IPython" href="kernels.html" />
     <link rel="prev" title="How IPython works" href="how_ipython_works.html" /> 
@@ -70,7 +70,10 @@
 <li><a class="reference internal" href="#messages-on-the-shell-router-dealer-sockets">Messages on the shell ROUTER/DEALER sockets</a><ul>
 <li><a class="reference internal" href="#execute">Execute</a><ul>
 <li><a class="reference internal" href="#execution-counter-prompt-number">Execution counter (prompt number)</a></li>
-<li><a class="reference internal" href="#execution-results">Execution results</a></li>
+<li><a class="reference internal" href="#execution-results">Execution results</a><ul>
+<li><a class="reference internal" href="#payloads">Payloads</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#introspection">Introspection</a></li>
@@ -139,14 +142,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="messaging-in-ipython">
+  <div class="section" id="messaging-in-ipython">
 <span id="messaging"></span><h1>Messaging in IPython<a class="headerlink" href="#messaging-in-ipython" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="versioning">
 <h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
@@ -389,6 +385,10 @@ separate from the kernel&#8217;s own internal code and variables).</p>
 <span class="c"># If raw_input is called from code executed from such a frontend,</span>
 <span class="c"># a StdinNotImplementedError will be raised.</span>
 <span class="s">&#39;allow_stdin&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+
+<span class="c"># A boolean flag, which, if True, does not abort the execution queue, if an exception is encountered.</span>
+<span class="c"># This allows the queued execution of multiple execute_requests, even if they generate exceptions.</span>
+<span class="s">&#39;stop_on_error&#39;</span> <span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -453,13 +453,11 @@ the <tt class="docutils literal"><span class="pre">In[n]</span></tt> and <tt cla
 </div>
 <p>When status is &#8216;ok&#8217;, the following extra fields are present:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
-  <span class="c"># &#39;payload&#39; will be a list of payload dicts.</span>
-  <span class="c"># Each execution payload is a dict with string keys that may have been</span>
-  <span class="c"># produced by the code being executed.  It is retrieved by the kernel at</span>
-  <span class="c"># the end of the execution and sent back to the front end, which can take</span>
-  <span class="c"># action on it as needed.</span>
+  <span class="c"># &#39;payload&#39; will be a list of payload dicts, and is optional.</span>
+  <span class="c"># payloads are considered deprecated.</span>
   <span class="c"># The only requirement of each payload dict is that it have a &#39;source&#39; key,</span>
-  <span class="c"># which is a string classifying the payload (e.g. &#39;pager&#39;).</span>
+  <span class="c"># which is a string classifying the payload (e.g. &#39;page&#39;).</span>
+
   <span class="s">&#39;payload&#39;</span> <span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="p">),</span>
 
   <span class="c"># Results for the user_expressions.</span>
@@ -469,22 +467,6 @@ the <tt class="docutils literal"><span class="pre">In[n]</span></tt> and <tt cla
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 5.0: </span><tt class="docutils literal"><span class="pre">user_variables</span></tt> is removed, use user_expressions instead.</p>
-</div>
-<div class="admonition-execution-payloads admonition">
-<p class="first admonition-title">Execution payloads</p>
-<p>The notion of an &#8216;execution payload&#8217; is different from a return value of a
-given set of code, which normally is just displayed on the execute_result stream
-through the PUB socket.  The idea of a payload is to allow special types of
-code, typically magics, to populate a data container in the IPython kernel
-that will be shipped back to the caller via this channel.  The kernel
-has an API for this in the PayloadManager:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ip</span><span class="o">.</span><span class="n">payload_manager</span><span class="o">.</span><span class="n">write_payload</span><span class="p">(</span><span class="n">payload_dict</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>which appends a dictionary to the list of payloads.</p>
-<p class="last">The payload API is not yet stabilized,
-and should probably not be supported by non-Python kernels at this time.
-In such cases, the payload list should always be empty.</p>
 </div>
 <p>When status is &#8216;error&#8217;, the following extra fields are present:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
@@ -505,6 +487,61 @@ In such cases, the payload list should always be empty.</p>
 </div>
 <p>When status is &#8216;abort&#8217;, there are for now no additional data fields.  This
 happens when the kernel was interrupted by a signal.</p>
+<div class="section" id="payloads">
+<h5>Payloads<a class="headerlink" href="#payloads" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-execution-payloads admonition">
+<p class="first admonition-title">Execution payloads</p>
+<p class="last">Payloads are considered deprecated, though their replacement is not yet implemented.</p>
+</div>
+<p>Payloads are a way to trigger frontend actions from the kernel. Current payloads:</p>
+<p><strong>page</strong>: display data in a pager.</p>
+<p>Pager output is used for introspection, or other displayed information that&#8217;s not considered output.
+Pager payloads are generally displayed in a separate pane, that can be viewed alongside code,
+and are not included in notebook documents.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;source&quot;</span><span class="p">:</span> <span class="s">&quot;page&quot;</span><span class="p">,</span>
+  <span class="c"># mime-bundle of data to display in the pager.</span>
+  <span class="c"># Must include text/plain.</span>
+  <span class="s">&quot;data&quot;</span><span class="p">:</span> <span class="n">mimebundle</span><span class="p">,</span>
+  <span class="c"># line offset to start from</span>
+  <span class="s">&quot;start&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>set_next_input</strong>: create a new output</p>
+<p>used to create new cells in the notebook,
+or set the next input in a console interface.
+The main example being <tt class="docutils literal"><span class="pre">%load</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;source&quot;</span><span class="p">:</span> <span class="s">&quot;set_next_input&quot;</span><span class="p">,</span>
+  <span class="c"># the text contents of the cell to create</span>
+  <span class="s">&quot;text&quot;</span><span class="p">:</span> <span class="s">&quot;some cell content&quot;</span><span class="p">,</span>
+  <span class="c"># If true, replace the current cell in document UIs instead of inserting</span>
+  <span class="c"># a cell. Ignored in console UIs.</span>
+  <span class="s">&quot;replace&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>edit</strong>: open a file for editing.</p>
+<p>Triggered by <tt class="docutils literal"><span class="pre">%edit</span></tt>. Only the QtConsole currently supports edit payloads.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;source&quot;</span><span class="p">:</span> <span class="s">&quot;edit&quot;</span><span class="p">,</span>
+  <span class="s">&quot;filename&quot;</span><span class="p">:</span> <span class="s">&quot;/path/to/file.py&quot;</span><span class="p">,</span> <span class="c"># the file to edit</span>
+  <span class="s">&quot;line_number&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="c"># the line number to start with</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>ask_exit</strong>: instruct the frontend to prompt the user for exit</p>
+<p>Allows the kernel to request exit, e.g. via <tt class="docutils literal"><span class="pre">%exit</span></tt> in IPython.
+Only for console frontends.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;source&quot;</span><span class="p">:</span> <span class="s">&quot;ask_exit&quot;</span><span class="p">,</span>
+  <span class="c"># whether the kernel should be left running, only closing the client</span>
+  <span class="s">&quot;keepkernel&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="introspection">
@@ -751,18 +788,22 @@ IPython version number, and the IPython message spec version number.</p>
     <span class="c"># (e.g. IPython.__version__ for the IPython kernel)</span>
     <span class="s">&#39;implementation_version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
 
-    <span class="c"># Programming language in which kernel is implemented.</span>
-    <span class="c"># Kernel included in IPython returns &#39;python&#39;.</span>
-    <span class="s">&#39;language&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-
-    <span class="c"># Language version number.</span>
-    <span class="c"># It is Python version number (e.g., &#39;2.7.3&#39;) for the kernel</span>
-    <span class="c"># included in IPython.</span>
-    <span class="s">&#39;language_version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
-
     <span class="c"># Information about the language of code for the kernel</span>
     <span class="s">&#39;language_info&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c"># Name of the programming language in which kernel is implemented.</span>
+        <span class="c"># Kernel included in IPython returns &#39;python&#39;.</span>
+        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+        <span class="c"># Language version number.</span>
+        <span class="c"># It is Python version number (e.g., &#39;2.7.3&#39;) for the kernel</span>
+        <span class="c"># included in IPython.</span>
+        <span class="s">&#39;version&#39;</span><span class="p">:</span> <span class="s">&#39;X.Y.Z&#39;</span><span class="p">,</span>
+
+        <span class="c"># mimetype for script files in this language</span>
         <span class="s">&#39;mimetype&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+        <span class="c"># Extension without the dot, e.g. &#39;py&#39;</span>
+        <span class="s">&#39;file_extension&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 
         <span class="c"># Pygments lexer, for highlighting</span>
         <span class="c"># Only needed if it differs from the top level &#39;language&#39; field.</span>
@@ -771,6 +812,11 @@ IPython version number, and the IPython message spec version number.</p>
         <span class="c"># Codemirror mode, for for highlighting in the notebook.</span>
         <span class="c"># Only needed if it differs from the top level &#39;language&#39; field.</span>
         <span class="s">&#39;codemirror_mode&#39;</span><span class="p">:</span> <span class="nb">str</span> <span class="ow">or</span> <span class="nb">dict</span><span class="p">,</span>
+
+        <span class="c"># Nbconvert exporter, if notebooks written with this kernel should</span>
+        <span class="c"># be exported with something other than the general &#39;script&#39;</span>
+        <span class="c"># exporter.</span>
+        <span class="s">&#39;nbconvert_exporter&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">},</span>
 
     <span class="c"># A banner of information about the kernel,</span>
@@ -796,6 +842,12 @@ and <a class="reference external" href="http://codemirror.net/mode/index.html">c
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version 5.0: </span><tt class="docutils literal"><span class="pre">language_info</span></tt>, <tt class="docutils literal"><span class="pre">implementation</span></tt>, <tt class="docutils literal"><span class="pre">implementation_version</span></tt>, <tt class="docutils literal"><span class="pre">banner</span></tt>
 and <tt class="docutils literal"><span class="pre">help_links</span></tt> keys are added.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 5.0: </span><tt class="docutils literal"><span class="pre">language_version</span></tt> moved to <tt class="docutils literal"><span class="pre">language_info.version</span></tt></p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 5.0: </span><tt class="docutils literal"><span class="pre">language</span></tt> moved to <tt class="docutils literal"><span class="pre">language_info.name</span></tt></p>
 </div>
 </div>
 <div class="section" id="kernel-shutdown">
@@ -1013,6 +1065,15 @@ any JSON object and depends on the format. It is often, but not always a string.
 <p><span class="versionmodified">Changed in version 5.0: </span>Busy and idle messages should be sent before/after handling every message,
 not just execution.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Extra status messages are added between the notebook webserver and websocket clients
+that are not sent by the kernel. These are:</p>
+<ul class="last simple">
+<li>restarting (kernel has died, but will be automatically restarted)</li>
+<li>dead (kernel has died, restarting has failed)</li>
+</ul>
+</div>
 </div>
 <div class="section" id="clear-output">
 <h3>Clear output<a class="headerlink" href="#clear-output" title="Permalink to this headline">¶</a></h3>
@@ -1191,8 +1252,8 @@ just like an execute request.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

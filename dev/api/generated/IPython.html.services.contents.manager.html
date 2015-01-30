@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.services.contents.manager &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: html.services.contents.manager &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.services.kernels.handlers" href="IPython.html.services.kernels.handlers.html" />
     <link rel="prev" title="Module: html.services.contents.handlers" href="IPython.html.services.contents.handlers.html" /> 
@@ -99,14 +99,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.html.services.contents.manager">
+  <div class="section" id="module-IPython.html.services.contents.manager">
 <span id="module-html-services-contents-manager"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">html.services.contents.manager</span></tt><a class="headerlink" href="#module-IPython.html.services.contents.manager" title="Permalink to this headline">¶</a></h1>
 <p>A base class for contents managers.</p>
 <div class="section" id="class">
@@ -164,20 +157,19 @@ If to_path is a directory, filename will increment <tt class="docutils literal">
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.create_checkpoint">
 <tt class="descname">create_checkpoint</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.create_checkpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a checkpoint of the current state of a file</p>
-<p>Returns a checkpoint_id for the new checkpoint.</p>
+<dd><p>Create a checkpoint.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.delete">
 <tt class="descname">delete</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete file or directory by path.</p>
+<dd><p>Delete a file/directory and any associated checkpoints.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.delete_checkpoint">
-<tt class="descname">delete_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete_checkpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>delete a checkpoint for a file</p>
+<dt id="IPython.html.services.contents.manager.ContentsManager.delete_file">
+<tt class="descname">delete_file</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete file or directory by path.</p>
 </dd></dl>
 
 <dl class="method">
@@ -263,7 +255,7 @@ If to_path is a directory, filename will increment <tt class="docutils literal">
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.get">
-<tt class="descname">get</tt><big>(</big><em>path</em>, <em>content=True</em>, <em>type_=None</em>, <em>format=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get</tt><big>(</big><em>path</em>, <em>content=True</em>, <em>type=None</em>, <em>format=None</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the model of a file or directory with or without content.</p>
 </dd></dl>
 
@@ -273,6 +265,9 @@ If to_path is a directory, filename will increment <tt class="docutils literal">
 <dd><p>Return the API path for the kernel</p>
 <p>KernelManagers can turn this value into a filesystem path,
 or ignore it altogether.</p>
+<p>The default value here will start kernels in the directory of the
+notebook server. FileContentsManager overrides this to use the
+directory containing the notebook.</p>
 </dd></dl>
 
 <dl class="method">
@@ -329,12 +324,6 @@ relative to root dir).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.manager.ContentsManager.list_checkpoints">
-<tt class="descname">list_checkpoints</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.list_checkpoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of checkpoints for a given file</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.mark_trusted_cells">
 <tt class="descname">mark_trusted_cells</tt><big>(</big><em>nb</em>, <em>path=''</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.mark_trusted_cells" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mark cells as trusted if the notebook signature matches.</p>
@@ -374,15 +363,35 @@ relative to root dir).</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.rename">
+<tt class="descname">rename</tt><big>(</big><em>old_path</em>, <em>new_path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename a file and any checkpoints associated with that file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.rename_file">
+<tt class="descname">rename_file</tt><big>(</big><em>old_path</em>, <em>new_path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.rename_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename a file.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.restore_checkpoint">
 <tt class="descname">restore_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.restore_checkpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Restore a file from one of its checkpoints</p>
+<dd><p>Restore a checkpoint.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.contents.manager.ContentsManager.run_pre_save_hook">
+<tt class="descname">run_pre_save_hook</tt><big>(</big><em>model</em>, <em>path</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.run_pre_save_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the pre-save hook if defined, and log errors</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.save">
 <tt class="descname">save</tt><big>(</big><em>model</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the file or directory and return the model with no content.</p>
+<p>Save implementations should call self.run_pre_save_hook(model=model, path=path)
+prior to writing any data.</p>
 </dd></dl>
 
 <dl class="method">
@@ -412,7 +421,7 @@ relative to root dir).</p>
 <dl class="method">
 <dt id="IPython.html.services.contents.manager.ContentsManager.update">
 <tt class="descname">update</tt><big>(</big><em>model</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.manager.ContentsManager.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the file or directory and return the model with no content.</p>
+<dd><p>Update the file&#8217;s path</p>
 <p>For use in PATCH requests, to enable renaming a file without
 re-uploading its contents. Only used for renaming at the moment.</p>
 </dd></dl>
@@ -458,8 +467,8 @@ re-uploading its contents. Only used for renaming at the moment.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

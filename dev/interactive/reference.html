@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython reference &mdash; IPython 3.0.0-dev documentation</title>
+    <title>IPython reference &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="Built-in magic commands" href="magics.html" />
     <link rel="prev" title="IPython Tips &amp; Tricks" href="tips.html" /> 
@@ -80,7 +80,7 @@
 </li>
 <li><a class="reference internal" href="#session-logging-and-restoring">Session logging and restoring</a></li>
 <li><a class="reference internal" href="#system-shell-access">System shell access</a></li>
-<li><a class="reference internal" href="#manual-capture-of-command-output">Manual capture of command output</a></li>
+<li><a class="reference internal" href="#manual-capture-of-command-output-and-magic-output">Manual capture of command output and magic output</a></li>
 <li><a class="reference internal" href="#system-command-aliases">System command aliases</a></li>
 <li><a class="reference internal" href="#recursive-reload">Recursive reload</a></li>
 <li><a class="reference internal" href="#verbose-and-colored-exception-traceback-printouts">Verbose and colored exception traceback printouts</a></li>
@@ -140,14 +140,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="ipython-reference">
+  <div class="section" id="ipython-reference">
 <h1>IPython reference<a class="headerlink" href="#ipython-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="command-line-usage">
 <span id="command-line-options"></span><h2>Command-line usage<a class="headerlink" href="#command-line-usage" title="Permalink to this headline">¶</a></h2>
@@ -245,7 +238,7 @@ then just type <tt class="docutils literal"><span class="pre">cd</span> <span cl
 /home/fperez/mydir
 </pre></div>
 </div>
-<p>Note that cell magics <em>always</em> require an explicit <tt class="docutils literal"><span class="pre">%%</span></tt> prefix, automagic
+<p>Cell magics <em>always</em> require an explicit <tt class="docutils literal"><span class="pre">%%</span></tt> prefix, automagic
 calling only works for line magics.</p>
 <p>The automagic system has the lowest possible precedence in name searches, so
 you can freely use variables with the same names as magic commands. If a magic
@@ -263,7 +256,7 @@ use it:</p>
 <span class="go">SyntaxError: invalid syntax</span>
 
 
-<span class="gp">In [4]: </span><span class="o">%</span><span class="k">cd</span> <span class="o">..</span>         <span class="c"># but %cd always works</span>
+<span class="gp">In [4]: </span><span class="o">%</span><span class="k">cd</span> ..         # but %cd always works
 <span class="go">/home/fperez</span>
 
 <span class="gp">In [5]: </span><span class="k">del</span> <span class="n">cd</span>     <span class="c"># if you remove the cd variable, automagic works again</span>
@@ -273,6 +266,9 @@ use it:</p>
 <span class="go">/home/fperez/ipython</span>
 </pre></div>
 </div>
+<p>Line magics, if they return a value, can be assigned to a variable using the syntax
+<tt class="docutils literal"><span class="pre">l</span> <span class="pre">=</span> <span class="pre">%sx</span> <span class="pre">ls</span></tt> (which in this particular case returns the result of <tt class="docutils literal"><span class="pre">ls</span></tt> as a python list).
+See <a class="reference internal" href="#manual-capture"><em>below</em></a> for more information.</p>
 <p>Type <tt class="docutils literal"><span class="pre">%magic</span></tt> for more information, including a list of all available magic
 functions at any time and their docstrings. You can also type
 <tt class="docutils literal"><span class="pre">%magic_function_name?</span></tt> (see <a class="reference internal" href="#dynamic-object-info"><em>below</em></a> for
@@ -328,7 +324,7 @@ identifiers and %whos prints a table with some basic details about
 each identifier.</li>
 </ul>
 </div></blockquote>
-<p>Note that the dynamic object information functions (?/??, <tt class="docutils literal"><span class="pre">%pdoc</span></tt>,
+<p>The dynamic object information functions (?/??, <tt class="docutils literal"><span class="pre">%pdoc</span></tt>,
 <tt class="docutils literal"><span class="pre">%pfile</span></tt>, <tt class="docutils literal"><span class="pre">%pdef</span></tt>, <tt class="docutils literal"><span class="pre">%psource</span></tt>) work on object attributes, as well as
 directly on variables. For example, after doing <tt class="docutils literal"><span class="pre">import</span> <span class="pre">os</span></tt>, you can use
 <tt class="docutils literal"><span class="pre">os.path.abspath??</span></tt>.</p>
@@ -462,14 +458,18 @@ before logging has been started.</p>
 the !, of course) to the underlying operating system. For example,
 typing <tt class="docutils literal"><span class="pre">!ls</span></tt> will run &#8216;ls&#8217; in the current directory.</p>
 </div>
-<div class="section" id="manual-capture-of-command-output">
-<h3>Manual capture of command output<a class="headerlink" href="#manual-capture-of-command-output" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="manual-capture-of-command-output-and-magic-output">
+<span id="manual-capture"></span><h3>Manual capture of command output and magic output<a class="headerlink" href="#manual-capture-of-command-output-and-magic-output" title="Permalink to this headline">¶</a></h3>
 <p>You can assign the result of a system command to a Python variable with the
-syntax <tt class="docutils literal"><span class="pre">myfiles</span> <span class="pre">=</span> <span class="pre">!ls</span></tt>. This gets machine readable output from stdout
-(e.g. without colours), and splits on newlines. To explicitly get this sort of
-output without assigning to a variable, use two exclamation marks (<tt class="docutils literal"><span class="pre">!!ls</span></tt>) or
-the <a class="reference internal" href="magics.html#magic-sx"><tt class="xref std std-magic docutils literal"><span class="pre">%sx</span></tt></a> magic command.</p>
-<p>The captured list has some convenience features. <tt class="docutils literal"><span class="pre">myfiles.n</span></tt> or <tt class="docutils literal"><span class="pre">myfiles.s</span></tt>
+syntax <tt class="docutils literal"><span class="pre">myfiles</span> <span class="pre">=</span> <span class="pre">!ls</span></tt>. Similarly, the result of a magic (as long as it returns
+a value) can be assigned to a variable.  For example, the syntax <tt class="docutils literal"><span class="pre">myfiles</span> <span class="pre">=</span> <span class="pre">%sx</span> <span class="pre">ls</span></tt>
+is equivalent to the above system command example (the <a class="reference internal" href="magics.html#magic-sx"><tt class="xref std std-magic docutils literal"><span class="pre">%sx</span></tt></a> magic runs a shell command
+and captures the output).  Each of these gets machine
+readable output from stdout (e.g. without colours), and splits on newlines. To
+explicitly get this sort of output without assigning to a variable, use two
+exclamation marks (<tt class="docutils literal"><span class="pre">!!ls</span></tt>) or the <a class="reference internal" href="magics.html#magic-sx"><tt class="xref std std-magic docutils literal"><span class="pre">%sx</span></tt></a> magic command without an assignment.
+(However, <tt class="docutils literal"><span class="pre">!!</span></tt> commands cannot be assigned to a variable.)</p>
+<p>The captured list in this example has some convenience features. <tt class="docutils literal"><span class="pre">myfiles.n</span></tt> or <tt class="docutils literal"><span class="pre">myfiles.s</span></tt>
 returns a string delimited by newlines or spaces, respectively. <tt class="docutils literal"><span class="pre">myfiles.p</span></tt>
 produces <a class="reference external" href="http://pypi.python.org/pypi/path.py">path objects</a> from the list items.
 See <a class="reference internal" href="shell.html#string-lists"><em>String lists</em></a> for details.</p>
@@ -1239,8 +1239,8 @@ instance at an arbitrary point in a program, you can use IPython&#8217;s
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

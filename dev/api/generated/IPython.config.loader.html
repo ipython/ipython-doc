@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: config.loader &mdash; IPython 3.0.0-dev documentation</title>
+    <title>Module: config.loader &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,9 +23,9 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
-    <link rel="next" title="Module: consoleapp" href="IPython.consoleapp.html" />
+    <link rel="next" title="Module: config.manager" href="IPython.config.manager.html" />
     <link rel="prev" title="Module: config.configurable" href="IPython.config.configurable.html" /> 
   </head>
   <body>
@@ -44,7 +44,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.consoleapp.html" title="Module: consoleapp"
+          <a href="IPython.config.manager.html" title="Module: config.manager"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="IPython.config.configurable.html" title="Module: config.configurable"
@@ -72,8 +72,8 @@
   <p class="topless"><a href="IPython.config.configurable.html"
                         title="previous chapter">Module: <tt class="docutils literal"><span class="pre">config.configurable</span></tt></a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="IPython.consoleapp.html"
-                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">consoleapp</span></tt></a></p>
+  <p class="topless"><a href="IPython.config.manager.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">config.manager</span></tt></a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/api/generated/IPython.config.loader.txt"
@@ -100,14 +100,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="module-IPython.config.loader">
+  <div class="section" id="module-IPython.config.loader">
 <span id="module-config-loader"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">config.loader</span></tt><a class="headerlink" href="#module-IPython.config.loader" title="Permalink to this headline">¶</a></h1>
 <p>A simple configuration system.</p>
 <div class="section" id="classes">
@@ -138,7 +131,7 @@ significant differences from the latest stable release.</p>
 
 <dl class="class">
 <dt id="IPython.config.loader.ArgumentParser">
-<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgumentParser</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>version=None</em>, <em>parents=</em>, <span class="optional">[</span><span class="optional">]</span><em>formatter_class=&lt;class 'argparse.HelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>fromfile_prefix_chars=None</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=True</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">ArgumentParser</tt><big>(</big><em>prog=None</em>, <em>usage=None</em>, <em>description=None</em>, <em>epilog=None</em>, <em>version=None</em>, <em>parents=[]</em>, <em>formatter_class=&lt;class 'argparse.HelpFormatter'&gt;</em>, <em>prefix_chars='-'</em>, <em>fromfile_prefix_chars=None</em>, <em>argument_default=None</em>, <em>conflict_handler='error'</em>, <em>add_help=True</em><big>)</big><a class="headerlink" href="#IPython.config.loader.ArgumentParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/argparse.html#argparse.ArgumentParser" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt></a></p>
 <p>Simple argparse subclass that prints help to stdout by default.</p>
 </dd></dl>
@@ -185,6 +178,15 @@ significant differences from the latest stable release.</p>
 <dt id="IPython.config.loader.Config.__init__">
 <tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#IPython.config.loader.Config.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.config.loader.Config.collisions">
+<tt class="descname">collisions</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#IPython.config.loader.Config.collisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for collisions between two config objects.</p>
+<p>Returns a dict of the form {&#8220;Class&#8221;: {&#8220;trait&#8221;: &#8220;collision message&#8221;}}`,
+indicating which values have been ignored.</p>
+<p>An empty dict indicates no collisions.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IPython.config.loader.Config.merge">
@@ -272,7 +274,7 @@ paths to try in order.</p>
 <dt id="IPython.config.loader.JSONFileConfigLoader">
 <em class="property">class </em><tt class="descclassname">IPython.config.loader.</tt><tt class="descname">JSONFileConfigLoader</tt><big>(</big><em>filename</em>, <em>path=None</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#IPython.config.loader.JSONFileConfigLoader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#IPython.config.loader.FileConfigLoader" title="IPython.config.loader.FileConfigLoader"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.loader.FileConfigLoader</span></tt></a></p>
-<p>A Json file loader for config</p>
+<p>A JSON file loader for config</p>
 <dl class="method">
 <dt id="IPython.config.loader.JSONFileConfigLoader.load_config">
 <tt class="descname">load_config</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.config.loader.JSONFileConfigLoader.load_config" title="Permalink to this definition">¶</a></dt>
@@ -514,7 +516,7 @@ arbitrary config with <tt class="docutils literal"><span class="pre">ipython</sp
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="IPython.consoleapp.html" title="Module: consoleapp"
+          <a href="IPython.config.manager.html" title="Module: config.manager"
              >next</a> |</li>
         <li class="right" >
           <a href="IPython.config.configurable.html" title="Module: config.configurable"
@@ -528,8 +530,8 @@ arbitrary config with <tt class="docutils literal"><span class="pre">ipython</sp
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

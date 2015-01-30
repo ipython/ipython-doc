@@ -36,11 +36,15 @@ At the highest level, a Jupyter notebook is a dictionary with a few keys:
       "metadata" : {
         "signature": "hex-digest", # used for authenticating unsafe outputs on load
         "kernel_info": {
-            # if kernel_info is defined, its name and language fields are required.
-            "name" : "the name of the kernel",
-            "language" : "the programming language of the kernel",
-            "codemirror_mode": "The name of the codemirror mode to use [optional]"
+            # if kernel_info is defined, its name field is required.
+            "name" : "the name of the kernel"
         },
+        "language_info": {
+            # if language_info is defined, its name field is required.
+            "name" : "the programming language of the kernel",
+            "version": "the version of the language",
+            "codemirror_mode": "The name of the codemirror mode to use [optional]"
+        }
       },
       "nbformat": 4,
       "nbformat_minor": 0,
@@ -146,13 +150,13 @@ stream output
     {
       "output_type" : "stream",
       "name" : "stdout", # or stderr
-      "data" : ["multiline stream text"],
+      "text" : ["multiline stream text"],
     }
 
 .. versionchanged:: nbformat 4.0
 
-    The keys ``stream`` and ``text`` were changed to ``name`` and ``data`` to match
-    the stream message specification.
+    The keys ``stream`` key was changed to ``name`` to match
+    the stream message.
 
 
 display_data
@@ -286,6 +290,22 @@ regardless of format.
       },
       "source" : ["some nbformat mime-type data"]
     }
+
+Backward-compatible changes
+===========================
+
+The notebook format is an evolving format. When backward-compatible changes are made,
+the notebook format minor version is incremented. When backward-incompatible changes are made,
+the major version is incremented.
+
+As of nbformat 4.x, backward-compatible changes include:
+
+- new fields in any dictionary (notebook, cell, output, metadata, etc.)
+- new cell types
+- new output types
+
+New cell or output types will not be rendered in versions that do not recognize them,
+but they will be preserved.
 
 Metadata
 ========

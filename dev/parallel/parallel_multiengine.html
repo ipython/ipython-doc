@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Direct interface &mdash; IPython 3.0.0-dev documentation</title>
+    <title>IPython’s Direct interface &mdash; IPython 3.0.0-b1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.0.0-dev',
+        VERSION:     '3.0.0-b1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0-dev documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.0.0-b1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Parallel Magic Commands" href="magics.html" />
     <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" /> 
@@ -124,14 +124,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <blockquote>
-<div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This documentation is for a development version of IPython. There may be
-significant differences from the latest stable release.</p>
-</div>
-</div></blockquote>
-<div class="section" id="ipython-s-direct-interface">
+  <div class="section" id="ipython-s-direct-interface">
 <span id="parallel-multiengine"></span><h1>IPython&#8217;s Direct interface<a class="headerlink" href="#ipython-s-direct-interface" title="Permalink to this headline">¶</a></h1>
 <p>The direct, or multiengine, interface represents one possible way of working with a set of
 IPython engines. The basic idea behind the multiengine interface is that the
@@ -431,7 +424,7 @@ local Python/IPython session:</p>
 <p class="last">Note the import inside the function. This is a common model, to ensure
 that the appropriate modules are imported where the task is run. You can
 also manually import modules into the engine(s) namespace(s) via
-<tt class="xref py py-meth docutils literal"><span class="pre">view.execute('import</span> <span class="pre">numpy')()</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">view.execute('import</span> <span class="pre">numpy')</span></tt>.</p>
 </div>
 <p>Often, it is desirable to wait until a set of <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> objects
 are done. For this, there is a the method <tt class="xref py py-meth docutils literal"><span class="pre">wait()</span></tt>. This method takes a
@@ -566,7 +559,7 @@ we don&#8217;t have fully parallel list comprehensions, it is simple to get the
 basic effect using <tt class="xref py py-meth docutils literal"><span class="pre">scatter()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">gather()</span></tt>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [66]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
 
-<span class="gp">In [67]: </span><span class="o">%</span><span class="k">px</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="gp">In [67]: </span><span class="o">%</span><span class="k">px</span> y = [i**10 for i in x]
 <span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
 
 <span class="gp">In [68]: </span><span class="n">y</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
@@ -590,7 +583,10 @@ created by a DirectView&#8217;s <tt class="xref py py-meth docutils literal"><sp
 sync_imports also takes a <tt class="docutils literal"><span class="pre">local</span></tt> boolean flag that defaults to True, which specifies
 whether the local imports should also be performed.  However, support for <tt class="docutils literal"><span class="pre">local=False</span></tt>
 has not been implemented, so only packages that can be imported locally will work
-this way.</p>
+this way. Note that the usual renaming of the import handle in the same line like in
+<tt class="docutils literal"><span class="pre">import</span> <span class="pre">matplotlib.pyplot</span> <span class="pre">as</span> <span class="pre">plt'</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">work</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">remote</span> <span class="pre">engine,</span> <span class="pre">the</span> <span class="pre">`as</span> <span class="pre">plt</span></tt> is
+ignored remotely, while it executes locally. One could rename the remote handle with
+<tt class="docutils literal"><span class="pre">%px</span> <span class="pre">plt</span> <span class="pre">=</span> <span class="pre">pyplot</span></tt> though after the import.</p>
 <p>You can also specify imports via the <tt class="docutils literal"><span class="pre">&#64;require</span></tt> decorator.  This is a decorator
 designed for use in Dependencies, but can be used to handle remote imports as well.
 Modules or module names passed to <tt class="docutils literal"><span class="pre">&#64;require</span></tt> will be imported before the decorated
@@ -736,7 +732,7 @@ to <tt class="xref py py-attr docutils literal"><span class="pre">CompositeError
 You can change this limit to suit your needs with:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
 <span class="gp">In [21]: </span><span class="n">CompositeError</span><span class="o">.</span><span class="n">tb_limit</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">In [22]: </span><span class="o">%</span><span class="k">px</span> <span class="n">x</span><span class="o">=</span><span class="n">z</span>
+<span class="gp">In [22]: </span><span class="o">%</span><span class="k">px</span> x=z
 <span class="go">[0:execute]:</span>
 <span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g-Whitespace">                                 </span>Traceback (most recent call last)
@@ -795,8 +791,8 @@ You can change this limit to suit your needs with:</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Nov 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Jan 30, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
