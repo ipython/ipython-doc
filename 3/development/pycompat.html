@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing code for Python 2 and 3 &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../index.html" />
+    <link rel="up" title="IPython developer’s guide" href="index.html" />
+    <link rel="next" title="Overview of the IPython configuration system" href="config.html" />
+    <link rel="prev" title="New IPython Console Lexer" href="lexer.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Overview of the IPython configuration system"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lexer.html" title="New IPython Console Lexer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing code for Python 2 and 3</a><ul>
+<li><a class="reference internal" href="#iterators">Iterators</a></li>
+<li><a class="reference internal" href="#changed-standard-library-locations">Changed standard library locations</a></li>
+<li><a class="reference internal" href="#unicode">Unicode</a></li>
+<li><a class="reference internal" href="#relative-imports">Relative imports</a></li>
+<li><a class="reference internal" href="#print-function">Print function</a></li>
+<li><a class="reference internal" href="#metaclasses">Metaclasses</a></li>
+<li><a class="reference internal" href="#doctests">Doctests</a></li>
+<li><a class="reference internal" href="#execfile">Execfile</a></li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="lexer.html"
+                        title="previous chapter">New IPython Console Lexer</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">Overview of the IPython configuration system</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/development/pycompat.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.utils.py3compat">
+<span id="writing-code-for-python-2-and-3"></span><h1>Writing code for Python 2 and 3<a class="headerlink" href="#module-IPython.utils.py3compat" title="Permalink to this headline">¶</a></h1>
+<dl class="data">
+<dt id="IPython.utils.py3compat.PY3">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">PY3</tt><a class="headerlink" href="#IPython.utils.py3compat.PY3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean indicating whether we&#8217;re currently in Python 3.</p>
+</dd></dl>
+
+<div class="section" id="iterators">
+<h2>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h2>
+<p>Many built in functions and methods in Python 2 come in pairs, one
+returning a list, and one returning an iterator (e.g. <a class="reference external" href="http://docs.python.org/2/library/functions.html#range" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">range()</span></tt></a> and
+<a class="reference external" href="http://docs.python.org/2/library/functions.html#xrange" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">xrange()</span></tt></a>). In Python 3, there is usually only the iterator form,
+but it has the name which gives a list in Python 2 (e.g. <a class="reference external" href="http://docs.python.org/2/library/functions.html#range" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">range()</span></tt></a>).</p>
+<p>The way to write compatible code depends on what you need:</p>
+<ul class="simple">
+<li>A list, e.g. for serialisation, or to test if something is in it.</li>
+<li>Iteration, but it will never be used for very many items, so efficiency
+isn&#8217;t especially important.</li>
+<li>Iteration over many items, where efficiency is important.</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="30%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">list</th>
+<th class="head">iteration (small)</th>
+<th class="head">iteration(large)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>list(range(n))</td>
+<td>range(n)</td>
+<td>py3compat.xrange(n)</td>
+</tr>
+<tr class="row-odd"><td>list(map(f, it))</td>
+<td>map(f, it)</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-even"><td>list(zip(a, b))</td>
+<td>zip(a, b)</td>
+<td>&#8211;</td>
+</tr>
+<tr class="row-odd"><td>list(d.items())</td>
+<td>d.items()</td>
+<td>py3compat.iteritems(d)</td>
+</tr>
+<tr class="row-even"><td>list(d.values())</td>
+<td>d.values()</td>
+<td>py3compat.itervalues(d)</td>
+</tr>
+</tbody>
+</table>
+<p>Iterating over a dictionary yields its keys, so there is rarely a need
+to use <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict.keys" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.keys()</span></tt></a> or <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict.iterkeys" title="(in Python v2.7)"><tt class="xref py py-meth docutils literal"><span class="pre">dict.iterkeys()</span></tt></a>.</p>
+<p>Avoid using <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> to cause function side effects. This is more
+clearly written with a simple for loop.</p>
+<dl class="data">
+<dt id="IPython.utils.py3compat.xrange">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">xrange</tt><a class="headerlink" href="#IPython.utils.py3compat.xrange" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference to <tt class="docutils literal"><span class="pre">range</span></tt> on Python 3, and <a class="reference external" href="http://docs.python.org/2/library/functions.html#xrange" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">xrange()</span></tt></a> on Python 2.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.iteritems">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">iteritems</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.iteritems" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.itervalues">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">itervalues</tt><big>(</big><em>d</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.itervalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over (key, value) pairs of a dictionary, or just over values.
+<tt class="docutils literal"><span class="pre">iterkeys</span></tt> is not defined: iterating over the dictionary yields its keys.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="changed-standard-library-locations">
+<h2>Changed standard library locations<a class="headerlink" href="#changed-standard-library-locations" title="Permalink to this headline">¶</a></h2>
+<p>Several parts of the standard library have been renamed and moved. This
+is a short list of things that we&#8217;re using. A couple of them have names
+in <a class="reference internal" href="#module-IPython.utils.py3compat" title="IPython.utils.py3compat: Python 2 &amp; 3 compatibility helpers"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.utils.py3compat</span></tt></a>, so you don&#8217;t need both
+imports in each module that uses them.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="29%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Python 2</th>
+<th class="head">Python 3</th>
+<th class="head">py3compat</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt></a></td>
+<td>input</td>
+<td>input</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/__builtin__.html#module-__builtin__" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">__builtin__</span></tt></a></td>
+<td>builtins</td>
+<td>builtin_mod</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/2/library/stringio.html#module-StringIO" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">StringIO</span></tt></a></td>
+<td>io</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/queue.html#module-Queue" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">Queue</span></tt></a></td>
+<td>queue</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/2/library/pickle.html#module-cPickle" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">cPickle</span></tt></a></td>
+<td>pickle</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/thread.html#module-thread" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">thread</span></tt></a></td>
+<td>_thread</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/2/library/copy_reg.html#module-copy_reg" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">copy_reg</span></tt></a></td>
+<td>copyreg</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/urlparse.html#module-urlparse" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">urlparse</span></tt></a></td>
+<td>urllib.parse</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-mod docutils literal"><span class="pre">repr</span></tt></td>
+<td>reprlib</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/tkinter.html#module-Tkinter" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">Tkinter</span></tt></a></td>
+<td>tkinter</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="http://docs.python.org/2/library/cookie.html#module-Cookie" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">Cookie</span></tt></a></td>
+<td>http.cookie</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="http://docs.python.org/2/library/_winreg.html#module-_winreg" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">_winreg</span></tt></a></td>
+<td>winreg</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Be careful with StringIO: <a class="reference external" href="http://docs.python.org/2/library/io.html#io.StringIO" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">io.StringIO</span></tt></a> is available in Python 2.7,
+but it behaves differently from <a class="reference external" href="http://docs.python.org/2/library/stringio.html#StringIO.StringIO" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">StringIO.StringIO</span></tt></a>, and much of
+our code assumes the use of the latter on Python 2. So a try/except on
+the import may cause problems.</p>
+<dl class="function">
+<dt id="IPython.utils.py3compat.input">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">input</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Behaves like <a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">raw_input()</span></tt></a> on Python 2.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="IPython.utils.py3compat.builtin_mod">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">builtin_mod</tt><a class="headerlink" href="#IPython.utils.py3compat.builtin_mod" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.builtin_mod_name">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">builtin_mod_name</tt><a class="headerlink" href="#IPython.utils.py3compat.builtin_mod_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference to the module containing builtins, and its name as a string.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="unicode">
+<h2>Unicode<a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
+<p>Always be explicit about what is text (unicode) and what is bytes.
+<em>Encoding</em> goes from unicode to bytes, and <em>decoding</em> goes from bytes
+to unicode.</p>
+<p>To open files for reading or writing text, use <a class="reference external" href="http://docs.python.org/2/library/io.html#io.open" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">io.open()</span></tt></a>, which is
+the Python 3 builtin <tt class="docutils literal"><span class="pre">open</span></tt> function, available on Python 2 as well.
+We almost always need to specify the encoding parameter, because the
+default is platform dependent.</p>
+<p>We have several helper functions for converting between string types. They all
+use the encoding from <a class="reference internal" href="../api/generated/IPython.utils.encoding.html#IPython.utils.encoding.getdefaultencoding" title="IPython.utils.encoding.getdefaultencoding"><tt class="xref py py-func docutils literal"><span class="pre">IPython.utils.encoding.getdefaultencoding()</span></tt></a> by default,
+and the <tt class="docutils literal"><span class="pre">errors='replace'</span></tt> option to do best-effort conversions for the user&#8217;s
+system.</p>
+<dl class="function">
+<dt id="IPython.utils.py3compat.unicode_to_str">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">unicode_to_str</tt><big>(</big><em>u</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.unicode_to_str" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.str_to_unicode">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">str_to_unicode</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.str_to_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert between unicode and the native str type. No-ops on Python 3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.str_to_bytes">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">str_to_bytes</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.str_to_bytes" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.bytes_to_str">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">bytes_to_str</tt><big>(</big><em>u</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.bytes_to_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert between bytes and the native str type. No-ops on Python 2.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.cast_unicode">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">cast_unicode</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.cast_unicode" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.cast_bytes">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">cast_bytes</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.cast_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert strings to unicode/bytes when they may be of either type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.cast_unicode_py2">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">cast_unicode_py2</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.cast_unicode_py2" title="Permalink to this definition">¶</a></dt>
+<dt id="IPython.utils.py3compat.cast_bytes_py2">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">cast_bytes_py2</tt><big>(</big><em>s</em>, <em>encoding=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.cast_bytes_py2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert strings to unicode/bytes when they may be of either type on Python 2,
+but return them unaltered on Python 3 (where string types are more
+predictable).</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="IPython.utils.py3compat.unicode_type">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">unicode_type</tt><a class="headerlink" href="#IPython.utils.py3compat.unicode_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference to <tt class="docutils literal"><span class="pre">str</span></tt> on Python 3, and to <tt class="docutils literal"><span class="pre">unicode</span></tt> on Python 2.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="IPython.utils.py3compat.string_types">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">string_types</tt><a class="headerlink" href="#IPython.utils.py3compat.string_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>A tuple for isinstance checks: <tt class="docutils literal"><span class="pre">(str,)</span></tt> on Python 3, <tt class="docutils literal"><span class="pre">(str,</span> <span class="pre">unicode)</span></tt> on
+Python 2.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="relative-imports">
+<h2>Relative imports<a class="headerlink" href="#relative-imports" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># This makes Python 2 behave like Python 3:</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">io</span>  <span class="c"># Imports the standard library io module</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">io</span>  <span class="c"># Import the io module from the package</span>
+                  <span class="c"># containing the current module</span>
+<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">foo</span>  <span class="c"># foo from the io module next to this module</span>
+<span class="kn">from</span> <span class="nn">IPython.utils</span> <span class="kn">import</span> <span class="n">io</span>  <span class="c"># This still works</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="print-function">
+<h2>Print function<a class="headerlink" href="#print-function" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Support the print function on Python 2:</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">bar</span><span class="p">,</span> <span class="n">baz</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="metaclasses">
+<h2>Metaclasses<a class="headerlink" href="#metaclasses" title="Permalink to this headline">¶</a></h2>
+<p>The syntax for declaring a class with a metaclass is different in
+Python 2 and 3. A helper function works for most cases:</p>
+<dl class="function">
+<dt id="IPython.utils.py3compat.with_metaclass">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">with_metaclass</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.with_metaclass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a base class with a metaclass. Copied from the six library.</p>
+<p>Used like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">FormatterABC</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="nb">object</span><span class="p">)):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>Combining inheritance between Qt and the traitlets system, however, does
+not work with this. Instead, we do this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">QtKernelClientMixin</span><span class="p">(</span><span class="n">MetaQObjectHasTraits</span><span class="p">(</span><span class="s">&#39;NewBase&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">HasTraits</span><span class="p">,</span> <span class="n">SuperQObject</span><span class="p">),</span> <span class="p">{})):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>This gives the new class a metaclass of <a class="reference internal" href="../api/generated/IPython.qt.util.html#IPython.qt.util.MetaQObjectHasTraits" title="IPython.qt.util.MetaQObjectHasTraits"><tt class="xref py py-class docutils literal"><span class="pre">MetaQObjectHasTraits</span></tt></a>,
+and the parent classes <a class="reference internal" href="../api/generated/IPython.utils.traitlets.html#IPython.utils.traitlets.HasTraits" title="IPython.utils.traitlets.HasTraits"><tt class="xref py py-class docutils literal"><span class="pre">HasTraits</span></tt></a> and
+<a class="reference internal" href="../api/generated/IPython.qt.util.html#IPython.qt.util.SuperQObject" title="IPython.qt.util.SuperQObject"><tt class="xref py py-class docutils literal"><span class="pre">SuperQObject</span></tt></a>.</p>
+</div>
+<div class="section" id="doctests">
+<h2>Doctests<a class="headerlink" href="#doctests" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.utils.py3compat.doctest_refactor_print">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">doctest_refactor_print</tt><big>(</big><em>func_or_str</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.doctest_refactor_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Refactors print statements in doctests in Python 3 only. Accepts a string
+or a function, so it can be used as a decorator.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.u_format">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">u_format</tt><big>(</big><em>func_or_str</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.u_format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle doctests written with <tt class="docutils literal"><span class="pre">{u}'abcþ'</span></tt>, replacing the <tt class="docutils literal"><span class="pre">{u}</span></tt> with <tt class="docutils literal"><span class="pre">u</span></tt>
+for Python 2, and removing it for Python 3.</p>
+<p>Accepts a string or a function, so it can be used as a decorator.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="execfile">
+<h2>Execfile<a class="headerlink" href="#execfile" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.utils.py3compat.execfile">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">execfile</tt><big>(</big><em>fname</em>, <em>glob</em>, <em>loc=None</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.execfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Equivalent to the Python 2 <a class="reference external" href="http://docs.python.org/2/library/functions.html#execfile" title="(in Python v2.7)"><tt class="docutils literal"><span class="pre">execfile()</span></tt></a> builtin. We redefine it in
+Python 2 to better handle non-ascii filenames.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.utils.py3compat.safe_unicode">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">safe_unicode</tt><big>(</big><em>e</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.safe_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>unicode(e) with various fallbacks. Used for exceptions, which may not be
+safe to call unicode() on.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.isidentifier">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">isidentifier</tt><big>(</big><em>s</em>, <em>dotted=False</em><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.isidentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the string s is a valid identifier in this version of Python.
+In Python 3, non-ascii characters are allowed. If <tt class="docutils literal"><span class="pre">dotted</span></tt> is True, it
+allows dots (i.e. attribute access) in the string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.getcwd">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">getcwd</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.getcwd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current working directory as unicode, like <a class="reference external" href="http://docs.python.org/2/library/os.html#os.getcwdu" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">os.getcwdu()</span></tt></a> on
+Python 2.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.utils.py3compat.MethodType">
+<tt class="descclassname">IPython.utils.py3compat.</tt><tt class="descname">MethodType</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.py3compat.MethodType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for <tt class="xref py py-class docutils literal"><span class="pre">types.MethodType</span></tt> that takes two arguments, like
+the real constructor on Python 3.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="Overview of the IPython configuration system"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lexer.html" title="New IPython Console Lexer"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

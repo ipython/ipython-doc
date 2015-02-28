@@ -1,0 +1,485 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Parallel Magic Commands &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Using IPython for parallel computing" href="index.html" />
+    <link rel="next" title="The IPython task interface" href="parallel_task.html" />
+    <link rel="prev" title="IPython’s Direct interface" href="parallel_multiengine.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallel_task.html" title="The IPython task interface"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parallel_multiengine.html" title="IPython’s Direct interface"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Parallel Magic Commands</a><ul>
+<li><a class="reference internal" href="#the-magics">The Magics</a><ul>
+<li><a class="reference internal" href="#px">%px</a></li>
+<li><a class="reference internal" href="#px-cell-magic">%%px Cell Magic</a><ul>
+<li><a class="reference internal" href="#targets-and-blocking">Targets and Blocking</a></li>
+<li><a class="reference internal" href="#output-display">Output Display</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pxresult">%pxresult</a></li>
+<li><a class="reference internal" href="#autopx">%autopx</a></li>
+<li><a class="reference internal" href="#pxconfig">%pxconfig</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multiple-active-views">Multiple Active Views</a></li>
+<li><a class="reference internal" href="#engines-as-kernels">Engines as Kernels</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parallel_multiengine.html"
+                        title="previous chapter">IPython&#8217;s Direct interface</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="parallel_task.html"
+                        title="next chapter">The IPython task interface</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/parallel/magics.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="parallel-magic-commands">
+<span id="parallel-magics"></span><h1>Parallel Magic Commands<a class="headerlink" href="#parallel-magic-commands" title="Permalink to this headline">¶</a></h1>
+<p>We provide a few IPython magic commands
+that make it a bit more pleasant to execute Python commands on the engines interactively.
+These are mainly shortcuts to <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.execute" title="IPython.parallel.client.view.DirectView.execute"><tt class="xref py py-meth docutils literal"><span class="pre">DirectView.execute()</span></tt></a>
+and <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> methods respectively.</p>
+<p>These magics will automatically become available when you create a Client:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The initially active View will have attributes <tt class="docutils literal"><span class="pre">targets='all',</span> <span class="pre">block=True</span></tt>,
+which is a blocking view of all engines, evaluated at request time
+(adding/removing engines will change where this view&#8217;s tasks will run).</p>
+<div class="section" id="the-magics">
+<h2>The Magics<a class="headerlink" href="#the-magics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="px">
+<h3>%px<a class="headerlink" href="#px" title="Permalink to this headline">¶</a></h3>
+<p>The %px magic executes a single Python command on the engines
+specified by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># import numpy here and everywhere</span>
+<span class="gp">In [25]: </span><span class="k">with</span> <span class="n">rc</span><span class="p">[:]</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
+<span class="gp">   ....: </span>   <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="go">importing numpy on engine(s)</span>
+
+<span class="gp">In [27]: </span><span class="o">%</span><span class="k">px</span> a = numpy.random.rand(2,2)
+<span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
+
+<span class="gp">In [28]: </span><span class="o">%</span><span class="k">px</span> numpy.linalg.eigvals(a)
+<span class="go">Parallel execution on engines: [0, 1, 2, 3]</span>
+<span class="go">Out [0:68]: array([ 0.77120707, -0.19448286])</span>
+<span class="go">Out [1:68]: array([ 1.10815921,  0.05110369])</span>
+<span class="go">Out [2:68]: array([ 0.74625527, -0.37475081])</span>
+<span class="go">Out [3:68]: array([ 0.72931905,  0.07159743])</span>
+
+<span class="gp">In [29]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
+</pre></div>
+</div>
+<p>Since engines are IPython as well, you can even run magics remotely:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [28]: </span><span class="o">%</span><span class="k">px</span> %pylab inline
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0]</span>
+<span class="go">Populating the interactive namespace from numpy and matplotlib</span>
+<span class="go">[stdout:1]</span>
+<span class="go">Populating the interactive namespace from numpy and matplotlib</span>
+<span class="go">[stdout:2]</span>
+<span class="go">Populating the interactive namespace from numpy and matplotlib</span>
+<span class="go">[stdout:3]</span>
+<span class="go">Populating the interactive namespace from numpy and matplotlib</span>
+</pre></div>
+</div>
+<p>And once in pylab mode with the inline backend,
+you can make plots and they will be displayed in your frontend
+if it supports the inline figures (e.g. notebook or qtconsole):</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [40]: </span><span class="o">%</span><span class="k">px</span> plot(rand(100))
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">&lt;plot0&gt;</span>
+<span class="go">&lt;plot1&gt;</span>
+<span class="go">&lt;plot2&gt;</span>
+<span class="go">&lt;plot3&gt;</span>
+<span class="go">Out[0:79]: [&lt;matplotlib.lines.Line2D at 0x10a6286d0&gt;]</span>
+<span class="go">Out[1:79]: [&lt;matplotlib.lines.Line2D at 0x10b9476d0&gt;]</span>
+<span class="go">Out[2:79]: [&lt;matplotlib.lines.Line2D at 0x110652750&gt;]</span>
+<span class="go">Out[3:79]: [&lt;matplotlib.lines.Line2D at 0x10c6566d0&gt;]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="px-cell-magic">
+<h3>%%px Cell Magic<a class="headerlink" href="#px-cell-magic" title="Permalink to this headline">¶</a></h3>
+<p>%%px can be used as a Cell Magic, which accepts some arguments for controlling
+the execution.</p>
+<div class="section" id="targets-and-blocking">
+<h4>Targets and Blocking<a class="headerlink" href="#targets-and-blocking" title="Permalink to this headline">¶</a></h4>
+<p>%%px accepts <tt class="docutils literal"><span class="pre">--targets</span></tt> for controlling which engines on which to run,
+and <tt class="docutils literal"><span class="pre">--[no]block</span></tt> for specifying the blocking behavior of this cell,
+independent of the defaults for the View.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%%</span><span class="k">px</span> --targets ::2
+<span class="gp">   ...: </span>print &quot;I am even&quot;
+<span class="gp">   ...:</span>
+<span class="go">Parallel execution on engine(s): [0, 2]</span>
+<span class="go">[stdout:0] I am even</span>
+<span class="go">[stdout:2] I am even</span>
+
+<span class="gp">In [7]: </span><span class="o">%%</span><span class="k">px</span> --targets 1
+<span class="gp">   ...: </span>print &quot;I am number 1&quot;
+<span class="gp">   ...:</span>
+<span class="go">Parallel execution on engine(s): 1</span>
+<span class="go">I am number 1</span>
+
+<span class="gp">In [8]: </span><span class="o">%%</span><span class="k">px</span>
+<span class="gp">   ...: </span>print &quot;still &#39;all&#39; by default&quot;
+<span class="gp">   ...:</span>
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] still &#39;all&#39; by default</span>
+<span class="go">[stdout:1] still &#39;all&#39; by default</span>
+<span class="go">[stdout:2] still &#39;all&#39; by default</span>
+<span class="go">[stdout:3] still &#39;all&#39; by default</span>
+
+<span class="gp">In [9]: </span><span class="o">%%</span><span class="k">px</span> --noblock
+<span class="gp">   ...: </span>import time
+<span class="gp">   ...: </span>time.sleep(1)
+<span class="gp">   ...: </span>time.time()
+<span class="gp">   ...:</span>
+<span class="go">Async parallel execution on engine(s): all</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;AsyncResult: execute&gt;</span>
+
+<span class="gp">In [10]: </span><span class="o">%</span><span class="k">pxresult</span>
+<span class="go">Out[0:12]: 1339454561.069116</span>
+<span class="go">Out[1:10]: 1339454561.076752</span>
+<span class="go">Out[2:12]: 1339454561.072837</span>
+<span class="go">Out[3:10]: 1339454561.066665</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pxconfig"><em>%pxconfig</em></a> accepts these same arguments for changing the <em>default</em>
+values of targets/blocking for the active View.</p>
+</div>
+</div>
+<div class="section" id="output-display">
+<h4>Output Display<a class="headerlink" href="#output-display" title="Permalink to this headline">¶</a></h4>
+<p>%%px also accepts a <tt class="docutils literal"><span class="pre">--group-outputs</span></tt> argument,
+which adjusts how the outputs of multiple engines are presented.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> for the grouping options.</p>
+</div>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [50]: </span><span class="o">%%</span><span class="k">px</span> --block --group-outputs=engine
+<span class="gp">   ....: </span>import numpy as np
+<span class="gp">   ....: </span>A = np.random.random((2,2))
+<span class="gp">   ....: </span>ev = numpy.linalg.eigvals(A)
+<span class="gp">   ....: </span>print ev
+<span class="gp">   ....: </span>ev.max()
+<span class="gp">   ....:</span>
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] [ 0.60640442  0.95919621]</span>
+<span class="go">Out [0:73]: 0.9591962130899806</span>
+<span class="go">[stdout:1] [ 0.38501813  1.29430871]</span>
+<span class="go">Out [1:73]: 1.2943087091452372</span>
+<span class="go">[stdout:2] [-0.85925141  0.9387692 ]</span>
+<span class="go">Out [2:73]: 0.93876920456230284</span>
+<span class="go">[stdout:3] [ 0.37998269  1.24218246]</span>
+<span class="go">Out [3:73]: 1.2421824618493817</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pxresult">
+<h3>%pxresult<a class="headerlink" href="#pxresult" title="Permalink to this headline">¶</a></h3>
+<p>If you are using %px in non-blocking mode, you won&#8217;t get output.
+You can use %pxresult to display the outputs of the latest command,
+just as is done when %px is blocking:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [39]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="gp">In [40]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Async parallel execution on engine(s): all</span>
+
+<span class="gp">In [41]: </span><span class="o">%</span><span class="k">pxresult</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
+</pre></div>
+</div>
+<p>%pxresult simply calls <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> on the most recent request.
+It accepts the same output-grouping arguments as %%px, so you can use it to view
+a result in different ways.</p>
+</div>
+<div class="section" id="autopx">
+<h3>%autopx<a class="headerlink" href="#autopx" title="Permalink to this headline">¶</a></h3>
+<p>The %autopx magic switches to a mode where everything you type is executed
+on the engines until you do %autopx again.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="n">dv</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span>
+
+<span class="gp">In [31]: </span><span class="o">%</span><span class="k">autopx</span>
+<span class="go">%autopx enabled</span>
+
+<span class="gp">In [32]: </span><span class="n">max_evals</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="gp">In [33]: </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+<span class="gp">   ....: </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="gp">   ....: </span>    <span class="n">evals</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="n">max_evals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+<span class="gp">   ....:</span>
+
+<span class="gp">In [34]: </span><span class="k">print</span> <span class="s">&quot;Average max eigenvalue is: </span><span class="si">%f</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">max_evals</span><span class="p">)</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">max_evals</span><span class="p">))</span>
+<span class="go">[stdout:0] Average max eigenvalue is: 10.193101</span>
+<span class="go">[stdout:1] Average max eigenvalue is: 10.064508</span>
+<span class="go">[stdout:2] Average max eigenvalue is: 10.055724</span>
+<span class="go">[stdout:3] Average max eigenvalue is: 10.086876</span>
+
+<span class="gp">In [35]: </span><span class="o">%</span><span class="k">autopx</span>
+<span class="go">Auto Parallel Disabled</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pxconfig">
+<span id="id1"></span><h3>%pxconfig<a class="headerlink" href="#pxconfig" title="Permalink to this headline">¶</a></h3>
+<p>The default targets and blocking behavior for the magics are governed by the <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt>
+and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the active View.  If you have a handle for the view,
+you can set these attributes directly, but if you don&#8217;t, you can change them with
+the %pxconfig magic:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="o">%</span><span class="k">pxconfig</span> --block
+
+<span class="gp">In [5]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:1] hi</span>
+<span class="go">[stdout:2] hi</span>
+<span class="go">[stdout:3] hi</span>
+
+<span class="gp">In [6]: </span><span class="o">%</span><span class="k">pxconfig</span> --targets ::2
+
+<span class="gp">In [7]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Parallel execution on engine(s): [0, 2]</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:2] hi</span>
+
+<span class="gp">In [8]: </span><span class="o">%</span><span class="k">pxconfig</span> --noblock
+
+<span class="gp">In [9]: </span><span class="o">%</span><span class="k">px</span> print &#39;are you there?&#39;
+<span class="go">Async parallel execution on engine(s): [0, 2]</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;AsyncResult: execute&gt;</span>
+
+<span class="gp">In [10]: </span><span class="o">%</span><span class="k">pxresult</span>
+<span class="go">[stdout:0] are you there?</span>
+<span class="go">[stdout:2] are you there?</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="multiple-active-views">
+<h2>Multiple Active Views<a class="headerlink" href="#multiple-active-views" title="Permalink to this headline">¶</a></h2>
+<p>The parallel magics are associated with a particular <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> object.
+You can change the active view by calling the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.activate" title="IPython.parallel.client.view.DirectView.activate"><tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt></a> method
+on any view.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">even</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="gp">In [12]: </span><span class="n">even</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+<span class="gp">In [13]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Async parallel execution on engine(s): [0, 2]</span>
+<span class="gh">Out[13]: </span><span class="go">&lt;AsyncResult: execute&gt;</span>
+
+<span class="gp">In [14]: </span><span class="n">even</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="gp">In [15]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi&#39;
+<span class="go">Parallel execution on engine(s): [0, 2]</span>
+<span class="go">[stdout:0] hi</span>
+<span class="go">[stdout:2] hi</span>
+</pre></div>
+</div>
+<p>When activating a View, you can also specify a <em>suffix</em>, so that a whole different
+set of magics are associated with that view, without replacing the existing ones.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="go"># restore the original DirecView to the base %px magics</span>
+<span class="gp">In [16]: </span><span class="n">rc</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+<span class="gh">Out[16]: </span><span class="go">&lt;DirectView all&gt;</span>
+
+<span class="gp">In [17]: </span><span class="n">even</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="s">&#39;_even&#39;</span><span class="p">)</span>
+
+<span class="gp">In [18]: </span><span class="o">%</span><span class="k">px</span> print &#39;hi all&#39;
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0] hi all</span>
+<span class="go">[stdout:1] hi all</span>
+<span class="go">[stdout:2] hi all</span>
+<span class="go">[stdout:3] hi all</span>
+
+<span class="gp">In [19]: </span><span class="o">%</span><span class="k">px_even</span> print &quot;We aren&#39;t odd!&quot;
+<span class="go">Parallel execution on engine(s): [0, 2]</span>
+<span class="go">[stdout:0] We aren&#39;t odd!</span>
+<span class="go">[stdout:2] We aren&#39;t odd!</span>
+</pre></div>
+</div>
+<p>This suffix is applied to the end of all magics, e.g. %autopx_even, %pxresult_even, etc.</p>
+<p>For convenience, the <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> has a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.activate" title="IPython.parallel.client.client.Client.activate"><tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt></a> method as well,
+which creates a DirectView with block=True, activates it, and returns the new View.</p>
+<p>The initial magics registered when you create a client are the result of a call to
+<tt class="xref py py-meth docutils literal"><span class="pre">rc.activate()</span></tt> with default args.</p>
+</div>
+<div class="section" id="engines-as-kernels">
+<h2>Engines as Kernels<a class="headerlink" href="#engines-as-kernels" title="Permalink to this headline">¶</a></h2>
+<p>Engines are really the same object as the Kernels used elsewhere in IPython,
+with the minor exception that engines connect to a controller, while regular kernels
+bind their sockets, listening for connections from a QtConsole or other frontends.</p>
+<p>Sometimes for debugging or inspection purposes, you would like a QtConsole connected
+to an engine for more direct interaction.  You can do this by first instructing
+the Engine to <em>also</em> bind its kernel, to listen for connections:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [50]: </span><span class="o">%</span><span class="k">px</span> from IPython.parallel import bind_kernel; bind_kernel()
+</pre></div>
+</div>
+<p>Then, if your engines are local, you can start a qtconsole right on the engine(s):</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [51]: </span><span class="o">%</span><span class="k">px</span> %qtconsole
+</pre></div>
+</div>
+<p>Careful with this one, because if your view is of 16 engines it will start 16 QtConsoles!</p>
+<p>Or you can view just the connection info, and work out the right way to connect to the engines,
+depending on where they live and where you are:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [51]: </span><span class="o">%</span><span class="k">px</span> %connect_info
+<span class="go">Parallel execution on engine(s): all</span>
+<span class="go">[stdout:0]</span>
+<span class="go">{</span>
+<span class="go">  &quot;stdin_port&quot;: 60387,</span>
+<span class="go">  &quot;ip&quot;: &quot;127.0.0.1&quot;,</span>
+<span class="go">  &quot;hb_port&quot;: 50835,</span>
+<span class="go">  &quot;key&quot;: &quot;eee2dd69-7dd3-4340-bf3e-7e2e22a62542&quot;,</span>
+<span class="go">  &quot;shell_port&quot;: 55328,</span>
+<span class="go">  &quot;iopub_port&quot;: 58264</span>
+<span class="go">}</span>
+
+<span class="go">Paste the above JSON into a file, and connect with:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing &lt;file&gt;</span>
+<span class="go">or, if you are local, you can connect with just:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing kernel-60125.json</span>
+<span class="go">or even just:</span>
+<span class="go">    $&gt; ipython &lt;app&gt; --existing</span>
+<span class="go">if this is the most recent IPython session you have started.</span>
+<span class="go">[stdout:1]</span>
+<span class="go">{</span>
+<span class="go">  &quot;stdin_port&quot;: 61869,</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">%qtconsole</span></tt> will call <tt class="xref py py-func docutils literal"><span class="pre">bind_kernel()</span></tt> on an engine if it hasn&#8217;t been done already,
+so you can often skip that first step.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="parallel_task.html" title="The IPython task interface"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parallel_multiengine.html" title="IPython’s Direct interface"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: sphinxext.custom_doctests &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: sphinxext.ipython_console_highlighting" href="IPython.sphinxext.ipython_console_highlighting.html" />
+    <link rel="prev" title="Module: qt.util" href="IPython.qt.util.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.sphinxext.ipython_console_highlighting.html" title="Module: sphinxext.ipython_console_highlighting"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.qt.util.html" title="Module: qt.util"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">sphinxext.custom_doctests</span></tt></a><ul>
+<li><a class="reference internal" href="#functions">2 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.qt.util.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">qt.util</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.sphinxext.ipython_console_highlighting.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">sphinxext.ipython_console_highlighting</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.sphinxext.custom_doctests.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.sphinxext.custom_doctests">
+<span id="module-sphinxext-custom-doctests"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">sphinxext.custom_doctests</span></tt><a class="headerlink" href="#module-IPython.sphinxext.custom_doctests" title="Permalink to this headline">¶</a></h1>
+<p>Handlers for IPythonDirective&#8217;s &#64;doctest pseudo-decorator.</p>
+<p>The Sphinx extension that provides support for embedded IPython code provides
+a pseudo-decorator &#64;doctest, which treats the input/output block as a
+doctest, raising a RuntimeError during doc generation if the actual output
+(after running the input) does not match the expected output.</p>
+<p>An example usage is:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+
+     In [1]: x = 1
+
+     @doctest
+     In [2]: x + 2
+     Out[3]: 3
+</pre></div>
+</div>
+<p>One can also provide arguments to the decorator. The first argument should be
+the name of a custom handler. The specification of any other arguments is
+determined by the handler. For example,</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+
+   @doctest float
+   In [154]: 0.1 + 0.2
+   Out[154]: 0.3
+</pre></div>
+</div>
+<p>allows the actual output <tt class="docutils literal"><span class="pre">0.30000000000000004</span></tt> to match the expected output
+due to a comparison with <tt class="docutils literal"><span class="pre">np.allclose</span></tt>.</p>
+<p>This module contains handlers for the &#64;doctest pseudo-decorator. Handlers
+should have the following function signature:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">handler</span><span class="p">(</span><span class="n">sphinx_shell</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">input_lines</span><span class="p">,</span> <span class="n">found</span><span class="p">,</span> <span class="n">submitted</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">sphinx_shell</span></tt> is the embedded Sphinx shell, <tt class="docutils literal"><span class="pre">args</span></tt> contains the list
+of arguments that follow: <a class="reference external" href="mailto:'&#37;&#52;&#48;doctest">'<span>&#64;</span>doctest</a> handler_name&#8217;, <tt class="docutils literal"><span class="pre">input_lines</span></tt> contains
+a list of the lines relevant to the current doctest, <tt class="docutils literal"><span class="pre">found</span></tt> is a string
+containing the output from the IPython shell, and <tt class="docutils literal"><span class="pre">submitted</span></tt> is a string
+containing the expected output from the IPython shell.</p>
+<p>Handlers must be registered in the <tt class="docutils literal"><span class="pre">doctests</span></tt> dict at the end of this module.</p>
+<div class="section" id="functions">
+<h2>2 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.sphinxext.custom_doctests.str_to_array">
+<tt class="descclassname">IPython.sphinxext.custom_doctests.</tt><tt class="descname">str_to_array</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.custom_doctests.str_to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simplistic converter of strings from repr to float NumPy arrays.</p>
+<p>If the repr representation has ellipsis in it, then this will fail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>s</strong> : str</p>
+<blockquote class="last">
+<div><p>The repr version of a NumPy array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;array([ 0.3,  inf,  nan])&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">str_to_array</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.sphinxext.custom_doctests.float_doctest">
+<tt class="descclassname">IPython.sphinxext.custom_doctests.</tt><tt class="descname">float_doctest</tt><big>(</big><em>sphinx_shell</em>, <em>args</em>, <em>input_lines</em>, <em>found</em>, <em>submitted</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.custom_doctests.float_doctest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Doctest which allow the submitted output to vary slightly from the input.</p>
+<p>Here is how it might appear in an rst file:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+
+   @doctest float
+   In [1]: 0.1 + 0.2
+   Out[1]: 0.3
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.sphinxext.ipython_console_highlighting.html" title="Module: sphinxext.ipython_console_highlighting"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.qt.util.html" title="Module: qt.util"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

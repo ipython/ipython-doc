@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Making kernels for IPython &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../index.html" />
+    <link rel="up" title="IPython developer’s guide" href="index.html" />
+    <link rel="next" title="Making simple Python wrapper kernels" href="wrapperkernels.html" />
+    <link rel="prev" title="Messaging in IPython" href="messaging.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wrapperkernels.html" title="Making simple Python wrapper kernels"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="messaging.html" title="Messaging in IPython"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Making kernels for IPython</a><ul>
+<li><a class="reference internal" href="#connection-files">Connection files</a></li>
+<li><a class="reference internal" href="#handling-messages">Handling messages</a></li>
+<li><a class="reference internal" href="#kernel-specs">Kernel specs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="messaging.html"
+                        title="previous chapter">Messaging in IPython</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="wrapperkernels.html"
+                        title="next chapter">Making simple Python wrapper kernels</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/development/kernels.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="making-kernels-for-ipython">
+<h1>Making kernels for IPython<a class="headerlink" href="#making-kernels-for-ipython" title="Permalink to this headline">¶</a></h1>
+<p>A &#8216;kernel&#8217; is a program that runs and introspects the user&#8217;s code. IPython
+includes a kernel for Python code, and people have written kernels for
+<a class="reference external" href="https://github.com/ipython/ipython/wiki/Projects-using-IPython#list-of-some-ipython-compatible-kernels">several other languages</a>.</p>
+<p>When IPython starts a kernel, it passes it a connection file. This specifies
+how to set up communications with the frontend.</p>
+<p>There are two options for writing a kernel:</p>
+<ol class="arabic simple">
+<li>You can reuse the IPython kernel machinery to handle the communications, and
+just describe how to execute your code. This is much simpler if the target
+language can be driven from Python. See <a class="reference internal" href="wrapperkernels.html"><em>Making simple Python wrapper kernels</em></a> for details.</li>
+<li>You can implement the kernel machinery in your target language. This is more
+work initially, but the people using your kernel might be more likely to
+contribute to it if it&#8217;s in the language they know.</li>
+</ol>
+<div class="section" id="connection-files">
+<h2>Connection files<a class="headerlink" href="#connection-files" title="Permalink to this headline">¶</a></h2>
+<p>Your kernel will be given the path to a connection file when it starts (see
+<a class="reference internal" href="#kernelspecs"><em>Kernel specs</em></a> for how to specify the command line arguments for your kernel).
+This file, which is accessible only to the current user, will contain a JSON
+dictionary looking something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s">&quot;control_port&quot;</span><span class="p">:</span> <span class="mi">50160</span><span class="p">,</span>
+  <span class="s">&quot;shell_port&quot;</span><span class="p">:</span> <span class="mi">57503</span><span class="p">,</span>
+  <span class="s">&quot;transport&quot;</span><span class="p">:</span> <span class="s">&quot;tcp&quot;</span><span class="p">,</span>
+  <span class="s">&quot;signature_scheme&quot;</span><span class="p">:</span> <span class="s">&quot;hmac-sha256&quot;</span><span class="p">,</span>
+  <span class="s">&quot;stdin_port&quot;</span><span class="p">:</span> <span class="mi">52597</span><span class="p">,</span>
+  <span class="s">&quot;hb_port&quot;</span><span class="p">:</span> <span class="mi">42540</span><span class="p">,</span>
+  <span class="s">&quot;ip&quot;</span><span class="p">:</span> <span class="s">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+  <span class="s">&quot;iopub_port&quot;</span><span class="p">:</span> <span class="mi">40885</span><span class="p">,</span>
+  <span class="s">&quot;key&quot;</span><span class="p">:</span> <span class="s">&quot;a0436f6c-1916-498b-8eb9-e81ab9368e84&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">transport</span></tt>, <tt class="docutils literal"><span class="pre">ip</span></tt> and five <tt class="docutils literal"><span class="pre">_port</span></tt> fields specify five ports which the
+kernel should bind to using <a class="reference external" href="http://zeromq.org/">ZeroMQ</a>. For instance, the
+address of the shell socket in the example above would be:</p>
+<div class="highlight-python"><div class="highlight"><pre>tcp://127.0.0.1:57503
+</pre></div>
+</div>
+<p>New ports are chosen at random for each kernel started.</p>
+<p><tt class="docutils literal"><span class="pre">signature_scheme</span></tt> and <tt class="docutils literal"><span class="pre">key</span></tt> are used to cryptographically sign messages, so
+that other users on the system can&#8217;t send code to run in this kernel. See
+<a class="reference internal" href="messaging.html#wire-protocol"><em>The Wire Protocol</em></a> for the details of how this signature is calculated.</p>
+</div>
+<div class="section" id="handling-messages">
+<h2>Handling messages<a class="headerlink" href="#handling-messages" title="Permalink to this headline">¶</a></h2>
+<p>After reading the connection file and binding to the necessary sockets, the
+kernel should go into an event loop, listening on the hb (heartbeat), control
+and shell sockets.</p>
+<p><a class="reference internal" href="messaging.html#kernel-heartbeat"><em>Heartbeat</em></a> messages should be echoed back immediately
+on the same socket - the frontend uses this to check that the kernel is still
+alive.</p>
+<p>Messages on the control and shell sockets should be parsed, and their signature
+validated. See <a class="reference internal" href="messaging.html#wire-protocol"><em>The Wire Protocol</em></a> for how to do this.</p>
+<p>The kernel will send messages on the iopub socket to display output, and on the
+stdin socket to prompt the user for textual input.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="messaging.html"><em>Messaging in IPython</em></a></dt>
+<dd>Details of the different sockets and the messages that come over them</dd>
+<dt><a class="reference external" href="http://andrew.gibiansky.com/blog/ipython/ipython-kernels/">Creating Language Kernels for IPython</a></dt>
+<dd>A blog post by the author of <a class="reference external" href="https://github.com/gibiansky/IHaskell">IHaskell</a>,
+a Haskell kernel</dd>
+<dt><a class="reference external" href="https://github.com/dsblank/simple_kernel">simple_kernel</a></dt>
+<dd>A simple example implementation of the kernel machinery in Python</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="kernel-specs">
+<span id="kernelspecs"></span><h2>Kernel specs<a class="headerlink" href="#kernel-specs" title="Permalink to this headline">¶</a></h2>
+<p>A kernel identifies itself to IPython by creating a directory, the name of which
+is used as an identifier for the kernel. These may be created in a number of
+locations:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="47%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&nbsp;</th>
+<th class="head">Unix</th>
+<th class="head">Windows</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>System</td>
+<td><p class="first"><tt class="docutils literal"><span class="pre">/usr/share/jupyter/kernels</span></tt></p>
+<p class="last"><tt class="docutils literal"><span class="pre">/usr/local/share/jupyter/kernels</span></tt></p>
+</td>
+<td><tt class="docutils literal"><span class="pre">%PROGRAMDATA%\jupyter\kernels</span></tt></td>
+</tr>
+<tr class="row-odd"><td>User</td>
+<td colspan="2"><tt class="docutils literal"><span class="pre">~/.ipython/kernels</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>The user location takes priority over the system locations, and the case of the
+names is ignored, so selecting kernels works the same way whether or not the
+filesystem is case sensitive.</p>
+<p>Inside the directory, the most important file is <em>kernel.json</em>. This should be a
+JSON serialised dictionary containing the following keys and values:</p>
+<ul class="simple">
+<li><strong>argv</strong>: A list of command line arguments used to start the kernel. The text
+<tt class="docutils literal"><span class="pre">{connection_file}</span></tt> in any argument will be replaced with the path to the
+connection file.</li>
+<li><strong>display_name</strong>: The kernel&#8217;s name as it should be displayed in the UI.
+Unlike the kernel name used in the API, this can contain arbitrary unicode
+characters.</li>
+<li><strong>language</strong>: The name of the language of the kernel.
+When loading notebooks, if no matching kernelspec key (may differ across machines)
+is found, a kernel with a matching <tt class="docutils literal"><span class="pre">language</span></tt> will be used.
+This allows a notebook written on any Python or Julia kernel to be properly associated
+with the user&#8217;s Python or Julia kernel, even if they aren&#8217;t listed under the same name as the author&#8217;s.</li>
+<li><strong>env</strong> (optional): A dictionary of environment variables to set for the kernel.
+These will be added to the current environment variables before the kernel is
+started.</li>
+</ul>
+<p>For example, the kernel.json file for IPython looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+ <span class="s">&quot;argv&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;python3&quot;</span><span class="p">,</span> <span class="s">&quot;-m&quot;</span><span class="p">,</span> <span class="s">&quot;IPython.kernel&quot;</span><span class="p">,</span>
+          <span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;{connection_file}&quot;</span><span class="p">],</span>
+ <span class="s">&quot;display_name&quot;</span><span class="p">:</span> <span class="s">&quot;Python 3&quot;</span><span class="p">,</span>
+ <span class="s">&quot;language&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To see the available kernel specs, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>ipython kernelspec list
+</pre></div>
+</div>
+<p>To start the terminal console or the Qt console with a specific kernel:</p>
+<div class="highlight-python"><div class="highlight"><pre>ipython console --kernel bash
+ipython qtconsole --kernel bash
+</pre></div>
+</div>
+<p>To use different kernels in the notebook, select a different kernel from the
+dropdown menu in the top-right of the UI.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="wrapperkernels.html" title="Making simple Python wrapper kernels"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="messaging.html" title="Messaging in IPython"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

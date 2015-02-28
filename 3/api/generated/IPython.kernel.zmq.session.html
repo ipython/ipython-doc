@@ -1,0 +1,604 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: kernel.zmq.session &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: kernel.zmq.zmqshell" href="IPython.kernel.zmq.zmqshell.html" />
+    <link rel="prev" title="Module: kernel.zmq.serialize" href="IPython.kernel.zmq.serialize.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.zmqshell.html" title="Module: kernel.zmq.zmqshell"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.serialize.html" title="Module: kernel.zmq.serialize"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.session</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">3 Classes</a></li>
+<li><a class="reference internal" href="#functions">6 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.kernel.zmq.serialize.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.serialize</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.kernel.zmq.zmqshell.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">kernel.zmq.zmqshell</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.kernel.zmq.session.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.kernel.zmq.session">
+<span id="module-kernel-zmq-session"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">kernel.zmq.session</span></tt><a class="headerlink" href="#module-IPython.kernel.zmq.session" title="Permalink to this headline">¶</a></h1>
+<p>Session object for building, serializing, sending, and receiving messages in
+IPython. The Session object supports serialization, HMAC signatures, and
+metadata on messages.</p>
+<p>Also defined here are utilities for working with Sessions:
+* A SessionFactory to be used as a base class for configurables that work with
+Sessions.
+* A Message object for convenience that allows attribute-access to the msg dict.</p>
+<div class="section" id="classes">
+<h2>3 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.kernel.zmq.session.SessionFactory">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">SessionFactory</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.SessionFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.LoggingConfigurable" title="IPython.config.configurable.LoggingConfigurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.LoggingConfigurable</span></tt></a></p>
+<p>The Base class for configurables that have a Session, Context, logger,
+and IOLoop.</p>
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.SessionFactory.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.SessionFactory.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.zmq.session.Message">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">Message</tt><big>(</big><em>msg_dict</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>A simple message object that maps dict keys to attributes.</p>
+<p>A Message can be created from a dict and a dict from a Message instance
+simply by calling dict(msg_obj).</p>
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Message.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>msg_dict</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Message.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.kernel.zmq.session.Session">
+<em class="property">class </em><tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">Session</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="IPython.config.configurable.html#IPython.config.configurable.Configurable" title="IPython.config.configurable.Configurable"><tt class="xref py py-class docutils literal"><span class="pre">IPython.config.configurable.Configurable</span></tt></a></p>
+<p>Object for handling serialization and sending of messages.</p>
+<p>The Session object handles building messages and sending them
+with ZMQ sockets or ZMQStream objects.  Objects can communicate with each
+other over the network via Session objects, and only need to work with the
+dict-based IPython message spec. The Session will handle
+serialization/deserialization, security, and metadata.</p>
+<p>Sessions support configurable serialization via packer/unpacker traits,
+and signing with HMAC digests via the key/keyfile traits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>debug</strong> : bool</p>
+<blockquote>
+<div><p>whether to trigger extra debugging statements</p>
+</div></blockquote>
+<p><strong>packer/unpacker</strong> : str</p>
+<blockquote>
+<div><p>importstrings for methods to serialize message parts.  If just
+&#8216;json&#8217; or &#8216;pickle&#8217;, predefined JSON and pickle packers will be used.
+Otherwise, the entire importstring must be used.</p>
+<p>The functions must accept at least valid JSON input, and output <em>bytes</em>.</p>
+<p>For example, to use msgpack:
+packer = &#8216;msgpack.packb&#8217;, unpacker=&#8217;msgpack.unpackb&#8217;</p>
+</div></blockquote>
+<p><strong>pack/unpack</strong> : callables</p>
+<blockquote>
+<div><p>You can also set the pack/unpack callables for serialization directly.</p>
+</div></blockquote>
+<p><strong>session</strong> : bytes</p>
+<blockquote>
+<div><p>the ID of this Session object.  The default is to generate a new UUID.</p>
+</div></blockquote>
+<p><strong>username</strong> : unicode</p>
+<blockquote>
+<div><p>username added to message headers.  The default is to ask the OS.</p>
+</div></blockquote>
+<p><strong>key</strong> : bytes</p>
+<blockquote>
+<div><p>The key used to initialize an HMAC signature.  If unset, messages
+will not be signed or checked.</p>
+</div></blockquote>
+<p><strong>keyfile</strong> : filepath</p>
+<blockquote class="last">
+<div><p>The file containing a key.  If this is set, <tt class="docutils literal"><span class="pre">key</span></tt> will be initialized
+to the contents of the file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a Session object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>debug</strong> : bool</p>
+<blockquote>
+<div><p>whether to trigger extra debugging statements</p>
+</div></blockquote>
+<p><strong>packer/unpacker</strong> : str</p>
+<blockquote>
+<div><p>importstrings for methods to serialize message parts.  If just
+&#8216;json&#8217; or &#8216;pickle&#8217;, predefined JSON and pickle packers will be used.
+Otherwise, the entire importstring must be used.</p>
+<p>The functions must accept at least valid JSON input, and output
+<em>bytes</em>.</p>
+<p>For example, to use msgpack:
+packer = &#8216;msgpack.packb&#8217;, unpacker=&#8217;msgpack.unpackb&#8217;</p>
+</div></blockquote>
+<p><strong>pack/unpack</strong> : callables</p>
+<blockquote>
+<div><p>You can also set the pack/unpack callables for serialization
+directly.</p>
+</div></blockquote>
+<p><strong>session</strong> : unicode (must be ascii)</p>
+<blockquote>
+<div><p>the ID of this Session object.  The default is to generate a new
+UUID.</p>
+</div></blockquote>
+<p><strong>bsession</strong> : bytes</p>
+<blockquote>
+<div><p>The session as bytes</p>
+</div></blockquote>
+<p><strong>username</strong> : unicode</p>
+<blockquote>
+<div><p>username added to message headers.  The default is to ask the OS.</p>
+</div></blockquote>
+<p><strong>key</strong> : bytes</p>
+<blockquote>
+<div><p>The key used to initialize an HMAC signature.  If unset, messages
+will not be signed or checked.</p>
+</div></blockquote>
+<p><strong>signature_scheme</strong> : str</p>
+<blockquote>
+<div><p>The message digest scheme. Currently must be of the form &#8216;hmac-HASH&#8217;,
+where &#8216;HASH&#8217; is a hashing function available in Python&#8217;s hashlib.
+The default is &#8216;hmac-sha256&#8217;.
+This is ignored if &#8216;key&#8217; is empty.</p>
+</div></blockquote>
+<p><strong>keyfile</strong> : filepath</p>
+<blockquote class="last">
+<div><p>The file containing a key.  If this is set, <tt class="docutils literal"><span class="pre">key</span></tt> will be
+initialized to the contents of the file.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.deserialize">
+<tt class="descname">deserialize</tt><big>(</big><em>msg_list</em>, <em>content=True</em>, <em>copy=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.deserialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unserialize a msg_list to a nested message dict.</p>
+<p>This is roughly the inverse of serialize. The serialize/deserialize
+methods work with full message lists, whereas pack/unpack work with
+the individual message parts in the message list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>msg_list</strong> : list of bytes or Message objects</p>
+<blockquote>
+<div><p>The list of message parts of the form [HMAC,p_header,p_parent,
+p_metadata,p_content,buffer1,buffer2,...].</p>
+</div></blockquote>
+<p><strong>content</strong> : bool (True)</p>
+<blockquote>
+<div><p>Whether to unpack the content dict (True), or leave it packed
+(False).</p>
+</div></blockquote>
+<p><strong>copy</strong> : bool (True)</p>
+<blockquote>
+<div><p>Whether to return the bytes (True), or the non-copying Message
+object in each place (False).</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>msg</strong> : dict</p>
+<blockquote class="last">
+<div><p>The nested message dict with top-level keys [header, parent_header,
+content, buffers].</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.feed_identities">
+<tt class="descname">feed_identities</tt><big>(</big><em>msg_list</em>, <em>copy=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.feed_identities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split the identities from the rest of the message.</p>
+<p>Feed until DELIM is reached, then return the prefix as idents and
+remainder as msg_list. This is easily broken by setting an IDENT to DELIM,
+but that would be silly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>msg_list</strong> : a list of Message or bytes objects</p>
+<blockquote>
+<div><p>The message to be split.</p>
+</div></blockquote>
+<p><strong>copy</strong> : bool</p>
+<blockquote>
+<div><p>flag determining whether the arguments are bytes or Messages</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>(idents, msg_list)</strong> : two lists</p>
+<blockquote class="last">
+<div><p>idents will always be a list of bytes, each of which is a ZMQ
+identity. msg_list will be a list of bytes or zmq.Messages of the
+form [HMAC,p_header,p_parent,p_content,buffer1,buffer2,...] and
+should be unpackable/unserializable via self.deserialize at this
+point.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.msg">
+<tt class="descname">msg</tt><big>(</big><em>msg_type</em>, <em>content=None</em>, <em>parent=None</em>, <em>header=None</em>, <em>metadata=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the nested message dict.</p>
+<p>This format is different from what is sent over the wire. The
+serialize/deserialize methods converts this nested message dict to the wire
+format, which is a list of message parts.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="IPython.kernel.zmq.session.Session.msg_id">
+<tt class="descname">msg_id</tt><a class="headerlink" href="#IPython.kernel.zmq.session.Session.msg_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>always return new uuid</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.recv">
+<tt class="descname">recv</tt><big>(</big><em>socket</em>, <em>mode=1</em>, <em>content=True</em>, <em>copy=True</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Receive and unpack a message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>socket</strong> : ZMQStream or Socket</p>
+<blockquote>
+<div><p>The socket or stream to use in receiving.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">[idents], msg</p>
+<blockquote class="last">
+<div><p>[idents] is a list of idents and msg is a nested message dict of
+same format as self.msg returns.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.send">
+<tt class="descname">send</tt><big>(</big><em>stream</em>, <em>msg_or_type</em>, <em>content=None</em>, <em>parent=None</em>, <em>ident=None</em>, <em>buffers=None</em>, <em>track=False</em>, <em>header=None</em>, <em>metadata=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build and send a message via stream or socket.</p>
+<p>The message format used by this function internally is as follows:</p>
+<dl class="docutils">
+<dt>[ident1,ident2,...,DELIM,HMAC,p_header,p_parent,p_content,</dt>
+<dd>buffer1,buffer2,...]</dd>
+</dl>
+<p>The serialize/deserialize methods convert the nested message dict into this
+format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>stream</strong> : zmq.Socket or ZMQStream</p>
+<blockquote>
+<div><p>The socket-like object used to send the data.</p>
+</div></blockquote>
+<p><strong>msg_or_type</strong> : str or Message/dict</p>
+<blockquote>
+<div><p>Normally, msg_or_type will be a msg_type unless a message is being
+sent more than once. If a header is supplied, this can be set to
+None and the msg_type will be pulled from the header.</p>
+</div></blockquote>
+<p><strong>content</strong> : dict or None</p>
+<blockquote>
+<div><p>The content of the message (ignored if msg_or_type is a message).</p>
+</div></blockquote>
+<p><strong>header</strong> : dict or None</p>
+<blockquote>
+<div><p>The header dict for the message (ignored if msg_to_type is a message).</p>
+</div></blockquote>
+<p><strong>parent</strong> : Message or dict or None</p>
+<blockquote>
+<div><p>The parent or parent header describing the parent of this message
+(ignored if msg_or_type is a message).</p>
+</div></blockquote>
+<p><strong>ident</strong> : bytes or list of bytes</p>
+<blockquote>
+<div><p>The zmq.IDENTITY routing path.</p>
+</div></blockquote>
+<p><strong>metadata</strong> : dict or None</p>
+<blockquote>
+<div><p>The metadata describing the message</p>
+</div></blockquote>
+<p><strong>buffers</strong> : list or None</p>
+<blockquote>
+<div><p>The already-serialized buffers to be appended to the message.</p>
+</div></blockquote>
+<p><strong>track</strong> : bool</p>
+<blockquote>
+<div><p>Whether to track.  Only for use with Sockets, because ZMQStream
+objects cannot track messages.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>msg</strong> : dict</p>
+<blockquote class="last">
+<div><p>The constructed message.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.send_raw">
+<tt class="descname">send_raw</tt><big>(</big><em>stream</em>, <em>msg_list</em>, <em>flags=0</em>, <em>copy=True</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.send_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a raw message via ident path.</p>
+<p>This method is used to send a already serialized message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>stream</strong> : ZMQStream or Socket</p>
+<blockquote>
+<div><p>The ZMQ stream or socket to use for sending the message.</p>
+</div></blockquote>
+<p><strong>msg_list</strong> : list</p>
+<blockquote>
+<div><p>The serialized list of messages to send. This only includes the
+[p_header,p_parent,p_metadata,p_content,buffer1,buffer2,...] portion of
+the message.</p>
+</div></blockquote>
+<p><strong>ident</strong> : ident or list</p>
+<blockquote class="last">
+<div><p>A single ident or a list of idents to use in sending.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.serialize">
+<tt class="descname">serialize</tt><big>(</big><em>msg</em>, <em>ident=None</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize the message components to bytes.</p>
+<p>This is roughly the inverse of deserialize. The serialize/deserialize
+methods work with full message lists, whereas pack/unpack work with
+the individual message parts in the message list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>msg</strong> : dict or Message</p>
+<blockquote>
+<div><p>The next message dict as returned by the self.msg method.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>msg_list</strong> : list</p>
+<blockquote class="last">
+<div><p>The list of bytes objects to be sent with the format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">ident1</span><span class="p">,</span> <span class="n">ident2</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">DELIM</span><span class="p">,</span> <span class="n">HMAC</span><span class="p">,</span> <span class="n">p_header</span><span class="p">,</span> <span class="n">p_parent</span><span class="p">,</span>
+ <span class="n">p_metadata</span><span class="p">,</span> <span class="n">p_content</span><span class="p">,</span> <span class="n">buffer1</span><span class="p">,</span> <span class="n">buffer2</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In this list, the <tt class="docutils literal"><span class="pre">p_*</span></tt> entities are the packed or serialized
+versions, so if JSON is used, these are utf8 encoded JSON strings.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.kernel.zmq.session.Session.sign">
+<tt class="descname">sign</tt><big>(</big><em>msg_list</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.Session.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign a message with HMAC digest. If no auth, return b&#8217;&#8216;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>msg_list</strong> : list</p>
+<blockquote class="last">
+<div><p>The [p_header,p_parent,p_content] part of the message list.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>6 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.compare_digest">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">compare_digest</tt><big>(</big><em>a</em>, <em>b</em><big>)</big> &rarr; bool<a class="headerlink" href="#IPython.kernel.zmq.session.compare_digest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return &#8216;a == b&#8217;.  This function uses an approach designed to prevent
+timing analysis, making it appropriate for cryptography.
+a and b must both be of the same type: either str (ASCII only),
+or any type that supports the buffer protocol (e.g. bytes).</p>
+<p>Note: If a and b are of different lengths, or if an error occurs,
+a timing attack could theoretically reveal information about the
+types and lengths of a and b&#8211;but not their values.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.squash_unicode">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">squash_unicode</tt><big>(</big><em>obj</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.squash_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>coerce unicode back to bytestrings.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.default_secure">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">default_secure</tt><big>(</big><em>cfg</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.default_secure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default behavior for a config environment to be secure.</p>
+<p>If Session.key/keyfile have not been set, set Session.key to
+a new random UUID.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.msg_header">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">msg_header</tt><big>(</big><em>msg_id</em>, <em>msg_type</em>, <em>username</em>, <em>session</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.msg_header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.extract_header">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">extract_header</tt><big>(</big><em>msg_or_header</em><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.extract_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a message or header, return the header.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.kernel.zmq.session.test_msg2obj">
+<tt class="descclassname">IPython.kernel.zmq.session.</tt><tt class="descname">test_msg2obj</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.kernel.zmq.session.test_msg2obj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.zmqshell.html" title="Module: kernel.zmq.zmqshell"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.kernel.zmq.serialize.html" title="Module: kernel.zmq.serialize"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

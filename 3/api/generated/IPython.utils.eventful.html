@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: utils.eventful &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: utils.frame" href="IPython.utils.frame.html" />
+    <link rel="prev" title="Module: utils.encoding" href="IPython.utils.encoding.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.frame.html" title="Module: utils.frame"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.encoding.html" title="Module: utils.encoding"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">utils.eventful</span></tt></a><ul>
+<li><a class="reference internal" href="#classes">2 Classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.utils.encoding.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">utils.encoding</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.utils.frame.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">utils.frame</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.utils.eventful.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.utils.eventful">
+<span id="module-utils-eventful"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">utils.eventful</span></tt><a class="headerlink" href="#module-IPython.utils.eventful" title="Permalink to this headline">¶</a></h1>
+<p>Contains eventful dict and list implementations.</p>
+<div class="section" id="classes">
+<h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.utils.eventful.EventfulDict">
+<em class="property">class </em><tt class="descclassname">IPython.utils.eventful.</tt><tt class="descname">EventfulDict</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></p>
+<p>Eventful dictionary.</p>
+<p>This class inherits from the Python intrinsic dictionary class, dict.  It
+adds events to the get, set, and del actions and optionally allows you to
+intercept and cancel these actions.  The eventfulness isn&#8217;t recursive.  In
+other words, if you add a dict as a child, the events of that dict won&#8217;t be
+listened to.  If you find you need something recursive, listen to the <tt class="docutils literal"><span class="pre">add</span></tt>
+and <tt class="docutils literal"><span class="pre">set</span></tt> methods, and then cancel <tt class="docutils literal"><span class="pre">dict</span></tt> values from being set, and instead
+set EventfulDicts that wrap those dicts.  Then you can wire the events
+to the same handlers if necessary.</p>
+<p>See the on_events, on_add, on_set, and on_del methods for registering 
+event handlers.</p>
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Public constructor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the dictionary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.on_add">
+<tt class="descname">on_add</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.on_add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for when an item is added to the dict.</p>
+<p>Allows the listener to detect when items are added to the dictionary and
+optionally cancel the addition.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the addition event, pass None as the callback.
+The callback should have a signature of callback(key, value).  The
+callback should return a boolean True if the additon should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.on_del">
+<tt class="descname">on_del</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.on_del" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for when an item is deleted from the dict.</p>
+<p>Allows the listener to detect when items are deleted from the dictionary
+and optionally cancel the deletion.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the deletion event, pass None as the callback.
+The callback should have a signature of callback(key).  The
+callback should return a boolean True if the deletion should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.on_events">
+<tt class="descname">on_events</tt><big>(</big><em>add_callback=None</em>, <em>set_callback=None</em>, <em>del_callback=None</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.on_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register callbacks for add, set, and del actions.</p>
+<p>See the doctstrings for on_(add/set/del) for details about each 
+callback.</p>
+<p>add_callback: [callback = None]
+set_callback: [callback = None]
+del_callback: [callback = None]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.on_set">
+<tt class="descname">on_set</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.on_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for when an item is changed in the dict.</p>
+<p>Allows the listener to detect when items are changed in the dictionary
+and optionally cancel the change.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the change event, pass None as the callback.
+The callback should have a signature of callback(key, value).  The
+callback should return a boolean True if the change should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.pop">
+<tt class="descname">pop</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of an item in the dictionary and then deletes the
+item from the dictionary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.popitem">
+<tt class="descname">popitem</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.popitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pop the next key/value pair from the dictionary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulDict.update">
+<tt class="descname">update</tt><big>(</big><em>other_dict</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulDict.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the key/value pairs from another dictionary into this dictionary,
+overwriting any conflicting keys in this dictionary.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.utils.eventful.EventfulList">
+<em class="property">class </em><tt class="descclassname">IPython.utils.eventful.</tt><tt class="descname">EventfulList</tt><big>(</big><em>*pargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/functions.html#list" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">list</span></tt></a></p>
+<p>Eventful list.</p>
+<p>This class inherits from the Python intrinsic <tt class="docutils literal"><span class="pre">list</span></tt> class.  It adds events 
+that allow you to listen for actions that modify the list.  You can 
+optionally cancel the actions.</p>
+<p>See the on_del, on_set, on_insert, on_sort, and on_reverse methods for
+registering an event handler.</p>
+<p>Some of the method docstrings were taken from the Python documentation at
+<a class="reference external" href="https://docs.python.org/2/tutorial/datastructures.html">https://docs.python.org/2/tutorial/datastructures.html</a></p>
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>*pargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Public constructor</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.append">
+<tt class="descname">append</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an item to the end of the list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.extend">
+<tt class="descname">extend</tt><big>(</big><em>L</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the list by appending all the items in the given list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.insert">
+<tt class="descname">insert</tt><big>(</big><em>index</em>, <em>value</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Insert an item at a given position. The first argument is the index 
+of the element before which to insert, so a.insert(0, x) inserts at the 
+front of the list, and a.insert(len(a), x) is equivalent to 
+a.append(x).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_del">
+<tt class="descname">on_del</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_del" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for item deletion.</p>
+<p>Allows the listener to detect when items are deleted from the list and
+optionally cancel the deletion.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the deletion event, pass None as the callback.
+The callback should have a signature of callback(index).  The
+callback should return a boolean True if the deletion should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_events">
+<tt class="descname">on_events</tt><big>(</big><em>insert_callback=None</em>, <em>set_callback=None</em>, <em>del_callback=None</em>, <em>reverse_callback=None</em>, <em>sort_callback=None</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register callbacks for add, set, and del actions.</p>
+<p>See the doctstrings for on_(insert/set/del/reverse/sort) for details 
+about each callback.</p>
+<p>insert_callback: [callback = None]
+set_callback: [callback = None]
+del_callback: [callback = None]
+reverse_callback: [callback = None]
+sort_callback: [callback = None]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_insert">
+<tt class="descname">on_insert</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for when an item is inserted into the list.</p>
+<p>Allows the listener to detect when items are inserted into the list and
+optionally cancel the insertion.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the insertion event, pass None as the callback.
+The callback should have a signature of callback(index, value).  The
+callback should return a boolean True if the insertion should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_reverse">
+<tt class="descname">on_reverse</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for list reversal.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the reverse event, pass None as the callback.
+The callback should have a signature of callback().  The
+callback should return a boolean True if the reverse should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_set">
+<tt class="descname">on_set</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for items are set.</p>
+<p>Allows the listener to detect when items are set and optionally cancel 
+the setting.  Note, <tt class="docutils literal"><span class="pre">set</span></tt> is also called when one or more items are
+added to the end of the list.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the set event, pass None as the callback.
+The callback should have a signature of callback(index, value).  The
+callback should return a boolean True if the set should be
+canceled, False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.on_sort">
+<tt class="descname">on_sort</tt><big>(</big><em>callback</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.on_sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a callback for sortting of the list.</p>
+<dl class="docutils">
+<dt>callback: callable or None</dt>
+<dd>If you want to ignore the sort event, pass None as the callback.
+The callback signature should match that of Python list&#8217;s <tt class="docutils literal"><span class="pre">.sort</span></tt> 
+method or <tt class="docutils literal"><span class="pre">callback(*pargs,</span> <span class="pre">**kwargs)</span></tt> as a catch all. The callback 
+should return a boolean True if the reverse should be canceled, 
+False or None otherwise.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.pop">
+<tt class="descname">pop</tt><big>(</big><em>i=None</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the item at the given position in the list, and return it. If 
+no index is specified, a.pop() removes and returns the last item in the 
+list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.remove">
+<tt class="descname">remove</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the first item from the list whose value is x. It is an error 
+if there is no such item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.reverse">
+<tt class="descname">reverse</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reverse the elements of the list, in place.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.utils.eventful.EventfulList.sort">
+<tt class="descname">sort</tt><big>(</big><em>*pargs</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.utils.eventful.EventfulList.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the items of the list in place (the arguments can be used for 
+sort customization, see Python&#8217;s sorted() for their explanation).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.frame.html" title="Module: utils.frame"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.utils.encoding.html" title="Module: utils.encoding"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

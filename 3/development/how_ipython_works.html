@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How IPython works &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../index.html" />
+    <link rel="up" title="IPython developer’s guide" href="index.html" />
+    <link rel="next" title="Messaging in IPython" href="messaging.html" />
+    <link rel="prev" title="IPython developer’s guide" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="messaging.html" title="Messaging in IPython"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="IPython developer’s guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How IPython works</a><ul>
+<li><a class="reference internal" href="#terminal-ipython">Terminal IPython</a></li>
+<li><a class="reference internal" href="#the-ipython-kernel">The IPython Kernel</a></li>
+<li><a class="reference internal" href="#notebooks">Notebooks</a><ul>
+<li><a class="reference internal" href="#exporting-to-other-formats">Exporting to other formats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ipython-parallel">IPython.parallel</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">IPython developer&#8217;s guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="messaging.html"
+                        title="next chapter">Messaging in IPython</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/development/how_ipython_works.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="how-ipython-works">
+<h1>How IPython works<a class="headerlink" href="#how-ipython-works" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="terminal-ipython">
+<h2>Terminal IPython<a class="headerlink" href="#terminal-ipython" title="Permalink to this headline">¶</a></h2>
+<p>When you type <tt class="docutils literal"><span class="pre">ipython</span></tt>, you get the original IPython interface, running in
+the terminal. It does something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">code</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;&gt;&gt;&gt; &quot;</span><span class="p">)</span>
+    <span class="k">exec</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Of course, it&#8217;s much more complex, because it has to deal with multi-line
+code, tab completion using <a class="reference external" href="http://docs.python.org/2/library/readline.html#module-readline" title="(in Python v2.7)"><tt class="xref py py-mod docutils literal"><span class="pre">readline</span></tt></a>, magic commands, and so on. But the
+model is like that: prompt the user for some code, and when they&#8217;ve entered it,
+exec it in the same process. This model is often called a REPL, or
+Read-Eval-Print-Loop.</p>
+</div>
+<div class="section" id="the-ipython-kernel">
+<h2>The IPython Kernel<a class="headerlink" href="#the-ipython-kernel" title="Permalink to this headline">¶</a></h2>
+<p>All the other interfaces—the Notebook, the Qt console, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">console</span></tt> in
+the terminal, and third party interfaces—use the IPython Kernel. This is a
+separate process which is responsible for running user code, and things like
+computing possible completions. Frontends communicate with it using JSON
+messages sent over <a class="reference external" href="http://zeromq.org/">ZeroMQ</a> sockets; the protocol they use is described in
+<a class="reference internal" href="messaging.html"><em>Messaging in IPython</em></a>.</p>
+<p>The core execution machinery for the kernel is shared with terminal IPython:</p>
+<img alt="../_images/ipy_kernel_and_terminal.png" src="../_images/ipy_kernel_and_terminal.png" />
+<p>A kernel process can be connected to more than one frontend simultaneously. In
+this case, the different frontends will have access to the same variables.</p>
+<p>This design was intended to allow easy development of different frontends based
+on the same kernel, but it also made it possible to support new languages in the
+same frontends, by developing kernels in those languages, and we are refining
+IPython to make that more practical.</p>
+<p>Today, there are two ways to develop a kernel for another language. Wrapper
+kernels reuse the communications machinery from IPython, and implement only the
+core execution part. Native kernels implement execution and communications in
+the target language:</p>
+<img alt="../_images/other_kernels.png" src="../_images/other_kernels.png" />
+<p>Wrapper kernels are easier to write quickly for languages that have good Python
+wrappers, like <a class="reference external" href="https://pypi.python.org/pypi/octave_kernel">octave_kernel</a>, or
+languages where it&#8217;s impractical to implement the communications machinery, like
+<a class="reference external" href="https://pypi.python.org/pypi/bash_kernel">bash_kernel</a>. Native kernels are
+likely to be better maintained by the community using them, like
+<a class="reference external" href="https://github.com/JuliaLang/IJulia.jl">IJulia</a> or <a class="reference external" href="https://github.com/gibiansky/IHaskell">IHaskell</a>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p><a class="reference internal" href="kernels.html"><em>Making kernels for IPython</em></a></p>
+<p class="last"><a class="reference internal" href="wrapperkernels.html"><em>Making simple Python wrapper kernels</em></a></p>
+</div>
+</div>
+<div class="section" id="notebooks">
+<h2>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this headline">¶</a></h2>
+<p>The Notebook frontend does something extra. In addition to running your code, it
+stores code and output, together with markdown notes, in an editable document
+called a notebook. When you save it, this is sent from your browser to the
+notebook server, which saves it on disk as a JSON file with a <tt class="docutils literal"><span class="pre">.ipynb</span></tt>
+extension.</p>
+<img alt="../_images/notebook_components.png" src="../_images/notebook_components.png" />
+<p>The notebook server, not the kernel, is responsible for saving and loading
+notebooks, so you can edit notebooks even if you don&#8217;t have the kernel for that
+language—you just won&#8217;t be able to run code. The kernel doesn&#8217;t know anything
+about the notebook document: it just gets sent cells of code to execute when the
+user runs them.</p>
+<div class="section" id="exporting-to-other-formats">
+<h3>Exporting to other formats<a class="headerlink" href="#exporting-to-other-formats" title="Permalink to this headline">¶</a></h3>
+<p>The Nbconvert tool in IPython converts notebook files to other formats, such as
+HTML, LaTeX, or reStructuredText. This conversion goes through a series of steps:</p>
+<img alt="../_images/nbconvert.png" src="../_images/nbconvert.png" />
+<ol class="arabic simple">
+<li>Preprocessors modify the notebook in memory. E.g. ExecutePreprocessor runs
+the code in the notebook and updates the output.</li>
+<li>An exporter converts the notebook to another file format. Most of the
+exporters use templates for this.</li>
+<li>Postprocessors work on the file produced by exporting.</li>
+</ol>
+<p>The <a class="reference external" href="http://nbviewer.ipython.org/">nbviewer</a> website uses nbconvert with the
+HTML exporter. When you give it a URL, it fetches the notebook from that URL,
+converts it to HTML, and serves that HTML to you.</p>
+</div>
+</div>
+<div class="section" id="ipython-parallel">
+<h2>IPython.parallel<a class="headerlink" href="#ipython-parallel" title="Permalink to this headline">¶</a></h2>
+<p>IPython also includes a parallel computing framework, <tt class="docutils literal"><span class="pre">IPython.parallel</span></tt>. This
+allows you to control many individual engines, which are an extended version of
+the IPython kernel described above. For more details, see <a class="reference internal" href="../parallel/index.html"><em>Using IPython for parallel computing</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="messaging.html" title="Messaging in IPython"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="IPython developer’s guide"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

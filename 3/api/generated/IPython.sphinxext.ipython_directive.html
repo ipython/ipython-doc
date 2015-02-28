@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module: sphinxext.ipython_directive &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="The IPython API" href="../index.html" />
+    <link rel="next" title="Module: terminal.console.app" href="IPython.terminal.console.app.html" />
+    <link rel="prev" title="Module: sphinxext.ipython_console_highlighting" href="IPython.sphinxext.ipython_console_highlighting.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.terminal.console.app.html" title="Module: terminal.console.app"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="IPython.sphinxext.ipython_console_highlighting.html" title="Module: sphinxext.ipython_console_highlighting"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" accesskey="U">The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">sphinxext.ipython_directive</span></tt></a><ul>
+<li><a class="reference internal" href="#pseudo-decorators">Pseudo-Decorators</a><ul>
+<li><a class="reference internal" href="#todo">ToDo</a></li>
+<li><a class="reference internal" href="#authors">Authors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#classes">2 Classes</a></li>
+<li><a class="reference internal" href="#functions">3 Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="IPython.sphinxext.ipython_console_highlighting.html"
+                        title="previous chapter">Module: <tt class="docutils literal"><span class="pre">sphinxext.ipython_console_highlighting</span></tt></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="IPython.terminal.console.app.html"
+                        title="next chapter">Module: <tt class="docutils literal"><span class="pre">terminal.console.app</span></tt></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/api/generated/IPython.sphinxext.ipython_directive.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-IPython.sphinxext.ipython_directive">
+<span id="module-sphinxext-ipython-directive"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">sphinxext.ipython_directive</span></tt><a class="headerlink" href="#module-IPython.sphinxext.ipython_directive" title="Permalink to this headline">¶</a></h1>
+<p>Sphinx directive to support embedded IPython code.</p>
+<p>This directive allows pasting of entire interactive IPython sessions, prompts
+and all, and their code will actually get re-executed at doc build time, with
+all prompts renumbered sequentially. It also allows you to input code as a pure
+python input by giving the argument python to the directive. The output looks
+like an interactive ipython section.</p>
+<p>To enable this directive, simply list it in your Sphinx <tt class="docutils literal"><span class="pre">conf.py</span></tt> file
+(making sure the directory where you placed it is visible to sphinx, as is
+needed for all Sphinx directives). For example, to enable syntax highlighting
+and the IPython directive:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;IPython.sphinxext.ipython_console_highlighting&#39;</span><span class="p">,</span>
+              <span class="s">&#39;IPython.sphinxext.ipython_directive&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The IPython directive outputs code-blocks with the language &#8216;ipython&#8217;. So
+if you do not have the syntax highlighting extension enabled as well, then
+all rendered code-blocks will be uncolored. By default this directive assumes
+that your prompts are unchanged IPython ones, but this can be customized.
+The configurable options that can be placed in conf.py are:</p>
+<dl class="docutils">
+<dt>ipython_savefig_dir:</dt>
+<dd>The directory in which to save the figures. This is relative to the
+Sphinx source directory. The default is <tt class="docutils literal"><span class="pre">html_static_path</span></tt>.</dd>
+<dt>ipython_rgxin:</dt>
+<dd>The compiled regular expression to denote the start of IPython input
+lines. The default is re.compile(&#8216;In [(d+)]:s?(.*)s*&#8217;). You
+shouldn&#8217;t need to change this.</dd>
+<dt>ipython_rgxout:</dt>
+<dd>The compiled regular expression to denote the start of IPython output
+lines. The default is re.compile(&#8216;Out[(d+)]:s?(.*)s*&#8217;). You
+shouldn&#8217;t need to change this.</dd>
+<dt>ipython_promptin:</dt>
+<dd>The string to represent the IPython input prompt in the generated ReST.
+The default is &#8216;In [%d]:&#8217;. This expects that the line numbers are used
+in the prompt.</dd>
+<dt>ipython_promptout:</dt>
+<dd>The string to represent the IPython prompt in the generated ReST. The
+default is &#8216;Out [%d]:&#8217;. This expects that the line numbers are used
+in the prompt.</dd>
+<dt>ipython_mplbackend:</dt>
+<dd>The string which specifies if the embedded Sphinx shell should import
+Matplotlib and set the backend. The value specifies a backend that is
+passed to <tt class="docutils literal"><span class="pre">matplotlib.use()</span></tt> before any lines in <tt class="docutils literal"><span class="pre">ipython_execlines</span></tt> are
+executed. If not specified in conf.py, then the default value of &#8216;agg&#8217; is
+used. To use the IPython directive without matplotlib as a dependency, set
+the value to <tt class="docutils literal"><span class="pre">None</span></tt>. It may end up that matplotlib is still imported
+if the user specifies so in <tt class="docutils literal"><span class="pre">ipython_execlines</span></tt> or makes use of the
+&#64;savefig pseudo decorator.</dd>
+<dt>ipython_execlines:</dt>
+<dd>A list of strings to be exec&#8217;d in the embedded Sphinx shell. Typical
+usage is to make certain packages always available. Set this to an empty
+list if you wish to have no imports always available. If specified in
+conf.py as <tt class="docutils literal"><span class="pre">None</span></tt>, then it has the effect of making no imports available.
+If omitted from conf.py altogether, then the default value of
+[&#8216;import numpy as np&#8217;, &#8216;import matplotlib.pyplot as plt&#8217;] is used.</dd>
+<dt>ipython_holdcount</dt>
+<dd>When the &#64;suppress pseudo-decorator is used, the execution count can be
+incremented or not. The default behavior is to hold the execution count,
+corresponding to a value of <tt class="docutils literal"><span class="pre">True</span></tt>. Set this to <tt class="docutils literal"><span class="pre">False</span></tt> to increment
+the execution count after each suppressed command.</dd>
+</dl>
+<p>As an example, to use the IPython directive when <tt class="docutils literal"><span class="pre">matplotlib</span></tt> is not available,
+one sets the backend to <tt class="docutils literal"><span class="pre">None</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipython_mplbackend</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>An example usage of the directive is:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+
+    In [1]: x = 1
+
+    In [2]: y = x**2
+
+    In [3]: print(y)
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://matplotlib.org/sampledoc/ipython_directive.html">http://matplotlib.org/sampledoc/ipython_directive.html</a> for additional
+documentation.</p>
+<div class="section" id="pseudo-decorators">
+<h2>Pseudo-Decorators<a class="headerlink" href="#pseudo-decorators" title="Permalink to this headline">¶</a></h2>
+<p>Note: Only one decorator is supported per input. If more than one decorator
+is specified, then only the last one is used.</p>
+<p>In addition to the Pseudo-Decorators/options described at the above link,
+several enhancements have been made. The directive will emit a message to the
+console at build-time if code-execution resulted in an exception or warning.
+You can suppress these on a per-block basis by specifying the :okexcept:
+or :okwarning: options:</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">ipython</span><span class="p">::</span>
+    <span class="nc">:okexcept:</span>
+    <span class="nc">:okwarning:</span>
+
+    In [1]: 1/0
+    In [2]: # raise warning.
+</pre></div>
+</div>
+<div class="section" id="todo">
+<h3>ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Turn the ad-hoc test() function into a real test suite.</li>
+<li>Break up ipython-specific functionality from matplotlib stuff into better
+separated code.</li>
+</ul>
+</div>
+<div class="section" id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>John D Hunter: orignal author.</li>
+<li>Fernando Perez: refactoring, documentation, cleanups, port to 0.11.</li>
+<li>VáclavŠmilauer &lt;eudoxos-AT-arcig.cz&gt;: Prompt generalizations.</li>
+<li>Skipper Seabold, refactoring, cleanups, pure python addition</li>
+</ul>
+</div>
+</div>
+<div class="section" id="classes">
+<h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell">
+<em class="property">class </em><tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">EmbeddedSphinxShell</tt><big>(</big><em>exec_lines=None</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>An embedded IPython instance to run inside Sphinx</p>
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>exec_lines=None</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.custom_doctest">
+<tt class="descname">custom_doctest</tt><big>(</big><em>decorator</em>, <em>input_lines</em>, <em>found</em>, <em>submitted</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.custom_doctest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a specialized doctest.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.ensure_pyplot">
+<tt class="descname">ensure_pyplot</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.ensure_pyplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ensures that pyplot has been imported into the embedded IPython shell.</p>
+<p>Also, makes sure to set the backend appropriately if not set already.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_block">
+<tt class="descname">process_block</tt><big>(</big><em>block</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>process block from the block_parser and return a list of processed lines</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_comment">
+<tt class="descname">process_comment</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process data fPblock for COMMENT token.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_image">
+<tt class="descname">process_image</tt><big>(</big><em>decorator</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_image" title="Permalink to this definition">¶</a></dt>
+<dd><p># build out an image directive like
+# .. image:: somefile.png
+#    :width 4in
+#
+# from an input like
+# savefig somefile.png width=4in</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_input">
+<tt class="descname">process_input</tt><big>(</big><em>data</em>, <em>input_prompt</em>, <em>lineno</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process data block for INPUT token.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_input_line">
+<tt class="descname">process_input_line</tt><big>(</big><em>line</em>, <em>store_history=True</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_input_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>process the input, capturing stdout</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_output">
+<tt class="descname">process_output</tt><big>(</big><em>data</em>, <em>output_prompt</em>, <em>input_lines</em>, <em>output</em>, <em>is_doctest</em>, <em>decorator</em>, <em>image_file</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process data block for OUTPUT token.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_pure_python">
+<tt class="descname">process_pure_python</tt><big>(</big><em>content</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.process_pure_python" title="Permalink to this definition">¶</a></dt>
+<dd><p>content is a list of strings. it is unedited directive content</p>
+<p>This runs it line by line in the InteractiveShell, prepends
+prompts as needed capturing stderr and stdout, then returns
+the content as a list as if it were ipython code</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.save_image">
+<tt class="descname">save_image</tt><big>(</big><em>image_file</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.EmbeddedSphinxShell.save_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves the image file to disk.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.sphinxext.ipython_directive.IPythonDirective">
+<em class="property">class </em><tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">IPythonDirective</tt><big>(</big><em>name</em>, <em>arguments</em>, <em>options</em>, <em>content</em>, <em>lineno</em>, <em>content_offset</em>, <em>block_text</em>, <em>state</em>, <em>state_machine</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.IPythonDirective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">docutils.parsers.rst.Directive</span></tt></p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>3 Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="IPython.sphinxext.ipython_directive.block_parser">
+<tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">block_parser</tt><big>(</big><em>part</em>, <em>rgxin</em>, <em>rgxout</em>, <em>fmtin</em>, <em>fmtout</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.block_parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>part is a string of ipython text, comprised of at most one
+input, one ouput, comments, and blank lines.  The block parser
+parses the text into a list of:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">TOKEN0</span><span class="p">,</span> <span class="n">data0</span><span class="p">),</span> <span class="p">(</span><span class="n">TOKEN1</span><span class="p">,</span> <span class="n">data1</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>where TOKEN is one of [COMMENT | INPUT | OUTPUT ] and
+data is, depending on the type of token:</p>
+<div class="highlight-python"><div class="highlight"><pre>COMMENT : the comment string
+
+INPUT: the (DECORATOR, INPUT_LINE, REST) where
+   DECORATOR: the input decorator (or None)
+   INPUT_LINE: the input as string (possibly multi-line)
+   REST : any stdout generated by the input line (not OUTPUT)
+
+OUTPUT: the output string, possibly multi-line
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="IPython.sphinxext.ipython_directive.setup">
+<tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">setup</tt><big>(</big><em>app</em><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="IPython.sphinxext.ipython_directive.test">
+<tt class="descclassname">IPython.sphinxext.ipython_directive.</tt><tt class="descname">test</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.sphinxext.ipython_directive.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="IPython.terminal.console.app.html" title="Module: terminal.console.app"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="IPython.sphinxext.ipython_console_highlighting.html" title="Module: sphinxext.ipython_console_highlighting"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../../search.html">search</a>|&nbsp;</li>
+       <li><a href="../../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="../index.html" >The IPython API</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

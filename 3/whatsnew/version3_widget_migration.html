@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Migrating Widgets to IPython 3 &mdash; IPython 3.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="IPython 3.0.0 documentation" href="../index.html" />
+    <link rel="up" title="What’s new in IPython" href="index.html" />
+    <link rel="next" title="2.x Series" href="version2.0.html" />
+    <link rel="prev" title="Issues closed in the 3.x development cycle" href="github-stats-3.html" /> 
+  </head>
+  <body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="version2.0.html" title="2.x Series"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="github-stats-3.html" title="Issues closed in the 3.x development cycle"
+             accesskey="P">previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">What&#8217;s new in IPython</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Migrating Widgets to IPython 3</a><ul>
+<li><a class="reference internal" href="#upgrading-notebooks">Upgrading Notebooks</a></li>
+<li><a class="reference internal" href="#upgrading-custom-widgets">Upgrading Custom Widgets</a><ul>
+<li><a class="reference internal" href="#javascript">Javascript</a></li>
+<li><a class="reference internal" href="#python">Python</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#details">Details</a><ul>
+<li><a class="reference internal" href="#asynchronous">Asynchronous</a></li>
+<li><a class="reference internal" href="#symmetry">Symmetry</a></li>
+<li><a class="reference internal" href="#smaller-changes">Smaller Changes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#comm-and-widget-pr-index">Comm and Widget PR Index</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="github-stats-3.html"
+                        title="previous chapter">Issues closed in the 3.x development cycle</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="version2.0.html"
+                        title="next chapter">2.x Series</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/whatsnew/version3_widget_migration.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="migrating-widgets-to-ipython-3">
+<h1>Migrating Widgets to IPython 3<a class="headerlink" href="#migrating-widgets-to-ipython-3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="upgrading-notebooks">
+<h2>Upgrading Notebooks<a class="headerlink" href="#upgrading-notebooks" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>The first thing you&#8217;ll notice when upgrading an IPython 2.0 widget
+notebook to IPython 3.0 is the &#8220;Notebook converted&#8221; dialog. Click
+&#8220;ok&#8221;.</li>
+<li>All of the widgets distributed with IPython have been renamed. The
+&#8220;Widget&#8221; suffix was removed from the end of the class name. i.e.
+<tt class="docutils literal"><span class="pre">ButtonWidget</span></tt> is now <tt class="docutils literal"><span class="pre">Button</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">ContainerWidget</span></tt> was renamed to <tt class="docutils literal"><span class="pre">Box</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">PopupWidget</span></tt> was removed from IPython. If you use the
+<tt class="docutils literal"><span class="pre">PopupWidget</span></tt>, try using a <tt class="docutils literal"><span class="pre">Box</span></tt> widget instead. If your notebook
+can&#8217;t live without the popup functionality, subclass the <tt class="docutils literal"><span class="pre">Box</span></tt>
+widget (both in Python and JS) and use JQuery UI&#8217;s <tt class="docutils literal"><span class="pre">draggable()</span></tt>
+and <tt class="docutils literal"><span class="pre">resizable()</span></tt> methods to mimic the behavior.</li>
+<li><tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> were removed. More often than not
+a new attribute exists on the widget that allows you to achieve the
+same explicitly. i.e. the <tt class="docutils literal"><span class="pre">Button</span></tt> widget now has a
+<tt class="docutils literal"><span class="pre">button_style</span></tt> attribute which you can set to &#8216;primary&#8217;, &#8216;success&#8217;,
+&#8216;info&#8217;, &#8216;warning&#8217;, &#8216;danger&#8217;, or &#8216;&#8217; instead of using <tt class="docutils literal"><span class="pre">add_class</span></tt> to
+add the bootstrap class. <tt class="docutils literal"><span class="pre">VBox</span></tt> and <tt class="docutils literal"><span class="pre">HBox</span></tt> classes (flexible
+<tt class="docutils literal"><span class="pre">Box</span></tt> subclasses) were added that allow you to avoid using
+<tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> to make flexible box model
+layouts. As a last resort, if you can&#8217;t find a built in attribute for
+the class you want to use, a new <tt class="docutils literal"><span class="pre">_dom_classes</span></tt> list trait was
+added, which combines <tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> into one
+stateful list.</li>
+<li><tt class="docutils literal"><span class="pre">set_css</span></tt> and <tt class="docutils literal"><span class="pre">get_css</span></tt> were removed in favor of explicit style
+attributes - <tt class="docutils literal"><span class="pre">visible</span></tt>, <tt class="docutils literal"><span class="pre">width</span></tt>, <tt class="docutils literal"><span class="pre">height</span></tt>, <tt class="docutils literal"><span class="pre">padding</span></tt>,
+<tt class="docutils literal"><span class="pre">margin</span></tt>, <tt class="docutils literal"><span class="pre">color</span></tt>, <tt class="docutils literal"><span class="pre">background_color</span></tt>, <tt class="docutils literal"><span class="pre">border_color</span></tt>,
+<tt class="docutils literal"><span class="pre">border_width</span></tt>, <tt class="docutils literal"><span class="pre">border_radius</span></tt>, <tt class="docutils literal"><span class="pre">border_style</span></tt>,
+<tt class="docutils literal"><span class="pre">font_style</span></tt>, <tt class="docutils literal"><span class="pre">font_weight</span></tt>, <tt class="docutils literal"><span class="pre">font_size</span></tt>, and <tt class="docutils literal"><span class="pre">font_family</span></tt>
+are a few. If you can&#8217;t find a trait to see the css attribute you
+need, you can, in order of preference, (A) subclass to create your
+own custom widget, (B) use CSS and the <tt class="docutils literal"><span class="pre">_dom_classes</span></tt> trait to set
+<tt class="docutils literal"><span class="pre">_dom_classes</span></tt>, or (C) use the <tt class="docutils literal"><span class="pre">_css</span></tt> dictionary to set CSS
+styling like <tt class="docutils literal"><span class="pre">set_css</span></tt> and <tt class="docutils literal"><span class="pre">get_css</span></tt>.</li>
+</ol>
+</div>
+<div class="section" id="upgrading-custom-widgets">
+<h2>Upgrading Custom Widgets<a class="headerlink" href="#upgrading-custom-widgets" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="javascript">
+<h3>Javascript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">If you are distributing your widget and decide to use the deferred
+loading technique (preferred), you can remove all references to the
+WidgetManager and the register model/view calls (see the Python
+section below for more information).</p>
+</li>
+<li><p class="first">In 2.0 require.js was used incorrectly, that has been fixed and now
+loading works more like Python&#8217;s import. Requiring
+<tt class="docutils literal"><span class="pre">widgets/js/widget</span></tt> doesn&#8217;t import the <tt class="docutils literal"><span class="pre">WidgetManager</span></tt> class,
+instead it imports a dictionary that exposes the classes within that
+module:</p>
+<div class="code javascript highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<span class="s">&#39;WidgetModel&#39;</span><span class="p">:</span> <span class="n">WidgetModel</span><span class="p">,</span>
+<span class="s">&#39;WidgetView&#39;</span><span class="p">:</span> <span class="n">WidgetView</span><span class="p">,</span>
+<span class="s">&#39;DOMWidgetView&#39;</span><span class="p">:</span> <span class="n">DOMWidgetView</span><span class="p">,</span>
+<span class="s">&#39;ViewList&#39;</span><span class="p">:</span> <span class="n">ViewList</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you decide to continue to use the widget registry (by registering
+your widgets with the manager), you can import a dictionary with a
+handle to the WidgetManager class by requiring
+<tt class="docutils literal"><span class="pre">widgets/js/manager</span></tt>. Doing so will import:</p>
+<div class="code javascript highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;WidgetManager&#39;</span><span class="p">:</span> <span class="n">WidgetManager</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Don&#8217;t rely on the <tt class="docutils literal"><span class="pre">IPython</span></tt> namespace for anything. To inherit from
+the DOMWidgetView, WidgetView, or WidgetModel, require
+<tt class="docutils literal"><span class="pre">widgets/js/widget</span></tt> as <tt class="docutils literal"><span class="pre">widget</span></tt>. If you were inheriting from
+DOMWidgetView, and the code looked like this:</p>
+<div class="code javascript highlight-python"><div class="highlight"><pre><span class="n">IPython</span><span class="o">.</span><span class="n">DOMWidgetView</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="o">...</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>It would become this:</p>
+<div class="code javascript highlight-python"><div class="highlight"><pre><span class="n">widget</span><span class="o">.</span><span class="n">DOMWidgetView</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="o">...</span><span class="p">})</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Custom models are encouraged. When possible, it&#8217;s recommended to move
+your code into a custom model, so actions are performed 1 time,
+instead of N times where N is the number of displayed views.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Generally, custom widget Python code can remain unchanged. If you
+distribute your custom widget, you may be using <tt class="docutils literal"><span class="pre">display</span></tt> and
+<tt class="docutils literal"><span class="pre">Javascript</span></tt> to publish the widget&#8217;s Javascript to the front-end. That
+is no longer the recommended way of distributing widget Javascript.
+Instead have the user install the Javascript to his/her nbextension
+directory or their profile&#8217;s static directory. Then use the new
+<tt class="docutils literal"><span class="pre">_view_module</span></tt> and <tt class="docutils literal"><span class="pre">_model_module</span></tt> traitlets in combination with
+<tt class="docutils literal"><span class="pre">_view_name</span></tt> and <tt class="docutils literal"><span class="pre">_model_name</span></tt> to instruct require.js on how to load
+the widget&#8217;s Javascript. The Javascript is then loaded when the widget
+is used for the first time.</p>
+</div>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="asynchronous">
+<h3>Asynchronous<a class="headerlink" href="#asynchronous" title="Permalink to this headline">¶</a></h3>
+<p>In the IPython 2.x series the only way to register custom widget views
+and models was to use the registry in the widget manager. Unfortunately,
+using this method made distributing and running custom widgets difficult. The widget
+maintainer had to either use the rich display framework to push the
+widget&#8217;s Javascript to the notebook or instruct the users to install the
+Javascript by hand in a custom profile. With the first method, the
+maintainer would have to be careful about when the Javascript was pushed
+to the front-end. If the Javascript was pushed on Python widget
+<tt class="docutils literal"><span class="pre">import</span></tt>, the widgets wouldn&#8217;t work after page refresh. This is
+because refreshing the page does not restart the kernel, and the Python
+<tt class="docutils literal"><span class="pre">import</span></tt> statement only runs once in a given kernel instance (unless
+you reload the Python modules, which isn&#8217;t straight forward). This meant
+the maintainer would have to have a separate <tt class="docutils literal"><span class="pre">push_js()</span></tt> method that
+the user would have to call after importing the widget&#8217;s Python code.</p>
+<p>Our solution was to add support for loading widget views and models
+using require.js paths. Thus the comm and widget frameworks now support
+lazy loading. To do so, everything had to be converted to asynchronous
+code. HTML5 promises are used to accomplish that
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6818">#6818</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6914">#6914</a>).</p>
+</div>
+<div class="section" id="symmetry">
+<h3>Symmetry<a class="headerlink" href="#symmetry" title="Permalink to this headline">¶</a></h3>
+<p>In IPython 3.0, widgets can be instantiated from the front-end
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6664">#6664</a>). On top of
+this, a widget persistence API was added
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/7163">#7163</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7227">#7227</a>). With the
+widget persistence API, you can persist your widget instances using
+Javascript. This makes it easy to persist your widgets to your notebook
+document (with a small amount of custom JS). By default, the widgets are
+persisted to your web browsers local storage which makes them reappear
+when your refresh the page.</p>
+</div>
+<div class="section" id="smaller-changes">
+<h3>Smaller Changes<a class="headerlink" href="#smaller-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Latex math is supported in widget <tt class="docutils literal"><span class="pre">description</span></tt>s
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/5937">#5937</a>).</li>
+<li>Widgets can be display more than once within a single container
+widget (<a class="reference external" href="https://github.com/ipython/ipython/pull/5963">#5963</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6990">#6990</a>).</li>
+<li><tt class="docutils literal"><span class="pre">FloatRangeSlider</span></tt> and <tt class="docutils literal"><span class="pre">IntRangeSlider</span></tt> were added
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6050">#6050</a>).</li>
+<li>&#8220;Widget&#8221; was removed from the ends of all of the widget class names
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
+<li><tt class="docutils literal"><span class="pre">ContainerWidget</span></tt> was renamed to <tt class="docutils literal"><span class="pre">Box</span></tt>
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
+<li><tt class="docutils literal"><span class="pre">HBox</span></tt> and <tt class="docutils literal"><span class="pre">VBox</span></tt> widgets were added
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
+<li><tt class="docutils literal"><span class="pre">add\_class</span></tt> and <tt class="docutils literal"><span class="pre">remove\_class</span></tt> were removed in favor of a
+<tt class="docutils literal"><span class="pre">_dom_classes</span></tt> list
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6235">#6235</a>).</li>
+<li><tt class="docutils literal"><span class="pre">get\_css</span></tt> and <tt class="docutils literal"><span class="pre">set\_css</span></tt> were removed in favor of explicit
+traits for widget styling
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6235">#6235</a>).</li>
+<li><tt class="docutils literal"><span class="pre">jslink</span></tt> and <tt class="docutils literal"><span class="pre">jsdlink</span></tt> were added
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6454">#6454</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7468">#7468</a>).</li>
+<li>An <tt class="docutils literal"><span class="pre">Output</span></tt> widget was added, which allows you to <tt class="docutils literal"><span class="pre">print</span></tt> and
+<tt class="docutils literal"><span class="pre">display</span></tt> within widgets
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6670">#6670</a>).</li>
+<li><tt class="docutils literal"><span class="pre">PopupWidget</span></tt> was removed
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/7341">#7341</a>).</li>
+<li>A visual cue was added for widgets with &#8216;dead&#8217; comms
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/7227">#7227</a>).</li>
+<li>A <tt class="docutils literal"><span class="pre">SelectMultiple</span></tt> widget was added (a <tt class="docutils literal"><span class="pre">Select</span></tt> widget that
+allows multiple things to be selected at once)
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6890">#6890</a>).</li>
+<li>A class was added to help manage children views
+(<a class="reference external" href="https://github.com/ipython/ipython/pull/6990">#6990</a>).</li>
+<li>A warning was added that shows on widget import because it&#8217;s expected
+that the API will change again by IPython 4.0. This warning can be
+supressed (<a class="reference external" href="https://github.com/ipython/ipython/pull/7107">#7107</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7200">#7200</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7201">#7201</a>,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7204">#7204</a>).</li>
+</ul>
+</div>
+</div>
+<div class="section" id="comm-and-widget-pr-index">
+<h2>Comm and Widget PR Index<a class="headerlink" href="#comm-and-widget-pr-index" title="Permalink to this headline">¶</a></h2>
+<p>Here is a chronological list of PRs affecting the widget and comm frameworks for IPython 3.0. Note that later PRs may revert changes
+made in earlier PRs:</p>
+<ul class="simple">
+<li>Add placeholder attribute to text widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/5652">#5652</a></li>
+<li>Add latex support in widget labels,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/5937">#5937</a></li>
+<li>Allow widgets to display more than once within container widgets.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/5963">#5963</a></li>
+<li>use require.js,
+<a class="reference external" href="https://github.com/ipython/ipython/pull/5980">#5980</a></li>
+<li>Range widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6050">#6050</a></li>
+<li>Interact on_demand option
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6051">#6051</a></li>
+<li>Allow text input on slider widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6106">#6106</a></li>
+<li>support binary buffers in comm messages
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6110">#6110</a></li>
+<li>Embrace the flexible box model in the widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a></li>
+<li>Widget trait serialization
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6128">#6128</a></li>
+<li>Make Container widgets take children as the first positional
+argument <a class="reference external" href="https://github.com/ipython/ipython/pull/6153">#6153</a></li>
+<li>once-displayed
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6168">#6168</a></li>
+<li>Validate slider value, when limits change
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6171">#6171</a></li>
+<li>Unregistering comms in Comm Manager
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6216">#6216</a></li>
+<li>Add EventfulList and EventfulDict trait types.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6228">#6228</a></li>
+<li>Remove add/remove_class and set/get_css.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6235">#6235</a></li>
+<li>avoid unregistering widget model twice
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6250">#6250</a></li>
+<li>Widget property lock should compare json states, not python states
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6332">#6332</a></li>
+<li>Strip the IPY_MODEL_ prefix from widget IDs before referencing
+them. <a class="reference external" href="https://github.com/ipython/ipython/pull/6377">#6377</a></li>
+<li>&#8220;event&#8221; is not defined error in Firefox
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6437">#6437</a></li>
+<li>Javascript link
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6454">#6454</a></li>
+<li>Bulk update of widget attributes
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6463">#6463</a></li>
+<li>Creating a widget registry on the Python side.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6493">#6493</a></li>
+<li>Allow widget views to be loaded from require modules
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6494">#6494</a></li>
+<li>Fix Issue #6530
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6532">#6532</a></li>
+<li>Make comm manager (mostly) independent of InteractiveShell
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6540">#6540</a></li>
+<li>Add semantic classes to top-level containers for single widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6609">#6609</a></li>
+<li>Selection Widgets: forcing &#8216;value&#8217; to be in &#8216;values&#8217;
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6617">#6617</a></li>
+<li>Allow widgets to be constructed from Javascript
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6664">#6664</a></li>
+<li>Output widget
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6670">#6670</a></li>
+<li>Minor change in widgets.less to fix alignment issue
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6681">#6681</a></li>
+<li>Make Selection widgets respect values order.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6747">#6747</a></li>
+<li>Widget persistence API
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6789">#6789</a></li>
+<li>Add promises to the widget framework.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6818">#6818</a></li>
+<li>SelectMultiple widget
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6890">#6890</a></li>
+<li>Tooltip on toggle button
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6923">#6923</a></li>
+<li>Allow empty text box *while typing* for numeric widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6943">#6943</a></li>
+<li>Ignore failure of widget MathJax typesetting
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6948">#6948</a></li>
+<li>Refactor the do_diff and manual child view lists into a separate
+ViewList object
+<a class="reference external" href="https://github.com/ipython/ipython/pull/6990">#6990</a></li>
+<li>Add warning to widget namespace import.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7107">#7107</a></li>
+<li>lazy load widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7120">#7120</a></li>
+<li>Fix padding of widgets.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7139">#7139</a></li>
+<li>Persist widgets across page refresh
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7163">#7163</a></li>
+<li>Make the widget experimental error a real python warning
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7200">#7200</a></li>
+<li>Make the widget error message shorter and more understandable.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7201">#7201</a></li>
+<li>Make the widget warning brief and easy to filter
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7204">#7204</a></li>
+<li>Add visual cue for widgets with dead comms
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7227">#7227</a></li>
+<li>Widget values as positional arguments
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7260">#7260</a></li>
+<li>Remove the popup widget
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7341">#7341</a></li>
+<li>document and validate link, dlink
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7468">#7468</a></li>
+<li>Document interact 5637
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7525">#7525</a></li>
+<li>Update some broken examples of using widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7547">#7547</a></li>
+<li>Use Output widget with Interact
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7554">#7554</a></li>
+<li>don&#8217;t send empty execute_result messages
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7560">#7560</a></li>
+<li>Validation on the python side
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7602">#7602</a></li>
+<li>only show prompt overlay if there&#8217;s a prompt
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7661">#7661</a></li>
+<li>Allow predictate to be used for comparison in selection widgets
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7674">#7674</a></li>
+<li>Fix widget view persistence.
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7680">#7680</a></li>
+<li>Revert &#8220;Use Output widget with Interact&#8221;
+<a class="reference external" href="https://github.com/ipython/ipython/pull/7703">#7703</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="version2.0.html" title="2.x Series"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="github-stats-3.html" title="Issues closed in the 3.x development cycle"
+             >previous</a> |</li>
+        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
+        <li><a href="../search.html">search</a>|&nbsp;</li>
+       <li><a href="../index.html">documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >What&#8217;s new in IPython</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright The IPython Development Team.
+      Last updated on Feb 27, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
