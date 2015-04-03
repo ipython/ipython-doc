@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython kernel options &mdash; IPython 3.0.0 documentation</title>
+    <title>IPython kernel options &mdash; IPython 3.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0',
+        VERSION:     '3.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.1.0 documentation" href="../../index.html" />
     <link rel="up" title="IPython options" href="index.html" />
     <link rel="next" title="IPython notebook options" href="notebook.html" />
     <link rel="prev" title="Terminal IPython options" href="terminal.html" /> 
@@ -249,6 +249,10 @@ selecting a particular matplotlib backend and loop integration.</dd>
 and an <tt class="docutils literal"><span class="pre">import</span> <span class="pre">*</span></tt> is done from numpy and pylab, when using pylab mode.</p>
 <p class="last">When False, pylab mode should not import any names into the user namespace.</p>
 </dd>
+<dt>IPKernelApp.reraise_ipython_extension_failures <span class="classifier-delimiter">:</span> <span class="classifier">Bool</span></dt>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
+<p class="last">Reraise exceptions encountered loading IPython extensions?</p>
+</dd>
 <dt>IPKernelApp.shell_port <span class="classifier-delimiter">:</span> <span class="classifier">Integer</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">0</span></tt></p>
 <p class="last">set the shell (ROUTER) port [default: random]</p>
@@ -304,7 +308,7 @@ objects are automatically called (even if no arguments are present).</p>
 <p class="last">Enable magic commands to be called without the leading %.</p>
 </dd>
 <dt>ZMQInteractiveShell.banner1 <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'Python</span> <span class="pre">2.7.8</span> <span class="pre">(default,</span> <span class="pre">Oct</span> <span class="pre">20</span> <span class="pre">2014,</span> <span class="pre">15:05:19)</span> <span class="pre">\nType</span> <span class="pre">&quot;copyri...</span></tt></p>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'Python</span> <span class="pre">2.7.9</span> <span class="pre">|Continuum</span> <span class="pre">Analytics,</span> <span class="pre">Inc.|</span> <span class="pre">(default,</span> <span class="pre">Dec</span> <span class="pre">15</span> <span class="pre">20...</span></tt></p>
 <p class="last">The part of the banner to be printed before the profile</p>
 </dd>
 <dt>ZMQInteractiveShell.banner2 <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
@@ -327,7 +331,7 @@ information is passed through a pager (like &#8216;less&#8217;), and some pagers
 get confused with color codes, this capability can be turned off.</p>
 </dd>
 <dt>ZMQInteractiveShell.colors <span class="classifier-delimiter">:</span> <span class="classifier">&#8216;NoColor&#8217;|&#8217;LightBG&#8217;|&#8217;Linux&#8217;</span></dt>
-<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'Linux'</span></tt></p>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">'LightBG'</span></tt></p>
 <p class="last">Set the color scheme (NoColor, Linux, or LightBG).</p>
 </dd>
 <dt>ZMQInteractiveShell.debug <span class="classifier-delimiter">:</span> <span class="classifier">CBool</span></dt>
@@ -363,7 +367,8 @@ will be displayed as regular output instead.</p>
 </dd>
 <dt>ZMQInteractiveShell.logappend <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">''</span></tt></p>
-<p class="last">Start logging to the given file in append mode.</p>
+<p class="last">Start logging to the given file in append mode.
+Use <tt class="docutils literal"><span class="pre">logfile</span></tt> to specify a log file to <strong>overwrite</strong> logs to.</p>
 </dd>
 <dt>ZMQInteractiveShell.logfile <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">''</span></tt></p>
@@ -371,7 +376,8 @@ will be displayed as regular output instead.</p>
 </dd>
 <dt>ZMQInteractiveShell.logstart <span class="classifier-delimiter">:</span> <span class="classifier">CBool</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">False</span></tt></p>
-<p class="last">Start logging to the default log file.</p>
+<p class="last">Start logging to the default log file in overwrite mode.
+Use <tt class="docutils literal"><span class="pre">logappend</span></tt> to specify a log file to <strong>append</strong> logs to.</p>
 </dd>
 <dt>ZMQInteractiveShell.multiline_history <span class="classifier-delimiter">:</span> <span class="classifier">CBool</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">True</span></tt></p>
@@ -466,7 +472,7 @@ Containers larger than this are pickled outright.</p>
 </dd>
 <dt>Session.key <span class="classifier-delimiter">:</span> <span class="classifier">CBytes</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">''</span></tt></p>
-<p class="last">execution key, for extra authentication.</p>
+<p class="last">execution key, for signing messages.</p>
 </dd>
 <dt>Session.keyfile <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
 <dd><p class="first">Default: <tt class="docutils literal"><span class="pre">''</span></tt></p>
@@ -497,7 +503,7 @@ Must have the form &#8216;hmac-HASH&#8217;.</p>
 Only used with custom functions for <tt class="docutils literal"><span class="pre">packer</span></tt>.</p>
 </dd>
 <dt>Session.username <span class="classifier-delimiter">:</span> <span class="classifier">Unicode</span></dt>
-<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">u'takluyver'</span></tt></p>
+<dd><p class="first">Default: <tt class="docutils literal"><span class="pre">u'minrk'</span></tt></p>
 <p class="last">Username for the Session. Default is your system username.</p>
 </dd>
 </dl>
@@ -534,8 +540,8 @@ Only used with custom functions for <tt class="docutils literal"><span class="pr
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Feb 27, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Apr 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

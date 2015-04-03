@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: nbconvert.nbconvertapp &mdash; IPython 3.0.0 documentation</title>
+    <title>Module: nbconvert.nbconvertapp &mdash; IPython 3.1.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.0.0',
+        VERSION:     '3.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.0.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.1.0 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: nbconvert.postprocessors.base" href="IPython.nbconvert.postprocessors.base.html" />
     <link rel="prev" title="Module: nbconvert.filters.strings" href="IPython.nbconvert.filters.strings.html" /> 
@@ -107,7 +107,7 @@
 <h2>2 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.nbconvert.nbconvertapp.DottedOrNone">
-<em class="property">class </em><tt class="descclassname">IPython.nbconvert.nbconvertapp.</tt><tt class="descname">DottedOrNone</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x7fb6f7380790&gt;</em>, <em>allow_none=None</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.DottedOrNone" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">IPython.nbconvert.nbconvertapp.</tt><tt class="descname">DottedOrNone</tt><big>(</big><em>default_value=&lt;IPython.utils.traitlets.NoDefaultSpecified object at 0x10a0a6b50&gt;</em>, <em>allow_none=None</em>, <em>**metadata</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.DottedOrNone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="IPython.utils.traitlets.html#IPython.utils.traitlets.DottedObjectName" title="IPython.utils.traitlets.DottedObjectName"><tt class="xref py py-class docutils literal"><span class="pre">IPython.utils.traitlets.DottedObjectName</span></tt></a></p>
 <p>A string holding a valid dotted object name in Python, such as A.b3._c
 Also allows for None type.</p>
@@ -122,6 +122,27 @@ Also allows for None type.</p>
 <dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.convert_notebooks">
 <tt class="descname">convert_notebooks</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.convert_notebooks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert the notebooks in the self.notebook traitlet</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.convert_single_notebook">
+<tt class="descname">convert_single_notebook</tt><big>(</big><em>notebook_filename</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.convert_single_notebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a single notebook. Performs the following steps:</p>
+<ol class="arabic simple">
+<li>Initialize notebook resources</li>
+<li>Export the notebook to a particular format</li>
+<li>Write the exported notebook to file</li>
+<li>(Maybe) postprocess the written file</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.export_single_notebook">
+<tt class="descname">export_single_notebook</tt><big>(</big><em>notebook_filename</em>, <em>resources</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.export_single_notebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step 2: Export the notebook</p>
+<p>Exports the notebook to a particular format according to the specified
+exporter. This function returns the output and (possibly modified)
+resources from the exporter.</p>
 </dd></dl>
 
 <dl class="method">
@@ -140,6 +161,23 @@ Glob each notebook to replace notebook patterns with filenames.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.init_single_notebook_resources">
+<tt class="descname">init_single_notebook_resources</tt><big>(</big><em>notebook_filename</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.init_single_notebook_resources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step 1: Initialize resources</p>
+<p>This intializes the resources dictionary for a single notebook. This
+method should return the resources dictionary, and MUST include the
+following keys:</p>
+<blockquote>
+<div><ul class="simple">
+<li>profile_dir: the location of the profile directory</li>
+<li>unique_key: the notebook name</li>
+<li>output_files_dir: a directory where output files (not including
+the notebook itself) should be saved</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.init_syspath">
 <tt class="descname">init_syspath</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.init_syspath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add the cwd to the sys.path ($PYTHONPATH)</p>
@@ -152,9 +190,26 @@ Glob each notebook to replace notebook patterns with filenames.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.postprocess_single_notebook">
+<tt class="descname">postprocess_single_notebook</tt><big>(</big><em>write_results</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.postprocess_single_notebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step 4: Postprocess the notebook</p>
+<p>This postprocesses the notebook after it has been written, taking as an
+argument the results of writing the notebook to file. This only actually
+does anything if a postprocessor has actually been specified.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.start">
 <tt class="descname">start</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ran after initialization completed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.nbconvert.nbconvertapp.NbConvertApp.write_single_notebook">
+<tt class="descname">write_single_notebook</tt><big>(</big><em>output</em>, <em>resources</em><big>)</big><a class="headerlink" href="#IPython.nbconvert.nbconvertapp.NbConvertApp.write_single_notebook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step 3: Write the notebook to file</p>
+<p>This writes output from the exporter to file using the specified writer.
+It returns the results from the writer.</p>
 </dd></dl>
 
 </dd></dl>
@@ -192,8 +247,8 @@ Glob each notebook to replace notebook patterns with filenames.</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Feb 27, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Last updated on Apr 03, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
