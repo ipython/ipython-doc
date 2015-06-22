@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.services.contents.checkpoints &mdash; IPython 3.1.0 documentation</title>
+    <title>Module: html.services.contents.checkpoints &mdash; IPython 3.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.1.0',
+        VERSION:     '3.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.1.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.2.0 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.services.contents.filecheckpoints" href="IPython.html.services.contents.filecheckpoints.html" />
     <link rel="prev" title="Module: html.services.config.manager" href="IPython.html.services.config.manager.html" /> 
@@ -174,7 +174,7 @@ and <tt class="docutils literal"><span class="pre">restore_checkpoint</span></tt
 <li>get_notebook_checkpoint(self, checkpoint_id, path)</li>
 </ul>
 <p>To create a generic CheckpointManager, add this mixin to a class that
-implement the above three methods plus the remaining Checkpoints API
+implement the above four methods plus the remaining Checkpoints API
 methods:</p>
 <ul class="simple">
 <li>delete_checkpoint(self, checkpoint_id, path)</li>
@@ -196,11 +196,28 @@ methods:</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_checkpoint">
-<tt class="descname">get_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em>, <em>type</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_checkpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the content of a checkpoint.</p>
-<p>Returns an unvalidated model with the same structure as
-the return value of ContentsManager.get</p>
+<dt id="IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_file_checkpoint">
+<tt class="descname">get_file_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_file_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the content of a checkpoint for a non-notebook file.</p>
+<p>Returns a dict of the form:
+{</p>
+<blockquote>
+<div>&#8216;type&#8217;: &#8216;file&#8217;,
+&#8216;content&#8217;: &lt;str&gt;,
+&#8216;format&#8217;: {&#8216;text&#8217;,&#8217;base64&#8217;},</div></blockquote>
+<p>}</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_notebook_checkpoint">
+<tt class="descname">get_notebook_checkpoint</tt><big>(</big><em>checkpoint_id</em>, <em>path</em><big>)</big><a class="headerlink" href="#IPython.html.services.contents.checkpoints.GenericCheckpointsMixin.get_notebook_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the content of a checkpoint for a notebook.</p>
+<p>Returns a dict of the form:
+{</p>
+<blockquote>
+<div>&#8216;type&#8217;: &#8216;notebook&#8217;,
+&#8216;content&#8217;: &lt;output of nbformat.read&gt;,</div></blockquote>
+<p>}</p>
 </dd></dl>
 
 <dl class="method">
@@ -244,7 +261,7 @@ the return value of ContentsManager.get</p>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Apr 03, 2015.
+      Last updated on Jun 21, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>

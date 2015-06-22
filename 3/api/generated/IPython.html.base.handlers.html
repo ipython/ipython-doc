@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Module: html.base.handlers &mdash; IPython 3.1.0 documentation</title>
+    <title>Module: html.base.handlers &mdash; IPython 3.2.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '3.1.0',
+        VERSION:     '3.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.1.0 documentation" href="../../index.html" />
+    <link rel="top" title="IPython 3.2.0 documentation" href="../../index.html" />
     <link rel="up" title="The IPython API" href="../index.html" />
     <link rel="next" title="Module: html.base.zmqhandlers" href="IPython.html.base.zmqhandlers.html" />
     <link rel="prev" title="Module: html.auth.logout" href="IPython.html.auth.logout.html" /> 
@@ -62,7 +62,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Module: <tt class="docutils literal"><span class="pre">html.base.handlers</span></tt></a><ul>
-<li><a class="reference internal" href="#classes">8 Classes</a></li>
+<li><a class="reference internal" href="#classes">9 Classes</a></li>
 <li><a class="reference internal" href="#function">1 Function</a></li>
 </ul>
 </li>
@@ -104,12 +104,19 @@
 <span id="module-html-base-handlers"></span><h1>Module: <tt class="xref py py-mod docutils literal"><span class="pre">html.base.handlers</span></tt><a class="headerlink" href="#module-IPython.html.base.handlers" title="Permalink to this headline">¶</a></h1>
 <p>Base Tornado handlers for the notebook server.</p>
 <div class="section" id="classes">
-<h2>8 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<h2>9 Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="IPython.html.base.handlers.AuthenticatedHandler">
 <em class="property">class </em><tt class="descclassname">IPython.html.base.handlers.</tt><tt class="descname">AuthenticatedHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.handlers.AuthenticatedHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">tornado.web.RequestHandler</span></tt></p>
 <p>A RequestHandler with an authenticated user.</p>
+<dl class="attribute">
+<dt id="IPython.html.base.handlers.AuthenticatedHandler.content_security_policy">
+<tt class="descname">content_security_policy</tt><a class="headerlink" href="#IPython.html.base.handlers.AuthenticatedHandler.content_security_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default Content-Security-Policy header</p>
+<p>Can be overridden by defining Content-Security-Policy in settings[&#8216;headers&#8217;]</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="IPython.html.base.handlers.AuthenticatedHandler.logged_in">
 <tt class="descname">logged_in</tt><a class="headerlink" href="#IPython.html.base.handlers.AuthenticatedHandler.logged_in" title="Permalink to this definition">¶</a></dt>
@@ -169,6 +176,12 @@ whether the user is already logged in or not.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="IPython.html.base.handlers.IPythonHandler.jinja_template_vars">
+<tt class="descname">jinja_template_vars</tt><a class="headerlink" href="#IPython.html.base.handlers.IPythonHandler.jinja_template_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>User-supplied values to supply to jinja templates.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="IPython.html.base.handlers.IPythonHandler.log">
 <tt class="descname">log</tt><a class="headerlink" href="#IPython.html.base.handlers.IPythonHandler.log" title="Permalink to this definition">¶</a></dt>
 <dd><p>use the IPython log by default, falling back on tornado&#8217;s logger</p>
@@ -192,6 +205,13 @@ whether the user is already logged in or not.</p>
 <dd><p>render custom error pages</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="IPython.html.base.handlers.APIHandler">
+<em class="property">class </em><tt class="descclassname">IPython.html.base.handlers.</tt><tt class="descname">APIHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.handlers.APIHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a></p>
+<p>Base class for API handlers</p>
 </dd></dl>
 
 <dl class="class">
@@ -219,7 +239,7 @@ whether the user is already logged in or not.</p>
 <dl class="class">
 <dt id="IPython.html.base.handlers.FileFindHandler">
 <em class="property">class </em><tt class="descclassname">IPython.html.base.handlers.</tt><tt class="descname">FileFindHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.handlers.FileFindHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">tornado.web.StaticFileHandler</span></tt></p>
+<dd><p>Bases: <a class="reference internal" href="#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a>, <tt class="xref py py-class docutils literal"><span class="pre">tornado.web.StaticFileHandler</span></tt></p>
 <p>subclass of StaticFileHandler for serving files from a search path</p>
 <dl class="classmethod">
 <dt id="IPython.html.base.handlers.FileFindHandler.get_absolute_path">
@@ -236,9 +256,9 @@ whether the user is already logged in or not.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="IPython.html.base.handlers.ApiVersionHandler">
-<em class="property">class </em><tt class="descclassname">IPython.html.base.handlers.</tt><tt class="descname">ApiVersionHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.handlers.ApiVersionHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#IPython.html.base.handlers.IPythonHandler" title="IPython.html.base.handlers.IPythonHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.IPythonHandler</span></tt></a></p>
+<dt id="IPython.html.base.handlers.APIVersionHandler">
+<em class="property">class </em><tt class="descclassname">IPython.html.base.handlers.</tt><tt class="descname">APIVersionHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#IPython.html.base.handlers.APIVersionHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#IPython.html.base.handlers.APIHandler" title="IPython.html.base.handlers.APIHandler"><tt class="xref py py-class docutils literal"><span class="pre">IPython.html.base.handlers.APIHandler</span></tt></a></p>
 </dd></dl>
 
 <dl class="class">
@@ -313,7 +333,7 @@ the error in a human readable form.</li>
     </div>
     <div class="footer">
         &copy; Copyright The IPython Development Team.
-      Last updated on Apr 03, 2015.
+      Last updated on Jun 21, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
