@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging in IPython &mdash; IPython 2.4.0 documentation</title>
+    <title>Messaging in IPython &mdash; IPython 2.4.2-maint documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.4.0',
+        VERSION:     '2.4.2-maint',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.4.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.4.2-maint documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Messaging for Parallel Computing" href="parallel_messages.html" />
-    <link rel="prev" title="IPython developer’s guide" href="index.html" /> 
+    <link rel="prev" title="IPython developer’s guide" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -113,12 +117,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="parallel_messages.html"
                         title="next chapter">Messaging for Parallel Computing</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/development/messaging.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/development/messaging.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -137,9 +143,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="messaging-in-ipython">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="messaging-in-ipython">
 <span id="messaging"></span><h1>Messaging in IPython<a class="headerlink" href="#messaging-in-ipython" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="versioning">
 <h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
@@ -165,7 +178,7 @@ common reference for all protocol details.</p>
 kernel has three sockets that serve the following functions:</p>
 <ol class="arabic">
 <li><p class="first">stdin: this ROUTER socket is connected to all frontends, and it allows
-the kernel to request input from the active frontend when <a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt></a> is called.
+the kernel to request input from the active frontend when <a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">raw_input()</span></code></a> is called.
 The frontend that executed the code has a DEALER socket that acts as a &#8216;virtual keyboard&#8217;
 for the kernel while this communication is happening (illustrated in the
 figure by the black outline around the central keyboard).  In practice,
@@ -182,8 +195,8 @@ each frontend and the kernel.</p>
 <li><p class="first">IOPub: this socket is the &#8216;broadcast channel&#8217; where the kernel publishes all
 side effects (stdout, stderr, etc.) as well as the requests coming from any
 client over the shell socket and its own requests on the stdin socket.  There
-are a number of actions in Python which generate side effects: <a class="reference external" href="http://docs.python.org/2/library/functions.html#print" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">print()</span></tt></a>
-writes to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt>, errors generate tracebacks, etc.  Additionally, in
+are a number of actions in Python which generate side effects: <a class="reference external" href="http://docs.python.org/2/library/functions.html#print" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">print()</span></code></a>
+writes to <code class="docutils literal"><span class="pre">sys.stdout</span></code>, errors generate tracebacks, etc.  Additionally, in
 a multi-client scenario, we want all frontends to be able to know what each
 other has sent to the kernel (this can be useful in collaborative scenarios,
 for example).  This socket allows both side effects and the information
@@ -247,12 +260,12 @@ kernel and frontend files for actual implementation details.</p>
 <h2>The Wire Protocol<a class="headerlink" href="#the-wire-protocol" title="Permalink to this headline">¶</a></h2>
 <p>This message format exists at a high level,
 but does not describe the actual <em>implementation</em> at the wire level in zeromq.
-The canonical implementation of the message spec is our <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><tt class="xref py py-class docutils literal"><span class="pre">Session</span></tt></a> class.</p>
+The canonical implementation of the message spec is our <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><code class="xref py py-class docutils literal"><span class="pre">Session</span></code></a> class.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This section should only be relevant to non-Python consumers of the protocol.
 Python consumers should simply import and use IPython&#8217;s own implementation of the wire protocol
-in the <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.session.Session</span></tt></a> object.</p>
+in the <a class="reference internal" href="../api/generated/IPython.kernel.zmq.session.html#IPython.kernel.zmq.session.Session" title="IPython.kernel.zmq.session.Session"><code class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.session.Session</span></code></a> object.</p>
 </div>
 <p>Every message is serialized to a sequence of at least six blobs of bytes:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
@@ -270,15 +283,15 @@ in the <a class="reference internal" href="../api/generated/IPython.kernel.zmq.s
 </div>
 <p>The front of the message is the ZeroMQ routing prefix,
 which can be zero or more socket identities.
-This is every piece of the message prior to the delimiter key <tt class="docutils literal"><span class="pre">&lt;IDS|MSG&gt;</span></tt>.
+This is every piece of the message prior to the delimiter key <code class="docutils literal"><span class="pre">&lt;IDS|MSG&gt;</span></code>.
 In the case of IOPub, there should be just one prefix component,
-which is the topic for IOPub subscribers, e.g. <tt class="docutils literal"><span class="pre">pyout</span></tt>, <tt class="docutils literal"><span class="pre">display_data</span></tt>.</p>
+which is the topic for IOPub subscribers, e.g. <code class="docutils literal"><span class="pre">pyout</span></code>, <code class="docutils literal"><span class="pre">display_data</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">In most cases, the IOPub topics are irrelevant and completely ignored,
 because frontends just subscribe to all topics.
 The convention used in the IPython kernel is to use the msg_type as the topic,
-and possibly extra information about the message, e.g. <tt class="docutils literal"><span class="pre">pyout</span></tt> or <tt class="docutils literal"><span class="pre">stream.stdout</span></tt></p>
+and possibly extra information about the message, e.g. <code class="docutils literal"><span class="pre">pyout</span></code> or <code class="docutils literal"><span class="pre">stream.stdout</span></code></p>
 </div>
 <p>After the delimiter is the <a class="reference external" href="http://en.wikipedia.org/wiki/HMAC">HMAC</a> signature of the message, used for authentication.
 If authentication is disabled, this should be an empty string.
@@ -290,7 +303,7 @@ set the <cite>key</cite> field of a connection file to an empty string.</p>
 </div>
 <p>The signature is the HMAC hex digest of the concatenation of:</p>
 <ul class="simple">
-<li>A shared key (typically the <tt class="docutils literal"><span class="pre">key</span></tt> field of a connection file)</li>
+<li>A shared key (typically the <code class="docutils literal"><span class="pre">key</span></code> field of a connection file)</li>
 <li>The serialized header dict</li>
 <li>The serialized parent header dict</li>
 <li>The serialized metadata dict</li>
@@ -318,7 +331,7 @@ which can be used by message types that support binary data (mainly apply and da
 </div>
 <div class="section" id="python-functional-api">
 <h2>Python functional API<a class="headerlink" href="#python-functional-api" title="Permalink to this headline">¶</a></h2>
-<p>As messages are dicts, they map naturally to a <tt class="docutils literal"><span class="pre">func(**kw)</span></tt> call form.  We
+<p>As messages are dicts, they map naturally to a <code class="docutils literal"><span class="pre">func(**kw)</span></code> call form.  We
 should develop, at a few key points, functional forms of all the requests that
 take arguments in this manner and automatically construct the necessary dict
 for sending.</p>
@@ -346,7 +359,7 @@ extended structure.</p>
 <p>This message type is used by frontends to ask the kernel to execute code on
 behalf of the user, in a namespace reserved to the user&#8217;s variables (and thus
 separate from the kernel&#8217;s own internal code and variables).</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">execute_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">execute_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># Source code to be executed by the kernel, one or more lines.</span>
 <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -384,11 +397,11 @@ separate from the kernel&#8217;s own internal code and variables).</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">code</span></tt> field contains a single string (possibly multiline).  The kernel
+<p>The <code class="docutils literal"><span class="pre">code</span></code> field contains a single string (possibly multiline).  The kernel
 is responsible for splitting this into one or more independent execution blocks
 and deciding whether to compile these in &#8216;single&#8217; or &#8216;exec&#8217; mode (see below for
 detailed execution semantics).</p>
-<p>The <tt class="docutils literal"><span class="pre">user_</span></tt> fields deserve a detailed explanation.  In the past, IPython had
+<p>The <code class="docutils literal"><span class="pre">user_</span></code> fields deserve a detailed explanation.  In the past, IPython had
 the notion of a prompt string that allowed arbitrary code to be evaluated, and
 this was put to good use by many in creating prompts that displayed system
 status, path information, and even more esoteric uses like remote instrument
@@ -397,16 +410,16 @@ between the kernel and the clients, the kernel has no prompt knowledge; prompts
 are a frontend-side feature, and it should be even possible for different
 frontends to display different prompts while interacting with the same kernel.</p>
 <p>The kernel now provides the ability to retrieve data from the user&#8217;s namespace
-after the execution of the main <tt class="docutils literal"><span class="pre">code</span></tt>, thanks to two fields in the
-<tt class="docutils literal"><span class="pre">execute_request</span></tt> message:</p>
+after the execution of the main <code class="docutils literal"><span class="pre">code</span></code>, thanks to two fields in the
+<code class="docutils literal"><span class="pre">execute_request</span></code> message:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">user_variables</span></tt>: If only variables from the user&#8217;s namespace are needed, a
+<li><code class="docutils literal"><span class="pre">user_variables</span></code>: If only variables from the user&#8217;s namespace are needed, a
 list of variable names can be passed and a dict with these names as keys and
-their <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> as values will be returned.</li>
-<li><tt class="docutils literal"><span class="pre">user_expressions</span></tt>: For more complex expressions that require function
+their <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">repr()</span></code></a> as values will be returned.</li>
+<li><code class="docutils literal"><span class="pre">user_expressions</span></code>: For more complex expressions that require function
 evaluations, a dict can be provided with string keys and arbitrary python
 expressions as values.  The return message will contain also a dict with the
-same keys and the <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> of the evaluated expressions as value.</li>
+same keys and the <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">repr()</span></code></a> of the evaluated expressions as value.</li>
 </ul>
 <p>With this information, frontends can display any status information they wish
 in the form that best suits each frontend (a status line, a popup, inline for a
@@ -415,38 +428,38 @@ terminal, etc).</p>
 <p class="first admonition-title">Note</p>
 <p class="last">In order to obtain the current execution counter for the purposes of
 displaying input prompts, frontends simply make an execution request with an
-empty code string and <tt class="docutils literal"><span class="pre">silent=True</span></tt>.</p>
+empty code string and <code class="docutils literal"><span class="pre">silent=True</span></code>.</p>
 </div>
 <div class="section" id="execution-semantics">
 <h4>Execution semantics<a class="headerlink" href="#execution-semantics" title="Permalink to this headline">¶</a></h4>
 <p>When the silent flag is false, the execution of use code consists of the
-following phases (in silent mode, only the <tt class="docutils literal"><span class="pre">code</span></tt> field is executed):</p>
+following phases (in silent mode, only the <code class="docutils literal"><span class="pre">code</span></code> field is executed):</p>
 <ol class="arabic simple">
-<li>Run the <tt class="docutils literal"><span class="pre">pre_runcode_hook</span></tt>.</li>
-<li>Execute the <tt class="docutils literal"><span class="pre">code</span></tt> field, see below for details.</li>
-<li>If #2 succeeds, compute <tt class="docutils literal"><span class="pre">user_variables</span></tt> and <tt class="docutils literal"><span class="pre">user_expressions</span></tt> are
+<li>Run the <code class="docutils literal"><span class="pre">pre_runcode_hook</span></code>.</li>
+<li>Execute the <code class="docutils literal"><span class="pre">code</span></code> field, see below for details.</li>
+<li>If #2 succeeds, compute <code class="docutils literal"><span class="pre">user_variables</span></code> and <code class="docutils literal"><span class="pre">user_expressions</span></code> are
 computed.  This ensures that any error in the latter don&#8217;t harm the main
 code execution.</li>
-<li>Call any method registered with <tt class="xref py py-meth docutils literal"><span class="pre">register_post_execute()</span></tt>.</li>
+<li>Call any method registered with <code class="xref py py-meth docutils literal"><span class="pre">register_post_execute()</span></code>.</li>
 </ol>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">The API for running code before/after the main code block is likely to
-change soon.  Both the <tt class="docutils literal"><span class="pre">pre_runcode_hook</span></tt> and the
-<tt class="xref py py-meth docutils literal"><span class="pre">register_post_execute()</span></tt> are susceptible to modification, as we find a
+change soon.  Both the <code class="docutils literal"><span class="pre">pre_runcode_hook</span></code> and the
+<code class="xref py py-meth docutils literal"><span class="pre">register_post_execute()</span></code> are susceptible to modification, as we find a
 consistent model for both.</p>
 </div>
-<p>To understand how the <tt class="docutils literal"><span class="pre">code</span></tt> field is executed, one must know that Python
-code can be compiled in one of three modes (controlled by the <tt class="docutils literal"><span class="pre">mode</span></tt> argument
-to the <a class="reference external" href="http://docs.python.org/2/library/functions.html#compile" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">compile()</span></tt></a> builtin):</p>
+<p>To understand how the <code class="docutils literal"><span class="pre">code</span></code> field is executed, one must know that Python
+code can be compiled in one of three modes (controlled by the <code class="docutils literal"><span class="pre">mode</span></code> argument
+to the <a class="reference external" href="http://docs.python.org/2/library/functions.html#compile" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">compile()</span></code></a> builtin):</p>
 <dl class="docutils">
 <dt><em>single</em></dt>
 <dd><p class="first">Valid for a single interactive statement (though the source can contain
 multiple lines, such as a for loop).  When compiled in this mode, the
 generated bytecode contains special instructions that trigger the calling of
-<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></tt></a> for any expression in the block that returns a value.
+<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></code></a> for any expression in the block that returns a value.
 This means that a single statement can actually produce multiple calls to
-<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></tt></a>, if for example it contains a loop where each
+<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></code></a>, if for example it contains a loop where each
 iteration computes an unassigned expression would generate 10 calls:</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">i</span><span class="o">**</span><span class="mi">2</span>
@@ -455,12 +468,12 @@ iteration computes an unassigned expression would generate 10 calls:</p>
 </dd>
 <dt><em>exec</em></dt>
 <dd>An arbitrary amount of source code, this is how modules are compiled.
-<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></tt></a> is <em>never</em> implicitly called.</dd>
+<a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></code></a> is <em>never</em> implicitly called.</dd>
 <dt><em>eval</em></dt>
-<dd>A single expression that returns a value.  <a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></tt></a> is <em>never</em>
+<dd>A single expression that returns a value.  <a class="reference external" href="http://docs.python.org/2/library/sys.html#sys.displayhook" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">sys.displayhook()</span></code></a> is <em>never</em>
 implicitly called.</dd>
 </dl>
-<p>The <tt class="docutils literal"><span class="pre">code</span></tt> field is split into individual blocks each of which is valid for
+<p>The <code class="docutils literal"><span class="pre">code</span></code> field is split into individual blocks each of which is valid for
 execution in &#8216;single&#8217; mode, and then:</p>
 <ul class="simple">
 <li>If there is only a single block: it is executed in &#8216;single&#8217; mode.</li>
@@ -477,8 +490,8 @@ unit.</li>
 </ul>
 </li>
 </ul>
-<p>Any error in retrieving the <tt class="docutils literal"><span class="pre">user_variables</span></tt> or evaluating the
-<tt class="docutils literal"><span class="pre">user_expressions</span></tt> will result in a simple error message in the return fields
+<p>Any error in retrieving the <code class="docutils literal"><span class="pre">user_variables</span></code> or evaluating the
+<code class="docutils literal"><span class="pre">user_expressions</span></code> will result in a simple error message in the return fields
 of the form:</p>
 <div class="highlight-python"><div class="highlight"><pre>[ERROR] ExceptionType: Exception message
 </pre></div>
@@ -490,21 +503,21 @@ and the failing function is removed from the post_execution set so that it does
 not continue triggering failures.</p>
 <p>Upon completion of the execution request, the kernel <em>always</em> sends a reply,
 with a status code indicating what happened and additional data depending on
-the outcome.  See <a class="reference internal" href="#execution-results"><em>below</em></a> for the possible return
+the outcome.  See <a class="reference internal" href="#execution-results"><span>below</span></a> for the possible return
 codes and associated data.</p>
 </div>
 <div class="section" id="execution-counter-old-prompt-number">
 <span id="execution-counter"></span><h4>Execution counter (old prompt number)<a class="headerlink" href="#execution-counter-old-prompt-number" title="Permalink to this headline">¶</a></h4>
 <p>The kernel has a single, monotonically increasing counter of all execution
-requests that are made with <tt class="docutils literal"><span class="pre">store_history=True</span></tt>.  This counter is used to populate
-the <tt class="docutils literal"><span class="pre">In[n]</span></tt>, <tt class="docutils literal"><span class="pre">Out[n]</span></tt> and <tt class="docutils literal"><span class="pre">_n</span></tt> variables, so clients will likely want to
+requests that are made with <code class="docutils literal"><span class="pre">store_history=True</span></code>.  This counter is used to populate
+the <code class="docutils literal"><span class="pre">In[n]</span></code>, <code class="docutils literal"><span class="pre">Out[n]</span></code> and <code class="docutils literal"><span class="pre">_n</span></code> variables, so clients will likely want to
 display it in some form to the user, which will typically (but not necessarily)
 be done in the prompts.  The value of this counter will be returned as the
-<tt class="docutils literal"><span class="pre">execution_count</span></tt> field of all <tt class="docutils literal"><span class="pre">execute_reply</span></tt> and <tt class="docutils literal"><span class="pre">pyin</span></tt> messages.</p>
+<code class="docutils literal"><span class="pre">execution_count</span></code> field of all <code class="docutils literal"><span class="pre">execute_reply</span></code> and <code class="docutils literal"><span class="pre">pyin</span></code> messages.</p>
 </div>
 <div class="section" id="execution-results">
 <span id="id2"></span><h4>Execution results<a class="headerlink" href="#execution-results" title="Permalink to this headline">¶</a></h4>
-<p>Message type: <tt class="docutils literal"><span class="pre">execute_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">execute_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
   <span class="c"># One of: &#39;ok&#39; OR &#39;error&#39; OR &#39;abort&#39;</span>
   <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -574,12 +587,12 @@ happens when the kernel was interrupted by a signal.</p>
 <div class="section" id="object-information">
 <h3>Object information<a class="headerlink" href="#object-information" title="Permalink to this headline">¶</a></h3>
 <p>One of IPython&#8217;s most used capabilities is the introspection of Python objects
-in the user&#8217;s namespace, typically invoked via the <tt class="docutils literal"><span class="pre">?</span></tt> and <tt class="docutils literal"><span class="pre">??</span></tt> characters
-(which in reality are shorthands for the <tt class="docutils literal"><span class="pre">%pinfo</span></tt> magic).  This is used often
+in the user&#8217;s namespace, typically invoked via the <code class="docutils literal"><span class="pre">?</span></code> and <code class="docutils literal"><span class="pre">??</span></code> characters
+(which in reality are shorthands for the <code class="docutils literal"><span class="pre">%pinfo</span></code> magic).  This is used often
 enough that it warrants an explicit message type, especially because frontends
 may want to get object information in response to user keystrokes (like Tab or
-F1) besides from the user explicitly typing code like <tt class="docutils literal"><span class="pre">x??</span></tt>.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">object_info_request</span></tt>:</p>
+F1) besides from the user explicitly typing code like <code class="docutils literal"><span class="pre">x??</span></code>.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">object_info_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># The (possibly dotted) name of the object to be searched in all</span>
     <span class="c"># relevant namespaces</span>
@@ -593,7 +606,7 @@ F1) besides from the user explicitly typing code like <tt class="docutils litera
 </div>
 <p>The returned information will be a dictionary with keys very similar to the
 field names that IPython prints at the terminal.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">object_info_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">object_info_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="c"># The name the object was requested under</span>
 <span class="s">&#39;oname&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -681,7 +694,7 @@ field names that IPython prints at the terminal.</p>
 </div>
 <div class="section" id="complete">
 <h3>Complete<a class="headerlink" href="#complete" title="Permalink to this headline">¶</a></h3>
-<p>Message type: <tt class="docutils literal"><span class="pre">complete_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">complete_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># The text to be completed, such as &#39;a.is&#39;</span>
     <span class="c"># this may be an empty string if the frontend does not do any lexing,</span>
@@ -706,7 +719,7 @@ field names that IPython prints at the terminal.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">complete_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">complete_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="c"># The list of all matches to the completion request, such as</span>
 <span class="c"># [&#39;a.isalnum&#39;, &#39;a.isalpha&#39;] for the above example.</span>
@@ -731,7 +744,7 @@ field names that IPython prints at the terminal.</p>
 <p>For clients to explicitly request history from a kernel.  The kernel has all
 the actual execution history stored in a single location, so clients can
 request it from the kernel when needed.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">history_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">history_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 
   <span class="c"># If True, also return output history in the resulting dict.</span>
@@ -766,9 +779,9 @@ request it from the kernel when needed.</p>
 </pre></div>
 </div>
 <div class="versionadded">
-<p><span class="versionmodified">New in version 4.0: </span>The key <tt class="docutils literal"><span class="pre">unique</span></tt> for <tt class="docutils literal"><span class="pre">history_request</span></tt>.</p>
+<p><span class="versionmodified">New in version 4.0: </span>The key <code class="docutils literal"><span class="pre">unique</span></code> for <code class="docutils literal"><span class="pre">history_request</span></code>.</p>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">history_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">history_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
   <span class="c"># A list of 3 tuples, either:</span>
   <span class="c"># (session, line_number, input) or</span>
@@ -785,12 +798,12 @@ request it from the kernel when needed.</p>
 a connect request to get basic information about the kernel, such as the ports
 the other ZeroMQ sockets are listening on. This allows clients to only have
 to know about a single port (the shell channel) to connect to a kernel.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">connect_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">connect_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">connect_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">connect_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;shell_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>   <span class="c"># The port the shell ROUTER socket is listening on.</span>
     <span class="s">&#39;iopub_port&#39;</span> <span class="p">:</span> <span class="nb">int</span><span class="p">,</span>   <span class="c"># The port the PUB socket is listening on.</span>
@@ -807,12 +820,12 @@ make a request of the kernel&#8217;s information.
 This message can be used to fetch core information of the
 kernel, including language (e.g., Python), language version number and
 IPython version number, and the IPython message spec version number.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">kernel_info_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">kernel_info_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">kernel_info_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">kernel_info_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># Version of messaging protocol (mandatory).</span>
     <span class="c"># The first integer indicates major version.  It is incremented when</span>
@@ -858,13 +871,13 @@ completed shutdown safely.</p>
 <p>Upon their own shutdown, client applications will typically execute a last
 minute sanity check and forcefully terminate any kernel that is still alive, to
 avoid leaving stray processes in the user&#8217;s machine.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">shutdown_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">shutdown_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;restart&#39;</span> <span class="p">:</span> <span class="nb">bool</span> <span class="c"># whether the shutdown is final, or precedes a restart</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">shutdown_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">shutdown_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;restart&#39;</span> <span class="p">:</span> <span class="nb">bool</span> <span class="c"># whether the shutdown is final, or precedes a restart</span>
 <span class="p">}</span>
@@ -882,7 +895,7 @@ process is unlikely to respond in any useful way to messages.</p>
 <h2>Messages on the PUB/SUB socket<a class="headerlink" href="#messages-on-the-pub-sub-socket" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="streams-stdout-stderr-etc">
 <h3>Streams (stdout,  stderr, etc)<a class="headerlink" href="#streams-stdout-stderr-etc" title="Permalink to this headline">¶</a></h3>
-<p>Message type: <tt class="docutils literal"><span class="pre">stream</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">stream</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># The name of the stream is one of &#39;stdout&#39;, &#39;stderr&#39;</span>
     <span class="s">&#39;name&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -901,7 +914,7 @@ Each message can have multiple representations of the data; it is up to the
 frontend to decide which to use and how. A single message should contain all
 possible representations of the same information. Each representation should
 be a JSON&#8217;able data structure, and should be a valid MIME type.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">display_data</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">display_data</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 
     <span class="c"># Who create the data</span>
@@ -917,9 +930,9 @@ be a JSON&#8217;able data structure, and should be a valid MIME type.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">metadata</span></tt> contains any metadata that describes the output.
+<p>The <code class="docutils literal"><span class="pre">metadata</span></code> contains any metadata that describes the output.
 Global keys are assumed to apply to the output as a whole.
-The <tt class="docutils literal"><span class="pre">metadata</span></tt> dict can also contain mime-type keys, which will be sub-dictionaries,
+The <code class="docutils literal"><span class="pre">metadata</span></code> dict can also contain mime-type keys, which will be sub-dictionaries,
 which are interpreted as applying only to output of that type.
 Third parties should put any data they write into a single dict
 with a reasonably unique name to avoid conflicts.</p>
@@ -936,15 +949,15 @@ of images:</p>
 </div>
 <div class="section" id="raw-data-publication">
 <h3>Raw Data Publication<a class="headerlink" href="#raw-data-publication" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">display_data</span></tt> lets you publish <em>representations</em> of data, such as images and html.
-This <tt class="docutils literal"><span class="pre">data_pub</span></tt> message lets you publish <em>actual raw data</em>, sent via message buffers.</p>
-<p>data_pub messages are constructed via the <tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.datapub.publish_data()</span></tt> function:</p>
+<p><code class="docutils literal"><span class="pre">display_data</span></code> lets you publish <em>representations</em> of data, such as images and html.
+This <code class="docutils literal"><span class="pre">data_pub</span></code> message lets you publish <em>actual raw data</em>, sent via message buffers.</p>
+<p>data_pub messages are constructed via the <code class="xref py py-func docutils literal"><span class="pre">IPython.lib.datapub.publish_data()</span></code> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.kernel.zmq.datapub</span> <span class="kn">import</span> <span class="n">publish_data</span>
 <span class="n">ns</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">my_array</span><span class="p">)</span>
 <span class="n">publish_data</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">data_pub</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">data_pub</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>content = {
     # the keys of the data dict, after it has been unserialized
     keys = [&#39;a&#39;, &#39;b&#39;]
@@ -959,18 +972,18 @@ to update a single namespace with subsequent results.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">No frontends directly handle data_pub messages at this time.
-It is currently only used by the client/engines in <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a>,
+It is currently only used by the client/engines in <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><code class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></code></a>,
 where engines may publish <em>data</em> to the Client,
-of which the Client can then publish <em>representations</em> via <tt class="docutils literal"><span class="pre">display_data</span></tt>
+of which the Client can then publish <em>representations</em> via <code class="docutils literal"><span class="pre">display_data</span></code>
 to various frontends.</p>
 </div>
 </div>
 <div class="section" id="python-inputs">
 <h3>Python inputs<a class="headerlink" href="#python-inputs" title="Permalink to this headline">¶</a></h3>
 <p>To let all frontends know what code is being executed at any given time, these
-messages contain a re-broadcast of the <tt class="docutils literal"><span class="pre">code</span></tt> portion of an
-<a class="reference internal" href="#execute"><em>execute_request</em></a>, along with the <a class="reference internal" href="#execution-counter"><em>execution_count</em></a>.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">pyin</span></tt>:</p>
+messages contain a re-broadcast of the <code class="docutils literal"><span class="pre">code</span></code> portion of an
+<a class="reference internal" href="#execute"><span>execute_request</span></a>, along with the <a class="reference internal" href="#execution-counter"><span>execution_count</span></a>.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">pyin</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;code&#39;</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="c"># Source code to be executed, one or more lines</span>
 
@@ -985,26 +998,26 @@ messages contain a re-broadcast of the <tt class="docutils literal"><span class=
 <div class="section" id="python-outputs">
 <h3>Python outputs<a class="headerlink" href="#python-outputs" title="Permalink to this headline">¶</a></h3>
 <p>When Python produces output from code that has been compiled in with the
-&#8216;single&#8217; flag to <a class="reference external" href="http://docs.python.org/2/library/functions.html#compile" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">compile()</span></tt></a>, any expression that produces a value (such as
-<tt class="docutils literal"><span class="pre">1+1</span></tt>) is passed to <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt>, which is a callable that can do with
-this value whatever it wants.  The default behavior of <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> in
-the Python interactive prompt is to print to <tt class="docutils literal"><span class="pre">sys.stdout</span></tt> the <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">repr()</span></tt></a> of
-the value as long as it is not <tt class="docutils literal"><span class="pre">None</span></tt> (which isn&#8217;t printed at all).  In our
-case, the kernel instantiates as <tt class="docutils literal"><span class="pre">sys.displayhook</span></tt> an object which has
+&#8216;single&#8217; flag to <a class="reference external" href="http://docs.python.org/2/library/functions.html#compile" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">compile()</span></code></a>, any expression that produces a value (such as
+<code class="docutils literal"><span class="pre">1+1</span></code>) is passed to <code class="docutils literal"><span class="pre">sys.displayhook</span></code>, which is a callable that can do with
+this value whatever it wants.  The default behavior of <code class="docutils literal"><span class="pre">sys.displayhook</span></code> in
+the Python interactive prompt is to print to <code class="docutils literal"><span class="pre">sys.stdout</span></code> the <a class="reference external" href="http://docs.python.org/2/library/functions.html#repr" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">repr()</span></code></a> of
+the value as long as it is not <code class="docutils literal"><span class="pre">None</span></code> (which isn&#8217;t printed at all).  In our
+case, the kernel instantiates as <code class="docutils literal"><span class="pre">sys.displayhook</span></code> an object which has
 similar behavior, but which instead of printing to stdout, broadcasts these
-values as <tt class="docutils literal"><span class="pre">pyout</span></tt> messages for clients to display appropriately.</p>
+values as <code class="docutils literal"><span class="pre">pyout</span></code> messages for clients to display appropriately.</p>
 <p>IPython&#8217;s displayhook can handle multiple simultaneous formats depending on its
 configuration. The default pretty-printed repr text is always given with the
-<tt class="docutils literal"><span class="pre">data</span></tt> entry in this message. Any other formats are provided in the
-<tt class="docutils literal"><span class="pre">extra_formats</span></tt> list. Frontends are free to display any or all of these
-according to its capabilities. <tt class="docutils literal"><span class="pre">extra_formats</span></tt> list contains 3-tuples of an ID
+<code class="docutils literal"><span class="pre">data</span></code> entry in this message. Any other formats are provided in the
+<code class="docutils literal"><span class="pre">extra_formats</span></code> list. Frontends are free to display any or all of these
+according to its capabilities. <code class="docutils literal"><span class="pre">extra_formats</span></code> list contains 3-tuples of an ID
 string, a type string, and the data. The ID is unique to the formatter
 implementation that created the data. Frontends will typically ignore the ID
 unless if it has requested a particular formatter. The type string tells the
 frontend how to interpret the data. It is often, but not always a MIME type.
 Frontends should ignore types that it does not understand. The data itself is
 any JSON object and depends on the format. It is often, but not always a string.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">pyout</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">pyout</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 
     <span class="c"># The counter for this execution is also provided so that clients can</span>
@@ -1024,7 +1037,7 @@ any JSON object and depends on the format. It is often, but not always a string.
 <div class="section" id="python-errors">
 <h3>Python errors<a class="headerlink" href="#python-errors" title="Permalink to this headline">¶</a></h3>
 <p>When an error occurs during code execution</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">pyerr</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">pyerr</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
    <span class="c"># Similar content to the execute_reply messages for the &#39;error&#39; case,</span>
    <span class="c"># except the &#39;status&#39; field is omitted.</span>
@@ -1035,7 +1048,7 @@ any JSON object and depends on the format. It is often, but not always a string.
 <div class="section" id="kernel-status">
 <h3>Kernel status<a class="headerlink" href="#kernel-status" title="Permalink to this headline">¶</a></h3>
 <p>This message type is used by frontends to monitor the status of the kernel.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">status</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">status</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c"># When the kernel starts to execute code, it will enter the &#39;busy&#39;</span>
     <span class="c"># state and when it finishes, it will enter the &#39;idle&#39; state.</span>
@@ -1048,7 +1061,7 @@ any JSON object and depends on the format. It is often, but not always a string.
 <div class="section" id="clear-output">
 <h3>Clear output<a class="headerlink" href="#clear-output" title="Permalink to this headline">¶</a></h3>
 <p>This message type is used to clear the output that is visible on the frontend.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">clear_output</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">clear_output</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
 
     <span class="c"># Wait to clear the output until new output is available.  Clears the</span>
@@ -1070,16 +1083,16 @@ so v4 clear_output messages will be safely handled by a v4.1 frontend.</p>
 <h2>Messages on the stdin ROUTER/DEALER sockets<a class="headerlink" href="#messages-on-the-stdin-router-dealer-sockets" title="Permalink to this headline">¶</a></h2>
 <p>This is a socket where the request/reply pattern goes in the opposite direction:
 from the kernel to a <em>single</em> frontend, and its purpose is to allow
-<tt class="docutils literal"><span class="pre">raw_input</span></tt> and similar operations that read from <tt class="docutils literal"><span class="pre">sys.stdin</span></tt> on the kernel
+<code class="docutils literal"><span class="pre">raw_input</span></code> and similar operations that read from <code class="docutils literal"><span class="pre">sys.stdin</span></code> on the kernel
 to be fulfilled by the client. The request should be made to the frontend that
-made the execution request that prompted <tt class="docutils literal"><span class="pre">raw_input</span></tt> to be called. For now we
+made the execution request that prompted <code class="docutils literal"><span class="pre">raw_input</span></code> to be called. For now we
 will keep these messages as simple as possible, since they only mean to convey
-the <tt class="docutils literal"><span class="pre">raw_input(prompt)</span></tt> call.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">input_request</span></tt>:</p>
+the <code class="docutils literal"><span class="pre">raw_input(prompt)</span></code> call.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">input_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;prompt&#39;</span> <span class="p">:</span> <span class="nb">str</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">input_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">input_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;value&#39;</span> <span class="p">:</span> <span class="nb">str</span> <span class="p">}</span>
 </pre></div>
 </div>
@@ -1087,19 +1100,19 @@ the <tt class="docutils literal"><span class="pre">raw_input(prompt)</span></tt>
 <p class="first admonition-title">Note</p>
 <p class="last">The stdin socket of the client is required to have the same zmq IDENTITY
 as the client&#8217;s shell socket.
-Because of this, the <tt class="docutils literal"><span class="pre">input_request</span></tt> must be sent with the same IDENTITY
-routing prefix as the <tt class="docutils literal"><span class="pre">execute_reply</span></tt> in order for the frontend to receive
+Because of this, the <code class="docutils literal"><span class="pre">input_request</span></code> must be sent with the same IDENTITY
+routing prefix as the <code class="docutils literal"><span class="pre">execute_reply</span></code> in order for the frontend to receive
 the message.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We do not explicitly try to forward the raw <tt class="docutils literal"><span class="pre">sys.stdin</span></tt> object, because in
+<p class="last">We do not explicitly try to forward the raw <code class="docutils literal"><span class="pre">sys.stdin</span></code> object, because in
 practice the kernel should behave like an interactive program.  When a
 program is opened on the console, the keyboard effectively takes over the
-<tt class="docutils literal"><span class="pre">stdin</span></tt> file descriptor, and it can&#8217;t be used for raw reading anymore.
+<code class="docutils literal"><span class="pre">stdin</span></code> file descriptor, and it can&#8217;t be used for raw reading anymore.
 Since the IPython kernel effectively behaves like a console program (albeit
 one whose &#8220;keyboard&#8221; is actually living in a separate process and
-transported over the zmq connection), raw <tt class="docutils literal"><span class="pre">stdin</span></tt> isn&#8217;t expected to be
+transported over the zmq connection), raw <code class="docutils literal"><span class="pre">stdin</span></code> isn&#8217;t expected to be
 available.</p>
 </div>
 </div>
@@ -1135,7 +1148,7 @@ access to the message between the monitor&#8217;s send, and the monitor&#8217;s 
 </div>
 <p>IPython 2.0 (msgspec v4.1) adds a messaging system for developers to add their own objects with Frontend
 and Kernel-side components, and allow them to communicate with each other.
-To do this, IPython adds a notion of a <tt class="docutils literal"><span class="pre">Comm</span></tt>, which exists on both sides,
+To do this, IPython adds a notion of a <code class="docutils literal"><span class="pre">Comm</span></code>, which exists on both sides,
 and can communicate in either direction.</p>
 <p>These messages are fully symmetrical - both the Kernel and the Frontend can send each message,
 and no messages expect a reply.
@@ -1143,7 +1156,7 @@ The Kernel listens for these messages on the Shell channel,
 and the Frontend listens for them on the IOPub channel.</p>
 <div class="section" id="opening-a-comm">
 <h3>Opening a Comm<a class="headerlink" href="#opening-a-comm" title="Permalink to this headline">¶</a></h3>
-<p>Opening a Comm produces a <tt class="docutils literal"><span class="pre">comm_open</span></tt> message, to be sent to the other side:</p>
+<p>Opening a Comm produces a <code class="docutils literal"><span class="pre">comm_open</span></code> message, to be sent to the other side:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&#39;comm_id&#39;</span> <span class="p">:</span> <span class="s">&#39;u-u-i-d&#39;</span><span class="p">,</span>
   <span class="s">&#39;target_name&#39;</span> <span class="p">:</span> <span class="s">&#39;my_comm&#39;</span><span class="p">,</span>
@@ -1154,19 +1167,19 @@ and the Frontend listens for them on the IOPub channel.</p>
 <p>Every Comm has an ID and a target name.
 The code handling the message on the receiving side is responsible for maintaining a mapping
 of target_name keys to constructors.
-After a <tt class="docutils literal"><span class="pre">comm_open</span></tt> message has been sent,
+After a <code class="docutils literal"><span class="pre">comm_open</span></code> message has been sent,
 there should be a corresponding Comm instance on both sides.
-The <tt class="docutils literal"><span class="pre">data</span></tt> key is always a dict and can be any extra JSON information used in initialization of the comm.</p>
-<p>If the <tt class="docutils literal"><span class="pre">target_name</span></tt> key is not found on the receiving side,
-then it should immediately reply with a <tt class="docutils literal"><span class="pre">comm_close</span></tt> message to avoid an inconsistent state.</p>
+The <code class="docutils literal"><span class="pre">data</span></code> key is always a dict and can be any extra JSON information used in initialization of the comm.</p>
+<p>If the <code class="docutils literal"><span class="pre">target_name</span></code> key is not found on the receiving side,
+then it should immediately reply with a <code class="docutils literal"><span class="pre">comm_close</span></code> message to avoid an inconsistent state.</p>
 </div>
 <div class="section" id="comm-messages">
 <h3>Comm Messages<a class="headerlink" href="#comm-messages" title="Permalink to this headline">¶</a></h3>
 <p>Comm messages are one-way communications to update comm state,
 used for synchronizing widget state, or simply requesting actions of a comm&#8217;s counterpart.</p>
-<p>Essentially, each comm pair defines their own message specification implemented inside the <tt class="docutils literal"><span class="pre">data</span></tt> dict.</p>
-<p>There are no expected replies (of course, one side can send another <tt class="docutils literal"><span class="pre">comm_msg</span></tt> in reply).</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">comm_msg</span></tt>:</p>
+<p>Essentially, each comm pair defines their own message specification implemented inside the <code class="docutils literal"><span class="pre">data</span></code> dict.</p>
+<p>There are no expected replies (of course, one side can send another <code class="docutils literal"><span class="pre">comm_msg</span></code> in reply).</p>
+<p>Message type: <code class="docutils literal"><span class="pre">comm_msg</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&#39;comm_id&#39;</span> <span class="p">:</span> <span class="s">&#39;u-u-i-d&#39;</span><span class="p">,</span>
   <span class="s">&#39;data&#39;</span> <span class="p">:</span> <span class="p">{}</span>
@@ -1177,8 +1190,8 @@ used for synchronizing widget state, or simply requesting actions of a comm&#821
 <div class="section" id="tearing-down-comms">
 <h3>Tearing Down Comms<a class="headerlink" href="#tearing-down-comms" title="Permalink to this headline">¶</a></h3>
 <p>Since comms live on both sides, when a comm is destroyed the other side must be notified.
-This is done with a <tt class="docutils literal"><span class="pre">comm_close</span></tt> message.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">comm_close</span></tt>:</p>
+This is done with a <code class="docutils literal"><span class="pre">comm_close</span></code> message.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">comm_close</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&#39;comm_id&#39;</span> <span class="p">:</span> <span class="s">&#39;u-u-i-d&#39;</span><span class="p">,</span>
   <span class="s">&#39;data&#39;</span> <span class="p">:</span> <span class="p">{}</span>
@@ -1211,32 +1224,20 @@ likely that with the payload concept we can build a full solution, but not
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="parallel_messages.html" title="Messaging for Parallel Computing"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="IPython developer’s guide"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jan 30, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/development/messaging.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

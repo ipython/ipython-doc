@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Running a notebook server &mdash; IPython 2.4.0 documentation</title>
+    <title>Running a notebook server &mdash; IPython 2.4.2-maint documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.4.0',
+        VERSION:     '2.4.2-maint',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.4.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.4.2-maint documentation" href="../index.html" />
     <link rel="up" title="The IPython notebook" href="index.html" />
     <link rel="next" title="Security in IPython notebooks" href="security.html" />
-    <link rel="prev" title="Converting notebooks to other formats" href="nbconvert.html" /> 
+    <link rel="prev" title="Converting notebooks to other formats" href="nbconvert.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">The IPython notebook</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The IPython notebook</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -77,12 +81,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="security.html"
                         title="next chapter">Security in IPython notebooks</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/notebook/public_server.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notebook/public_server.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -101,22 +107,29 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="running-a-notebook-server">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="running-a-notebook-server">
 <span id="working-remotely"></span><h1>Running a notebook server<a class="headerlink" href="#running-a-notebook-server" title="Permalink to this headline">¶</a></h1>
-<p>The  <a class="reference internal" href="notebook.html#htmlnotebook"><em>IPython notebook</em></a> web-application is based on a
-server-client structure.  This server uses a <a class="reference internal" href="../overview.html#ipythonzmq"><em>two-process kernel
-architecture</em></a> based on <a class="reference external" href="http://zeromq.org">ZeroMQ</a>, as well as <a class="reference external" href="http://www.tornadoweb.org">Tornado</a> for serving
+<p>The  <a class="reference internal" href="notebook.html#htmlnotebook"><span>IPython notebook</span></a> web-application is based on a
+server-client structure.  This server uses a <a class="reference internal" href="../overview.html#ipythonzmq"><span>two-process kernel
+architecture</span></a> based on <a class="reference external" href="http://zeromq.org">ZeroMQ</a>, as well as <a class="reference external" href="http://www.tornadoweb.org">Tornado</a> for serving
 HTTP requests. By default, a notebook server runs on <a class="reference external" href="http://127.0.0.1:8888/">http://127.0.0.1:8888/</a>
 and is accessible only from <cite>localhost</cite>. This document describes how you can
-<a class="reference internal" href="#notebook-server-security"><em>secure a notebook server</em></a> and how to <a class="reference internal" href="#notebook-public-server"><em>run it on
-a public interface</em></a>.</p>
+<a class="reference internal" href="#notebook-server-security"><span>secure a notebook server</span></a> and how to <a class="reference internal" href="#notebook-public-server"><span>run it on
+a public interface</span></a>.</p>
 <div class="section" id="securing-a-notebook-server">
 <span id="notebook-server-security"></span><h2>Securing a notebook server<a class="headerlink" href="#securing-a-notebook-server" title="Permalink to this headline">¶</a></h2>
 <p>You can protect your notebook server with a simple single password by
-setting the <tt class="xref py py-attr docutils literal"><span class="pre">NotebookApp.password</span></tt> configurable. You can prepare a
-hashed password using the function <a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.security.passwd()</span></tt></a>:</p>
+setting the <code class="xref py py-attr docutils literal"><span class="pre">NotebookApp.password</span></code> configurable. You can prepare a
+hashed password using the function <a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><code class="xref py py-func docutils literal"><span class="pre">IPython.lib.security.passwd()</span></code></a>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.lib</span> <span class="kn">import</span> <span class="n">passwd</span>
 <span class="gp">In [2]: </span><span class="n">passwd</span><span class="p">()</span>
 <span class="go">Enter password:</span>
@@ -126,11 +139,11 @@ hashed password using the function <a class="reference internal" href="../api/ge
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><tt class="xref py py-func docutils literal"><span class="pre">passwd()</span></tt></a> can also take the password as a string
+<p class="last"><a class="reference internal" href="../api/generated/IPython.lib.security.html#IPython.lib.security.passwd" title="IPython.lib.security.passwd"><code class="xref py py-func docutils literal"><span class="pre">passwd()</span></code></a> can also take the password as a string
 argument. <strong>Do not</strong> pass it as an argument inside an IPython session, as it
 will be saved in your input history.</p>
 </div>
-<p>You can then add this to your <tt class="file docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>, e.g.:</p>
+<p>You can then add this to your <code class="file docutils literal"><span class="pre">ipython_notebook_config.py</span></code>, e.g.:</p>
 <div class="highlight-python"><div class="highlight"><pre># Password to use for web authentication
 c = get_config()
 c.NotebookApp.password =
@@ -146,7 +159,7 @@ the command:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>A self-signed certificate can be generated with <tt class="docutils literal"><span class="pre">openssl</span></tt>.  For example,
+<p>A self-signed certificate can be generated with <code class="docutils literal"><span class="pre">openssl</span></code>.  For example,
 the following command will create a certificate valid for 365 days with
 both the key and certificate data written to the same file:</p>
 <div class="last highlight-python"><div class="highlight"><pre>$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout mycert.pem -out mycert.pem
@@ -158,7 +171,7 @@ self-signed.  If you want to have a fully compliant certificate that will not
 raise warnings, it is possible (but rather involved) to obtain one,
 as explained in detail in <a class="reference external" href="http://arstechnica.com/security/news/2009/12/how-to-get-set-with-a-secure-sertificate-for-free.ars">this tutorial</a>.</p>
 <p>Keep in mind that when you enable SSL support, you will need to access the
-notebook server over <tt class="docutils literal"><span class="pre">https://</span></tt>, not over plain <tt class="docutils literal"><span class="pre">http://</span></tt>.  The startup
+notebook server over <code class="docutils literal"><span class="pre">https://</span></code>, not over plain <code class="docutils literal"><span class="pre">http://</span></code>.  The startup
 message from the server prints this, but it is easy to overlook and think the
 server is for some reason non-responsive.</p>
 </div>
@@ -173,7 +186,7 @@ command line, type:</p>
 </pre></div>
 </div>
 <p>In the profile directory just created, edit the file
-<tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>.  By default, the file has all fields
+<code class="docutils literal"><span class="pre">ipython_notebook_config.py</span></code>.  By default, the file has all fields
 commented; the minimum set you need to uncomment and edit is the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
 
@@ -190,18 +203,18 @@ commented; the minimum set you need to uncomment and edit is the following:</p>
 </pre></div>
 </div>
 <p>You can then start the notebook and access it later by pointing your browser
-to <tt class="docutils literal"><span class="pre">https://your.host.com:9999</span></tt> with <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span>
-<span class="pre">--profile=nbserver</span></tt>.</p>
+to <code class="docutils literal"><span class="pre">https://your.host.com:9999</span></code> with <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">notebook</span>
+<span class="pre">--profile=nbserver</span></code>.</p>
 </div>
 <div class="section" id="running-with-a-different-url-prefix">
 <h2>Running with a different URL prefix<a class="headerlink" href="#running-with-a-different-url-prefix" title="Permalink to this headline">¶</a></h2>
 <p>The notebook dashboard (the landing page with an overview
 of the notebooks in your working directory) typically lives at the URL
-<tt class="docutils literal"><span class="pre">http://localhost:8888/</span></tt>. If you prefer that it lives, together with the
+<code class="docutils literal"><span class="pre">http://localhost:8888/</span></code>. If you prefer that it lives, together with the
 rest of the notebook, under a sub-directory,
-e.g. <tt class="docutils literal"><span class="pre">http://localhost:8888/ipython/</span></tt>, you can do so with
+e.g. <code class="docutils literal"><span class="pre">http://localhost:8888/ipython/</span></code>, you can do so with
 configuration options like the following (see above for instructions about
-modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config.py</span></tt>):</p>
+modifying <code class="docutils literal"><span class="pre">ipython_notebook_config.py</span></code>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="s">&#39;/ipython/&#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">NotebookApp</span><span class="o">.</span><span class="n">webapp_settings</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;static_url_prefix&#39;</span><span class="p">:</span><span class="s">&#39;/ipython/static/&#39;</span><span class="p">}</span>
 </pre></div>
@@ -211,14 +224,14 @@ modifying <tt class="docutils literal"><span class="pre">ipython_notebook_config
 <h2>Using a different notebook store<a class="headerlink" href="#using-a-different-notebook-store" title="Permalink to this headline">¶</a></h2>
 <p>By default, the notebook server stores the notebook documents that it saves as
 files in the working directory of the notebook server, also known as the
-<tt class="docutils literal"><span class="pre">notebook_dir</span></tt>. This  logic is implemented in the
-<tt class="xref py py-class docutils literal"><span class="pre">FileNotebookManager</span></tt> class. However, the server can be configured to
+<code class="docutils literal"><span class="pre">notebook_dir</span></code>. This  logic is implemented in the
+<code class="xref py py-class docutils literal"><span class="pre">FileNotebookManager</span></code> class. However, the server can be configured to
 use a different notebook manager class, which can
 store the notebooks in a different format.</p>
 <p>The <a class="reference external" href="https://github.com/rgbkrk/bookstore">bookstore</a> package currently allows users to store notebooks on Rackspace
 CloudFiles or OpenStack Swift based object stores.</p>
 <p>Writing a notebook manager is as simple as extending the base class
-<tt class="xref py py-class docutils literal"><span class="pre">NotebookManager</span></tt>. The <a class="reference external" href="https://github.com/khinsen/simple_notebook_manager">simple_notebook_manager</a> provides a great example
+<code class="xref py py-class docutils literal"><span class="pre">NotebookManager</span></code>. The <a class="reference external" href="https://github.com/khinsen/simple_notebook_manager">simple_notebook_manager</a> provides a great example
 of an in memory notebook manager, created solely for the purpose of
 illustrating the notebook manager API.</p>
 </div>
@@ -240,32 +253,20 @@ to the &#8216;No proxy for&#8217; field.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="security.html" title="Security in IPython notebooks"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="nbconvert.html" title="Converting notebooks to other formats"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >The IPython notebook</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jan 30, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/notebook/public_server.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

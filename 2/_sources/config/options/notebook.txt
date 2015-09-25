@@ -3,39 +3,6 @@ IPython notebook options
 
 Any of the :doc:`kernel` can also be used.
 
-FileNotebookManager.checkpoint_dir : Unicode
-    Default: '.ipynb_checkpoints'
-
-    The directory name in which to keep notebook checkpoints
-    
-    This is a path relative to the notebook's own directory.
-    
-    By default, it is .ipynb_checkpoints
-
-FileNotebookManager.hide_globs : List
-    Default: [u'__pycache__']
-
-    Glob patterns to hide in file and directory listings.
-
-FileNotebookManager.notebook_dir : Unicode
-    Default: u'/private/tmp/ipython/docs'
-
-    No description
-
-FileNotebookManager.save_script : Bool
-    Default: False
-
-    Automatically create a Python script when saving the notebook.
-    
-    For easier use of import, %run and %load across notebooks, a <notebook-
-    name>.py script will be created next to any <notebook-name>.ipynb on each
-    save.  This can also be set with the short `--script` flag.
-
-NotebookManager.hide_globs : List
-    Default: [u'__pycache__']
-
-    Glob patterns to hide in file and directory listings.
-
 NotebookNotary.algorithm : 'sha1'|'sha224'|'sha384'|'sha256'|'sha512'|'md5'
     Default: 'sha256'
 
@@ -51,6 +18,38 @@ NotebookNotary.secret_file : Unicode
 
     The file where the secret key is stored.
 
+NotebookManager.hide_globs : List
+    Default: [u'__pycache__']
+
+    Glob patterns to hide in file and directory listings.
+
+KernelManager.autorestart : Bool
+    Default: False
+
+    Should we autorestart the kernel if it dies.
+
+KernelManager.ip : Unicode
+    Default: u''
+
+    Set the kernel's IP address [default localhost]. If the IP address is
+    something other than localhost, then Consoles on other machines will be able
+    to connect to the Kernel, so be careful!
+
+KernelManager.kernel_cmd : List
+    Default: []
+
+    The Popen Command to launch the kernel. Override this if you have a custom
+    kernel. If kernel_cmd is specified in a configuration file, IPython does not
+    pass any arguments to the kernel, because it cannot make any assumptions
+    about the  arguments that the kernel understands. In particular, this means
+    that the kernel does not receive the option --debug if it given on the
+    IPython command line.
+
+KernelManager.transport : 'tcp'|'ipc'
+    Default: 'tcp'
+
+    No description
+
 MappingKernelManager.kernel_manager_class : DottedObjectName
     Default: 'IPython.kernel.ioloop.IOLoopKernelManager'
 
@@ -58,49 +57,37 @@ MappingKernelManager.kernel_manager_class : DottedObjectName
     KernelManager for customized behavior.
 
 MappingKernelManager.root_dir : Unicode
-    Default: u'/private/tmp/ipython/docs'
+    Default: u'/Users/bussonniermatthias/dev/ipython/docs'
 
     No description
 
-InlineBackend.close_figures : Bool
-    Default: True
+FileNotebookManager.checkpoint_dir : Unicode
+    Default: '.ipynb_checkpoints'
 
-    Close all figures at the end of each cell.
+    The directory name in which to keep notebook checkpoints
     
-    When True, ensures that each cell starts with no active figures, but it also
-    means that one must keep track of references in order to edit or redraw
-    figures in subsequent cells. This mode is ideal for the notebook, where
-    residual plots from other cells might be surprising.
+    This is a path relative to the notebook's own directory.
     
-    When False, one must call figure() to create new figures. This means that
-    gcf() and getfigs() can reference figures created in other cells, and the
-    active figure can continue to be edited with pylab/pyplot methods that
-    reference the current active figure. This mode facilitates iterative editing
-    of figures, and behaves most consistently with other matplotlib backends,
-    but figure barriers between cells must be explicit.
+    By default, it is .ipynb_checkpoints
 
-InlineBackend.figure_format : Unicode
-    Default: u''
+FileNotebookManager.hide_globs : List
+    Default: [u'__pycache__']
 
-    The figure format to enable (deprecated use `figure_formats` instead)
+    Glob patterns to hide in file and directory listings.
 
-InlineBackend.figure_formats : Set
-    Default: set(['png'])
+FileNotebookManager.notebook_dir : Unicode
+    Default: u'/Users/bussonniermatthias/dev/ipython/docs'
 
-    A set of figure formats to enable: 'png',  'retina', 'jpeg', 'svg', 'pdf'.
+    No description
 
-InlineBackend.print_figure_kwargs : Dict
-    Default: {'bbox_inches': 'tight'}
+FileNotebookManager.save_script : Bool
+    Default: False
 
-    Extra kwargs to be passed to fig.canvas.print_figure.
+    Automatically create a Python script when saving the notebook.
     
-    Logical examples include: bbox_inches, quality (for jpeg figures), etc.
-
-InlineBackend.rc : Dict
-    Default: {'font.size': 10, 'figure.figsize': (6.0, 4.0), 'figure.facec...
-
-    Subset of matplotlib rcParams that should be different for the inline
-    backend.
+    For easier use of import, %run and %load across notebooks, a <notebook-
+    name>.py script will be created next to any <notebook-name>.ipynb on each
+    save.  This can also be set with the short `--script` flag.
 
 NotebookApp.allow_credentials : Bool
     Default: False
@@ -254,7 +241,7 @@ NotebookApp.nbextensions_path : List
     IPYTHONDIR/nbextensions
 
 NotebookApp.notebook_dir : Unicode
-    Default: u'/private/tmp/ipython/docs'
+    Default: u'/Users/bussonniermatthias/dev/ipython/docs'
 
     The directory to use for notebooks and kernels.
 
@@ -323,29 +310,42 @@ NotebookApp.webapp_settings : Dict
     Supply overrides for the tornado.web.Application that the IPython notebook
     uses.
 
-KernelManager.autorestart : Bool
-    Default: False
+InlineBackend.close_figures : Bool
+    Default: True
 
-    Should we autorestart the kernel if it dies.
+    Close all figures at the end of each cell.
+    
+    When True, ensures that each cell starts with no active figures, but it also
+    means that one must keep track of references in order to edit or redraw
+    figures in subsequent cells. This mode is ideal for the notebook, where
+    residual plots from other cells might be surprising.
+    
+    When False, one must call figure() to create new figures. This means that
+    gcf() and getfigs() can reference figures created in other cells, and the
+    active figure can continue to be edited with pylab/pyplot methods that
+    reference the current active figure. This mode facilitates iterative editing
+    of figures, and behaves most consistently with other matplotlib backends,
+    but figure barriers between cells must be explicit.
 
-KernelManager.ip : Unicode
+InlineBackend.figure_format : Unicode
     Default: u''
 
-    Set the kernel's IP address [default localhost]. If the IP address is
-    something other than localhost, then Consoles on other machines will be able
-    to connect to the Kernel, so be careful!
+    The figure format to enable (deprecated use `figure_formats` instead)
 
-KernelManager.kernel_cmd : List
-    Default: []
+InlineBackend.figure_formats : Set
+    Default: set(['png'])
 
-    The Popen Command to launch the kernel. Override this if you have a custom
-    kernel. If kernel_cmd is specified in a configuration file, IPython does not
-    pass any arguments to the kernel, because it cannot make any assumptions
-    about the  arguments that the kernel understands. In particular, this means
-    that the kernel does not receive the option --debug if it given on the
-    IPython command line.
+    A set of figure formats to enable: 'png',  'retina', 'jpeg', 'svg', 'pdf'.
 
-KernelManager.transport : 'tcp'|'ipc'
-    Default: 'tcp'
+InlineBackend.print_figure_kwargs : Dict
+    Default: {'bbox_inches': 'tight'}
 
-    No description
+    Extra kwargs to be passed to fig.canvas.print_figure.
+    
+    Logical examples include: bbox_inches, quality (for jpeg figures), etc.
+
+InlineBackend.rc : Dict
+    Default: {'font.size': 10, 'figure.figsize': (6.0, 4.0), 'figure.facec...
+
+    Subset of matplotlib rcParams that should be different for the inline
+    backend.

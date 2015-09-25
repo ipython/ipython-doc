@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython’s Direct interface &mdash; IPython 2.4.0 documentation</title>
+    <title>IPython’s Direct interface &mdash; IPython 2.4.2-maint documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.4.0',
+        VERSION:     '2.4.2-maint',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.4.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.4.2-maint documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="Parallel Magic Commands" href="magics.html" />
-    <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" /> 
+    <link rel="prev" title="Starting the IPython controller and engines" href="parallel_process.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,17 +57,17 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">IPython&#8217;s Direct interface</a><ul>
 <li><a class="reference internal" href="#starting-the-ipython-controller-and-engines">Starting the IPython controller and engines</a></li>
-<li><a class="reference internal" href="#creating-a-directview-instance">Creating a <tt class="docutils literal"><span class="pre">DirectView</span></tt> instance</a></li>
+<li><a class="reference internal" href="#creating-a-directview-instance">Creating a <code class="docutils literal"><span class="pre">DirectView</span></code> instance</a></li>
 <li><a class="reference internal" href="#quick-and-easy-parallelism">Quick and easy parallelism</a><ul>
 <li><a class="reference internal" href="#parallel-map">Parallel map</a></li>
 <li><a class="reference internal" href="#remote-function-decorators">Remote function decorators</a></li>
@@ -73,7 +77,7 @@
 <li><a class="reference internal" href="#apply">apply</a></li>
 <li><a class="reference internal" href="#blocking-execution">Blocking execution</a></li>
 <li><a class="reference internal" href="#non-blocking-execution">Non-blocking execution</a></li>
-<li><a class="reference internal" href="#the-block-and-targets-keyword-arguments-and-attributes">The <tt class="docutils literal"><span class="pre">block</span></tt> and <tt class="docutils literal"><span class="pre">targets</span></tt> keyword arguments and attributes</a></li>
+<li><a class="reference internal" href="#the-block-and-targets-keyword-arguments-and-attributes">The <code class="docutils literal"><span class="pre">block</span></code> and <code class="docutils literal"><span class="pre">targets</span></code> keyword arguments and attributes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#moving-python-objects-around">Moving Python objects around</a><ul>
@@ -98,12 +102,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="magics.html"
                         title="next chapter">Parallel Magic Commands</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/parallel/parallel_multiengine.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/parallel/parallel_multiengine.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -122,9 +128,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="ipython-s-direct-interface">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="ipython-s-direct-interface">
 <span id="parallel-multiengine"></span><h1>IPython&#8217;s Direct interface<a class="headerlink" href="#ipython-s-direct-interface" title="Permalink to this headline">¶</a></h1>
 <p>The direct, or multiengine, interface represents one possible way of working with a set of
 IPython engines. The basic idea behind the multiengine interface is that the
@@ -142,19 +155,19 @@ the <strong class="command">ipcluster</strong> command:</p>
 </pre></div>
 </div>
 <p>For more detailed information about starting the controller and engines, see
-our <a class="reference internal" href="parallel_intro.html#parallel-overview"><em>introduction</em></a> to using IPython for parallel computing.</p>
+our <a class="reference internal" href="parallel_intro.html#parallel-overview"><span>introduction</span></a> to using IPython for parallel computing.</p>
 </div>
 <div class="section" id="creating-a-directview-instance">
-<h2>Creating a <tt class="docutils literal"><span class="pre">DirectView</span></tt> instance<a class="headerlink" href="#creating-a-directview-instance" title="Permalink to this headline">¶</a></h2>
-<p>The first step is to import the IPython <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a>
-module and then create a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> instance:</p>
+<h2>Creating a <code class="docutils literal"><span class="pre">DirectView</span></code> instance<a class="headerlink" href="#creating-a-directview-instance" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to import the IPython <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><code class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></code></a>
+module and then create a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><code class="xref py py-class docutils literal"><span class="pre">Client</span></code></a> instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 
 <span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This form assumes that the default connection information (stored in
-<tt class="file docutils literal"><span class="pre">ipcontroller-client.json</span></tt> found in <tt class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></tt>) is
+<code class="file docutils literal"><span class="pre">ipcontroller-client.json</span></code> found in <code class="file docutils literal"><span class="pre">IPYTHONDIR/profile_default/security</span></code>) is
 accurate. If the controller was started on a remote machine, you must copy that connection
 file to the client machine, or enter its contents as arguments to the Client constructor:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># If you have copied the json connector file from the controller:</span>
@@ -170,28 +183,28 @@ of engine ids:</p>
 </pre></div>
 </div>
 <p>Here we see that there are four engines ready to do work for us.</p>
-<p>For direct execution, we will make use of a <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> object, which can be
+<p>For direct execution, we will make use of a <code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code> object, which can be
 constructed via list-access to the client:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">dview</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span> <span class="c"># use all engines</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">For more information, see the in-depth explanation of <a class="reference internal" href="parallel_details.html#parallel-details"><em>Views</em></a>.</p>
+<p class="last">For more information, see the in-depth explanation of <a class="reference internal" href="parallel_details.html#parallel-details"><span>Views</span></a>.</p>
 </div>
 </div>
 <div class="section" id="quick-and-easy-parallelism">
 <h2>Quick and easy parallelism<a class="headerlink" href="#quick-and-easy-parallelism" title="Permalink to this headline">¶</a></h2>
 <p>In many cases, you simply want to apply a Python function to a sequence of
 objects, but <em>in parallel</em>. The client interface provides a simple way
-of accomplishing this: using the DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> method.</p>
+of accomplishing this: using the DirectView&#8217;s <code class="xref py py-meth docutils literal"><span class="pre">map()</span></code> method.</p>
 <div class="section" id="parallel-map">
 <h3>Parallel map<a class="headerlink" href="#parallel-map" title="Permalink to this headline">¶</a></h3>
-<p>Python&#8217;s builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> functions allows a function to be applied to a
+<p>Python&#8217;s builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">map()</span></code></a> functions allows a function to be applied to a
 sequence element-by-element. This type of code is typically trivial to
 parallelize. In fact, since IPython&#8217;s interface is all about functions anyway,
-you can just use the builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> with a <tt class="xref py py-class docutils literal"><span class="pre">RemoteFunction</span></tt>, or a
-DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> method:</p>
+you can just use the builtin <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">map()</span></code></a> with a <code class="xref py py-class docutils literal"><span class="pre">RemoteFunction</span></code>, or a
+DirectView&#8217;s <code class="xref py py-meth docutils literal"><span class="pre">map()</span></code> method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [62]: </span><span class="n">serial_result</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
 
 <span class="gp">In [63]: </span><span class="n">parallel_result</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">map_sync</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
@@ -202,13 +215,13 @@ DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt>&#8216;s version of <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> does
+<p class="last">The <code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code>&#8216;s version of <code class="xref py py-meth docutils literal"><span class="pre">map()</span></code> does
 not do dynamic load balancing. For a load balanced version, use a
-<tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt>.</p>
+<code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code>.</p>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt> is implemented via <tt class="xref py py-class docutils literal"><span class="pre">ParallelFunction</span></tt>.</p>
+<p class="last"><code class="xref py py-meth docutils literal"><span class="pre">map()</span></code> is implemented via <code class="xref py py-class docutils literal"><span class="pre">ParallelFunction</span></code>.</p>
 </div>
 </div>
 <div class="section" id="remote-function-decorators">
@@ -226,7 +239,7 @@ two decorators:</p>
 <span class="gh">Out[11]: </span><span class="go">[12345, 12346, 12347, 12348]</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">&#64;parallel</span></tt> decorator creates parallel functions, that break up an element-wise
+<p>The <code class="docutils literal"><span class="pre">&#64;parallel</span></code> decorator creates parallel functions, that break up an element-wise
 operations and distribute them, reconstructing the result.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [12]: </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
@@ -244,8 +257,8 @@ operations and distribute them, reconstructing the result.</p>
 <span class="gh">Out[17]: </span><span class="go">True</span>
 </pre></div>
 </div>
-<p>Calling a <tt class="docutils literal"><span class="pre">&#64;parallel</span></tt> function <em>does not</em> correspond to map. It is used for splitting
-element-wise operations that operate on a sequence or array.  For <tt class="docutils literal"><span class="pre">map</span></tt> behavior,
+<p>Calling a <code class="docutils literal"><span class="pre">&#64;parallel</span></code> function <em>does not</em> correspond to map. It is used for splitting
+element-wise operations that operate on a sequence or array.  For <code class="docutils literal"><span class="pre">map</span></code> behavior,
 parallel functions do have a map method.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -266,11 +279,11 @@ parallel functions do have a map method.</p>
 </tr>
 <tr class="row-odd"><td># of remote calls</td>
 <td># of engines (1 per engine)</td>
-<td><tt class="docutils literal"><span class="pre">len(seq)</span></tt></td>
+<td><code class="docutils literal"><span class="pre">len(seq)</span></code></td>
 </tr>
 <tr class="row-even"><td>argument to remote</td>
-<td><tt class="docutils literal"><span class="pre">seq[i:j]</span></tt> (sub-sequence)</td>
-<td><tt class="docutils literal"><span class="pre">seq[i]</span></tt> (single element)</td>
+<td><code class="docutils literal"><span class="pre">seq[i:j]</span></code> (sub-sequence)</td>
+<td><code class="docutils literal"><span class="pre">seq[i]</span></code> (single element)</td>
 </tr>
 </tbody>
 </table>
@@ -289,7 +302,7 @@ parallel functions do have a map method.</p>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">See the <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.parallel" title="IPython.parallel.client.remotefunction.parallel"><tt class="xref py py-func docutils literal"><span class="pre">parallel()</span></tt></a> and <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.remote" title="IPython.parallel.client.remotefunction.remote"><tt class="xref py py-func docutils literal"><span class="pre">remote()</span></tt></a>
+<p class="last">See the <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.parallel" title="IPython.parallel.client.remotefunction.parallel"><code class="xref py py-func docutils literal"><span class="pre">parallel()</span></code></a> and <a class="reference internal" href="../api/generated/IPython.parallel.client.remotefunction.html#IPython.parallel.client.remotefunction.remote" title="IPython.parallel.client.remotefunction.remote"><code class="xref py py-func docutils literal"><span class="pre">remote()</span></code></a>
 decorators for options.</p>
 </div>
 </div>
@@ -299,22 +312,22 @@ decorators for options.</p>
 <p>The most basic type of operation that can be performed on the engines is to
 execute Python code or call Python functions. Executing Python code can be
 done in blocking or non-blocking mode (non-blocking is default) using the
-<tt class="xref py py-meth docutils literal"><span class="pre">View.execute()</span></tt> method, and calling functions can be done via the
-<a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View.apply" title="IPython.parallel.client.view.View.apply"><tt class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></tt></a> method.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">View.execute()</span></code> method, and calling functions can be done via the
+<a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.View.apply" title="IPython.parallel.client.view.View.apply"><code class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></code></a> method.</p>
 <div class="section" id="apply">
 <h3>apply<a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>The main method for doing remote execution (in fact, all methods that
-communicate with the engines are built on top of it), is <tt class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></tt>.</p>
+communicate with the engines are built on top of it), is <code class="xref py py-meth docutils literal"><span class="pre">View.apply()</span></code>.</p>
 <p>We strive to provide the cleanest interface we can, so <cite>apply</cite> has the following
 signature:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">view</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>There are various ways to call functions with IPython, and these flags are set as
-attributes of the View.  The <tt class="docutils literal"><span class="pre">DirectView</span></tt> has just two of these flags:</p>
+attributes of the View.  The <code class="docutils literal"><span class="pre">DirectView</span></code> has just two of these flags:</p>
 <dl class="docutils">
 <dt>dv.block <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
-<dd>whether to wait for the result, or return an <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object
+<dd>whether to wait for the result, or return an <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> object
 immediately</dd>
 <dt>dv.track <span class="classifier-delimiter">:</span> <span class="classifier">bool</span></dt>
 <dd>whether to instruct pyzmq to track when zeromq is done sending the message.
@@ -324,7 +337,7 @@ without corrupting the message.</dd>
 <dt>dv.targets <span class="classifier-delimiter">:</span> <span class="classifier">int, list of ints</span></dt>
 <dd>which targets this view is associated with.</dd>
 </dl>
-<p>Creating a view is simple: index-access on a client creates a <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a>.</p>
+<p>Creating a view is simple: index-access on a client creates a <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code></a>.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">view</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 <span class="gh">Out[4]: </span><span class="go">&lt;DirectView [1, 2]&gt;</span>
 
@@ -336,9 +349,9 @@ without corrupting the message.</dd>
 </div>
 <div class="section" id="blocking-execution">
 <h3>Blocking execution<a class="headerlink" href="#blocking-execution" title="Permalink to this headline">¶</a></h3>
-<p>In blocking mode, the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> object (called <tt class="docutils literal"><span class="pre">dview</span></tt> in
+<p>In blocking mode, the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code></a> object (called <code class="docutils literal"><span class="pre">dview</span></code> in
 these examples) submits the command to the controller, which places the
-command in the engines&#8217; queues for execution. The <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> call then
+command in the engines&#8217; queues for execution. The <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code> call then
 blocks until the engines are done executing the command:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="n">dview</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[:]</span> <span class="c"># A DirectView of all engines</span>
 <span class="gp">In [3]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">True</span>
@@ -350,7 +363,7 @@ blocks until the engines are done executing the command:</p>
 <span class="gh">Out[6]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
-<p>You can also select blocking execution on a call-by-call basis with the <tt class="xref py py-meth docutils literal"><span class="pre">apply_sync()</span></tt>
+<p>You can also select blocking execution on a call-by-call basis with the <code class="xref py py-meth docutils literal"><span class="pre">apply_sync()</span></code>
 method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
 
@@ -358,7 +371,7 @@ method:</p>
 <span class="gh">Out[8]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
-<p>Python commands can be executed as strings on specific engines by using a View&#8217;s <tt class="docutils literal"><span class="pre">execute</span></tt>
+<p>Python commands can be executed as strings on specific engines by using a View&#8217;s <code class="docutils literal"><span class="pre">execute</span></code>
 method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;c=a+b&#39;</span><span class="p">)</span>
 
@@ -371,13 +384,13 @@ method:</p>
 </div>
 <div class="section" id="non-blocking-execution">
 <h3>Non-blocking execution<a class="headerlink" href="#non-blocking-execution" title="Permalink to this headline">¶</a></h3>
-<p>In non-blocking mode, <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> submits the command to be executed and
-then returns a <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object immediately. The
-<a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> object gives you a way of getting a result at a later
-time through its <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt> method.</p>
+<p>In non-blocking mode, <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code> submits the command to be executed and
+then returns a <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> object immediately. The
+<a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> object gives you a way of getting a result at a later
+time through its <code class="xref py py-meth docutils literal"><span class="pre">get()</span></code> method.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">Docs on the <a class="reference internal" href="asyncresult.html#parallel-asyncresult"><em>AsyncResult</em></a> object.</p>
+<p class="last">Docs on the <a class="reference internal" href="asyncresult.html#parallel-asyncresult"><span>AsyncResult</span></a> object.</p>
 </div>
 <p>This allows you to quickly submit long running commands without blocking your
 local Python/IPython session:</p>
@@ -424,11 +437,11 @@ local Python/IPython session:</p>
 <p class="last">Note the import inside the function. This is a common model, to ensure
 that the appropriate modules are imported where the task is run. You can
 also manually import modules into the engine(s) namespace(s) via
-<tt class="xref py py-meth docutils literal"><span class="pre">view.execute('import</span> <span class="pre">numpy')()</span></tt>.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">view.execute('import</span> <span class="pre">numpy')()</span></code>.</p>
 </div>
-<p>Often, it is desirable to wait until a set of <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> objects
-are done. For this, there is a the method <tt class="xref py py-meth docutils literal"><span class="pre">wait()</span></tt>. This method takes a
-tuple of <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> objects (or <cite>msg_ids</cite> or indices to the client&#8217;s History),
+<p>Often, it is desirable to wait until a set of <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> objects
+are done. For this, there is a the method <code class="xref py py-meth docutils literal"><span class="pre">wait()</span></code>. This method takes a
+tuple of <a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> objects (or <cite>msg_ids</cite> or indices to the client&#8217;s History),
 and blocks until all of the associated results are ready:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [72]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
 
@@ -445,12 +458,12 @@ and blocks until all of the associated results are ready:</p>
 </div>
 </div>
 <div class="section" id="the-block-and-targets-keyword-arguments-and-attributes">
-<h3>The <tt class="docutils literal"><span class="pre">block</span></tt> and <tt class="docutils literal"><span class="pre">targets</span></tt> keyword arguments and attributes<a class="headerlink" href="#the-block-and-targets-keyword-arguments-and-attributes" title="Permalink to this headline">¶</a></h3>
-<p>Most DirectView methods (excluding <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>) accept <tt class="docutils literal"><span class="pre">block</span></tt> and
-<tt class="docutils literal"><span class="pre">targets</span></tt> as keyword arguments. As we have seen above, these keyword arguments control the
-blocking mode and which engines the command is applied to. The <tt class="xref py py-class docutils literal"><span class="pre">View</span></tt> class also has
-<tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attributes that control the default behavior when the keyword
-arguments are not provided. Thus the following logic is used for <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt>:</p>
+<h3>The <code class="docutils literal"><span class="pre">block</span></code> and <code class="docutils literal"><span class="pre">targets</span></code> keyword arguments and attributes<a class="headerlink" href="#the-block-and-targets-keyword-arguments-and-attributes" title="Permalink to this headline">¶</a></h3>
+<p>Most DirectView methods (excluding <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code>) accept <code class="docutils literal"><span class="pre">block</span></code> and
+<code class="docutils literal"><span class="pre">targets</span></code> as keyword arguments. As we have seen above, these keyword arguments control the
+blocking mode and which engines the command is applied to. The <code class="xref py py-class docutils literal"><span class="pre">View</span></code> class also has
+<code class="xref py py-attr docutils literal"><span class="pre">block</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">targets</span></code> attributes that control the default behavior when the keyword
+arguments are not provided. Thus the following logic is used for <code class="xref py py-attr docutils literal"><span class="pre">block</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">targets</span></code>:</p>
 <ul class="simple">
 <li>If no keyword argument is provided, the instance attributes are used.</li>
 <li>The Keyword arguments, if provided overrides the instance attributes for
@@ -474,11 +487,11 @@ the duration of a single call.</li>
 <span class="gh">Out[22]: </span><span class="go">[42, 42, 42, 42]</span>
 </pre></div>
 </div>
-<p>The <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> instance attributes of the
-<a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> also determine the behavior of the parallel magic commands.</p>
+<p>The <code class="xref py py-attr docutils literal"><span class="pre">block</span></code> and <code class="xref py py-attr docutils literal"><span class="pre">targets</span></code> instance attributes of the
+<a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code></a> also determine the behavior of the parallel magic commands.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">See the documentation of the <a class="reference internal" href="magics.html#parallel-magics"><em>Parallel Magics</em></a>.</p>
+<p class="last">See the documentation of the <a class="reference internal" href="magics.html#parallel-magics"><span>Parallel Magics</span></a>.</p>
 </div>
 </div>
 </div>
@@ -486,11 +499,11 @@ the duration of a single call.</li>
 <h2>Moving Python objects around<a class="headerlink" href="#moving-python-objects-around" title="Permalink to this headline">¶</a></h2>
 <p>In addition to calling functions and executing code on engines, you can
 transfer Python objects to and from your IPython session and the engines. In
-IPython, these operations are called <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> (sending an object to the
-engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> (getting an object from the engines).</p>
+IPython, these operations are called <code class="xref py py-meth docutils literal"><span class="pre">push()</span></code> (sending an object to the
+engines) and <code class="xref py py-meth docutils literal"><span class="pre">pull()</span></code> (getting an object from the engines).</p>
 <div class="section" id="basic-push-and-pull">
 <h3>Basic push and pull<a class="headerlink" href="#basic-push-and-pull" title="Permalink to this headline">¶</a></h3>
-<p>Here are some examples of how you use <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt>:</p>
+<p>Here are some examples of how you use <code class="xref py py-meth docutils literal"><span class="pre">push()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">pull()</span></code>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [38]: </span><span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">1.03234</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">3453</span><span class="p">))</span>
 <span class="gh">Out[38]: </span><span class="go">[None,None,None,None]</span>
 
@@ -507,8 +520,8 @@ engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull
 <span class="gh">Out[42]: </span><span class="go">[None,None,None,None]</span>
 </pre></div>
 </div>
-<p>In non-blocking mode <tt class="xref py py-meth docutils literal"><span class="pre">push()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">pull()</span></tt> also return
-<a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a> objects:</p>
+<p>In non-blocking mode <code class="xref py py-meth docutils literal"><span class="pre">push()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">pull()</span></code> also return
+<a class="reference internal" href="parallel_details.html#AsyncResult" title="AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a> objects:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [48]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">pull</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="gp">In [49]: </span><span class="n">ar</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
@@ -518,10 +531,10 @@ engines) and <tt class="xref py py-meth docutils literal"><span class="pre">pull
 </div>
 <div class="section" id="dictionary-interface">
 <h3>Dictionary interface<a class="headerlink" href="#dictionary-interface" title="Permalink to this headline">¶</a></h3>
-<p>Since a Python namespace is just a <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a>, <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> objects provide
-dictionary-style access by key and methods such as <tt class="xref py py-meth docutils literal"><span class="pre">get()</span></tt> and
-<tt class="xref py py-meth docutils literal"><span class="pre">update()</span></tt> for convenience. This make the remote namespaces of the engines
-appear as a local dictionary. Underneath, these methods call <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt>:</p>
+<p>Since a Python namespace is just a <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">dict</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code> objects provide
+dictionary-style access by key and methods such as <code class="xref py py-meth docutils literal"><span class="pre">get()</span></code> and
+<code class="xref py py-meth docutils literal"><span class="pre">update()</span></code> for convenience. This make the remote namespaces of the engines
+appear as a local dictionary. Underneath, these methods call <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [51]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="s">&#39;bar&#39;</span><span class="p">]</span>
 
 <span class="gp">In [52]: </span><span class="n">dview</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">]</span>
@@ -534,8 +547,8 @@ appear as a local dictionary. Underneath, these methods call <tt class="xref py 
 <p>Sometimes it is useful to partition a sequence and push the partitions to
 different engines. In MPI language, this is know as scatter/gather and we
 follow that terminology. However, it is important to remember that in
-IPython&#8217;s <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> class, <tt class="xref py py-meth docutils literal"><span class="pre">scatter()</span></tt> is from the
-interactive IPython session to the engines and <tt class="xref py py-meth docutils literal"><span class="pre">gather()</span></tt> is from the
+IPython&#8217;s <code class="xref py py-class docutils literal"><span class="pre">Client</span></code> class, <code class="xref py py-meth docutils literal"><span class="pre">scatter()</span></code> is from the
+interactive IPython session to the engines and <code class="xref py py-meth docutils literal"><span class="pre">gather()</span></code> is from the
 engines back to the interactive IPython session. For scatter/gather operations
 between engines, MPI, pyzmq, or some other direct interconnect should be used.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [58]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
@@ -556,7 +569,7 @@ between engines, MPI, pyzmq, or some other direct interconnect should be used.</
 <h3>How to do parallel list comprehensions<a class="headerlink" href="#how-to-do-parallel-list-comprehensions" title="Permalink to this headline">¶</a></h3>
 <p>In many cases list comprehensions are nicer than using the map function. While
 we don&#8217;t have fully parallel list comprehensions, it is simple to get the
-basic effect using <tt class="xref py py-meth docutils literal"><span class="pre">scatter()</span></tt> and <tt class="xref py py-meth docutils literal"><span class="pre">gather()</span></tt>:</p>
+basic effect using <code class="xref py py-meth docutils literal"><span class="pre">scatter()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">gather()</span></code>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [66]: </span><span class="n">dview</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
 
 <span class="gp">In [67]: </span><span class="o">%</span><span class="k">px</span> <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">**</span><span class="mi">10</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
@@ -572,8 +585,8 @@ basic effect using <tt class="xref py py-meth docutils literal"><span class="pre
 <div class="section" id="remote-imports">
 <h3>Remote imports<a class="headerlink" href="#remote-imports" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you will want to import packages both in your interactive session
-and on your remote engines.  This can be done with the <tt class="xref py py-class docutils literal"><span class="pre">ContextManager</span></tt>
-created by a DirectView&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">sync_imports()</span></tt> method:</p>
+and on your remote engines.  This can be done with the <code class="xref py py-class docutils literal"><span class="pre">ContextManager</span></code>
+created by a DirectView&#8217;s <code class="xref py py-meth docutils literal"><span class="pre">sync_imports()</span></code> method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [69]: </span><span class="k">with</span> <span class="n">dview</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
 <span class="gp">   ....: </span>    <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="go">importing numpy on engine(s)</span>
@@ -584,9 +597,9 @@ sync_imports also takes a <cite>local</cite> boolean flag that defaults to True,
 whether the local imports should also be performed.  However, support for <cite>local=False</cite>
 has not been implemented, so only packages that can be imported locally will work
 this way.</p>
-<p>You can also specify imports via the <tt class="docutils literal"><span class="pre">&#64;require</span></tt> decorator.  This is a decorator
+<p>You can also specify imports via the <code class="docutils literal"><span class="pre">&#64;require</span></code> decorator.  This is a decorator
 designed for use in Dependencies, but can be used to handle remote imports as well.
-Modules or module names passed to <tt class="docutils literal"><span class="pre">&#64;require</span></tt> will be imported before the decorated
+Modules or module names passed to <code class="docutils literal"><span class="pre">&#64;require</span></code> will be imported before the decorated
 function is called.  If they cannot be imported, the decorated function will never
 execute and will fail with an UnmetDependencyError. Failures of single Engines will
 be collected and raise a CompositeError, as demonstrated in the next section.</p>
@@ -606,8 +619,8 @@ be collected and raise a CompositeError, as demonstrated in the next section.</p
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="xref py py-func docutils literal"><span class="pre">sync_imports()</span></tt> does not allow <tt class="docutils literal"><span class="pre">import</span> <span class="pre">foo</span> <span class="pre">as</span> <span class="pre">bar</span></tt> syntax,
-because the assignment represented by the <tt class="docutils literal"><span class="pre">as</span> <span class="pre">bar</span></tt> part is not
+<p class="last"><code class="xref py py-func docutils literal"><span class="pre">sync_imports()</span></code> does not allow <code class="docutils literal"><span class="pre">import</span> <span class="pre">foo</span> <span class="pre">as</span> <span class="pre">bar</span></code> syntax,
+because the assignment represented by the <code class="docutils literal"><span class="pre">as</span> <span class="pre">bar</span></code> part is not
 available to the import hook.</p>
 </div>
 </div>
@@ -617,8 +630,8 @@ available to the import hook.</p>
 just like serial commands. But it is a little subtle, because a single
 parallel command can actually raise multiple exceptions (one for each engine
 the command was run on). To express this idea, we have a
-<tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> exception class that will be raised in most cases. The
-<tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> class is a special type of exception that wraps one or
+<code class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></code> exception class that will be raised in most cases. The
+<code class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></code> class is a special type of exception that wraps one or
 more other types of exceptions. Here is how it works:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [78]: </span><span class="n">dview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
@@ -648,7 +661,7 @@ more other types of exceptions. Here is how it works:</p>
 <span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 </pre></div>
 </div>
-<p>Notice how the error message printed when <tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> is raised has
+<p>Notice how the error message printed when <code class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></code> is raised has
 information about the individual exceptions that were raised on each engine.
 If you want, you can even raise one of these original exceptions:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [79]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
@@ -665,8 +678,8 @@ If you want, you can even raise one of these original exceptions:</p>
 <span class="ne">ZeroDivisionError</span>: integer division or modulo by zero
 </pre></div>
 </div>
-<p>If you are working in IPython, you can simple type <tt class="docutils literal"><span class="pre">%debug</span></tt> after one of
-these <tt class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></tt> exceptions is raised, and inspect the exception
+<p>If you are working in IPython, you can simple type <code class="docutils literal"><span class="pre">%debug</span></code> after one of
+these <code class="xref py py-exc docutils literal"><span class="pre">CompositeError</span></code> exceptions is raised, and inspect the exception
 instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [81]: </span><span class="n">dview</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;1/0&#39;</span><span class="p">)</span>
 <span class="go">[0:execute]:</span>
@@ -725,7 +738,7 @@ instance:</p>
 <p>Since you might have 100 engines, you probably don&#8217;t want to see 100 tracebacks
 for a simple NameError because of a typo.
 For this reason, CompositeError truncates the list of exceptions it will print
-to <tt class="xref py py-attr docutils literal"><span class="pre">CompositeError.tb_limit</span></tt> (default is five).
+to <code class="xref py py-attr docutils literal"><span class="pre">CompositeError.tb_limit</span></code> (default is five).
 You can change this limit to suit your needs with:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [20]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">CompositeError</span>
 <span class="gp">In [21]: </span><span class="n">CompositeError</span><span class="o">.</span><span class="n">tb_limit</span> <span class="o">=</span> <span class="mi">1</span>
@@ -764,32 +777,20 @@ You can change this limit to suit your needs with:</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="magics.html" title="Parallel Magic Commands"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="parallel_process.html" title="Starting the IPython controller and engines"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jan 30, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/parallel/parallel_multiengine.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
