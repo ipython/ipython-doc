@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The Jupyter Notebook Format &mdash; IPython 3.2.0 documentation</title>
+    <title>The Jupyter Notebook Format &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="The IPython notebook" href="index.html" />
     <link rel="next" title="Converting notebooks to other formats" href="nbconvert.html" />
-    <link rel="prev" title="The IPython Notebook" href="notebook.html" /> 
+    <link rel="prev" title="The IPython Notebook" href="notebook.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">The IPython notebook</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The IPython notebook</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -94,12 +98,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="nbconvert.html"
                         title="next chapter">Converting notebooks to other formats</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/notebook/nbformat.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/notebook/nbformat.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -118,9 +124,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="the-jupyter-notebook-format">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="the-jupyter-notebook-format">
 <span id="nbformat"></span><h1>The Jupyter Notebook Format<a class="headerlink" href="#the-jupyter-notebook-format" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
@@ -168,7 +181,7 @@ no metadata values are required to be defined.</p>
 </div>
 <p>Some fields, such as code input and text output, are characteristically multi-line strings.
 When these fields are written to disk, they <strong>may</strong> be written as a list of strings,
-which should be joined with <tt class="docutils literal"><span class="pre">''</span></tt> when reading back into memory.
+which should be joined with <code class="docutils literal"><span class="pre">''</span></code> when reading back into memory.
 In programmatic APIs for working with notebooks (Python, Javascript),
 these are always re-joined into the original multi-line string.
 If you intend to work with notebook files directly,
@@ -206,7 +219,7 @@ as defined in <a class="reference external" href="https://help.github.com/articl
 <p>Code cells are the primary content of Jupyter notebooks.
 They contain source code in the language of the document&#8217;s associated kernel,
 and a list of outputs associated with executing that code.
-They also have an execution_count, which must be an integer or <tt class="docutils literal"><span class="pre">null</span></tt>.</p>
+They also have an execution_count, which must be an integer or <code class="docutils literal"><span class="pre">null</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;cell_type&quot;</span> <span class="p">:</span> <span class="s">&quot;code&quot;</span><span class="p">,</span>
   <span class="s">&quot;execution_count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="c"># integer or null</span>
@@ -225,18 +238,18 @@ They also have an execution_count, which must be an integer or <tt class="docuti
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">input</span></tt> was renamed to <tt class="docutils literal"><span class="pre">source</span></tt>, for consistency among cell types.</p>
+<p><code class="docutils literal"><span class="pre">input</span></code> was renamed to <code class="docutils literal"><span class="pre">source</span></code>, for consistency among cell types.</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">prompt_number</span></tt> renamed to <tt class="docutils literal"><span class="pre">execution_count</span></tt></p>
+<p><code class="docutils literal"><span class="pre">prompt_number</span></code> renamed to <code class="docutils literal"><span class="pre">execution_count</span></code></p>
 </div>
 </div>
 <div class="section" id="code-cell-outputs">
 <h3>Code cell outputs<a class="headerlink" href="#code-cell-outputs" title="Permalink to this headline">¶</a></h3>
 <p>A code cell can have a variety of outputs (stream data or rich mime-type output).
-These correspond to <a class="reference internal" href="../development/messaging.html#messaging"><em>messages</em></a> produced as a result of executing the cell.</p>
-<p>All outputs have an <tt class="docutils literal"><span class="pre">output_type</span></tt> field,
+These correspond to <a class="reference internal" href="../development/messaging.html#messaging"><span>messages</span></a> produced as a result of executing the cell.</p>
+<p>All outputs have an <code class="docutils literal"><span class="pre">output_type</span></code> field,
 which is a string defining what type of output it is.</p>
 <div class="section" id="stream-output">
 <h4>stream output<a class="headerlink" href="#stream-output" title="Permalink to this headline">¶</a></h4>
@@ -249,13 +262,13 @@ which is a string defining what type of output it is.</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p>The keys <tt class="docutils literal"><span class="pre">stream</span></tt> key was changed to <tt class="docutils literal"><span class="pre">name</span></tt> to match
+<p>The keys <code class="docutils literal"><span class="pre">stream</span></code> key was changed to <code class="docutils literal"><span class="pre">name</span></code> to match
 the stream message.</p>
 </div>
 </div>
 <div class="section" id="display-data">
 <h4>display_data<a class="headerlink" href="#display-data" title="Permalink to this headline">¶</a></h4>
-<p>Rich display outputs, as created by <tt class="docutils literal"><span class="pre">display_data</span></tt> messages,
+<p>Rich display outputs, as created by <code class="docutils literal"><span class="pre">display_data</span></code> messages,
 contain data keyed by mime-type. This is often called a mime-bundle,
 and shows up in various locations in the notebook format and message spec.
 The metadata of these messages may be keyed by mime-type as well.</p>
@@ -280,21 +293,21 @@ The metadata of these messages may be keyed by mime-type as well.</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">application/json</span></tt> output is no longer double-serialized into a string.</p>
+<p><code class="docutils literal"><span class="pre">application/json</span></code> output is no longer double-serialized into a string.</p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p>mime-types are used for keys, instead of a combination of short names (<tt class="docutils literal"><span class="pre">text</span></tt>)
-and mime-types, and are stored in a <tt class="docutils literal"><span class="pre">data</span></tt> key, rather than the top-level.
-i.e. <tt class="docutils literal"><span class="pre">output.data['image/png']</span></tt> instead of <tt class="docutils literal"><span class="pre">output.png</span></tt>.</p>
+<p>mime-types are used for keys, instead of a combination of short names (<code class="docutils literal"><span class="pre">text</span></code>)
+and mime-types, and are stored in a <code class="docutils literal"><span class="pre">data</span></code> key, rather than the top-level.
+i.e. <code class="docutils literal"><span class="pre">output.data['image/png']</span></code> instead of <code class="docutils literal"><span class="pre">output.png</span></code>.</p>
 </div>
 </div>
 <div class="section" id="execute-result">
 <h4>execute_result<a class="headerlink" href="#execute-result" title="Permalink to this headline">¶</a></h4>
-<p>Results of executing a cell (as created by <tt class="docutils literal"><span class="pre">displayhook</span></tt> in Python)
-are stored in <tt class="docutils literal"><span class="pre">execute_result</span></tt> outputs.
-<tt class="docutils literal"><span class="pre">execute_result</span></tt> outputs are identical to <tt class="docutils literal"><span class="pre">display_data</span></tt>,
-adding only a <tt class="docutils literal"><span class="pre">execution_count</span></tt> field, which must be an integer.</p>
+<p>Results of executing a cell (as created by <code class="docutils literal"><span class="pre">displayhook</span></code> in Python)
+are stored in <code class="docutils literal"><span class="pre">execute_result</span></code> outputs.
+<code class="docutils literal"><span class="pre">execute_result</span></code> outputs are identical to <code class="docutils literal"><span class="pre">display_data</span></code>,
+adding only a <code class="docutils literal"><span class="pre">execution_count</span></code> field, which must be an integer.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
   <span class="s">&quot;output_type&quot;</span> <span class="p">:</span> <span class="s">&quot;execute_result&quot;</span><span class="p">,</span>
   <span class="s">&quot;execution_count&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
@@ -317,11 +330,11 @@ adding only a <tt class="docutils literal"><span class="pre">execution_count</sp
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">pyout</span></tt> renamed to <tt class="docutils literal"><span class="pre">execute_result</span></tt></p>
+<p><code class="docutils literal"><span class="pre">pyout</span></code> renamed to <code class="docutils literal"><span class="pre">execute_result</span></code></p>
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">prompt_number</span></tt> renamed to <tt class="docutils literal"><span class="pre">execution_count</span></tt></p>
+<p><code class="docutils literal"><span class="pre">prompt_number</span></code> renamed to <code class="docutils literal"><span class="pre">execution_count</span></code></p>
 </div>
 </div>
 <div class="section" id="error">
@@ -339,17 +352,17 @@ adding only a <tt class="docutils literal"><span class="pre">execution_count</sp
 </div>
 <div class="versionchanged">
 <p><span class="versionmodified">Changed in version nbformat: </span>4.0</p>
-<p><tt class="docutils literal"><span class="pre">pyerr</span></tt> renamed to <tt class="docutils literal"><span class="pre">error</span></tt></p>
+<p><code class="docutils literal"><span class="pre">pyerr</span></code> renamed to <code class="docutils literal"><span class="pre">error</span></code></p>
 </div>
 </div>
 </div>
 <div class="section" id="raw-nbconvert-cells">
 <span id="id1"></span><h3>Raw NBConvert cells<a class="headerlink" href="#raw-nbconvert-cells" title="Permalink to this headline">¶</a></h3>
-<p>A raw cell is defined as content that should be included <em>unmodified</em> in <a class="reference internal" href="nbconvert.html#nbconvert"><em>nbconvert</em></a> output.
+<p>A raw cell is defined as content that should be included <em>unmodified</em> in <a class="reference internal" href="nbconvert.html#nbconvert"><span>nbconvert</span></a> output.
 For example, this cell could include raw LaTeX for nbconvert to pdf via latex,
 or restructured text for use in Sphinx documentation.</p>
 <p>The notebook authoring environment does not render raw cells.</p>
-<p>The only logic in a raw cell is the <tt class="docutils literal"><span class="pre">format</span></tt> metadata field.
+<p>The only logic in a raw cell is the <code class="docutils literal"><span class="pre">format</span></code> metadata field.
 If defined, it specifies which nbconvert output format is the intended target
 for the raw cell. When outputting to any other format,
 the raw cell&#8217;s contents will be excluded.
@@ -388,7 +401,7 @@ but they will be preserved.</p>
 <p>Metadata is a place that you can put arbitrary JSONable information about
 your notebook, cell, or output. Because it is a shared namespace,
 any custom metadata should use a sufficiently unique namespace,
-such as <tt class="docutils literal"><span class="pre">metadata.kaylees_md.foo</span> <span class="pre">=</span> <span class="pre">&quot;bar&quot;</span></tt>.</p>
+such as <code class="docutils literal"><span class="pre">metadata.kaylees_md.foo</span> <span class="pre">=</span> <span class="pre">&quot;bar&quot;</span></code>.</p>
 <p>Metadata fields officially defined for Jupyter notebooks are listed here:</p>
 <div class="section" id="notebook-metadata">
 <h3>Notebook metadata<a class="headerlink" href="#notebook-metadata" title="Permalink to this headline">¶</a></h3>
@@ -408,11 +421,11 @@ such as <tt class="docutils literal"><span class="pre">metadata.kaylees_md.foo</
 <tbody valign="top">
 <tr class="row-even"><td>kernelspec</td>
 <td>dict</td>
-<td>A <a class="reference internal" href="../development/kernels.html#kernelspecs"><em>kernel specification</em></a></td>
+<td>A <a class="reference internal" href="../development/kernels.html#kernelspecs"><span>kernel specification</span></a></td>
 </tr>
 <tr class="row-odd"><td>signature</td>
 <td>str</td>
-<td>A hashed <a class="reference internal" href="security.html#notebook-security"><em>signature</em></a> of the notebook</td>
+<td>A hashed <a class="reference internal" href="security.html#notebook-security"><span>signature</span></a> of the notebook</td>
 </tr>
 </tbody>
 </table>
@@ -447,7 +460,7 @@ such as <tt class="docutils literal"><span class="pre">metadata.kaylees_md.foo</
 </tr>
 <tr class="row-odd"><td>format</td>
 <td>&#8216;mime/type&#8217;</td>
-<td>The mime-type of a <a class="reference internal" href="#raw-nbconvert-cells"><em>Raw NBConvert Cell</em></a></td>
+<td>The mime-type of a <a class="reference internal" href="#raw-nbconvert-cells"><span>Raw NBConvert Cell</span></a></td>
 </tr>
 <tr class="row-even"><td>name</td>
 <td>str</td>
@@ -492,32 +505,20 @@ such as <tt class="docutils literal"><span class="pre">metadata.kaylees_md.foo</
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="nbconvert.html" title="Converting notebooks to other formats"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="notebook.html" title="The IPython Notebook"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >The IPython notebook</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/notebook/nbformat.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

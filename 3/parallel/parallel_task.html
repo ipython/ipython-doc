@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The IPython task interface &mdash; IPython 3.2.0 documentation</title>
+    <title>The IPython task interface &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="The AsyncResult object" href="asyncresult.html" />
-    <link rel="prev" title="Parallel Magic Commands" href="magics.html" /> 
+    <link rel="prev" title="Parallel Magic Commands" href="magics.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,17 +57,17 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">The IPython task interface</a><ul>
 <li><a class="reference internal" href="#starting-the-ipython-controller-and-engines">Starting the IPython controller and engines</a></li>
-<li><a class="reference internal" href="#creating-a-loadbalancedview-instance">Creating a <tt class="docutils literal"><span class="pre">LoadBalancedView</span></tt> instance</a></li>
+<li><a class="reference internal" href="#creating-a-loadbalancedview-instance">Creating a <code class="docutils literal"><span class="pre">LoadBalancedView</span></code> instance</a></li>
 <li><a class="reference internal" href="#quick-and-easy-parallelism">Quick and easy parallelism</a><ul>
 <li><a class="reference internal" href="#parallel-map">Parallel map</a></li>
 <li><a class="reference internal" href="#parallel-function-decorator">Parallel function decorator</a></li>
@@ -103,12 +107,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="asyncresult.html"
                         title="next chapter">The AsyncResult object</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/parallel/parallel_task.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/parallel/parallel_task.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -127,9 +133,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="the-ipython-task-interface">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="the-ipython-task-interface">
 <span id="parallel-task"></span><h1>The IPython task interface<a class="headerlink" href="#the-ipython-task-interface" title="Permalink to this headline">¶</a></h1>
 <p>The task interface to the cluster presents the engines as a fault tolerant,
 dynamic load-balanced system of workers. Unlike the multiengine interface, in
@@ -151,13 +164,13 @@ the <strong class="command">ipcluster</strong> command:</p>
 </pre></div>
 </div>
 <p>For more detailed information about starting the controller and engines, see
-our <a class="reference internal" href="parallel_intro.html#parallel-overview"><em>introduction</em></a> to using IPython for parallel computing.</p>
+our <a class="reference internal" href="parallel_intro.html#parallel-overview"><span>introduction</span></a> to using IPython for parallel computing.</p>
 </div>
 <div class="section" id="creating-a-loadbalancedview-instance">
-<h2>Creating a <tt class="docutils literal"><span class="pre">LoadBalancedView</span></tt> instance<a class="headerlink" href="#creating-a-loadbalancedview-instance" title="Permalink to this headline">¶</a></h2>
-<p>The first step is to import the IPython <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></tt></a>
-module and then create a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> instance, and we will also be using
-a <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt>, here called <tt class="docutils literal"><span class="pre">lview</span></tt>:</p>
+<h2>Creating a <code class="docutils literal"><span class="pre">LoadBalancedView</span></code> instance<a class="headerlink" href="#creating-a-loadbalancedview-instance" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to import the IPython <a class="reference internal" href="../api/generated/IPython.parallel.html#module-IPython.parallel" title="IPython.parallel"><code class="xref py py-mod docutils literal"><span class="pre">IPython.parallel</span></code></a>
+module and then create a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><code class="xref py py-class docutils literal"><span class="pre">Client</span></code></a> instance, and we will also be using
+a <code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code>, here called <code class="docutils literal"><span class="pre">lview</span></code>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 
 <span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
@@ -172,14 +185,14 @@ argument to the constructor:</p>
 <span class="gp">In [3]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>For load-balanced execution, we will make use of a <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> object, which can
-be constructed via the client&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">load_balanced_view()</span></tt> method:</p>
+<p>For load-balanced execution, we will make use of a <code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code> object, which can
+be constructed via the client&#8217;s <code class="xref py py-meth docutils literal"><span class="pre">load_balanced_view()</span></code> method:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">lview</span> <span class="o">=</span> <span class="n">rc</span><span class="o">.</span><span class="n">load_balanced_view</span><span class="p">()</span> <span class="c"># default load-balanced view</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">For more information, see the in-depth explanation of <a class="reference internal" href="parallel_details.html#parallel-details"><em>Views</em></a>.</p>
+<p class="last">For more information, see the in-depth explanation of <a class="reference internal" href="parallel_details.html#parallel-details"><span>Views</span></a>.</p>
 </div>
 </div>
 <div class="section" id="quick-and-easy-parallelism">
@@ -188,13 +201,13 @@ be constructed via the client&#8217;s <tt class="xref py py-meth docutils litera
 objects, but <em>in parallel</em>. Like the multiengine interface, these can be
 implemented via the task interface. The exact same tools can perform these
 actions in load-balanced ways as well as multiplexed ways: a parallel version
-of <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">map()</span></tt></a> and <tt class="xref py py-func docutils literal"><span class="pre">&#64;parallel()</span></tt> function decorator. If one specifies the
-argument <tt class="docutils literal"><span class="pre">balanced=True</span></tt>, then they are dynamically load balanced. Thus, if the
+of <a class="reference external" href="http://docs.python.org/2/library/functions.html#map" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">map()</span></code></a> and <code class="xref py py-func docutils literal"><span class="pre">&#64;parallel()</span></code> function decorator. If one specifies the
+argument <code class="docutils literal"><span class="pre">balanced=True</span></code>, then they are dynamically load balanced. Thus, if the
 execution time per item varies significantly, you should use the versions in
 the task interface.</p>
 <div class="section" id="parallel-map">
 <h3>Parallel map<a class="headerlink" href="#parallel-map" title="Permalink to this headline">¶</a></h3>
-<p>To load-balance <tt class="xref py py-meth docutils literal"><span class="pre">map()</span></tt>,simply use a LoadBalancedView:</p>
+<p>To load-balance <code class="xref py py-meth docutils literal"><span class="pre">map()</span></code>,simply use a LoadBalancedView:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [62]: </span><span class="n">lview</span><span class="o">.</span><span class="n">block</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="gp">In [63]: </span><span class="n">serial_result</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">10</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
@@ -225,7 +238,7 @@ that turns any Python function into a parallel function:</p>
 <div class="section" id="dependencies">
 <span id="parallel-dependencies"></span><h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p>Often, pure atomic load-balancing is too primitive for your work. In these cases, you
-may want to associate some kind of <tt class="docutils literal"><span class="pre">Dependency</span></tt> that describes when, where, or whether
+may want to associate some kind of <code class="docutils literal"><span class="pre">Dependency</span></code> that describes when, where, or whether
 a task can be run.  In IPython, we provide two types of dependencies:
 <a class="reference internal" href="#functional-dependencies">Functional Dependencies</a> and <a class="reference internal" href="#graph-dependencies">Graph Dependencies</a></p>
 <div class="admonition note">
@@ -237,13 +250,13 @@ scheduler.</p>
 <div class="section" id="functional-dependencies">
 <h3>Functional Dependencies<a class="headerlink" href="#functional-dependencies" title="Permalink to this headline">¶</a></h3>
 <p>Functional dependencies are used to determine whether a given engine is capable of running
-a particular task.  This is implemented via a special <tt class="xref py py-class docutils literal"><span class="pre">Exception</span></tt> class,
-<tt class="xref py py-class docutils literal"><span class="pre">UnmetDependency</span></tt>, found in <tt class="docutils literal"><span class="pre">IPython.parallel.error</span></tt>.  Its use is very simple:
+a particular task.  This is implemented via a special <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code> class,
+<code class="xref py py-class docutils literal"><span class="pre">UnmetDependency</span></code>, found in <code class="docutils literal"><span class="pre">IPython.parallel.error</span></code>.  Its use is very simple:
 if a task fails with an UnmetDependency exception, then the scheduler, instead of relaying
 the error up to the client like any other error, catches the error, and submits the task
 to a different engine.  This will repeat indefinitely, and a task will never be submitted
 to a given engine a second time.</p>
-<p>You can manually raise the <tt class="xref py py-class docutils literal"><span class="pre">UnmetDependency</span></tt> yourself, but IPython has provided
+<p>You can manually raise the <code class="xref py py-class docutils literal"><span class="pre">UnmetDependency</span></code> yourself, but IPython has provided
 some decorators for facilitating this behavior.</p>
 <p>There are two decorators and a class used for functional dependencies:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">depend</span><span class="p">,</span> <span class="n">require</span><span class="p">,</span> <span class="n">dependent</span>
@@ -252,21 +265,21 @@ some decorators for facilitating this behavior.</p>
 <div class="section" id="require">
 <h4>&#64;require<a class="headerlink" href="#require" title="Permalink to this headline">¶</a></h4>
 <p>The simplest sort of dependency is requiring that a Python module is available. The
-<tt class="docutils literal"><span class="pre">&#64;require</span></tt> decorator lets you define a function that will only run on engines where names
+<code class="docutils literal"><span class="pre">&#64;require</span></code> decorator lets you define a function that will only run on engines where names
 you specify are importable:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="nd">@require</span><span class="p">(</span><span class="s">&#39;numpy&#39;</span><span class="p">,</span> <span class="s">&#39;zmq&#39;</span><span class="p">)</span>
 <span class="gp">   ....: </span><span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
 <span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">dostuff</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Now, any time you apply <tt class="xref py py-func docutils literal"><span class="pre">myfunc()</span></tt>, the task will only run on a machine that has
-numpy and pyzmq available, and when <tt class="xref py py-func docutils literal"><span class="pre">myfunc()</span></tt> is called, numpy and zmq will be imported.</p>
+<p>Now, any time you apply <code class="xref py py-func docutils literal"><span class="pre">myfunc()</span></code>, the task will only run on a machine that has
+numpy and pyzmq available, and when <code class="xref py py-func docutils literal"><span class="pre">myfunc()</span></code> is called, numpy and zmq will be imported.</p>
 </div>
 <div class="section" id="depend">
 <h4>&#64;depend<a class="headerlink" href="#depend" title="Permalink to this headline">¶</a></h4>
-<p>The <tt class="docutils literal"><span class="pre">&#64;depend</span></tt> decorator lets you decorate any function with any <em>other</em> function to
+<p>The <code class="docutils literal"><span class="pre">&#64;depend</span></code> decorator lets you decorate any function with any <em>other</em> function to
 evaluate the dependency. The dependency function will be called at the start of the task,
-and if it returns <tt class="docutils literal"><span class="pre">False</span></tt>, then the dependency will be considered unmet, and the task
+and if it returns <code class="docutils literal"><span class="pre">False</span></code>, then the dependency will be considered unmet, and the task
 will be assigned to another engine. If the dependency returns <em>anything other than
 ``False``</em>, the rest of the task will continue.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="k">def</span> <span class="nf">platform_specific</span><span class="p">(</span><span class="n">plat</span><span class="p">):</span>
@@ -282,64 +295,64 @@ will be assigned to another engine. If the dependency returns <em>anything other
 <span class="gp">   ....: </span>   <span class="n">do_windows_stuff</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In this case, any time you apply <tt class="docutils literal"><span class="pre">mactask</span></tt>, it will only run on an OSX machine.
-<tt class="docutils literal"><span class="pre">&#64;depend</span></tt> is just like <tt class="docutils literal"><span class="pre">apply</span></tt>, in that it has a <tt class="docutils literal"><span class="pre">&#64;depend(f,*args,**kwargs)</span></tt>
+<p>In this case, any time you apply <code class="docutils literal"><span class="pre">mactask</span></code>, it will only run on an OSX machine.
+<code class="docutils literal"><span class="pre">&#64;depend</span></code> is just like <code class="docutils literal"><span class="pre">apply</span></code>, in that it has a <code class="docutils literal"><span class="pre">&#64;depend(f,*args,**kwargs)</span></code>
 signature.</p>
 </div>
 <div class="section" id="dependents">
 <h4>dependents<a class="headerlink" href="#dependents" title="Permalink to this headline">¶</a></h4>
 <p>You don&#8217;t have to use the decorators on your tasks, if for instance you may want
 to run tasks with a single function but varying dependencies, you can directly construct
-the <tt class="xref py py-class docutils literal"><span class="pre">dependent</span></tt> object that the decorators use:</p>
+the <code class="xref py py-class docutils literal"><span class="pre">dependent</span></code> object that the decorators use:</p>
 </div>
 </div>
 <div class="section" id="graph-dependencies">
 <h3>Graph Dependencies<a class="headerlink" href="#graph-dependencies" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you want to restrict the time and/or location to run a given task as a function
 of the time and/or location of other tasks. This is implemented via a subclass of
-<a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#set" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">set</span></tt></a>, called a <tt class="xref py py-class docutils literal"><span class="pre">Dependency</span></tt>. A Dependency is just a set of <tt class="docutils literal"><span class="pre">msg_ids</span></tt>
+<a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#set" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">set</span></code></a>, called a <code class="xref py py-class docutils literal"><span class="pre">Dependency</span></code>. A Dependency is just a set of <code class="docutils literal"><span class="pre">msg_ids</span></code>
 corresponding to tasks, and a few attributes to guide how to decide when the Dependency
 has been met.</p>
 <p>The switches we provide for interpreting whether a given dependency set has been met:</p>
 <dl class="docutils">
 <dt>any|all</dt>
 <dd>Whether the dependency is considered met if <em>any</em> of the dependencies are done, or
-only after <em>all</em> of them have finished.  This is set by a Dependency&#8217;s <tt class="xref py py-attr docutils literal"><span class="pre">all</span></tt>
-boolean attribute, which defaults to <tt class="docutils literal"><span class="pre">True</span></tt>.</dd>
+only after <em>all</em> of them have finished.  This is set by a Dependency&#8217;s <code class="xref py py-attr docutils literal"><span class="pre">all</span></code>
+boolean attribute, which defaults to <code class="docutils literal"><span class="pre">True</span></code>.</dd>
 <dt>success [default: True]</dt>
 <dd>Whether to consider tasks that succeeded as fulfilling dependencies.</dd>
 <dt>failure [default <span class="classifier-delimiter">:</span> <span class="classifier">False]</span></dt>
 <dd>Whether to consider tasks that failed as fulfilling dependencies.
-using <tt class="docutils literal"><span class="pre">failure=True,success=False</span></tt> is useful for setting up cleanup tasks, to be run
+using <code class="docutils literal"><span class="pre">failure=True,success=False</span></code> is useful for setting up cleanup tasks, to be run
 only when tasks have failed.</dd>
 </dl>
 <p>Sometimes you want to run a task after another, but only if that task succeeded. In this case,
-<tt class="docutils literal"><span class="pre">success</span></tt> should be <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">failure</span></tt> should be <tt class="docutils literal"><span class="pre">False</span></tt>. However sometimes you may
+<code class="docutils literal"><span class="pre">success</span></code> should be <code class="docutils literal"><span class="pre">True</span></code> and <code class="docutils literal"><span class="pre">failure</span></code> should be <code class="docutils literal"><span class="pre">False</span></code>. However sometimes you may
 not care whether the task succeeds, and always want the second task to run, in which case you
-should use <tt class="docutils literal"><span class="pre">success=failure=True</span></tt>. The default behavior is to only use successes.</p>
+should use <code class="docutils literal"><span class="pre">success=failure=True</span></code>. The default behavior is to only use successes.</p>
 <p>There are other switches for interpretation that are made at the <em>task</em> level.  These are
-specified via keyword arguments to the client&#8217;s <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> method.</p>
+specified via keyword arguments to the client&#8217;s <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code> method.</p>
 <dl class="docutils">
 <dt>after,follow</dt>
 <dd>You may want to run a task <em>after</em> a given set of dependencies have been run and/or
 run it <em>where</em> another set of dependencies are met. To support this, every task has an
-<tt class="docutils literal"><span class="pre">after</span></tt> dependency to restrict time, and a <tt class="docutils literal"><span class="pre">follow</span></tt> dependency to restrict
+<code class="docutils literal"><span class="pre">after</span></code> dependency to restrict time, and a <code class="docutils literal"><span class="pre">follow</span></code> dependency to restrict
 destination.</dd>
 <dt>timeout</dt>
 <dd>You may also want to set a time-limit for how long the scheduler should wait before a
-task&#8217;s dependencies are met. This is done via a <tt class="docutils literal"><span class="pre">timeout</span></tt>, which defaults to 0, which
+task&#8217;s dependencies are met. This is done via a <code class="docutils literal"><span class="pre">timeout</span></code>, which defaults to 0, which
 indicates that the task should never timeout. If the timeout is reached, and the
 scheduler still hasn&#8217;t been able to assign the task to an engine, the task will fail
-with a <tt class="xref py py-class docutils literal"><span class="pre">DependencyTimeout</span></tt>.</dd>
+with a <code class="xref py py-class docutils literal"><span class="pre">DependencyTimeout</span></code>.</dd>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Dependencies only work within the task scheduler. You cannot instruct a load-balanced
 task to run after a job submitted via the MUX interface.</p>
 </div>
-<p>The simplest form of Dependencies is with <tt class="docutils literal"><span class="pre">all=True,success=True,failure=False</span></tt>. In these cases,
+<p>The simplest form of Dependencies is with <code class="docutils literal"><span class="pre">all=True,success=True,failure=False</span></code>. In these cases,
 you can skip using Dependency objects, and just pass msg_ids or AsyncResult objects as the
-<tt class="docutils literal"><span class="pre">follow</span></tt> and <tt class="docutils literal"><span class="pre">after</span></tt> keywords to <tt class="xref py py-meth docutils literal"><span class="pre">client.apply()</span></tt>:</p>
+<code class="docutils literal"><span class="pre">follow</span></code> and <code class="docutils literal"><span class="pre">after</span></code> keywords to <code class="xref py py-meth docutils literal"><span class="pre">client.apply()</span></code>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="n">client</span><span class="o">.</span><span class="n">block</span><span class="o">=</span><span class="bp">False</span>
 
 <span class="gp">In [15]: </span><span class="n">ar</span> <span class="o">=</span> <span class="n">lview</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
@@ -355,23 +368,23 @@ you can skip using Dependency objects, and just pass msg_ids or AsyncResult obje
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">Some parallel workloads can be described as a <a class="reference external" href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a>, or DAG. See <a class="reference internal" href="dag_dependencies.html#dag-dependencies"><em>DAG
-Dependencies</em></a> for an example demonstrating how to use map a NetworkX DAG
+<p class="last">Some parallel workloads can be described as a <a class="reference external" href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">Directed Acyclic Graph</a>, or DAG. See <a class="reference internal" href="dag_dependencies.html#dag-dependencies"><span>DAG
+Dependencies</span></a> for an example demonstrating how to use map a NetworkX DAG
 onto task dependencies.</p>
 </div>
 <div class="section" id="impossible-dependencies">
 <h4>Impossible Dependencies<a class="headerlink" href="#impossible-dependencies" title="Permalink to this headline">¶</a></h4>
 <p>The schedulers do perform some analysis on graph dependencies to determine whether they
 are not possible to be met. If the scheduler does discover that a dependency cannot be
-met, then the task will fail with an <tt class="xref py py-class docutils literal"><span class="pre">ImpossibleDependency</span></tt> error. This way, if the
+met, then the task will fail with an <code class="xref py py-class docutils literal"><span class="pre">ImpossibleDependency</span></code> error. This way, if the
 scheduler realized that a task can never be run, it won&#8217;t sit indefinitely in the
 scheduler clogging the pipeline.</p>
 <p>The basic cases that are checked:</p>
 <ul class="simple">
 <li>depending on nonexistent messages</li>
-<li><tt class="docutils literal"><span class="pre">follow</span></tt> dependencies were run on more than one machine and <tt class="docutils literal"><span class="pre">all=True</span></tt></li>
-<li>any dependencies failed and <tt class="docutils literal"><span class="pre">all=True,success=True,failures=False</span></tt></li>
-<li>all dependencies failed and <tt class="docutils literal"><span class="pre">all=False,success=True,failure=False</span></tt></li>
+<li><code class="docutils literal"><span class="pre">follow</span></code> dependencies were run on more than one machine and <code class="docutils literal"><span class="pre">all=True</span></code></li>
+<li>any dependencies failed and <code class="docutils literal"><span class="pre">all=True,success=True,failures=False</span></code></li>
+<li>all dependencies failed and <code class="docutils literal"><span class="pre">all=False,success=True,failure=False</span></code></li>
 </ul>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -385,7 +398,7 @@ to become impossible to run in obscure situations, so a timeout may be a good ch
 <h2>Retries and Resubmit<a class="headerlink" href="#retries-and-resubmit" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="retries">
 <h3>Retries<a class="headerlink" href="#retries" title="Permalink to this headline">¶</a></h3>
-<p>Another flag for tasks is <tt class="docutils literal"><span class="pre">retries</span></tt>.  This is an integer, specifying how many times
+<p>Another flag for tasks is <code class="docutils literal"><span class="pre">retries</span></code>.  This is an integer, specifying how many times
 a task should be resubmitted after failure.  This is useful for tasks that should still run
 if their engine was shutdown, or may have some statistical chance of failing.  The default
 is to not retry tasks.</p>
@@ -394,8 +407,8 @@ is to not retry tasks.</p>
 <h3>Resubmit<a class="headerlink" href="#resubmit" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you may want to re-run a task. This could be because it failed for some reason, and
 you have fixed the error, or because you want to restore the cluster to an interrupted state.
-For this, the <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> has a <tt class="xref py py-meth docutils literal"><span class="pre">rc.resubmit()</span></tt> method.  This simply takes one or more
-msg_ids, and returns an <tt class="xref py py-class docutils literal"><span class="pre">AsyncHubResult</span></tt> for the result(s).  You cannot resubmit
+For this, the <code class="xref py py-class docutils literal"><span class="pre">Client</span></code> has a <code class="xref py py-meth docutils literal"><span class="pre">rc.resubmit()</span></code> method.  This simply takes one or more
+msg_ids, and returns an <code class="xref py py-class docutils literal"><span class="pre">AsyncHubResult</span></code> for the result(s).  You cannot resubmit
 a task that is pending - only those that have finished, either successful or unsuccessful.</p>
 </div>
 </div>
@@ -403,8 +416,8 @@ a task that is pending - only those that have finished, either successful or uns
 <span id="parallel-schedulers"></span><h2>Schedulers<a class="headerlink" href="#schedulers" title="Permalink to this headline">¶</a></h2>
 <p>There are a variety of valid ways to determine where jobs should be assigned in a
 load-balancing situation.  In IPython, we support several standard schemes, and
-even make it easy to define your own.  The scheme can be selected via the <tt class="docutils literal"><span class="pre">scheme</span></tt>
-argument to <strong class="command">ipcontroller</strong>, or in the <tt class="xref py py-attr docutils literal"><span class="pre">TaskScheduler.schemename</span></tt> attribute
+even make it easy to define your own.  The scheme can be selected via the <code class="docutils literal"><span class="pre">scheme</span></code>
+argument to <strong class="command">ipcontroller</strong>, or in the <code class="xref py py-attr docutils literal"><span class="pre">TaskScheduler.schemename</span></code> attribute
 of a controller config object.</p>
 <p>The built-in routing schemes:</p>
 <p>To select one of these schemes, simply do:</p>
@@ -443,8 +456,8 @@ and use the one with the lower load.</p>
 <p>Tasks can be assigned greedily as they are submitted. If their dependencies are
 met, they will be assigned to an engine right away, and multiple tasks can be
 assigned to an engine at a given time. This limit is set with the
-<tt class="docutils literal"><span class="pre">TaskScheduler.hwm</span></tt> (high water mark) configurable in your
-<tt class="file docutils literal"><span class="pre">ipcontroller_config.py</span></tt> config file, with:</p>
+<code class="docutils literal"><span class="pre">TaskScheduler.hwm</span></code> (high water mark) configurable in your
+<code class="file docutils literal"><span class="pre">ipcontroller_config.py</span></code> config file, with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># the most common choices are:</span>
 <span class="n">c</span><span class="o">.</span><span class="n">TaskSheduler</span><span class="o">.</span><span class="n">hwm</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># (minimal latency, default in IPython &lt; 0.13)</span>
 <span class="c"># or</span>
@@ -468,9 +481,9 @@ some engines in heterogeneous cases.</p>
 <div class="section" id="pure-zmq-scheduler">
 <h3>Pure ZMQ Scheduler<a class="headerlink" href="#pure-zmq-scheduler" title="Permalink to this headline">¶</a></h3>
 <p>For maximum throughput, the &#8216;pure&#8217; scheme is not Python at all, but a C-level
-<tt class="xref py py-class docutils literal"><span class="pre">MonitoredQueue</span></tt> from PyZMQ, which uses a ZeroMQ <tt class="docutils literal"><span class="pre">DEALER</span></tt> socket to perform all
+<code class="xref py py-class docutils literal"><span class="pre">MonitoredQueue</span></code> from PyZMQ, which uses a ZeroMQ <code class="docutils literal"><span class="pre">DEALER</span></code> socket to perform all
 load-balancing. This scheduler does not support any of the advanced features of the Python
-<tt class="xref py py-class docutils literal"><span class="pre">Scheduler</span></tt>.</p>
+<code class="xref py py-class docutils literal"><span class="pre">Scheduler</span></code>.</p>
 <p>Disabled features when using the ZMQ Scheduler:</p>
 <ul>
 <li><dl class="first docutils">
@@ -505,28 +518,28 @@ engine until they <em>finish</em>.  This makes recovery from engine shutdown ver
 </div>
 <div class="section" id="more-details">
 <h2>More details<a class="headerlink" href="#more-details" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> has many more powerful features that allow quite a bit
+<p>The <code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code> has many more powerful features that allow quite a bit
 of flexibility in how tasks are defined and run. The next places to look are
 in the following classes:</p>
 <ul class="simple">
-<li><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></a></li>
-<li><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><tt class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></tt></a></li>
-<li><tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt></li>
-<li><a class="reference internal" href="../api/generated/IPython.parallel.controller.dependency.html#module-IPython.parallel.controller.dependency" title="IPython.parallel.controller.dependency"><tt class="xref py py-mod docutils literal"><span class="pre">dependency</span></tt></a></li>
+<li><a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.LoadBalancedView" title="IPython.parallel.client.view.LoadBalancedView"><code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code></a></li>
+<li><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult" title="IPython.parallel.client.asyncresult.AsyncResult"><code class="xref py py-class docutils literal"><span class="pre">AsyncResult</span></code></a></li>
+<li><code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code></li>
+<li><a class="reference internal" href="../api/generated/IPython.parallel.controller.dependency.html#module-IPython.parallel.controller.dependency" title="IPython.parallel.controller.dependency"><code class="xref py py-mod docutils literal"><span class="pre">dependency</span></code></a></li>
 </ul>
 <p>The following is an overview of how to use these classes together:</p>
 <ol class="arabic simple">
-<li>Create a <tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt></li>
+<li>Create a <code class="xref py py-class docutils literal"><span class="pre">Client</span></code> and <code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code></li>
 <li>Define some functions to be run as tasks</li>
-<li>Submit your tasks to using the <tt class="xref py py-meth docutils literal"><span class="pre">apply()</span></tt> method of your
-<tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> instance.</li>
-<li>Use <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.get_result" title="IPython.parallel.client.client.Client.get_result"><tt class="xref py py-meth docutils literal"><span class="pre">Client.get_result()</span></tt></a> to get the results of the
-tasks, or use the <a class="reference internal" href="parallel_details.html#AsyncResult.get" title="AsyncResult.get"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.get()</span></tt></a> method of the results to wait
+<li>Submit your tasks to using the <code class="xref py py-meth docutils literal"><span class="pre">apply()</span></code> method of your
+<code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code> instance.</li>
+<li>Use <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.get_result" title="IPython.parallel.client.client.Client.get_result"><code class="xref py py-meth docutils literal"><span class="pre">Client.get_result()</span></code></a> to get the results of the
+tasks, or use the <a class="reference internal" href="parallel_details.html#AsyncResult.get" title="AsyncResult.get"><code class="xref py py-meth docutils literal"><span class="pre">AsyncResult.get()</span></code></a> method of the results to wait
 for and then receive the results.</li>
 </ol>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">A demo of <a class="reference internal" href="dag_dependencies.html#dag-dependencies"><em>DAG Dependencies</em></a> with NetworkX and IPython.</p>
+<p class="last">A demo of <a class="reference internal" href="dag_dependencies.html#dag-dependencies"><span>DAG Dependencies</span></a> with NetworkX and IPython.</p>
 </div>
 </div>
 </div>
@@ -537,32 +550,20 @@ for and then receive the results.</li>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="asyncresult.html" title="The AsyncResult object"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="magics.html" title="Parallel Magic Commands"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/parallel/parallel_task.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

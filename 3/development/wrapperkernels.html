@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Making simple Python wrapper kernels &mdash; IPython 3.2.0 documentation</title>
+    <title>Making simple Python wrapper kernels &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Execution semantics in the IPython kernel" href="execution.html" />
-    <link rel="prev" title="Making kernels for IPython" href="kernels.html" /> 
+    <link rel="prev" title="Making kernels for IPython" href="kernels.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -75,12 +79,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="execution.html"
                         title="next chapter">Execution semantics in the IPython kernel</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/development/wrapperkernels.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/development/wrapperkernels.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -99,9 +105,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="making-simple-python-wrapper-kernels">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="making-simple-python-wrapper-kernels">
 <h1>Making simple Python wrapper kernels<a class="headerlink" href="#making-simple-python-wrapper-kernels" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 3.0.</span></p>
@@ -120,23 +133,23 @@ such as bash.</p>
 </div>
 <div class="section" id="required-steps">
 <h2>Required steps<a class="headerlink" href="#required-steps" title="Permalink to this headline">¶</a></h2>
-<p>Subclass <a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel" title="IPython.kernel.zmq.kernelbase.Kernel"><tt class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.kernelbase.Kernel</span></tt></a>, and implement the
+<p>Subclass <a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel" title="IPython.kernel.zmq.kernelbase.Kernel"><code class="xref py py-class docutils literal"><span class="pre">IPython.kernel.zmq.kernelbase.Kernel</span></code></a>, and implement the
 following methods and attributes:</p>
 <dl class="class">
 <dt id="MyKernel">
-<em class="property">class </em><tt class="descname">MyKernel</tt><a class="headerlink" href="#MyKernel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">MyKernel</code><a class="headerlink" href="#MyKernel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
 <dt id="MyKernel.implementation">
-<tt class="descname">implementation</tt><a class="headerlink" href="#MyKernel.implementation" title="Permalink to this definition">¶</a></dt>
+<code class="descname">implementation</code><a class="headerlink" href="#MyKernel.implementation" title="Permalink to this definition">¶</a></dt>
 <dt id="MyKernel.implementation_version">
-<tt class="descname">implementation_version</tt><a class="headerlink" href="#MyKernel.implementation_version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">implementation_version</code><a class="headerlink" href="#MyKernel.implementation_version" title="Permalink to this definition">¶</a></dt>
 <dt id="MyKernel.language">
-<tt class="descname">language</tt><a class="headerlink" href="#MyKernel.language" title="Permalink to this definition">¶</a></dt>
+<code class="descname">language</code><a class="headerlink" href="#MyKernel.language" title="Permalink to this definition">¶</a></dt>
 <dt id="MyKernel.language_version">
-<tt class="descname">language_version</tt><a class="headerlink" href="#MyKernel.language_version" title="Permalink to this definition">¶</a></dt>
+<code class="descname">language_version</code><a class="headerlink" href="#MyKernel.language_version" title="Permalink to this definition">¶</a></dt>
 <dt id="MyKernel.banner">
-<tt class="descname">banner</tt><a class="headerlink" href="#MyKernel.banner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Information for <a class="reference internal" href="messaging.html#msging-kernel-info"><em>Kernel info</em></a> replies. &#8216;Implementation&#8217; refers
+<code class="descname">banner</code><a class="headerlink" href="#MyKernel.banner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information for <a class="reference internal" href="messaging.html#msging-kernel-info"><span>Kernel info</span></a> replies. &#8216;Implementation&#8217; refers
 to the kernel (e.g. IPython), and &#8216;language&#8217; refers to the language it
 interprets (e.g. Python). The &#8216;banner&#8217; is displayed to the user in console
 UIs before the first prompt. All of these values are strings.</p>
@@ -144,19 +157,19 @@ UIs before the first prompt. All of these values are strings.</p>
 
 <dl class="attribute">
 <dt id="MyKernel.language_info">
-<tt class="descname">language_info</tt><a class="headerlink" href="#MyKernel.language_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Language information for <a class="reference internal" href="messaging.html#msging-kernel-info"><em>Kernel info</em></a> replies, in a dictionary.
-This should contain the key <tt class="docutils literal"><span class="pre">mimetype</span></tt> with the mimetype of code in the
-target language (e.g. <tt class="docutils literal"><span class="pre">'text/x-python'</span></tt>), and <tt class="docutils literal"><span class="pre">file_extension</span></tt> (e.g.
-<tt class="docutils literal"><span class="pre">'py'</span></tt>).
-It may also contain keys <tt class="docutils literal"><span class="pre">codemirror_mode</span></tt> and <tt class="docutils literal"><span class="pre">pygments_lexer</span></tt> if they
-need to differ from <a class="reference internal" href="#MyKernel.language" title="MyKernel.language"><tt class="xref py py-attr docutils literal"><span class="pre">language</span></tt></a>.</p>
+<code class="descname">language_info</code><a class="headerlink" href="#MyKernel.language_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language information for <a class="reference internal" href="messaging.html#msging-kernel-info"><span>Kernel info</span></a> replies, in a dictionary.
+This should contain the key <code class="docutils literal"><span class="pre">mimetype</span></code> with the mimetype of code in the
+target language (e.g. <code class="docutils literal"><span class="pre">'text/x-python'</span></code>), and <code class="docutils literal"><span class="pre">file_extension</span></code> (e.g.
+<code class="docutils literal"><span class="pre">'py'</span></code>).
+It may also contain keys <code class="docutils literal"><span class="pre">codemirror_mode</span></code> and <code class="docutils literal"><span class="pre">pygments_lexer</span></code> if they
+need to differ from <a class="reference internal" href="#MyKernel.language" title="MyKernel.language"><code class="xref py py-attr docutils literal"><span class="pre">language</span></code></a>.</p>
 <p>Other keys may be added to this later.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="MyKernel.do_execute">
-<tt class="descname">do_execute</tt><big>(</big><em>code</em>, <em>silent</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=False</em><big>)</big><a class="headerlink" href="#MyKernel.do_execute" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_execute</code><span class="sig-paren">(</span><em>code</em>, <em>silent</em>, <em>store_history=True</em>, <em>user_expressions=None</em>, <em>allow_stdin=False</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_execute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute user code.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -171,15 +184,15 @@ False.</li>
 <li><strong>user_expressions</strong> (<a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Mapping of names to expressions to evaluate
 after the code has run. You can ignore this if you need to.</li>
 <li><strong>allow_stdin</strong> (<a class="reference external" href="http://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Whether the frontend can provide input on request
-(e.g. for Python&#8217;s <a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">raw_input()</span></tt></a>).</li>
+(e.g. for Python&#8217;s <a class="reference external" href="http://docs.python.org/2/library/functions.html#raw_input" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">raw_input()</span></code></a>).</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
 <p>Your method should return a dict containing the fields described in
-<a class="reference internal" href="messaging.html#execution-results"><em>Execution results</em></a>. To display output, it can send messages
-using <a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel.send_response" title="IPython.kernel.zmq.kernelbase.Kernel.send_response"><tt class="xref py py-meth docutils literal"><span class="pre">send_response()</span></tt></a>.
+<a class="reference internal" href="messaging.html#execution-results"><span>Execution results</span></a>. To display output, it can send messages
+using <a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel.send_response" title="IPython.kernel.zmq.kernelbase.Kernel.send_response"><code class="xref py py-meth docutils literal"><span class="pre">send_response()</span></code></a>.
 See <a class="reference internal" href="messaging.html"><em>Messaging in IPython</em></a> for details of the different message types.</p>
 </dd></dl>
 
@@ -194,7 +207,7 @@ See <a class="reference internal" href="messaging.html"><em>Messaging in IPython
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p><tt class="docutils literal"><span class="pre">echokernel.py</span></tt> will simply echo any input it&#8217;s given to stdout:</p>
+<p><code class="docutils literal"><span class="pre">echokernel.py</span></code> will simply echo any input it&#8217;s given to stdout:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.kernel.zmq.kernelbase</span> <span class="kn">import</span> <span class="n">Kernel</span>
 
 <span class="k">class</span> <span class="nc">EchoKernel</span><span class="p">(</span><span class="n">Kernel</span><span class="p">):</span>
@@ -223,7 +236,7 @@ See <a class="reference internal" href="messaging.html"><em>Messaging in IPython
     <span class="n">IPKernelApp</span><span class="o">.</span><span class="n">launch_instance</span><span class="p">(</span><span class="n">kernel_class</span><span class="o">=</span><span class="n">EchoKernel</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here&#8217;s the Kernel spec <tt class="docutils literal"><span class="pre">kernel.json</span></tt> file for this:</p>
+<p>Here&#8217;s the Kernel spec <code class="docutils literal"><span class="pre">kernel.json</span></code> file for this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;argv&quot;</span><span class="p">:[</span><span class="s">&quot;python&quot;</span><span class="p">,</span><span class="s">&quot;-m&quot;</span><span class="p">,</span><span class="s">&quot;echokernel&quot;</span><span class="p">,</span> <span class="s">&quot;-f&quot;</span><span class="p">,</span> <span class="s">&quot;{connection_file}&quot;</span><span class="p">],</span>
  <span class="s">&quot;display_name&quot;</span><span class="p">:</span><span class="s">&quot;Echo&quot;</span>
 <span class="p">}</span>
@@ -237,10 +250,10 @@ kernel. All of these methods should return a dictionary as described in the
 relevant section of the <a class="reference internal" href="messaging.html"><em>messaging spec</em></a>.</p>
 <dl class="class">
 <dt>
-<em class="property">class </em><tt class="descname">MyKernel</tt></dt>
+<em class="property">class </em><code class="descname">MyKernel</code></dt>
 <dd><dl class="method">
 <dt id="MyKernel.do_complete">
-<tt class="descname">do_complete</tt><big>(</big><em>code</em>, <em>cusor_pos</em><big>)</big><a class="headerlink" href="#MyKernel.do_complete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_complete</code><span class="sig-paren">(</span><em>code</em>, <em>cusor_pos</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_complete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Code completion</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -256,13 +269,13 @@ relevant section of the <a class="reference internal" href="messaging.html"><em>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="messaging.html#msging-completion"><em>Completion</em></a> messages</p>
+<p class="last"><a class="reference internal" href="messaging.html#msging-completion"><span>Completion</span></a> messages</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="MyKernel.do_inspect">
-<tt class="descname">do_inspect</tt><big>(</big><em>code</em>, <em>cusor_pos</em>, <em>detail_level=0</em><big>)</big><a class="headerlink" href="#MyKernel.do_inspect" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_inspect</code><span class="sig-paren">(</span><em>code</em>, <em>cusor_pos</em>, <em>detail_level=0</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_inspect" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object introspection</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -280,25 +293,25 @@ the source code.</li>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="messaging.html#msging-inspection"><em>Introspection</em></a> messages</p>
+<p class="last"><a class="reference internal" href="messaging.html#msging-inspection"><span>Introspection</span></a> messages</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="MyKernel.do_history">
-<tt class="descname">do_history</tt><big>(</big><em>hist_access_type</em>, <em>output</em>, <em>raw</em>, <em>session=None</em>, <em>start=None</em>, <em>stop=None</em>, <em>n=None</em>, <em>pattern=None</em>, <em>unique=False</em><big>)</big><a class="headerlink" href="#MyKernel.do_history" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_history</code><span class="sig-paren">(</span><em>hist_access_type</em>, <em>output</em>, <em>raw</em>, <em>session=None</em>, <em>start=None</em>, <em>stop=None</em>, <em>n=None</em>, <em>pattern=None</em>, <em>unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_history" title="Permalink to this definition">¶</a></dt>
 <dd><p>History access. Only the relevant parameters for the type of history
 request concerned will be passed, so your method definition must have defaults
 for all the arguments shown with defaults here.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="messaging.html#msging-history"><em>History</em></a> messages</p>
+<p class="last"><a class="reference internal" href="messaging.html#msging-history"><span>History</span></a> messages</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="MyKernel.do_is_complete">
-<tt class="descname">do_is_complete</tt><big>(</big><em>code</em><big>)</big><a class="headerlink" href="#MyKernel.do_is_complete" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_is_complete</code><span class="sig-paren">(</span><em>code</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_is_complete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Is code entered in a console-like interface complete and ready to execute,
 or should a continuation prompt be shown?</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -311,13 +324,13 @@ or should a continuation prompt be shown?</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="messaging.html#msging-is-complete"><em>Code completeness</em></a> messages</p>
+<p class="last"><a class="reference internal" href="messaging.html#msging-is-complete"><span>Code completeness</span></a> messages</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="MyKernel.do_shutdown">
-<tt class="descname">do_shutdown</tt><big>(</big><em>restart</em><big>)</big><a class="headerlink" href="#MyKernel.do_shutdown" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_shutdown</code><span class="sig-paren">(</span><em>restart</em><span class="sig-paren">)</span><a class="headerlink" href="#MyKernel.do_shutdown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shutdown the kernel. You only need to handle your own clean up - the kernel
 machinery will take care of cleaning up its own things before stopping.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -330,7 +343,7 @@ machinery will take care of cleaning up its own things before stopping.</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="messaging.html#msging-shutdown"><em>Kernel shutdown</em></a> messages</p>
+<p class="last"><a class="reference internal" href="messaging.html#msging-shutdown"><span>Kernel shutdown</span></a> messages</p>
 </div>
 </dd></dl>
 
@@ -345,32 +358,20 @@ machinery will take care of cleaning up its own things before stopping.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="execution.html" title="Execution semantics in the IPython kernel"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="kernels.html" title="Making kernels for IPython"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/development/wrapperkernels.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

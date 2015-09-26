@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>New IPython Console Lexer &mdash; IPython 3.2.0 documentation</title>
+    <title>New IPython Console Lexer &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Writing code for Python 2 and 3" href="pycompat.html" />
-    <link rel="prev" title="Connection Diagrams of The IPython ZMQ Cluster" href="parallel_connections.html" /> 
+    <link rel="prev" title="Connection Diagrams of The IPython ZMQ Cluster" href="parallel_connections.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="parallel_connections.html"
@@ -65,12 +69,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="pycompat.html"
                         title="next chapter">Writing code for Python 2 and 3</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/development/lexer.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/development/lexer.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -89,57 +95,64 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="new-ipython-console-lexer">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="new-ipython-console-lexer">
 <span id="console-lexer"></span><h1>New IPython Console Lexer<a class="headerlink" href="#new-ipython-console-lexer" title="Permalink to this headline">¶</a></h1>
 <div class="versionadded">
 <p><span class="versionmodified">New in version 2.0.0.</span></p>
 </div>
 <p>The IPython console lexer has been rewritten and now supports tracebacks
 and customized input/output prompts. An entire suite of lexers is now
-available at <a class="reference internal" href="../api/generated/IPython.lib.lexers.html#module-IPython.lib.lexers" title="IPython.lib.lexers"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.lib.lexers</span></tt></a>. These include:</p>
+available at <a class="reference internal" href="../api/generated/IPython.lib.lexers.html#module-IPython.lib.lexers" title="IPython.lib.lexers"><code class="xref py py-mod docutils literal"><span class="pre">IPython.lib.lexers</span></code></a>. These include:</p>
 <dl class="docutils">
 <dt>IPythonLexer &amp; IPython3Lexer</dt>
 <dd>Lexers for pure IPython (python + magic/shell commands)</dd>
 <dt>IPythonPartialTracebackLexer &amp; IPythonTracebackLexer</dt>
-<dd>Supports 2.x and 3.x via the keyword <tt class="docutils literal"><span class="pre">python3</span></tt>. The partial traceback
+<dd>Supports 2.x and 3.x via the keyword <code class="docutils literal"><span class="pre">python3</span></code>. The partial traceback
 lexer reads everything but the Python code appearing in a traceback.
 The full lexer combines the partial lexer with an IPython lexer.</dd>
 <dt>IPythonConsoleLexer</dt>
 <dd>A lexer for IPython console sessions, with support for tracebacks.
-Supports 2.x and 3.x via the keyword <tt class="docutils literal"><span class="pre">python3</span></tt>.</dd>
+Supports 2.x and 3.x via the keyword <code class="docutils literal"><span class="pre">python3</span></code>.</dd>
 <dt>IPyLexer</dt>
 <dd>A friendly lexer which examines the first line of text and from it,
 decides whether to use an IPython lexer or an IPython console lexer.
-Supports 2.x and 3.x via the keyword <tt class="docutils literal"><span class="pre">python3</span></tt>.</dd>
+Supports 2.x and 3.x via the keyword <code class="docutils literal"><span class="pre">python3</span></code>.</dd>
 </dl>
-<p>Previously, the <tt class="xref py py-class docutils literal"><span class="pre">IPythonConsoleLexer</span></tt> class was available at
-<tt class="xref py py-mod docutils literal"><span class="pre">IPython.sphinxext.ipython_console_hightlight</span></tt>.  It was inserted
-into Pygments&#8217; list of available lexers under the name <tt class="docutils literal"><span class="pre">ipython</span></tt>.  It should
+<p>Previously, the <code class="xref py py-class docutils literal"><span class="pre">IPythonConsoleLexer</span></code> class was available at
+<code class="xref py py-mod docutils literal"><span class="pre">IPython.sphinxext.ipython_console_hightlight</span></code>.  It was inserted
+into Pygments&#8217; list of available lexers under the name <code class="docutils literal"><span class="pre">ipython</span></code>.  It should
 be mentioned that this name is inaccurate, since an IPython console session
 is not the same as IPython code (which itself is a superset of the Python
 language).</p>
 <p>Now, the Sphinx extension inserts two console lexers into Pygments&#8217; list of
-available lexers. Both are IPyLexer instances under the names: <tt class="docutils literal"><span class="pre">ipython</span></tt> and
-<tt class="docutils literal"><span class="pre">ipython3</span></tt>. Although the names can be confusing (as mentioned above), their
+available lexers. Both are IPyLexer instances under the names: <code class="docutils literal"><span class="pre">ipython</span></code> and
+<code class="docutils literal"><span class="pre">ipython3</span></code>. Although the names can be confusing (as mentioned above), their
 continued use is, in part, to maintain backwards compatibility and to
 aid typical usage. If a project needs to make Pygments aware of more than just
 the IPyLexer class, then one should not make the IPyLexer class available under
-the name <tt class="docutils literal"><span class="pre">ipython</span></tt> and use <tt class="docutils literal"><span class="pre">ipy</span></tt> or some other non-conflicting value.</p>
+the name <code class="docutils literal"><span class="pre">ipython</span></code> and use <code class="docutils literal"><span class="pre">ipy</span></code> or some other non-conflicting value.</p>
 <p>Code blocks such as:</p>
-<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">ipython</span>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
 
-    <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">2</span><span class="o">**</span><span class="mi">2</span>
-    <span class="n">Out</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">4</span>
+    In [1]: 2**2
+    Out[1]: 4
 </pre></div>
 </div>
 <p>will continue to work as before, but now, they will also properly highlight
 tracebacks.  For pure IPython code, the same lexer will also work:</p>
-<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> <span class="k">ipython</span>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">code-block</span><span class="p">::</span> ipython
 
-    <span class="n">x</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
-    <span class="o">!</span><span class="nb">echo</span> <span class="nv">$x</span>
+    x = &#39;&#39;.join(map(str, range(10)))
+    !echo $x
 </pre></div>
 </div>
 <p>Since the first line of the block did not begin with a standard IPython console
@@ -152,32 +165,20 @@ prompt, the entire block is assumed to consist of IPython code instead.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="pycompat.html" title="Writing code for Python 2 and 3"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="parallel_connections.html" title="Connection Diagrams of The IPython ZMQ Cluster"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/development/lexer.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

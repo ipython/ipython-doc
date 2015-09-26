@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel examples &mdash; IPython 3.2.0 documentation</title>
+    <title>Parallel examples &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="DAG Dependencies" href="dag_dependencies.html" />
-    <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" /> 
+    <link rel="prev" title="Getting started with Windows HPC Server 2008" href="parallel_winhpc.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -78,12 +82,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="dag_dependencies.html"
                         title="next chapter">DAG Dependencies</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/parallel/parallel_demos.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/parallel/parallel_demos.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -102,9 +108,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="parallel-examples">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="parallel-examples">
 <span id="id1"></span><h1>Parallel examples<a class="headerlink" href="#parallel-examples" title="Permalink to this headline">¶</a></h1>
 <p>In this section we describe two more involved examples of using an IPython
 cluster to perform a parallel computation. We will be doing some plotting,
@@ -126,10 +139,10 @@ investigations suggest that it is. We will begin with a serial calculation on
 10,000 digits of pi and then perform a parallel calculation involving 150
 million digits.</p>
 <p>In both the serial and parallel calculation we will be using functions defined
-in the <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt> file, which is available in the
-<tt class="file docutils literal"><span class="pre">examples/parallel</span></tt> directory of the IPython source distribution.
+in the <code class="file docutils literal"><span class="pre">pidigits.py</span></code> file, which is available in the
+<code class="file docutils literal"><span class="pre">examples/parallel</span></code> directory of the IPython source distribution.
 These functions provide basic facilities for working with the digits of pi and
-can be loaded into IPython by putting <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt> in your current
+can be loaded into IPython by putting <code class="file docutils literal"><span class="pre">pidigits.py</span></code> in your current
 working directory and then doing:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="n">run</span> <span class="n">pidigits</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -141,9 +154,9 @@ calculate 10,000 digits of pi and then look at the frequencies of the digits
 0-9. Out of 10,000 digits, we expect each digit to occur 1,000 times. While
 SymPy is capable of calculating many more digits of pi, our purpose here is to
 set the stage for the much larger parallel calculation.</p>
-<p>In this example, we use two functions from <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt>:
-<tt class="xref py py-func docutils literal"><span class="pre">one_digit_freqs()</span></tt> (which calculates how many times each digit occurs)
-and <tt class="xref py py-func docutils literal"><span class="pre">plot_one_digit_freqs()</span></tt> (which uses Matplotlib to plot the result).
+<p>In this example, we use two functions from <code class="file docutils literal"><span class="pre">pidigits.py</span></code>:
+<code class="xref py py-func docutils literal"><span class="pre">one_digit_freqs()</span></code> (which calculates how many times each digit occurs)
+and <code class="xref py py-func docutils literal"><span class="pre">plot_one_digit_freqs()</span></code> (which uses Matplotlib to plot the result).
 Here is an interactive IPython session that uses these functions with
 SymPy:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="kn">import</span> <span class="nn">sympy</span>
@@ -186,7 +199,7 @@ the result using a 2D matrix in Matplotlib.</p>
 <p>The overall idea of the calculation is simple: each IPython engine will
 compute the two digit counts for the digits in a single file. Then in a final
 step the counts from each engine will be added up. To perform this
-calculation, we will need two top-level functions from <tt class="file docutils literal"><span class="pre">pidigits.py</span></tt>:</p>
+calculation, we will need two top-level functions from <code class="file docutils literal"><span class="pre">pidigits.py</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    d = txt_file_to_digits(filename)</span>
 <span class="sd">    freqs = one_digit_freqs(d)</span>
@@ -205,15 +218,15 @@ calculation, we will need two top-level functions from <tt class="file docutils 
     <span class="n">Add</span> <span class="n">up</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">freq</span> <span class="n">counts</span> <span class="n">to</span> <span class="n">get</span> <span class="n">the</span> <span class="n">total</span> <span class="n">counts</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>We will also use the <tt class="xref py py-func docutils literal"><span class="pre">plot_two_digit_freqs()</span></tt> function to plot the
+<p>We will also use the <code class="xref py py-func docutils literal"><span class="pre">plot_two_digit_freqs()</span></code> function to plot the
 results. The code to run this calculation in parallel is contained in
-<tt class="file docutils literal"><span class="pre">examples/parallel/parallelpi.py</span></tt>. This code can be run in parallel
+<code class="file docutils literal"><span class="pre">examples/parallel/parallelpi.py</span></code>. This code can be run in parallel
 using IPython by following these steps:</p>
 <ol class="arabic simple">
 <li>Use <strong class="command">ipcluster</strong> to start 15 engines. We used 16 cores of an SGE linux
 cluster (1 controller + 15 engines).</li>
-<li>With the file <tt class="file docutils literal"><span class="pre">parallelpi.py</span></tt> in your current working directory, open
-up IPython, enable matplotlib, and type <tt class="docutils literal"><span class="pre">run</span> <span class="pre">parallelpi.py</span></tt>.  This will download
+<li>With the file <code class="file docutils literal"><span class="pre">parallelpi.py</span></code> in your current working directory, open
+up IPython, enable matplotlib, and type <code class="docutils literal"><span class="pre">run</span> <span class="pre">parallelpi.py</span></code>.  This will download
 the pi files via ftp the first time you run it, if they are not
 present in the Engines&#8217; working directory.</li>
 </ol>
@@ -222,7 +235,7 @@ less than linear scaling (16x) because the controller is also running on one of
 the cores.</p>
 <p>To emphasize the interactive nature of IPython, we now show how the
 calculation can also be run by simply typing the commands from
-<tt class="file docutils literal"><span class="pre">parallelpi.py</span></tt> interactively into IPython:</p>
+<code class="file docutils literal"><span class="pre">parallelpi.py</span></code> interactively into IPython:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 
 <span class="go"># The Client allows us to use the engines interactively.</span>
@@ -291,7 +304,7 @@ compared to the 10,000 digit calculation.</p>
 parallel architecture that have been demonstrated:</p>
 <ul class="simple">
 <li>Serial code can be parallelized often with only a few extra lines of code.
-We have used the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> and <tt class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></tt> classes
+We have used the <code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code> and <code class="xref py py-class docutils literal"><span class="pre">LoadBalancedView</span></code> classes
 for this purpose.</li>
 <li>The resulting parallel code can be run without ever leaving the IPython&#8217;s
 interactive shell.</li>
@@ -310,32 +323,20 @@ to get started with IPython&#8217;s parallel capabilities.</li>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="dag_dependencies.html" title="DAG Dependencies"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="parallel_winhpc.html" title="Getting started with Windows HPC Server 2008"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/parallel/parallel_demos.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

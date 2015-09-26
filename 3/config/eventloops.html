@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Integrating with GUI event loops &mdash; IPython 3.2.0 documentation</title>
+    <title>Integrating with GUI event loops &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="Configuration and customization" href="index.html" />
     <link rel="next" title="IPython developer’s guide" href="../development/index.html" />
-    <link rel="prev" title="Registering callbacks" href="callbacks.html" /> 
+    <link rel="prev" title="Registering callbacks" href="callbacks.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Configuration and customization</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Configuration and customization</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -74,12 +78,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="../development/index.html"
                         title="next chapter">IPython developer&#8217;s guide</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/config/eventloops.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/config/eventloops.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -98,11 +104,18 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="integrating-with-gui-event-loops">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="integrating-with-gui-event-loops">
 <h1>Integrating with GUI event loops<a class="headerlink" href="#integrating-with-gui-event-loops" title="Permalink to this headline">¶</a></h1>
-<p>When the user types <tt class="docutils literal"><span class="pre">%gui</span> <span class="pre">qt</span></tt>, IPython integrates itself with the Qt event
+<p>When the user types <code class="docutils literal"><span class="pre">%gui</span> <span class="pre">qt</span></code>, IPython integrates itself with the Qt event
 loop, so you can use both a GUI and an interactive prompt together. IPython
 supports a number of common GUI toolkits, but from IPython 3.0, it is possible
 to integrate other event loops without modifying IPython itself.</p>
@@ -111,15 +124,15 @@ so different steps are needed to integrate with each.</p>
 <div class="section" id="event-loops-in-the-terminal">
 <h2>Event loops in the terminal<a class="headerlink" href="#event-loops-in-the-terminal" title="Permalink to this headline">¶</a></h2>
 <p>In the terminal, IPython uses a blocking Python function to wait for user input.
-However, the Python C API provides a hook, <tt class="xref c c-func docutils literal"><span class="pre">PyOS_InputHook()</span></tt>, which is
+However, the Python C API provides a hook, <code class="xref c c-func docutils literal"><span class="pre">PyOS_InputHook()</span></code>, which is
 called frequently while waiting for input. This can be set to a function which
 briefly runs the event loop and then returns.</p>
 <p>IPython provides Python level wrappers for setting and resetting this hook. To
-use them, subclass <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookBase" title="IPython.lib.inputhook.InputHookBase"><tt class="xref py py-class docutils literal"><span class="pre">IPython.lib.inputhook.InputHookBase</span></tt></a>, and define
-an <tt class="docutils literal"><span class="pre">enable(app=None)</span></tt> method, which initialises the event loop and calls
-<tt class="docutils literal"><span class="pre">self.manager.set_inputhook(f)</span></tt> with a function which will briefly run the
+use them, subclass <a class="reference internal" href="../api/generated/IPython.lib.inputhook.html#IPython.lib.inputhook.InputHookBase" title="IPython.lib.inputhook.InputHookBase"><code class="xref py py-class docutils literal"><span class="pre">IPython.lib.inputhook.InputHookBase</span></code></a>, and define
+an <code class="docutils literal"><span class="pre">enable(app=None)</span></code> method, which initialises the event loop and calls
+<code class="docutils literal"><span class="pre">self.manager.set_inputhook(f)</span></code> with a function which will briefly run the
 event loop before exiting. Decorate the class with a call to
-<tt class="xref py py-func docutils literal"><span class="pre">IPython.lib.inputhook.register()</span></tt>:</p>
+<code class="xref py py-func docutils literal"><span class="pre">IPython.lib.inputhook.register()</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.lib.inputhook</span> <span class="kn">import</span> <span class="n">register</span><span class="p">,</span> <span class="n">InputHookBase</span>
 
 <span class="nd">@register</span><span class="p">(</span><span class="s">&#39;clutter&#39;</span><span class="p">)</span>
@@ -128,7 +141,7 @@ event loop before exiting. Decorate the class with a call to
         <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">set_inputhook</span><span class="p">(</span><span class="n">inputhook_clutter</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You can also optionally define a <tt class="docutils literal"><span class="pre">disable()</span></tt> method, taking no arguments, if
+<p>You can also optionally define a <code class="docutils literal"><span class="pre">disable()</span></code> method, taking no arguments, if
 there are extra steps needed to clean up. IPython will take care of resetting
 the hook, whether or not you provide a disable method.</p>
 <p>The simplest way to define the hook function is just to run one iteration of the
@@ -139,7 +152,7 @@ keep running the event loop until there is input ready on stdin. IPython
 provides a function to facilitate this:</p>
 <dl class="function">
 <dt id="IPython.lib.inputhook.stdin_ready">
-<tt class="descclassname">IPython.lib.inputhook.</tt><tt class="descname">stdin_ready</tt><big>(</big><big>)</big><a class="headerlink" href="#IPython.lib.inputhook.stdin_ready" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">IPython.lib.inputhook.</code><code class="descname">stdin_ready</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#IPython.lib.inputhook.stdin_ready" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns True if there is something ready to read on stdin.</p>
 <p>If this is the case, the hook function should return immediately.</p>
 <p>This is implemented for Windows and POSIX systems - on other platforms, it
@@ -152,12 +165,12 @@ for input.</p>
 <h2>Event loops in the kernel<a class="headerlink" href="#event-loops-in-the-kernel" title="Permalink to this headline">¶</a></h2>
 <p>The kernel runs its own event loop, so it&#8217;s simpler to integrate with others.
 IPython allows the other event loop to take control, but it must call
-<a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration" title="IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration"><tt class="xref py py-meth docutils literal"><span class="pre">IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration()</span></tt></a> periodically.</p>
+<a class="reference internal" href="../api/generated/IPython.kernel.zmq.kernelbase.html#IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration" title="IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration"><code class="xref py py-meth docutils literal"><span class="pre">IPython.kernel.zmq.kernelbase.Kernel.do_one_iteration()</span></code></a> periodically.</p>
 <p>To integrate with this, write a function that takes a single argument,
 the IPython kernel instance, arranges for your event loop to call
-<tt class="docutils literal"><span class="pre">kernel.do_one_iteration()</span></tt> at least every <tt class="docutils literal"><span class="pre">kernel._poll_interval</span></tt> seconds,
+<code class="docutils literal"><span class="pre">kernel.do_one_iteration()</span></code> at least every <code class="docutils literal"><span class="pre">kernel._poll_interval</span></code> seconds,
 and starts the event loop.</p>
-<p>Decorate this function with <a class="reference internal" href="../api/generated/IPython.kernel.zmq.eventloops.html#IPython.kernel.zmq.eventloops.register_integration" title="IPython.kernel.zmq.eventloops.register_integration"><tt class="xref py py-func docutils literal"><span class="pre">IPython.kernel.zmq.eventloops.register_integration()</span></tt></a>,
+<p>Decorate this function with <a class="reference internal" href="../api/generated/IPython.kernel.zmq.eventloops.html#IPython.kernel.zmq.eventloops.register_integration" title="IPython.kernel.zmq.eventloops.register_integration"><code class="xref py py-func docutils literal"><span class="pre">IPython.kernel.zmq.eventloops.register_integration()</span></code></a>,
 passing in the names you wish to register it for. Here is a slightly simplified
 version of the Tkinter integration already included in IPython:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nd">@register_integration</span><span class="p">(</span><span class="s">&#39;tk&#39;</span><span class="p">)</span>
@@ -189,7 +202,7 @@ version of the Tkinter integration already included in IPython:</p>
 <p>Some event loops can go one better, and integrate checking for messages on the
 kernel&#8217;s ZMQ sockets, making the kernel more responsive than plain polling. How
 to do this is outside the scope of this document; if you are interested, look at
-the integration with Qt in <a class="reference internal" href="../api/generated/IPython.kernel.zmq.eventloops.html#module-IPython.kernel.zmq.eventloops" title="IPython.kernel.zmq.eventloops"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq.eventloops</span></tt></a>.</p>
+the integration with Qt in <a class="reference internal" href="../api/generated/IPython.kernel.zmq.eventloops.html#module-IPython.kernel.zmq.eventloops" title="IPython.kernel.zmq.eventloops"><code class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq.eventloops</span></code></a>.</p>
 </div>
 </div>
 
@@ -199,32 +212,20 @@ the integration with Qt in <a class="reference internal" href="../api/generated/
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../development/index.html" title="IPython developer’s guide"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="callbacks.html" title="Registering callbacks"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Configuration and customization</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/config/eventloops.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

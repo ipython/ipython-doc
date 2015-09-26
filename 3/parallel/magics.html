@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Parallel Magic Commands &mdash; IPython 3.2.0 documentation</title>
+    <title>Parallel Magic Commands &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="The IPython task interface" href="parallel_task.html" />
-    <link rel="prev" title="IPython’s Direct interface" href="parallel_multiengine.html" /> 
+    <link rel="prev" title="IPython’s Direct interface" href="parallel_multiengine.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -86,12 +90,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="parallel_task.html"
                         title="next chapter">The IPython task interface</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/parallel/magics.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/parallel/magics.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -110,20 +116,27 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="parallel-magic-commands">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="parallel-magic-commands">
 <span id="parallel-magics"></span><h1>Parallel Magic Commands<a class="headerlink" href="#parallel-magic-commands" title="Permalink to this headline">¶</a></h1>
 <p>We provide a few IPython magic commands
 that make it a bit more pleasant to execute Python commands on the engines interactively.
-These are mainly shortcuts to <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.execute" title="IPython.parallel.client.view.DirectView.execute"><tt class="xref py py-meth docutils literal"><span class="pre">DirectView.execute()</span></tt></a>
-and <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> methods respectively.</p>
+These are mainly shortcuts to <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.execute" title="IPython.parallel.client.view.DirectView.execute"><code class="xref py py-meth docutils literal"><span class="pre">DirectView.execute()</span></code></a>
+and <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><code class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></code></a> methods respectively.</p>
 <p>These magics will automatically become available when you create a Client:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 <span class="gp">In [2]: </span><span class="n">rc</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The initially active View will have attributes <tt class="docutils literal"><span class="pre">targets='all',</span> <span class="pre">block=True</span></tt>,
+<p>The initially active View will have attributes <code class="docutils literal"><span class="pre">targets='all',</span> <span class="pre">block=True</span></code>,
 which is a blocking view of all engines, evaluated at request time
 (adding/removing engines will change where this view&#8217;s tasks will run).</p>
 <div class="section" id="the-magics">
@@ -131,7 +144,7 @@ which is a blocking view of all engines, evaluated at request time
 <div class="section" id="px">
 <h3>%px<a class="headerlink" href="#px" title="Permalink to this headline">¶</a></h3>
 <p>The %px magic executes a single Python command on the engines
-specified by the <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the <tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt> instance:</p>
+specified by the <code class="xref py py-attr docutils literal"><span class="pre">targets</span></code> attribute of the <code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code> instance:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="go"># import numpy here and everywhere</span>
 <span class="gp">In [25]: </span><span class="k">with</span> <span class="n">rc</span><span class="p">[:]</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
 <span class="gp">   ....: </span>   <span class="kn">import</span> <span class="nn">numpy</span>
@@ -190,8 +203,8 @@ if it supports the inline figures (e.g. notebook or qtconsole):</p>
 the execution.</p>
 <div class="section" id="targets-and-blocking">
 <h4>Targets and Blocking<a class="headerlink" href="#targets-and-blocking" title="Permalink to this headline">¶</a></h4>
-<p>%%px accepts <tt class="docutils literal"><span class="pre">--targets</span></tt> for controlling which engines on which to run,
-and <tt class="docutils literal"><span class="pre">--[no]block</span></tt> for specifying the blocking behavior of this cell,
+<p>%%px accepts <code class="docutils literal"><span class="pre">--targets</span></code> for controlling which engines on which to run,
+and <code class="docutils literal"><span class="pre">--[no]block</span></code> for specifying the blocking behavior of this cell,
 independent of the defaults for the View.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [6]: </span><span class="o">%%</span><span class="k">px</span> --targets ::2
 <span class="gp">   ...: </span>print &quot;I am even&quot;
@@ -232,17 +245,17 @@ independent of the defaults for the View.</p>
 </div>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pxconfig"><em>%pxconfig</em></a> accepts these same arguments for changing the <em>default</em>
+<p class="last"><a class="reference internal" href="#pxconfig"><span>%pxconfig</span></a> accepts these same arguments for changing the <em>default</em>
 values of targets/blocking for the active View.</p>
 </div>
 </div>
 <div class="section" id="output-display">
 <h4>Output Display<a class="headerlink" href="#output-display" title="Permalink to this headline">¶</a></h4>
-<p>%%px also accepts a <tt class="docutils literal"><span class="pre">--group-outputs</span></tt> argument,
+<p>%%px also accepts a <code class="docutils literal"><span class="pre">--group-outputs</span></code> argument,
 which adjusts how the outputs of multiple engines are presented.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> for the grouping options.</p>
+<p class="last"><a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><code class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></code></a> for the grouping options.</p>
 </div>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [50]: </span><span class="o">%%</span><span class="k">px</span> --block --group-outputs=engine
 <span class="gp">   ....: </span>import numpy as np
@@ -281,7 +294,7 @@ just as is done when %px is blocking:</p>
 <span class="go">[stdout:3] hi</span>
 </pre></div>
 </div>
-<p>%pxresult simply calls <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><tt class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></tt></a> on the most recent request.
+<p>%pxresult simply calls <a class="reference internal" href="../api/generated/IPython.parallel.client.asyncresult.html#IPython.parallel.client.asyncresult.AsyncResult.display_outputs" title="IPython.parallel.client.asyncresult.AsyncResult.display_outputs"><code class="xref py py-meth docutils literal"><span class="pre">AsyncResult.display_outputs()</span></code></a> on the most recent request.
 It accepts the same output-grouping arguments as %%px, so you can use it to view
 a result in different ways.</p>
 </div>
@@ -316,8 +329,8 @@ on the engines until you do %autopx again.</p>
 </div>
 <div class="section" id="pxconfig">
 <span id="id1"></span><h3>%pxconfig<a class="headerlink" href="#pxconfig" title="Permalink to this headline">¶</a></h3>
-<p>The default targets and blocking behavior for the magics are governed by the <tt class="xref py py-attr docutils literal"><span class="pre">block</span></tt>
-and <tt class="xref py py-attr docutils literal"><span class="pre">targets</span></tt> attribute of the active View.  If you have a handle for the view,
+<p>The default targets and blocking behavior for the magics are governed by the <code class="xref py py-attr docutils literal"><span class="pre">block</span></code>
+and <code class="xref py py-attr docutils literal"><span class="pre">targets</span></code> attribute of the active View.  If you have a handle for the view,
 you can set these attributes directly, but if you don&#8217;t, you can change them with
 the %pxconfig magic:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [3]: </span><span class="o">%</span><span class="k">pxconfig</span> --block
@@ -351,8 +364,8 @@ the %pxconfig magic:</p>
 </div>
 <div class="section" id="multiple-active-views">
 <h2>Multiple Active Views<a class="headerlink" href="#multiple-active-views" title="Permalink to this headline">¶</a></h2>
-<p>The parallel magics are associated with a particular <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><tt class="xref py py-class docutils literal"><span class="pre">DirectView</span></tt></a> object.
-You can change the active view by calling the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.activate" title="IPython.parallel.client.view.DirectView.activate"><tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt></a> method
+<p>The parallel magics are associated with a particular <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView" title="IPython.parallel.client.view.DirectView"><code class="xref py py-class docutils literal"><span class="pre">DirectView</span></code></a> object.
+You can change the active view by calling the <a class="reference internal" href="../api/generated/IPython.parallel.client.view.html#IPython.parallel.client.view.DirectView.activate" title="IPython.parallel.client.view.DirectView.activate"><code class="xref py py-meth docutils literal"><span class="pre">activate()</span></code></a> method
 on any view.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">even</span> <span class="o">=</span> <span class="n">rc</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
 
@@ -392,10 +405,10 @@ set of magics are associated with that view, without replacing the existing ones
 </pre></div>
 </div>
 <p>This suffix is applied to the end of all magics, e.g. %autopx_even, %pxresult_even, etc.</p>
-<p>For convenience, the <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><tt class="xref py py-class docutils literal"><span class="pre">Client</span></tt></a> has a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.activate" title="IPython.parallel.client.client.Client.activate"><tt class="xref py py-meth docutils literal"><span class="pre">activate()</span></tt></a> method as well,
+<p>For convenience, the <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client" title="IPython.parallel.client.client.Client"><code class="xref py py-class docutils literal"><span class="pre">Client</span></code></a> has a <a class="reference internal" href="../api/generated/IPython.parallel.client.client.html#IPython.parallel.client.client.Client.activate" title="IPython.parallel.client.client.Client.activate"><code class="xref py py-meth docutils literal"><span class="pre">activate()</span></code></a> method as well,
 which creates a DirectView with block=True, activates it, and returns the new View.</p>
 <p>The initial magics registered when you create a client are the result of a call to
-<tt class="xref py py-meth docutils literal"><span class="pre">rc.activate()</span></tt> with default args.</p>
+<code class="xref py py-meth docutils literal"><span class="pre">rc.activate()</span></code> with default args.</p>
 </div>
 <div class="section" id="engines-as-kernels">
 <h2>Engines as Kernels<a class="headerlink" href="#engines-as-kernels" title="Permalink to this headline">¶</a></h2>
@@ -442,7 +455,7 @@ depending on where they live and where you are:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><tt class="docutils literal"><span class="pre">%qtconsole</span></tt> will call <tt class="xref py py-func docutils literal"><span class="pre">bind_kernel()</span></tt> on an engine if it hasn&#8217;t been done already,
+<p class="last"><code class="docutils literal"><span class="pre">%qtconsole</span></code> will call <code class="xref py py-func docutils literal"><span class="pre">bind_kernel()</span></code> on an engine if it hasn&#8217;t been done already,
 so you can often skip that first step.</p>
 </div>
 </div>
@@ -454,32 +467,20 @@ so you can often skip that first step.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="parallel_task.html" title="The IPython task interface"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="parallel_multiengine.html" title="IPython’s Direct interface"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/parallel/magics.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
