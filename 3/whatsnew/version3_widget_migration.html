@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Migrating Widgets to IPython 3 &mdash; IPython 3.2.0 documentation</title>
+    <title>Migrating Widgets to IPython 3 &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="What’s new in IPython" href="index.html" />
     <link rel="next" title="2.x Series" href="version2.0.html" />
-    <link rel="prev" title="Issues closed in the 3.x development cycle" href="github-stats-3.html" /> 
+    <link rel="prev" title="Issues closed in the 3.x development cycle" href="github-stats-3.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">What&#8217;s new in IPython</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">What&#8217;s new in IPython</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -85,12 +89,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="version2.0.html"
                         title="next chapter">2.x Series</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/whatsnew/version3_widget_migration.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/whatsnew/version3_widget_migration.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -109,9 +115,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="migrating-widgets-to-ipython-3">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="migrating-widgets-to-ipython-3">
 <h1>Migrating Widgets to IPython 3<a class="headerlink" href="#migrating-widgets-to-ipython-3" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="upgrading-notebooks">
 <h2>Upgrading Notebooks<a class="headerlink" href="#upgrading-notebooks" title="Permalink to this headline">¶</a></h2>
@@ -121,37 +134,37 @@ notebook to IPython 3.0 is the &#8220;Notebook converted&#8221; dialog. Click
 &#8220;ok&#8221;.</li>
 <li>All of the widgets distributed with IPython have been renamed. The
 &#8220;Widget&#8221; suffix was removed from the end of the class name. i.e.
-<tt class="docutils literal"><span class="pre">ButtonWidget</span></tt> is now <tt class="docutils literal"><span class="pre">Button</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">ContainerWidget</span></tt> was renamed to <tt class="docutils literal"><span class="pre">Box</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">PopupWidget</span></tt> was removed from IPython. If you use the
-<tt class="docutils literal"><span class="pre">PopupWidget</span></tt>, try using a <tt class="docutils literal"><span class="pre">Box</span></tt> widget instead. If your notebook
-can&#8217;t live without the popup functionality, subclass the <tt class="docutils literal"><span class="pre">Box</span></tt>
-widget (both in Python and JS) and use JQuery UI&#8217;s <tt class="docutils literal"><span class="pre">draggable()</span></tt>
-and <tt class="docutils literal"><span class="pre">resizable()</span></tt> methods to mimic the behavior.</li>
-<li><tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> were removed. More often than not
+<code class="docutils literal"><span class="pre">ButtonWidget</span></code> is now <code class="docutils literal"><span class="pre">Button</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">ContainerWidget</span></code> was renamed to <code class="docutils literal"><span class="pre">Box</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">PopupWidget</span></code> was removed from IPython. If you use the
+<code class="docutils literal"><span class="pre">PopupWidget</span></code>, try using a <code class="docutils literal"><span class="pre">Box</span></code> widget instead. If your notebook
+can&#8217;t live without the popup functionality, subclass the <code class="docutils literal"><span class="pre">Box</span></code>
+widget (both in Python and JS) and use JQuery UI&#8217;s <code class="docutils literal"><span class="pre">draggable()</span></code>
+and <code class="docutils literal"><span class="pre">resizable()</span></code> methods to mimic the behavior.</li>
+<li><code class="docutils literal"><span class="pre">add_class</span></code> and <code class="docutils literal"><span class="pre">remove_class</span></code> were removed. More often than not
 a new attribute exists on the widget that allows you to achieve the
-same explicitly. i.e. the <tt class="docutils literal"><span class="pre">Button</span></tt> widget now has a
-<tt class="docutils literal"><span class="pre">button_style</span></tt> attribute which you can set to &#8216;primary&#8217;, &#8216;success&#8217;,
-&#8216;info&#8217;, &#8216;warning&#8217;, &#8216;danger&#8217;, or &#8216;&#8217; instead of using <tt class="docutils literal"><span class="pre">add_class</span></tt> to
-add the bootstrap class. <tt class="docutils literal"><span class="pre">VBox</span></tt> and <tt class="docutils literal"><span class="pre">HBox</span></tt> classes (flexible
-<tt class="docutils literal"><span class="pre">Box</span></tt> subclasses) were added that allow you to avoid using
-<tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> to make flexible box model
+same explicitly. i.e. the <code class="docutils literal"><span class="pre">Button</span></code> widget now has a
+<code class="docutils literal"><span class="pre">button_style</span></code> attribute which you can set to &#8216;primary&#8217;, &#8216;success&#8217;,
+&#8216;info&#8217;, &#8216;warning&#8217;, &#8216;danger&#8217;, or &#8216;&#8217; instead of using <code class="docutils literal"><span class="pre">add_class</span></code> to
+add the bootstrap class. <code class="docutils literal"><span class="pre">VBox</span></code> and <code class="docutils literal"><span class="pre">HBox</span></code> classes (flexible
+<code class="docutils literal"><span class="pre">Box</span></code> subclasses) were added that allow you to avoid using
+<code class="docutils literal"><span class="pre">add_class</span></code> and <code class="docutils literal"><span class="pre">remove_class</span></code> to make flexible box model
 layouts. As a last resort, if you can&#8217;t find a built in attribute for
-the class you want to use, a new <tt class="docutils literal"><span class="pre">_dom_classes</span></tt> list trait was
-added, which combines <tt class="docutils literal"><span class="pre">add_class</span></tt> and <tt class="docutils literal"><span class="pre">remove_class</span></tt> into one
+the class you want to use, a new <code class="docutils literal"><span class="pre">_dom_classes</span></code> list trait was
+added, which combines <code class="docutils literal"><span class="pre">add_class</span></code> and <code class="docutils literal"><span class="pre">remove_class</span></code> into one
 stateful list.</li>
-<li><tt class="docutils literal"><span class="pre">set_css</span></tt> and <tt class="docutils literal"><span class="pre">get_css</span></tt> were removed in favor of explicit style
-attributes - <tt class="docutils literal"><span class="pre">visible</span></tt>, <tt class="docutils literal"><span class="pre">width</span></tt>, <tt class="docutils literal"><span class="pre">height</span></tt>, <tt class="docutils literal"><span class="pre">padding</span></tt>,
-<tt class="docutils literal"><span class="pre">margin</span></tt>, <tt class="docutils literal"><span class="pre">color</span></tt>, <tt class="docutils literal"><span class="pre">background_color</span></tt>, <tt class="docutils literal"><span class="pre">border_color</span></tt>,
-<tt class="docutils literal"><span class="pre">border_width</span></tt>, <tt class="docutils literal"><span class="pre">border_radius</span></tt>, <tt class="docutils literal"><span class="pre">border_style</span></tt>,
-<tt class="docutils literal"><span class="pre">font_style</span></tt>, <tt class="docutils literal"><span class="pre">font_weight</span></tt>, <tt class="docutils literal"><span class="pre">font_size</span></tt>, and <tt class="docutils literal"><span class="pre">font_family</span></tt>
+<li><code class="docutils literal"><span class="pre">set_css</span></code> and <code class="docutils literal"><span class="pre">get_css</span></code> were removed in favor of explicit style
+attributes - <code class="docutils literal"><span class="pre">visible</span></code>, <code class="docutils literal"><span class="pre">width</span></code>, <code class="docutils literal"><span class="pre">height</span></code>, <code class="docutils literal"><span class="pre">padding</span></code>,
+<code class="docutils literal"><span class="pre">margin</span></code>, <code class="docutils literal"><span class="pre">color</span></code>, <code class="docutils literal"><span class="pre">background_color</span></code>, <code class="docutils literal"><span class="pre">border_color</span></code>,
+<code class="docutils literal"><span class="pre">border_width</span></code>, <code class="docutils literal"><span class="pre">border_radius</span></code>, <code class="docutils literal"><span class="pre">border_style</span></code>,
+<code class="docutils literal"><span class="pre">font_style</span></code>, <code class="docutils literal"><span class="pre">font_weight</span></code>, <code class="docutils literal"><span class="pre">font_size</span></code>, and <code class="docutils literal"><span class="pre">font_family</span></code>
 are a few. If you can&#8217;t find a trait to see the css attribute you
 need, you can, in order of preference, (A) subclass to create your
-own custom widget, (B) use CSS and the <tt class="docutils literal"><span class="pre">_dom_classes</span></tt> trait to set
-<tt class="docutils literal"><span class="pre">_dom_classes</span></tt>, or (C) use the <tt class="docutils literal"><span class="pre">_css</span></tt> dictionary to set CSS
-styling like <tt class="docutils literal"><span class="pre">set_css</span></tt> and <tt class="docutils literal"><span class="pre">get_css</span></tt>.</li>
-<li>For selection widgets, such as <tt class="docutils literal"><span class="pre">Dropdown</span></tt>, the <tt class="docutils literal"><span class="pre">values</span></tt> argument
-has been renamed to <tt class="docutils literal"><span class="pre">options</span></tt>.</li>
+own custom widget, (B) use CSS and the <code class="docutils literal"><span class="pre">_dom_classes</span></code> trait to set
+<code class="docutils literal"><span class="pre">_dom_classes</span></code>, or (C) use the <code class="docutils literal"><span class="pre">_css</span></code> dictionary to set CSS
+styling like <code class="docutils literal"><span class="pre">set_css</span></code> and <code class="docutils literal"><span class="pre">get_css</span></code>.</li>
+<li>For selection widgets, such as <code class="docutils literal"><span class="pre">Dropdown</span></code>, the <code class="docutils literal"><span class="pre">values</span></code> argument
+has been renamed to <code class="docutils literal"><span class="pre">options</span></code>.</li>
 </ol>
 </div>
 <div class="section" id="upgrading-custom-widgets">
@@ -166,7 +179,7 @@ section below for more information).</p>
 </li>
 <li><p class="first">In 2.0 require.js was used incorrectly, that has been fixed and now
 loading works more like Python&#8217;s import. Requiring
-<tt class="docutils literal"><span class="pre">widgets/js/widget</span></tt> doesn&#8217;t import the <tt class="docutils literal"><span class="pre">WidgetManager</span></tt> class,
+<code class="docutils literal"><span class="pre">widgets/js/widget</span></code> doesn&#8217;t import the <code class="docutils literal"><span class="pre">WidgetManager</span></code> class,
 instead it imports a dictionary that exposes the classes within that
 module:</p>
 <div class="code javascript highlight-python"><div class="highlight"><pre><span class="p">{</span>
@@ -180,14 +193,14 @@ module:</p>
 <p>If you decide to continue to use the widget registry (by registering
 your widgets with the manager), you can import a dictionary with a
 handle to the WidgetManager class by requiring
-<tt class="docutils literal"><span class="pre">widgets/js/manager</span></tt>. Doing so will import:</p>
+<code class="docutils literal"><span class="pre">widgets/js/manager</span></code>. Doing so will import:</p>
 <div class="code javascript highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;WidgetManager&#39;</span><span class="p">:</span> <span class="n">WidgetManager</span><span class="p">}</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Don&#8217;t rely on the <tt class="docutils literal"><span class="pre">IPython</span></tt> namespace for anything. To inherit from
+<li><p class="first">Don&#8217;t rely on the <code class="docutils literal"><span class="pre">IPython</span></code> namespace for anything. To inherit from
 the DOMWidgetView, WidgetView, or WidgetModel, require
-<tt class="docutils literal"><span class="pre">widgets/js/widget</span></tt> as <tt class="docutils literal"><span class="pre">widget</span></tt>. If you were inheriting from
+<code class="docutils literal"><span class="pre">widgets/js/widget</span></code> as <code class="docutils literal"><span class="pre">widget</span></code>. If you were inheriting from
 DOMWidgetView, and the code looked like this:</p>
 <div class="code javascript highlight-python"><div class="highlight"><pre><span class="n">IPython</span><span class="o">.</span><span class="n">DOMWidgetView</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="o">...</span><span class="p">})</span>
 </pre></div>
@@ -206,13 +219,13 @@ instead of N times where N is the number of displayed views.</p>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>Generally, custom widget Python code can remain unchanged. If you
-distribute your custom widget, you may be using <tt class="docutils literal"><span class="pre">display</span></tt> and
-<tt class="docutils literal"><span class="pre">Javascript</span></tt> to publish the widget&#8217;s Javascript to the front-end. That
+distribute your custom widget, you may be using <code class="docutils literal"><span class="pre">display</span></code> and
+<code class="docutils literal"><span class="pre">Javascript</span></code> to publish the widget&#8217;s Javascript to the front-end. That
 is no longer the recommended way of distributing widget Javascript.
 Instead have the user install the Javascript to his/her nbextension
 directory or their profile&#8217;s static directory. Then use the new
-<tt class="docutils literal"><span class="pre">_view_module</span></tt> and <tt class="docutils literal"><span class="pre">_model_module</span></tt> traitlets in combination with
-<tt class="docutils literal"><span class="pre">_view_name</span></tt> and <tt class="docutils literal"><span class="pre">_model_name</span></tt> to instruct require.js on how to load
+<code class="docutils literal"><span class="pre">_view_module</span></code> and <code class="docutils literal"><span class="pre">_model_module</span></code> traitlets in combination with
+<code class="docutils literal"><span class="pre">_view_name</span></code> and <code class="docutils literal"><span class="pre">_model_name</span></code> to instruct require.js on how to load
 the widget&#8217;s Javascript. The Javascript is then loaded when the widget
 is used for the first time.</p>
 </div>
@@ -229,11 +242,11 @@ widget&#8217;s Javascript to the notebook or instruct the users to install the
 Javascript by hand in a custom profile. With the first method, the
 maintainer would have to be careful about when the Javascript was pushed
 to the front-end. If the Javascript was pushed on Python widget
-<tt class="docutils literal"><span class="pre">import</span></tt>, the widgets wouldn&#8217;t work after page refresh. This is
+<code class="docutils literal"><span class="pre">import</span></code>, the widgets wouldn&#8217;t work after page refresh. This is
 because refreshing the page does not restart the kernel, and the Python
-<tt class="docutils literal"><span class="pre">import</span></tt> statement only runs once in a given kernel instance (unless
+<code class="docutils literal"><span class="pre">import</span></code> statement only runs once in a given kernel instance (unless
 you reload the Python modules, which isn&#8217;t straight forward). This meant
-the maintainer would have to have a separate <tt class="docutils literal"><span class="pre">push_js()</span></tt> method that
+the maintainer would have to have a separate <code class="docutils literal"><span class="pre">push_js()</span></code> method that
 the user would have to call after importing the widget&#8217;s Python code.</p>
 <p>Our solution was to add support for loading widget views and models
 using require.js paths. Thus the comm and widget frameworks now support
@@ -258,36 +271,36 @@ when your refresh the page.</p>
 <div class="section" id="smaller-changes">
 <h3>Smaller Changes<a class="headerlink" href="#smaller-changes" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Latex math is supported in widget <tt class="docutils literal"><span class="pre">description</span></tt>s
+<li>Latex math is supported in widget <code class="docutils literal"><span class="pre">description</span></code>s
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/5937">#5937</a>).</li>
 <li>Widgets can be display more than once within a single container
 widget (<a class="reference external" href="https://github.com/ipython/ipython/pull/5963">#5963</a>,
 <a class="reference external" href="https://github.com/ipython/ipython/pull/6990">#6990</a>).</li>
-<li><tt class="docutils literal"><span class="pre">FloatRangeSlider</span></tt> and <tt class="docutils literal"><span class="pre">IntRangeSlider</span></tt> were added
+<li><code class="docutils literal"><span class="pre">FloatRangeSlider</span></code> and <code class="docutils literal"><span class="pre">IntRangeSlider</span></code> were added
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6050">#6050</a>).</li>
 <li>&#8220;Widget&#8221; was removed from the ends of all of the widget class names
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
-<li><tt class="docutils literal"><span class="pre">ContainerWidget</span></tt> was renamed to <tt class="docutils literal"><span class="pre">Box</span></tt>
+<li><code class="docutils literal"><span class="pre">ContainerWidget</span></code> was renamed to <code class="docutils literal"><span class="pre">Box</span></code>
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
-<li><tt class="docutils literal"><span class="pre">HBox</span></tt> and <tt class="docutils literal"><span class="pre">VBox</span></tt> widgets were added
+<li><code class="docutils literal"><span class="pre">HBox</span></code> and <code class="docutils literal"><span class="pre">VBox</span></code> widgets were added
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6125">#6125</a>).</li>
-<li><tt class="docutils literal"><span class="pre">add\_class</span></tt> and <tt class="docutils literal"><span class="pre">remove\_class</span></tt> were removed in favor of a
-<tt class="docutils literal"><span class="pre">_dom_classes</span></tt> list
+<li><code class="docutils literal"><span class="pre">add\_class</span></code> and <code class="docutils literal"><span class="pre">remove\_class</span></code> were removed in favor of a
+<code class="docutils literal"><span class="pre">_dom_classes</span></code> list
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6235">#6235</a>).</li>
-<li><tt class="docutils literal"><span class="pre">get\_css</span></tt> and <tt class="docutils literal"><span class="pre">set\_css</span></tt> were removed in favor of explicit
+<li><code class="docutils literal"><span class="pre">get\_css</span></code> and <code class="docutils literal"><span class="pre">set\_css</span></code> were removed in favor of explicit
 traits for widget styling
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6235">#6235</a>).</li>
-<li><tt class="docutils literal"><span class="pre">jslink</span></tt> and <tt class="docutils literal"><span class="pre">jsdlink</span></tt> were added
+<li><code class="docutils literal"><span class="pre">jslink</span></code> and <code class="docutils literal"><span class="pre">jsdlink</span></code> were added
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6454">#6454</a>,
 <a class="reference external" href="https://github.com/ipython/ipython/pull/7468">#7468</a>).</li>
-<li>An <tt class="docutils literal"><span class="pre">Output</span></tt> widget was added, which allows you to <tt class="docutils literal"><span class="pre">print</span></tt> and
-<tt class="docutils literal"><span class="pre">display</span></tt> within widgets
+<li>An <code class="docutils literal"><span class="pre">Output</span></code> widget was added, which allows you to <code class="docutils literal"><span class="pre">print</span></code> and
+<code class="docutils literal"><span class="pre">display</span></code> within widgets
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6670">#6670</a>).</li>
-<li><tt class="docutils literal"><span class="pre">PopupWidget</span></tt> was removed
+<li><code class="docutils literal"><span class="pre">PopupWidget</span></code> was removed
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/7341">#7341</a>).</li>
 <li>A visual cue was added for widgets with &#8216;dead&#8217; comms
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/7227">#7227</a>).</li>
-<li>A <tt class="docutils literal"><span class="pre">SelectMultiple</span></tt> widget was added (a <tt class="docutils literal"><span class="pre">Select</span></tt> widget that
+<li>A <code class="docutils literal"><span class="pre">SelectMultiple</span></code> widget was added (a <code class="docutils literal"><span class="pre">Select</span></code> widget that
 allows multiple things to be selected at once)
 (<a class="reference external" href="https://github.com/ipython/ipython/pull/6890">#6890</a>).</li>
 <li>A class was added to help manage children views
@@ -435,32 +448,20 @@ ViewList object
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="version2.0.html" title="2.x Series"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="github-stats-3.html" title="Issues closed in the 3.x development cycle"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >What&#8217;s new in IPython</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/whatsnew/version3_widget_migration.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

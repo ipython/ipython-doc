@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Messaging for Parallel Computing &mdash; IPython 3.2.0 documentation</title>
+    <title>Messaging for Parallel Computing &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="IPython developer’s guide" href="index.html" />
     <link rel="next" title="Connection Diagrams of The IPython ZMQ Cluster" href="parallel_connections.html" />
-    <link rel="prev" title="Execution semantics in the IPython kernel" href="execution.html" /> 
+    <link rel="prev" title="Execution semantics in the IPython kernel" href="execution.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,25 +57,25 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">IPython developer&#8217;s guide</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Messaging for Parallel Computing</a><ul>
 <li><a class="reference internal" href="#the-controller">The Controller</a></li>
 <li><a class="reference internal" href="#the-hub">The Hub</a><ul>
-<li><a class="reference internal" href="#registration-router">Registration (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)</a></li>
+<li><a class="reference internal" href="#registration-router">Registration (<code class="docutils literal"><span class="pre">ROUTER</span></code>)</a></li>
 <li><a class="reference internal" href="#heartbeat">Heartbeat</a></li>
-<li><a class="reference internal" href="#notification-pub">Notification (<tt class="docutils literal"><span class="pre">PUB</span></tt>)</a></li>
-<li><a class="reference internal" href="#client-queries-router">Client Queries (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)</a></li>
+<li><a class="reference internal" href="#notification-pub">Notification (<code class="docutils literal"><span class="pre">PUB</span></code>)</a></li>
+<li><a class="reference internal" href="#client-queries-router">Client Queries (<code class="docutils literal"><span class="pre">ROUTER</span></code>)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#schedulers">Schedulers</a><ul>
-<li><a class="reference internal" href="#apply"><tt class="docutils literal"><span class="pre">apply()</span></tt></a></li>
+<li><a class="reference internal" href="#apply"><code class="docutils literal"><span class="pre">apply()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#control-messages">Control Messages</a></li>
@@ -89,12 +93,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="parallel_connections.html"
                         title="next chapter">Connection Diagrams of The IPython ZMQ Cluster</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/development/parallel_messages.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/development/parallel_messages.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -113,12 +119,19 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="messaging-for-parallel-computing">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="messaging-for-parallel-computing">
 <span id="parallel-messages"></span><h1>Messaging for Parallel Computing<a class="headerlink" href="#messaging-for-parallel-computing" title="Permalink to this headline">¶</a></h1>
-<p>This is an extension of the <a class="reference internal" href="messaging.html#messaging"><em>messaging</em></a> doc. Diagrams of the connections
-can be found in the <a class="reference internal" href="parallel_connections.html#parallel-connections"><em>parallel connections</em></a> doc.</p>
+<p>This is an extension of the <a class="reference internal" href="messaging.html#messaging"><span>messaging</span></a> doc. Diagrams of the connections
+can be found in the <a class="reference internal" href="parallel_connections.html#parallel-connections"><span>parallel connections</span></a> doc.</p>
 <p>ZMQ messaging is also used in the parallel computing IPython system. All messages to/from
 kernels remain the same as the single kernel model, and are forwarded through a ZMQ Queue
 device. The controller receives all messages and replies in these channels, and saves
@@ -141,14 +154,14 @@ requests and results.  It has no role in execution and does no relay of messages
 large blocking requests or database actions in the Hub do not have the ability to impede
 job submission and results.</p>
 <div class="section" id="registration-router">
-<h3>Registration (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)<a class="headerlink" href="#registration-router" title="Permalink to this headline">¶</a></h3>
+<h3>Registration (<code class="docutils literal"><span class="pre">ROUTER</span></code>)<a class="headerlink" href="#registration-router" title="Permalink to this headline">¶</a></h3>
 <p>The first function of the Hub is to facilitate and monitor connections of clients
 and engines. Both client and engine registration are handled by the same socket, so only
 one ip/port pair is needed to connect any number of connections and clients.</p>
-<p>Engines register with the <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> of their two <tt class="docutils literal"><span class="pre">DEALER</span></tt> sockets, one for the
+<p>Engines register with the <code class="docutils literal"><span class="pre">zmq.IDENTITY</span></code> of their two <code class="docutils literal"><span class="pre">DEALER</span></code> sockets, one for the
 queue, which receives execute requests, and one for the heartbeat, which is used to
 monitor the survival of the Engine process.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">registration_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">registration_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;uuid&#39;</span>   <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span><span class="p">,</span> <span class="c"># the zmq.IDENTITY of the engine&#39;s sockets</span>
 <span class="p">}</span>
@@ -162,7 +175,7 @@ monitor the survival of the Engine process.</p>
 and all the remaining connection information for connecting the heartbeat process, and
 kernel queue socket(s). The message status will be an error if the Engine requests IDs that
 already in use.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">registration_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">registration_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
     <span class="c"># if ok:</span>
@@ -172,14 +185,14 @@ already in use.</p>
 </div>
 <p>Clients use the same socket as engines to start their connections. Connection requests
 from clients need no information:</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">connection_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">connection_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
 <p>The reply to a Client registration request contains the connection information for the
 multiplexer and load balanced queues, as well as the address for direct hub
-queries. If any of these addresses is <tt class="docutils literal"><span class="pre">None</span></tt>, that functionality is not available.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">connection_reply</span></tt>:</p>
+queries. If any of these addresses is <code class="docutils literal"><span class="pre">None</span></code>, that functionality is not available.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">connection_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
 <span class="p">}</span>
@@ -189,22 +202,22 @@ queries. If any of these addresses is <tt class="docutils literal"><span class="
 <div class="section" id="heartbeat">
 <h3>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline">¶</a></h3>
 <p>The hub uses a heartbeat system to monitor engines, and track when they become
-unresponsive. As described in <a class="reference internal" href="messaging.html#messaging"><em>messaging</em></a>, and shown in <a class="reference internal" href="parallel_connections.html#parallel-connections"><em>connections</em></a>.</p>
+unresponsive. As described in <a class="reference internal" href="messaging.html#messaging"><span>messaging</span></a>, and shown in <a class="reference internal" href="parallel_connections.html#parallel-connections"><span>connections</span></a>.</p>
 </div>
 <div class="section" id="notification-pub">
-<h3>Notification (<tt class="docutils literal"><span class="pre">PUB</span></tt>)<a class="headerlink" href="#notification-pub" title="Permalink to this headline">¶</a></h3>
-<p>The hub publishes all engine registration/unregistration events on a <tt class="docutils literal"><span class="pre">PUB</span></tt> socket.
+<h3>Notification (<code class="docutils literal"><span class="pre">PUB</span></code>)<a class="headerlink" href="#notification-pub" title="Permalink to this headline">¶</a></h3>
+<p>The hub publishes all engine registration/unregistration events on a <code class="docutils literal"><span class="pre">PUB</span></code> socket.
 This allows clients to have up-to-date engine ID sets without polling. Registration
 notifications contain both the integer engine ID and the queue ID, which is necessary for
 sending messages via the Multiplexer Queue and Control Queues.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">registration_notification</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">registration_notification</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;id&#39;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c"># engine ID that has been registered</span>
     <span class="s">&#39;uuid&#39;</span> <span class="p">:</span> <span class="s">&#39;engine_id&#39;</span> <span class="c"># the IDENT for the engine&#39;s sockets</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type : <tt class="docutils literal"><span class="pre">unregistration_notification</span></tt>:</p>
+<p>Message type : <code class="docutils literal"><span class="pre">unregistration_notification</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre>content = {
     &#39;id&#39; : 0 # engine ID that has been unregistered
     &#39;uuid&#39; : &#39;engine_id&#39; # the IDENT for the engine&#39;s sockets
@@ -213,22 +226,22 @@ sending messages via the Multiplexer Queue and Control Queues.</p>
 </div>
 </div>
 <div class="section" id="client-queries-router">
-<h3>Client Queries (<tt class="docutils literal"><span class="pre">ROUTER</span></tt>)<a class="headerlink" href="#client-queries-router" title="Permalink to this headline">¶</a></h3>
+<h3>Client Queries (<code class="docutils literal"><span class="pre">ROUTER</span></code>)<a class="headerlink" href="#client-queries-router" title="Permalink to this headline">¶</a></h3>
 <p>The hub monitors and logs all queue traffic, so that clients can retrieve past
 results or monitor pending tasks. This information may reside in-memory on the Hub, or
 on disk in a database (SQLite and MongoDB are currently supported).  These requests are
 handled by the same socket as registration.</p>
-<p><tt class="xref py py-func docutils literal"><span class="pre">queue_request()</span></tt> requests can specify multiple engines to query via the <tt class="docutils literal"><span class="pre">targets</span></tt>
+<p><code class="xref py py-func docutils literal"><span class="pre">queue_request()</span></code> requests can specify multiple engines to query via the <code class="docutils literal"><span class="pre">targets</span></code>
 element. A verbose flag can be passed, to determine whether the result should be the list
-of <tt class="docutils literal"><span class="pre">msg_ids</span></tt> in the queue or simply the length of each list.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">queue_request</span></tt>:</p>
+of <code class="docutils literal"><span class="pre">msg_ids</span></code> in the queue or simply the length of each list.</p>
+<p>Message type: <code class="docutils literal"><span class="pre">queue_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;verbose&#39;</span> <span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="c"># whether return should be lists themselves or just lens</span>
     <span class="s">&#39;targets&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="c"># list of ints</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The content of a reply to a <tt class="xref py py-func docutils literal"><span class="pre">queue_request()</span></tt> request is a dict, keyed by the engine
+<p>The content of a reply to a <code class="xref py py-func docutils literal"><span class="pre">queue_request()</span></code> request is a dict, keyed by the engine
 IDs. Note that they will be the string representation of the integer keys, since JSON
 cannot handle number keys.  The three keys of each dict are:</p>
 <div class="highlight-python"><div class="highlight"><pre>&#39;completed&#39; :  messages submitted via any queue that ran on the engine
@@ -238,7 +251,7 @@ cannot handle number keys.  The three keys of each dict are:</p>
             always be 0/[].
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">queue_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">queue_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
     <span class="c"># if verbose=False:</span>
@@ -253,7 +266,7 @@ gathering results of executions not submitted by the requesting client, as the c
 will have all its own results already. Requests are made by msg_id, and can contain one or
 more msg_id. An additional boolean key &#8216;statusonly&#8217; can be used to not request the
 results, but simply poll the status of the jobs.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">result_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">result_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;msg_ids&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">,</span><span class="s">&#39;...&#39;</span><span class="p">],</span> <span class="c"># list of strs</span>
     <span class="s">&#39;targets&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="c"># list of int ids or uuids</span>
@@ -261,10 +274,10 @@ results, but simply poll the status of the jobs.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">result_request()</span></tt> reply contains the content objects of the actual execution
-reply messages. If <tt class="docutils literal"><span class="pre">statusonly=True</span></tt>, then there will be only the &#8216;pending&#8217; and
+<p>The <code class="xref py py-func docutils literal"><span class="pre">result_request()</span></code> reply contains the content objects of the actual execution
+reply messages. If <code class="docutils literal"><span class="pre">statusonly=True</span></code>, then there will be only the &#8216;pending&#8217; and
 &#8216;completed&#8217; lists.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">result_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">result_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># else error</span>
     <span class="c"># if ok:</span>
@@ -283,9 +296,9 @@ reply messages. If <tt class="docutils literal"><span class="pre">statusonly=Tru
 results of messages. This can be done by message ID or engine ID. Individual messages are
 dropped by msg_id, and all messages completed on an engine are dropped by engine ID. This
 may no longer be necessary with the mongodb-based message logging backend.</p>
-<p>If the msg_ids element is the string <tt class="docutils literal"><span class="pre">'all'</span></tt> instead of a list, then all completed
+<p>If the msg_ids element is the string <code class="docutils literal"><span class="pre">'all'</span></code> instead of a list, then all completed
 results are forgotten.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">purge_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">purge_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;msg_ids&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;id1&#39;</span><span class="p">,</span> <span class="s">&#39;id2&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or &#39;all&#39;</span>
     <span class="s">&#39;engine_ids&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="c"># list of engine IDs</span>
@@ -295,7 +308,7 @@ results are forgotten.</p>
 <p>The reply to a purge request is simply the status &#8216;ok&#8217; if the request succeeded, or an
 explanation of why it failed, such as requesting the purge of a nonexistent or pending
 message.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">purge_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">purge_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span><span class="p">,</span> <span class="c"># or &#39;error&#39;</span>
 <span class="p">}</span>
@@ -313,20 +326,20 @@ message.</p>
 <li>Control Scheduler</li>
 </ul>
 </div></blockquote>
-<p>The MUX and Control schedulers are simple MonitoredQueue ØMQ devices, with <tt class="docutils literal"><span class="pre">ROUTER</span></tt>
+<p>The MUX and Control schedulers are simple MonitoredQueue ØMQ devices, with <code class="docutils literal"><span class="pre">ROUTER</span></code>
 sockets on either side. This allows the queue to relay individual messages to particular
-targets via <tt class="docutils literal"><span class="pre">zmq.IDENTITY</span></tt> routing. The Task scheduler may be a MonitoredQueue ØMQ
-device, in which case the client-facing socket is <tt class="docutils literal"><span class="pre">ROUTER</span></tt>, and the engine-facing socket
-is <tt class="docutils literal"><span class="pre">DEALER</span></tt>.  The result of this is that client-submitted messages are load-balanced via
-the <tt class="docutils literal"><span class="pre">DEALER</span></tt> socket, but the engine&#8217;s replies to each message go to the requesting client.</p>
-<p>Raw <tt class="docutils literal"><span class="pre">DEALER</span></tt> scheduling is quite primitive, and doesn&#8217;t allow message introspection, so
+targets via <code class="docutils literal"><span class="pre">zmq.IDENTITY</span></code> routing. The Task scheduler may be a MonitoredQueue ØMQ
+device, in which case the client-facing socket is <code class="docutils literal"><span class="pre">ROUTER</span></code>, and the engine-facing socket
+is <code class="docutils literal"><span class="pre">DEALER</span></code>.  The result of this is that client-submitted messages are load-balanced via
+the <code class="docutils literal"><span class="pre">DEALER</span></code> socket, but the engine&#8217;s replies to each message go to the requesting client.</p>
+<p>Raw <code class="docutils literal"><span class="pre">DEALER</span></code> scheduling is quite primitive, and doesn&#8217;t allow message introspection, so
 there are also Python Schedulers that can be used. These Schedulers behave in much the
 same way as a MonitoredQueue does from the outside, but have rich internal logic to
 determine destinations, as well as handle dependency graphs Their sockets are always
-<tt class="docutils literal"><span class="pre">ROUTER</span></tt> on both sides.</p>
+<code class="docutils literal"><span class="pre">ROUTER</span></code> on both sides.</p>
 <p>The Python task schedulers have an additional message type, which informs the Hub of
 the destination of a task as soon as that destination is known.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">task_destination</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">task_destination</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;msg_id&#39;</span> <span class="p">:</span> <span class="s">&#39;abcd-1234-...&#39;</span><span class="p">,</span> <span class="c"># the msg&#39;s uuid</span>
     <span class="s">&#39;engine_id&#39;</span> <span class="p">:</span> <span class="s">&#39;1234-abcd-...&#39;</span><span class="p">,</span> <span class="c"># the destination engine&#39;s zmq.IDENTITY</span>
@@ -334,7 +347,7 @@ the destination of a task as soon as that destination is known.</p>
 </pre></div>
 </div>
 <div class="section" id="apply">
-<h3><a class="reference external" href="http://docs.python.org/2/library/functions.html#apply" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">apply()</span></tt></a><a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
+<h3><a class="reference external" href="http://docs.python.org/2/library/functions.html#apply" title="(in Python v2.7)"><code class="xref py py-func docutils literal"><span class="pre">apply()</span></code></a><a class="headerlink" href="#apply" title="Permalink to this headline">¶</a></h3>
 <p>In terms of message classes, the MUX scheduler and Task scheduler relay the exact same
 message types.  Their only difference lies in how the destination is selected.</p>
 <p>The <a class="reference external" href="http://gist.github.com/483294">Namespace</a> model suggests that execution be able to
@@ -342,16 +355,16 @@ use the model:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">ns</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>which takes <tt class="docutils literal"><span class="pre">f</span></tt>, a function in the user&#8217;s namespace, and executes <tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></tt>
+<p>which takes <code class="docutils literal"><span class="pre">f</span></code>, a function in the user&#8217;s namespace, and executes <code class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kwargs)</span></code>
 on a remote engine, returning the result (or, for non-blocking, information facilitating
 later retrieval of the result). This model, unlike the execute message which just uses a
 code string, must be able to send arbitrary (pickleable) Python objects. And ideally, copy
-as little data as we can. The <tt class="docutils literal"><span class="pre">buffers</span></tt> property of a Message was introduced for this
+as little data as we can. The <code class="docutils literal"><span class="pre">buffers</span></code> property of a Message was introduced for this
 purpose.</p>
-<p>Utility method <tt class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></tt> in <a class="reference internal" href="../api/generated/IPython.kernel.zmq.serialize.html#module-IPython.kernel.zmq.serialize" title="IPython.kernel.zmq.serialize"><tt class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq.serialize</span></tt></a> wraps a
+<p>Utility method <code class="xref py py-func docutils literal"><span class="pre">build_apply_message()</span></code> in <a class="reference internal" href="../api/generated/IPython.kernel.zmq.serialize.html#module-IPython.kernel.zmq.serialize" title="IPython.kernel.zmq.serialize"><code class="xref py py-mod docutils literal"><span class="pre">IPython.kernel.zmq.serialize</span></code></a> wraps a
 function signature and builds a sendable buffer format for minimal data copying (exactly
 zero copies of numpy array data or buffers or large strings).</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">apply_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">apply_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;after&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
     <span class="s">&#39;follow&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;msg_id&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="c"># list of msg_ids or output of Dependency.as_dict()</span>
@@ -364,8 +377,8 @@ zero copies of numpy array data or buffers or large strings).</p>
 <p>after/follow represent task dependencies. &#8216;after&#8217; corresponds to a time dependency. The
 request will not arrive at an engine until the &#8216;after&#8217; dependency tasks have completed.
 &#8216;follow&#8217; corresponds to a location dependency. The task will be submitted to the same
-engine as these msg_ids (see <tt class="xref py py-class docutils literal"><span class="pre">Dependency</span></tt> docs for details).</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">apply_reply</span></tt>:</p>
+engine as these msg_ids (see <code class="xref py py-class docutils literal"><span class="pre">Dependency</span></code> docs for details).</p>
+<p>Message type: <code class="docutils literal"><span class="pre">apply_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="c"># &#39;ok&#39; or &#39;error&#39;</span>
     <span class="c"># other error info here, as in other messages</span>
@@ -385,11 +398,11 @@ via the Control queue. These messages have high priority, and are thus received 
 handled before any execution requests.</p>
 <p>Clients may want to clear the namespace on the engine. There are no arguments nor
 information involved in this request, so the content is empty.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">clear_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">clear_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">clear_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">clear_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="c"># &#39;ok&#39; or &#39;error&#39;</span>
     <span class="c"># other error info here, as in other messages</span>
@@ -398,13 +411,13 @@ information involved in this request, so the content is empty.</p>
 </div>
 <p>Clients may want to abort tasks that have not yet run. This can by done by message id, or
 all enqueued messages can be aborted if None is specified.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">abort_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">abort_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;msg_ids&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s">&#39;1234-...&#39;</span><span class="p">,</span> <span class="s">&#39;...&#39;</span><span class="p">]</span> <span class="c"># list of msg_ids or None</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">abort_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">abort_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="c"># &#39;ok&#39; or &#39;error&#39;</span>
     <span class="c"># other error info here, as in other messages</span>
@@ -413,11 +426,11 @@ all enqueued messages can be aborted if None is specified.</p>
 </div>
 <p>The last action a client may want to do is shutdown the kernel. If a kernel receives a
 shutdown request, then it aborts all queued messages, replies to the request, and exits.</p>
-<p>Message type: <tt class="docutils literal"><span class="pre">shutdown_request</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">shutdown_request</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
-<p>Message type: <tt class="docutils literal"><span class="pre">shutdown_reply</span></tt>:</p>
+<p>Message type: <code class="docutils literal"><span class="pre">shutdown_reply</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">content</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">&#39;status&#39;</span> <span class="p">:</span> <span class="s">&#39;ok&#39;</span> <span class="c"># &#39;ok&#39; or &#39;error&#39;</span>
     <span class="c"># other error info here, as in other messages</span>
@@ -427,16 +440,16 @@ shutdown request, then it aborts all queued messages, replies to the request, an
 </div>
 <div class="section" id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<p>There are a few differences in implementation between the <tt class="docutils literal"><span class="pre">StreamSession</span></tt> object used in
-the newparallel branch and the <tt class="docutils literal"><span class="pre">Session</span></tt> object, the main one being that messages are
-sent in parts, rather than as a single serialized object. <tt class="docutils literal"><span class="pre">StreamSession</span></tt> objects also
+<p>There are a few differences in implementation between the <code class="docutils literal"><span class="pre">StreamSession</span></code> object used in
+the newparallel branch and the <code class="docutils literal"><span class="pre">Session</span></code> object, the main one being that messages are
+sent in parts, rather than as a single serialized object. <code class="docutils literal"><span class="pre">StreamSession</span></code> objects also
 take pack/unpack functions, which are to be used when serializing/deserializing objects.
 These can be any functions that translate to/from formats that ZMQ sockets can send
 (buffers,bytes, etc.).</p>
 <div class="section" id="split-sends">
 <h3>Split Sends<a class="headerlink" href="#split-sends" title="Permalink to this headline">¶</a></h3>
 <p>Previously, messages were bundled as a single json object and one call to
-<tt class="xref py py-func docutils literal"><span class="pre">socket.send_json()</span></tt>. Since the hub inspects all messages, and doesn&#8217;t need to
+<code class="xref py py-func docutils literal"><span class="pre">socket.send_json()</span></code>. Since the hub inspects all messages, and doesn&#8217;t need to
 see the content of the messages, which can be large, messages are now serialized and sent in
 pieces. All messages are sent in at least 4 parts: the header, the parent header, the metadata and the content.
 This allows the controller to unpack and inspect the (always small) header,
@@ -453,32 +466,20 @@ present the buffer interface.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="parallel_connections.html" title="Connection Diagrams of The IPython ZMQ Cluster"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="execution.html" title="Execution semantics in the IPython kernel"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >IPython developer&#8217;s guide</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/development/parallel_messages.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

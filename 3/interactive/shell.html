@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IPython as a system shell &mdash; IPython 3.2.0 documentation</title>
+    <title>IPython as a system shell &mdash; IPython 3.2.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.2.0',
+        VERSION:     '3.2.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 3.2.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 3.2.1 documentation" href="../index.html" />
     <link rel="up" title="Using IPython for interactive work" href="index.html" />
     <link rel="next" title="A Qt Console for IPython" href="qtconsole.html" />
-    <link rel="prev" title="Built-in magic commands" href="magics.html" /> 
+    <link rel="prev" title="Built-in magic commands" href="magics.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for interactive work</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for interactive work</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -82,12 +86,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="qtconsole.html"
                         title="next chapter">A Qt Console for IPython</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/interactive/shell.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/interactive/shell.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -106,9 +112,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="ipython-as-a-system-shell">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="ipython-as-a-system-shell">
 <span id="ipython-as-shell"></span><h1>IPython as a system shell<a class="headerlink" href="#ipython-as-a-system-shell" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
@@ -116,70 +129,70 @@
 shipped a special &#8216;sh&#8217; profile for this purpose, but it had been quarantined
 since 0.11 release, and in 1.0 it was removed altogether. Nevertheless, much
 of this section relies on machinery which does not require a custom profile.</p>
-<p>You can set up your own &#8216;sh&#8217; <a class="reference internal" href="../config/intro.html#profiles"><em>profile</em></a> to be different from
+<p>You can set up your own &#8216;sh&#8217; <a class="reference internal" href="../config/intro.html#profiles"><span>profile</span></a> to be different from
 the default profile such that:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Prompt shows the current directory (see <a class="reference internal" href="#prompt-customization">Prompt customization</a>)</li>
 <li>Make system commands directly available (in alias table) by running the
-<tt class="docutils literal"><span class="pre">%rehashx</span></tt> magic. If you install new programs along your PATH, you might
-want to run <tt class="docutils literal"><span class="pre">%rehashx</span></tt> to update the alias table</li>
-<li>turn <tt class="docutils literal"><span class="pre">%autocall</span></tt> to full mode</li>
+<code class="docutils literal"><span class="pre">%rehashx</span></code> magic. If you install new programs along your PATH, you might
+want to run <code class="docutils literal"><span class="pre">%rehashx</span></code> to update the alias table</li>
+<li>turn <code class="docutils literal"><span class="pre">%autocall</span></code> to full mode</li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="environment-variables">
 <h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
 <p>Rather than manipulating os.environ directly, you may like to use the magic
-<tt class="docutils literal"><span class="pre">%env</span></tt> command.  With no arguments, this displays all environment variables
-and values.  To get the value of a specific variable, use <tt class="docutils literal"><span class="pre">%env</span> <span class="pre">var</span></tt>.  To set
-the value of a specific variable, use <tt class="docutils literal"><span class="pre">%env</span> <span class="pre">foo</span> <span class="pre">bar</span></tt>, <tt class="docutils literal"><span class="pre">%env</span> <span class="pre">foo=bar</span></tt>.  By
+<code class="docutils literal"><span class="pre">%env</span></code> command.  With no arguments, this displays all environment variables
+and values.  To get the value of a specific variable, use <code class="docutils literal"><span class="pre">%env</span> <span class="pre">var</span></code>.  To set
+the value of a specific variable, use <code class="docutils literal"><span class="pre">%env</span> <span class="pre">foo</span> <span class="pre">bar</span></code>, <code class="docutils literal"><span class="pre">%env</span> <span class="pre">foo=bar</span></code>.  By
 default values are considered to be strings so quoting them is unnecessary.
 However, python variables are expanded as usual in the magic command, so
-<tt class="docutils literal"><span class="pre">%env</span> <span class="pre">foo=$bar</span></tt> means &#8220;set the environment variable foo to the value of the
-python variable <tt class="docutils literal"><span class="pre">bar</span></tt>&#8221;.</p>
+<code class="docutils literal"><span class="pre">%env</span> <span class="pre">foo=$bar</span></code> means &#8220;set the environment variable foo to the value of the
+python variable <code class="docutils literal"><span class="pre">bar</span></code>&#8221;.</p>
 </div>
 <div class="section" id="aliases">
 <h2>Aliases<a class="headerlink" href="#aliases" title="Permalink to this headline">¶</a></h2>
-<p>Once you run <tt class="docutils literal"><span class="pre">%rehashx</span></tt>, all of your $PATH has been loaded as IPython aliases,
+<p>Once you run <code class="docutils literal"><span class="pre">%rehashx</span></code>, all of your $PATH has been loaded as IPython aliases,
 so you should be able to type any normal system command and have it executed.
-See <tt class="docutils literal"><span class="pre">%alias?</span></tt>  and <tt class="docutils literal"><span class="pre">%unalias?</span></tt> for details on the alias facilities. See also
-<tt class="docutils literal"><span class="pre">%rehashx?</span></tt> for details on the mechanism used to load $PATH.</p>
+See <code class="docutils literal"><span class="pre">%alias?</span></code>  and <code class="docutils literal"><span class="pre">%unalias?</span></code> for details on the alias facilities. See also
+<code class="docutils literal"><span class="pre">%rehashx?</span></code> for details on the mechanism used to load $PATH.</p>
 </div>
 <div class="section" id="directory-management">
 <h2>Directory management<a class="headerlink" href="#directory-management" title="Permalink to this headline">¶</a></h2>
 <p>Since each command passed by ipython to the underlying system is executed
 in a subshell which exits immediately, you can NOT use !cd to navigate
 the filesystem.</p>
-<p>IPython provides its own builtin <tt class="docutils literal"><span class="pre">%cd</span></tt> magic command to move in the
+<p>IPython provides its own builtin <code class="docutils literal"><span class="pre">%cd</span></code> magic command to move in the
 filesystem (the % is not required with automagic on). It also maintains
-a list of visited directories (use <tt class="docutils literal"><span class="pre">%dhist</span></tt> to see it) and allows direct
-switching to any of them. Type <tt class="docutils literal"><span class="pre">cd?</span></tt> for more details.</p>
-<p><tt class="docutils literal"><span class="pre">%pushd</span></tt>, <tt class="docutils literal"><span class="pre">%popd</span></tt> and <tt class="docutils literal"><span class="pre">%dirs</span></tt> are provided for directory stack handling.</p>
+a list of visited directories (use <code class="docutils literal"><span class="pre">%dhist</span></code> to see it) and allows direct
+switching to any of them. Type <code class="docutils literal"><span class="pre">cd?</span></code> for more details.</p>
+<p><code class="docutils literal"><span class="pre">%pushd</span></code>, <code class="docutils literal"><span class="pre">%popd</span></code> and <code class="docutils literal"><span class="pre">%dirs</span></code> are provided for directory stack handling.</p>
 </div>
 <div class="section" id="prompt-customization">
 <h2>Prompt customization<a class="headerlink" href="#prompt-customization" title="Permalink to this headline">¶</a></h2>
 <p>Here are some prompt configurations you can try out interactively by using the
-<tt class="docutils literal"><span class="pre">%config</span></tt> magic:</p>
+<code class="docutils literal"><span class="pre">%config</span></code> magic:</p>
 <div class="highlight-python"><div class="highlight"><pre>%config PromptManager.in_template = r&#39;{color.LightGreen}\u@\h{color.LightBlue}[{color.LightCyan}\Y1{color.LightBlue}]{color.Green}|\#&gt; &#39;
 %config PromptManager.in2_template = r&#39;{color.Green}|{color.LightGreen}\D{color.Green}&gt; &#39;
 %config PromptManager.out_template = r&#39;&lt;\#&gt; &#39;
 </pre></div>
 </div>
 <p>You can change the prompt configuration to your liking permanently by editing
-<tt class="docutils literal"><span class="pre">ipython_config.py</span></tt>:</p>
+<code class="docutils literal"><span class="pre">ipython_config.py</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">c</span><span class="o">.</span><span class="n">PromptManager</span><span class="o">.</span><span class="n">in_template</span> <span class="o">=</span> <span class="s">r&#39;{color.LightGreen}\u@\h{color.LightBlue}[{color.LightCyan}\Y1{color.LightBlue}]{color.Green}|\#&gt; &#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">PromptManager</span><span class="o">.</span><span class="n">in2_template</span> <span class="o">=</span> <span class="s">r&#39;{color.Green}|{color.LightGreen}\D{color.Green}&gt; &#39;</span>
 <span class="n">c</span><span class="o">.</span><span class="n">PromptManager</span><span class="o">.</span><span class="n">out_template</span> <span class="o">=</span> <span class="s">r&#39;&lt;\#&gt; &#39;</span>
 </pre></div>
 </div>
-<p>Read more about the <a class="reference internal" href="../development/config.html#config-overview"><em>configuration system</em></a> for details
-on how to find <tt class="docutils literal"><span class="pre">ipython_config.py</span></tt>.</p>
+<p>Read more about the <a class="reference internal" href="../development/config.html#config-overview"><span>configuration system</span></a> for details
+on how to find <code class="docutils literal"><span class="pre">ipython_config.py</span></code>.</p>
 </div>
 <div class="section" id="string-lists">
 <span id="id1"></span><h2>String lists<a class="headerlink" href="#string-lists" title="Permalink to this headline">¶</a></h2>
 <p>String lists (IPython.utils.text.SList) are handy way to process output
-from system commands. They are produced by <tt class="docutils literal"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">!cmd</span></tt> syntax.</p>
+from system commands. They are produced by <code class="docutils literal"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">!cmd</span></code> syntax.</p>
 <p>First, we acquire the output of &#8216;ls -l&#8217;:</p>
 <div class="highlight-python"><div class="highlight"><pre>[Q:doc/examples]|2&gt; lines = !ls -l
  ==
@@ -288,11 +301,11 @@ available:</p>
 </div>
 <div class="section" id="the-s-n-p-properties">
 <h3>The .s, .n, .p properties<a class="headerlink" href="#the-s-n-p-properties" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">.s</span></tt> property returns one string where lines are separated by
-single space (for convenient passing to system commands). The <tt class="docutils literal"><span class="pre">.n</span></tt>
+<p>The <code class="docutils literal"><span class="pre">.s</span></code> property returns one string where lines are separated by
+single space (for convenient passing to system commands). The <code class="docutils literal"><span class="pre">.n</span></code>
 property return one string where the lines are separated by a newline
 (i.e. the original output of the function). If the items in string
-list are file names, <tt class="docutils literal"><span class="pre">.p</span></tt> can be used to get a list of &#8220;path&#8221; objects
+list are file names, <code class="docutils literal"><span class="pre">.p</span></code> can be used to get a list of &#8220;path&#8221; objects
 for convenient file manipulation.</p>
 </div>
 </div>
@@ -304,32 +317,20 @@ for convenient file manipulation.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="qtconsole.html" title="A Qt Console for IPython"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="magics.html" title="Built-in magic commands"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for interactive work</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jun 21, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/interactive/shell.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
