@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using MPI with IPython &mdash; IPython 2.4.0 documentation</title>
+    <title>Using MPI with IPython &mdash; IPython 2.4.2-maint documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2.4.0',
+        VERSION:     '2.4.2-maint',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,18 +23,22 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="IPython 2.4.0 documentation" href="../index.html" />
+    <link rel="top" title="IPython 2.4.2-maint documentation" href="../index.html" />
     <link rel="up" title="Using IPython for parallel computing" href="index.html" />
     <link rel="next" title="IPython’s Task Database" href="parallel_db.html" />
-    <link rel="prev" title="The AsyncResult object" href="asyncresult.html" /> 
+    <link rel="prev" title="The AsyncResult object" href="asyncresult.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
   </head>
-  <body>
+  <body role="document">
 
 <div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
 <a href="http://ipython.org/"><img src="../_static/logo.png" border="0" alt="IPython Documentation"/></a>
 </div>
 
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -53,11 +57,11 @@
         <li><a href="../search.html">search</a>|&nbsp;</li>
        <li><a href="../index.html">documentation </a> &raquo;</li>
 
-          <li><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Using IPython for parallel computing</a> &raquo;</li> 
       </ul>
     </div>
 
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -80,12 +84,14 @@
   <h4>Next topic</h4>
   <p class="topless"><a href="parallel_db.html"
                         title="next chapter">IPython&#8217;s Task Database</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/parallel/parallel_mpi.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/parallel/parallel_mpi.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -104,9 +110,16 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
-  <div class="section" id="using-mpi-with-ipython">
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="using-mpi-with-ipython">
 <span id="parallelmpi"></span><h1>Using MPI with IPython<a class="headerlink" href="#using-mpi-with-ipython" title="Permalink to this headline">¶</a></h1>
 <p>Often, a parallel algorithm will require moving data between the engines. One
 way of accomplishing this is by doing a pull and then a push using the
@@ -128,7 +141,7 @@ integrate with MPI. This document describes how to use MPI with IPython.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">The mpi4py package is not a strict requirement. However, you need to
 have <em>some</em> way of calling MPI from Python. You also need some way of
-making sure that <tt class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></tt> is called when the IPython engines start
+making sure that <code class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></code> is called when the IPython engines start
 up. There are a number of ways of doing this and a good number of
 associated subtleties. We highly recommend just using mpi4py as it
 takes care of most of these problems. If you want to do something
@@ -141,7 +154,7 @@ different, let us know and we can help you get started.</p>
 <ol class="arabic simple">
 <li>The process that wants to call MPI must be started using
 <strong class="command">mpiexec</strong> or a batch system (like PBS) that has MPI support.</li>
-<li>Once the process starts, it must call <tt class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></tt>.</li>
+<li>Once the process starts, it must call <code class="xref py py-func docutils literal"><span class="pre">MPI_Init()</span></code>.</li>
 </ol>
 <p>There are a couple of ways that you can start the IPython engines and get
 these things to happen.</p>
@@ -174,7 +187,7 @@ starting the engines with:</p>
 <div class="section" id="automatic-starting-using-pbs-and-ipcluster">
 <h3>Automatic starting using PBS and <strong class="command">ipcluster</strong><a class="headerlink" href="#automatic-starting-using-pbs-and-ipcluster" title="Permalink to this headline">¶</a></h3>
 <p>The <strong class="command">ipcluster</strong> command also has built-in integration with PBS. For
-more information on this approach, see our documentation on <a class="reference internal" href="parallel_process.html#parallel-process"><em>ipcluster</em></a>.</p>
+more information on this approach, see our documentation on <a class="reference internal" href="parallel_process.html#parallel-process"><span>ipcluster</span></a>.</p>
 </div>
 </div>
 <div class="section" id="actually-using-mpi">
@@ -184,7 +197,7 @@ now call any code that uses MPI in the IPython engines. And, all of this can
 be done interactively. Here we show a simple example that uses mpi4py
 <a class="reference internal" href="#mpi4py" id="id5">[mpi4py]</a> version 1.1.0 or later.</p>
 <p>First, lets define a simply function that uses MPI to calculate the sum of a
-distributed array. Save the following text in a file called <tt class="file docutils literal"><span class="pre">psum.py</span></tt>:</p>
+distributed array. Save the following text in a file called <code class="file docutils literal"><span class="pre">psum.py</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mpi4py</span> <span class="kn">import</span> <span class="n">MPI</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
@@ -203,11 +216,11 @@ distributed array. Save the following text in a file called <tt class="file docu
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">It is assumed here that the mpi profile has been set up, as described <a class="reference internal" href="parallel_process.html#parallel-process"><em>here</em></a>.</p>
+<p class="last">It is assumed here that the mpi profile has been set up, as described <a class="reference internal" href="parallel_process.html#parallel-process"><span>here</span></a>.</p>
 </div>
 <p>Finally, connect to the cluster and use this function interactively. In this
 case, we create a distributed array and sum up all its elements in a distributed
-manner using our <tt class="xref py py-func docutils literal"><span class="pre">psum()</span></tt> function:</p>
+manner using our <code class="xref py py-func docutils literal"><span class="pre">psum()</span></code> function:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">IPython.parallel</span> <span class="kn">import</span> <span class="n">Client</span>
 
 <span class="gp">In [2]: </span><span class="n">c</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s">&#39;mpi&#39;</span><span class="p">)</span>
@@ -269,32 +282,20 @@ compiled C, C++ and Fortran libraries that have been exposed to Python.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="parallel_db.html" title="IPython’s Task Database"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="asyncresult.html" title="The AsyncResult object"
-             >previous</a> |</li>
-        <li><a href="http://ipython.org">home</a>|&nbsp;</li>
-        <li><a href="../search.html">search</a>|&nbsp;</li>
-       <li><a href="../index.html">documentation </a> &raquo;</li>
-
-          <li><a href="index.html" >Using IPython for parallel computing</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright The IPython Development Team.
-      Last updated on Jan 30, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;The IPython Development Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.3</a>
+      
+      |
+      <a href="../_sources/parallel/parallel_mpi.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
