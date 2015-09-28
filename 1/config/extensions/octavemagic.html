@@ -60,6 +60,14 @@
 
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">octavemagic</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="cythonmagic.html"
                         title="previous chapter">cythonmagic</a></p>
@@ -92,8 +100,132 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="octavemagic">
-<span id="extensions-octavemagic"></span><h1>octavemagic<a class="headerlink" href="#octavemagic" title="Permalink to this headline">¶</a></h1>
+  <blockquote>
+<div><div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This documentation is for an old version of IPython.
+You can find docs for newer versions <a class="reference external" href="http://ipython.readthedocs.org/en/stable/">here</a>.</p>
+</div>
+</div></blockquote>
+<div class="section" id="module-IPython.extensions.octavemagic">
+<span id="octavemagic"></span><span id="extensions-octavemagic"></span><h1>octavemagic<a class="headerlink" href="#module-IPython.extensions.octavemagic" title="Permalink to this headline">¶</a></h1>
+<p>Magics for interacting with Octave via oct2py.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The <tt class="docutils literal"><span class="pre">oct2py</span></tt> module needs to be installed separately and
+can be obtained using <tt class="docutils literal"><span class="pre">easy_install</span></tt> or <tt class="docutils literal"><span class="pre">pip</span></tt>.</p>
+<p class="last">You will also need a working copy of GNU Octave.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To enable the magics below, execute <tt class="docutils literal"><span class="pre">%load_ext</span> <span class="pre">octavemagic</span></tt>.</p>
+<p><tt class="docutils literal"><span class="pre">%octave</span></tt></p>
+<blockquote>
+<div>%octave [-i INPUT] [-o OUTPUT] [-s SIZE] [-f FORMAT] [code [code ...]]</div></blockquote>
+<p>Execute code in Octave, and pull some of the results back into the
+Python namespace.</p>
+<blockquote>
+<div>In [9]: %octave X = [1 2; 3 4]; mean(X)
+Out[9]: array([[ 2., 3.]])</div></blockquote>
+<p>As a cell, this will run a block of Octave code, without returning any
+value:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [10]: %%octave
+   ....: p = [-2, -1, 0, 1, 2]
+   ....: polyout(p, &#39;x&#39;)
+
+-2*x^4 - 1*x^3 + 0*x^2 + 1*x^1 + 2
+</pre></div>
+</div>
+<p>In the notebook, plots are published as the output of the cell, e.g.</p>
+<p>%octave plot([1 2 3], [4 5 6])</p>
+<p>will create a line plot.</p>
+<p>Objects can be passed back and forth between Octave and IPython via the
+-i and -o flags in line:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [14]: Z = np.array([1, 4, 5, 10])
+
+In [15]: %octave -i Z mean(Z)
+Out[15]: array([ 5.])
+
+In [16]: %octave -o W W = Z * mean(Z)
+Out[16]: array([  5.,  20.,  25.,  50.])
+
+In [17]: W
+Out[17]: array([  5.,  20.,  25.,  50.])
+</pre></div>
+</div>
+<p>The size and format of output plots can be specified:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [18]: %%octave -s 600,800 -f svg
+    ...: plot([1, 2, 3]);
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>positional arguments:</dt>
+<dd>code</dd>
+<dt>optional arguments:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i <var>INPUT</var></span>, <span class="option">--input <var>INPUT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Names of input variables to be pushed to Octave.
+Multiple names can be passed, separated by commas with
+no whitespace.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Names of variables to be pulled from Octave after
+executing cell body. Multiple names can be passed,
+separated by commas with no whitespace.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>SIZE</var></span>, <span class="option">--size <var>SIZE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Pixel size of plots, &#8220;width,height&#8221;. Default is &#8220;-s
+400,250&#8221;.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-f <var>FORMAT</var></span>, <span class="option">--format <var>FORMAT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Plot format (png, svg or jpg).</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">%octave_push</span></tt></p>
+<blockquote>
+<div><p>Line-level magic that pushes a variable to Octave.</p>
+<p><cite>line</cite> should be made up of whitespace separated variable names in the
+IPython namespace:</p>
+<div class="highlight-python"><div class="highlight"><pre>In [7]: import numpy as np
+
+In [8]: X = np.arange(5)
+
+In [9]: X.mean()
+Out[9]: 2.0
+
+In [10]: %octave_push X
+
+In [11]: %octave mean(X)
+Out[11]: 2.0
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">%octave_pull</span></tt></p>
+<blockquote>
+<div><p>Line-level magic that pulls a variable from Octave.</p>
+<blockquote>
+<div><p>In [18]: _ = %octave x = [1 2; 3 4]; y = &#8216;hello&#8217;</p>
+<p>In [19]: %octave_pull x y</p>
+<p>In [20]: x
+Out[20]:
+array([[ 1.,  2.],</p>
+<blockquote>
+<div>[ 3.,  4.]])</div></blockquote>
+<p>In [21]: y
+Out[21]: &#8216;hello&#8217;</p>
+</div></blockquote>
+</div></blockquote>
+</div>
 </div>
 
 
@@ -127,8 +259,8 @@
     </div>
     <div class="footer">
         &copy; Copyright 2008, The IPython Development Team.
-      Last updated on Feb 24, 2014.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Last updated on Sep 23, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
