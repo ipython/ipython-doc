@@ -5,6 +5,8 @@ IPython sphinx doc hosting
 This repo is used to host builds of the IPython sphinx docs. The actual code
 is in a `separate repo <http://github.com/ipython/ipython>`_.
 
+*This is an active repo, do not move it or deprecate it (jsw-23Jun2016).*
+
 How to build sphinx docs
 ------------------------
 
