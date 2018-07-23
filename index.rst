@@ -8,7 +8,7 @@ IPython
 
     <script type="text/javascript">
     if (location.hostname == "ipython.org" || location.hostname == "ipython.github.com"){
-        window.location = "http://ipython.org/documentation.html";
+        window.location = "https://ipython.org/documentation.html";
     }
     </script>
 
@@ -17,7 +17,7 @@ An Interactive Python Environment
 
 .. note::
 
-    This index page is not maintained. Please visit the IPython `documentation page <http://ipython.org/documentation.html>`_.
+    This index page is not maintained. Please visit the IPython `documentation page <https://ipython.org/documentation.html>`_.
 
 Official IPython Documentation
 ------------------------------
